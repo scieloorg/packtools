@@ -388,15 +388,25 @@ class IssueValidation:
         issue_value = self.article_issue.issue
         issue_lower = issue_value.lower()
         
-        # Check if issue contains special issue indicators
-        special_indicators = ['esp', 'especial', 'nesp', 'nspe', 'noesp']
+        tokens = issue_lower.split()
+
+        # Match invalid indicators anchored at the start of each whitespace-separated
+        # token (longest alternative first) to avoid two problems with plain substring
+        # matching: (1) double-matches where a longer indicator also contains a shorter
+        # one (e.g. 'nspe1' should report only 'nspe', not also 'esp'); (2) false
+        # positives where an unrelated token happens to contain the indicator as an
+        # internal substring (e.g. 'resp1' must not match 'esp').
+        indicator_pattern = re.compile(
+            r'^(especial|noesp|nspe|nesp|esp)([0-9a-z]*)?$'
+        )
+
         found_invalid = []
-        
-        for indicator in special_indicators:
-            if indicator in issue_lower:
-                found_invalid.append(indicator)
-        
-        # If no special issue indicators found, check if 'spe' is present
+        for token in tokens:
+            match = indicator_pattern.match(token)
+            if match:
+                found_invalid.append(match.group(1))
+
+        # If no invalid indicators found and 'spe' is not present, not a special issue
         if not found_invalid and 'spe' not in issue_lower:
             return None
             
@@ -456,16 +466,31 @@ class IssueValidation:
             
         issue_value = self.article_issue.issue
         parts = issue_value.split()
-        
-        # Check each numeric part for leading zeros
+
+        # Detect leading zeros in purely numeric tokens ('04') AND in numeric runs
+        # embedded inside alphanumeric tokens ('spe01', 'suppl01').
+        # Pattern: a digit run starting with 0 preceded by a non-digit or start of string.
+        _leading_zero_re = re.compile(r'(?:(?<=\D)|^)(0\d+)')
+
         issues_found = []
         for part in parts:
-            # Check if part is numeric and has leading zero
-            if part.isdigit() and len(part) > 1 and part[0] == '0':
-                issues_found.append(part)
-        
+            if part.isdigit():
+                # Purely numeric token: flag if it has a leading zero and is not '0'
+                if len(part) > 1 and part[0] == '0':
+                    issues_found.append(part)
+            else:
+                # Alphanumeric token: flag if it contains an embedded run with leading zero
+                if _leading_zero_re.search(part):
+                    issues_found.append(part)
+
+        def _normalize(p):
+            """Remove leading zeros: '04' -> '4', 'spe01' -> 'spe1', '0' -> '0'."""
+            if p.isdigit():
+                return str(int(p))
+            return _leading_zero_re.sub(lambda m: str(int(m.group(1))), p)
+
         is_valid = len(issues_found) == 0
-        expected_value = ' '.join([(part.lstrip('0') or '0') if part.isdigit() else part for part in parts])
+        expected_value = ' '.join(_normalize(p) for p in parts)
         
         return build_response(
             title="issue value without leading zeros",

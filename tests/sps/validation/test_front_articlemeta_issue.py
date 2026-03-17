@@ -384,7 +384,14 @@ class IssueTest(TestCase):
             "expected_value": ["spe 1"],
             "got_value": {"type": "spe", "type_valid_format": True, "type_value": "1"},
             "message": "Got {'type_value': '1', 'type': 'spe', 'type_valid_format': True}, expected ['spe 1']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': '1', 'type': 'spe', 'type_valid_format': True}",
+                "expected": "['spe 1']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": " spe 1"},
         }
 
@@ -428,7 +435,14 @@ class IssueTest(TestCase):
                 "type_value": "1",
             },
             "message": "Got {'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 1']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': '1', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['suppl 1']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "suppl 1"},
         }
 
@@ -472,7 +486,14 @@ class IssueTest(TestCase):
                 "type_value": "a.",
             },
             "message": "Got {'type_value': 'a.', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl a.']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': 'a.', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['suppl a.']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "suppl a."},
         }
 
@@ -516,7 +537,14 @@ class IssueTest(TestCase):
                 "type_value": "04",
             },
             "message": "Got {'type_value': '04', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 04']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': '04', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['suppl 04']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "suppl 04"},
         }
 
@@ -561,7 +589,14 @@ class IssueTest(TestCase):
                 "type_value": "1",
             },
             "message": "Got {'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 1']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['4 suppl 1']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "4 suppl 1"},
         }
 
@@ -606,7 +641,14 @@ class IssueTest(TestCase):
                 "type_value": "b.",
             },
             "message": "Got {'number': 'a', 'type_value': 'b.', 'type': 'suppl', 'type_valid_format': True}, expected ['a suppl b.']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'number': 'a', 'type_value': 'b.', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['a suppl b.']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": " a suppl b."},
         }
 
@@ -647,7 +689,11 @@ class IssueTest(TestCase):
             "expected_value": "alphanumeric value",
             "got_value": "*2",
             "message": "Got *2, expected alphanumeric value",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {"obtained": "*2", "expected": "alphanumeric value"},
             "advice": "Replace *2 in <article-meta><supplement> with alphanumeric value",
+            "adv_text": None,
+            "adv_params": {},
             "data": {"number": "4", "suppl": "*2", "volume": "56"},
         }
 
@@ -688,7 +734,11 @@ class IssueTest(TestCase):
             "expected_value": "2b",
             "got_value": "2b",
             "message": "Got 2b, expected 2b",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {"obtained": "2b", "expected": "2b"},
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"number": "4", "suppl": "2b", "volume": "56"},
         }
 
@@ -733,7 +783,14 @@ class IssueTest(TestCase):
                 "type_value": "2",
             },
             "message": "Got {'number': '4', 'type_value': '2', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 2']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'number': '4', 'type_value': '2', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['4 suppl 2']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "4 suppl 2"},
         }
 
@@ -1514,6 +1571,46 @@ class IssueNoLeadingZerosTest(TestCase):
         
         self.assertEqual(obtained["response"], "OK")
 
+    def test_issue_spe_with_attached_leading_zero_invalid(self):
+        """Test with special issue token where numeric suffix has leading zero - should fail.
+        e.g. 'spe01' must be flagged and normalised to 'spe1'."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>spe01</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("spe01", obtained["data"]["parts_with_leading_zeros"])
+        self.assertEqual(obtained["data"]["expected"], "spe1")
+
+    def test_issue_suppl_with_attached_leading_zero_invalid(self):
+        """Test with supplement token where numeric suffix has leading zero - should fail.
+        e.g. 'suppl01' must be flagged and normalised to 'suppl1'."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>suppl01</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("suppl01", obtained["data"]["parts_with_leading_zeros"])
+        self.assertEqual(obtained["data"]["expected"], "suppl1")
+
 
 # Additional test coverage for missing cases
 
@@ -1726,3 +1823,41 @@ class SpecialNomenclatureAdditionalTest(TestCase):
         
         self.assertEqual(obtained["response"], "ERROR")
         self.assertIn("noesp", obtained["data"]["invalid_terms"])
+
+    def test_issue_nspe_no_double_match(self):
+        """Test that 'nspe1' reports only 'nspe', not also 'esp' as a spurious match.
+        Old substring-based code would produce ['esp', 'nspe'] for this input."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>nspe1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertEqual(obtained["data"]["invalid_terms"], ["nspe"])
+        self.assertNotIn("esp", obtained["data"]["invalid_terms"])
+
+    def test_issue_no_false_positive_for_unrelated_token(self):
+        """Test that a token containing 'esp' as an internal substring (e.g. 'resp1')
+        is NOT flagged as invalid special nomenclature."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>resp1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+
+        self.assertIsNone(obtained)
