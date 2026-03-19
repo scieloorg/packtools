@@ -48,6 +48,7 @@ from packtools.sps.validation.supplementary_material import XmlSupplementaryMate
 from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
+from packtools.sps.validation.permissions import PermissionsValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -373,4 +374,22 @@ def validate_graphics(xmltree, params):
     """
     graphic_rules = params["graphic_rules"]
     validator = XMLGraphicValidation(xmltree, graphic_rules)
+    yield from validator.validate()
+
+
+def validate_permissions(xmltree, params):
+    """
+    Validates <permissions> element according to SPS 1.10 specification.
+
+    Validates:
+    - Presence and uniqueness of <permissions> in <article-meta>
+    - Presence of <license> with required attributes
+    - @license-type="open-access"
+    - Valid CC-BY URL in @xlink:href
+    - @xml:lang presence and consistency with @xlink:href
+    - <license-p> presence
+    - Copyright structure when present
+    """
+    permissions_rules = params.get("permissions_rules", {})
+    validator = PermissionsValidation(xmltree, permissions_rules)
     yield from validator.validate()
