@@ -1442,7 +1442,7 @@ class TestFullValidationWithAllNewRules(BaseRelatedArticleTest):
         """Complete valid related-article should produce no errors"""
         validator = RelatedArticleValidation(self.valid_article, self.params)
         results = validator.validate()
-        error_results = [r for r in results if r["response"] not in ("OK",)]
+        error_results = [r for r in results if r["response"] != "OK"]
         self.assertEqual(len(error_results), 0)
 
     def test_all_attributes_empty(self):
@@ -1468,7 +1468,7 @@ class TestFullValidationWithAllNewRules(BaseRelatedArticleTest):
         }
         validator = RelatedArticleValidation(article, self.params)
         results = validator.validate()
-        error_results = [r for r in results if r["response"] not in ("OK",)]
+        error_results = [r for r in results if r["response"] != "OK"]
         self.assertGreater(len(error_results), 0)
 
 
