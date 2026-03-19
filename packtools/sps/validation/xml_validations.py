@@ -47,6 +47,7 @@ from packtools.sps.validation.app_group import AppValidation
 from packtools.sps.validation.supplementary_material import XmlSupplementaryMaterialValidation
 from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
+from packtools.sps.validation.list import ArticleListValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
 
 
@@ -358,6 +359,11 @@ def validate_ext_links(xmltree, params):
     yield from validator.validate_xlink_title_when_generic()
 
 
+def validate_lists(xmltree, params):
+    rules = params["list_rules"]
+    validator = ArticleListValidation(xmltree, rules)
+    
+    
 def validate_graphics(xmltree, params):
     """
     Validates <graphic> and <inline-graphic> elements according to SPS 1.10 specification.
