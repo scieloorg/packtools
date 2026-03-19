@@ -1,6 +1,6 @@
 {
     "related_article_rules": {
-        "attrib_order_error_level": "CRITICAL",
+        "attrib_order_error_level": "INFO",
         "required_related_articles_error_level": "CRITICAL",
         "type_error_level": "CRITICAL",
         "ext_link_type_error_level": "CRITICAL",
@@ -9,6 +9,12 @@
         "doi_error_level": "CRITICAL",
         "doi_format_error_level": "CRITICAL",
         "id_error_level": "CRITICAL",
+        "related_article_type_presence_error_level": "CRITICAL",
+        "ext_link_type_presence_error_level": "CRITICAL",
+        "related_article_type_value_error_level": "ERROR",
+        "ext_link_type_value_error_level": "ERROR",
+        "xlink_href_presence_error_level": "ERROR",
+        "doi_preference_error_level": "WARNING",
         "ext_link_type_list": [
             "doi",
             "uri"

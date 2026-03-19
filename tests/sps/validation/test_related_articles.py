@@ -10,7 +10,7 @@ from packtools.sps.validation.related_articles import (
 
 
 PARAMS = {
-    "attrib_order_error_level": "CRITICAL",
+    "attrib_order_error_level": "INFO",
     "required_related_articles_error_level": "CRITICAL",
     "type_error_level": "CRITICAL",
     "ext_link_type_error_level": "CRITICAL",
@@ -19,6 +19,12 @@ PARAMS = {
     "doi_error_level": "CRITICAL",
     "doi_format_error_level": "CRITICAL",
     "id_error_level": "CRITICAL",
+    "related_article_type_presence_error_level": "CRITICAL",
+    "ext_link_type_presence_error_level": "CRITICAL",
+    "related_article_type_value_error_level": "ERROR",
+    "ext_link_type_value_error_level": "ERROR",
+    "xlink_href_presence_error_level": "ERROR",
+    "doi_preference_error_level": "WARNING",
     "ext_link_type_list": ["doi", "uri"],
     "attrib_order": [
         "related-article-type",
@@ -324,7 +330,8 @@ class TestRelatedArticleTypeValidation(BaseRelatedArticleTest):
         self.assertEqual(result["response"], "CRITICAL")
         self.assertEqual(result["got_value"], "corrected-article")
         self.assertEqual(result["expected_value"], ["retracted-article"])
-        self.assertTrue(result["advice"].startswith("The article-type: retraction"))
+        self.assertIn("retraction", result["advice"])
+        self.assertIn("corrected-article", result["advice"])
 
 
 class TestRelatedArticleLinkValidation(BaseRelatedArticleTest):
@@ -414,7 +421,7 @@ class TestRelatedArticleExtLinkTypeValidation(BaseRelatedArticleTest):
         self.assertEqual(result["response"], "CRITICAL")
         self.assertEqual(result["got_value"], "url")
         self.assertEqual(result["expected_value"], ["doi", "uri"])
-        self.assertTrue(result["advice"].startswith("The ext-link-type"))
+        self.assertIn("ext-link-type", result["advice"])
 
 
 class TestRelatedArticleFullValidation(BaseRelatedArticleTest):
@@ -435,7 +442,9 @@ class TestRelatedArticleFullValidation(BaseRelatedArticleTest):
     def test_validate_all_pass_doi(self):
         validator = RelatedArticleValidation(self.base_article, self.params)
         results = validator.validate()
-        self.assertEqual(len(results), 1)
+        # All validations should pass (no errors)
+        error_results = [r for r in results if r["response"] != "OK"]
+        self.assertEqual(len(error_results), 0)
 
     def test_validate_all_pass_uri(self):
         self.base_article.update(
@@ -591,17 +600,17 @@ class TestNestedValidation(BaseRelatedArticleTest):
     def test_nested_validation(self):
         results = list(self.validator.validate())
 
-        # Find errors in translation sub-article
+        # Find CRITICAL errors in translation sub-article
         translation_errors = [
             r
             for r in results
             if r["parent_article_type"] == "translation" and r["response"] == "CRITICAL"
         ]
 
-        self.assertEqual(len(translation_errors), 3)
-        error = translation_errors[1]
-        self.assertEqual(error["validation_type"], "match")
-        self.assertIn("correction-forward", error["expected_value"])
+        self.assertEqual(len(translation_errors), 2)
+        type_error = [r for r in translation_errors if r["title"] == "Related article type"][0]
+        self.assertEqual(type_error["validation_type"], "match")
+        self.assertIn("correction-forward", type_error["expected_value"])
 
 
 class TestValidStructure(BaseRelatedArticleTest):
@@ -686,11 +695,11 @@ class TestMultipleSubArticles(BaseRelatedArticleTest):
         ]
         self.assertEqual(len(spanish_errors), 0)
 
-        # Second sub-article should have error
-        portuguese_errors = [
+        # Second sub-article should have CRITICAL error for type mismatch
+        portuguese_critical = [
             r for r in results if r["parent_id"] == "s2" and r["response"] == "CRITICAL"
         ]
-        self.assertEqual(len(portuguese_errors), 2)
+        self.assertEqual(len(portuguese_critical), 1)
 
 
 class TestOriginalArticleType(BaseRelatedArticleTest):
@@ -728,6 +737,1039 @@ class TestOriginalArticleType(BaseRelatedArticleTest):
         self.assertEqual(
             translation_data["data"].get("original_article_type"), "research-article"
         )
+
+
+# ============================================================
+# New tests for SPS 1.10 related-article validations
+# ============================================================
+
+
+class TestRelatedArticleTypePresence(BaseRelatedArticleTest):
+    """Tests for validate_related_article_type_presence (CRITICAL)"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "href": "10.1590/example",
+            "id": "ra1",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_related_article_type_present(self):
+        """@related-article-type is present: should return None (OK)"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_presence()
+        self.assertIsNone(result)
+
+    def test_related_article_type_missing(self):
+        """@related-article-type is missing: should return CRITICAL"""
+        del self.base_article["related-article-type"]
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+        self.assertIn("@related-article-type", result["sub_item"])
+
+    def test_related_article_type_empty(self):
+        """@related-article-type is empty string: should return CRITICAL"""
+        self.base_article["related-article-type"] = ""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_related_article_type_whitespace_only(self):
+        """@related-article-type is only spaces: should return CRITICAL"""
+        self.base_article["related-article-type"] = "   "
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_related_article_type_presence_has_i18n(self):
+        """Presence validation should include i18n fields"""
+        del self.base_article["related-article-type"]
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_presence()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+
+class TestExtLinkTypePresence(BaseRelatedArticleTest):
+    """Tests for validate_ext_link_type_presence (CRITICAL)"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "href": "10.1590/example",
+            "id": "ra1",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_ext_link_type_present(self):
+        """@ext-link-type is present: should return None (OK)"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_presence()
+        self.assertIsNone(result)
+
+    def test_ext_link_type_missing(self):
+        """@ext-link-type is missing: should return CRITICAL"""
+        del self.base_article["ext-link-type"]
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+        self.assertIn("@ext-link-type", result["sub_item"])
+
+    def test_ext_link_type_empty(self):
+        """@ext-link-type is empty string: should return CRITICAL"""
+        self.base_article["ext-link-type"] = ""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_ext_link_type_whitespace_only(self):
+        """@ext-link-type is only spaces: should return CRITICAL"""
+        self.base_article["ext-link-type"] = "   "
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_ext_link_type_presence_has_i18n(self):
+        """Presence validation should include i18n fields"""
+        del self.base_article["ext-link-type"]
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_presence()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+
+class TestRelatedArticleTypeValue(BaseRelatedArticleTest):
+    """Tests for validate_related_article_type_value (ERROR)"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "href": "10.1590/example",
+            "id": "ra1",
+        }
+
+    def test_corrected_article(self):
+        """corrected-article is a valid value"""
+        self.base_article["related-article-type"] = "corrected-article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_correction_forward(self):
+        """correction-forward is a valid value"""
+        self.base_article["related-article-type"] = "correction-forward"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_retracted_article(self):
+        """retracted-article is a valid value"""
+        self.base_article["related-article-type"] = "retracted-article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_retraction_forward(self):
+        """retraction-forward is a valid value"""
+        self.base_article["related-article-type"] = "retraction-forward"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_partial_retraction(self):
+        """partial-retraction is a valid value"""
+        self.base_article["related-article-type"] = "partial-retraction"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_addended_article(self):
+        """addended-article is a valid value"""
+        self.base_article["related-article-type"] = "addended-article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_addendum(self):
+        """addendum is a valid value"""
+        self.base_article["related-article-type"] = "addendum"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_expression_of_concern(self):
+        """expression-of-concern is a valid value"""
+        self.base_article["related-article-type"] = "expression-of-concern"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_object_of_concern(self):
+        """object-of-concern is a valid value"""
+        self.base_article["related-article-type"] = "object-of-concern"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_commentary_article(self):
+        """commentary-article is a valid value"""
+        self.base_article["related-article-type"] = "commentary-article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_commentary(self):
+        """commentary is a valid value"""
+        self.base_article["related-article-type"] = "commentary"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_reply(self):
+        """reply is a valid value"""
+        self.base_article["related-article-type"] = "reply"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_letter(self):
+        """letter is a valid value"""
+        self.base_article["related-article-type"] = "letter"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_reviewed_article(self):
+        """reviewed-article is a valid value"""
+        self.base_article["related-article-type"] = "reviewed-article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_reviewer_report(self):
+        """reviewer-report is a valid value"""
+        self.base_article["related-article-type"] = "reviewer-report"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_preprint(self):
+        """preprint is a valid value"""
+        self.base_article["related-article-type"] = "preprint"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_invalid_value_related(self):
+        """'related' is not a valid value: should return ERROR"""
+        self.base_article["related-article-type"] = "related"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+        self.assertEqual(result["got_value"], "related")
+
+    def test_invalid_value_errata(self):
+        """'errata' is not a valid value: should return ERROR"""
+        self.base_article["related-article-type"] = "errata"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_uppercase_value(self):
+        """'Corrected-Article' (uppercase) is not valid: should return ERROR"""
+        self.base_article["related-article-type"] = "Corrected-Article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+        self.assertEqual(result["got_value"], "Corrected-Article")
+
+    def test_missing_attribute_returns_none(self):
+        """Missing attribute should return None (validated by presence check)"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_empty_attribute_returns_none(self):
+        """Empty attribute should return None (validated by presence check)"""
+        self.base_article["related-article-type"] = ""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNone(result)
+
+    def test_value_validation_has_i18n(self):
+        """Value validation should include i18n fields"""
+        self.base_article["related-article-type"] = "invalid"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_related_article_type_value()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+
+class TestExtLinkTypeValue(BaseRelatedArticleTest):
+    """Tests for validate_ext_link_type_value (ERROR)"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "href": "10.1590/example",
+            "id": "ra1",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_doi_valid(self):
+        """'doi' is valid for @ext-link-type"""
+        self.base_article["ext-link-type"] = "doi"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNone(result)
+
+    def test_uri_valid(self):
+        """'uri' is valid for @ext-link-type"""
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNone(result)
+
+    def test_url_invalid(self):
+        """'url' is not valid: should return ERROR"""
+        self.base_article["ext-link-type"] = "url"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+        self.assertEqual(result["got_value"], "url")
+
+    def test_link_invalid(self):
+        """'link' is not valid: should return ERROR"""
+        self.base_article["ext-link-type"] = "link"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_uppercase_doi(self):
+        """'DOI' (uppercase) is not valid: should return ERROR"""
+        self.base_article["ext-link-type"] = "DOI"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_uppercase_uri(self):
+        """'URI' (uppercase) is not valid: should return ERROR"""
+        self.base_article["ext-link-type"] = "URI"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_missing_returns_none(self):
+        """Missing @ext-link-type should return None (validated by presence check)"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNone(result)
+
+    def test_empty_returns_none(self):
+        """Empty @ext-link-type should return None (validated by presence check)"""
+        self.base_article["ext-link-type"] = ""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_ext_link_type_value()
+        self.assertIsNone(result)
+
+
+class TestXlinkHrefPresence(BaseRelatedArticleTest):
+    """Tests for validate_xlink_href_presence (ERROR)"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "id": "ra1",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_xlink_href_present_doi(self):
+        """@xlink:href present with DOI: should return None (OK)"""
+        self.base_article["href"] = "10.1590/example"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNone(result)
+
+    def test_xlink_href_present_url(self):
+        """@xlink:href present with URL: should return None (OK)"""
+        self.base_article["href"] = "https://example.com/article"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNone(result)
+
+    def test_xlink_href_present_doi_prefix(self):
+        """@xlink:href present with doi.org prefix: should return None (OK)"""
+        self.base_article["href"] = "https://doi.org/10.1590/example"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNone(result)
+
+    def test_xlink_href_missing(self):
+        """@xlink:href missing: should return ERROR"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+        self.assertIn("@xlink:href", result["sub_item"])
+
+    def test_xlink_href_empty(self):
+        """@xlink:href empty: should return ERROR"""
+        self.base_article["href"] = ""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_xlink_href_whitespace_only(self):
+        """@xlink:href only spaces: should return ERROR"""
+        self.base_article["href"] = "   "
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_xlink_href_presence_has_i18n(self):
+        """Presence validation should include i18n fields"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_xlink_href_presence()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+
+class TestDoiPreference(BaseRelatedArticleTest):
+    """Tests for validate_doi_preference (WARNING)"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "href": "10.1590/example",
+            "id": "ra1",
+        }
+
+    def test_corrected_article_with_doi_ok(self):
+        """corrected-article with doi: should return None (preferred)"""
+        self.base_article["related-article-type"] = "corrected-article"
+        self.base_article["ext-link-type"] = "doi"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNone(result)
+
+    def test_corrected_article_with_uri_warning(self):
+        """corrected-article with uri: should return WARNING"""
+        self.base_article["related-article-type"] = "corrected-article"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "WARNING")
+
+    def test_preprint_with_doi_ok(self):
+        """preprint with doi: should return None (preferred)"""
+        self.base_article["related-article-type"] = "preprint"
+        self.base_article["ext-link-type"] = "doi"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNone(result)
+
+    def test_preprint_with_uri_ok(self):
+        """preprint with uri: should return None (allowed exception)"""
+        self.base_article["related-article-type"] = "preprint"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNone(result)
+
+    def test_reviewer_report_with_doi_ok(self):
+        """reviewer-report with doi: should return None (preferred)"""
+        self.base_article["related-article-type"] = "reviewer-report"
+        self.base_article["ext-link-type"] = "doi"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNone(result)
+
+    def test_reviewer_report_with_uri_ok(self):
+        """reviewer-report with uri: should return None (allowed exception)"""
+        self.base_article["related-article-type"] = "reviewer-report"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNone(result)
+
+    def test_retracted_article_with_uri_warning(self):
+        """retracted-article with uri: should return WARNING"""
+        self.base_article["related-article-type"] = "retracted-article"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "WARNING")
+
+    def test_addendum_with_uri_warning(self):
+        """addendum with uri: should return WARNING"""
+        self.base_article["related-article-type"] = "addendum"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "WARNING")
+
+    def test_doi_preference_warning_has_i18n(self):
+        """DOI preference warning should include i18n fields"""
+        self.base_article["related-article-type"] = "corrected-article"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+    def test_commentary_with_uri_warning(self):
+        """commentary with uri: should return WARNING"""
+        self.base_article["related-article-type"] = "commentary"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "WARNING")
+
+    def test_letter_with_uri_warning(self):
+        """letter with uri: should return WARNING"""
+        self.base_article["related-article-type"] = "letter"
+        self.base_article["ext-link-type"] = "uri"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_doi_preference()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "WARNING")
+
+
+class TestIdPresenceNew(BaseRelatedArticleTest):
+    """Additional tests for validate_id_presence"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "href": "10.1590/example",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_id_present(self):
+        """@id is present: should return None"""
+        self.base_article["id"] = "ra1"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_id_presence()
+        self.assertIsNone(result)
+
+    def test_id_missing(self):
+        """@id is missing: should return CRITICAL"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_id_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_id_empty(self):
+        """@id is empty: should return CRITICAL"""
+        self.base_article["id"] = ""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_id_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_id_whitespace_only(self):
+        """@id only spaces: should return CRITICAL"""
+        self.base_article["id"] = "   "
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_id_presence()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_id_special_chars(self):
+        """@id with special characters: should return None"""
+        self.base_article["id"] = "r-1_a"
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_id_presence()
+        self.assertIsNone(result)
+
+    def test_id_presence_has_i18n(self):
+        """ID presence validation should include i18n fields"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_id_presence()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+
+class TestAttribOrderNew(BaseRelatedArticleTest):
+    """Additional tests for validate_attrib_order"""
+
+    def setUp(self):
+        super().setUp()
+        self.base_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "href": "10.1590/example",
+            "id": "ra1",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_correct_order(self):
+        """Correct order should return None"""
+        expected_order = [
+            "related-article-type",
+            "id",
+            "{http://www.w3.org/1999/xlink}href",
+            "ext-link-type",
+        ]
+        self.base_article["attribs"] = expected_order
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_attrib_order()
+        self.assertIsNone(result)
+
+    def test_wrong_order(self):
+        """Wrong order should return INFO"""
+        self.base_article["attribs"] = [
+            "id",
+            "related-article-type",
+            "{http://www.w3.org/1999/xlink}href",
+            "ext-link-type",
+        ]
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_attrib_order()
+        self.assertIsNotNone(result)
+        self.assertEqual(result["response"], "INFO")
+
+    def test_no_attrib_order_config(self):
+        """Missing attrib_order config should return None"""
+        params = dict(self.params)
+        del params["attrib_order"]
+        self.base_article["attribs"] = ["id", "related-article-type"]
+        validator = RelatedArticleValidation(self.base_article, params)
+        result = validator.validate_attrib_order()
+        self.assertIsNone(result)
+
+    def test_no_attribs_in_data(self):
+        """Missing attribs in data should return None"""
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_attrib_order()
+        self.assertIsNone(result)
+
+    def test_attrib_order_has_i18n(self):
+        """Attrib order validation should include i18n fields"""
+        self.base_article["attribs"] = [
+            "id",
+            "related-article-type",
+        ]
+        validator = RelatedArticleValidation(self.base_article, self.params)
+        result = validator.validate_attrib_order()
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsNotNone(result["adv_params"])
+
+
+class TestFullValidationWithAllNewRules(BaseRelatedArticleTest):
+    """Tests for validate() with all new validations combined"""
+
+    def setUp(self):
+        super().setUp()
+        self.valid_article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+            "ext-link-type": "doi",
+            "href": "10.1590/example",
+            "id": "ra1",
+            "related-article-type": "corrected-article",
+        }
+
+    def test_all_valid_no_errors(self):
+        """Complete valid related-article should produce no errors"""
+        validator = RelatedArticleValidation(self.valid_article, self.params)
+        results = validator.validate()
+        error_results = [r for r in results if r["response"] not in ("OK",)]
+        self.assertEqual(len(error_results), 0)
+
+    def test_all_attributes_empty(self):
+        """All attributes empty should produce multiple CRITICAL errors"""
+        article = dict(self.valid_article)
+        article["related-article-type"] = ""
+        article["id"] = ""
+        article["ext-link-type"] = ""
+        article["href"] = ""
+        validator = RelatedArticleValidation(article, self.params)
+        results = validator.validate()
+        critical_results = [r for r in results if r["response"] == "CRITICAL"]
+        self.assertGreater(len(critical_results), 0)
+
+    def test_missing_all_attributes(self):
+        """Missing all key attributes should produce errors"""
+        article = {
+            "parent": "article",
+            "parent_article_type": "correction",
+            "original_article_type": "correction",
+            "parent_id": None,
+            "parent_lang": "en",
+        }
+        validator = RelatedArticleValidation(article, self.params)
+        results = validator.validate()
+        error_results = [r for r in results if r["response"] not in ("OK",)]
+        self.assertGreater(len(error_results), 0)
+
+
+class TestXMLIntegrationNewValidations(BaseRelatedArticleTest):
+    """Integration tests using XML parsing with new validations"""
+
+    def test_preprint_with_uri_valid(self):
+        """Preprint with URI should not produce warnings"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="preprint" 
+                                   id="r1" 
+                                   xlink:href="https://preprints.scielo.org/index.php/scielo/preprint/view/11166" 
+                                   ext-link-type="uri"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        warnings = [r for r in results if r["response"] == "WARNING"]
+        self.assertEqual(len(warnings), 0)
+
+    def test_corrected_article_with_doi_valid(self):
+        """Errata with DOI should pass validations"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r1" 
+                                   xlink:href="10.1590/123436773822" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        errors = [r for r in results if r["response"] in ("CRITICAL", "ERROR")]
+        self.assertEqual(len(errors), 0)
+
+    def test_missing_related_article_type_xml(self):
+        """Missing @related-article-type in XML should produce CRITICAL"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article id="r1" 
+                                   xlink:href="10.1590/123456" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        critical = [r for r in results if r["response"] == "CRITICAL"
+                    and r["title"] == "Related article type presence"]
+        self.assertEqual(len(critical), 1)
+
+    def test_missing_id_xml(self):
+        """Missing @id in XML should produce CRITICAL"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   xlink:href="10.1590/123456" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        critical = [r for r in results if r["response"] == "CRITICAL"
+                    and r["title"] == "Related article id"]
+        self.assertEqual(len(critical), 1)
+
+    def test_missing_ext_link_type_xml(self):
+        """Missing @ext-link-type in XML should produce CRITICAL"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r1" 
+                                   xlink:href="10.1590/123456"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        critical = [r for r in results if r["response"] == "CRITICAL"
+                    and r["title"] == "Related article ext-link-type presence"]
+        self.assertEqual(len(critical), 1)
+
+    def test_missing_xlink_href_xml(self):
+        """Missing @xlink:href in XML should produce ERROR"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r1" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        errors = [r for r in results if r["response"] == "ERROR"
+                  and r["title"] == "Related article xlink:href presence"]
+        self.assertEqual(len(errors), 1)
+
+    def test_invalid_related_article_type_xml(self):
+        """Invalid @related-article-type in XML should produce ERROR"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="related" 
+                                   id="r1" 
+                                   xlink:href="10.1590/123456" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        errors = [r for r in results if r["response"] == "ERROR"
+                  and r["title"] == "Related article type value"]
+        self.assertEqual(len(errors), 1)
+
+    def test_invalid_ext_link_type_xml(self):
+        """Invalid @ext-link-type in XML should produce ERROR"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r1" 
+                                   xlink:href="10.1590/123456" 
+                                   ext-link-type="url"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        errors = [r for r in results if r["response"] == "ERROR"
+                  and r["title"] == "Related article ext-link-type value"]
+        self.assertEqual(len(errors), 1)
+
+    def test_uri_when_doi_preferred_xml(self):
+        """Using URI for corrected-article should produce WARNING"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r1" 
+                                   xlink:href="https://doi.org/10.1590/123456" 
+                                   ext-link-type="uri"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        warnings = [r for r in results if r["response"] == "WARNING"
+                    and r["title"] == "Related article doi preference"]
+        self.assertEqual(len(warnings), 1)
+
+    def test_multiple_related_articles_xml(self):
+        """Multiple related-articles in XML"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="commentary" 
+                                   id="r1" 
+                                   xlink:href="10.1590/123456720182998e" 
+                                   ext-link-type="doi"/>
+                    <related-article related-article-type="preprint" 
+                                   id="r2" 
+                                   xlink:href="https://preprints.scielo.org/view/123" 
+                                   ext-link-type="uri"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        # No critical or error level issues expected
+        critical_or_error = [r for r in results if r["response"] in ("CRITICAL", "ERROR")]
+        self.assertEqual(len(critical_or_error), 0)
+
+    def test_no_related_articles_ok(self):
+        """Article without related-article is OK (zero or more)"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="a1">
+            <front>
+                <article-meta></article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        self.assertEqual(len(results), 0)
+
+    def test_related_article_in_front_stub(self):
+        """related-article in front-stub (sub-article) should be validated"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r1" 
+                                   xlink:href="10.1590/dois" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="pt" id="s1">
+                <front-stub>
+                    <related-article related-article-type="corrected-article" 
+                                   id="r2" 
+                                   xlink:href="10.1590/dois" 
+                                   ext-link-type="doi"/>
+                </front-stub>
+            </sub-article>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        critical_or_error = [r for r in results if r["response"] in ("CRITICAL", "ERROR")]
+        self.assertEqual(len(critical_or_error), 0)
+
+    def test_reviewer_report_with_uri_xml(self):
+        """reviewer-report with URI should not produce doi preference warning"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="reviewer-report" 
+                                   id="r1" 
+                                   xlink:href="https://example.com/review/123" 
+                                   ext-link-type="uri"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        warnings = [r for r in results if r["response"] == "WARNING"]
+        self.assertEqual(len(warnings), 0)
+
+    def test_preprint_with_doi_valid_xml(self):
+        """Preprint with DOI is valid (doi is always preferred)"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="preprint" 
+                                   id="r1" 
+                                   xlink:href="10.12345/preprint.123" 
+                                   ext-link-type="doi"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        warnings = [r for r in results if r["response"] == "WARNING"]
+        self.assertEqual(len(warnings), 0)
+
+    def test_retraction_with_uri_warning_xml(self):
+        """Retraction with URI should produce WARNING"""
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="retraction" xml:lang="en" id="a1">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="retracted-article" 
+                                   id="r1" 
+                                   xlink:href="https://doi.org/10.1590/original-article" 
+                                   ext-link-type="uri"/>
+                </article-meta>
+            </front>
+        </article>"""
+        xmltree = etree.fromstring(xml)
+        validator = XMLRelatedArticlesValidation(xmltree, self.params)
+        results = list(validator.validate())
+        warnings = [r for r in results if r["response"] == "WARNING"
+                    and r["title"] == "Related article doi preference"]
+        self.assertEqual(len(warnings), 1)
 
 
 if __name__ == "__main__":
