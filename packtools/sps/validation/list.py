@@ -194,7 +194,6 @@ class ListValidation:
         """
         title = self.data.get("title")
         has_title = title is not None and title.strip() != ""
-        is_valid = True  # This is just a recommendation, not a strict requirement
 
         if not has_title:
             advice = "Consider adding a <title> element if the list has a descriptive heading"
@@ -207,7 +206,7 @@ class ListValidation:
             item="list",
             sub_item="title",
             validation_type="exist",
-            is_valid=is_valid,
+            is_valid=has_title,
             expected="<title> when list has a descriptive heading",
             obtained="<title> present" if has_title else "no <title>",
             advice=advice,

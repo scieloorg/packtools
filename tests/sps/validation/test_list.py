@@ -377,7 +377,7 @@ class ListValidationTest(unittest.TestCase):
             item for item in obtained if item["title"] == "list title recommendation"
         ][0]
         # This is a recommendation, so it should pass but have advice
-        self.assertEqual(title_validation["response"], "OK")
+        self.assertEqual(title_validation["response"], "INFO")
         # Since it's just a recommendation with INFO level, it should still pass
 
     def test_list_validation_with_title_present(self):
