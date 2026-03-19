@@ -48,6 +48,7 @@ from packtools.sps.validation.supplementary_material import XmlSupplementaryMate
 from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
+from packtools.sps.validation.sec import XMLSecValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -373,4 +374,22 @@ def validate_graphics(xmltree, params):
     """
     graphic_rules = params["graphic_rules"]
     validator = XMLGraphicValidation(xmltree, graphic_rules)
+    yield from validator.validate()
+
+
+def validate_secs(xmltree, params):
+    """
+    Validates <sec> elements according to SPS 1.10 specification.
+
+    Validates:
+    - <title> presence (accessibility requirement)
+    - @sec-type valid values
+    - @id for transcript sections
+    - data-availability section presence for required article types
+    - Combined sec-type format
+    - Non-combinable sec-types
+    - Content presence
+    """
+    sec_rules = params["sec_rules"]
+    validator = XMLSecValidation(xmltree, sec_rules)
     yield from validator.validate()
