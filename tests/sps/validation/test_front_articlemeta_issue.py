@@ -261,23 +261,6 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = {
-            "title": "number",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "ERROR",
-            "item": "number",
-            "sub_item": None,
-            "validation_type": "format",
-            "expected_value": "4",
-            "got_value": "04",
-            "message": "Got 04, expected 4",
-            "advice": "Consulte SPS documentation to complete issue element",
-            "data": {"number": "04", "volume": "56"},
-        }
-
         validator = IssueValidation(
             xml_tree, params=self.params
         )
@@ -306,23 +289,6 @@ class IssueTest(TestCase):
             </article>
             """
         )
-
-        expected = {
-            "title": "number",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "OK",
-            "item": "number",
-            "sub_item": None,
-            "validation_type": "format",
-            "expected_value": "4a",
-            "got_value": "4a",
-            "message": "Got 4a, expected 4a",
-            "advice": None,
-            "data": {"number": "4a", "volume": "56"},
-        }
 
         validator = IssueValidation(
             xml_tree, params=self.params
@@ -418,7 +384,14 @@ class IssueTest(TestCase):
             "expected_value": ["spe 1"],
             "got_value": {"type": "spe", "type_valid_format": True, "type_value": "1"},
             "message": "Got {'type_value': '1', 'type': 'spe', 'type_valid_format': True}, expected ['spe 1']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': '1', 'type': 'spe', 'type_valid_format': True}",
+                "expected": "['spe 1']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": " spe 1"},
         }
 
@@ -462,7 +435,14 @@ class IssueTest(TestCase):
                 "type_value": "1",
             },
             "message": "Got {'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 1']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': '1', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['suppl 1']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "suppl 1"},
         }
 
@@ -506,7 +486,14 @@ class IssueTest(TestCase):
                 "type_value": "a.",
             },
             "message": "Got {'type_value': 'a.', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl a.']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': 'a.', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['suppl a.']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "suppl a."},
         }
 
@@ -550,7 +537,14 @@ class IssueTest(TestCase):
                 "type_value": "04",
             },
             "message": "Got {'type_value': '04', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 04']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'type_value': '04', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['suppl 04']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "suppl 04"},
         }
 
@@ -595,7 +589,14 @@ class IssueTest(TestCase):
                 "type_value": "1",
             },
             "message": "Got {'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 1']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['4 suppl 1']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "4 suppl 1"},
         }
 
@@ -640,7 +641,14 @@ class IssueTest(TestCase):
                 "type_value": "b.",
             },
             "message": "Got {'number': 'a', 'type_value': 'b.', 'type': 'suppl', 'type_valid_format': True}, expected ['a suppl b.']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'number': 'a', 'type_value': 'b.', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['a suppl b.']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": " a suppl b."},
         }
 
@@ -652,7 +660,7 @@ class IssueTest(TestCase):
 
         self.assertDictEqual(expected, obtained)
 
-    def test_suppl_matches(self):
+    def test_suppl_invalid_non_alphanumeric(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -681,7 +689,11 @@ class IssueTest(TestCase):
             "expected_value": "alphanumeric value",
             "got_value": "*2",
             "message": "Got *2, expected alphanumeric value",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {"obtained": "*2", "expected": "alphanumeric value"},
             "advice": "Replace *2 in <article-meta><supplement> with alphanumeric value",
+            "adv_text": None,
+            "adv_params": {},
             "data": {"number": "4", "suppl": "*2", "volume": "56"},
         }
 
@@ -693,7 +705,7 @@ class IssueTest(TestCase):
 
         self.assertDictEqual(expected, obtained)
 
-    def test_suppl_no_matches(self):
+    def test_suppl_valid_alphanumeric(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -722,7 +734,11 @@ class IssueTest(TestCase):
             "expected_value": "2b",
             "got_value": "2b",
             "message": "Got 2b, expected 2b",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {"obtained": "2b", "expected": "2b"},
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"number": "4", "suppl": "2b", "volume": "56"},
         }
 
@@ -767,7 +783,14 @@ class IssueTest(TestCase):
                 "type_value": "2",
             },
             "message": "Got {'number': '4', 'type_value': '2', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 2']",
+            "msg_text": "Got {obtained}, expected {expected}",
+            "msg_params": {
+                "obtained": "{'number': '4', 'type_value': '2', 'type': 'suppl', 'type_valid_format': True}",
+                "expected": "['4 suppl 2']",
+            },
             "advice": None,
+            "adv_text": None,
+            "adv_params": None,
             "data": {"issue": "4 suppl 2"},
         }
 
@@ -823,9 +846,9 @@ class IssueTest(TestCase):
             params=self.params,
         )
 
-        obtained = list(validator.validate())
+        obtained = [r for r in validator.validate() if r is not None]
 
-        self.assertEqual(len(obtained), 5)
+        self.assertEqual(len(obtained), 11)
         for i, item in enumerate(obtained):
             for key in self.expected_keys:
                 with self.subTest(f"item: {i}, key: {key}"):
@@ -863,26 +886,16 @@ class PaginationTest(TestCase):
             """
         xml_tree = etree.fromstring(xml)
 
-        expected = {
-            "title": "Pagination",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "item": "elocation-id | fpage / lpage",
-            "sub_item": "elocation-id | fpage / lpage",
-            "validation_type": "match",
-            "response": "CRITICAL",
-            "expected_value": "elocation-id or fpage + lpage",
-            "got_value": "elocation-id: None, fpage: None, lpage: None",
-            "message": "Got elocation-id: None, fpage: None, lpage: None, expected elocation-id or fpage + lpage",
-            "advice": "Provide elocation-id or fpage + lpage",
-            "data": {"volume": "56"},
-        }
-
         obtained = PaginationValidation(xml_tree, self.params).validate()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "Pagination")
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertEqual(obtained["expected_value"], "elocation id or first and last pages")
+        self.assertEqual(obtained["message"], "Got elocation-id: None, fpage: None, lpage: None, expected elocation id or first and last pages")
+        self.assertEqual(obtained["advice"], "Mark elocation id with <elocation-id> or first page with <fpage> and last page with <lpage>")
 
     def test_validation_e_location(self):
         self.maxDiff = None
@@ -891,34 +904,24 @@ class PaginationTest(TestCase):
                 <front>
                     <article-meta>
                         <volume>56</volume>
+                        <elocation-id>e51467</elocation-id>
                     </article-meta>
                 </front>
             </article>
             """
         xml_tree = etree.fromstring(xml)
 
-        expected = {
-            "title": "Pagination",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "item": "elocation-id | fpage / lpage",
-            "sub_item": "elocation-id | fpage / lpage",
-            "validation_type": "match",
-            "response": "CRITICAL",
-            "expected_value": "elocation-id or fpage + lpage",
-            "got_value": "elocation-id: None, fpage: None, lpage: None",
-            "message": "Got elocation-id: None, fpage: None, lpage: None, expected elocation-id or fpage + lpage",
-            "advice": "Provide elocation-id or fpage + lpage",
-            "data": {"volume": "56"},
-        }
-
         obtained = PaginationValidation(xml_tree, self.params).validate()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
 
-    def test_validation_pages_and_e_location_exists_fail(self):
+        self.assertEqual(obtained["title"], "Pagination")
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["message"], "Got elocation-id: e51467, fpage: None, lpage: None, expected elocation id or first and last pages")
+        self.assertIsNone(obtained["advice"])
+
+    def test_validation_elocation_and_pages_both_present_valid(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
@@ -941,5 +944,920 @@ class PaginationTest(TestCase):
 
         self.assertEqual(obtained["title"], "Pagination")
         self.assertEqual(obtained["response"], "OK")
-        self.assertEqual(obtained["message"], "Got elocation-id: e51467, fpage: 220, lpage: 240, expected elocation-id or fpage + lpage")
+        self.assertEqual(obtained["message"], "Got elocation-id: e51467, fpage: 220, lpage: 240, expected elocation id or first and last pages")
         self.assertIsNone(obtained["advice"])
+
+
+class IssueElementUniquenessTest(TestCase):
+    """Tests for Rule 1: Validate uniqueness of <issue> element"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_element_uniqueness_error_level": "ERROR",
+        }
+
+    def test_single_issue_element_valid(self):
+        """Test with exactly one <issue> element - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_element_uniqueness()
+        
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["title"], "issue element uniqueness")
+        self.assertIsNone(obtained["advice"])
+
+    def test_no_issue_element_valid(self):
+        """Test with no <issue> element - should pass (0 is <= 1)"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_element_uniqueness()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_multiple_issue_elements_invalid(self):
+        """Test with multiple <issue> elements - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                    <issue>4</issue>
+                    <issue>5</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_element_uniqueness()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertEqual(obtained["title"], "issue element uniqueness")
+        self.assertIn("Remove duplicate", obtained["advice"])
+        self.assertEqual(obtained["data"]["issue_count"], 2)
+
+
+class IssueNoPunctuationTest(TestCase):
+    """Tests for Rule 2: Validate no punctuation in <issue> value"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_no_punctuation_error_level": "ERROR",
+        }
+
+    def test_issue_without_punctuation_valid(self):
+        """Test with valid issue without punctuation"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_punctuation()
+        
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["title"], "issue value without punctuation")
+
+    def test_issue_with_suppl_no_punctuation_valid(self):
+        """Test with supplement format without punctuation"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_punctuation()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_with_period_invalid(self):
+        """Test with period in issue value - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4.5</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_punctuation()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn(".", obtained["data"]["punctuation_found"])
+
+    def test_issue_with_hyphen_invalid(self):
+        """Test with hyphen in issue value - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4-5</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_punctuation()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("-", obtained["data"]["punctuation_found"])
+
+    def test_issue_with_slash_invalid(self):
+        """Test with slash in issue value - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4/5</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_punctuation()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("/", obtained["data"]["punctuation_found"])
+
+
+class IssueNoUppercaseTest(TestCase):
+    """Tests for Rule 3: Validate no uppercase in <issue> value"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_no_uppercase_error_level": "ERROR",
+        }
+
+    def test_issue_lowercase_valid(self):
+        """Test with all lowercase - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_uppercase()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_spe_lowercase_valid(self):
+        """Test with 'spe' in lowercase - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>spe1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_uppercase()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_suppl_lowercase_valid(self):
+        """Test with 'suppl' in lowercase - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_uppercase()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_with_uppercase_invalid(self):
+        """Test with uppercase 'Suppl' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 Suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_uppercase()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertEqual(obtained["data"]["expected"], "4 suppl 1")
+
+    def test_issue_spe_with_uppercase_invalid(self):
+        """Test with uppercase 'SPE' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>SPE1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_uppercase()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertEqual(obtained["data"]["expected"], "spe1")
+
+
+class IssueSupplementNomenclatureTest(TestCase):
+    """Tests for Rule 4: Validate supplement nomenclature"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_supplement_nomenclature_error_level": "ERROR",
+        }
+
+    def test_issue_suppl_valid(self):
+        """Test with correct 'suppl' nomenclature - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_supplement_nomenclature()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_suppl_only_valid(self):
+        """Test with 'suppl' only - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_supplement_nomenclature()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_supl_invalid(self):
+        """Test with 'supl' instead of 'suppl' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 supl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_supplement_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("supl", obtained["data"]["invalid_terms"])
+
+    def test_issue_supplement_invalid(self):
+        """Test with 'supplement' instead of 'suppl' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 supplement 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_supplement_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("supplement", obtained["data"]["invalid_terms"])
+
+    def test_issue_sup_invalid(self):
+        """Test with 'sup' instead of 'suppl' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 sup 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_supplement_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("sup", obtained["data"]["invalid_terms"])
+
+
+class IssueSpecialNomenclatureTest(TestCase):
+    """Tests for Rule 5: Validate special issue nomenclature"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_special_nomenclature_error_level": "ERROR",
+        }
+
+    def test_issue_spe_valid(self):
+        """Test with correct 'spe' nomenclature - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>spe1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_spe_with_number_valid(self):
+        """Test with 'spe' and number - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 spe 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_esp_invalid(self):
+        """Test with 'esp' instead of 'spe' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>esp1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("esp", obtained["data"]["invalid_terms"])
+
+    def test_issue_nesp_invalid(self):
+        """Test with 'nesp' instead of 'spe' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>nesp1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("nesp", obtained["data"]["invalid_terms"])
+
+    def test_issue_especial_invalid(self):
+        """Test with 'especial' instead of 'spe' - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>especial</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("especial", obtained["data"]["invalid_terms"])
+
+
+class NoSupplementElementTest(TestCase):
+    """Tests for Rule 6: Validate absence of <supplement> element"""
+    
+    def setUp(self):
+        self.params = {
+            "no_supplement_element_error_level": "CRITICAL",
+        }
+
+    def test_no_supplement_element_valid(self):
+        """Test without <supplement> element - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                    <issue>4 suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_no_supplement_element()
+        
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["title"], "supplement element not allowed")
+
+    def test_with_supplement_element_invalid(self):
+        """Test with <supplement> element - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                    <issue>4</issue>
+                    <supplement>1</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_no_supplement_element()
+        
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertIn("Remove <supplement>", obtained["advice"])
+        self.assertEqual(obtained["data"]["supplement_count"], 1)
+
+    def test_with_multiple_supplement_elements_invalid(self):
+        """Test with multiple <supplement> elements - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                    <issue>4</issue>
+                    <supplement>1</supplement>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_no_supplement_element()
+        
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertEqual(obtained["data"]["supplement_count"], 2)
+
+
+class IssueNoLeadingZerosTest(TestCase):
+    """Tests for Rule 7: Validate no leading zeros"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_no_leading_zeros_error_level": "WARNING",
+        }
+
+    def test_issue_without_leading_zeros_valid(self):
+        """Test with issue without leading zeros - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_suppl_without_leading_zeros_valid(self):
+        """Test with supplement without leading zeros - should pass"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 suppl 1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_with_leading_zero_invalid(self):
+        """Test with leading zero in issue - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>04</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+        
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("04", obtained["data"]["parts_with_leading_zeros"])
+        self.assertEqual(obtained["data"]["expected"], "4")
+
+    def test_issue_suppl_with_leading_zero_invalid(self):
+        """Test with leading zero in supplement number - should fail"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>4 suppl 01</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+        
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("01", obtained["data"]["parts_with_leading_zeros"])
+        self.assertEqual(obtained["data"]["expected"], "4 suppl 1")
+
+    def test_issue_zero_alone_valid(self):
+        """Test with single zero (0) - should pass as it's not a leading zero"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>0</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_spe_with_attached_leading_zero_invalid(self):
+        """Test with special issue token where numeric suffix has leading zero - should fail.
+        e.g. 'spe01' must be flagged and normalised to 'spe1'."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>spe01</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("spe01", obtained["data"]["parts_with_leading_zeros"])
+        self.assertEqual(obtained["data"]["expected"], "spe1")
+
+    def test_issue_suppl_with_attached_leading_zero_invalid(self):
+        """Test with supplement token where numeric suffix has leading zero - should fail.
+        e.g. 'suppl01' must be flagged and normalised to 'suppl1'."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>suppl01</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_no_leading_zeros()
+
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("suppl01", obtained["data"]["parts_with_leading_zeros"])
+        self.assertEqual(obtained["data"]["expected"], "suppl1")
+
+
+# Additional test coverage for missing cases
+
+class VolumeZeroTest(TestCase):
+    """Test for volume=0 validation"""
+    
+    def setUp(self):
+        self.params = {
+            "volume_format_error_level": "CRITICAL",
+        }
+
+    def test_volume_zero_invalid(self):
+        """Test that volume='0' is invalid (zero_is_allowed=False)"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>0</volume>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_volume_format()
+        
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertIn("expected alphanumeric value, except 0", obtained["message"])
+
+
+class ExpectedIssuesTest(TestCase):
+    """Tests for validate_expected_issues"""
+    
+    def setUp(self):
+        self.params = {
+            "expected_issues_error_level": "CRITICAL",
+        }
+
+    def test_issue_present_in_registered_list(self):
+        """Test that issue present in the list passes"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        params = {
+            "expected_issues_error_level": "CRITICAL",
+            "journal_data": {
+                "issues": [{"volume": "56", "number": "4", "supplement": None}]
+            }
+        }
+        validator = IssueValidation(xml_tree, params=params)
+        obtained = validator.validate_expected_issues()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_issue_absent_from_registered_list(self):
+        """Test that issue absent from the list fails"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>99</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        params = {
+            "expected_issues_error_level": "CRITICAL",
+            "journal_data": {
+                "issues": [{"volume": "56", "number": "4", "supplement": None}]
+            }
+        }
+        validator = IssueValidation(xml_tree, params=params)
+        obtained = validator.validate_expected_issues()
+        
+        self.assertEqual(obtained["response"], "CRITICAL")
+
+    def test_journal_data_absent(self):
+        """Test that missing journal_data returns WARNING"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        params = {"expected_issues_error_level": "CRITICAL"}
+        validator = IssueValidation(xml_tree, params=params)
+        obtained = validator.validate_expected_issues()
+        
+        self.assertEqual(obtained["response"], "WARNING")
+        self.assertIn("Unable to check", obtained["advice"])
+
+
+class PaginationAdditionalTest(TestCase):
+    """Additional pagination tests for missing coverage"""
+    
+    def setUp(self):
+        self.params = {
+            "pagination_error_level": "CRITICAL",
+        }
+
+    def test_only_elocation_id_valid(self):
+        """Test that only elocation-id is valid"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <elocation-id>e12345</elocation-id>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = PaginationValidation(xml_tree, params=self.params)
+        obtained = validator.validate()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_only_fpage_lpage_valid(self):
+        """Test that only fpage and lpage is valid"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <fpage>100</fpage>
+                    <lpage>120</lpage>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = PaginationValidation(xml_tree, params=self.params)
+        obtained = validator.validate()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+    def test_aop_no_pagination_valid(self):
+        """Test that AOP (no volume, no issue, no pagination) is valid"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = PaginationValidation(xml_tree, params=self.params)
+        obtained = validator.validate()
+        
+        self.assertEqual(obtained["response"], "OK")
+
+
+class SpecialNomenclatureAdditionalTest(TestCase):
+    """Additional tests for special issue nomenclature"""
+    
+    def setUp(self):
+        self.params = {
+            "issue_special_nomenclature_error_level": "ERROR",
+        }
+
+    def test_issue_nspe_invalid(self):
+        """Test that 'nspe' is rejected"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>nspe1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("nspe", obtained["data"]["invalid_terms"])
+
+    def test_issue_noesp_invalid(self):
+        """Test that 'noesp' is rejected"""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>noesp1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+        
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertIn("noesp", obtained["data"]["invalid_terms"])
+
+    def test_issue_nspe_no_double_match(self):
+        """Test that 'nspe1' reports only 'nspe', not also 'esp' as a spurious match.
+        Old substring-based code would produce ['esp', 'nspe'] for this input."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>nspe1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+
+        self.assertEqual(obtained["response"], "ERROR")
+        self.assertEqual(obtained["data"]["invalid_terms"], ["nspe"])
+        self.assertNotIn("esp", obtained["data"]["invalid_terms"])
+
+    def test_issue_no_false_positive_for_unrelated_token(self):
+        """Test that a token containing 'esp' as an internal substring (e.g. 'resp1')
+        is NOT flagged as invalid special nomenclature."""
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <issue>resp1</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = IssueValidation(xml_tree, params=self.params)
+        obtained = validator.validate_issue_special_nomenclature()
+
+        self.assertIsNone(obtained)

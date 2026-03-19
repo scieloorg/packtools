@@ -45,8 +45,10 @@ from packtools.sps.validation.accessibility_data import XMLAccessibilityDataVali
 from packtools.sps.validation.app_group import AppValidation
 
 from packtools.sps.validation.supplementary_material import XmlSupplementaryMaterialValidation
+from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.list import ArticleListValidation
+from packtools.sps.validation.graphic import XMLGraphicValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -211,8 +213,30 @@ def validate_bibliographic_strip(xmltree, params):
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
     validator = FundingGroupValidation(xmltree, funding_data_rules)
+    
+    # Existing validations
     yield from validator.validate_required_award_ids()
     yield from validator.validate_funding_statement()
+    
+    # New SPS 1.10 validations
+    yield from validator.validate_funding_group_uniqueness(
+        error_level=funding_data_rules.get("funding_group_uniqueness_error_level", "ERROR")
+    )
+    yield from validator.validate_funding_statement_presence(
+        error_level=funding_data_rules.get("funding_statement_error_level", "CRITICAL")
+    )
+    yield from validator.validate_funding_source_in_award_group(
+        error_level=funding_data_rules.get("funding_source_in_award_group_error_level", "CRITICAL")
+    )
+    yield from validator.validate_label_absence(
+        error_level=funding_data_rules.get("label_absence_error_level", "ERROR")
+    )
+    yield from validator.validate_title_absence(
+        error_level=funding_data_rules.get("title_absence_error_level", "ERROR")
+    )
+    yield from validator.validate_award_id_funding_source_consistency(
+        error_level=funding_data_rules.get("award_id_consistency_error_level", "WARNING")
+    )
 
 
 def validate_journal_meta(xmltree, params):
@@ -307,10 +331,17 @@ def validate_supplementary_materials(xmltree, params):
     yield from validator.validate()
 
 
+def validate_history(xmltree, params):
+    """Validate the <history> element according to SPS 1.10 rules."""
+    rules = {}
+    rules.update(params.get("history_dates_rules", {}))
+    validator = HistoryValidation(xmltree, rules)
+    yield from validator.validate()
+
 def validate_ext_links(xmltree, params):
     """
     Validates ext-link elements according to SPS 1.10 specification.
-    
+
     Validates:
     - Mandatory attributes (@ext-link-type, @xlink:href)
     - URL format (must start with http:// or https://)
@@ -331,4 +362,21 @@ def validate_ext_links(xmltree, params):
 def validate_lists(xmltree, params):
     rules = params["list_rules"]
     validator = ArticleListValidation(xmltree, rules)
+    
+    
+def validate_graphics(xmltree, params):
+    """
+    Validates <graphic> and <inline-graphic> elements according to SPS 1.10 specification.
+
+    Validates:
+    - @id attribute (required for both <graphic> and <inline-graphic>)
+    - @xlink:href attribute (required, with valid file extension)
+    - File extensions (.jpg, .jpeg, .png, .tif, .tiff, .svg)
+    - .svg only allowed inside <alternatives>
+
+    Note: Accessibility validation (<alt-text>, <long-desc>) is handled separately
+    by validate_accessibility_data() via XMLAccessibilityDataValidation.
+    """
+    graphic_rules = params["graphic_rules"]
+    validator = XMLGraphicValidation(xmltree, graphic_rules)
     yield from validator.validate()
