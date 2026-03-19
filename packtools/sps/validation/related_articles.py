@@ -37,6 +37,7 @@ ALLOWED_RELATED_ARTICLE_TYPES = [
     "reviewed-article",
     "reviewer-report",
     "preprint",
+    "peer-reviewed-material",
 ]
 
 ALLOWED_EXT_LINK_TYPES = ["doi", "uri"]
