@@ -79,12 +79,12 @@ class ArticleProducts:
             source_elem = product.find("source")
             source = None
             if source_elem is not None:
-                source = (source_elem.text or "").strip() if source_elem.text else ""
+                source = (source_elem.text or "").strip()
 
-            person_groups = []
-            for pg in product.findall("person-group"):
-                pg_type = pg.get("person-group-type")
-                person_groups.append(pg_type)
+            person_groups = [
+                pg.get("person-group-type")
+                for pg in product.findall("person-group")
+            ]
 
             has_author = any(
                 pg.get("person-group-type") == "author"
