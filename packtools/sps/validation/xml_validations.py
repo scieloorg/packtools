@@ -157,8 +157,19 @@ def validate_article_toc_sections(xmltree, params):
 
 
 def validate_id_and_rid_match(xmltree, params):
-    id_and_rid_match_rules = params["id_and_rid_match_rules"]
-    validator = ArticleXrefValidation(xmltree, id_and_rid_match_rules)
+    id_and_rid_match_rules = params.get("id_and_rid_match_rules") or {}
+    xref_rules = params.get("xref_rules") or {}
+    merged_rules = {}
+    merged_rules.update(id_and_rid_match_rules)
+    merged_rules.update(xref_rules)
+    validator = ArticleXrefValidation(xmltree, merged_rules)
+    yield from validator.validate_rid_presence()
+    yield from validator.validate_ref_type_presence()
+    yield from validator.validate_ref_type_value()
+    yield from validator.validate_bibr_presence()
+    yield from validator.validate_rid_has_corresponding_id()
+    yield from validator.validate_transcript_xref()
+    yield from validator.validate_aff_self_closing()
     yield from validator.validate_xref_rid_has_corresponding_element_id()
     yield from validator.validate_element_id_has_corresponding_xref_rid()
     yield from validator.validate_attrib_name_and_value_has_corresponding_xref()

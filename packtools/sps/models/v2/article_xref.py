@@ -155,3 +155,34 @@ class XMLCrossReference:
             response.setdefault(rid, [])
             response[rid].append(xref_data)
         return response
+
+    def all_xrefs(self):
+        """Returns a list of data dicts for all <xref> elements in the document."""
+        result = []
+        for xref_node in self.xml_tree.xpath(".//xref"):
+            xref = Xref(xref_node)
+            data = xref.data
+            data["xml"] = xref.xml
+            # Check if element has text content (for self-closing detection)
+            content = " ".join(xref_node.xpath(".//text()")).strip()
+            data["has_text_content"] = bool(content)
+            result.append(data)
+        return result
+
+    def all_ids(self):
+        """Returns a set of all @id attribute values in the document."""
+        ids = set()
+        for node in self.xml_tree.xpath(".//*[@id]"):
+            id_val = node.get("id")
+            if id_val:
+                ids.add(id_val)
+        return ids
+
+    def transcript_sections(self):
+        """Returns a list of @id values for <sec sec-type='transcript'> elements."""
+        result = []
+        for node in self.xml_tree.xpath('.//sec[@sec-type="transcript"]'):
+            sec_id = node.get("id")
+            if sec_id:
+                result.append(sec_id)
+        return result
