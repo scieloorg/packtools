@@ -103,7 +103,14 @@
             <xsl:apply-templates select="." mode="anchor-and-title"/>
 
             <!-- Apresenta os demais elementos do resumo -->
-            <xsl:apply-templates select="*[name()!='title']"/>
+            <xsl:choose>
+                <xsl:when test="*[position() = 1 and name() = 'title']">
+                    <xsl:apply-templates select="*[position() > 1]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="*"/>
+                </xsl:otherwise>
+            </xsl:choose>
 
             <!--
             Apresenta as palavras-chave no idioma correspondente, se aplicável
