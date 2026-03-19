@@ -18,6 +18,22 @@
         "title_tag_by_dtd_version_error_level": "CRITICAL",
         "unmatched_data_error_level": "WARNING",
         "not_marked_data_error_level": "WARNING",
+        "ref_list_presence_error_level": "CRITICAL",
+        "ref_presence_error_level": "CRITICAL",
+        "element_citation_error_level": "CRITICAL",
+        "ext_link_count_element_citation_error_level": "ERROR",
+        "ext_link_count_mixed_citation_error_level": "ERROR",
+        "lpage_error_level": "ERROR",
+        "size_units_error_level": "ERROR",
+        "date_in_citation_content_type_error_level": "ERROR",
+        "surname_error_level": "ERROR",
+        "ref_list_exempt_article_types": [
+            "correction",
+            "retraction",
+            "addendum",
+            "expression-of-concern",
+            "reviewer-report"
+        ],
         "publication_type_requires": {
             "book": ["year", "source", "person-group"],
             "confproc": ["year", "source", "person-group"],
