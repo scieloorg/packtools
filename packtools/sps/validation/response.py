@@ -5,7 +5,7 @@ This module implements validations for the <response> element, which identifies
 a set of responses related to a letter or commentary, mandatorily published
 alongside the letter/commentary.
 
-Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit?tab=t.0#heading=h.response
+Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit#heading=h.response
 """
 
 from packtools.sps.validation.utils import build_response
@@ -234,7 +234,7 @@ class ResponseValidation:
                 sub_item="@id",
                 validation_type="unique",
                 is_valid=False,
-                expected=f"unique @id for each <response>",
+                expected="a unique @id for each <response>",
                 obtained=response_id,
                 advice=f'Replace duplicate @id="{response_id}" with a unique value in <response>.',
                 data=response_id,
