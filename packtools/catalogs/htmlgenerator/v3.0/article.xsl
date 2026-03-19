@@ -196,13 +196,13 @@
             </xsl:apply-templates>
         </xsl:variable>
         <div class="row">
-            <div class="col-12 col-md-4 col-lg-3">
+            <nav class="col-12 col-md-4 col-lg-3">
                 <!-- 
                 menu lateral esquerdo - seções do texto
                 -->
                 <ul class="articleMenu list-group mt-4">
                 </ul>
-            </div>
+            </nav>
             <div class="col-sm-12 col-md-8 col-lg-9">
                 <xsl:choose>
                     <xsl:when test="$gs_abstract_lang">
