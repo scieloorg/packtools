@@ -2,9 +2,14 @@
     "table_wrap_rules": {
         "absent_error_level": "WARNING",
         "id_error_level": "CRITICAL",
+        "label_or_caption_error_level": "CRITICAL",
         "label_error_level": "CRITICAL",
         "caption_error_level": "CRITICAL",
         "table_error_level": "CRITICAL",
-        "alternatives_error_level": "CRITICAL"
+        "alternatives_error_level": "CRITICAL",
+        "tr_in_table_error_level": "ERROR",
+        "th_in_thead_error_level": "ERROR",
+        "td_in_tbody_error_level": "ERROR",
+        "tbody_error_level": "WARNING"
     }
 }
