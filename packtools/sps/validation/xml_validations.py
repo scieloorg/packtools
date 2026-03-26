@@ -49,6 +49,7 @@ from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.list import ArticleListValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
+from packtools.sps.validation.response import ResponseValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -379,4 +380,20 @@ def validate_graphics(xmltree, params):
     """
     graphic_rules = params["graphic_rules"]
     validator = XMLGraphicValidation(xmltree, graphic_rules)
+    yield from validator.validate()
+
+
+def validate_response(xmltree, params):
+    """
+    Validates <response> elements according to SPS 1.10 specification.
+
+    Validates:
+    - @response-type presence and value ("reply")
+    - @xml:lang presence
+    - @id presence and uniqueness
+    - <front-stub> presence
+    - <body> presence
+    """
+    response_rules = params.get("response_rules", {})
+    validator = ResponseValidation(xmltree, response_rules)
     yield from validator.validate()
