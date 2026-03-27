@@ -161,3 +161,7 @@ def validate_xml_content(xmltree, rules):
         "group": "graphic",
         "items": xml_validations.validate_graphics(xmltree, params),
     }
+    yield {
+        "group": "product",
+        "items": xml_validations.validate_products(xmltree, params),
+    }

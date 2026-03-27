@@ -49,6 +49,7 @@ from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.list import ArticleListValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
+from packtools.sps.validation.product import ArticleProductValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -379,4 +380,19 @@ def validate_graphics(xmltree, params):
     """
     graphic_rules = params["graphic_rules"]
     validator = XMLGraphicValidation(xmltree, graphic_rules)
+    yield from validator.validate()
+
+
+def validate_products(xmltree, params):
+    """
+    Validates <product> elements according to SPS 1.10 specification.
+
+    Validates:
+    - @product-type attribute presence and value
+    - <source> element presence
+    - Consistency with @article-type="book-review"
+    - Recommended elements (author, publisher-name, year)
+    """
+    product_rules = params["product_rules"]
+    validator = ArticleProductValidation(xmltree, product_rules)
     yield from validator.validate()
