@@ -53,8 +53,12 @@ class Reference:
     def get_label(self):
         return node_plain_text(self.ref.find("./label"))
 
+    def has_element_citation(self):
+        return self.ref.find("./element-citation") is not None
+
     def get_publication_type(self):
-        return self.ref.find("./element-citation").get("publication-type")
+        elem = self.ref.find("./element-citation")
+        return elem.get("publication-type") if elem is not None else None
 
     def get_publisher_name(self):
         return node_plain_text(self.ref.find("./element-citation/publisher-name"))
@@ -228,6 +232,29 @@ class Reference:
     def get_conf_loc(self):
         return node_plain_text(self.ref.find("./element-citation/conf-loc"))
 
+    def get_ext_link_count_in_element_citation(self):
+        return len(self.ref.xpath("./element-citation//ext-link"))
+
+    def get_ext_link_count_in_mixed_citation(self):
+        return len(self.ref.xpath("./mixed-citation//ext-link"))
+
+    def get_date_in_citation_content_type(self):
+        elem = self.ref.find("./element-citation/date-in-citation")
+        if elem is not None:
+            return elem.get("content-type")
+        return None
+
+    def get_names_without_surname(self):
+        names_without_surname = []
+        for person_group in self.ref.xpath("./element-citation//person-group"):
+            for name in person_group.xpath(".//name"):
+                surname = name.find("surname")
+                if surname is None or not (surname.text or "").strip():
+                    given = name.find("given-names")
+                    given_text = node_plain_text(given) if given is not None else None
+                    names_without_surname.append(given_text)
+        return names_without_surname
+
     @property
     def data(self):
         tags = [
@@ -277,6 +304,11 @@ class Reference:
         d["author_type"] = "institutional" if self.get_collab() else "person"
         d["count_persons"] = len(self.ref.findall(".//person-group"))
         d["has_etal"] = self.ref.find(".//person-group/etal") is not None
+        d["has_element_citation"] = self.has_element_citation()
+        d["ext_link_count_element_citation"] = self.get_ext_link_count_in_element_citation()
+        d["ext_link_count_mixed_citation"] = self.get_ext_link_count_in_mixed_citation()
+        d["date_in_citation_content_type"] = self.get_date_in_citation_content_type()
+        d["names_without_surname"] = self.get_names_without_surname()
 
         d.update({
             "filtered_not_marked": self.filtered_not_marked,
