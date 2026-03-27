@@ -236,6 +236,16 @@ class FulltextDatesValidation:
             "unexpected_events_error_level": "CRITICAL",
             "missing_events_error_level": "CRITICAL",
             "history_order_error_level": "CRITICAL",
+            # pub-date specific error levels
+            "pub_date_presence_error_level": "CRITICAL",
+            "collection_date_presence_error_level": "CRITICAL",
+            "publication_format_error_level": "CRITICAL",
+            "pub_date_required_elements_error_level": "CRITICAL",
+            "collection_date_year_error_level": "CRITICAL",
+            "collection_date_day_error_level": "ERROR",
+            "pub_date_uniqueness_error_level": "ERROR",
+            "day_value_error_level": "ERROR",
+            "month_value_error_level": "ERROR",
             # Event lists
             "required_events": ["received", "accepted"],
             "pre_pub_ordered_events": ["received", "revised", "accepted"],
@@ -269,6 +279,14 @@ class FulltextDatesValidation:
         Yields:
             Generator of validation results for all date checks
         """
+        yield from self.validate_pub_date_pub_presence()
+        yield from self.validate_pub_date_collection_presence()
+        yield from self.validate_publication_format()
+        yield from self.validate_pub_date_uniqueness()
+        yield from self.validate_pub_date_pub_required_elements()
+        yield from self.validate_pub_date_collection_required_year()
+        yield from self.validate_pub_date_collection_no_day()
+        yield from self.validate_day_month_values()
         yield from self.validate_article_date()
         yield from self.validate_collection_date()
         yield from self.validate_history_dates()
@@ -286,6 +304,194 @@ class FulltextDatesValidation:
         for item in self.fulltext.not_translations:
             validator = FulltextDatesValidation(item.node, self.params)
             yield from validator.validate()
+
+    def validate_pub_date_pub_presence(self):
+        """Rule 1: Validate that pub-date with date-type='pub' exists.
+        Only applies to main article (not sub-articles).
+        """
+        if self.fulltext.tag != "article":
+            return
+        is_valid = self.fulltext.epub_date is not None
+        yield build_response(
+            title="pub-date pub presence",
+            parent=self.params["parent"],
+            item="pub-date",
+            sub_item="pub",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected='<pub-date date-type="pub">',
+            obtained='<pub-date date-type="pub">' if is_valid else None,
+            advice='Add <pub-date publication-format="electronic" date-type="pub"> with <day>, <month> and <year>',
+            data=None,
+            error_level=self.params["pub_date_presence_error_level"],
+        )
+
+    def validate_pub_date_collection_presence(self):
+        """Rule 2: Validate that pub-date with date-type='collection' exists.
+        Only applies to main article (not sub-articles).
+        """
+        if self.fulltext.tag != "article":
+            return
+        is_valid = self.fulltext.collection_date is not None
+        yield build_response(
+            title="pub-date collection presence",
+            parent=self.params["parent"],
+            item="pub-date",
+            sub_item="collection",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected='<pub-date date-type="collection">',
+            obtained='<pub-date date-type="collection">' if is_valid else None,
+            advice='Add <pub-date publication-format="electronic" date-type="collection"> with <year>',
+            data=None,
+            error_level=self.params["collection_date_presence_error_level"],
+        )
+
+    def validate_publication_format(self):
+        """Rule 3: Validate that all pub-date elements have publication-format='electronic'."""
+        for date_obj in self.fulltext.all_pub_date_nodes:
+            pub_format = date_obj.publication_format
+            is_valid = pub_format == "electronic"
+            yield build_response(
+                title="pub-date publication-format",
+                parent=self.params["parent"],
+                item="pub-date",
+                sub_item=date_obj.type,
+                validation_type="value",
+                is_valid=is_valid,
+                expected="electronic",
+                obtained=pub_format,
+                advice=f'Set @publication-format="electronic" in <pub-date date-type="{date_obj.type}">',
+                data=date_obj.data,
+                error_level=self.params["publication_format_error_level"],
+            )
+
+    def validate_pub_date_pub_required_elements(self):
+        """Rule 4: Validate that pub date has day, month, and year."""
+        article_date = self.fulltext.article_date
+        if not article_date:
+            return
+        for element in ("day", "month", "year"):
+            is_valid = bool(article_date.get(element))
+            yield build_response(
+                title=f"pub-date pub {element}",
+                parent=self.params["parent"],
+                item="pub-date",
+                sub_item="pub",
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=f"<{element}> in pub-date[@date-type='pub']",
+                obtained=article_date.get(element),
+                advice=f'Add <{element}> to <pub-date date-type="pub">',
+                data=article_date,
+                error_level=self.params["pub_date_required_elements_error_level"],
+            )
+
+    def validate_pub_date_collection_required_year(self):
+        """Rule 5: Validate that collection date has year."""
+        collection_date = self.fulltext.collection_date
+        if not collection_date:
+            return
+        is_valid = bool(collection_date.get("year"))
+        yield build_response(
+            title="pub-date collection year",
+            parent=self.params["parent"],
+            item="pub-date",
+            sub_item="collection",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="<year> in pub-date[@date-type='collection']",
+            obtained=collection_date.get("year"),
+            advice='Add <year> to <pub-date date-type="collection">',
+            data=collection_date,
+            error_level=self.params["collection_date_year_error_level"],
+        )
+
+    def validate_pub_date_collection_no_day(self):
+        """Rule 6: Validate that collection date does NOT have day."""
+        collection_date = self.fulltext.collection_date
+        if not collection_date:
+            return
+        has_day = bool(collection_date.get("day"))
+        is_valid = not has_day
+        yield build_response(
+            title="pub-date collection day",
+            parent=self.params["parent"],
+            item="pub-date",
+            sub_item="collection",
+            validation_type="value",
+            is_valid=is_valid,
+            expected="no <day> in pub-date[@date-type='collection']",
+            obtained=f"<day>{collection_date.get('day')}</day>" if has_day else None,
+            advice='Remove <day> from <pub-date date-type="collection">',
+            data=collection_date,
+            error_level=self.params["collection_date_day_error_level"],
+        )
+
+    def validate_pub_date_uniqueness(self):
+        """Rule 8: Validate exactly one pub-date per date-type."""
+        nodes_by_type = self.fulltext.pub_date_nodes_by_type
+        for date_type in ("pub", "collection"):
+            count = len(nodes_by_type.get(date_type, []))
+            is_valid = count <= 1
+            yield build_response(
+                title=f"pub-date {date_type} uniqueness",
+                parent=self.params["parent"],
+                item="pub-date",
+                sub_item=date_type,
+                validation_type="value",
+                is_valid=is_valid,
+                expected=f"at most 1 pub-date[@date-type='{date_type}']",
+                obtained=f"{count} pub-date[@date-type='{date_type}']",
+                advice=f'Ensure there is at most one <pub-date date-type="{date_type}">',
+                data=None,
+                error_level=self.params["pub_date_uniqueness_error_level"],
+            )
+
+    def validate_day_month_values(self):
+        """Rule 9: Validate day (01-31) and month (01-12) numeric ranges."""
+        for date_data in self.fulltext.pub_dates:
+            date_type = date_data.get("type")
+            day = date_data.get("day")
+            month = date_data.get("month")
+            if day:
+                try:
+                    day_int = int(day)
+                    is_valid = 0 <= day_int <= 31
+                except (ValueError, TypeError):
+                    is_valid = False
+                yield build_response(
+                    title="pub-date day value",
+                    parent=self.params["parent"],
+                    item="pub-date",
+                    sub_item=date_type,
+                    validation_type="value",
+                    is_valid=is_valid,
+                    expected="a value between 00 and 31",
+                    obtained=day,
+                    advice=f'Fix <day> value in <pub-date date-type="{date_type}">. Must be between 00 and 31',
+                    data=date_data,
+                    error_level=self.params["day_value_error_level"],
+                )
+            if month:
+                try:
+                    month_int = int(month)
+                    is_valid = 0 <= month_int <= 12
+                except (ValueError, TypeError):
+                    is_valid = False
+                yield build_response(
+                    title="pub-date month value",
+                    parent=self.params["parent"],
+                    item="pub-date",
+                    sub_item=date_type,
+                    validation_type="value",
+                    is_valid=is_valid,
+                    expected="a value between 00 and 12",
+                    obtained=month,
+                    advice=f'Fix <month> value in <pub-date date-type="{date_type}">. Must be between 00 and 12',
+                    data=date_data,
+                    error_level=self.params["month_value_error_level"],
+                )
 
     def validate_article_date(self):
         """Validate the main article date."""
