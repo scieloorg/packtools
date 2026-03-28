@@ -1,0 +1,24 @@
+{
+    "permissions_rules": {
+        "permissions_presence_error_level": "CRITICAL",
+        "permissions_uniqueness_error_level": "ERROR",
+        "license_presence_error_level": "CRITICAL",
+        "license_type_error_level": "CRITICAL",
+        "xlink_href_presence_error_level": "CRITICAL",
+        "xml_lang_presence_error_level": "CRITICAL",
+        "license_p_presence_error_level": "CRITICAL",
+        "license_url_error_level": "ERROR",
+        "lang_link_consistency_error_level": "ERROR",
+        "copyright_structure_error_level": "WARNING",
+        "expected_license_type": "open-access",
+        "valid_license_url_patterns": [
+            "https://creativecommons.org/licenses/by/",
+            "http://creativecommons.org/licenses/by/"
+        ],
+        "lang_to_deed": {
+            "pt": "deed.pt",
+            "en": "deed.en",
+            "es": "deed.es"
+        }
+    }
+}
