@@ -53,8 +53,14 @@ class SupplementaryMaterial(LabelAndCaption):
             return "<supplementary-material>"
 
     @property
+    def has_content(self):
+        return self.media is not None or self.graphic is not None
+
+    @property
     def data(self):
         base_data = super().data.copy()
+        suppl_label = base_data.get("label")
+        suppl_caption = base_data.get("caption")
         base_data.update(self.media.data if self.media else {})
         base_data.update(self.graphic.data if self.graphic else {})
         base_data.update(
@@ -63,6 +69,9 @@ class SupplementaryMaterial(LabelAndCaption):
                 "parent_suppl_mat": self.parent_tag,
                 "sec_type": self.sec_type,
                 "visual_elem": "media" if self.media else "graphic",
+                "suppl_label": suppl_label,
+                "suppl_caption": suppl_caption,
+                "has_content": self.has_content,
             }
         )
 

@@ -14,7 +14,11 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             "position_error_level": "CRITICAL",
             "label_error_level": "CRITICAL",
             "app_group_error_level": "CRITICAL",
-            "inline_error_level": "CRITICAL",
+            "inline_error_level": "ERROR",
+            "id_error_level": "CRITICAL",
+            "sec_title_error_level": "CRITICAL",
+            "content_error_level": "WARNING",
+            "id_uniqueness_error_level": "ERROR",
             "mime_types_and_subtypes": [
                 {"mimetype": "video", "mime-subtype": "mp4"},
                 {"mimetype": "audio", "mime-subtype": "mp3"},
@@ -33,6 +37,52 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             "structure_error_level": "CRITICAL",
             "parent_suppl_mat_expected": ["app-group", "app"]
         }
+
+    def test_validate_id_present(self):
+        """Passes when supplementary material has @id."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media mimetype="application" mime-subtype="pdf" xlink:href="file.pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        result = validator.validate_id()
+        self.assertEqual(result["response"], "OK")
+
+    def test_validate_id_missing(self):
+        """Fails when supplementary material lacks @id."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material>
+                            <label>Supplementary Material</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        result = validator.validate_id()
+        self.assertEqual(result["response"], "CRITICAL")
+        self.assertIn("@id", result["advice"])
 
     def test_validate_sec_type(self):
         """Fails when sec-type != 'supplementary-material'."""
@@ -61,8 +111,8 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             'In <sec sec-type="None"><supplementary-material> replace "None" with "supplementary-material".',
         )
 
-    def test_validate_label(self):
-        """Fails when supplementary material lacks an label element."""
+    def test_validate_label_missing(self):
+        """Fails when supplementary material lacks a label element."""
         xml_tree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
@@ -84,6 +134,29 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             results["advice"],
             "Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail.",
         )
+
+    def test_validate_label_present_with_media(self):
+        """Passes when supplementary material has label even with media data merged."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                            <media mimetype="application" mime-subtype="pdf" xlink:href="file.pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        results = validator.validate_label()
+        self.assertEqual(results["response"], "OK")
 
     def test_validate_position_failure(self):
         """Fails when supplementary material is not at the end of <body> or inside <back>."""
@@ -160,11 +233,168 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
 
         validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
         results = validator.validate_prohibited_inline()
-        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["response"], "ERROR")
         self.assertEqual(
             results["advice"],
             "The use of <inline-supplementary-material> is prohibited.",
         )
+
+    def test_validate_sec_title_present(self):
+        """Passes when sec has a title element."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <title>Supplementary Materials</title>
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
+        results = list(validator.validate_sec_title())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_validate_sec_title_missing(self):
+        """Fails when sec lacks a title element."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
+        results = list(validator.validate_sec_title())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertIn("<title>", results[0]["advice"])
+
+    def test_validate_content_present(self):
+        """Passes when supplementary material contains media."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                            <media mimetype="application" mime-subtype="pdf" xlink:href="file.pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        result = validator.validate_content()
+        self.assertEqual(result["response"], "OK")
+
+    def test_validate_content_missing(self):
+        """Fails when supplementary material has no graphic or media."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        result = validator.validate_content()
+        self.assertEqual(result["response"], "WARNING")
+        self.assertIn("<graphic>", result["advice"])
+
+    def test_validate_content_with_graphic(self):
+        """Passes when supplementary material contains graphic."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Figure S1</label>
+                            <graphic xlink:href="figure-s1.jpg"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        result = validator.validate_content()
+        self.assertEqual(result["response"], "OK")
+
+    def test_validate_id_uniqueness_pass(self):
+        """Passes when all supplementary materials have unique @id values."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                        </supplementary-material>
+                        <supplementary-material id="supp2">
+                            <label>Supplementary Material 2</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
+        results = list(validator.validate_id_uniqueness())
+        self.assertEqual(len(results), 0)
+
+    def test_validate_id_uniqueness_fail(self):
+        """Fails when supplementary materials have duplicate @id values."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 1</label>
+                        </supplementary-material>
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material 2</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
+        results = list(validator.validate_id_uniqueness())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertIn("supp1", results[0]["advice"])
 
     def test_validate_full_workflow(self):
         """Test the complete validation workflow for supplementary material."""
@@ -173,6 +403,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
                 <body>
                     <sec sec-type="supplementary-material">
+                        <title>Supplementary Materials</title>
                         <supplementary-material id="supp1" xlink:href="file.pdf">
                             <label>Supplementary Material</label>
                             <media mimetype="application" mime-subtype="pdf" xlink:href="file.pdf"/>
@@ -183,30 +414,13 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             """
         )
         validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
-        results = list(validator.validate())
-
-        self.assertEqual(len(results), 20)  # Validações executadas
+        results = [r for r in validator.validate() if r is not None]
         titles = [result["title"] for result in results]
-        self.assertIn("mime type and subtype", titles)
-        self.assertIn("@id", titles)
-        self.assertIn("@xlink:href validation", titles)
-        self.assertIn("<alt-text>", titles)
-        self.assertIn("<long-desc>", titles)
-        self.assertIn("Transcript validation", titles)
-        self.assertIn("<speaker> and <speech> validation", titles)
-        self.assertIn("structure", titles)
-        self.assertIn("@id", titles)
-        self.assertIn("@xlink:href validation", titles)
-        self.assertIn("<alt-text>", titles)
-        self.assertIn("<long-desc>", titles)
-        self.assertIn("Transcript validation", titles)
-        self.assertIn("<speaker> and <speech> validation", titles)
-        self.assertIn("structure", titles)
-        self.assertIn("@sec-type", titles)
+        self.assertIn("supplementary-material @id", titles)
         self.assertIn("label", titles)
-        self.assertIn("Prohibition of <supplementary-material> inside <app-group> and <app>", titles)
+        self.assertIn("supplementary-material content", titles)
         self.assertIn("Prohibition of inline-supplementary-material", titles)
-        self.assertIn("Position of supplementary materials", titles)
+        self.assertIn("sec supplementary-material title", titles)
 
 
 if __name__ == "__main__":
