@@ -1,4 +1,4 @@
-urllib3==2.2.2
+urllib3==2.6.3
 lxml==4.9.3
 Pillow==10.1.0
 minio==7.2.0
