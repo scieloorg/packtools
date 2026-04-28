@@ -55,15 +55,29 @@ class TestVisualResourceBaseValidation(unittest.TestCase):
             "xlink_href": "video.mp4"
         }
 
-        # Monkey patch AccessibilityDataValidation
+        # Monkey patch AccessibilityDataValidation to ensure it is NOT
+        # invoked from VisualResourceBaseValidation.validate(): accessibility
+        # checks are run separately by XMLAccessibilityDataValidation in the
+        # orchestrator, so calling them again here would duplicate entries.
         from packtools.sps.validation import visual_resource_base
         visual_resource_base.AccessibilityDataValidation = lambda data, params: MagicMock(validate=lambda: iter([{"mocked": True}]))
 
         validator = VisualResourceBaseValidation(data, self.params)
         results = list(validator.validate())
 
-        self.assertEqual(len(results), 3)
-        self.assertTrue(any(r.get("mocked") for r in results))
+        # Only validate_id and validate_xlink_href are yielded; accessibility
+        # is intentionally excluded to avoid duplicated validation entries.
+        self.assertEqual(len(results), 2)
+        self.assertFalse(any(r.get("mocked") for r in results))
+
+    def test_validate_xlink_href_missing(self):
+        data = {"tag": "media", "xlink_href": None, "xml": "<media></media>", "id": "m1"}
+        validator = VisualResourceBaseValidation(data, self.params)
+        result = validator.validate_xlink_href()
+        # Missing xlink:href must produce an error entry instead of being
+        # silently swallowed by a TypeError from os.path.splitext(None).
+        self.assertEqual(result["response"], self.params["xlink_href_error_level"])
+        self.assertIsNone(result["got_value"])
 
 
 if __name__ == "__main__":

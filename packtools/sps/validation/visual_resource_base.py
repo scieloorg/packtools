@@ -16,7 +16,12 @@ class VisualResourceBaseValidation:
     def validate(self):
         yield self.validate_id()
         yield self.validate_xlink_href()
-        yield from self.accessibility_validation.validate()
+        # Accessibility validations are intentionally NOT yielded here.
+        # They are executed separately by ``XMLAccessibilityDataValidation``
+        # via ``validate_accessibility_data`` in the orchestrator
+        # (``xml_validations.py``), which iterates over <graphic>,
+        # <inline-graphic>, <media> and <inline-media>. Calling them here as
+        # well would produce duplicated entries in the validation report.
 
     def validate_id(self):
         xml = self.data.get("xml")
@@ -44,8 +49,13 @@ class VisualResourceBaseValidation:
 
     def validate_xlink_href(self):
         xlink_href = self.data.get("xlink_href")
-        name, ext = os.path.splitext(xlink_href)
-        valid = ext[1:] in self.params["valid_extension"]
+        if not xlink_href:
+            valid = False
+            obtained = xlink_href
+        else:
+            name, ext = os.path.splitext(xlink_href)
+            valid = ext[1:] in self.params["valid_extension"]
+            obtained = xlink_href
 
         return build_response(
             title="@xlink:href validation",
@@ -55,7 +65,7 @@ class VisualResourceBaseValidation:
             is_valid=valid,
             validation_type="format",
             expected="File name with extension",
-            obtained=xlink_href,
+            obtained=obtained,
             advice=f'In @xlink:href, provide a valid file name with its extension in {self.params["valid_extension"]}.',
             error_level=self.params["xlink_href_error_level"],
             data=self.data,
