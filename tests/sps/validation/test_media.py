@@ -125,7 +125,13 @@ class MediaValidationTest(unittest.TestCase):
         self.assertEqual(result["response"], "OK")
 
     def test_validate_integration_with_mocked_accessibility(self):
-        """Tests full validate() flow with mocked accessibility."""
+        """Tests full validate() flow ensures accessibility is NOT duplicated.
+
+        Accessibility validation is performed separately by the orchestrator
+        through ``XMLAccessibilityDataValidation``, so ``MediaValidation``
+        must not yield accessibility entries to avoid duplicated rows in the
+        validation report.
+        """
         data = {
             "tag": "media",
             "xml": "<media></media>",
@@ -144,10 +150,32 @@ class MediaValidationTest(unittest.TestCase):
         try:
             validator = MediaValidation(data, self.params)
             results = list(validator.validate())
-            # 1 (mime_type_and_subtype) + 1 (id) + 1 (xlink_href) + 1 (mocked accessibility)
-            self.assertEqual(len(results), 4)
+            # 1 (mime_type_and_subtype) + 1 (id) + 1 (xlink_href);
+            # accessibility entries must NOT be present here.
+            self.assertEqual(len(results), 3)
+            self.assertFalse(any(r.get("mocked") for r in results))
         finally:
             visual_resource_base.AccessibilityDataValidation = original
+
+    def test_validate_xlink_href_missing_attribute(self):
+        """Missing @xlink:href must produce an error entry, not be swallowed.
+
+        Regression test: previously ``os.path.splitext(None)`` raised a
+        ``TypeError`` inside the generator, which silently halted the
+        validation flow and produced no entry for the missing attribute.
+        """
+        data = {
+            "tag": "media",
+            "xml": '<media id="m01" mimetype="video" mime-subtype="mp4"/>',
+            "id": "m01",
+            "xlink_href": None,
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_xlink_href()
+        self.assertEqual(result["response"], self.params["xlink_href_error_level"])
+        self.assertIsNone(result["got_value"])
 
     def test_validate_inline_media_id_not_required(self):
         """For inline-media, @id is not required."""
