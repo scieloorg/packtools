@@ -2,7 +2,6 @@ from lxml import etree
 from langdetect import detect
 from packtools.sps.validation.models.supplementary_material import XmlSupplementaryMaterials
 from packtools.sps.validation.models.media import XmlMedias
-from packtools.sps.validation.models.graphic import XmlGraphic
 from packtools.sps.validation.graphic import GraphicValidation
 from packtools.sps.validation.media import MediaValidation
 from packtools.sps.validation.utils import build_response

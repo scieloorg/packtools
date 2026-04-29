@@ -154,9 +154,6 @@ class Transcript:
         }
 
 
-import warnings as _warnings
-
-
 def __getattr__(name):
     _moved = {
         "XMLAccessibilityData": "packtools.sps.validation.models.accessibility_data",
