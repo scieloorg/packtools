@@ -1,5 +1,5 @@
 import gettext
-from packtools.sps.models.accessibility_data import XMLAccessibilityData
+from packtools.sps.validation.models.accessibility_data import XMLAccessibilityData
 from packtools.sps.validation.utils import build_response
 
 _ = gettext.gettext

@@ -26,22 +26,21 @@ class FulltextFnGroups(BaseNoteGroups):
         super().__init__(node, "fn-group", FnGroup)
 
 
-class XMLFns:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
+import warnings as _warnings
 
-    def article_fn_groups_notes(self):
-        yield from FulltextFnGroups(self.xml_tree.find(".")).items
 
-    def sub_article_fn_groups_notes(self):
-        for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from FulltextFnGroups(sub_article).items
-
-    @property
-    def fn_edited_by(self):
-        for item in self.xml_tree.xpath(". | .//sub-article"):
-            fulltext = Fulltext(item)
-            for node in fulltext.node.xpath("*//fn[@fn-type='edited-by']"):
-                data = fulltext.attribs_parent_prefixed
-                data.update(Fn(node).data)
-                yield data
+def __getattr__(name):
+    _moved = {
+        "XMLFns": "packtools.sps.validation.models.fn",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.fn is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

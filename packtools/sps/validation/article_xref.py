@@ -1,4 +1,4 @@
-from packtools.sps.models.v2.article_xref import XMLCrossReference
+from packtools.sps.validation.models.article_xref import XMLCrossReference
 from packtools.sps.validation.utils import build_response
 
 
