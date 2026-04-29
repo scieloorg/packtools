@@ -1,65 +1,6 @@
 import re
 
-
-class XMLAccessibilityData:
-
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-
-    @property
-    def transcripts(self):
-        if not hasattr(self, '_transcripts') or not self._transcripts:
-            self._transcripts = {}
-            for item in self.xmltree.xpath(".//sec[@sec-type='transcript']"):
-                transcript = Transcript(item)
-                self._transcripts[transcript.transcript_id] = transcript.data
-        return self._transcripts
-
-    @property
-    def misplaced_alt_texts(self):
-        """
-        Detecta elementos <alt-text> que estão fora dos elementos permitidos.
-        Segundo SPS 1.9/1.10, <alt-text> só pode estar dentro de:
-        <graphic>, <inline-graphic>, <media>, <inline-media>
-        """
-        valid_parents = ("graphic", "inline-graphic", "media", "inline-media")
-        misplaced = []
-
-        # Procura TODOS os <alt-text> no documento
-        for alt_text in self.xmltree.xpath(".//alt-text"):
-            parent = alt_text.getparent()
-            if parent is not None and parent.tag not in valid_parents:
-                # <alt-text> está no lugar errado!
-                misplaced.append({
-                    "tag": "alt-text",
-                    "parent_tag": parent.tag,
-                    "parent_id": parent.get("id"),
-                    "alt_text": alt_text.text,
-                    "alt_text_length": len(alt_text.text or ""),
-                    "expected_location": valid_parents,
-                    "current_location": parent.tag,
-                })
-
-        return misplaced
-
-    @property
-    def data(self):
-        # CORREÇÃO: XPath simplificado para evitar duplicatas
-        # Captura apenas os elementos base que podem conter dados de acessibilidade
-        xpaths = [
-            ".//graphic",
-            ".//inline-graphic",
-            ".//media",
-            ".//inline-media",
-        ]
-        for item in self.xmltree.xpath("|".join(xpaths)):
-            model = AccessibilityData(item)
-            model.transcript_data = self.transcripts.get(model.xref_sec_rid)
-            yield model.data
-
-        # NOVO: Dados dos elementos mal posicionados
-        for misplaced in self.misplaced_alt_texts:
-            yield misplaced
+import warnings as _warnings
 
 
 class AccessibilityData:
@@ -211,3 +152,23 @@ class Transcript:
             "speakers": self.speaker_data,
             "tag": self.node.tag,
         }
+
+
+import warnings as _warnings
+
+
+def __getattr__(name):
+    _moved = {
+        "XMLAccessibilityData": "packtools.sps.validation.models.accessibility_data",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.accessibility_data is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

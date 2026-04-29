@@ -12,7 +12,21 @@ class InlineGraphic(Graphic):
     pass
 
 
-class XmlGraphic(XmlVisualResource):
-    def __init__(self, xmltree):
-        resource_types = [("graphic", Graphic), ("inline-graphic", InlineGraphic)]
-        super().__init__(xmltree, resource_types=resource_types)
+import warnings as _warnings
+
+
+def __getattr__(name):
+    _moved = {
+        "XmlGraphic": "packtools.sps.validation.models.graphic",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.graphic is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

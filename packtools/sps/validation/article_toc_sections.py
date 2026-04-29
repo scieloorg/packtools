@@ -1,4 +1,4 @@
-from packtools.sps.models.v2.article_toc_sections import ArticleTocSections
+from packtools.sps.validation.models.article_toc_sections import ArticleTocSections
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.similarity_utils import how_similar
 

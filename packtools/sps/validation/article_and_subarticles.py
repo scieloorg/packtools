@@ -1,5 +1,5 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.models.v2.article_toc_sections import ArticleTocSections
+from packtools.sps.validation.models.article_toc_sections import ArticleTocSections
 from packtools.sps.models.article_ids import ArticleIds
 from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesLanguageCodeException,

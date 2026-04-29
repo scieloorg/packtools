@@ -1,4 +1,4 @@
-from packtools.sps.models.author_notes import XMLAuthorNotes
+from packtools.sps.validation.models.author_notes import XMLAuthorNotes
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 
 from packtools.sps.validation.utils import build_response

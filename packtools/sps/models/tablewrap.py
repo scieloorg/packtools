@@ -151,26 +151,21 @@ class TableWrappers:
             )
 
 
-class ArticleTableWrappers:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
+import warnings as _warnings
 
-    @property
-    def get_all_table_wrappers(self):
-        yield from self.get_article_table_wrappers
-        yield from self.get_sub_article_translation_table_wrappers
-        yield from self.get_sub_article_non_translation_table_wrappers
 
-    @property
-    def get_article_table_wrappers(self):
-        yield from TableWrappers(self.xml_tree.find(".")).table_wrappers()
-
-    @property
-    def get_sub_article_translation_table_wrappers(self):
-        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
-            yield from TableWrappers(node).table_wrappers()
-
-    @property
-    def get_sub_article_non_translation_table_wrappers(self):
-        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
-            yield from TableWrappers(node).table_wrappers()
+def __getattr__(name):
+    _moved = {
+        "ArticleTableWrappers": "packtools.sps.validation.models.tablewrap",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.tablewrap is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -44,15 +44,21 @@ class FulltextAuthorNotes(BaseNoteGroups):
             yield data
 
 
-class XMLAuthorNotes:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
+import warnings as _warnings
 
-    def article_author_notes(self):
-        group = FulltextAuthorNotes(self.xml_tree.find("."))
-        return {"corresp_data": list(group.corresp_data), "fns": list(group.items)}
 
-    def sub_article_author_notes(self):
-        for sub_article in self.xml_tree.xpath(".//sub-article"):
-            group = FulltextAuthorNotes(sub_article)
-            yield {"corresp_data": list(group.corresp_data), "fns": list(group.items)}
+def __getattr__(name):
+    _moved = {
+        "XMLAuthorNotes": "packtools.sps.validation.models.author_notes",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.author_notes is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -1,3 +1,5 @@
+import warnings as _warnings
+
 from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.models.label_and_caption import LabelAndCaption
 from packtools.sps.models.media import Media
@@ -31,15 +33,18 @@ class App(LabelAndCaption):
         }
 
 
-class XmlAppGroup:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
-
-    @property
-    def data(self):
-        for node in self.xml_tree.xpath(".|.//sub-article"):
-            full_text = Fulltext(node)
-
-            for app_node in node.xpath("./back//app"):
-                app_data = App(app_node).data
-                yield {**app_data, **full_text.attribs_parent_prefixed}
+def __getattr__(name):
+    _moved = {
+        "XmlAppGroup": "packtools.sps.validation.models.app_group",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.app_group is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
