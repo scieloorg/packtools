@@ -1,7 +1,5 @@
 import os
 
-from packtools.sps.validation.accessibility_data import \
-    AccessibilityDataValidation
 from packtools.sps.validation.utils import build_response
 
 
@@ -9,9 +7,6 @@ class VisualResourceBaseValidation:
     def __init__(self, data, params):
         self.data = data
         self.params = params
-        self.accessibility_validation = AccessibilityDataValidation(
-            data, self.params
-        )
 
     def validate(self):
         yield self.validate_id()
@@ -71,5 +66,3 @@ class VisualResourceBaseValidation:
             data=self.data,
         )
 
-    def validate_accessibility(self):
-        yield from self.accessibility_validation.validate()

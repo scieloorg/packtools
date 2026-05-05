@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import MagicMock
 
 from packtools.sps.validation.media import MediaValidation
 
@@ -124,13 +123,14 @@ class MediaValidationTest(unittest.TestCase):
         result = validator.validate_xlink_href()
         self.assertEqual(result["response"], "OK")
 
-    def test_validate_integration_with_mocked_accessibility(self):
+    def test_validate_integration_yields_only_mime_id_and_xlink_href(self):
         """Tests full validate() flow ensures accessibility is NOT duplicated.
 
         Accessibility validation is performed separately by the orchestrator
         through ``XMLAccessibilityDataValidation``, so ``MediaValidation``
         must not yield accessibility entries to avoid duplicated rows in the
-        validation report.
+        validation report. VisualResourceBaseValidation no longer holds an
+        AccessibilityDataValidation instance, so no patching is required.
         """
         data = {
             "tag": "media",
@@ -141,21 +141,11 @@ class MediaValidationTest(unittest.TestCase):
             "mime_subtype": "mp4",
         }
 
-        from packtools.sps.validation import visual_resource_base
-        original = visual_resource_base.AccessibilityDataValidation
-        visual_resource_base.AccessibilityDataValidation = lambda data, params: MagicMock(
-            validate=lambda: iter([{"mocked": True}])
-        )
-
-        try:
-            validator = MediaValidation(data, self.params)
-            results = list(validator.validate())
-            # 1 (mime_type_and_subtype) + 1 (id) + 1 (xlink_href);
-            # accessibility entries must NOT be present here.
-            self.assertEqual(len(results), 3)
-            self.assertFalse(any(r.get("mocked") for r in results))
-        finally:
-            visual_resource_base.AccessibilityDataValidation = original
+        validator = MediaValidation(data, self.params)
+        results = list(validator.validate())
+        # 1 (mime_type_and_subtype) + 1 (id) + 1 (xlink_href);
+        # accessibility entries must NOT be present here.
+        self.assertEqual(len(results), 3)
 
     def test_validate_xlink_href_missing_attribute(self):
         """Missing @xlink:href must produce an error entry, not be swallowed.
