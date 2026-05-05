@@ -84,8 +84,14 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         self.assertEqual(result["response"], "CRITICAL")
         self.assertIn("@id", result["advice"])
 
-    def test_validate_sec_type(self):
-        """Fails when sec-type != 'supplementary-material'."""
+    def test_validate_sec_type_missing(self):
+        """
+        Fails when <sec> has no @sec-type and <supplementary-material> is inside it.
+
+        FIX Problema 2:
+        - obtained deve ser o valor de @sec-type (None quando ausente), não parent_tag.
+        - advice não deve exibir literalmente "None": usa "(ausente)" como placeholder.
+        """
         xml_tree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
@@ -108,7 +114,39 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         self.assertEqual(results["response"], "CRITICAL")
         self.assertEqual(
             results["advice"],
-            'In <sec sec-type="None"><supplementary-material> replace "None" with "supplementary-material".',
+            'In <sec sec-type="(ausente)"><supplementary-material> '
+            'replace "(ausente)" with "supplementary-material".',
+        )
+
+    def test_validate_sec_type_wrong_value(self):
+        """
+        Fails when <sec> has @sec-type with a value other than 'supplementary-material'.
+        obtained deve ser o valor incorreto encontrado; advice deve exibi-lo.
+        """
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="methods">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media mimetype="application" mime-subtype="pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
+        validator = SupplementaryMaterialValidation(
+            supplementary_data[0], self.params
+        )
+        results = validator.validate_sec_type()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(
+            results["advice"],
+            'In <sec sec-type="methods"><supplementary-material> '
+            'replace "methods" with "supplementary-material".',
         )
 
     def test_validate_label_missing(self):

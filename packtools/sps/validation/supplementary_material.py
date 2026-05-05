@@ -56,6 +56,12 @@ class SupplementaryMaterialValidation:
         if self.data.get("parent_suppl_mat") == "sec":
             sec_type = self.data.get("sec_type")
             valid = sec_type == "supplementary-material"
+            # FIX Problema 2: obtained usava self.data.get("parent_tag") — chave inexistente
+            # no dict de dados (a chave correta é parent_suppl_mat) — sempre retornava None.
+            # obtained deve refletir o valor encontrado para @sec-type, não a tag pai.
+            # FIX Problema 2 (advice): quando sec_type=None, o advice exibia literalmente
+            # 'sec-type="None"'. Usar sec_type_display para mensagem descritiva.
+            sec_type_display = sec_type if sec_type else "(ausente)"
             return build_response(
                 title="@sec-type",
                 parent=self.data,
@@ -64,8 +70,11 @@ class SupplementaryMaterialValidation:
                 is_valid=valid,
                 validation_type="match",
                 expected="<sec sec-type='supplementary-material'>",
-                obtained=self.data.get("parent_tag"),
-                advice=f'In <sec sec-type="{sec_type}"><supplementary-material> replace "{sec_type}" with "supplementary-material".',
+                obtained=sec_type,
+                advice=(
+                    f'In <sec sec-type="{sec_type_display}"><supplementary-material> '
+                    f'replace "{sec_type_display}" with "supplementary-material".'
+                ),
                 error_level=self.params["sec_type_error_level"],
                 data=self.data,
             )
@@ -164,8 +173,12 @@ class XmlSupplementaryMaterialValidation:
         """
         Verifies if the supplementary materials section is in the last position of <body> or inside <back>.
         """
-        sections = self.xml_tree.xpath('.//sec[@sec-type="supplementary-material"]')
-        if not sections:
+        # FIX Problema 4: a variável "sections" era sobrescrita dentro dos blocos
+        # if article_body / if article_back, causando shadowing silencioso.
+        # Renomeada para suppl_sections (resultado do xpath inicial) e body_sections /
+        # back_sections (resultados dos findall internos) para eliminar o risco.
+        suppl_sections = self.xml_tree.xpath('.//sec[@sec-type="supplementary-material"]')
+        if not suppl_sections:
             return
 
         article_body = self.xml_tree.find("body")
@@ -175,14 +188,14 @@ class XmlSupplementaryMaterialValidation:
         is_in_back = False
 
         if article_body is not None:
-            sections = article_body.findall("sec")
-            if sections and sections[-1].get("sec-type") == "supplementary-material":
+            body_sections = article_body.findall("sec")
+            if body_sections and body_sections[-1].get("sec-type") == "supplementary-material":
                 is_last_in_body = True
 
         if article_back is not None:
-            sections = article_back.findall("sec")
+            back_sections = article_back.findall("sec")
             is_in_back = any(
-                sec.get("sec-type") == "supplementary-material" for sec in sections
+                sec.get("sec-type") == "supplementary-material" for sec in back_sections
             )
 
         valid = is_last_in_body or is_in_back
