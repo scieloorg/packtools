@@ -587,7 +587,13 @@ class TableWrapCompleteValidationTest(unittest.TestCase):
             self.assertEqual("OK", result["response"], f"Validation '{result['title']}' should pass but got {result['response']}")
 
     def test_valid_table_wrap_with_empty_title(self):
-        """Table-wrap with empty <title/> inside <caption> should pass label_or_caption validation."""
+        """
+        Table-wrap with <label> AND <caption><title/> passes label_or_caption validation.
+
+        This test confirms that <label> alone is sufficient even when <title/> is empty.
+        It does NOT isolate the case where <caption><title/> alone satisfies the rule —
+        that scenario is covered by test_label_or_caption_only_caption_with_empty_title.
+        """
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -612,8 +618,82 @@ class TableWrapCompleteValidationTest(unittest.TestCase):
 
         results = [r for r in obtained if r["title"] == "label or caption"]
         self.assertEqual(1, len(results))
-        # label is present, so this should pass
+        # label is present, so this must pass regardless of caption content
         self.assertEqual("OK", results[0]["response"])
+
+    def test_label_or_caption_only_caption_with_empty_title(self):
+        """
+        Table-wrap with NO <label> but <caption><title/> must pass label_or_caption.
+
+        Per SPS documentation, <caption><title/> (structurally present, even if empty)
+        satisfies the requirement. This isolates the scenario that
+        test_valid_table_wrap_with_empty_title does not cover: without a <label>,
+        only caption_has_title determines validity.
+
+        The former bool(caption_text) check would have failed here because
+        ET.tostring() returns "" for <title/>, while the corrected caption_has_title
+        property detects the element's presence regardless of text content.
+        """
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<caption><title/></caption>"
+            "<table>"
+            "<tbody><tr><td>Data 1</td></tr></tbody>"
+            "</table>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={},
+            ).validate()
+        )
+
+        results = [r for r in obtained if r["title"] == "label or caption"]
+        self.assertEqual(1, len(results))
+        # <caption><title/> is structurally valid per SPS — must pass
+        self.assertEqual("OK", results[0]["response"])
+
+    def test_label_or_caption_only_caption_without_title_fails(self):
+        """
+        Table-wrap with NO <label> and <caption> without <title> must fail label_or_caption.
+
+        A bare <caption>text</caption> does not satisfy the SPS requirement of
+        <caption><title>. The former bool(caption_text) check would have accepted
+        this as valid (false negative). The corrected caption_has_title check
+        correctly rejects it.
+        """
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<caption>Some caption text without title element</caption>"
+            "<table>"
+            "<tbody><tr><td>Data 1</td></tr></tbody>"
+            "</table>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={},
+            ).validate()
+        )
+
+        results = [r for r in obtained if r["title"] == "label or caption"]
+        self.assertEqual(1, len(results))
+        # <caption> without <title> must fail — neither label nor caption_has_title is True
+        self.assertEqual("CRITICAL", results[0]["response"])
 
     def test_table_wrap_with_table_wrap_foot(self):
         """Table with table-wrap-foot should pass all validations."""
