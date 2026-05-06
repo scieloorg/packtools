@@ -666,8 +666,8 @@ class TableWrapCompleteValidationTest(unittest.TestCase):
 
         A bare <caption>text</caption> does not satisfy the SPS requirement of
         <caption><title>. The former bool(caption_text) check would have accepted
-        this as valid (false negative). The corrected caption_has_title check
-        correctly rejects it.
+        this as valid (failed to flag the invalid structure). The corrected
+        caption_has_title check correctly rejects it.
         """
         self.maxDiff = None
         xml_tree = etree.fromstring(
