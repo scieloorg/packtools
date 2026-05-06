@@ -59,9 +59,20 @@ class SupplementaryMaterialValidation:
             # FIX Problema 2: obtained usava self.data.get("parent_tag") — chave inexistente
             # no dict de dados (a chave correta é parent_suppl_mat) — sempre retornava None.
             # obtained deve refletir o valor encontrado para @sec-type, não a tag pai.
-            # FIX Problema 2 (advice): quando sec_type=None, o advice exibia literalmente
-            # 'sec-type="None"'. Usar sec_type_display para mensagem descritiva.
-            sec_type_display = sec_type if sec_type else "(ausente)"
+            # FIX Problema 2 (advice): bifurca a mensagem conforme o caso:
+            # - @sec-type ausente  → instruir a *adicionar* o atributo (não "substituir")
+            # - @sec-type com valor errado → instruir a *substituir* pelo valor correto
+            # Ambas as mensagens permanecem em inglês, sem placeholder em português.
+            if sec_type is None:
+                advice = (
+                    'Add @sec-type="supplementary-material" to the enclosing <sec>: '
+                    '<sec sec-type="supplementary-material">.'
+                )
+            else:
+                advice = (
+                    f'In <sec sec-type="{sec_type}"><supplementary-material> '
+                    f'replace "{sec_type}" with "supplementary-material".'
+                )
             return build_response(
                 title="@sec-type",
                 parent=self.data,
@@ -71,10 +82,7 @@ class SupplementaryMaterialValidation:
                 validation_type="match",
                 expected="<sec sec-type='supplementary-material'>",
                 obtained=sec_type,
-                advice=(
-                    f'In <sec sec-type="{sec_type_display}"><supplementary-material> '
-                    f'replace "{sec_type_display}" with "supplementary-material".'
-                ),
+                advice=advice,
                 error_level=self.params["sec_type_error_level"],
                 data=self.data,
             )

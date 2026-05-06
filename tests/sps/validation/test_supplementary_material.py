@@ -90,7 +90,8 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
 
         FIX Problema 2:
         - obtained deve ser o valor de @sec-type (None quando ausente), não parent_tag.
-        - advice não deve exibir literalmente "None": usa "(ausente)" como placeholder.
+        - advice deve instruir a *adicionar* o atributo (não "substituir" algo ausente),
+          mantendo a mensagem inteiramente em inglês.
         """
         xml_tree = etree.fromstring(
             """
@@ -114,8 +115,8 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         self.assertEqual(results["response"], "CRITICAL")
         self.assertEqual(
             results["advice"],
-            'In <sec sec-type="(ausente)"><supplementary-material> '
-            'replace "(ausente)" with "supplementary-material".',
+            'Add @sec-type="supplementary-material" to the enclosing <sec>: '
+            '<sec sec-type="supplementary-material">.',
         )
 
     def test_validate_sec_type_wrong_value(self):
