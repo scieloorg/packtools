@@ -1,7 +1,7 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.validation.tablewrap import ArticleTableWrapValidation, TableWrapValidation
+from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
 
 class TableWrapValidationTest(unittest.TestCase):
@@ -157,6 +157,7 @@ class TableWrapValidationTest(unittest.TestCase):
         self.assertEqual(1, len(results))
         result = results[0]
         self.assertEqual("OK", result["response"])
+
 
     def test_validate_label_or_caption_both_present(self):
         self.maxDiff = None
