@@ -76,6 +76,10 @@ class TableWrapValidation:
         self.xml = f'<table-wrap id="{self.table_id}">' if self.table_id else '<table-wrap>'
 
     def get_default_params(self):
+        # Note: the former separate keys `label_error_level` and `caption_error_level`
+        # were consolidated into `label_or_caption_error_level` when the two individual
+        # validations were merged. Callers still passing the old keys will have them
+        # silently ignored; update any external rule dictionaries accordingly.
         return {
             "absent_error_level": "WARNING",
             "id_error_level": "CRITICAL",
@@ -136,21 +140,32 @@ class TableWrapValidation:
 
     def validate_label_or_caption(self):
         """
-        Validates the presence of <label> or <caption> in the <table-wrap>.
-        At least one of <label> or <caption> with <title> must be present.
+        Validates the presence of <label> or <caption> with <title> in the <table-wrap>.
+
+        At least one of the following must be present:
+          - <label> with non-empty text, OR
+          - <caption> containing a <title> child element (even if <title/> is empty,
+            its structural presence satisfies the SPS requirement).
+
+        Note: checking ``bool(caption_text)`` is insufficient because it treats a
+        structurally valid ``<caption><title/></caption>`` as missing (empty string),
+        and accepts a bare ``<caption>text</caption>`` without ``<title>`` as valid.
+        The model field ``caption_has_title`` performs the correct structural check.
 
         Returns:
             The validation result in the expected format.
         """
         label = self.data.get("label")
-        caption = self.data.get("caption")
-        is_valid = bool(label) or bool(caption)
+        caption_has_title = self.data.get("caption_has_title")
+        is_valid = bool(label) or bool(caption_has_title)
+
         obtained = []
         if label:
             obtained.append(f"label={label}")
-        if caption:
-            obtained.append(f"caption={caption}")
+        if caption_has_title:
+            obtained.append("caption with title")
         obtained_str = ", ".join(obtained) if obtained else None
+
         advice = f'Add <label> or <caption> with <title> inside {self.xml}. Consult SPS documentation for more detail.'
 
         return build_response(
