@@ -33,8 +33,6 @@ class SupplementaryMaterial(LabelAndCaption):
         if self.graphic is not None and hasattr(self.graphic, name):
             return getattr(self.graphic, name)
 
-
-
         raise AttributeError(f"SupplementaryMaterial has no attribute {name}")
 
     @property
@@ -68,7 +66,9 @@ class SupplementaryMaterial(LabelAndCaption):
                 "id": self.id,
                 "parent_suppl_mat": self.parent_tag,
                 "sec_type": self.sec_type,
-                "visual_elem": "media" if self.media else "graphic",
+                # FIX Problema 3: quando has_content=False, visual_elem era "graphic"
+                # em vez de None, mascarando o diagnóstico de validate_content.
+                "visual_elem": "media" if self.media else ("graphic" if self.graphic else None),
                 "suppl_label": suppl_label,
                 "suppl_caption": suppl_caption,
                 "has_content": self.has_content,
