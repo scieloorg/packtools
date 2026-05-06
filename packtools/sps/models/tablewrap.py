@@ -39,6 +39,23 @@ class TableWrap:
         return ""
 
     @property
+    def caption_has_title(self):
+        """
+        Checks whether <caption> contains a <title> child element.
+
+        A <title/> (empty) is structurally valid per SPS documentation and counts
+        as present. Returns False only when <caption> is absent entirely or when
+        <caption> has no <title> child at all.
+
+        Returns:
+            bool: True if <caption><title> exists (even if empty), False otherwise.
+        """
+        caption_element = self.element.find(".//caption")
+        if caption_element is not None:
+            return caption_element.find("title") is not None
+        return False
+
+    @property
     def table_wrap_foot(self):
         table_wrap_foot_elem = self.element.find(".//table-wrap-foot")
         if table_wrap_foot_elem is None:
@@ -149,6 +166,7 @@ class TableWrap:
             "table_wrap_id": self.table_wrap_id,
             "label": self.label,
             "caption": self.caption,
+            "caption_has_title": self.caption_has_title,
             "footnotes": self.table_wrap_foot,
             "alternative_elements": self.alternative_elements,
             "table": self.table,
