@@ -395,7 +395,7 @@ class ReferenceValidationTest(TestCase):
         
         self.assertEqual("CRITICAL", result["response"])
         self.assertEqual("journal", result["got_value"])
-        self.assertEqual(["book"], result["expected_value"])
+        self.assertEqual("one of ['book']", result["expected_value"])
         self.assertEqual("B1 (journal) : Complete publication-type=\"\" in <element-citation publication-type=\"\"> with valid value: ['book']", result["advice"])
 
     # Testes para validate_comment_is_required_or_not
