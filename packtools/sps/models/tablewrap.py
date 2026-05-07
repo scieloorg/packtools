@@ -31,7 +31,7 @@ class TableWrap:
 
     @property
     def caption(self):
-        caption_element = self.element.find(".//caption")
+        caption_element = self.element.find("caption")
         if caption_element is not None:
             return ET.tostring(
                 caption_element, encoding="unicode", method="text"
@@ -50,7 +50,7 @@ class TableWrap:
         Returns:
             bool: True if <caption><title> exists (even if empty), False otherwise.
         """
-        caption_element = self.element.find(".//caption")
+        caption_element = self.element.find("caption")
         if caption_element is not None:
             return caption_element.find("title") is not None
         return False
