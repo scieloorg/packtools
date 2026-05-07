@@ -116,7 +116,7 @@ class PermissionsValidation:
             parent=self._parent,
             item="article-meta",
             sub_item="permissions",
-            validation_type="value",
+            validation_type="uniqueness",
             is_valid=False,
             expected="exactly 1 <permissions> element",
             obtained=f"{count} <permissions> elements",
