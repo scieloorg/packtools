@@ -48,6 +48,7 @@ class ProductValidation:
         Validate presence of @product-type attribute (CRITICAL).
 
         SPS Rule: @product-type is mandatory in all <product> elements.
+        Distinguishes between attribute absent and attribute present but empty.
 
         Returns
         -------
@@ -58,10 +59,17 @@ class ProductValidation:
         product_type = self.data.get("product_type")
         is_valid = bool(product_type and product_type.strip())
 
-        advice_text = _(
-            'Add @product-type attribute to <product>.'
-            ' Expected value: "book"'
-        )
+        # Distinguish between absent attribute and present-but-empty attribute
+        # to produce a more accurate advice message.
+        if product_type is None:
+            advice_text = _(
+                'Add @product-type="book" attribute to <product>.'
+            )
+        else:
+            advice_text = _(
+                '@product-type is present but empty.'
+                ' Set the value to "book".'
+            )
         advice_params = {}
 
         return build_response(
@@ -82,10 +90,12 @@ class ProductValidation:
 
     def validate_product_type_value(self):
         """
-        Validate that @product-type has value "book" (ERROR).
+        Validate that @product-type has an allowed value (ERROR).
 
         SPS Rule: @product-type must be "book" for book reviews.
         Only runs when @product-type is present (non-empty).
+        Advice text is derived from the configured product_type_list so
+        it remains accurate if the list is extended.
 
         Returns
         -------
@@ -103,8 +113,7 @@ class ProductValidation:
         is_valid = product_type in expected_values
 
         advice_text = _(
-            'Replace @product-type="{product_type}" with "book".'
-            " Valid values: {allowed_values}"
+            'Replace @product-type="{product_type}" with one of: {allowed_values}.'
         )
         advice_params = {
             "product_type": product_type,
