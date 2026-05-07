@@ -18,8 +18,8 @@ XML_LANG = "{http://www.w3.org/XML/1998/namespace}lang"
 
 # Default valid CC-BY URL patterns
 DEFAULT_VALID_LICENSE_URL_PATTERNS = [
-    "https://creativecommons.org/licenses/by/",
-    "http://creativecommons.org/licenses/by/",
+    "https://creativecommons.org/licenses/by/4.0/",
+    "http://creativecommons.org/licenses/by/4.0/",
 ]
 
 # Default language-to-deed mapping
