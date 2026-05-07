@@ -346,7 +346,7 @@ class PermissionsValidation:
                 # Copyright is optional; skip if not present
                 continue
 
-            statement_text = statement.text or ""
+            statement_text = "".join(statement.itertext())
             copyright_year = perm_node.find("copyright-year")
 
             # Check if statement mentions a year (4 consecutive digits)
