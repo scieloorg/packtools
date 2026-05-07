@@ -380,8 +380,8 @@ class LangLinkConsistencyTest(TestCase):
         xmltree = _make_xmltree(xml)
         validator = PermissionsValidation(xmltree)
         results = list(validator.validate_lang_link_consistency())
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "ERROR")
+        # URL without deed suffix is always valid: CC resolves language automatically
+        self.assertEqual(len(results), 0)
 
     def test_missing_lang_skipped(self):
         xml = """
