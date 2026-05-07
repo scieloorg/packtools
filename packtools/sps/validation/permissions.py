@@ -301,6 +301,14 @@ class PermissionsValidation:
                 # Missing attributes are handled by other validations
                 continue
 
+            # URL without any deed suffix is always valid: CC resolves language automatically
+            has_any_deed = any(
+                href.endswith(d) or href.endswith(d + "/")
+                for d in lang_to_deed.values()
+            )
+            if not has_any_deed:
+                continue
+
             expected_deed = lang_to_deed.get(lang)
             if expected_deed is None:
                 # Language not in the mapping, skip consistency check
