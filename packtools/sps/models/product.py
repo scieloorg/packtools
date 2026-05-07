@@ -57,7 +57,7 @@ class ArticleProducts:
         dict
             Dictionary containing product information:
             - product_type: Value of @product-type attribute
-            - source: Text content of <source> element
+            - source: Text content of <source> element (inline markup flattened)
             - has_author: Whether <person-group person-group-type="author"> exists
             - has_publisher_name: Whether <publisher-name> exists
             - has_year: Whether <year> exists
@@ -76,10 +76,11 @@ class ArticleProducts:
         for product in self.xmltree.xpath(".//front/article-meta/product"):
             product_type = product.get("product-type")
 
+            # Use itertext() to preserve text across inline markup (e.g. <italic>, <bold>)
             source_elem = product.find("source")
             source = None
             if source_elem is not None:
-                source = (source_elem.text or "").strip()
+                source = "".join(source_elem.itertext()).strip()
 
             person_groups = [
                 pg.get("person-group-type")
@@ -91,12 +92,14 @@ class ArticleProducts:
                 for pg in product.findall("person-group")
             )
 
+            # Use itertext() for publisher-name: may contain inline markup (e.g. abbreviations in <italic>)
             publisher_name_elem = product.find("publisher-name")
             has_publisher_name = (
                 publisher_name_elem is not None
-                and bool((publisher_name_elem.text or "").strip())
+                and bool("".join(publisher_name_elem.itertext()).strip())
             )
 
+            # year, isbn, publisher-loc and size are strictly textual by spec; .text is sufficient
             year_elem = product.find("year")
             has_year = year_elem is not None and bool((year_elem.text or "").strip())
 
