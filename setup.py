@@ -24,6 +24,8 @@ INSTALL_REQUIRES = [
     'Pillow',
     'openpyxl>=3.1.5',
     'python-docx>=1.1.2',
+    'pypdf>=3.0.0',
+    'reportlab>=3.6.0',
 ]
 
 
@@ -85,6 +87,7 @@ setup(
             "package_optimiser=packtools.package_optimiser:main",
             "package_maker=packtools.package_maker:main",
             "pdf_generator=packtools.sps.formats.pdf_generator:main",
+            "crossmark_pdf=packtools.sps.formats.pdf.crossmark:main",
         ]
     }
 )
