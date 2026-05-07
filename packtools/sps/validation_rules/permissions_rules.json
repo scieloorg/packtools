@@ -12,8 +12,8 @@
         "copyright_structure_error_level": "WARNING",
         "expected_license_type": "open-access",
         "valid_license_url_patterns": [
-            "https://creativecommons.org/licenses/by/",
-            "http://creativecommons.org/licenses/by/"
+            "https://creativecommons.org/licenses/by/4.0/",
+            "http://creativecommons.org/licenses/by/4.0/"
         ],
         "lang_to_deed": {
             "pt": "deed.pt",
