@@ -35,8 +35,8 @@ class ArticleXrefValidation:
 
         self.xrefs_by_rid = self.xml_cross_refs.xrefs_by_rid()
 
-        ids = set(self.xml_cross_refs.elems_by_id("*").keys())
-        rids = set(self.xrefs_by_rid.keys())
+        ids = {elem_id for elem_id in self.xml_cross_refs.elems_by_id("*").keys() if elem_id}
+        rids = {rid for rid in self.xrefs_by_rid.keys() if rid}
 
         self.missing_xrefs = list(ids - rids)
         self.missing_elems = list(rids - ids)
@@ -296,15 +296,17 @@ class ArticleXrefValidation:
             if has_text:
                 continue
             rid = xref_data.get("rid", "")
+            xml_str = xref_data.get("xml", "")
+            is_already_self_closing = xml_str.strip().endswith("/>")
             yield build_response(
                 title="xref aff self-closing",
                 parent=self._parent,
                 item="xref",
                 sub_item="@ref-type",
                 validation_type="format",
-                is_valid=False,
+                is_valid=is_already_self_closing,
                 expected=f'<xref ref-type="aff" rid="{rid}"/>',
-                obtained=xref_data.get("xml", ""),
+                obtained=xml_str,
                 advice=f'For @ref-type="aff" without text content, use self-closing: <xref ref-type="aff" rid="{rid}"/>',
                 data=xref_data,
                 error_level=error_level,
@@ -324,6 +326,8 @@ class ArticleXrefValidation:
         """
         elements_by_id = self.xml_cross_refs.elems_by_id("*")
         for rid, xrefs in self.xrefs_by_rid.items():
+            if not rid:
+                continue
             for xref in xrefs:
                 element_data = elements_by_id.get(rid)
                 is_valid = bool(element_data)
@@ -373,6 +377,8 @@ class ArticleXrefValidation:
 
         for element_name in elements_requires_xref_rid:
             for id_val, elems in self.xml_cross_refs.elems_by_id(element_name).items():
+                if not id_val:
+                    continue
                 for elem_data in elems:
                     tag = elem_data.get("tag")
                     xrefs = xrefs_by_rid.get(id_val)
@@ -447,6 +453,8 @@ class ArticleXrefValidation:
         error_level = self.params["attrib_name_and_value_requires_xref_error_level"]
 
         for elem_id, elems in self.xml_cross_refs.elems_by_id(attribs=attribs).items():
+            if not elem_id:
+                continue
             for elem_data in elems:
                 tag = elem_data.get("tag")
 

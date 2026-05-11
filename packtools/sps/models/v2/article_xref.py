@@ -163,8 +163,8 @@ class XMLCrossReference:
             xref = Xref(xref_node)
             data = xref.data
             data["xml"] = xref.xml
-            # Check if element has text content (for self-closing detection)
-            content = " ".join(xref_node.xpath(".//text()")).strip()
+            # Reuse content already extracted in Xref.data to avoid redundant XPath call
+            content = (data.get("content") or "").strip()
             data["has_text_content"] = bool(content)
             result.append(data)
         return result

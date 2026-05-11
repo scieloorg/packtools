@@ -681,7 +681,7 @@ class TestValidateAffSelfClosing(TestCase):
         validator = ArticleXrefValidation(xml_tree)
         results = list(validator.validate_aff_self_closing())
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "INFO")
+        self.assertEqual(results[0]["response"], "OK")
 
     def test_aff_empty_not_self_closing(self):
         xml_tree = etree.fromstring(
@@ -696,7 +696,7 @@ class TestValidateAffSelfClosing(TestCase):
         validator = ArticleXrefValidation(xml_tree)
         results = list(validator.validate_aff_self_closing())
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "INFO")
+        self.assertEqual(results[0]["response"], "OK")
 
     def test_non_aff_not_validated(self):
         xml_tree = etree.fromstring(
