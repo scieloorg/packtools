@@ -1,0 +1,43 @@
+{
+    "xref_rules": {
+        "xref_rid_error_level": "ERROR",
+        "element_id_error_level": "ERROR",
+        "attrib_name_and_value_requires_xref_error_level": "CRITICAL",
+        "rid_presence_error_level": "CRITICAL",
+        "ref_type_presence_error_level": "CRITICAL",
+        "ref_type_value_error_level": "ERROR",
+        "bibr_presence_error_level": "ERROR",
+        "rid_id_correspondence_error_level": "ERROR",
+        "transcript_xref_error_level": "WARNING",
+        "aff_self_closing_error_level": "INFO",
+        "elements_requires_xref_rid": [
+            "fig",
+            "disp-formula",
+            "table-wrap",
+            "ref",
+            "aff",
+            "corresp"
+        ],
+        "attrib_name_and_value_requires_xref": [
+            {"name": "sec-type", "value": "transcript"}
+        ],
+        "ref_type_list": [
+            "aff",
+            "app",
+            "author-notes",
+            "bibr",
+            "bio",
+            "boxed-text",
+            "contrib",
+            "corresp",
+            "disp-formula",
+            "fig",
+            "fn",
+            "list",
+            "sec",
+            "supplementary-material",
+            "table",
+            "table-fn"
+        ]
+    }
+}
