@@ -104,7 +104,13 @@ class TestVisualResourceBase(unittest.TestCase):
             "tag": "media",
             "xml": '<media xmlns:ns0="http://www.w3.org/1999/xlink" id="media1" mimetype="video" mime-subtype="mp4" '
                    'ns0:href="1234-5678-scie-58-e1043-md1.mp4"/>',
-            "xref_sec_rid": None
+            "xref_sec_rid": None,
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+            "parent_tag": "supplementary-material",
+            "parent_label": "Supplementary material 1",
+            "parent_caption_title": "Video 1",
+            "long_desc_count": 0,
         }
         self.assertDictEqual(resource_1.data, expected_data_1)
 
@@ -116,6 +122,12 @@ class TestVisualResourceBase(unittest.TestCase):
             "xml": '<media xmlns:ns0="http://www.w3.org/1999/xlink" id="media2" mimetype="application" mime-subtype="xlsx" '
                    'ns0:href="1234-5678-scie-58-e1043-md2.xlsx"/>',
             "xref_sec_rid": None,
+            "mimetype": "application",
+            "mime_subtype": "xlsx",
+            "parent_tag": "supplementary-material",
+            "parent_label": "Supplementary material 3",
+            "parent_caption_title": "Spreadsheet 1",
+            "long_desc_count": 0,
         }
         self.assertDictEqual(resource_2.data, expected_data_2)
 

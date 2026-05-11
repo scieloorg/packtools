@@ -99,7 +99,7 @@
         -->
         <xsl:apply-templates select="label"/>
         <xsl:if test="label and title"> &#160; </xsl:if>
-        <xsl:apply-templates select="title"/>
+        <xsl:apply-templates select="title[1]"/>
         <xsl:if test="not(label) and not(title)">
             <xsl:apply-templates select="." mode="generated-label"/>
         </xsl:if>

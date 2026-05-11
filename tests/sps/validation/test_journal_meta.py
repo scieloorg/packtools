@@ -32,24 +32,56 @@ class ISSNTest(TestCase):
 
         expected = [
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="ppub">0103-5053</issn>',
                 'got_value': '<issn pub-type="ppub">0103-5053</issn>',
-                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5053</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn>, expected <issn pub-type="ppub">0103-5053</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="ppub">0103-5053</issn>',
+                    'expected': '<issn pub-type="ppub">0103-5053</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="epub">1678-4790</issn>',
                 'got_value': '<issn pub-type="epub">1678-4790</issn>',
-                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="epub">1678-4790</issn>, expected <issn pub-type="epub">1678-4790</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="epub">1678-4790</issn>',
+                    'expected': '<issn pub-type="epub">1678-4790</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             }
         ]
         for i, item in enumerate(obtained):
@@ -67,24 +99,56 @@ class ISSNTest(TestCase):
 
         expected = [
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': '<issn pub-type="ppub">0103-5054</issn>',
                 'got_value': '<issn pub-type="ppub">0103-5053</issn>',
-                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5054</issn>',
-                'advice': 'Provide an ISSN value as expected: <issn pub-type="ppub">0103-5054</issn>'
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn>, expected <issn pub-type="ppub">0103-5054</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="ppub">0103-5053</issn>',
+                    'expected': '<issn pub-type="ppub">0103-5054</issn>',
+                },
+                'advice': 'Mark print ISSN with <issn pub-type="ppub">0103-5054</issn> inside <journal-meta>',
+                'adv_text': 'Mark print ISSN with <issn pub-type="ppub">0103-5054</issn> inside <journal-meta>',
+                'adv_params': {},
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': '<issn pub-type="epub">1678-4791</issn>',
                 'got_value': '<issn pub-type="epub">1678-4790</issn>',
-                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4791</issn>',
-                'advice': 'Provide an ISSN value as expected: <issn pub-type="epub">1678-4791</issn>'
+                'message': 'Got <issn pub-type="epub">1678-4790</issn>, expected <issn pub-type="epub">1678-4791</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="epub">1678-4790</issn>',
+                    'expected': '<issn pub-type="epub">1678-4791</issn>',
+                },
+                'advice': 'Mark electronic ISSN with <issn pub-type="epub">1678-4791</issn> inside <journal-meta>',
+                'adv_text': 'Mark electronic ISSN with <issn pub-type="epub">1678-4791</issn> inside <journal-meta>',
+                'adv_params': {},
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             }
         ]
         for i, item in enumerate(obtained):
@@ -113,14 +177,24 @@ class AcronymTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'title': 'Journal acronym',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-id',
+                'sub_item': '@journal-id-type="publisher-id"',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'hcsm',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcsm',
-                'advice': None
+                'message': 'Got hcsm, expected hcsm',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {'obtained': 'hcsm', 'expected': 'hcsm'},
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {'acronym': 'hcsm'},
             }
         ]
         obtained = self.acronym.acronym_validation('hcsm')
@@ -132,14 +206,24 @@ class AcronymTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'title': 'Journal acronym',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-id',
+                'sub_item': '@journal-id-type="publisher-id"',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'hcs',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcs',
-                'advice': 'Provide an acronym value as expected: hcs'
+                'message': 'Got hcsm, expected hcs',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {'obtained': 'hcsm', 'expected': 'hcs'},
+                'advice': 'Mark journal acronym with <journal-id journal-id-type="publisher-id">hcs</journal-id> inside <journal-meta>',
+                'adv_text': 'Mark journal acronym with <journal-id journal-id-type="publisher-id">hcs</journal-id> inside <journal-meta>',
+                'adv_params': {},
+                'data': {'acronym': 'hcsm'},
             }
         ]
         obtained = self.acronym.acronym_validation('hcs')
@@ -173,14 +257,30 @@ class TitleTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
+                'title': 'Journal title',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-title-group',
+                'sub_item': 'journal-title',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'História, Ciências, Saúde-Manguinhos',
                 'got_value': 'História, Ciências, Saúde-Manguinhos',
-                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde-Manguinhos',
-                'advice': None
+                'message': 'Got História, Ciências, Saúde-Manguinhos, expected História, Ciências, Saúde-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'História, Ciências, Saúde-Manguinhos',
+                    'expected': 'História, Ciências, Saúde-Manguinhos',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos',
+                },
             }
         ]
         obtained = self.title.journal_title_validation('História, Ciências, Saúde-Manguinhos')
@@ -192,14 +292,30 @@ class TitleTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
+                'title': 'Journal title',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-title-group',
+                'sub_item': 'journal-title',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'História, Ciências, Saúde Manguinhos',
                 'got_value': 'História, Ciências, Saúde-Manguinhos',
-                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde Manguinhos',
-                'advice': 'Provide a journal title value as expected: História, Ciências, Saúde Manguinhos'
+                'message': 'Got História, Ciências, Saúde-Manguinhos, expected História, Ciências, Saúde Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'História, Ciências, Saúde-Manguinhos',
+                    'expected': 'História, Ciências, Saúde Manguinhos',
+                },
+                'advice': 'Mark journal title with <journal-title> inside <journal-title-group>',
+                'adv_text': 'Mark journal title with <journal-title> inside <journal-title-group>',
+                'adv_params': {},
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos',
+                },
             }
         ]
         obtained = self.title.journal_title_validation('História, Ciências, Saúde Manguinhos')
@@ -223,7 +339,14 @@ class TitleTest(TestCase):
                 'expected_value': 'Hist. cienc. saude-Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
                 'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Hist. cienc. saude-Manguinhos',
+                    'expected': 'Hist. cienc. saude-Manguinhos',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'main': 'História, Ciências, Saúde-Manguinhos',
                     'abbreviated': 'Hist. cienc. saude-Manguinhos'
@@ -251,7 +374,14 @@ class TitleTest(TestCase):
                 'expected_value': 'Hist. cienc. saude Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
                 'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude Manguinhos',
-                'advice': 'Provide a journal title value as expected: Hist. cienc. saude Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Hist. cienc. saude-Manguinhos',
+                    'expected': 'Hist. cienc. saude Manguinhos',
+                },
+                'advice': 'Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
+                'adv_text': 'Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
+                'adv_params': {},
                 'data': {
                     'main': 'História, Ciências, Saúde-Manguinhos',
                     'abbreviated': 'Hist. cienc. saude-Manguinhos'
@@ -306,7 +436,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -318,7 +448,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -331,7 +468,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -343,7 +480,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fund. Oswaldo Cruz',
-                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fund. Oswaldo Cruz',
+                },
+                'advice': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_text': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -356,7 +500,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -368,11 +512,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -384,7 +535,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'UNESP',
                 'got_value': 'UNESP',
                 'message': 'Got UNESP, expected UNESP',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'UNESP',
+                    'expected': 'UNESP',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -397,7 +555,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -409,11 +567,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fund. Oswaldo Cruz',
-                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fund. Oswaldo Cruz',
+                },
+                'advice': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_text': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -425,7 +590,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'UNIFESP',
                 'got_value': 'UNESP',
                 'message': 'Got UNESP, expected UNIFESP',
-                'advice': 'Provide the expected publisher name: UNIFESP',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'UNESP',
+                    'expected': 'UNIFESP',
+                },
+                'advice': 'Mark publisher name with <publisher><publisher-name>UNIFESP</publisher-name></publisher> inside <journal-meta>',
+                'adv_text': 'Mark publisher name with <publisher><publisher-name>UNIFESP</publisher-name></publisher> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -438,7 +610,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -450,11 +622,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -466,7 +645,14 @@ class PublisherTest(TestCase):
                 'expected_value': ['Fundação Oswaldo Cruz'],
                 'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'message': "Got ['Fundação Oswaldo Cruz', 'UNESP'], expected ['Fundação Oswaldo Cruz']",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': ['Fundação Oswaldo Cruz', 'UNESP'],
+                    'expected': ['Fundação Oswaldo Cruz'],
+                },
                 'advice': 'Remove the following items from the XML: UNESP',
+                'adv_text': 'Remove the following items from the XML: UNESP',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -479,7 +665,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -491,11 +677,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -507,7 +700,14 @@ class PublisherTest(TestCase):
                 'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'got_value': ['Fundação Oswaldo Cruz'],
                 'message': "Got ['Fundação Oswaldo Cruz'], expected ['Fundação Oswaldo Cruz', 'UNESP']",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': ['Fundação Oswaldo Cruz'],
+                    'expected': ['Fundação Oswaldo Cruz', 'UNESP'],
+                },
                 'advice': 'Complete the following items in the XML: UNESP',
+                'adv_text': 'Complete the following items in the XML: UNESP',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -536,7 +736,7 @@ class JournalIdValidationTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal ID element validation',
+                'title': 'Journal ID',
                 'parent': 'article',
                 'parent_article_type': "research-article",
                 'parent_id': None,
@@ -548,7 +748,14 @@ class JournalIdValidationTest(TestCase):
                 'expected_value': 'Rev Saude Publica',
                 'got_value': 'Rev Saude Publica',
                 'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Rev Saude Publica',
+                    'expected': 'Rev Saude Publica',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -561,7 +768,7 @@ class JournalIdValidationTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal ID element validation',
+                'title': 'Journal ID',
                 'parent': 'article',
                 'parent_article_type': "research-article",
                 'parent_id': None,
@@ -573,7 +780,14 @@ class JournalIdValidationTest(TestCase):
                 'expected_value': 'Rev de Saude Publica',
                 'got_value': 'Rev Saude Publica',
                 'message': 'Got Rev Saude Publica, expected Rev de Saude Publica',
-                'advice': 'Provide an nlm-ta value as expected: Rev de Saude Publica',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Rev Saude Publica',
+                    'expected': 'Rev de Saude Publica',
+                },
+                'advice': 'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">Rev de Saude Publica</journal-id> inside <journal-meta>',
+                'adv_text': 'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">Rev de Saude Publica</journal-id> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -612,44 +826,102 @@ class JournalMetaValidationTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="ppub">0103-5053</issn>',
                 'got_value': '<issn pub-type="ppub">0103-5053</issn>',
-                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5053</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn>, expected <issn pub-type="ppub">0103-5053</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="ppub">0103-5053</issn>',
+                    'expected': '<issn pub-type="ppub">0103-5053</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="epub">1678-4790</issn>',
                 'got_value': '<issn pub-type="epub">1678-4790</issn>',
-                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="epub">1678-4790</issn>, expected <issn pub-type="epub">1678-4790</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="epub">1678-4790</issn>',
+                    'expected': '<issn pub-type="epub">1678-4790</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'title': 'Journal acronym',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'journal-id',
+                'sub_item': '@journal-id-type="publisher-id"',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'hcsm',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcsm',
-                'advice': None
+                'message': 'Got hcsm, expected hcsm',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {'obtained': 'hcsm', 'expected': 'hcsm'},
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {'acronym': 'hcsm'},
             },
             {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
+                'title': 'Journal title',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'journal-title-group',
+                'sub_item': 'journal-title',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'História, Ciências, Saúde-Manguinhos',
                 'got_value': 'História, Ciências, Saúde-Manguinhos',
-                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde-Manguinhos',
-                'advice': None
+                'message': 'Got História, Ciências, Saúde-Manguinhos, expected História, Ciências, Saúde-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'História, Ciências, Saúde-Manguinhos',
+                    'expected': 'História, Ciências, Saúde-Manguinhos',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos',
+                },
             },
             {
                 'title': 'Abbreviated journal title element validation',
@@ -664,14 +936,21 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Hist. cienc. saude-Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
                 'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Hist. cienc. saude-Manguinhos',
+                    'expected': 'Hist. cienc. saude-Manguinhos',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'main': 'História, Ciências, Saúde-Manguinhos',
                     'abbreviated': 'Hist. cienc. saude-Manguinhos'
                 },
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -683,11 +962,18 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'got_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz, expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                    'expected': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Journal ID element validation',
+                'title': 'Journal ID',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -699,7 +985,14 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Rev Saude Publica',
                 'got_value': 'Rev Saude Publica',
                 'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Rev Saude Publica',
+                    'expected': 'Rev Saude Publica',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -718,3 +1011,478 @@ class JournalMetaValidationTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
+
+
+class JournalMetaPresenceTest(TestCase):
+    """Tests for JournalMetaPresenceValidation class"""
+    
+    def test_validate_journal_meta_presence_success(self):
+        """Test journal-meta presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+        self.assertEqual(result[0]['validation_type'], 'exist')
+
+    def test_validate_journal_meta_presence_failure(self):
+        """Test journal-meta presence validation when element is missing"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+        self.assertIsNotNone(result[0]['advice'])
+
+    def test_validate_journal_meta_uniqueness_success(self):
+        """Test journal-meta uniqueness validation when exactly one exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_uniqueness())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+        self.assertEqual(result[0]['data']['count'], 1)
+
+    def test_validate_journal_meta_uniqueness_failure_multiple(self):
+        """Test journal-meta uniqueness validation when multiple exist"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test1</journal-id>
+                    </journal-meta>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test2</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_uniqueness())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+        self.assertEqual(result[0]['data']['count'], 2)
+
+    def test_validate_publisher_id_presence_success(self):
+        """Test publisher-id presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">bjmbr</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_publisher_id_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+        self.assertEqual(result[0]['data']['publisher_id'], 'bjmbr')
+
+    def test_validate_publisher_id_presence_failure(self):
+        """Test publisher-id presence validation when element is missing"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="nlm-ta">Test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_publisher_id_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+
+    def test_validate_journal_title_presence_success(self):
+        """Test journal-title presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-title-group>
+                            <journal-title>Test Journal</journal-title>
+                        </journal-title-group>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_title_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+    def test_validate_abbrev_journal_title_presence_success(self):
+        """Test abbreviated journal title presence validation"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-title-group>
+                            <abbrev-journal-title abbrev-type="publisher">Test J.</abbrev-journal-title>
+                        </journal-title-group>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_abbrev_journal_title_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+    def test_validate_issn_presence_success(self):
+        """Test ISSN presence validation when at least one exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_issn_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+    def test_validate_issn_presence_failure(self):
+        """Test ISSN presence validation when none exist"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_issn_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+
+    def test_validate_publisher_name_presence_success(self):
+        """Test publisher-name presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <publisher>
+                            <publisher-name>Test Publisher</publisher-name>
+                        </publisher>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_publisher_name_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+
+class ISSNFormatTest(TestCase):
+    """Tests for ISSNFormatValidation class"""
+    
+    def test_validate_issn_format_valid_standard(self):
+        """Test ISSN format validation with valid standard format"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="ppub">0103-5053</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertEqual(result['response'], 'OK')
+            self.assertEqual(result['validation_type'], 'format')
+
+    def test_validate_issn_format_valid_with_x(self):
+        """Test ISSN format validation with X as check digit"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-567X</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'OK')
+
+    def test_validate_issn_format_invalid_no_hyphen(self):
+        """Test ISSN format validation with missing hyphen"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">12345678</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_format_invalid_wrong_length(self):
+        """Test ISSN format validation with wrong length"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">123-456</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_format_invalid_lowercase_x(self):
+        """Test ISSN format validation rejects lowercase x (must be uppercase X)"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-567x</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+
+
+
+class JournalMetaAttributeTest(TestCase):
+    """Tests for JournalMetaAttributeValidation class"""
+    
+    def test_validate_journal_id_type_valid(self):
+        """Test journal-id-type validation with valid values"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">bjmbr</journal-id>
+                        <journal-id journal-id-type="nlm-ta">Rev Test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_journal_id_type_values())
+        
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertEqual(result['response'], 'OK')
+
+    def test_validate_journal_id_type_invalid(self):
+        """Test journal-id-type validation with invalid value"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="invalid-type">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_journal_id_type_values())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_pub_type_valid(self):
+        """Test ISSN pub-type validation with valid values"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="ppub">0103-5053</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_pub_type_values())
+        
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertEqual(result['response'], 'OK')
+
+    def test_validate_issn_pub_type_invalid(self):
+        """Test ISSN pub-type validation with invalid value"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="online">1234-5678</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_pub_type_values())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_type_uniqueness_success(self):
+        """Test ISSN type uniqueness with unique types"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="ppub">0103-5053</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_type_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'OK')
+
+    def test_validate_issn_type_uniqueness_failure(self):
+        """Test ISSN type uniqueness with duplicate types"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="epub">8765-4321</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_type_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'WARNING')
+        self.assertIn('epub', results[0]['data']['duplicates'])
