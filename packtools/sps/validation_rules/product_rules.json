@@ -1,0 +1,12 @@
+{
+    "product_rules": {
+        "product_type_presence_error_level": "CRITICAL",
+        "product_type_value_error_level": "ERROR",
+        "source_presence_error_level": "CRITICAL",
+        "article_type_consistency_error_level": "ERROR",
+        "author_presence_error_level": "WARNING",
+        "publisher_name_presence_error_level": "WARNING",
+        "year_presence_error_level": "WARNING",
+        "product_type_list": ["book"]
+    }
+}

@@ -162,6 +162,10 @@ def validate_xml_content(xmltree, rules):
         "items": xml_validations.validate_graphics(xmltree, params),
     }
     yield {
+        "group": "product",
+        "items": xml_validations.validate_products(xmltree, params),
+    }
+    yield {
         "group": "permissions",
         "items": xml_validations.validate_permissions(xmltree, params),
     }
