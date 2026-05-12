@@ -86,7 +86,9 @@ class ArticleSecs:
         return self.xmltree.find(".").get("article-type")
 
     def _get_secs_from_node(self, node, parent_attribs):
-        for sec_elem in node.xpath(".//sec"):
+        # Fix (Sugestão 2): usa caminhos explícitos (front, body, back) em vez de
+        # .//sec, que descia para dentro de <sub-article> e causava duplicação.
+        for sec_elem in node.xpath("./front//sec | ./body//sec | ./back//sec"):
             yield Sec(sec_elem, parent_attribs).data
 
     @property
@@ -112,10 +114,32 @@ class ArticleSecs:
                     yield Sec(sec_elem, parent_attribs).data
 
     @property
+    def first_level_back_secs(self):
+        """Get only first-level <sec> elements inside <back>."""
+        for node in self.xmltree.xpath(
+            ". | ./sub-article[@article-type='translation']"
+        ):
+            fulltext = Fulltext(node)
+            parent_attribs = fulltext.attribs_parent_prefixed
+            back = fulltext.back
+            if back is not None:
+                for sec_elem in back.findall("sec"):
+                    yield Sec(sec_elem, parent_attribs).data
+
+    @property
     def body_sec_types(self):
         """Get all sec-type values from first-level body secs."""
         return [
             sec["sec_type"]
             for sec in self.first_level_body_secs
+            if sec.get("sec_type")
+        ]
+
+    @property
+    def back_sec_types(self):
+        """Get all sec-type values from first-level back secs."""
+        return [
+            sec["sec_type"]
+            for sec in self.first_level_back_secs
             if sec.get("sec_type")
         ]
