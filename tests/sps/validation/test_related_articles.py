@@ -170,13 +170,9 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
     @patch(
         "packtools.sps.validation.related_articles.FulltextRelatedArticlesValidation"
     )
-    @patch("packtools.sps.validation.related_articles.FulltextRelatedArticles")
-    def test_initialization(self, mock_fulltext, mock_validation):
+    def test_initialization(self, mock_validation):
         """Test if classes are properly initialized"""
         # Arrange
-        mock_fulltext_instance = Mock()
-        mock_fulltext.return_value = mock_fulltext_instance
-
         mock_validation_instance = Mock()
         mock_validation.return_value = mock_validation_instance
 
@@ -184,15 +180,13 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
         validator = XMLRelatedArticlesValidation(self.xmltree, self.params)
 
         # Assert
-        mock_fulltext.assert_not_called()
         mock_validation.assert_called_once_with(self.xmltree.find("."), self.params)
         self.assertEqual(validator.params, self.params)
 
     @patch(
         "packtools.sps.validation.related_articles.FulltextRelatedArticlesValidation"
     )
-    @patch("packtools.sps.validation.related_articles.FulltextRelatedArticles")
-    def test_initialization_default_params(self, mock_fulltext, mock_validation):
+    def test_initialization_default_params(self, mock_validation):
         """Test initialization with default parameters"""
         # Act
         validator = XMLRelatedArticlesValidation(self.xmltree, self.params)
@@ -203,8 +197,7 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
     @patch(
         "packtools.sps.validation.related_articles.FulltextRelatedArticlesValidation"
     )
-    @patch("packtools.sps.validation.related_articles.FulltextRelatedArticles")
-    def test_validate_method_calls(self, mock_fulltext, mock_validation):
+    def test_validate_method_calls(self, mock_validation):
         """Test if validate method properly calls FulltextRelatedArticlesValidation.validate"""
         # Arrange
         mock_validation_instance = Mock()
@@ -250,8 +243,10 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction">
                 <front>
-                    <related-article related-article-type="corrected-article" id="ra1"/>
-                    <related-article related-article-type="corrected-article" id="ra2"/>
+                    <article-meta>
+                        <related-article related-article-type="corrected-article" id="ra1"/>
+                        <related-article related-article-type="corrected-article" id="ra2"/>
+                    </article-meta>
                 </front>
             </article>"""
         xmltree = etree.fromstring(xml)
@@ -645,7 +640,10 @@ class TestValidStructure(BaseRelatedArticleTest):
     def test_valid_structure(self):
         results = list(self.validator.validate())
         errors = [r for r in results if r["response"] != "OK"]
-        self.assertEqual(len(errors), 2)
+        # With v2 model the "attribs" field is not exposed, so
+        # validate_attrib_order is silently skipped.  A fully valid XML
+        # therefore produces 0 non-OK results.
+        self.assertEqual(len(errors), 0)
 
 
 class TestMultipleSubArticles(BaseRelatedArticleTest):

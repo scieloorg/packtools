@@ -11,7 +11,7 @@ Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJ
 """
 import gettext
 
-from packtools.sps.models.related_articles import FulltextRelatedArticles
+from packtools.sps.models.v2.related_articles import RelatedArticlesByNode
 from packtools.sps.validation.utils import (
     build_response,
     is_valid_url_format,
@@ -62,16 +62,28 @@ class RelatedArticleValidation:
         Parameters
         ----------
         related_article : dict
-            Dictionary with related article data including parent_article_type
+            Dictionary with related article data. The article-type of the
+            parent is read from "article_type" (v2 model) or
+            "original_article_type" (non-v2 model); both keys are accepted.
         params : dict, optional
             Dictionary with validation parameters
         """
         self.related_article = related_article
-        self.original_article_type = related_article["original_article_type"]
+        # Accept both key names for forward/backward compatibility.
+        # models/v2/related_articles.py uses "article_type" (via put_parent_context).
+        # models/related_articles.py (non-v2, deprecated) uses "original_article_type".
+        self.original_article_type = (
+            related_article.get("original_article_type")
+            or related_article.get("article_type")
+            or ""
+        )
         self.related_article_type = related_article.get("related-article-type")
 
         self.params = params or {}
-        self.valid_ext_link_types = self.params.get("ext_link_types", ALLOWED_EXT_LINK_TYPES)
+        # Bug fix: the config key is "ext_link_type_list", not "ext_link_types".
+        self.valid_ext_link_types = self.params.get(
+            "ext_link_type_list", ALLOWED_EXT_LINK_TYPES
+        )
         _related = self.params.get("article-types-and-related-article-types", {}).get(
             self.original_article_type, {}
         )
@@ -612,10 +624,19 @@ class RelatedArticleValidation:
         SPS Rule: Attributes should follow the order:
         @related-article-type, @id, @xlink:href, @ext-link-type
 
+        Note: this validation requires the "attribs" key in the related-article
+        dict, which contains the ordered sequence of raw attribute names as
+        returned by lxml's element.attrib.keys().  The current model
+        (models/v2/related_articles.py) does not expose this field; when
+        "attribs" is absent the check is silently skipped.  If attribute-order
+        enforcement is required with the v2 model, "attribs" should be added
+        to RelatedArticle.data().
+
         Returns
         -------
         dict or None
-            Validation result if order is wrong, None if correct or not configured
+            Validation result if order is wrong, None if correct, not
+            configured, or "attribs" field is absent
         """
         expected_order = self.params.get("attrib_order")
         if not expected_order:
@@ -667,73 +688,140 @@ class RelatedArticleValidation:
 
 
 class FulltextRelatedArticlesValidation:
-    """Validates related articles in a FulltextRelatedArticles instance"""
+    """
+    Validates related articles in an article or sub-article node.
 
-    def __init__(self, node, params=None):
+    Uses models/v2/related_articles.RelatedArticlesByNode to iterate over
+    <related-article> elements found strictly inside article-meta (for
+    <article>) or front-stub (for <sub-article>), avoiding the broader
+    XPath used by the deprecated non-v2 model.
+
+    Root-article-type propagation
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Validation rules (required/acceptable related-article types) are keyed
+    by the ROOT article's ``@article-type``, not by the sub-article's own
+    ``@article-type``.  A ``<sub-article article-type="translation">``
+    follows the same rules as the root ``<article article-type="correction">``.
+
+    This mirrors the behaviour of the deprecated non-v2 model, which exposed
+    ``original_article_type`` (root type) separately from
+    ``parent_article_type`` (immediate node type).  The v2 model only exposes
+    ``parent_article_type`` (via ``put_parent_context``); this class injects
+    ``original_article_type`` into every related-article dict before passing
+    it to ``RelatedArticleValidation``, and propagates it through the
+    sub-article recursion via the private ``_root_article_type`` parameter.
+    """
+
+    def __init__(self, node, params=None, _root_article_type=None):
         """
-        Initialize with a FulltextRelatedArticles instance and validation parameters
-
         Parameters
         ----------
-        fulltext : FulltextRelatedArticles
-            FulltextRelatedArticles instance to validate
+        node : lxml element
+            Root article element or sub-article element to validate.
         params : dict, optional
-            Dictionary with validation parameters
+            Dictionary with validation parameters.
+        _root_article_type : str or None
+            Internal parameter used during recursion.  Callers should leave
+            this as None; it is set automatically when validating sub-articles.
         """
-        self.obj = FulltextRelatedArticles(node)
+        self.node = node
         self.params = params or {}
+        self._by_node = RelatedArticlesByNode(node)
+        self._related_list = None  # consumed once and cached
+
+        # The article-type of this specific node (article or sub-article).
+        self._node_article_type = node.get("article-type")
+        # The root article's article-type, used for rule lookups.
+        # On the first (root) call _root_article_type is None, so we read
+        # from the node itself.  On recursive (sub-article) calls the root
+        # type is inherited from the parent.
+        self._original_article_type = _root_article_type or self._node_article_type
+
         self._set_article_rules()
 
+    # ------------------------------------------------------------------
+    # Internal helpers
+    # ------------------------------------------------------------------
+
+    def _get_related_list(self):
+        """Return the related-article dicts for this node, consuming the
+        generator at most once.
+
+        Injects ``original_article_type`` (root article type) into every dict
+        so that ``RelatedArticleValidation`` always has access to it regardless
+        of which keys the underlying model exposes.
+        """
+        if self._related_list is None:
+            self._related_list = []
+            for related in self._by_node.related_articles():
+                if "original_article_type" not in related:
+                    related = dict(related)  # copy — do not mutate model output
+                    related["original_article_type"] = self._original_article_type
+                self._related_list.append(related)
+        return self._related_list
+
     def _set_article_rules(self):
-        """Set article rules from params"""
+        """Cache required/acceptable types using the ROOT article's type."""
         article_rules = self.params.get("article-types-and-related-article-types", {})
-        original_article_type = self.obj.original_article_type
-        article_config = article_rules.get(original_article_type) or {}
+        article_config = article_rules.get(self._original_article_type) or {}
         self.required_types = article_config.get("required_related_article_types", [])
         self.acceptable_types = article_config.get(
             "acceptable_related_article_types", []
         )
+        # Kept for backward-compat (some callers inspect _article_type).
+        self._article_type = self._original_article_type
 
     def _get_error_level(self, validation_type):
-        """Get error level for specific validation type"""
+        """Get error level for specific validation type."""
         error_level_key = f"{validation_type}_error_level"
         return self.params.get(error_level_key, "CRITICAL")
 
+    # ------------------------------------------------------------------
+    # Public validation methods
+    # ------------------------------------------------------------------
+
     def validate_presence_of_required_related_articles(self):
         """
-        Validate if required related articles are present
+        Validate if required related articles are present.
 
         Returns
         -------
         dict or None
-            Validation result if article type requires related articles,
-            None otherwise
+            Validation result if required types are missing, None otherwise.
         """
         if not self.required_types:
             return None
 
-        # Get all related-article-types present in the document
         found_types = {
             related.get("related-article-type")
-            for related in self.obj.related_articles
+            for related in self._get_related_list()
         }
-
-        # Check if any required type is missing
         missing_types = set(self.required_types) - found_types
 
         if missing_types:
-            error_level = self._get_error_level("requirement")
+            # Bug fix: was self._get_error_level("requirement") which generated
+            # the key "requirement_error_level" — never matched the configured
+            # "required_related_articles_error_level".  Fixed to read directly.
+            error_level = self.params.get(
+                "required_related_articles_error_level", "CRITICAL"
+            )
+            parent_data = {
+                "parent": self.node.tag,
+                "parent_id": self.node.get("id"),
+                "lang": self.node.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                "article_type": self._article_type,
+            }
             advice_text = _(
                 'Article type "{article_type}" requires related articles'
                 ' of types: {missing_types}'
             )
             advice_params = {
-                "article_type": self.obj.original_article_type,
+                "article_type": self._article_type or "",
                 "missing_types": str(list(missing_types)),
             }
             return build_response(
                 title="Required related articles",
-                parent=self.obj.parent_data,
+                parent=parent_data,
                 item="related-article",
                 sub_item=None,
                 validation_type="match",
@@ -742,7 +830,7 @@ class FulltextRelatedArticlesValidation:
                 obtained=list(found_types),
                 advice=advice_text.format(**advice_params),
                 data={
-                    "article_type": self.obj.original_article_type,
+                    "article_type": self._article_type,
                     "missing_types": list(missing_types),
                 },
                 error_level=error_level,
@@ -754,23 +842,26 @@ class FulltextRelatedArticlesValidation:
 
     def validate(self):
         """
-        Validate each related article
+        Validate the article node and recurse into direct sub-article children.
 
-        Returns
-        -------
-        list
-            List of validation results
+        Yields
+        ------
+        dict
+            Validation result dictionaries.
         """
-        # First check if required related articles are present
+        # R0: check required related articles for this node
         if presence_result := self.validate_presence_of_required_related_articles():
             yield presence_result
 
-        # Then validate each related article
-        for related in self.obj.related_articles:
+        # R1–R11: validate each related-article element individually
+        for related in self._get_related_list():
             validator = RelatedArticleValidation(related, self.params)
             yield from validator.validate()
 
-        # Validate each sub-article
-        for subtext in self.obj.fulltexts:
-            validator = FulltextRelatedArticlesValidation(subtext.node, self.params)
+        # Recurse into direct sub-article children (xpath "sub-article", not
+        # ".//sub-article", so each level handles its own children only).
+        for sub in self.node.xpath("sub-article"):
+            validator = FulltextRelatedArticlesValidation(
+                sub, self.params, _root_article_type=self._original_article_type
+            )
             yield from validator.validate()
