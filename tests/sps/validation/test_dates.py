@@ -1254,3 +1254,201 @@ class TestFullValidXml(TestCase):
         results = list(validator.validate())
         non_ok = [r for r in results if r["response"] != "OK"]
         self.assertEqual(0, len(non_ok), f"Expected all OK: {[(r['title'], r['response']) for r in non_ok]}")
+
+
+class TestHistoryValidationRegression(TestCase):
+    """Regression tests para o bug de esgotamento de generator em history_dates.
+
+    Contexto do bug:
+        FulltextDatesValidation.__init__ chamava list(self.fulltext.history_dates),
+        esgotando o generator armazenado pelo @cached_property. Acessos subsequentes
+        via history_dates_dict → ordered_events → date_types_ordered_by_date
+        recebiam o mesmo generator vazio, retornando [] mesmo quando o artigo
+        possuía datas de histórico. Resultado: falsos negativos em validate_history_order
+        e validate_history_events (unexpected), e falso positivo em validate_history_events
+        (missing) reportando todos os eventos como ausentes.
+
+    Correção aplicada:
+        self.history_dates = self.fulltext.history_dates_list
+        (cached_property que retorna lista; o generator é esgotado uma única vez
+        ao popular history_dates_list, e todos os acessos posteriores usam a lista cacheada)
+    """
+
+    def _make_params(self, required_events=None):
+        return {
+            "parent": {"parent": "article"},
+            "required_events": required_events if required_events is not None else [],
+            "pre_pub_ordered_events": [
+                "preprint", "received", "rev-request", "rev-recd", "revised", "accepted"
+            ],
+            "pos_pub_ordered_events": [
+                "pub", "resubmitted", "corrected", "retracted"
+            ],
+            "required_history_events_for_article_type": {},
+            "required_history_events_for_related_article_type": {},
+        }
+
+    def _article_xml(self, history_block=""):
+        """Monta um <article> mínimo válido com bloco de histórico opcional."""
+        return f"""
+        <article article-type="research-article" xml:lang="pt">
+            <front>
+                <article-meta>
+                    <pub-date publication-format="electronic" date-type="pub">
+                        <day>15</day><month>06</month><year>2025</year>
+                    </pub-date>
+                    <pub-date publication-format="electronic" date-type="collection">
+                        <year>2025</year>
+                    </pub-date>
+                    {history_block}
+                </article-meta>
+            </front>
+        </article>
+        """
+
+    # ------------------------------------------------------------------
+    # Regressão: date_types_ordered_by_date não pode ser [] quando há histórico
+    # ------------------------------------------------------------------
+
+    def test_date_types_ordered_by_date_populated_after_init(self):
+        """Regressão: date_types_ordered_by_date deve refletir os eventos reais do histórico.
+
+        Antes da correção, list(self.fulltext.history_dates) no __init__ esgotava o
+        generator cacheado, fazendo date_types_ordered_by_date = [] mesmo com datas presentes.
+        """
+        history = """
+            <history>
+                <date date-type="received">
+                    <year>2025</year><month>01</month><day>10</day>
+                </date>
+                <date date-type="accepted">
+                    <year>2025</year><month>03</month><day>20</day>
+                </date>
+            </history>
+        """
+        tree = etree.fromstring(self._article_xml(history))
+        validator = FulltextDatesValidation(tree, self._make_params())
+
+        self.assertIn(
+            "received",
+            validator.date_types_ordered_by_date,
+            "received deve aparecer em date_types_ordered_by_date (regressão do bug de generator)",
+        )
+        self.assertIn(
+            "accepted",
+            validator.date_types_ordered_by_date,
+            "accepted deve aparecer em date_types_ordered_by_date (regressão do bug de generator)",
+        )
+        self.assertEqual(2, len(validator.date_types_ordered_by_date))
+
+    # ------------------------------------------------------------------
+    # R12 — validate_history_order
+    # ------------------------------------------------------------------
+
+    def test_history_order_correct(self):
+        """R12: received → accepted em ordem cronológica deve ser OK."""
+        history = """
+            <history>
+                <date date-type="received">
+                    <year>2025</year><month>01</month><day>10</day>
+                </date>
+                <date date-type="accepted">
+                    <year>2025</year><month>03</month><day>20</day>
+                </date>
+            </history>
+        """
+        tree = etree.fromstring(self._article_xml(history))
+        validator = FulltextDatesValidation(tree, self._make_params())
+        results = list(validator.validate_history_order())
+        self.assertEqual(1, len(results))
+        self.assertEqual("OK", results[0]["response"])
+
+    def test_history_order_incorrect(self):
+        """R12: accepted (2025-01-10) antes de received (2025-03-20) deve ser CRITICAL.
+
+        O modelo ordena pelo campo display (string ISO), portanto accepted com data
+        anterior a received aparece primeiro em date_types_ordered_by_date,
+        violando a subsequência esperada [received, ..., accepted].
+        """
+        history = """
+            <history>
+                <date date-type="accepted">
+                    <year>2025</year><month>01</month><day>10</day>
+                </date>
+                <date date-type="received">
+                    <year>2025</year><month>03</month><day>20</day>
+                </date>
+            </history>
+        """
+        tree = etree.fromstring(self._article_xml(history))
+        validator = FulltextDatesValidation(tree, self._make_params())
+        results = list(validator.validate_history_order())
+        self.assertEqual(1, len(results))
+        self.assertEqual("CRITICAL", results[0]["response"])
+
+    # ------------------------------------------------------------------
+    # R13 / R14 — validate_history_events
+    # ------------------------------------------------------------------
+
+    def test_unexpected_event_detected(self):
+        """R13: evento não reconhecido deve gerar CRITICAL em 'unexpected events'."""
+        history = """
+            <history>
+                <date date-type="received">
+                    <year>2025</year><month>01</month><day>10</day>
+                </date>
+                <date date-type="unknown-event">
+                    <year>2025</year><month>02</month><day>01</day>
+                </date>
+                <date date-type="accepted">
+                    <year>2025</year><month>03</month><day>20</day>
+                </date>
+            </history>
+        """
+        tree = etree.fromstring(self._article_xml(history))
+        validator = FulltextDatesValidation(
+            tree, self._make_params(required_events=["received", "accepted"])
+        )
+        results = list(validator.validate_history_events())
+        unexpected = [r for r in results if r["title"] == "unexpected events"]
+        missing = [r for r in results if r["title"] == "missing events"]
+
+        self.assertEqual(1, len(unexpected))
+        self.assertEqual("CRITICAL", unexpected[0]["response"],
+                         "unknown-event deve disparar CRITICAL em unexpected events")
+        self.assertIn("unknown-event", unexpected[0]["advice"])
+
+        # received e accepted estão presentes → missing events deve ser OK
+        self.assertEqual(1, len(missing))
+        self.assertEqual("OK", missing[0]["response"],
+                         "Eventos obrigatórios presentes: missing events deve ser OK")
+
+    def test_missing_only_absent_events(self):
+        """R14: missing events deve listar apenas os eventos realmente ausentes.
+
+        Antes da correção, o bug fazia date_types_ordered_by_date = [], de modo que
+        missing_events = required_events completo, mesmo quando parte dos eventos
+        estava presente. Após a correção, apenas 'accepted' deve aparecer como ausente.
+        """
+        history = """
+            <history>
+                <date date-type="received">
+                    <year>2025</year><month>01</month><day>10</day>
+                </date>
+            </history>
+        """
+        tree = etree.fromstring(self._article_xml(history))
+        validator = FulltextDatesValidation(
+            tree, self._make_params(required_events=["received", "accepted"])
+        )
+        results = list(validator.validate_history_events())
+        missing = [r for r in results if r["title"] == "missing events"]
+
+        self.assertEqual(1, len(missing))
+        self.assertEqual("CRITICAL", missing[0]["response"])
+
+        # Verificar via missing_events (propriedade estruturada, não a string do advice)
+        self.assertIn("accepted", validator.missing_events,
+                      "'accepted' deve constar em missing_events")
+        self.assertNotIn("received", validator.missing_events,
+                         "'received' está presente no histórico e não deve aparecer em missing_events")

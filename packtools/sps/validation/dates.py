@@ -56,8 +56,8 @@ class DateValidation:
             "format_error_level": "CRITICAL",
             "limit_error_level": "CRITICAL",
             # Event ordering configuration
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "pre_pub_ordered_events": ["preprint", "received", "rev-request", "rev-recd", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "resubmitted", "corrected", "retracted"],
             # Parent reference for validation responses
             "parent": None,
             # Date limits
@@ -201,7 +201,13 @@ class FulltextDatesValidation:
             params: Optional dictionary of validation parameters
         """
         self.fulltext = FulltextDates(node)
-        self.history_dates = list(self.fulltext.history_dates)
+
+        # FIX: usar history_dates_list (cached_property que retorna lista) em vez de
+        # list(history_dates), que esgota o generator armazenado em @cached_property.
+        # Esgotar o generator via list() faz com que history_dates_dict, ordered_events e
+        # date_types_ordered_by_date recebam o generator já vazio, resultando em [] para
+        # todos os acessos subsequentes, mesmo quando o artigo possui datas de histórico.
+        self.history_dates = self.fulltext.history_dates_list
 
         # Initialize default params and update with provided params
         self.params = self._get_default_params()
@@ -246,10 +252,14 @@ class FulltextDatesValidation:
             "pub_date_uniqueness_error_level": "ERROR",
             "day_value_error_level": "ERROR",
             "month_value_error_level": "ERROR",
-            # Event lists
+            # Event lists — alinhados com article_dates_rules.json
             "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "pre_pub_ordered_events": [
+                "preprint", "received", "rev-request", "rev-recd", "revised", "accepted"
+            ],
+            "pos_pub_ordered_events": [
+                "pub", "resubmitted", "corrected", "retracted"
+            ],
             # Required events mappings
             "required_history_events_for_article_type": {},
             "required_history_events_for_related_article_type": {},
@@ -429,7 +439,7 @@ class FulltextDatesValidation:
         )
 
     def validate_pub_date_uniqueness(self):
-        """Rule 8: Validate exactly one pub-date per date-type."""
+        """Rule 7: Validate exactly one pub-date per date-type."""
         nodes_by_type = self.fulltext.pub_date_nodes_by_type
         for date_type in ("pub", "collection"):
             count = len(nodes_by_type.get(date_type, []))
@@ -449,7 +459,7 @@ class FulltextDatesValidation:
             )
 
     def validate_day_month_values(self):
-        """Rule 9: Validate day (01-31) and month (01-12) numeric ranges."""
+        """Rule 8: Validate day (00-31) and month (00-12) numeric ranges."""
         for date_data in self.fulltext.pub_dates:
             date_type = date_data.get("type")
             day = date_data.get("day")
@@ -543,9 +553,10 @@ class FulltextDatesValidation:
 
     @property
     def expected_events(self):
-        # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
         s = set(self.date_types_ordered_by_date) - set(self.unexpected_events)
-        s.union(self.required_date_types)
+        # FIX: set.union() retorna um novo set e não modifica s in-place.
+        # A linha anterior era s.union(self.required_date_types), cujo retorno era ignorado.
+        s |= set(self.required_date_types)
         return self.get_events_ordered_by_date(s)
 
     @property
