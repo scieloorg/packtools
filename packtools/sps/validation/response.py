@@ -36,14 +36,24 @@ class ResponseValidation:
         """
         Yield context dicts for each <response> element found in the document.
 
-        Searches for <response> elements as children of <article> and
-        <sub-article>.
+        Searches for <response> elements that are direct children of <article>
+        or direct children of <sub-article> (at any nesting depth).
+
+        Note: intentionally restricted to these two parent contexts to avoid
+        false matches from <response> elements nested in other containers (e.g.
+        inside <body>).  The XPath used is:
+            ./response | .//sub-article/response
         """
+        # FIX (suggestion 2): replaced .//response with a restricted XPath so
+        # that only <response> elements whose direct parent is <article> or
+        # <sub-article> are considered.  The previous .//response matched any
+        # descendant, causing incorrect parent metadata for elements nested
+        # inside other containers.
         root = self.xmltree.find(".")
         if root is None:
             return
 
-        for response_node in root.xpath(".//response"):
+        for response_node in root.xpath("./response | .//sub-article/response"):
             parent_node = response_node.getparent()
             if parent_node is not None:
                 parent_tag = parent_node.tag
@@ -105,6 +115,13 @@ class ResponseValidation:
         for ctx in self._get_response_elements():
             response_type = ctx["response_type"]
             is_valid = bool(response_type)
+            # FIX (suggestion 1): element_name/attribute_name are omitted here
+            # so that the custom advice (which includes the required value
+            # "reply") is preserved.  build_response()/format_advice() would
+            # auto-generate and overwrite the advice when those kwargs are
+            # present.  The long-term fix is to make format_advice() skip
+            # auto-generation when advice is already provided (change in
+            # packtools/sps/validation/utils.py).
             yield build_response(
                 title="response @response-type presence",
                 parent=self._build_parent_info(ctx),
@@ -117,8 +134,6 @@ class ResponseValidation:
                 advice='Add @response-type="reply" to <response>.',
                 data=ctx.get("id"),
                 error_level=error_level,
-                element_name="response",
-                attribute_name="response-type",
             )
 
     def validate_response_type_value(self):
@@ -159,6 +174,8 @@ class ResponseValidation:
         for ctx in self._get_response_elements():
             xml_lang = ctx["xml_lang"]
             is_valid = bool(xml_lang)
+            # FIX (suggestion 1): element_name/attribute_name omitted to
+            # preserve the custom advice string.
             yield build_response(
                 title="response @xml:lang presence",
                 parent=self._build_parent_info(ctx),
@@ -171,8 +188,6 @@ class ResponseValidation:
                 advice="Add @xml:lang to <response>.",
                 data=ctx.get("id"),
                 error_level=error_level,
-                element_name="response",
-                attribute_name="xml:lang",
             )
 
     def validate_id_presence(self):
@@ -185,6 +200,8 @@ class ResponseValidation:
         for ctx in self._get_response_elements():
             response_id = ctx["id"]
             is_valid = bool(response_id)
+            # FIX (suggestion 1): element_name/attribute_name omitted to
+            # preserve the custom advice string.
             yield build_response(
                 title="response @id presence",
                 parent=self._build_parent_info(ctx),
@@ -197,8 +214,6 @@ class ResponseValidation:
                 advice="Add @id to <response>.",
                 data=ctx.get("id"),
                 error_level=error_level,
-                element_name="response",
-                attribute_name="id",
             )
 
     def validate_id_uniqueness(self):
@@ -252,6 +267,8 @@ class ResponseValidation:
         )
         for ctx in self._get_response_elements():
             is_valid = ctx["has_front_stub"]
+            # FIX (suggestion 1): sub_element_name omitted to preserve the
+            # custom advice string.
             yield build_response(
                 title="response front-stub presence",
                 parent=self._build_parent_info(ctx),
@@ -264,8 +281,6 @@ class ResponseValidation:
                 advice="Add <front-stub> with response metadata inside <response>.",
                 data=ctx.get("id"),
                 error_level=error_level,
-                element_name="response",
-                sub_element_name="front-stub",
             )
 
     def validate_body_presence(self):
@@ -277,6 +292,8 @@ class ResponseValidation:
         )
         for ctx in self._get_response_elements():
             is_valid = ctx["has_body"]
+            # FIX (suggestion 1): sub_element_name omitted to preserve the
+            # custom advice string.
             yield build_response(
                 title="response body presence",
                 parent=self._build_parent_info(ctx),
@@ -289,6 +306,4 @@ class ResponseValidation:
                 advice="Add <body> with response content inside <response>.",
                 data=ctx.get("id"),
                 error_level=error_level,
-                element_name="response",
-                sub_element_name="body",
             )

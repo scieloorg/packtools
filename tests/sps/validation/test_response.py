@@ -495,8 +495,25 @@ class TestMultipleResponses(TestCase):
         ok_results = [r for r in results if r["response"] == "OK"]
         error_results = [r for r in results if r["response"] != "OK"]
         self.assertEqual(len(error_results), 0)
-        # 7 rules × 3 responses = 21, minus uniqueness (0 issues) = at least 18
-        self.assertGreater(len(ok_results), 0)
+        # 6 rules that emit per-element results × 3 responses = 18 total.
+        # validate_id_uniqueness yields nothing when there are no duplicates,
+        # so the expected total is 18, not 21.
+        # FIX (suggestion 3): replaced assertGreater(..., 0) with exact
+        # assertEqual so regressions (missing rule outputs) are detected.
+        self.assertEqual(len(results), 18)
+        self.assertEqual(len(ok_results), 18)
+        # Verify each of the 6 emitting rules appears exactly 3 times.
+        expected_titles = [
+            "response @response-type presence",
+            "response @response-type value",
+            "response @xml:lang presence",
+            "response @id presence",
+            "response front-stub presence",
+            "response body presence",
+        ]
+        for title in expected_titles:
+            count = sum(1 for r in results if r["title"] == title)
+            self.assertEqual(count, 3, f"Expected 3 results for '{title}', got {count}")
 
     def test_no_response_elements_yields_nothing(self):
         xml = """
