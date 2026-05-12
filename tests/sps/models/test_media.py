@@ -14,9 +14,13 @@ class TestMedia(unittest.TestCase):
         # Criando sub-artigo para validar extração por ArticleAndSubArticles
         self.sub_article = SubElement(self.article, "sub-article", {"id": "sub1"})
 
-        # Adicionando <media> ao sub-artigo
+        # Media elements must be inside body/front/back for XPath extraction
+        body = SubElement(self.sub_article, "body")
+        sec = SubElement(body, "sec")
+
+        # Adicionando <media> ao body do sub-artigo
         self.media1 = SubElement(
-            self.sub_article,
+            sec,
             "media",
             {
                 "id": "media1",
@@ -27,7 +31,7 @@ class TestMedia(unittest.TestCase):
         )
 
         self.media2 = SubElement(
-            self.sub_article,
+            sec,
             "media",
             {
                 "id": "media2",
@@ -38,7 +42,7 @@ class TestMedia(unittest.TestCase):
         )
 
         # Criando parágrafo com <inline-media>
-        paragraph = SubElement(self.sub_article, "p")
+        paragraph = SubElement(sec, "p")
         self.inline_media = SubElement(
             paragraph,
             "inline-media",
@@ -98,7 +102,7 @@ class TestMedia(unittest.TestCase):
     def test_xmlmedia_generates_data(self):
         """Testa se XmlMedia gera corretamente um iterador de dicionários."""
         xml_media = XmlMedias(self.article)
-        data_list = list(xml_media.data())
+        data_list = list(xml_media.data)
 
         # Deve haver 3 elementos (2 <media> + 1 <inline-media>)
         self.assertEqual(len(data_list), 3)
@@ -125,7 +129,7 @@ class TestMedia(unittest.TestCase):
     def test_xmlmedia_handles_no_media(self):
         """Testa o comportamento quando o XML não contém mídias."""
         xml_media = XmlMedias(self.article_no_media)
-        data_list = list(xml_media.data())
+        data_list = list(xml_media.data)
 
         # Não há mídia no XML, o iterador deve ser vazio
         self.assertEqual(len(data_list), 0)

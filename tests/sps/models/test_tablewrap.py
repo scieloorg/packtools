@@ -118,6 +118,7 @@ class TableWrapTest(unittest.TestCase):
             "table_wrap_id": "t2",
             "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
             "restante do Brasil, 1918-1930 - em milhões de metros",
+            "caption_has_title": True,
             "label": "Tabela 2:",
             "footnotes": [{
                 "text": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
@@ -135,6 +136,12 @@ class TableWrapTest(unittest.TestCase):
                      '</thead>'
                      '</table>',
             "graphic": "1980-5381-neco-28-02-579-gt02.svg",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "has_tr_in_table": False,
+            "has_th_outside_thead": False,
+            "has_td_outside_tbody": False,
+            "has_tbody": False,
         }
         self.assertDictEqual(self.table_wrap_obj.data, expected_data)
 
@@ -235,6 +242,7 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "table_wrap_id": "t2",
                 "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
                 "restante do Brasil, 1918-1930 - em milhões de metros",
+                "caption_has_title": True,
                 "label": "Tabela 2:",
                 "footnotes": [{
                    "text":  "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
@@ -252,12 +260,19 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt02.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
                 "alternative_parent": "table-wrap",
                 "caption": "Produção de tecidos de algodão da Fábrica XYZ, do estado de Minas "
                 "Gerais e do restante do Brasil, 1931-1940 - em milhões de metros",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do "
                            "Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. "
@@ -277,6 +292,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt03.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
         ]
 
@@ -299,6 +320,7 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by XYZ Factory, state of Minas "
                 "Gerais and the rest of Brazil, 1941-1950 - in millions of meters",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Source: Author (2023, p. 123); MINAS GERAIS. Official Journal "
                             "of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, "
@@ -318,12 +340,19 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt04.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by ABC Factory, state of Rio de "
                 "Janeiro and the rest of Brazil, 1951-1960 - in millions of meters",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Source: Author (2023, p. 123); RIO DE JANEIRO. Official "
                             "Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; "
@@ -343,6 +372,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt05.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
         ]
 
@@ -371,6 +406,7 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "table_wrap_id": "t2",
                 "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
                 "restante do Brasil, 1918-1930 - em milhões de metros",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
                             "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
@@ -388,12 +424,19 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt02.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
                 "alternative_parent": "table-wrap",
                 "caption": "Produção de tecidos de algodão da Fábrica XYZ, do estado de Minas "
                 "Gerais e do restante do Brasil, 1931-1940 - em milhões de metros",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do "
                             "Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. "
@@ -413,12 +456,19 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt03.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by XYZ Factory, state of Minas "
                 "Gerais and the rest of Brazil, 1941-1950 - in millions of meters",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Source: Author (2023, p. 123); MINAS GERAIS. Official Journal "
                             "of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, "
@@ -438,12 +488,19 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt04.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by ABC Factory, state of Rio de "
                 "Janeiro and the rest of Brazil, 1951-1960 - in millions of meters",
+                "caption_has_title": True,
                 "footnotes": [{
                     "text": "*Source: Author (2023, p. 123); RIO DE JANEIRO. Official "
                             "Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; "
@@ -463,6 +520,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt05.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
         ]
 

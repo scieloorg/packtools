@@ -38,8 +38,6 @@
     </xsl:template>
 
     <xsl:template match="*[abstract]" mode="text-abstracts">
-        <xsl:apply-templates select="." mode="create-anchor-and-title-for-abstracts-without-title"/>
-
         <xsl:apply-templates select="abstract[not(@abstract-type)]" mode="layout"/>
         <xsl:apply-templates select="abstract[@abstract-type='key-points']" mode="layout"/>
         <xsl:apply-templates select="abstract[@abstract-type='graphical']" mode="layout"/>
@@ -54,13 +52,20 @@
     </xsl:template>
 
     <xsl:template match="*[abstract]" mode="create-anchor-and-title-for-abstracts-without-title">
+        
+    </xsl:template>
+
+    <xsl:template match="abstract[not(title)] | trans-abstract[not(title)]" mode="anchor-and-title">
         <xsl:if test="not($has_abstract_title)">
             <xsl:variable name="title">
-                <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text">
+                <xsl:apply-templates select="." mode="translate">
+                    <xsl:with-param name="term">Abstract</xsl:with-param>
+                    <xsl:with-param name="lang">
                         <xsl:choose>
-                            <xsl:when test="$total_abstracts=1">Abstract</xsl:when>
-                            <xsl:otherwise>Abstracts</xsl:otherwise>
+                            <xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
+                            <xsl:when test="../../@xml:lang"><xsl:value-of select="../../@xml:lang"/></xsl:when>
+                            <xsl:when test="../../../@xml:lang"><xsl:value-of select="../../../@xml:lang"/></xsl:when>
+                            <xsl:otherwise>en</xsl:otherwise>
                         </xsl:choose>
                     </xsl:with-param>
                 </xsl:apply-templates>
@@ -69,9 +74,6 @@
                 <xsl:with-param name="title" select="$title"/>
             </xsl:call-template>
         </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="abstract[not(title)] | trans-abstract[not(title)]" mode="anchor-and-title">
     </xsl:template>
 
     <xsl:template match="abstract[title] | trans-abstract[title]" mode="anchor-and-title">
@@ -103,7 +105,14 @@
             <xsl:apply-templates select="." mode="anchor-and-title"/>
 
             <!-- Apresenta os demais elementos do resumo -->
-            <xsl:apply-templates select="*[name()!='title']"/>
+            <xsl:choose>
+                <xsl:when test="*[position() = 1 and name() = 'title']">
+                    <xsl:apply-templates select="*[position() > 1]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="*"/>
+                </xsl:otherwise>
+            </xsl:choose>
 
             <!--
             Apresenta as palavras-chave no idioma correspondente, se aplicável

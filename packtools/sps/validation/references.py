@@ -314,7 +314,132 @@ class ReferenceValidation:
                 error_level=self.params.get("not_marked_data_error_level"),
             )
 
+    def validate_element_citation(self):
+        has_ec = self.data.get("has_element_citation", False)
+        advice = f"{self.info}: mark the structured reference with <element-citation>"
+        yield build_response(
+            title="element-citation",
+            parent=self.data,
+            item="ref",
+            sub_item="element-citation",
+            is_valid=has_ec,
+            validation_type="exist",
+            expected="element-citation",
+            obtained="element-citation" if has_ec else None,
+            advice=advice,
+            data=self.data,
+            error_level=self.params.get("element_citation_error_level", "CRITICAL"),
+        )
+
+    def validate_ext_link_count_element_citation(self):
+        count = self.data.get("ext_link_count_element_citation", 0)
+        if count > 1:
+            yield build_response(
+                title="element-citation ext-link count",
+                parent=self.data,
+                item="element-citation",
+                sub_item="ext-link",
+                is_valid=False,
+                validation_type="exist",
+                expected="at most 1 <ext-link> in <element-citation>",
+                obtained=f"{count} <ext-link> elements",
+                advice=f"{self.info}: remove extra <ext-link> from <element-citation>, keep at most one",
+                data=self.data,
+                error_level=self.params.get("ext_link_count_element_citation_error_level", "ERROR"),
+            )
+
+    def validate_ext_link_count_mixed_citation(self):
+        count = self.data.get("ext_link_count_mixed_citation", 0)
+        if count > 1:
+            yield build_response(
+                title="mixed-citation ext-link count",
+                parent=self.data,
+                item="mixed-citation",
+                sub_item="ext-link",
+                is_valid=False,
+                validation_type="exist",
+                expected="at most 1 <ext-link> in <mixed-citation>",
+                obtained=f"{count} <ext-link> elements",
+                advice=f"{self.info}: remove extra <ext-link> from <mixed-citation>, keep at most one",
+                data=self.data,
+                error_level=self.params.get("ext_link_count_mixed_citation_error_level", "ERROR"),
+            )
+
+    def validate_lpage_when_fpage(self):
+        fpage = self.data.get("fpage")
+        lpage = self.data.get("lpage")
+        if fpage and not lpage:
+            yield build_response(
+                title="lpage when fpage",
+                parent=self.data,
+                item="element-citation",
+                sub_item="lpage",
+                is_valid=False,
+                validation_type="exist",
+                expected="<lpage> when <fpage> is present",
+                obtained=f"<fpage>{fpage}</fpage> without <lpage>",
+                advice=f"{self.info}: add <lpage> because <fpage> is present",
+                data=self.data,
+                error_level=self.params.get("lpage_error_level", "ERROR"),
+            )
+
+    def validate_size_units(self):
+        size_info = self.data.get("size_info")
+        if size_info:
+            units = size_info.get("units")
+            if units != "pages":
+                yield build_response(
+                    title="size units",
+                    parent=self.data,
+                    item="element-citation",
+                    sub_item="size/@units",
+                    is_valid=False,
+                    validation_type="value",
+                    expected='<size units="pages">',
+                    obtained=f'<size units="{units}">',
+                    advice=f'{self.info}: set @units="pages" in <size>',
+                    data=self.data,
+                    error_level=self.params.get("size_units_error_level", "ERROR"),
+                )
+
+    def validate_date_in_citation_content_type(self):
+        content_type = self.data.get("date_in_citation_content_type")
+        date_in_citation = self.data.get("date_in_citation")
+        if date_in_citation and content_type != "access-date":
+            yield build_response(
+                title="date-in-citation content-type",
+                parent=self.data,
+                item="element-citation",
+                sub_item="date-in-citation/@content-type",
+                is_valid=False,
+                validation_type="value",
+                expected='<date-in-citation content-type="access-date">',
+                obtained=f'<date-in-citation content-type="{content_type}">',
+                advice=f'{self.info}: set @content-type="access-date" in <date-in-citation>',
+                data=self.data,
+                error_level=self.params.get("date_in_citation_content_type_error_level", "ERROR"),
+            )
+
+    def validate_surname_in_name(self):
+        names_without_surname = self.data.get("names_without_surname", [])
+        for name in names_without_surname:
+            yield build_response(
+                title="surname in name",
+                parent=self.data,
+                item="person-group/name",
+                sub_item="surname",
+                is_valid=False,
+                validation_type="exist",
+                expected="<surname> in <name>",
+                obtained=name,
+                advice=f"{self.info}: add <surname> to <name> in <person-group>",
+                data=self.data,
+                error_level=self.params.get("surname_error_level", "ERROR"),
+            )
+
     def validate(self):
+        yield from self.validate_element_citation()
+        yield from self.validate_mixed_citation()
         yield from self.validate_year()
         yield from self.validate_source()
         yield from self.validate_publication_type()
@@ -322,9 +447,14 @@ class ReferenceValidation:
         yield from self.validate_authors()
         yield from self.validate_comment_is_required_or_not()
         yield from self.validate_mixed_citation_sub_tags()
-        yield from self.validate_mixed_citation()
         yield from self.validate_title_tag_by_dtd_version()
         yield from self.validate_not_marked()
+        yield from self.validate_ext_link_count_element_citation()
+        yield from self.validate_ext_link_count_mixed_citation()
+        yield from self.validate_lpage_when_fpage()
+        yield from self.validate_size_units()
+        yield from self.validate_date_in_citation_content_type()
+        yield from self.validate_surname_in_name()
         # yield from self.validate_unmatched_marks()
 
 
@@ -333,7 +463,66 @@ class ReferencesValidation:
         self.xml_tree = xml_tree
         self.params = params
 
+    def _get_parent_data(self):
+        article = self.xml_tree.find(".")
+        return {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": article.get("article-type"),
+            "parent_lang": article.get("{http://www.w3.org/XML/1998/namespace}lang"),
+        }
+
+    def validate_ref_list_presence(self):
+        article_type = self.xml_tree.find(".").get("article-type")
+        exempt_types = self.params.get("ref_list_exempt_article_types", [
+            "correction", "retraction", "addendum",
+            "expression-of-concern", "reviewer-report",
+        ])
+
+        if article_type in exempt_types:
+            return
+
+        ref_lists = self.xml_tree.xpath(".//back/ref-list")
+        is_valid = len(ref_lists) > 0
+
+        yield build_response(
+            title="ref-list presence",
+            parent=self._get_parent_data(),
+            item="back",
+            sub_item="ref-list",
+            is_valid=is_valid,
+            validation_type="exist",
+            expected="<ref-list> in <back>",
+            obtained="<ref-list>" if is_valid else None,
+            advice="Add <ref-list> to <back> with at least one <ref>",
+            data=self._get_parent_data(),
+            error_level=self.params.get("ref_list_presence_error_level", "CRITICAL"),
+        )
+
+    def validate_ref_presence(self):
+        ref_lists = self.xml_tree.xpath(".//back/ref-list")
+        for ref_list in ref_lists:
+            refs = ref_list.xpath("ref")
+            is_valid = len(refs) > 0
+
+            yield build_response(
+                title="ref presence in ref-list",
+                parent=self._get_parent_data(),
+                item="ref-list",
+                sub_item="ref",
+                is_valid=is_valid,
+                validation_type="exist",
+                expected="at least one <ref> in <ref-list>",
+                obtained=f"{len(refs)} <ref> elements",
+                advice="Add at least one <ref> to <ref-list>",
+                data=self._get_parent_data(),
+                error_level=self.params.get("ref_presence_error_level", "CRITICAL"),
+            )
+
     def validate(self):
+        yield from self.validate_ref_list_presence()
+        yield from self.validate_ref_presence()
+
         xml_references = XMLReferences(self.xml_tree)
 
         for reference_data in xml_references.items:
