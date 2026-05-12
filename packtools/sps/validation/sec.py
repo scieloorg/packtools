@@ -1,4 +1,6 @@
-from packtools.sps.models.sec import ArticleSecs
+import re
+
+from packtools.sps.models.sec import ArticleSecs, VALID_SEC_TYPES, NON_COMBINABLE_SEC_TYPES
 from packtools.sps.validation.utils import build_response
 
 
@@ -43,14 +45,24 @@ class SecValidation:
         )
 
     def validate_sec_type_value(self):
-        """Rule 2: When present, @sec-type must have a valid value."""
+        """Rule 2: When present, @sec-type must have a valid value.
+
+        Fix (Sugestão 1): usa VALID_SEC_TYPES como fallback em vez de lista vazia.
+        Fix (Sugestão 3): normaliza separadores (|, espaço, vírgula) antes de
+        validar os tokens, evitando ERROR indevido quando o separador é errado
+        mas os valores são válidos. A separação de responsabilidades fica:
+          - esta regra: os *valores* são válidos?
+          - validate_combined_format: o *separador* está correto?
+        """
         sec_type = self.data.get("sec_type")
         if not sec_type:
             return None
 
-        valid_sec_types = self.params.get("valid_sec_types", [])
-        # Handle combined types (e.g. "materials|methods")
-        parts = sec_type.split("|")
+        # Fix (Sugestão 1): VALID_SEC_TYPES como fallback
+        valid_sec_types = self.params.get("valid_sec_types", VALID_SEC_TYPES)
+
+        # Fix (Sugestão 3): normaliza qualquer separador para avaliar só os tokens
+        parts = [p.strip() for p in re.split(r"[|,\s]+", sec_type) if p.strip()]
         is_valid = all(part in valid_sec_types for part in parts)
 
         return build_response(
@@ -91,13 +103,15 @@ class SecValidation:
         )
 
     def validate_combined_format(self):
-        """Rule 5: Combined sec-types must use pipe separator."""
+        """Rule 5: Combined sec-types must use pipe separator.
+
+        Responsabilidade exclusiva: verificar se o *separador* está correto.
+        A validade dos tokens é verificada em validate_sec_type_value().
+        """
         sec_type = self.data.get("sec_type")
         if not sec_type:
             return None
 
-        # Only check if it looks like a combined type (contains separator chars)
-        # If it contains spaces or commas but not pipes, it's incorrectly formatted
         has_space_separator = " " in sec_type and "|" not in sec_type
         has_comma_separator = "," in sec_type and "|" not in sec_type
 
@@ -119,14 +133,18 @@ class SecValidation:
         )
 
     def validate_non_combinable(self):
-        """Rule 6: transcript, supplementary-material, and data-availability cannot be combined."""
+        """Rule 6: transcript, supplementary-material, and data-availability cannot be combined.
+
+        Fix (Sugestão 1): usa NON_COMBINABLE_SEC_TYPES como fallback.
+        """
         sec_type = self.data.get("sec_type")
         if not sec_type or "|" not in sec_type:
             return None
 
+        # Fix (Sugestão 1): NON_COMBINABLE_SEC_TYPES como fallback
         non_combinable = self.params.get(
             "non_combinable_sec_types",
-            ["data-availability", "supplementary-material", "transcript"],
+            NON_COMBINABLE_SEC_TYPES,
         )
         parts = sec_type.split("|")
 
@@ -187,7 +205,14 @@ class XMLSecValidation:
             yield from validator.validate()
 
     def validate_data_availability_presence(self):
-        """Rule 4: Certain article types require a data-availability section."""
+        """Rule 4: Certain article types require a data-availability section.
+
+        Fix (Sugestão 4): expande a busca para além de body/sec, incluindo:
+          - <sec sec-type="data-availability"> em <back>
+          - <fn fn-type="data-availability"> em qualquer posição
+        Isso evita falso positivo ERROR em artigos válidos que declaram
+        disponibilidade de dados em <back> ou via <fn>.
+        """
         required_types = self.params.get(
             "data_availability_required_article_types",
             [
@@ -204,8 +229,18 @@ class XMLSecValidation:
         if not article_type or article_type not in required_types:
             return
 
+        # Fix (Sugestão 4): verifica body, back e fn
         body_sec_types = self.article_secs.body_sec_types
-        has_data_availability = "data-availability" in body_sec_types
+        back_sec_types = self.article_secs.back_sec_types
+        has_fn_data_availability = bool(
+            self.xmltree.xpath('.//fn[@fn-type="data-availability"]')
+        )
+
+        has_data_availability = (
+            "data-availability" in body_sec_types
+            or "data-availability" in back_sec_types
+            or has_fn_data_availability
+        )
 
         parent = {
             "parent": "article",
@@ -223,14 +258,16 @@ class XMLSecValidation:
             sub_item='@sec-type="data-availability"',
             validation_type="exist",
             is_valid=has_data_availability,
-            expected='<sec sec-type="data-availability"> in <body>',
+            expected='<sec sec-type="data-availability"> in <body> or <back>, '
+                     'or <fn fn-type="data-availability">',
             obtained=(
-                '<sec sec-type="data-availability">'
+                "data-availability present"
                 if has_data_availability
                 else "missing"
             ),
             advice=(
-                f'Add <sec sec-type="data-availability" specific-use="..."> to <body> '
+                f'Add <sec sec-type="data-availability" specific-use="..."> to <body> or <back>, '
+                f'or <fn fn-type="data-availability"> '
                 f'(required for article-type="{article_type}")'
             ),
             data=parent,
