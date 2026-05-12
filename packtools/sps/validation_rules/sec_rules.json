@@ -1,0 +1,37 @@
+{
+    "sec_rules": {
+        "title_error_level": "CRITICAL",
+        "sec_type_value_error_level": "ERROR",
+        "transcript_id_error_level": "ERROR",
+        "data_availability_error_level": "ERROR",
+        "combined_format_error_level": "WARNING",
+        "non_combinable_error_level": "WARNING",
+        "content_error_level": "WARNING",
+        "valid_sec_types": [
+            "cases",
+            "conclusions",
+            "data-availability",
+            "discussion",
+            "intro",
+            "materials",
+            "methods",
+            "results",
+            "subjects",
+            "supplementary-material",
+            "transcript"
+        ],
+        "non_combinable_sec_types": [
+            "data-availability",
+            "supplementary-material",
+            "transcript"
+        ],
+        "data_availability_required_article_types": [
+            "data-article",
+            "brief-report",
+            "case-report",
+            "rapid-communication",
+            "research-article",
+            "review-article"
+        ]
+    }
+}

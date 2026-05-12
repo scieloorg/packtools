@@ -49,6 +49,7 @@ from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.list import ArticleListValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
+from packtools.sps.validation.sec import XMLSecValidation
 from packtools.sps.validation.product import ArticleProductValidation
 from packtools.sps.validation.permissions import PermissionsValidation
 
@@ -395,6 +396,23 @@ def validate_graphics(xmltree, params):
     yield from validator.validate()
 
 
+def validate_secs(xmltree, params):
+    """
+    Validates <sec> elements according to SPS 1.10 specification.
+
+    Validates:
+    - <title> presence (accessibility requirement)
+    - @sec-type valid values
+    - @id for transcript sections
+    - data-availability section presence for required article types
+    - Combined sec-type format
+    - Non-combinable sec-types
+    - Content presence
+    """
+    sec_rules = params["sec_rules"]
+    validator = XMLSecValidation(xmltree, sec_rules)
+    
+    
 def validate_products(xmltree, params):
     """
     Validates <product> elements according to SPS 1.10 specification.
