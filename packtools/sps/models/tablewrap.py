@@ -31,12 +31,29 @@ class TableWrap:
 
     @property
     def caption(self):
-        caption_element = self.element.find(".//caption")
+        caption_element = self.element.find("caption")
         if caption_element is not None:
             return ET.tostring(
                 caption_element, encoding="unicode", method="text"
             ).strip()
         return ""
+
+    @property
+    def caption_has_title(self):
+        """
+        Checks whether <caption> contains a <title> child element.
+
+        A <title/> (empty) is structurally valid per SPS documentation and counts
+        as present. Returns False only when <caption> is absent entirely or when
+        <caption> has no <title> child at all.
+
+        Returns:
+            bool: True if <caption><title> exists (even if empty), False otherwise.
+        """
+        caption_element = self.element.find("caption")
+        if caption_element is not None:
+            return caption_element.find("title") is not None
+        return False
 
     @property
     def table_wrap_foot(self):
@@ -107,18 +124,59 @@ class TableWrap:
         return None
 
     @property
+    def has_tr_in_table(self):
+        """Check if <table> has direct <tr> children (invalid per NISO JATS)."""
+        table = self.element.find(".//table")
+        if table is not None:
+            return table.find("tr") is not None
+        return False
+
+    @property
+    def has_th_outside_thead(self):
+        """Check if <th> appears outside of <thead>."""
+        table = self.element.find(".//table")
+        if table is not None:
+            all_th = table.findall(".//th")
+            thead_th = table.findall(".//thead//th")
+            return len(all_th) > len(thead_th)
+        return False
+
+    @property
+    def has_td_outside_tbody(self):
+        """Check if <td> appears outside of <tbody>."""
+        table = self.element.find(".//table")
+        if table is not None:
+            all_td = table.findall(".//td")
+            tbody_td = table.findall(".//tbody//td")
+            return len(all_td) > len(tbody_td)
+        return False
+
+    @property
+    def has_tbody(self):
+        """Check if <table> has a <tbody> element."""
+        table = self.element.find(".//table")
+        if table is not None:
+            return table.find(".//tbody") is not None
+        return False
+
+    @property
     def data(self):
         return {
             "alternative_parent": "table-wrap",
             "table_wrap_id": self.table_wrap_id,
             "label": self.label,
             "caption": self.caption,
+            "caption_has_title": self.caption_has_title,
             "footnotes": self.table_wrap_foot,
             "alternative_elements": self.alternative_elements,
             "table": self.table,
             "graphic": self.graphic,
             "graphic_alt_text": self.graphic_alt_text,
             "graphic_long_desc": self.graphic_long_desc,
+            "has_tr_in_table": self.has_tr_in_table,
+            "has_th_outside_thead": self.has_th_outside_thead,
+            "has_td_outside_tbody": self.has_td_outside_tbody,
+            "has_tbody": self.has_tbody,
         }
 
 

@@ -5,6 +5,10 @@
 
     <xsl:include href="../v2.0/article-text-section-data-availability.xsl"/>
 
+    <xsl:template match="article | sub-article" mode="doc-version-data-availability">
+        <xsl:apply-templates select="body | back" mode="data-availability"/>
+    </xsl:template>
+
     <xsl:template match="article" mode="data-availability">
         <xsl:choose>
             <xsl:when test="body/sec[@sec-type='data-availability']">
@@ -29,9 +33,28 @@
     </xsl:template>
 
     <xsl:template match="body | back" mode="data-availability">
-        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="data-availability"/>
-        <xsl:apply-templates select="sec//sec[@sec-type='data-availability']" mode="data-availability"/>
-        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="data-availability"/>
+        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="display-data-availability"/>
+        <xsl:apply-templates select="sec//sec[@sec-type='data-availability']" mode="display-data-availability"/>
+        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="display-data-availability"/>
+    </xsl:template>
+
+    <xsl:template match="fn|sec" mode="display-data-availability">
+        <xsl:choose>
+            <xsl:when test="@id and (.//label or .//title)">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <p>
+                            <a href="#{@id}">
+                                <xsl:apply-templates select="label | title" />
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="data-availability"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="sec[@sec-type='data-availability']" mode="data-availability">
@@ -61,4 +84,22 @@
         </xsl:if>
     </xsl:template>
 
+    <xsl:template match="fn" mode="data-availability">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <xsl:apply-templates select="label| p" mode="data-availability"/>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="fn/label" mode="data-availability">
+        <p>
+            <strong><xsl:apply-templates select="*|text()"/></strong>
+        </p>
+    </xsl:template>
+    <xsl:template match="fn/p" mode="data-availability">
+        <p>
+            <xsl:apply-templates select="*|text()"/>
+        </p>
+    </xsl:template>
 </xsl:stylesheet>
