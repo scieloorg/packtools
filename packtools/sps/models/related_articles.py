@@ -1,11 +1,25 @@
 """
-<related-article ext-link-type="doi" id="A01" related-article-type="commentary-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139">
-Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en
-<italic>El coraje de la verdad</italic>
-de Foucault.
-<bold>Trans/form/ação</bold>
-: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.
-</related-article>
+.. deprecated::
+    Este módulo está deprecated. Use :mod:`packtools.sps.models.v2.related_articles`
+    (classes :class:`RelatedArticles`, :class:`RelatedArticlesByNode`,
+    :class:`RelatedArticle`).
+    Este arquivo é mantido apenas por compatibilidade com aplicações legadas
+    e não recebe novas funcionalidades.
+
+----
+
+Example XML handled by this module::
+
+    <related-article ext-link-type="doi" id="A01"
+        related-article-type="commentary-article"
+        xlink:href="10.1590/0101-3173.2022.v45n1.p139">
+        Referência do artigo comentado: FREITAS, J. H. de. Cinismo e
+        indiferenciación: la huella de Glucksmann en
+        <italic>El coraje de la verdad</italic>
+        de Foucault.
+        <bold>Trans/form/ação</bold>
+        : revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.
+    </related-article>
 """
 from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.utils.xml_utils import (
@@ -60,6 +74,10 @@ class RelatedItems:
 class FulltextRelatedArticles(Fulltext):
     """
     Processes article or sub-article node and provides methods to extract information
+
+    .. deprecated::
+        Use :class:`packtools.sps.models.v2.related_articles.RelatedArticlesByNode`
+        instead.
     """
     @property
     def parent_data(self):
