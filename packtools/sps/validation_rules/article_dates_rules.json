@@ -10,6 +10,15 @@
         "unexpected_events_error_level":"CRITICAL",
         "missing_events_error_level":"CRITICAL",
         "history_order_error_level":"CRITICAL",
+        "pub_date_presence_error_level":"CRITICAL",
+        "collection_date_presence_error_level":"CRITICAL",
+        "publication_format_error_level":"CRITICAL",
+        "pub_date_required_elements_error_level":"CRITICAL",
+        "collection_date_year_error_level":"CRITICAL",
+        "collection_date_day_error_level":"ERROR",
+        "pub_date_uniqueness_error_level":"ERROR",
+        "day_value_error_level":"ERROR",
+        "month_value_error_level":"ERROR",
         "required_events":[
             "received",
             "accepted"
@@ -49,7 +58,7 @@
             "expression-of-concern":null
         },
         "required_history_events_for_article_type": {
-            "reviewer-report": "reviewer-report-received",
+            "reviewer-report": "reviewer-report-received"
         },
         "limit_date":null
     }
