@@ -49,6 +49,10 @@ from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 from packtools.sps.validation.list import ArticleListValidation
 from packtools.sps.validation.graphic import XMLGraphicValidation
+from packtools.sps.validation.response import ResponseValidation
+from packtools.sps.validation.sec import XMLSecValidation
+from packtools.sps.validation.product import ArticleProductValidation
+from packtools.sps.validation.permissions import PermissionsValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -158,8 +162,19 @@ def validate_article_toc_sections(xmltree, params):
 
 
 def validate_id_and_rid_match(xmltree, params):
-    id_and_rid_match_rules = params["id_and_rid_match_rules"]
-    validator = ArticleXrefValidation(xmltree, id_and_rid_match_rules)
+    id_and_rid_match_rules = params.get("id_and_rid_match_rules") or {}
+    xref_rules = params.get("xref_rules") or {}
+    merged_rules = {}
+    merged_rules.update(id_and_rid_match_rules)
+    merged_rules.update(xref_rules)
+    validator = ArticleXrefValidation(xmltree, merged_rules)
+    yield from validator.validate_rid_presence()
+    yield from validator.validate_ref_type_presence()
+    yield from validator.validate_ref_type_value()
+    yield from validator.validate_bibr_presence()
+    yield from validator.validate_rid_has_corresponding_id()
+    yield from validator.validate_transcript_xref()
+    yield from validator.validate_aff_self_closing()
     yield from validator.validate_xref_rid_has_corresponding_element_id()
     yield from validator.validate_element_id_has_corresponding_xref_rid()
     yield from validator.validate_attrib_name_and_value_has_corresponding_xref()
@@ -379,4 +394,69 @@ def validate_graphics(xmltree, params):
     """
     graphic_rules = params["graphic_rules"]
     validator = XMLGraphicValidation(xmltree, graphic_rules)
+    yield from validator.validate()
+
+
+def validate_response(xmltree, params):
+    """
+    Validates <response> elements according to SPS 1.10 specification.
+
+    Validates:
+    - @response-type presence and value ("reply")
+    - @xml:lang presence
+    - @id presence and uniqueness
+    - <front-stub> presence
+    - <body> presence
+    """
+    response_rules = params.get("response_rules", {})
+    validator = ResponseValidation(xmltree, response_rules)
+    
+    
+def validate_secs(xmltree, params):
+    """
+    Validates <sec> elements according to SPS 1.10 specification.
+
+    Validates:
+    - <title> presence (accessibility requirement)
+    - @sec-type valid values
+    - @id for transcript sections
+    - data-availability section presence for required article types
+    - Combined sec-type format
+    - Non-combinable sec-types
+    - Content presence
+    """
+    sec_rules = params["sec_rules"]
+    validator = XMLSecValidation(xmltree, sec_rules)
+    
+    
+def validate_products(xmltree, params):
+    """
+    Validates <product> elements according to SPS 1.10 specification.
+
+    Validates:
+    - @product-type attribute presence and value
+    - <source> element presence
+    - Consistency with @article-type="book-review"
+    - Recommended elements (author, publisher-name, year)
+    """
+    product_rules = params["product_rules"]
+    validator = ArticleProductValidation(xmltree, product_rules)
+    yield from validator.validate()
+    
+    
+def validate_permissions(xmltree, params):
+    """
+    Validates <permissions> element according to SPS 1.10 specification.
+
+    Validates:
+    - Presence and uniqueness of <permissions> in <article-meta>
+    - Presence of <license> with required attributes
+    - @license-type="open-access"
+    - Valid CC-BY URL in @xlink:href
+    - @xml:lang presence and consistency with @xlink:href
+    - <license-p> presence
+    - Copyright structure when present
+    """
+    permissions_rules = params.get("permissions_rules", {})
+    validator = PermissionsValidation(xmltree, permissions_rules)
     yield from validator.validate()

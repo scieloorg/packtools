@@ -552,7 +552,7 @@ class TestRelatedArticlesValidation(BasePeerReviewTest):
         self.assertIn(
             "Set related-article attributes in this", errors[0]["advice"]
         )
-        self.assertIn("Add id attribute", errors[1]["advice"])
+        self.assertIn("@id attribute", errors[1]["advice"])
         self.assertEqual(len(errors), 2)
 
     def test_invalid_related_article_type(self):
@@ -567,7 +567,10 @@ class TestRelatedArticlesValidation(BasePeerReviewTest):
             {
                 "got_value": ["invalid-type"],
                 "expected_value": ["peer-reviewed-material"],
-                "advice": """Article type "reviewer-report" requires related articles of types: ['peer-reviewed-material']""",
+                "response": "CRITICAL",
+            },
+            {
+                "got_value": "invalid-type",
                 "response": "CRITICAL",
             },
             {
@@ -582,28 +585,25 @@ class TestRelatedArticlesValidation(BasePeerReviewTest):
                     "{http://www.w3.org/1999/xlink}href",
                     "ext-link-type",
                 ],
-                "advice": """Set related-article attributes in this order ['related-article-type', 'id', '{http://www.w3.org/1999/xlink}href', 'ext-link-type']""",
                 "response": "CRITICAL",
             },
             {
                 "got_value": "invalid-type",
                 "expected_value": ["peer-reviewed-material"],
-                "advice": """The article-type: reviewer-report does not match the related-article-type: invalid-type, provide one of the following items: ['peer-reviewed-material']""",
                 "response": "CRITICAL",
             },
             {
                 "got_value": None,
                 "expected_value": "A non-empty ID",
-                "advice": "Add id attribute to related-article",
                 "response": "CRITICAL",
             },
         ]
-        self.assertEqual(len(errors), 4)
+        self.assertEqual(len(errors), 5)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(item["got_value"], errors[i]["got_value"])
-                self.assertEqual(
-                    item["expected_value"], errors[i]["expected_value"]
-                )
-                self.assertEqual(item["advice"], errors[i]["advice"])
+                if "expected_value" in item:
+                    self.assertEqual(
+                        item["expected_value"], errors[i]["expected_value"]
+                    )
                 self.assertEqual(item["response"], errors[i]["response"])

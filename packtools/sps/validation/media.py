@@ -24,7 +24,7 @@ class MediaValidation(VisualResourceBaseValidation):
             item="mime type and subtype",
             sub_item=None,
             is_valid=valid,
-            validation_type="value in lis",
+            validation_type="value in list",
             expected=mime_types_and_subtypes,
             obtained=got,
             advice=f"Use expected values: {mime_types_and_subtypes}",

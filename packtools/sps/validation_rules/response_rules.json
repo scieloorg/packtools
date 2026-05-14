@@ -1,0 +1,11 @@
+{
+    "response_rules": {
+        "response_type_presence_error_level": "CRITICAL",
+        "response_type_value_error_level": "ERROR",
+        "xml_lang_presence_error_level": "CRITICAL",
+        "id_presence_error_level": "CRITICAL",
+        "id_uniqueness_error_level": "ERROR",
+        "front_stub_presence_error_level": "WARNING",
+        "body_presence_error_level": "WARNING"
+    }
+}

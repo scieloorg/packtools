@@ -81,6 +81,7 @@ class Date:
         self.month = node.findtext("month")
         self.day = node.findtext("day")
         self.type = node.get("date-type")
+        self.publication_format = node.get("publication-format")
         if not self.type:
             if node.get("pub-type") == "epub":
                 self.type = "pub"
@@ -103,6 +104,7 @@ class Date:
         _date = {}
         _date.update(self.parts)
         _date["type"] = self.type
+        _date["publication_format"] = self.publication_format
         _date["display"] = self.display
         _date["is_complete"] = bool(self.date)
         _date["parts"] = self.parts
@@ -354,6 +356,30 @@ class FulltextDates(Fulltext):
         if self.epub_date:
             _dates.append(self.epub_date)
         return _dates
+
+    @cached_property
+    def all_pub_date_nodes(self):
+        """Get all pub-date elements from the front matter.
+
+        Returns:
+            list: List of Date instances for each pub-date element
+        """
+        try:
+            return [Date(node) for node in self.front.xpath(".//pub-date")]
+        except AttributeError:
+            return []
+
+    @cached_property
+    def pub_date_nodes_by_type(self):
+        """Get pub-date elements grouped by date-type.
+
+        Returns:
+            dict: Mapping of date-type to list of Date instances
+        """
+        result = {}
+        for date_obj in self.all_pub_date_nodes:
+            result.setdefault(date_obj.type, []).append(date_obj)
+        return result
 
     @cached_property
     def history_dates(self):
