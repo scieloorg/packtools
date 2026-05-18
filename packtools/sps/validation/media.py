@@ -1,6 +1,6 @@
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.visual_resource_base import VisualResourceBaseValidation
-from packtools.sps.models.media import XmlMedias
+from packtools.sps.validation.models.media import XmlMedias
 
 
 class MediaValidation(VisualResourceBaseValidation):

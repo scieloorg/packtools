@@ -196,26 +196,21 @@ class Figs:
             yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
 
 
-class ArticleFigs:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
+import warnings as _warnings
 
-    @property
-    def get_all_figs(self):
-        yield from self.get_article_figs
-        yield from self.get_sub_article_translation_figs
-        yield from self.get_sub_article_non_translation_figs
 
-    @property
-    def get_article_figs(self):
-        yield from Figs(self.xml_tree.find(".")).figs()
-
-    @property
-    def get_sub_article_translation_figs(self):
-        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
-            yield from Figs(node).figs()
-
-    @property
-    def get_sub_article_non_translation_figs(self):
-        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
-            yield from Figs(node).figs()
+def __getattr__(name):
+    _moved = {
+        "ArticleFigs": "packtools.sps.validation.models.fig",
+    }
+    if name in _moved:
+        import importlib
+        _warnings.warn(
+            f"{name} has moved to {_moved[name]}. "
+            f"Importing from packtools.sps.models.fig is deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        mod = importlib.import_module(_moved[name])
+        return getattr(mod, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

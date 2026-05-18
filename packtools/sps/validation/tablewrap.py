@@ -1,4 +1,4 @@
-from packtools.sps.models.tablewrap import ArticleTableWrappers
+from packtools.sps.validation.models.tablewrap import ArticleTableWrappers
 from packtools.sps.validation.utils import build_response
 
 

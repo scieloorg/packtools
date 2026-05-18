@@ -1,4 +1,4 @@
-from packtools.sps.models.article_data_availability import DataAvailability
+from packtools.sps.validation.models.article_data_availability import DataAvailability
 from packtools.sps.validation.exceptions import ValidationDataAvailabilityException
 from packtools.sps.validation.utils import build_response
 

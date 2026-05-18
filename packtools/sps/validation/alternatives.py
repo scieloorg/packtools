@@ -3,7 +3,7 @@ from gettext import gettext as _
 
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.exceptions import ValidationAlternativesException
-from packtools.sps.models import fig, formula, tablewrap
+from packtools.sps.validation.models import fig, formula, tablewrap
 
 
 class AlternativeValidation:

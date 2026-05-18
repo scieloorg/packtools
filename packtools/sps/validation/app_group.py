@@ -1,4 +1,4 @@
-from packtools.sps.models.app_group import XmlAppGroup
+from packtools.sps.validation.models.app_group import XmlAppGroup
 from packtools.sps.validation.utils import build_response
 
 

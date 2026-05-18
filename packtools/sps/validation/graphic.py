@@ -1,7 +1,7 @@
 import os
 from packtools.sps.validation.visual_resource_base import VisualResourceBaseValidation
 from packtools.sps.validation.utils import build_response
-from packtools.sps.models.graphic import XmlGraphic
+from packtools.sps.validation.models.graphic import XmlGraphic
 
 
 class GraphicValidation(VisualResourceBaseValidation):

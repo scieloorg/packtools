@@ -1,4 +1,4 @@
-from packtools.sps.models.v2.abstract import XMLAbstracts
+from packtools.sps.validation.models.abstract import XMLAbstracts
 from packtools.sps.validation.utils import build_response
 import gettext
 

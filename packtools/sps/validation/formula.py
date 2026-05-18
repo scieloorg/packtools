@@ -1,7 +1,7 @@
 import logging
 from gettext import gettext as _
 
-from packtools.sps.models.formula import ArticleFormulas
+from packtools.sps.validation.models.formula import ArticleFormulas
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.xml_validator_rules import get_group_rules
 

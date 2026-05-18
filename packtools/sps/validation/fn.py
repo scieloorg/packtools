@@ -1,4 +1,4 @@
-from packtools.sps.models.fn import XMLFns
+from packtools.sps.validation.models.fn import XMLFns
 from packtools.sps.validation.basefn import BaseFnValidation
 from packtools.sps.validation.utils import build_response
 

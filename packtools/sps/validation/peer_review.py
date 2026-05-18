@@ -1,4 +1,4 @@
-from packtools.sps.models.peer_review import PeerReview
+from packtools.sps.validation.models.peer_review import PeerReview
 from packtools.sps.validation.article_contribs import ContribValidation
 
 from packtools.sps.validation.related_articles import (
