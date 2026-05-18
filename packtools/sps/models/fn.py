@@ -32,6 +32,7 @@ import warnings as _warnings
 def __getattr__(name):
     _moved = {
         "XMLFns": "packtools.sps.validation.models.fn",
+        "ArticleFns": "packtools.sps.validation.models.fn",
     }
     if name in _moved:
         import importlib

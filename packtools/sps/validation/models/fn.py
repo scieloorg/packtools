@@ -22,3 +22,6 @@ class XMLFns:
                 data = fulltext.attribs_parent_prefixed
                 data.update(Fn(node).data)
                 yield data
+
+
+ArticleFns = XMLFns

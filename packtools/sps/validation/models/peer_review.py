@@ -69,3 +69,6 @@ class PeerReview(Fulltext):
             for item in self.front.xpath(".//custom-meta"):
                 self._custom_meta_items.append(CustomMeta(item))
         return self._custom_meta_items
+
+
+PeerReviewValidationData = PeerReview

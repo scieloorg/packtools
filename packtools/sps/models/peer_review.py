@@ -12,6 +12,7 @@ def __getattr__(name):
     _moved = {
         "PeerReview": "packtools.sps.validation.models.peer_review",
         "CustomMeta": "packtools.sps.validation.models.peer_review",
+        "PeerReviewValidationData": "packtools.sps.validation.models.peer_review",
     }
     if name in _moved:
         import importlib
