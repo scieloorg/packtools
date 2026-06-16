@@ -55,6 +55,7 @@
     <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
+    <xsl:include href="html-modals-contrib-group.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
     <xsl:include href="html-modals-scheme.xsl"/>
