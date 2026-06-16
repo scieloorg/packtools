@@ -12,6 +12,16 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="article | sub-article" mode="contrib-group">
+        <xsl:variable name="AUTHOR_LIST_LABEL"><xsl:apply-templates select="." mode="interface">
+            <xsl:with-param name="text">Author list</xsl:with-param>
+        </xsl:apply-templates></xsl:variable>
+        <div>
+            <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
+            <ul aria-label="{$AUTHOR_LIST_LABEL}" class="author-list" id="authorList"></ul>
+        </div>
+    </xsl:template>
+
     <xsl:template match="contrib-group" mode="about-the-contrib-group-button">
         <xsl:param name="id"/>
         <!--
