@@ -6,20 +6,24 @@
     <xsl:include href="../v2.0/article-meta-contrib.xsl"/>
 
     <xsl:template match="article | sub-article" mode="contrib-group">
+        <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
         <div>
             <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
             <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
+            <xsl:apply-templates select="front | front-stub" mode="scimago-button">
+                <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="front | front-stub" mode="button-author-notes">
+                <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
 
-    <xsl:template match="article | sub-article" mode="contrib-group">
+    <xsl:template match="front | front-stub" mode="contrib-group">
         <xsl:variable name="AUTHOR_LIST_LABEL"><xsl:apply-templates select="." mode="interface">
             <xsl:with-param name="text">Author list</xsl:with-param>
         </xsl:apply-templates></xsl:variable>
-        <div>
-            <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
-            <ul aria-label="{$AUTHOR_LIST_LABEL}" class="author-list" id="authorList"></ul>
-        </div>
+        <ul aria-label="{$AUTHOR_LIST_LABEL}" class="author-list" id="authorList"></ul>
     </xsl:template>
 
     <xsl:template match="contrib-group" mode="about-the-contrib-group-button">
@@ -37,7 +41,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="front | front-stub" mode="scimago-button">
+    <xsl:template match="article-meta | front | front-stub" mode="scimago-button">
         <xsl:param name="id"/>
         <!--
             Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
@@ -45,7 +49,7 @@
         <xsl:if test=".//aff">
             <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
                 data-bs-toggle="modal"
-                data-bs-target="#ModalScimago{$id}">SCIMAGO INSTITUTIONS RANKINGS</a>
+                data-bs-target="#ModalScimago{$id}">SCImago Institutions Rankings</a>
         </xsl:if>
     </xsl:template>
 
@@ -114,6 +118,53 @@
         <div class="corresp">
             <xsl:apply-templates select="*|text()"/>
         </div>
+    </xsl:template>
+
+    <xsl:template match=" front | front-stub" mode="button-author-notes">
+        <xsl:if test=".//author-notes">
+            <xsl:apply-templates select=".//author-notes" mode="button-author-notes"/>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="author-notes" mode="button-author-notes">
+        <button class="btn btn-secondary btn-sm outlineFadeLink mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#authornotesInline" aria-expanded="false" aria-controls="authornotesInline">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">Author notes</xsl:with-param>
+            </xsl:apply-templates>
+        </button>
+    </xsl:template>
+
+    <xsl:template match="*" mode="button-author-notes-content">
+        <xsl:choose>
+            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes">
+                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes" mode="button-author-notes-content"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//article-meta//author-notes" mode="button-author-notes-content"/>                    
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="author-notes" mode="button-author-notes-content">
+        <div class="collapse mt-3" id="authornotesInline">
+            <div>
+                <xsl:apply-templates select="*" mode="author-notes-inline"/>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="author-notes/*" mode="author-notes-inline">
+        <div class="row">
+            <xsl:apply-templates select="*|text()" mode="author-notes-inline"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="label|title" mode="author-notes-inline">
+        <p><strong><xsl:apply-templates select="*|text()"/></strong></p>
+    </xsl:template>
+
+    <xsl:template match="p" mode="author-notes-inline">
+        <p><xsl:apply-templates select="*|text()"/></p>
     </xsl:template>
 
 </xsl:stylesheet>
