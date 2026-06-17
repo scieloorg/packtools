@@ -134,7 +134,7 @@
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
         <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css"/>
         <link rel="stylesheet" href="{$CSS_PATH}/article.css"/>
-        <style>
+        <style type="text/css">
         .modal-dialog-scrollable .modal-body {
             overflow-y:auto;
             scrollbar-gutter:stable;
@@ -164,7 +164,9 @@
         </xsl:if>
         <xsl:if test="$CROSSMARK_POLICY_PAGE!=''">
             <script src="https://crossmark-cdn.crossref.org/widget/v2.0/widget.js"/>
-        </xsl:if>
+        </xsl:if>        
+        
+        <xsl:apply-templates select="." mode="modal-contrib-js"/>
     </xsl:template>
 
     <xsl:template match="article" mode="article">
@@ -219,6 +221,7 @@
 
     <xsl:template match="article" mode="div-article">
         <article id="articleText">
+            <xsl:apply-templates select="." mode="button-author-notes-content"/>
             <xsl:apply-templates select="." mode="article-meta-product"/>
             <xsl:apply-templates select="." mode="article-meta-abstract"/>
             <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
