@@ -618,4 +618,89 @@
         <name lang="pt">Navegação do artigo</name>
         <name lang="es">Navegación del artículo</name>
     </term>
+    
+    <term>
+        <name>author-notes-fn-edited-by</name>
+        <name lang="en">Edited by</name>
+        <name lang="pt">Editado por</name>
+        <name lang="es">Editado por</name>
+    </term>
+    <term>
+        <name>author-notes-fn-corresp</name>
+        <name lang="en">Correspondence</name>
+        <name lang="pt">Correspondência</name>
+        <name lang="es">Correspondencia</name>
+    </term>
+    <term>
+        <name>author-notes-fn-abbr</name>
+        <name lang="en">Abbreviations</name>
+        <name lang="pt">Abreviações</name>
+        <name lang="es">Abreviaciones</name>
+    </term>
+    <term>
+        <name>author-notes-fn-con</name>
+        <name lang="en">Contributions</name>
+        <name lang="pt">Contribuições</name>
+        <name lang="es">Contribuciones</name>
+    </term>
+    <term>
+        <name>author-notes-fn-coi-statement</name>
+        <name lang="en">Conflict of Interest</name>
+        <name lang="pt">Conflito de Interesse</name>
+        <name lang="es">Conflicto de Interés</name>
+    </term>
+    <term>
+        <name>author-notes-fn-current-aff</name>
+        <name lang="en">Current Affiliation</name>
+        <name lang="pt">Afiliação Atual</name>
+        <name lang="es">Afiliación Actual</name>
+    </term>
+    <term>
+        <name>author-notes-fn-deceased</name>
+        <name lang="en">Deceased</name>
+        <name lang="pt">Falecido</name>
+        <name lang="es">Fallecido</name>
+    </term>
+    <term>
+        <name>author-notes-fn-equal</name>
+        <name lang="en">Equal Contribution</name>
+        <name lang="pt">Contribuição Igualitária</name>
+        <name lang="es">Contribución Igualitaria</name>
+    </term>
+    <term>
+        <name>author-notes-fn-on-leave</name>
+        <name lang="en">On Leave</name>
+        <name lang="pt">Em Licença</name>
+        <name lang="es">Con Licencia</name>
+    </term>
+    <term>
+        <name>author-notes-fn-participating-researchers</name>
+        <name lang="en">Researchers</name>
+        <name lang="pt">Pesquisadores</name>
+        <name lang="es">Investigadores</name>
+    </term>
+    <term>
+        <name>author-notes-fn-previously-at</name>
+        <name lang="en">Previous Affiliation</name>
+        <name lang="pt">Afiliação Anterior</name>
+        <name lang="es">Afiliación Anterior</name>
+    </term>
+    <term>
+        <name>author-notes-fn-study-group-members</name>
+        <name lang="en">Study Group</name>
+        <name lang="pt">Grupo de Estudo</name>
+        <name lang="es">Grupo de Estudio</name>
+    </term>
+    <term>
+        <name>author-notes-fn-present-address</name>
+        <name lang="en">Present Address</name>
+        <name lang="pt">Endereço Atual</name>
+        <name lang="es">Dirección Actual</name>
+    </term>
+    <term>
+        <name>author-notes-fn-presented-by</name>
+        <name lang="en">Presented by</name>
+        <name lang="pt">Apresentado por</name>
+        <name lang="es">Presentado por</name>
+    </term>
 </labels>
