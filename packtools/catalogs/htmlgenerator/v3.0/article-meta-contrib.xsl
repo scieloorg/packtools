@@ -13,9 +13,6 @@
             <xsl:apply-templates select="front | front-stub" mode="scimago-button">
                 <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
             </xsl:apply-templates>
-            <xsl:apply-templates select="front | front-stub" mode="button-author-notes">
-                <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
-            </xsl:apply-templates>
         </div>
     </xsl:template>
 
@@ -118,53 +115,6 @@
         <div class="corresp">
             <xsl:apply-templates select="*|text()"/>
         </div>
-    </xsl:template>
-
-    <xsl:template match=" front | front-stub" mode="button-author-notes">
-        <xsl:if test=".//author-notes">
-            <xsl:apply-templates select=".//author-notes" mode="button-author-notes"/>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="author-notes" mode="button-author-notes">
-        <button class="btn btn-secondary btn-sm outlineFadeLink mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#authornotesInline" aria-expanded="false" aria-controls="authornotesInline">
-            <xsl:apply-templates select="." mode="interface">
-                <xsl:with-param name="text">Author notes</xsl:with-param>
-            </xsl:apply-templates>
-        </button>
-    </xsl:template>
-
-    <xsl:template match="*" mode="button-author-notes-content">
-        <xsl:choose>
-            <xsl:when test=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes">
-                <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//front-stub//author-notes" mode="button-author-notes-content"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select=".//article-meta//author-notes" mode="button-author-notes-content"/>                    
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="author-notes" mode="button-author-notes-content">
-        <div class="collapse mt-3" id="authornotesInline">
-            <div>
-                <xsl:apply-templates select="*" mode="author-notes-inline"/>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="author-notes/*" mode="author-notes-inline">
-        <div class="row">
-            <xsl:apply-templates select="*|text()" mode="author-notes-inline"/>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="label|title" mode="author-notes-inline">
-        <p><strong><xsl:apply-templates select="*|text()"/></strong></p>
-    </xsl:template>
-
-    <xsl:template match="p" mode="author-notes-inline">
-        <p><xsl:apply-templates select="*|text()"/></p>
     </xsl:template>
 
 </xsl:stylesheet>
