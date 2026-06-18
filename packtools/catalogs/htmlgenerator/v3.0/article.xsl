@@ -55,6 +55,7 @@
     <xsl:include href="html-modals-graphics.xsl"/>
     <xsl:include href="html-modals.xsl"/>
     <xsl:include href="html-modals-contribs.xsl"/>
+    <xsl:include href="html-modals-contrib-group.xsl"/>
     <xsl:include href="html-modals-tables.xsl"/>
     <xsl:include href="html-modals-figs.xsl"/>
     <xsl:include href="html-modals-scheme.xsl"/>
@@ -62,6 +63,7 @@
     <xsl:include href="html-head.xsl"/>
 
     <xsl:include href="bottom-floating-menu.xsl"/>
+    <xsl:include href="article-css.xsl"/>
 
     <xsl:variable name="ref" select="//ref"/>
     <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
@@ -133,12 +135,13 @@
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
         <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css"/>
         <link rel="stylesheet" href="{$CSS_PATH}/article.css"/>
-        <style>
+        <style type="text/css">
         .modal-dialog-scrollable .modal-body {
             overflow-y:auto;
             scrollbar-gutter:stable;
         }
         </style>
+        <xsl:apply-templates select="." mode="modal-contrib-group-css"/>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
@@ -163,7 +166,9 @@
         </xsl:if>
         <xsl:if test="$CROSSMARK_POLICY_PAGE!=''">
             <script src="https://crossmark-cdn.crossref.org/widget/v2.0/widget.js"/>
-        </xsl:if>
+        </xsl:if>        
+        
+        <xsl:apply-templates select="." mode="modal-contrib-js"/>
     </xsl:template>
 
     <xsl:template match="article" mode="article">
