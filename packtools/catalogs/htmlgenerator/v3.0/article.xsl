@@ -63,6 +63,7 @@
     <xsl:include href="html-head.xsl"/>
 
     <xsl:include href="bottom-floating-menu.xsl"/>
+    <xsl:include href="article-css.xsl"/>
 
     <xsl:variable name="ref" select="//ref"/>
     <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
@@ -140,6 +141,7 @@
             scrollbar-gutter:stable;
         }
         </style>
+        <xsl:apply-templates select="." mode="modal-contrib-group-css"/>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
@@ -221,7 +223,6 @@
 
     <xsl:template match="article" mode="div-article">
         <article id="articleText">
-            <xsl:apply-templates select="." mode="button-author-notes-content"/>
             <xsl:apply-templates select="." mode="article-meta-product"/>
             <xsl:apply-templates select="." mode="article-meta-abstract"/>
             <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
