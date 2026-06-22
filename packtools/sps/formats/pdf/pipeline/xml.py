@@ -585,6 +585,8 @@ def extract_table_data(table_wrap):
 
     headers = []
     rows = []
+    header_spans = []
+    row_spans = []
     table = table_wrap.find('.//table')
     layout = determine_table_layout(table_wrap)
 
