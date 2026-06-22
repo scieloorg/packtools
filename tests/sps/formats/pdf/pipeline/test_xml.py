@@ -295,7 +295,8 @@ class TestExtractBodyData(unittest.TestCase):
                 'level': 1,
                 'title': 'Section 1',
                 'paragraphs': ['Paragraph 1', 'Paragraph 2'],
-                'tables': []
+                'tables': [],
+                'figures': [],
             }
         ]
         result = xml_pipe.extract_body_data(xml)
@@ -328,9 +329,14 @@ class TestExtractBodyData(unittest.TestCase):
                         'label': 'Table 1',
                         'title': 'Sample Table',
                         'headers': [['Header']],
-                        'rows': [['Data']]
+                        'rows': [['Data']],
+                        'layout': 'double-column-layout',
+                        'column_widths': [50],
+                        'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Header'}]],
+                        'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data'}]],
                     }
-                ]
+                ],
+                'figures': [],
             }
         ]
         result = xml_pipe.extract_body_data(xml)
@@ -354,13 +360,15 @@ class TestExtractBodyData(unittest.TestCase):
                 'level': 1,
                 'title': 'Section 1',
                 'paragraphs': ['Paragraph 1'],
-                'tables': []
+                'tables': [],
+                'figures': [],
             },
             {
                 'level': 2,
                 'title': 'Subsection 1.1',
                 'paragraphs': ['Paragraph 1.1'],
-                'tables': []
+                'tables': [],
+                'figures': [],
             }
         ]
         result = xml_pipe.extract_body_data(xml)
@@ -387,15 +395,20 @@ class TestExtractBodyData(unittest.TestCase):
             {
                 'level': 1,
                 'title': 'Section 1',
-                'paragraphs': [],
+                'paragraphs': ['Paragraph with Table 1'],
                 'tables': [
                     {
                         'label': 'Table 1',
                         'title': 'Sample Table',
                         'headers': [['Header']],
-                        'rows': [['Data']]
+                        'rows': [['Data']],
+                        'layout': 'double-column-layout',
+                        'column_widths': [50],
+                        'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Header'}]],
+                        'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data'}]],
                     }
-                ]
+                ],
+                'figures': [],
             }
         ]
         result = xml_pipe.extract_body_data(xml)
@@ -1014,7 +1027,15 @@ class TestExtractTableData(unittest.TestCase):
             'label': 'Table 1',
             'title': 'Sample Data',
             'headers': [['Name', 'Age']],
-            'rows': [['John', '25'], ['Jane', '30']]
+            'rows': [['John', '25'], ['Jane', '30']],
+            'layout': 'double-column-layout',
+            'column_widths': [50, 50],
+            'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Name'},
+                               {'colspan': 1, 'rowspan': 1, 'text': 'Age'}]],
+            'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'John'},
+                           {'colspan': 1, 'rowspan': 1, 'text': '25'}],
+                          [{'colspan': 1, 'rowspan': 1, 'text': 'Jane'},
+                           {'colspan': 1, 'rowspan': 1, 'text': '30'}]],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1037,7 +1058,11 @@ class TestExtractTableData(unittest.TestCase):
             'label': '',
             'title': '',
             'headers': [['Col1']],
-            'rows': [['Data1']]
+            'rows': [['Data1']],
+            'layout': 'double-column-layout',
+            'column_widths': [50],
+            'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Col1'}]],
+            'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data1'}]],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1058,7 +1083,11 @@ class TestExtractTableData(unittest.TestCase):
             'label': 'Table 2',
             'title': 'Empty Table',
             'headers': [],
-            'rows': []
+            'rows': [],
+            'layout': 'double-column-layout',
+            'column_widths': [],
+            'header_spans': [],
+            'row_spans': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1075,7 +1104,11 @@ class TestExtractTableData(unittest.TestCase):
             'label': 'Table 3',
             'title': 'Missing Table',
             'headers': [],
-            'rows': []
+            'rows': [],
+            'layout': 'double-column-layout',
+            'column_widths': [],
+            'header_spans': [],
+            'row_spans': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1099,7 +1132,15 @@ class TestExtractTableData(unittest.TestCase):
             'label': '',
             'title': '',
             'headers': [['Col1', 'Col2'], ['SubCol1', 'SubCol2']],
-            'rows': [['Val1', 'Val2']]
+            'rows': [['Val1', 'Val2']],
+            'layout': 'double-column-layout',
+            'column_widths': [50, 50],
+            'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Col1'},
+                               {'colspan': 1, 'rowspan': 1, 'text': 'Col2'}],
+                              [{'colspan': 1, 'rowspan': 1, 'text': 'SubCol1'},
+                               {'colspan': 1, 'rowspan': 1, 'text': 'SubCol2'}]],
+            'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Val1'},
+                           {'colspan': 1, 'rowspan': 1, 'text': 'Val2'}]],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
