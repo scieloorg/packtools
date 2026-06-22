@@ -39,22 +39,8 @@
     </xsl:template>
 
     <xsl:template match="fn|sec" mode="display-data-availability">
-        <xsl:choose>
-            <xsl:when test="@id and (.//label or .//title)">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <p>
-                            <a href="#{@id}">
-                                <xsl:apply-templates select="label | title" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="." mode="data-availability"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <!-- repete fn ou sec ao final do texto sem o label ou title, antes de Publication Dates e History -->
+        <xsl:apply-templates select="*[name()!='title' and name()!='label']" mode="data-availability"/>
     </xsl:template>
 
     <xsl:template match="sec[@sec-type='data-availability']" mode="data-availability">
