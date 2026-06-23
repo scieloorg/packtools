@@ -227,7 +227,7 @@
             <xsl:apply-templates select="." mode="author-notes-as-sections"/>
             <xsl:apply-templates select="." mode="article-text-sub-articles"/>
 
-            <xsl:apply-templates select="." mode="data-availability"/>
+            <xsl:apply-templates select="." mode="bottom-of-the-page-data-availability"/>
 
             <xsl:apply-templates select="front/article-meta" mode="generic-pub-date"/>
             <xsl:apply-templates select="front/article-meta" mode="generic-history"/>
