@@ -36,12 +36,18 @@ def build_formula(data):
         raise ValueError("A valid codification type is required.")
 
     attributes = {}
-    if cod_type == "graphic":
+    nsmap = {}
+    if cod_type == "{http://www.w3.org/1998/Math/MathML}math":
+        nsmap["mml"] = "http://www.w3.org/1998/Math/MathML"
+        if cod_id:
+            attributes["id"] = cod_id
+    elif cod_type == "graphic":
         attributes["{http://www.w3.org/1999/xlink}href"] = cod_value
+        nsmap["xlink"] = "http://www.w3.org/1999/xlink"
     elif cod_id:
         attributes["id"] = cod_id
 
-    formula_elem = ET.Element(cod_type, attrib=attributes)
+    formula_elem = ET.Element(cod_type, attrib=attributes, nsmap=nsmap or None)
 
     if cod_type != "graphic":
         formula_elem.text = cod_value

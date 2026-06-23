@@ -77,8 +77,8 @@ class TestBuildFigXlink(unittest.TestCase):
         }
         expected_xml_str = (
             '<fig id="f01">'
-            '<graphic xmlns:ns0="http://www.w3.org/1999/xlink" '
-            'ns0:href="1234-5678-zwy-12-04-0123-gf02.tif"/>'
+            '<graphic xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xlink:href="1234-5678-zwy-12-04-0123-gf02.tif"/>'
             '</fig>'
         )
         fig_elem = build_fig(data)

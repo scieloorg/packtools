@@ -45,15 +45,6 @@ def build_article_node(data, nodes):
                 <sub-article />
             </article>
     """
-    namespaces = {
-        "xlink": "http://www.w3.org/1999/xlink",
-        "mml": "http://www.w3.org/1998/Math/MathML"
-    }
-
-    # Adiciona os namespaces
-    for prefix, uri in namespaces.items():
-        ET.register_namespace(prefix, uri)
-
     try:
         # Cria o elemento <article>
         article_elem = ET.Element("article", {
@@ -61,6 +52,9 @@ def build_article_node(data, nodes):
             "specific-use": data["specific-use"],
             "article-type": data["article-type"],
             "{http://www.w3.org/XML/1998/namespace}lang": data["xml:lang"]
+        }, nsmap={
+            "xlink": "http://www.w3.org/1999/xlink",
+            "mml": "http://www.w3.org/1998/Math/MathML",
         })
     except KeyError as e:
         raise KeyError(f"{e} is required")

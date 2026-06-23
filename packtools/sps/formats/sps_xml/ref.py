@@ -142,13 +142,14 @@ def build_ref(data, node=None):
 
         if ext_link_text:
             ext_link_attributes = {"ext-link-type": ext_link_type, "{http://www.w3.org/1999/xlink}href": xlink_href}
+            xlink_nsmap = {"xlink": "http://www.w3.org/1999/xlink"}
 
             if comment:
                 comment_elem = ET.SubElement(element_citation_elem, "comment")
                 comment_elem.text = comment
-                ET.SubElement(comment_elem, "ext-link", attrib=ext_link_attributes).text = ext_link_text
+                ET.SubElement(comment_elem, "ext-link", attrib=ext_link_attributes, nsmap=xlink_nsmap).text = ext_link_text
             else:
-                ET.SubElement(element_citation_elem, "ext-link", attrib=ext_link_attributes).text = ext_link_text
+                ET.SubElement(element_citation_elem, "ext-link", attrib=ext_link_attributes, nsmap=xlink_nsmap).text = ext_link_text
 
     for pub_id in data.get("pub-ids") or []:
         pub_id_type = pub_id.get("pub-id-type")

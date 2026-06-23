@@ -204,8 +204,8 @@ class TestBuildTableAlternatives(unittest.TestCase):
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<alternatives>'
-            '<graphic xmlns:ns0="http://www.w3.org/1999/xlink" '
-            'ns0:href="nomedaimagemdatabela.svg" id="g1"/>'
+            '<graphic xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xlink:href="nomedaimagemdatabela.svg" id="g1"/>'
             '<table>codificação da tabela</table>'
             '</alternatives>'
             '</table-wrap>'

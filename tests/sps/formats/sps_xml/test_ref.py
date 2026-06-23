@@ -111,8 +111,8 @@ class TestBuildRefExtLink(unittest.TestCase):
         expected_xml_str = (
             '<ref id="B1">'
             '<element-citation publication-type="journal">'
-            '<ext-link xmlns:ns0="http://www.w3.org/1999/xlink" '
-            'ext-link-type="uri" ns0:href="http://socialsciences.scielo.org">'
+            '<ext-link xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'ext-link-type="uri" xlink:href="http://socialsciences.scielo.org">'
             'http://socialsciences.scielo.org</ext-link>'
             '</element-citation>'
             '</ref>'
@@ -190,8 +190,8 @@ class TestBuildRefExtLink(unittest.TestCase):
         expected_xml_str = (
             '<ref id="B1">'
             '<element-citation publication-type="journal">'
-            '<comment>Disponível em: <ext-link xmlns:ns0="http://www.w3.org/1999/xlink" '
-            'ext-link-type="uri" ns0:href="http://socialsciences.scielo.org">'
+            '<comment>Disponível em: <ext-link xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'ext-link-type="uri" xlink:href="http://socialsciences.scielo.org">'
             'http://socialsciences.scielo.org</ext-link></comment>'
             '</element-citation>'
             '</ref>'

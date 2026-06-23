@@ -44,7 +44,8 @@ def build_table(data):
         attributes["id"] = table_id
 
     # Create the XML element with attributes
-    table_elem = ET.Element(table_type, attrib=attributes)
+    nsmap = {"xlink": "http://www.w3.org/1999/xlink"} if table_type == "graphic" else None
+    table_elem = ET.Element(table_type, attrib=attributes, nsmap=nsmap)
 
     # Add text content if it's a table
     if table_type == "table":
