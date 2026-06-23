@@ -6,10 +6,10 @@
     <xsl:include href="../v2.0/article-text-section-data-availability.xsl"/>
 
     <xsl:template match="article | sub-article" mode="doc-version-data-availability">
-        <xsl:apply-templates select="body | back" mode="data-availability"/>
+        <xsl:apply-templates select="body | back" mode="bottom-of-the-page-data-availability"/>
     </xsl:template>
 
-    <xsl:template match="article" mode="data-availability">
+    <xsl:template match="article" mode="bottom-of-the-page-data-availability">
         <xsl:choose>
             <xsl:when test="body/sec[@sec-type='data-availability']">
                 <!-- ficará destacado naturalmente por ser uma seção -->
@@ -26,24 +26,19 @@
                         <xsl:apply-templates select="." mode="doc-version-data-availability"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates select=".//article-meta/supplementary-material" mode="data-availability"/>
-                <xsl:apply-templates select="back//ref-list" mode="data-availability"/>
+                <xsl:apply-templates select=".//article-meta/supplementary-material" mode="bottom-of-the-page-data-availability"/>
+                <xsl:apply-templates select="back//ref-list" mode="bottom-of-the-page-data-availability"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="body | back" mode="data-availability">
-        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="display-data-availability"/>
-        <xsl:apply-templates select="sec//sec[@sec-type='data-availability']" mode="display-data-availability"/>
-        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="display-data-availability"/>
+    <xsl:template match="body | back" mode="bottom-of-the-page-data-availability">
+        <!-- Deixa em destaque nota ou seção referente à disponibilidade de dados no final da página -->
+        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="bottom-of-the-page-data-availability"/>
+        <xsl:apply-templates select="sec//sec[@sec-type='data-availability']" mode="bottom-of-the-page-data-availability"/>
     </xsl:template>
 
-    <xsl:template match="fn|sec" mode="display-data-availability">
-        <!-- repete fn ou sec ao final do texto sem o label ou title, antes de Publication Dates e History -->
-        <xsl:apply-templates select="*[name()!='title' and name()!='label']" mode="data-availability"/>
-    </xsl:template>
-
-    <xsl:template match="sec[@sec-type='data-availability']" mode="data-availability">
+    <xsl:template match="sec[@sec-type='data-availability']" mode="bottom-of-the-page-data-availability">
         <xsl:apply-templates select="*[name()!='title']|text()"/>
     </xsl:template>
 
@@ -61,29 +56,29 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="ref-list" mode="data-availability">
+    <xsl:template match="ref-list" mode="bottom-of-the-page-data-availability">
         <xsl:if test=".//element-citation[@publication-type='data' or @publication-type='database']">
             <h2 class="h5"><xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text">Data citations</xsl:with-param>
                 </xsl:apply-templates></h2>
-            <xsl:apply-templates select=".//element-citation[@publication-type='data' or @publication-type='database']" mode="data-availability"/>
+            <xsl:apply-templates select=".//element-citation[@publication-type='data' or @publication-type='database']" mode="bottom-of-the-page-data-availability"/>
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="fn" mode="data-availability">
+    <xsl:template match="fn" mode="bottom-of-the-page-data-availability">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <xsl:apply-templates select="label| p" mode="data-availability"/>
+                <xsl:apply-templates select="p" mode="bottom-of-the-page-data-availability"/>
             </div>
         </div>
     </xsl:template>
 
-    <xsl:template match="fn/label" mode="data-availability">
+    <xsl:template match="fn/label" mode="bottom-of-the-page-data-availability">
         <p>
             <strong><xsl:apply-templates select="*|text()"/></strong>
         </p>
     </xsl:template>
-    <xsl:template match="fn/p" mode="data-availability">
+    <xsl:template match="fn/p" mode="bottom-of-the-page-data-availability">
         <p>
             <xsl:apply-templates select="*|text()"/>
         </p>
