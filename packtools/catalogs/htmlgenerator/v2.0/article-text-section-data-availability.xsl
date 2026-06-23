@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
 
-    <xsl:template match="article" mode="data-availability">
+    <xsl:template match="article" mode="bottom-of-the-page-data-availability">
         <xsl:choose>
             <xsl:when test=".//*[@sec-type='data-availability']">
                 <!-- ficará destacado naturalmente por ser uma seção -->
@@ -19,20 +19,20 @@
                         <xsl:apply-templates select="." mode="doc-version-data-availability"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates select=".//article-meta/supplementary-material" mode="data-availability"/>
-                <xsl:apply-templates select="back//ref-list" mode="data-availability"/>
+                <xsl:apply-templates select=".//article-meta/supplementary-material" mode="bottom-of-the-page-data-availability"/>
+                <xsl:apply-templates select="back//ref-list" mode="bottom-of-the-page-data-availability"/>
             </xsl:when>
         </xsl:choose>
         
     </xsl:template>
 
     <xsl:template match="article | sub-article" mode="doc-version-data-availability">
-        <xsl:apply-templates select="body | back" mode="data-availability"/>
+        <xsl:apply-templates select="body | back" mode="bottom-of-the-page-data-availability"/>
     </xsl:template>
 
-    <xsl:template match="body | back" mode="data-availability">
-        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="data-availability"/>
-        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="data-availability"/>
+    <xsl:template match="body | back" mode="bottom-of-the-page-data-availability">
+        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="bottom-of-the-page-data-availability"/>
+        <xsl:apply-templates select=".//*[@fn-type='data-availability']" mode="bottom-of-the-page-data-availability"/>
     </xsl:template>
 
     <xsl:template match="article" mode="data-availability-menu-title">
@@ -48,16 +48,16 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="ref-list" mode="data-availability">
+    <xsl:template match="ref-list" mode="bottom-of-the-page-data-availability">
         <xsl:if test=".//element-citation[@publication-type='data' or @publication-type='database']">
             <h2><xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text">Data citations</xsl:with-param>
                 </xsl:apply-templates></h2>
-            <xsl:apply-templates select=".//element-citation[@publication-type='data' or @publication-type='database']" mode="data-availability"/>
+            <xsl:apply-templates select=".//element-citation[@publication-type='data' or @publication-type='database']" mode="bottom-of-the-page-data-availability"/>
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="article-meta/supplementary-material" mode="data-availability">
+    <xsl:template match="article-meta/supplementary-material" mode="bottom-of-the-page-data-availability">
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <p>
@@ -67,7 +67,7 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="element-citation[@publication-type='data' or @publication-type='database']" mode="data-availability">
+    <xsl:template match="element-citation[@publication-type='data' or @publication-type='database']" mode="bottom-of-the-page-data-availability">
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <p>
@@ -77,19 +77,19 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="sec[@sec-type='supplementary-material']" mode="data-availability">
+    <xsl:template match="sec[@sec-type='supplementary-material']" mode="bottom-of-the-page-data-availability">
         <xsl:apply-templates select="."/>
     </xsl:template>
 
-    <xsl:template match="fn" mode="data-availability">
+    <xsl:template match="fn" mode="bottom-of-the-page-data-availability">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <xsl:apply-templates select="p" mode="data-availability"/>
+                <xsl:apply-templates select="p" mode="bottom-of-the-page-data-availability"/>
             </div>
         </div>
     </xsl:template>
 
-    <xsl:template match="fn/*" mode="data-availability">
+    <xsl:template match="fn/*" mode="bottom-of-the-page-data-availability">
         <p>
             <xsl:apply-templates select="*|text()"/>
         </p>
