@@ -34,7 +34,7 @@ def build_permissions(data):
                     "license-type": license_dict["license-type"],
                     "{http://www.w3.org/1999/xlink}href": license_dict["xlink:href"],
                     "{http://www.w3.org/XML/1998/namespace}lang": license_dict["xml:lang"]
-                })
+                }, nsmap={"xlink": "http://www.w3.org/1999/xlink"})
                 text = license_dict.get("license-p")
                 if text:
                     license_elem.text = text

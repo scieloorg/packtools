@@ -20,9 +20,9 @@ class TestBuildPermissionsCopyrightStatement(unittest.TestCase):
         expected_xml_str = (
             '<permissions>'
             '<copyright-statement>Copyright © 2014 SciELO</copyright-statement>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
             'xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
@@ -46,9 +46,9 @@ class TestBuildPermissionsCopyrightStatement(unittest.TestCase):
         }
         expected_xml_str = (
             '<permissions>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
             'xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
@@ -75,9 +75,9 @@ class TestBuildPermissionsCopyrightYear(unittest.TestCase):
         expected_xml_str = (
             '<permissions>'
             '<copyright-year>2014</copyright-year>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
             'xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
@@ -101,9 +101,9 @@ class TestBuildPermissionsCopyrightYear(unittest.TestCase):
         }
         expected_xml_str = (
             '<permissions>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
             'xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
@@ -130,9 +130,9 @@ class TestBuildPermissionsCopyrightHolder(unittest.TestCase):
         expected_xml_str = (
             '<permissions>'
             '<copyright-holder>SciELO</copyright-holder>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" xml:lang="pt">'
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
             '</permissions>'
@@ -155,9 +155,9 @@ class TestBuildPermissionsCopyrightHolder(unittest.TestCase):
         }
         expected_xml_str = (
             '<permissions>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
             'xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
@@ -183,9 +183,9 @@ class TestBuildPermissionsLicenses(unittest.TestCase):
         }
         expected_xml_str = (
             '<permissions>'
-            '<license xmlns:ns0="http://www.w3.org/1999/xlink" '
+            '<license xmlns:xlink="http://www.w3.org/1999/xlink" '
             'license-type="open-access" '
-            'ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
             'xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'

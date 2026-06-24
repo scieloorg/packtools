@@ -82,7 +82,7 @@ def build_fig(data):
 
     # add xlink
     if xlink := data.get("graphic"):
-        xlink_elem = ET.Element("graphic", attrib={"{http://www.w3.org/1999/xlink}href": xlink})
+        xlink_elem = ET.Element("graphic", attrib={"{http://www.w3.org/1999/xlink}href": xlink}, nsmap={"xlink": "http://www.w3.org/1999/xlink"})
         fig_elem.append(xlink_elem)
 
     # add attrib

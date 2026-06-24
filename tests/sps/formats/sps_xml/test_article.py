@@ -24,9 +24,11 @@ class TestBuildArticleNode(unittest.TestCase):
         )
 
         expected_xml_str = (
-            '<article dtd-version="1.1" specific-use="sps-1.8" article-type="research-article" '
-            'xml:lang="pt"><'
-            'front/>'
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.1" specific-use="sps-1.8" article-type="research-article" '
+            'xml:lang="pt">'
+            '<front/>'
             '<body/>'
             '<back/>'
             '<sub-article/>'
