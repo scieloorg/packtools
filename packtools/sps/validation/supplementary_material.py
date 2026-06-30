@@ -102,7 +102,7 @@ class XmlSupplementaryMaterialValidation:
         """
 
         nodes = self.xml_tree.xpath(".//inline-supplementary-material")
-        obtained = etree.tostring(nodes[0]) if nodes else "None"
+        obtained = etree.tostring(nodes[0], encoding=str) if nodes else "None"
         valid = not bool(nodes)
 
         return build_response(
