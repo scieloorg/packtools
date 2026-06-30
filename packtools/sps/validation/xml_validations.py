@@ -375,9 +375,10 @@ def validate_ext_links(xmltree, params):
 
 
 def validate_lists(xmltree, params):
-    rules = params["list_rules"]
+    rules = params.get("list_rules", {})
     validator = ArticleListValidation(xmltree, rules)
-    
+    yield from validator.validate()
+
     
 def validate_graphics(xmltree, params):
     """
@@ -410,7 +411,8 @@ def validate_response(xmltree, params):
     """
     response_rules = params.get("response_rules", {})
     validator = ResponseValidation(xmltree, response_rules)
-    
+    yield from validator.validate()
+
     
 def validate_secs(xmltree, params):
     """
@@ -425,9 +427,10 @@ def validate_secs(xmltree, params):
     - Non-combinable sec-types
     - Content presence
     """
-    sec_rules = params["sec_rules"]
+    sec_rules = params.get("sec_rules", {})
     validator = XMLSecValidation(xmltree, sec_rules)
-    
+    yield from validator.validate()
+
     
 def validate_products(xmltree, params):
     """
