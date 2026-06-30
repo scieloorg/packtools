@@ -17,6 +17,7 @@ from lxml import etree
 from packtools.sps.models.sec import ArticleSecs
 from packtools.sps.validation.sec import SecValidation, XMLSecValidation
 from packtools.sps.validation.xml_validations import validate_secs
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class TestSecValidationTitle(unittest.TestCase):
@@ -789,6 +790,9 @@ class TestSecModel(unittest.TestCase):
 class TestValidateSecsWrapper(unittest.TestCase):
     """Tests for validate_secs() in xml_validations — regression for issue #1227."""
 
+    def setUp(self):
+        self.params = get_default_rules()
+
     def _make_tree(self, body):
         xml = (
             '<article xmlns:xlink="http://www.w3.org/1999/xlink"'
@@ -800,7 +804,7 @@ class TestValidateSecsWrapper(unittest.TestCase):
     def test_sec_without_title_returns_structured_result(self):
         """<sec> sem <title> deve retornar resultado estruturado, não TypeError."""
         tree = self._make_tree("<body><sec><p>Texto sem titulo.</p></sec></body>")
-        results = list(validate_secs(tree, {}))
+        results = list(validate_secs(tree, self.params))
         self.assertTrue(len(results) > 0)
         title_results = [r for r in results if r["title"] == "sec title"]
         self.assertEqual(len(title_results), 1)
@@ -811,18 +815,18 @@ class TestValidateSecsWrapper(unittest.TestCase):
         tree = self._make_tree(
             "<body><sec><title>Intro</title><p>Conteudo.</p></sec></body>"
         )
-        results = list(validate_secs(tree, {}))
+        results = list(validate_secs(tree, self.params))
         title_results = [r for r in results if r["title"] == "sec title"]
         self.assertEqual(len(title_results), 1)
         self.assertEqual(title_results[0]["response"], "OK")
 
-    def test_empty_params_does_not_raise(self):
-        """params vazio não deve lançar KeyError."""
+    def test_validate_secs_does_not_raise_typeerror(self):
+        """validate_secs deve ser um generator válido, não lançar TypeError (regressão #1227)."""
         tree = self._make_tree("<body><sec><p>Texto.</p></sec></body>")
         try:
-            list(validate_secs(tree, {}))
-        except (KeyError, TypeError) as exc:
-            self.fail(f"validate_secs lançou {type(exc).__name__}: {exc}")
+            list(validate_secs(tree, self.params))
+        except TypeError as exc:
+            self.fail(f"validate_secs lançou TypeError: {exc}")
 
     def test_no_secs_returns_empty(self):
         """XML sem <sec> e sem article-type que exija seções deve retornar vazio."""
@@ -832,7 +836,7 @@ class TestValidateSecsWrapper(unittest.TestCase):
             "<body><p>Sem secoes.</p></body></article>"
         )
         tree = etree.fromstring(xml.encode())
-        results = list(validate_secs(tree, {}))
+        results = list(validate_secs(tree, self.params))
         self.assertEqual(results, [])
 
 

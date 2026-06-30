@@ -3,6 +3,7 @@ from lxml import etree
 
 from packtools.sps.validation.list import ArticleListValidation
 from packtools.sps.validation.xml_validations import validate_lists
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class ListValidationTest(unittest.TestCase):
@@ -420,6 +421,9 @@ class ListValidationTest(unittest.TestCase):
 class TestValidateListsWrapper(unittest.TestCase):
     """Tests for validate_lists() in xml_validations — regression para issue #1227."""
 
+    def setUp(self):
+        self.params = get_default_rules()
+
     def _make_tree(self, body):
         xml = (
             '<article xmlns:xlink="http://www.w3.org/1999/xlink"'
@@ -436,7 +440,7 @@ class TestValidateListsWrapper(unittest.TestCase):
             "<list-item><p>Item 2.</p></list-item>"
             "</list></body>"
         )
-        results = list(validate_lists(tree, {}))
+        results = list(validate_lists(tree, self.params))
         self.assertTrue(len(results) > 0)
         presence_results = [r for r in results if r["title"] == "@list-type presence"]
         self.assertEqual(len(presence_results), 1)
@@ -450,26 +454,26 @@ class TestValidateListsWrapper(unittest.TestCase):
             "<list-item><p>Item 2.</p></list-item>"
             "</list></body>"
         )
-        results = list(validate_lists(tree, {}))
+        results = list(validate_lists(tree, self.params))
         presence_results = [r for r in results if r["title"] == "@list-type presence"]
         self.assertEqual(presence_results[0]["response"], "OK")
 
-    def test_empty_params_does_not_raise(self):
-        """params vazio não deve lançar KeyError."""
+    def test_validate_lists_does_not_raise_typeerror(self):
+        """validate_lists deve ser um generator válido, não lançar TypeError (regressão #1227)."""
         tree = self._make_tree(
             "<body><list>"
             "<list-item><p>Item.</p></list-item>"
             "</list></body>"
         )
         try:
-            list(validate_lists(tree, {}))
-        except (KeyError, TypeError) as exc:
-            self.fail(f"validate_lists lançou {type(exc).__name__}: {exc}")
+            list(validate_lists(tree, self.params))
+        except TypeError as exc:
+            self.fail(f"validate_lists lançou TypeError: {exc}")
 
     def test_no_lists_returns_empty(self):
         """XML sem <list> deve retornar iterável vazio."""
         tree = self._make_tree("<body><p>Sem listas.</p></body>")
-        results = list(validate_lists(tree, {}))
+        results = list(validate_lists(tree, self.params))
         self.assertEqual(results, [])
 
 
