@@ -1145,6 +1145,19 @@ class TestExtractTableData(unittest.TestCase):
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
 
+    def test_extract_table_data_no_table_returns_empty_spans(self):
+        xml_str = """
+            <table-wrap>
+                <label>Table 4</label>
+                <title>Graphic Only</title>
+                <graphic xlink:href="t04.tif" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual([], result['header_spans'])
+        self.assertEqual([], result['row_spans'])
+
 
 class TestExtractTransAbstractData(unittest.TestCase):
 
