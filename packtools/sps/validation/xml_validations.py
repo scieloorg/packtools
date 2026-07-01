@@ -339,15 +339,9 @@ def validate_app_group(xmltree, params):
 
 
 def validate_supplementary_materials(xmltree, params):
-    # TODO
-    rules = {}
-    rules.update(params["visual_resource_base_rules"])
-    rules.update(params["graphic_rules"])
-    rules["valid_extension"] = list(
-        set(params["visual_resource_base_rules"]["valid_extension"])
-        | set(params["graphic_rules"]["valid_extension"])
-    )
-    rules.update(params["supplementary_materials_rules"])
+    rules = dict(params["supplementary_materials_rules"])
+    rules["media_rules"] = params["visual_resource_base_rules"]
+    rules["graphic_rules"] = params["graphic_rules"]
     validator = XmlSupplementaryMaterialValidation(xmltree, rules)
     yield from validator.validate()
 

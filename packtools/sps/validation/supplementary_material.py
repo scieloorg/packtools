@@ -22,8 +22,8 @@ class SupplementaryMaterialValidation:
         """
         Executa todas as validações definidas.
         """
-        yield from MediaValidation(self.data, self.params).validate()
-        yield from GraphicValidation(self.data, self.params).validate()
+        yield from MediaValidation(self.data, self.params["media_rules"]).validate()
+        yield from GraphicValidation(self.data, self.params["graphic_rules"]).validate()
         yield self.validate_sec_type()
         yield self.validate_label()
         yield self.validate_not_in_app_group()

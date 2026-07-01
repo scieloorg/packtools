@@ -15,23 +15,37 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             "label_error_level": "CRITICAL",
             "app_group_error_level": "CRITICAL",
             "inline_error_level": "CRITICAL",
-            "mime_types_and_subtypes": [
-                {"mimetype": "video", "mime-subtype": "mp4"},
-                {"mimetype": "audio", "mime-subtype": "mp3"},
-                {"mimetype": "application", "mime-subtype": "zip"},
-                {"mimetype": "application", "mime-subtype": "pdf"},
-                {"mimetype": "application", "mime-subtype": "xlsx"}
-            ],
-            "mime_type_error_level": "CRITICAL",
-            "media_attributes_error_level": "CRITICAL",
-            "valid_extension": "CRITICAL",
-            "xlink_href_error_level": "CRITICAL",
-            "alt_text_exist_error_level": "CRITICAL",
-            "long_desc_exist_error_level": "CRITICAL",
-            "transcript_error_level": "CRITICAL",
-            "speaker_speech_error_level": "CRITICAL",
-            "structure_error_level": "CRITICAL",
-            "parent_suppl_mat_expected": ["app-group", "app"]
+            "parent_suppl_mat_expected": ["app-group", "app"],
+            "media_rules": {
+                "media_attributes_error_level": "CRITICAL",
+                "xlink_href_error_level": "CRITICAL",
+                "valid_extension": ["mp3", "mp4", "zip", "pdf", "xlsx", "docx", "pptx"],
+                "mime_types_and_subtypes": [
+                    {"mimetype": "video", "mime-subtype": "mp4"},
+                    {"mimetype": "audio", "mime-subtype": "mp3"},
+                    {"mimetype": "application", "mime-subtype": "zip"},
+                    {"mimetype": "application", "mime-subtype": "pdf"},
+                    {"mimetype": "application", "mime-subtype": "xlsx"},
+                    {"mimetype": "application", "mime-subtype": "docx"},
+                    {"mimetype": "application", "mime-subtype": "pptx"}
+                ],
+                "mime_type_error_level": "CRITICAL",
+                "alt_text_exist_error_level": "CRITICAL",
+                "alt_text_content_error_level": "CRITICAL",
+                "long_desc_exist_error_level": "CRITICAL",
+                "long_desc_content_error_level": "CRITICAL",
+                "transcript_error_level": "CRITICAL",
+                "content_type_error_level": "CRITICAL",
+                "speaker_speech_error_level": "CRITICAL",
+                "structure_error_level": "CRITICAL",
+                "content_types": ["machine-generated"],
+            },
+            "graphic_rules": {
+                "media_attributes_error_level": "CRITICAL",
+                "xlink_href_error_level": "ERROR",
+                "valid_extension": ["jpg", "jpeg", "png", "tif", "tiff", "svg"],
+                "svg_error_level": "ERROR",
+            },
         }
 
     def test_validate_sec_type(self):
