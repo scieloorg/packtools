@@ -1,10 +1,10 @@
-from lxml import etree
 from langdetect import detect
 from packtools.sps.validation.models.supplementary_material import XmlSupplementaryMaterials
 from packtools.sps.validation.models.media import XmlMedias
 from packtools.sps.validation.graphic import GraphicValidation
 from packtools.sps.validation.media import MediaValidation
 from packtools.sps.validation.utils import build_response
+from packtools.sps.utils.xml_utils import tostring
 
 
 class SupplementaryMaterialValidation:
@@ -22,8 +22,8 @@ class SupplementaryMaterialValidation:
         """
         Executa todas as validações definidas.
         """
-        yield from MediaValidation(self.data, self.params).validate()
-        yield from GraphicValidation(self.data, self.params).validate()
+        yield from MediaValidation(self.data, self.params["media_rules"]).validate()
+        yield from GraphicValidation(self.data, self.params["graphic_rules"]).validate()
         yield self.validate_sec_type()
         yield self.validate_label()
         yield self.validate_not_in_app_group()
@@ -102,7 +102,7 @@ class XmlSupplementaryMaterialValidation:
         """
 
         nodes = self.xml_tree.xpath(".//inline-supplementary-material")
-        obtained = etree.tostring(nodes[0]) if nodes else "None"
+        obtained = tostring(nodes[0], xml_declaration=False) if nodes else None
         valid = not bool(nodes)
 
         return build_response(

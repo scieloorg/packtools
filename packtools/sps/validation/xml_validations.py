@@ -275,7 +275,7 @@ def validate_journal_meta(xmltree, params):
     validator = PublisherNameValidation(xmltree)
     yield from validator.validate_publisher_names(
         publisher_name_list=journal_data["publisher_name_list"],
-        error_level=journal_rules["publisher_name_list_error_level"],
+        error_level=journal_rules["publisher_name_error_level"],
     )
 
     try:
@@ -339,9 +339,9 @@ def validate_app_group(xmltree, params):
 
 
 def validate_supplementary_materials(xmltree, params):
-    # TODO
-    rules = {}
-    rules.update(params["supplementary_materials_rules"])
+    rules = dict(params["supplementary_materials_rules"])
+    rules["media_rules"] = params["visual_resource_base_rules"]
+    rules["graphic_rules"] = params["graphic_rules"]
     validator = XmlSupplementaryMaterialValidation(xmltree, rules)
     yield from validator.validate()
 

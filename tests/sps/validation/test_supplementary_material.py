@@ -5,33 +5,56 @@ from packtools.sps.validation.supplementary_material import (
     XmlSupplementaryMaterialValidation,
 )
 from packtools.sps.models.supplementary_material import XmlSupplementaryMaterials
+from packtools.sps.validation.xml_validator_rules import get_default_rules
+from packtools.sps.validation.media import MediaValidation
+from packtools.sps.validation.graphic import GraphicValidation
 
 
 class TestSupplementaryMaterialValidation(unittest.TestCase):
     def setUp(self):
+        # Regras customizadas (override), com valores deliberadamente
+        # diferentes dos defaults reais de visual_resource_base_rules/
+        # graphic_rules (CRITICAL/ERROR trocados), para deixar explícito
+        # que este fixture testa o cenário de sobreposição de regras, e
+        # não os valores pré-estabelecidos (esses são cobertos em
+        # test_media_rules_and_graphic_rules_default_to_pre_established_sps_values).
         self.params = {
             "sec_type_error_level": "CRITICAL",
             "position_error_level": "CRITICAL",
             "label_error_level": "CRITICAL",
             "app_group_error_level": "CRITICAL",
             "inline_error_level": "CRITICAL",
-            "mime_types_and_subtypes": [
-                {"mimetype": "video", "mime-subtype": "mp4"},
-                {"mimetype": "audio", "mime-subtype": "mp3"},
-                {"mimetype": "application", "mime-subtype": "zip"},
-                {"mimetype": "application", "mime-subtype": "pdf"},
-                {"mimetype": "application", "mime-subtype": "xlsx"}
-            ],
-            "mime_type_error_level": "CRITICAL",
-            "media_attributes_error_level": "CRITICAL",
-            "valid_extension": "CRITICAL",
-            "xlink_href_error_level": "CRITICAL",
-            "alt_text_exist_error_level": "CRITICAL",
-            "long_desc_exist_error_level": "CRITICAL",
-            "transcript_error_level": "CRITICAL",
-            "speaker_speech_error_level": "CRITICAL",
-            "structure_error_level": "CRITICAL",
-            "parent_suppl_mat_expected": ["app-group", "app"]
+            "parent_suppl_mat_expected": ["app-group", "app"],
+            "media_rules": {
+                "media_attributes_error_level": "ERROR",
+                "xlink_href_error_level": "ERROR",
+                "valid_extension": ["mp3", "mp4", "zip", "pdf", "xlsx", "docx", "pptx"],
+                "mime_types_and_subtypes": [
+                    {"mimetype": "video", "mime-subtype": "mp4"},
+                    {"mimetype": "audio", "mime-subtype": "mp3"},
+                    {"mimetype": "application", "mime-subtype": "zip"},
+                    {"mimetype": "application", "mime-subtype": "pdf"},
+                    {"mimetype": "application", "mime-subtype": "xlsx"},
+                    {"mimetype": "application", "mime-subtype": "docx"},
+                    {"mimetype": "application", "mime-subtype": "pptx"}
+                ],
+                "mime_type_error_level": "CRITICAL",
+                "alt_text_exist_error_level": "CRITICAL",
+                "alt_text_content_error_level": "CRITICAL",
+                "long_desc_exist_error_level": "CRITICAL",
+                "long_desc_content_error_level": "CRITICAL",
+                "transcript_error_level": "CRITICAL",
+                "content_type_error_level": "CRITICAL",
+                "speaker_speech_error_level": "CRITICAL",
+                "structure_error_level": "CRITICAL",
+                "content_types": ["machine-generated"],
+            },
+            "graphic_rules": {
+                "media_attributes_error_level": "CRITICAL",
+                "xlink_href_error_level": "CRITICAL",
+                "valid_extension": ["jpg", "jpeg", "png", "tif", "tiff", "svg"],
+                "svg_error_level": "CRITICAL",
+            },
         }
 
     def test_validate_sec_type(self):
@@ -207,6 +230,72 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         self.assertIn("Prohibition of <supplementary-material> inside <app-group> and <app>", titles)
         self.assertIn("Prohibition of inline-supplementary-material", titles)
         self.assertIn("Position of supplementary materials", titles)
+
+    def test_media_rules_and_graphic_rules_are_overridable(self):
+        """
+        Regras customizadas (media_rules/graphic_rules) passadas pelo chamador
+        devem ser efetivamente usadas por MediaValidation/GraphicValidation,
+        e não os valores default de visual_resource_base_rules/graphic_rules.
+        """
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media id="m1" mimetype="application" mime-subtype="pdf" xlink:href="filenoext"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+            """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)[0]
+
+        media_result = MediaValidation(
+            supplementary_data, self.params["media_rules"]
+        ).validate_xlink_href()
+        graphic_result = GraphicValidation(
+            supplementary_data, self.params["graphic_rules"]
+        ).validate_xlink_href()
+
+        # self.params usa valores deliberadamente diferentes dos defaults reais
+        # (ERROR para media, CRITICAL para graphic — trocados em relação ao SPS)
+        self.assertEqual(media_result["response"], "ERROR")
+        self.assertEqual(graphic_result["response"], "CRITICAL")
+
+    def test_media_rules_and_graphic_rules_default_to_pre_established_sps_values(self):
+        """
+        Quando nenhuma regra customizada é passada, get_default_rules() fornece
+        as regras pré-estabelecidas (SPS): CRITICAL para <media>, ERROR para
+        <graphic>, conforme visual_resource_base_rules.json/graphic_rules.json.
+        """
+        default_rules = get_default_rules()
+        media_rules = default_rules["visual_resource_base_rules"]
+        graphic_rules = default_rules["graphic_rules"]
+
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media id="m1" mimetype="application" mime-subtype="pdf" xlink:href="filenoext"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+            """
+        )
+        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)[0]
+
+        media_result = MediaValidation(supplementary_data, media_rules).validate_xlink_href()
+        graphic_result = GraphicValidation(supplementary_data, graphic_rules).validate_xlink_href()
+
+        self.assertEqual(media_result["response"], "CRITICAL")
+        self.assertEqual(graphic_result["response"], "ERROR")
 
 
 if __name__ == "__main__":
