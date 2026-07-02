@@ -809,14 +809,18 @@ class XMLWithPre:
         )
 
     @cached_property
+    def _doi_with_lang(self):
+        return DoiWithLang(self.xmltree)
+
+    @cached_property
     def article_doi_with_lang(self):
         # [{"lang": "en", "value": "DOI"}]
-        return DoiWithLang(self.xmltree).data
+        return self._doi_with_lang.data
 
     @cached_property
     def main_doi(self):
         # [{"lang": "en", "value": "DOI"}]
-        return DoiWithLang(self.xmltree).main_doi
+        return self._doi_with_lang.main_doi
 
     @cached_property
     def main_toc_section(self):
@@ -968,9 +972,13 @@ class XMLWithPre:
         # href, ext-link-type, related-article-type
         return self.issns.get("epub")
 
+    @cached_property
+    def _article_dates(self):
+        return ArticleDates(self.xmltree)
+
     def get_complete_publication_date(self, default_month=6, default_day=15):
         try:
-            xml = ArticleDates(self.xmltree)
+            xml = self._article_dates
         except Exception as e:
             logging.exception(e)
             return None
@@ -988,7 +996,7 @@ class XMLWithPre:
     @property
     def article_publication_date(self):
         try:
-            return ArticleDates(self.xmltree).article_date_isoformat
+            return self._article_dates.article_date_isoformat
         except Exception as e:
             logging.exception(e)
             return self.pub_year
@@ -1063,11 +1071,11 @@ class XMLWithPre:
 
     @property
     def article_pub_year(self):
-        return ArticleDates(self.xmltree).article_year
+        return self._article_dates.article_year
 
     @cached_property
     def collection_pub_year(self):
-        return ArticleDates(self.xmltree).collection_year
+        return self._article_dates.collection_year
 
     @cached_property
     def article_titles_texts(self):
@@ -1102,12 +1110,16 @@ class XMLWithPre:
             return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
 
     @cached_property
+    def _article_and_subarticles(self):
+        return ArticleAndSubArticles(self.xmltree)
+
+    @cached_property
     def main_lang(self):
-        return ArticleAndSubArticles(self.xmltree).main_lang
+        return self._article_and_subarticles.main_lang
 
     @cached_property
     def langs(self):
-        for item in ArticleAndSubArticles(self.xmltree).data:
+        for item in self._article_and_subarticles.data:
             yield item["lang"]
 
     @property
