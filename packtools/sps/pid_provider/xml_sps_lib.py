@@ -1073,6 +1073,23 @@ class XMLWithPre:
     def article_titles_texts(self):
         return self.article_titles
 
+    def get_body_fragment(self, max_length):
+        # obtém qualquer texto do corpo do artigo, removendo espaços extras e limitando o tamanho
+        # não é recomendável filtrar por p ou outro subelemento específico,
+        # pois se a estrutura do XML mudar impactará no retorno do método
+        text = " ".join(
+            " ".join(
+                self.xmltree.xpath(".//body//text()")
+            ).split())
+        if max_length:
+            return text[:max_length].lower()
+        return text.lower()
+
+    @property
+    def body_fingerprint(self):
+        # gera um novo fingerprint do XML, para ser usado na comparação com o fingerprint registrado
+        return generate_finger_print(self.get_body_fragment(max_length=None))
+
     @property
     def finger_print(self):
         if self.xmltree.xpath(".//comment()"):
