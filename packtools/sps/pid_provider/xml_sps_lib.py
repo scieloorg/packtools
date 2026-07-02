@@ -398,6 +398,20 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
     return "", xml_content.strip()
 
 
+def fix_number(value):
+    """Converte zeros para None"""
+    if not value:
+        return None
+
+    try:
+        if int(value) == 0:
+            return None
+        return value
+    except (TypeError, ValueError):
+        # Valor não é numérico, retorna como está
+        return value
+
+
 class XMLWithPre:
     """
     Preserva o texto anterior ao elemento `root`
@@ -424,6 +438,15 @@ class XMLWithPre:
         self.relative_system_id = None
         self._sps_version = None
         self.errors = None
+        self.pkg_name_version = None
+        # html or xml
+        self.source_filename = None
+        self.source_ext = None
+
+    def add_pkg_name_components(self, pkg_name_version=3, source_filename=None):
+        self.pkg_name_version = pkg_name_version
+        if source_filename:
+            self.source_filename, self.source_ext = os.path.splitext(source_filename)
 
     @property
     def data(self):
@@ -535,14 +558,9 @@ class XMLWithPre:
 
     @cached_property
     def sps_pkg_name_fpage(self):
-        fpage = self.fpage
+        fpage = fix_number(self.fpage)
         if not fpage:
             return None
-        try:
-            if int(fpage) == 0:
-                return None
-        except (TypeError, ValueError):
-            pass
         seq = self.fpage_seq
         if not seq:
             if self.lpage == fpage:
@@ -553,50 +571,76 @@ class XMLWithPre:
 
     @cached_property
     def deprecated_sps_pkg_name_fpage(self):
-        fpage = self.fpage
+        fpage = fix_number(self.fpage)
         if not fpage:
             return None
-        try:
-            if int(fpage) == 0:
-                return None
-        except (TypeError, ValueError):
-            pass
-        seq = self.fpage_seq
-        if seq:
-            return f"{fpage}{seq}"
-        return fpage
+        seq = self.fpage_seq or ""
+        return f"{fpage}{seq}"
 
     @cached_property
     def alternative_sps_pkg_name_suffix(self):
         return self.order or self.filename
 
     @cached_property
-    def sps_pkg_name(self):
-        """Cache do nome do pacote SPS que é usado frequentemente"""
-        xml_acron = Acronym(self.xmltree)
+    def journal_acron(self):
+        return Acronym(self.xmltree).text
+
+    def get_pkg_name_prefix(self, suppl):
         parts = [
             self.journal_issn_electronic or self.journal_issn_print,
-            xml_acron.text,
+            self.journal_acron,
             self.volume,
             self.number and self.number.zfill(2),
-            self.sps_pkg_name_suppl,
+            suppl,
+        ]
+        return "-".join([part for part in parts if part])
+
+    def get_pkg_name_suffix(self):
+        parts = [
+            self.elocation_id,
+            self.fpage,
+            self.fpage_seq,
+            self.lpage,
+            self.v2 and self.v2[-5:],
+            self.source_filename,
+        ]
+        return "_".join([part for part in parts if part])
+
+    @cached_property
+    def sps_pkg_name(self):
+        if self.source_ext == ".xml":
+            return self.source_filename
+
+        parts = [
+            self.get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
+            self.get_pkg_name_suffix(),
+        ]
+        return "-".join([part for part in parts if part])
+
+    @cached_property
+    def deprecated_sps_pkg_name_version_2(self):
+        """Problema com o sufixo - número de páginas se repete por erro humano, então usar mais dados para desambiguar"""
+        parts = [
+            self.get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
             self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
 
     @cached_property
     def deprecated_sps_pkg_name(self):
-        """Cache do nome do pacote SPS que é usado frequentemente"""
-        xml_acron = Acronym(self.xmltree)
+        """Tinha defeito na parte referente ao suppl, ausente o 's' antes do número do suplemento"""
         parts = [
-            self.journal_issn_electronic or self.journal_issn_print,
-            xml_acron.text,
-            self.volume,
-            self.number and self.number.zfill(2),
-            self.deprecated_sps_pkg_name_suppl,
+            self.get_pkg_name_prefix(suppl=self.deprecated_sps_pkg_name_suppl),
             self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
+
+    @cached_property
+    def deprecated_sps_pkg_name_list(self):
+        return [
+            self.deprecated_sps_pkg_name,
+            self.deprecated_sps_pkg_name_version_2,
+        ]
 
     @property
     def deprecated_sps_pkg_name_suppl(self):
@@ -612,14 +656,9 @@ class XMLWithPre:
 
     @property
     def sps_pkg_name_suppl(self):
-        suppl = self.suppl
-        if not suppl:
-            return None
-        try:
-            if int(suppl) == 0:
-                return "suppl"
-        except (TypeError, ValueError):
-            pass
+        suppl = self.deprecated_sps_pkg_name_suppl
+        if not suppl or suppl == "suppl":
+            return suppl
         return f"s{suppl}"
 
     @cached_property
@@ -798,16 +837,8 @@ class XMLWithPre:
     @cached_property
     def is_aop(self):
         if self.volume:
-            try:
-                return int(self.volume) == 0
-            except (ValueError, TypeError):
-                return False
             return False
         if self.number:
-            try:
-                return int(self.number) == 0
-            except (ValueError, TypeError):
-                return False
             return False
         return True
 
@@ -953,6 +984,7 @@ class XMLWithPre:
                 int(data.get("day") or default_day),
             ).isoformat()
         return self.article_publication_date
+
     @property
     def article_publication_date(self):
         try:
