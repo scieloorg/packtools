@@ -443,10 +443,9 @@ class XMLWithPre:
         self.source_filename = None
         self.source_ext = None
 
-    def add_pkg_name_components(self, pkg_name_version=3, source_filename=None):
+    def add_pkg_name_components(self, source_filename, pkg_name_version=3):
         self.pkg_name_version = pkg_name_version
-        if source_filename:
-            self.source_filename, self.source_ext = os.path.splitext(source_filename)
+        self.source_filename, self.source_ext = os.path.splitext(source_filename)
 
     @property
     def data(self):
@@ -601,9 +600,11 @@ class XMLWithPre:
             self.fpage,
             self.fpage_seq,
             self.lpage,
-            self.v2 and self.v2[-5:],
+            self.order or self.v2 and self.v2[-5:],
             self.source_filename,
         ]
+        if not parts:
+            raise ValueError("Unable to get pkg name suffix. No valid parts found.")
         return "_".join([part for part in parts if part])
 
     @cached_property
@@ -801,6 +802,117 @@ class XMLWithPre:
             parent = self.article_id_parent
             parent.insert(1, node)
         node.text = value
+
+    @property
+    def v2_list(self):
+        """
+        Retorna TODOS os PID v2 (article-id[@specific-use="scielo-v2"])
+        presentes no XML, com ou sem `assigning-authority`, como uma
+        lista de dicts:
+
+            [
+                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+                {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
+            ]
+
+        Cenário: um mesmo artigo pode ter mais de um PID v2 quando
+        publicado em mais de uma coleção SciELO, cada um identificado
+        pelo atributo `assigning-authority`:
+
+        <article-id pub-id-type="publisher-id" specific-use="scielo-v2"
+                    assigning-authority="scielo-scl">S0103-65642009000300003</article-id>
+        <article-id pub-id-type="publisher-id" specific-use="scielo-v2"
+                    assigning-authority="scielo-psi">S1678-51772009000300003</article-id>
+
+        Compatibilidade retroativa: XML "clássico", com apenas 1
+        article-id scielo-v2 e sem o atributo `assigning-authority`
+        (formato original, anterior ao suporte a múltiplas coleções),
+        continua funcionando normalmente — é retornado como um único
+        item da lista com "assigning-authority" igual a None. O
+        getter/setter simples `v2` (primeiro nó encontrado) não é
+        afetado por esta propriedade.
+
+        Returns
+        -------
+        list of dict
+        """
+        items = []
+        for node in self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]'):
+            items.append(
+                {
+                    "assigning-authority": node.get("assigning-authority"),
+                    "pid": node.text,
+                }
+            )
+        return items
+
+    @v2_list.setter
+    def v2_list(self, items):
+        """
+        Recebe uma lista de dicts na mesma estrutura retornada pelo
+        getter `v2_list` (chaves "assigning-authority" e "pid") e
+        atualiza o XML, adicionando ou substituindo o article-id
+        scielo-v2 correspondente a cada `assigning-authority`.
+
+        "assigning-authority" == None representa o PID v2 "clássico"
+        (sem coleção / compatibilidade retroativa).
+
+        Não remove article-id que não estejam presentes em `items`.
+
+        Parameters
+        ----------
+        items : list of dict
+            [{"assigning-authority": str or None, "pid": str}, ...]
+
+        Raises
+        ------
+        ValueError
+        """
+        if not items:
+            return
+        for item in items:
+            item = item or {}
+            self._set_v2_item(item.get("assigning-authority"), item.get("pid"))
+
+    def _set_v2_item(self, assigning_authority, pid):
+        """
+        Adiciona ou atualiza um único article-id scielo-v2,
+        identificado por `assigning_authority` (None == PID v2
+        clássico, sem coleção).
+        """
+        pid = pid and pid.strip()
+        if not pid or len(pid) != 23:
+            raise ValueError(
+                "can't set attribute XMLWithPre.v2_list. "
+                "Expected pid value must have 23 characters. Got: %s" % pid
+            )
+        if assigning_authority:
+            matches = self.xmltree.xpath(
+                './/article-id[@specific-use="scielo-v2" and @assigning-authority=$aa]',
+                aa=assigning_authority,
+            )
+        else:
+            matches = self.xmltree.xpath(
+                './/article-id[@specific-use="scielo-v2" and not(@assigning-authority)]'
+            )
+        try:
+            node = matches[0]
+        except IndexError:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "publisher-id")
+            node.set("specific-use", "scielo-v2")
+            if assigning_authority:
+                node.set("assigning-authority", assigning_authority)
+            parent = self.article_id_parent
+            existing_article_ids = parent.findall("article-id")
+            if existing_article_ids:
+                # insere após o último article-id já existente, preservando
+                # a ordem de criação quando vários itens são adicionados
+                # em sequência (ex.: via setter v2_list)
+                existing_article_ids[-1].addnext(node)
+            else:
+                parent.insert(0, node)
+        node.text = pid
 
     @property
     def v2_prefix(self):
