@@ -256,7 +256,20 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
-def pipeline_pubmed(xml_tree, pretty_print=True):
+PUBMED_DOCTYPE = (
+    '<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 3.0//EN" '
+    '"https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">'
+)
+
+
+def xml_pubmed_article_set_pipe():
+    return ET.Element("ArticleSet")
+
+
+def build_pubmed_article(xml_tree):
+    """
+    Builds a single <Article> element for one SciELO XML tree.
+    """
     xml_pubmed = xml_pubmed_article_pipe()
     xml_pubmed_journal_pipe(xml_pubmed)
     xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
@@ -266,6 +279,7 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
     xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
@@ -273,16 +287,39 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_publication_type(xml_pubmed, xml_tree)
     xml_pubmed_article_id(xml_pubmed, xml_tree)
     xml_pubmed_history(xml_pubmed, xml_tree)
+    xml_pubmed_abstract(xml_pubmed, xml_tree)
+    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
     xml_pubmed_copyright_information(xml_pubmed, xml_tree)
     xml_pubmed_coi_statement(xml_pubmed, xml_tree)
     xml_pubmed_object_list(xml_pubmed, xml_tree)
     xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
     xml_pubmed_citations(xml_pubmed, xml_tree)
-    xml_pubmed_abstract(xml_pubmed, xml_tree)
-    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
+    return xml_pubmed
 
-    xml_tree = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode("utf-8")
+
+def pipeline_pubmed_set(xml_trees, pretty_print=True):
+    """
+    Builds a complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
+    <ArticleSet>) containing one <Article> per SciELO XML tree in xml_trees.
+    """
+    article_set = xml_pubmed_article_set_pipe()
+    for xml_tree in xml_trees:
+        article_set.append(build_pubmed_article(xml_tree))
+
+    return ET.tostring(
+        ET.ElementTree(article_set),
+        pretty_print=pretty_print,
+        encoding="utf-8",
+        xml_declaration=True,
+        doctype=PUBMED_DOCTYPE,
+    ).decode("utf-8")
+
+
+def pipeline_pubmed(xml_tree, pretty_print=True):
+    """
+    Builds a complete PubMed XML document for a single SciELO XML tree.
+    """
+    return pipeline_pubmed_set([xml_tree], pretty_print=pretty_print)
 
 
 def get_authors(xml_tree):

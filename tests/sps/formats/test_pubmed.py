@@ -25,6 +25,9 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_citations,
     xml_pubmed_abstract,
     xml_pubmed_other_abstract,
+    pipeline_pubmed,
+    pipeline_pubmed_set,
+    PUBMED_DOCTYPE,
 )
 
 
@@ -1827,6 +1830,38 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_pipeline_pubmed_wraps_article_in_article_set_with_doctype(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta></article-meta></front>'
+            '</article>'
+        )
+
+        obtained = pipeline_pubmed(xml_tree, pretty_print=False)
+
+        self.assertTrue(obtained.startswith("<?xml version='1.0' encoding='utf-8'?>\n"))
+        self.assertIn(PUBMED_DOCTYPE, obtained)
+        self.assertIn('<ArticleSet><Article>', obtained)
+        self.assertTrue(obtained.rstrip().endswith('</Article></ArticleSet>'))
+        self.assertEqual(obtained.count('<Article>'), 1)
+
+    def test_pipeline_pubmed_set_wraps_multiple_articles_in_single_article_set(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta></article-meta></front>'
+            '</article>'
+        )
+
+        obtained = pipeline_pubmed_set([xml_tree, xml_tree], pretty_print=False)
+
+        self.assertIn(PUBMED_DOCTYPE, obtained)
+        self.assertEqual(obtained.count('<ArticleSet>'), 1)
+        self.assertEqual(obtained.count('<Article>'), 2)
+        self.assertEqual(obtained.count('</Article>'), 2)
 
 
 if __name__ == '__main__':
