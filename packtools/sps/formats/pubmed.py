@@ -291,7 +291,12 @@ def get_authors(xml_tree):
 
 
 def add_first_name(author_reg, author_tag):
-    author_first_name = author_reg.get("contrib_name", {}).get("given-names")
+    contrib_name = author_reg.get("contrib_name", {})
+    # A DTD do PubMed exige FirstName e LastName juntos (nenhum dos dois é
+    # opcional isoladamente). Quando o XML fonte só tem um dos dois campos
+    # (autores sem <surname>, por exemplo), duplicamos o valor disponível
+    # em ambos para gerar um Author válido em vez de descartar o autor.
+    author_first_name = contrib_name.get("given-names") or contrib_name.get("surname")
     if author_first_name:
         first = ET.Element("FirstName")
         first.text = author_first_name
@@ -299,7 +304,8 @@ def add_first_name(author_reg, author_tag):
 
 
 def add_last_name(author_reg, author_tag):
-    author_last_name = author_reg.get("contrib_name", {}).get("surname")
+    contrib_name = author_reg.get("contrib_name", {})
+    author_last_name = contrib_name.get("surname") or contrib_name.get("given-names")
     if author_last_name:
         last = ET.Element("LastName")
         last.text = author_last_name
