@@ -1058,6 +1058,47 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_author_list_without_surname_duplicates_given_names(self):
+        # A DTD do PubMed exige FirstName e LastName juntos; quando o XML
+        # fonte só tem <given-names> (sem <surname>), duplicamos o valor
+        # em ambos os campos em vez de gerar um Author inválido.
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<FirstName>Viviana Alder</FirstName>'
+            '<LastName>Viviana Alder</LastName>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<given-names>Viviana Alder</given-names>'
+            '</name>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
     def test_xml_pubmed_author_list_with_collective_name(self):
         expected = (
             '<Article>'
