@@ -1012,6 +1012,88 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_author_list_with_suffix(self):
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<FirstName>Rogerio</FirstName>'
+            '<LastName>Meneghini</LastName>'
+            '<Suffix>Junior</Suffix>'
+            '<Affiliation>Some University</Affiliation>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<surname>Meneghini</surname>'
+            '<given-names>Rogerio</given-names>'
+            '<suffix>Junior</suffix>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<institution content-type="original">Some University</institution>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_author_list_with_collective_name(self):
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<CollectiveName>The SciELO Group</CollectiveName>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author" id="collab">'
+            '<collab>The SciELO Group</collab>'
+            '<xref ref-type="author-notes" rid="fn1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
     def test_xml_pubmed_publication_type(self):
         # TODO
         # Originalmente, espera-se que o valor da tag <PublicationType> seja Journal Article

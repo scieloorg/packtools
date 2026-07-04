@@ -305,10 +305,26 @@ def add_last_name(author_reg, author_tag):
         author_tag.append(last)
 
 
+def add_suffix(author_reg, author_tag):
+    author_suffix = author_reg.get("contrib_name", {}).get("suffix")
+    if author_suffix:
+        suffix = ET.Element("Suffix")
+        suffix.text = author_suffix
+        author_tag.append(suffix)
+
+
+def add_collective_name(author_reg, author_tag):
+    collab = author_reg.get("collab")
+    if collab:
+        collective_name = ET.Element("CollectiveName")
+        collective_name.text = collab
+        author_tag.append(collective_name)
+
+
 def get_affiliations(author_reg, xml_tree):
     affiliations = aff.AffiliationExtractor(xml_tree).get_affiliation_dict(subtag=False)
     affiliation_list = []
-    for item in author_reg.get("affs"):
+    for item in author_reg.get("affs") or []:
         affiliation_list.append(
             affiliations.get(item.get("id"), {}).get("institution", {})[0].get("original")
         )
@@ -342,33 +358,23 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
         author_list_tag = ET.Element("AuthorList")
         for author_reg in authors:
             author_tag = ET.Element("Author")
-            add_first_name(author_reg, author_tag)
 
-            # TODO
-            # add_middle_name(author_reg, author_tag)
-            # The Author’s full middle name, or initial if the full name is not available.
-            # Multiple names are allowed in this tag.
-            # There is no example of using this value in the files.
+            # A DTD do PubMed exige que Author tenha nome pessoal
+            # (FirstName/MiddleName/LastName/Suffix) OU CollectiveName,
+            # nunca os dois ao mesmo tempo.
+            if author_reg.get("collab"):
+                add_collective_name(author_reg, author_tag)
+            else:
+                add_first_name(author_reg, author_tag)
 
-            add_last_name(author_reg, author_tag)
+                # TODO
+                # add_middle_name(author_reg, author_tag)
+                # The Author’s full middle name, or initial if the full name is not available.
+                # Multiple names are allowed in this tag.
+                # There is no example of using this value in the files.
 
-            # TODO
-            # add_suffix(author_reg, author_tag)
-            # The Author's suffix, if any, e.g. "Jr", "Sr", "II", "IV". Do not include honorific titles,
-            # e.g. "M.D.", "Ph.D.".
-            # There is no example of using this value in the files
-
-            # TODO
-            # add_collective_name(author_reg, author_tag)
-            # The name of the authoring committee or organization. The CollectiveName tag should be placed within
-            # an Author tag. Omit extraneous text like, “on behalf of.”
-            # Please see the following example:
-            #   <AuthorList>
-            #       <Author>
-            #           <CollectiveName>Plastic Surgery Educational Foundation DATA Committee</CollectiveName>
-            #       </Author>
-            #   </AuthorList>
-            # There is no example of using this value in the files
+                add_last_name(author_reg, author_tag)
+                add_suffix(author_reg, author_tag)
 
             affiliations = get_affiliations(author_reg, xml_tree)
             add_affiliations(affiliations, author_tag)
