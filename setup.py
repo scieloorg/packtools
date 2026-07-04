@@ -85,6 +85,7 @@ setup(
             "package_optimiser=packtools.package_optimiser:main",
             "package_maker=packtools.package_maker:main",
             "pdf_generator=packtools.sps.formats.pdf_generator:main",
+            "pubmed_generator=packtools.sps.formats.pubmed_generator:main",
         ]
     }
 )
