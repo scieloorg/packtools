@@ -270,6 +270,7 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
     xml_pubmed_author_list(xml_pubmed, xml_tree)
+    xml_pubmed_group_list(xml_pubmed, xml_tree)
     xml_pubmed_publication_type(xml_pubmed, xml_tree)
     xml_pubmed_article_id(xml_pubmed, xml_tree)
     xml_pubmed_history(xml_pubmed, xml_tree)
@@ -353,7 +354,14 @@ def add_orcid(author_reg, author_tag):
 
 
 def xml_pubmed_author_list(xml_pubmed, xml_tree):
-    authors = list(get_authors(xml_tree))
+    # Contribs de contrib-group[@content-type="collab-list"] são os membros
+    # nomeados de um grupo de autoria (ver xml_pubmed_group_list) e não
+    # devem aparecer soltos em AuthorList.
+    authors = [
+        author_reg
+        for author_reg in get_authors(xml_tree)
+        if author_reg.get("contrib-group-type") != "collab-list"
+    ]
     if authors:
         author_list_tag = ET.Element("AuthorList")
         for author_reg in authors:
@@ -381,30 +389,77 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
             add_orcid(author_reg, author_tag)
             author_list_tag.append(author_tag)
 
-            # TODO
-            # add_group_list(author_reg, author_tag)
-            # Group information should be enclosed in these tags. If an article has one or more Groups, this tag
-            # must be submitted. Groups should be listed in the same order as in the printed article, and Group name
-            # format should accurately reflect the article. This tag is Required if the tag Group is present.
-            # There is no example of using this value in the files
-
-            # TODO
-            # add_group(author_reg, author_tag)
-            # Information about a single Group must begin with this tag.
-            # There is no example of using this value in the files
-
-            # TODO
-            # add_group_name(author_reg, author_tag)
-            # The name of the authoring committee or organization. Omit extraneous text like, “on behalf of.”
-            # There is no example of using this value in the files
-
-            # TODO
-            # add_individual_name(author_reg, author_tag)
-            # The name of individual members belonging to the authoring committee or organization.
-            # The name should be tagged with the FirstName, MiddleName, LastName, Suffix, and Affiliation tags.
-            # There is no example of using this value in the files
-
         xml_pubmed.append(author_list_tag)
+
+
+def get_group_members(authors):
+    return [
+        author_reg
+        for author_reg in authors
+        if author_reg.get("contrib-group-type") == "collab-list"
+    ]
+
+
+def get_group_name(authors):
+    for author_reg in authors:
+        if author_reg.get("collab") and author_reg.get("contrib-group-type") != "collab-list":
+            return author_reg.get("collab")
+
+
+def add_individual_name(member_reg, xml_tree, group_tag):
+    """
+    <IndividualName>
+        <FirstName>Felipe</FirstName>
+        <LastName>Esteves</LastName>
+        <Affiliation>Universidade Federal do Pará (UFPA)</Affiliation>
+    </IndividualName>
+    """
+    individual_name_tag = ET.Element("IndividualName")
+    add_first_name(member_reg, individual_name_tag)
+    add_last_name(member_reg, individual_name_tag)
+    add_suffix(member_reg, individual_name_tag)
+    affiliations = get_affiliations(member_reg, xml_tree)
+    add_affiliations(affiliations, individual_name_tag)
+    add_orcid(member_reg, individual_name_tag)
+    group_tag.append(individual_name_tag)
+
+
+def xml_pubmed_group_list(xml_pubmed, xml_tree):
+    """
+    <GroupList>
+        <Group>
+            <GroupName>The SciELO Group</GroupName>
+            <IndividualName>
+                <FirstName>Felipe</FirstName>
+                <LastName>Esteves</LastName>
+                <Affiliation>Universidade Federal do Pará (UFPA)</Affiliation>
+            </IndividualName>
+        </Group>
+    </GroupList>
+
+    Membros de contrib-group[@content-type="collab-list"] (ver
+    xml_pubmed_author_list), agrupados sob o nome do grupo declarado no
+    <collab> do contrib-group irmão.
+    """
+    authors = list(get_authors(xml_tree))
+    members = get_group_members(authors)
+    if not members:
+        return
+
+    group_list_tag = ET.Element("GroupList")
+    group_tag = ET.Element("Group")
+
+    group_name = get_group_name(authors)
+    if group_name:
+        group_name_tag = ET.Element("GroupName")
+        group_name_tag.text = group_name
+        group_tag.append(group_name_tag)
+
+    for member_reg in members:
+        add_individual_name(member_reg, xml_tree, group_tag)
+
+    group_list_tag.append(group_tag)
+    xml_pubmed.append(group_list_tag)
 
 
 def get_publication_type(xml_tree):
