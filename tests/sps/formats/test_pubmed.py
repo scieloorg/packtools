@@ -27,7 +27,10 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_other_abstract,
     pipeline_pubmed,
     pipeline_pubmed_set,
+    build_pubmed_article,
+    build_article_set_xml,
     PUBMED_DOCTYPE,
+    MissingRequiredPubDateError,
 )
 
 
@@ -1835,7 +1838,11 @@ class PipelinePubmed(unittest.TestCase):
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<front><article-meta></article-meta></front>'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
             '</article>'
         )
 
@@ -1852,7 +1859,11 @@ class PipelinePubmed(unittest.TestCase):
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<front><article-meta></article-meta></front>'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
             '</article>'
         )
 
@@ -1862,6 +1873,60 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained.count('<ArticleSet>'), 1)
         self.assertEqual(obtained.count('<Article>'), 2)
         self.assertEqual(obtained.count('</Article>'), 2)
+
+    def test_pipeline_pubmed_set_raises_when_any_article_has_no_pub_date(self):
+        xml_tree_with_date = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
+            '</article>'
+        )
+        xml_tree_without_date = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta></article-meta></front>'
+            '</article>'
+        )
+
+        with self.assertRaises(MissingRequiredPubDateError):
+            pipeline_pubmed_set([xml_tree_with_date, xml_tree_without_date])
+
+    def test_build_pubmed_article_raises_when_no_pub_date_is_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta></article-meta></front>'
+            '</article>'
+        )
+
+        with self.assertRaises(MissingRequiredPubDateError):
+            build_pubmed_article(xml_tree)
+
+    def test_build_article_set_xml_wraps_pre_built_articles(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
+            '</article>'
+        )
+        article = build_pubmed_article(xml_tree)
+
+        obtained = build_article_set_xml([article], pretty_print=False)
+
+        self.assertIn(PUBMED_DOCTYPE, obtained)
+        self.assertEqual(obtained.count('<Article>'), 1)
 
 
 if __name__ == '__main__':

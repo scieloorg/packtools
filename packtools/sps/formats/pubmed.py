@@ -16,6 +16,12 @@ from packtools.sps.models import (
 )
 
 
+class MissingRequiredPubDateError(Exception):
+    """Raised when a SciELO article has no usable publication date, so the
+    DTD-required PubMed.dtd `Journal/PubDate` element (`(..., PubDate)`,
+    no `?`) cannot be filled in."""
+
+
 def xml_pubmed_article_pipe():
     return ET.Element("Article")
 
@@ -278,6 +284,11 @@ def build_pubmed_article(xml_tree):
     xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
     xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
     xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+    if xml_pubmed.find("Journal/PubDate") is None:
+        raise MissingRequiredPubDateError(
+            "Journal/PubDate é obrigatório na DTD do PubMed e não foi "
+            "possível determinar uma data de publicação para este artigo."
+        )
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
@@ -297,14 +308,15 @@ def build_pubmed_article(xml_tree):
     return xml_pubmed
 
 
-def pipeline_pubmed_set(xml_trees, pretty_print=True):
+def build_article_set_xml(articles, pretty_print=True):
     """
-    Builds a complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
-    <ArticleSet>) containing one <Article> per SciELO XML tree in xml_trees.
+    Wraps a list of already-built <Article> elements (see build_pubmed_article)
+    into the complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
+    <ArticleSet>).
     """
     article_set = xml_pubmed_article_set_pipe()
-    for xml_tree in xml_trees:
-        article_set.append(build_pubmed_article(xml_tree))
+    for article in articles:
+        article_set.append(article)
 
     return ET.tostring(
         ET.ElementTree(article_set),
@@ -313,6 +325,21 @@ def pipeline_pubmed_set(xml_trees, pretty_print=True):
         xml_declaration=True,
         doctype=PUBMED_DOCTYPE,
     ).decode("utf-8")
+
+
+def pipeline_pubmed_set(xml_trees, pretty_print=True):
+    """
+    Builds a complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
+    <ArticleSet>) containing one <Article> per SciELO XML tree in xml_trees.
+
+    Raises MissingRequiredPubDateError immediately if any xml_tree has no
+    usable publication date. Callers that want to skip such articles
+    instead of failing the whole batch (e.g. the batch CLI) should build
+    each <Article> themselves via build_pubmed_article and assemble the
+    final document with build_article_set_xml.
+    """
+    articles = [build_pubmed_article(xml_tree) for xml_tree in xml_trees]
+    return build_article_set_xml(articles, pretty_print=pretty_print)
 
 
 def pipeline_pubmed(xml_tree, pretty_print=True):
