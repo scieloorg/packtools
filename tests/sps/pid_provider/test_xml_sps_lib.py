@@ -22,7 +22,16 @@ class XMLWithPreTestMixin:
         doi=None,
         order=None,
         v2=None,
+        v2_items=None,
     ):
+        """
+        v2_items : list of tuple(assigning_authority, value), optional
+            Permite gerar múltiplos <article-id specific-use="scielo-v2">
+            com atributo `assigning-authority`, simulando um artigo
+            publicado em mais de uma coleção SciELO. Ex.:
+            [("scielo-scl", "S0103-65642009000300003"),
+             ("scielo-psi", "S1678-51772009000300003")]
+        """
         issn_parts = []
         if issn_epub:
             issn_parts.append(f'<issn pub-type="epub">{issn_epub}</issn>')
@@ -43,6 +52,14 @@ class XMLWithPreTestMixin:
         order_tag = f'<article-id pub-id-type="other">{order}</article-id>' if order else ""
         v2_tag = f'<article-id specific-use="scielo-v2" pub-id-type="publisher-id">{v2}</article-id>' if v2 else ""
 
+        v2_items_tags = ""
+        if v2_items:
+            v2_items_tags = "".join(
+                f'<article-id pub-id-type="publisher-id" specific-use="scielo-v2" '
+                f'assigning-authority="{assigning_authority}">{value}</article-id>'
+                for assigning_authority, value in v2_items
+            )
+
         xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "JATS-journalpublishing1.dtd">
 <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
@@ -54,6 +71,7 @@ class XMLWithPreTestMixin:
     <article-meta>
       {doi_tag}
       {v2_tag}
+      {v2_items_tags}
       {order_tag}
       {vol_tag}
       {num_tag}
@@ -198,7 +216,7 @@ class TestSPSPkgName(XMLWithPreTestMixin, TestCase):
             fpage="100",
             lpage="110",
         )
-        self.assertEqual(xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-s1-100")
+        self.assertEqual(xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-s1-100_110")
 
     def test_sps_pkg_name_ppub_fallback(self):
         xml_with_pre = self._make_xml(
@@ -240,6 +258,205 @@ class TestSPSPkgName(XMLWithPreTestMixin, TestCase):
             lpage="110",
         )
         self.assertEqual(xml_with_pre.deprecated_sps_pkg_name, "1234-5678-abc-10-02-suppl-100")
+
+    def test_deprecated_sps_pkg_name_version_2_with_suppl(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            suppl="1",
+            fpage="100",
+            lpage="110",
+        )
+        # version_2 usa o mesmo suppl de sps_pkg_name (com "s"), mas o
+        # sufixo de sps_pkg_name_suffix (não o antigo get_pkg_name_suffix)
+        self.assertEqual(
+            xml_with_pre.deprecated_sps_pkg_name_version_2,
+            "1234-5678-abc-10-02-s1-100",
+        )
+
+    def test_deprecated_sps_pkg_name_version_2_no_suppl(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            fpage="123",
+            lpage="123",
+        )
+        self.assertEqual(
+            xml_with_pre.deprecated_sps_pkg_name_version_2,
+            "1234-5678-abc-10-02-123",
+        )
+
+    def test_deprecated_sps_pkg_name_list(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            suppl="1",
+            fpage="100",
+            lpage="110",
+        )
+        self.assertEqual(
+            xml_with_pre.deprecated_sps_pkg_name_list,
+            [
+                "1234-5678-abc-10-02-1-100",
+                "1234-5678-abc-10-02-s1-100",
+            ],
+        )
+
+    # -------- add_pkg_name_components --------
+
+    def test_add_pkg_name_components_stores_source_filename_and_ext(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_pkg_name_components("1234-5678-abc-10-02-s1-100.xml")
+        self.assertEqual(xml_with_pre.source_filename, "1234-5678-abc-10-02-s1-100")
+        self.assertEqual(xml_with_pre.source_ext, ".xml")
+
+    def test_add_pkg_name_components_default_pkg_name_version(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_pkg_name_components("1989.htm")
+        self.assertEqual(xml_with_pre.pkg_name_version, 3)
+
+    def test_add_pkg_name_components_custom_pkg_name_version(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_pkg_name_components("1989.htm", pkg_name_version=2)
+        self.assertEqual(xml_with_pre.pkg_name_version, 2)
+
+    def test_sps_pkg_name_with_xml_source_filename_bypasses_computation(self):
+        # source_filename já é o próprio sps_pkg_name (extensão .xml):
+        # sps_pkg_name deve retorná-lo tal como está, ignorando
+        # issn/acron/volume/numero/suppl/fpage/etc.
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            suppl="1",
+            fpage="100",
+            lpage="110",
+        )
+        xml_with_pre.add_pkg_name_components("1234-5678-abc-10-02-s1-100.xml")
+        self.assertEqual(xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-s1-100")
+
+    def test_sps_pkg_name_with_xml_source_filename_bypasses_even_without_metadata(self):
+        # mesmo sem volume/numero/issn, com extensão .xml o nome do
+        # pacote é o próprio source_filename (sem extensão)
+        xml_with_pre = self._make_xml()
+        xml_with_pre.add_pkg_name_components("1234-5678-abc-10-02-s1-100.xml")
+        self.assertEqual(xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-s1-100")
+
+    def test_sps_pkg_name_with_htm_source_filename_appends_as_suffix(self):
+        # com extensão diferente de .xml (ex.: .htm, conversão do site
+        # clássico), o source_filename ("1989") é incorporado ao
+        # sufixo calculado (get_pkg_name_suffix), não substitui o nome
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            fpage="100",
+            lpage="110",
+        )
+        xml_with_pre.add_pkg_name_components("1989.htm")
+        self.assertEqual(xml_with_pre.source_filename, "1989")
+        self.assertEqual(xml_with_pre.source_ext, ".htm")
+        self.assertEqual(
+            xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-100_110_1989"
+        )
+
+    def test_sps_pkg_name_with_htm_source_filename_and_suppl(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            suppl="1",
+            fpage="100",
+            lpage="110",
+        )
+        xml_with_pre.add_pkg_name_components("1989.htm")
+        self.assertEqual(
+            xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-s1-100_110_1989"
+        )
+
+    # -------- sps_pkg_name com order e/ou v2 --------
+    # get_pkg_name_suffix inclui `self.order or self.v2 and self.v2[-5:]`
+    # como parte do sufixo: order tem precedência sobre os 5 últimos
+    # dígitos do v2 quando ambos estão presentes.
+
+    def test_sps_pkg_name_without_order_and_without_v2(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            elocation="e100",
+        )
+        self.assertEqual(xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-e100")
+
+    def test_sps_pkg_name_with_order_only(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            elocation="e100",
+            order="00001",
+        )
+        self.assertEqual(xml_with_pre.order, "00001")
+        self.assertIsNone(xml_with_pre.v2)
+        self.assertEqual(
+            xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-e100_00001"
+        )
+
+    def test_sps_pkg_name_with_v2_only(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            elocation="e100",
+            v2="S0101-01011999000100123",
+        )
+        self.assertIsNone(xml_with_pre.order)
+        self.assertEqual(xml_with_pre.v2, "S0101-01011999000100123")
+        self.assertEqual(
+            xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-e100_00123"
+        )
+
+    def test_sps_pkg_name_with_order_and_v2_order_takes_precedence(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            elocation="e100",
+            order="00001",
+            v2="S0101-01011999000100123",
+        )
+        # order ("00001") prevalece sobre v2[-5:] ("00123")
+        self.assertEqual(
+            xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-e100_00001"
+        )
+
+    def test_sps_pkg_name_with_order_v2_and_htm_source_filename(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            elocation="e100",
+            order="00001",
+            v2="S0101-01011999000100123",
+        )
+        xml_with_pre.add_pkg_name_components("1989.htm")
+        self.assertEqual(
+            xml_with_pre.sps_pkg_name, "1234-5678-abc-10-02-e100_00001_1989"
+        )
 
 
 class TestSPSPkgNameSuffix(XMLWithPreTestMixin, TestCase):
@@ -288,6 +505,189 @@ class TestSPSPkgNameSuffix(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_xml(vol="10", num="2")
         xml_with_pre.filename = "article.xml"
         self.assertEqual(xml_with_pre.alternative_sps_pkg_name_suffix, "article.xml")
+
+
+class TestV2List(XMLWithPreTestMixin, TestCase):
+    """
+    Testes para a nova property `v2_list`, que resolve o cenário de
+    múltiplos PID v2 (article-id specific-use="scielo-v2") quando o
+    artigo é publicado em mais de uma coleção SciELO, cada uma
+    identificada pelo atributo `assigning-authority`:
+
+    <article-id pub-id-type="publisher-id" specific-use="scielo-v2"
+                assigning-authority="scielo-scl">S0103-65642009000300003</article-id>
+    <article-id pub-id-type="publisher-id" specific-use="scielo-v2"
+                assigning-authority="scielo-psi">S1678-51772009000300003</article-id>
+
+    Mantém compatibilidade retroativa com o formato clássico (1 único
+    scielo-v2, sem assigning-authority), representado na lista com
+    "assigning-authority": None.
+    """
+
+    # -------- getter --------
+
+    def test_v2_list_empty_when_absent(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        self.assertEqual(xml_with_pre.v2_list, [])
+
+    def test_v2_list_classic_single_v2_backward_compatible(self):
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2="S0101-01011999000100123",
+        )
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [{"assigning-authority": None, "pid": "S0101-01011999000100123"}],
+        )
+        # getter simples continua funcionando normalmente
+        self.assertEqual(xml_with_pre.v2, "S0101-01011999000100123")
+
+    def test_v2_list_multiple_collections(self):
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2_items=[
+                ("scielo-scl", "S0103-65642009000300003"),
+                ("scielo-psi", "S1678-51772009000300003"),
+            ],
+        )
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [
+                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+                {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
+            ],
+        )
+
+    def test_v2_list_mixes_classic_and_collections(self):
+        # cenário de transição: v2 clássico + v2 com assigning-authority
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2="S0101-01011999000100123",
+            v2_items=[("scielo-scl", "S0103-65642009000300003")],
+        )
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [
+                {"assigning-authority": None, "pid": "S0101-01011999000100123"},
+                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+            ],
+        )
+
+    # -------- setter --------
+
+    def test_v2_list_setter_creates_new_nodes(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.v2_list = [
+            {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+            {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
+        ]
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [
+                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+                {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
+            ],
+        )
+
+    def test_v2_list_setter_updates_existing_node_without_duplicating(self):
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2_items=[("scielo-scl", "S0103-65642009000300003")],
+        )
+        xml_with_pre.v2_list = [
+            {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300099"},
+        ]
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [{"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300099"}],
+        )
+        nodes = xml_with_pre.xmltree.xpath(
+            './/article-id[@specific-use="scielo-v2" and @assigning-authority="scielo-scl"]'
+        )
+        self.assertEqual(len(nodes), 1)
+
+    def test_v2_list_setter_updates_only_matching_authority(self):
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2_items=[
+                ("scielo-scl", "S0103-65642009000300003"),
+                ("scielo-psi", "S1678-51772009000300003"),
+            ],
+        )
+        xml_with_pre.v2_list = [
+            {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300099"},
+        ]
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [
+                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300099"},
+                {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
+            ],
+        )
+
+    def test_v2_list_setter_backward_compatible_with_classic_v2(self):
+        # atualizar via v2_list um XML clássico (sem assigning-authority)
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2="S0101-01011999000100123",
+        )
+        xml_with_pre.v2_list = [
+            {"assigning-authority": None, "pid": "S0101-01011999000199999"},
+        ]
+        self.assertEqual(xml_with_pre.v2, "S0101-01011999000199999")
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [{"assigning-authority": None, "pid": "S0101-01011999000199999"}],
+        )
+
+    def test_v2_list_setter_adds_collection_to_classic_v2(self):
+        # XML clássico recebendo um novo PID de outra coleção
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2="S0101-01011999000100123",
+        )
+        xml_with_pre.v2_list = [
+            {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+        ]
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [
+                {"assigning-authority": None, "pid": "S0101-01011999000100123"},
+                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+            ],
+        )
+
+    def test_v2_list_setter_empty_list_does_nothing(self):
+        xml_with_pre = self._make_xml(
+            vol="10", num="2",
+            v2="S0101-01011999000100123",
+        )
+        xml_with_pre.v2_list = []
+        self.assertEqual(
+            xml_with_pre.v2_list,
+            [{"assigning-authority": None, "pid": "S0101-01011999000100123"}],
+        )
+
+    def test_v2_list_setter_invalid_pid_length_raises(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        with self.assertRaises(ValueError):
+            xml_with_pre.v2_list = [
+                {"assigning-authority": "scielo-scl", "pid": "short"}
+            ]
+
+    def test_v2_list_setter_missing_pid_raises(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        with self.assertRaises(ValueError):
+            xml_with_pre.v2_list = [{"assigning-authority": "scielo-scl"}]
+
+    def test_v2_list_round_trip(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        original = [
+            {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
+            {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
+        ]
+        xml_with_pre.v2_list = original
+        self.assertEqual(xml_with_pre.v2_list, original)
 
 
 if __name__ == "__main__":

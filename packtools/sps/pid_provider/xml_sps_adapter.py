@@ -162,110 +162,6 @@ class PidProviderXMLAdapter:
     def z_journal_title(self):
         return _str_with_64_char(self.xml_with_pre.journal_title)
 
-    def query_params(self, filter_by_issue=False, aop_version=False):
-        """
-        Get query parameters
-
-        Arguments
-        ---------
-        filter_by_issue: bool
-        aop_version: bool
-
-        Returns
-        -------
-        dict
-        """
-        _params = dict(
-            z_surnames=self.z_surnames or None,
-            z_collab=self.z_collab or None,
-        )
-        if not any(_params.values()):
-            _params["main_doi"] = self.main_doi
-
-        if not any(_params.values()):
-            _params["z_links"] = self.z_links
-
-        if not any(_params.values()):
-            _params["pkg_name"] = self.sps_pkg_name
-
-        if not any(_params.values()):
-            _params["z_partial_body"] = self.z_partial_body
-
-        _params["elocation_id"] = self.elocation_id
-        if aop_version:
-            _params["issue__isnull"] = True
-        else:
-            if filter_by_issue:
-                _params["issue__pub_year"] = self.pub_year
-                _params["issue__volume"] = self.volume
-                _params["issue__number"] = self.number
-                _params["issue__suppl"] = self.suppl
-                _params["fpage"] = self.fpage
-                _params["fpage_seq"] = self.fpage_seq
-                _params["lpage"] = self.lpage
-
-        _params["z_journal_title"] = self.z_journal_title
-        _params["journal__issn_print"] = self.journal_issn_print
-        _params["journal__issn_electronic"] = self.journal_issn_electronic
-        _params["article_pub_year"] = self.article_pub_year
-        _params["z_article_titles_texts"] = self.z_article_titles_texts
-
-        return _params
-
-    @classmethod
-    def adapt_query_params(cls, params):
-        """
-        Adapt query parameters
-
-        Parameters
-        ----------
-        params : dict
-
-        Returns
-        -------
-        dict
-        """
-        _params = params.copy()
-        attr_names = (
-            "main_doi",
-            "pkg_name",
-            "elocation_id",
-            "issue__volume",
-            "issue__number",
-            "issue__suppl",
-            "fpage",
-            "fpage_seq",
-            "lpage",
-        )
-        for attr_name in attr_names:
-            try:
-                _params[f"{attr_name}__iexact"] = _params.pop(attr_name)
-            except KeyError:
-                continue
-        return _params
-
-    @cached_property
-    def query_list(self):
-        items = []
-        if self.is_aop:
-            LOGGER.debug("self.is_aop")
-            # o xml_adapter não contém dados de issue
-            # não indica na consulta o valor para o atributo issue
-            # então o registro encontrado pode ou não ter dados de issue
-            params = self.query_params(aop_version=False)
-            items.append(params)
-        else:
-            # o xml_adapter contém dados de issue
-            # inclui na consulta os dados de issue
-            LOGGER.debug("not self.is_aop")
-            params = self.query_params(filter_by_issue=True)
-            items.append(params)
-
-            # busca por registro cujo valor de issue is None
-            params = self.query_params(aop_version=True)
-            items.append(params)
-        return items
-
     @property
     def data(self):
         return dict(
@@ -287,6 +183,16 @@ class PidProviderXMLAdapter:
             z_links=self.z_links,
             z_partial_body=self.z_partial_body,
         )
+
+    def get_data_to_compare(self, max_body_fragment_length=300):
+        return {
+            "article_titles": self.xml_with_pre.article_titles_texts,
+            "z_surnames": self.z_surnames,
+            "z_collab": self.z_collab,
+            "z_links": self.z_links,
+            "z_partial_body": self.z_partial_body,
+            "body_fragment": self.xml_with_pre.get_body_fragment(max_body_fragment_length),
+        }
 
 
 def _standardize(text):
