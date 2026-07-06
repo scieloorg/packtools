@@ -457,7 +457,23 @@ class XMLWithPre:
             filename=self.filename,
             files=self.files,
             filenames=self.filenames,
+            pkg_names=self.deprecated_sps_pkg_name_list,
         )
+    
+    def get_article_data(self, max_body_fragment_length=300):
+        try:
+            persons = self.authors.get("person") or []
+            surnames = [p.get("surname") for p in persons if p.get("surname")]
+        except Exception:
+            surnames = []
+        return {
+            "surnames": surnames,
+            "collab": self.collab,
+            "links": self.links,
+            "article_titles": self.article_titles_texts,
+            "partial_body": self.partial_body,
+            "body_fragment": self.get_body_fragment(max_body_fragment_length),
+        }
 
     @classmethod
     def create(
@@ -999,7 +1015,6 @@ class XMLWithPre:
 
     @cached_property
     def authors(self):
-        authors_dict = {}
         names = []
         collab = None
 
@@ -1206,7 +1221,7 @@ class XMLWithPre:
         return text.lower()
 
     @property
-    def body_fingerprint(self):
+    def body_fragment_fingerprint(self):
         # gera um novo fingerprint do XML, para ser usado na comparação com o fingerprint registrado
         return generate_finger_print(self.get_body_fragment(max_length=None))
 
