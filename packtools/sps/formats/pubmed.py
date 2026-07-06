@@ -16,6 +16,12 @@ from packtools.sps.models import (
 )
 
 
+class MissingRequiredPubDateError(Exception):
+    """Raised when a SciELO article has no usable publication date, so the
+    DTD-required PubMed.dtd `Journal/PubDate` element (`(..., PubDate)`,
+    no `?`) cannot be filled in."""
+
+
 def xml_pubmed_article_pipe():
     return ET.Element("Article")
 
@@ -265,6 +271,11 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
     xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
     xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+    if xml_pubmed.find("Journal/PubDate") is None:
+        raise MissingRequiredPubDateError(
+            "Journal/PubDate é obrigatório na DTD do PubMed e não foi "
+            "possível determinar uma data de publicação para este artigo."
+        )
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
