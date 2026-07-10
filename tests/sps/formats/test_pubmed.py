@@ -30,7 +30,7 @@ from packtools.sps.formats.pubmed import (
     build_pubmed_article,
     build_article_set_xml,
     PUBMED_DOCTYPE,
-    MissingRequiredPubDateError,
+    MissingRequiredElementError,
 )
 
 
@@ -512,11 +512,6 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_pub_date_pipe_without_date(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
         xml_pubmed = ET.fromstring(
             '<Article>'
             '<Journal/>'
@@ -533,11 +528,8 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        with self.assertRaises(MissingRequiredElementError):
+            xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
 
     def test_xml_pubmed_article_title_pipe(self):
         expected = (
@@ -1894,7 +1886,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        with self.assertRaises(MissingRequiredPubDateError):
+        with self.assertRaises(MissingRequiredElementError):
             pipeline_pubmed_set([xml_tree_with_date, xml_tree_without_date])
 
     def test_build_pubmed_article_raises_when_no_pub_date_is_found(self):
@@ -1906,7 +1898,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        with self.assertRaises(MissingRequiredPubDateError):
+        with self.assertRaises(MissingRequiredElementError):
             build_pubmed_article(xml_tree)
 
     def test_build_article_set_xml_wraps_pre_built_articles(self):

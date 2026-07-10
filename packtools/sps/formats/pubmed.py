@@ -16,10 +16,17 @@ from packtools.sps.models import (
 )
 
 
-class MissingRequiredPubDateError(Exception):
-    """Raised when a SciELO article has no usable publication date, so the
-    DTD-required PubMed.dtd `Journal/PubDate` element (`(..., PubDate)`,
-    no `?`) cannot be filled in."""
+class MissingRequiredElementError(Exception):
+    """Raised when a SciELO article has no data for an element the PubMed
+    DTD marks as required (no `?`), so a valid <Article> cannot be built
+    for it. `element_path` identifies which element (e.g. "Journal/PubDate")."""
+
+    def __init__(self, element_path):
+        self.element_path = element_path
+        super().__init__(
+            f"{element_path} é obrigatório na DTD do PubMed e não foi "
+            "possível determinar seu valor para este artigo."
+        )
 
 
 def xml_pubmed_article_pipe():
@@ -133,20 +140,21 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
     </PubDate>
     """
     date = get_date(xml_tree)
-    if date is not None:
-        dt = ET.Element("PubDate")
-        dt.set("PubStatus", "epublish")
-        for element in ["year", "month", "day"]:
-            # TODO
-            # Season
-            # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
-            # There is no example of using this value in the files.
+    if date is None:
+        raise MissingRequiredElementError("Journal/PubDate")
+    dt = ET.Element("PubDate")
+    dt.set("PubStatus", "epublish")
+    for element in ["year", "month", "day"]:
+        # TODO
+        # Season
+        # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
+        # There is no example of using this value in the files.
 
-            if date.get(element):
-                el = ET.Element(element.capitalize())
-                el.text = date.get(element)
-                dt.append(el)
-        xml_pubmed.find("Journal").append(dt)
+        if date.get(element):
+            el = ET.Element(element.capitalize())
+            el.text = date.get(element)
+            dt.append(el)
+    xml_pubmed.find("Journal").append(dt)
 
 
 def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
@@ -284,11 +292,6 @@ def build_pubmed_article(xml_tree):
     xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
     xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
     xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
-    if xml_pubmed.find("Journal/PubDate") is None:
-        raise MissingRequiredPubDateError(
-            "Journal/PubDate é obrigatório na DTD do PubMed e não foi "
-            "possível determinar uma data de publicação para este artigo."
-        )
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
@@ -332,8 +335,9 @@ def pipeline_pubmed_set(xml_trees, pretty_print=True):
     Builds a complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
     <ArticleSet>) containing one <Article> per SciELO XML tree in xml_trees.
 
-    Raises MissingRequiredPubDateError immediately if any xml_tree has no
-    usable publication date. Callers that want to skip such articles
+    Raises MissingRequiredElementError immediately if any xml_tree is
+    missing data for a DTD-required element (e.g. no usable publication
+    date). Callers that want to skip such articles
     instead of failing the whole batch (e.g. the batch CLI) should build
     each <Article> themselves via build_pubmed_article and assemble the
     final document with build_article_set_xml.
