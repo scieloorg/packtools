@@ -30,7 +30,7 @@ def main():
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
     try:
         xml_pubmed = pubmed.pipeline_pubmed(xml_tree)
-    except pubmed.MissingRequiredPubDateError as exc:
+    except pubmed.MissingRequiredElementError as exc:
         print(f"Erro: {exc}", file=sys.stderr)
         raise SystemExit(1)
 
