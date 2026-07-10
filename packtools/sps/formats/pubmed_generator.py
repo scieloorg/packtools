@@ -28,16 +28,16 @@ def get_xml_trees_and_errors(path_to_read):
 def build_articles_and_errors(xml_trees):
     """
     Builds one <Article> per xml_tree, skipping (with an error record) any
-    article whose SciELO XML has no usable publication date -- Journal/PubDate
-    is required by the PubMed DTD, so such an article can't be represented,
-    but that alone shouldn't fail the rest of the batch.
+    article whose SciELO XML is missing data for a PubMed DTD-required
+    element (e.g. no usable publication date), since such an article can't
+    be represented, but that alone shouldn't fail the rest of the batch.
     """
     articles = []
     errors = []
     for xml_tree in xml_trees:
         try:
             articles.append(pubmed.build_pubmed_article(xml_tree))
-        except pubmed.MissingRequiredPubDateError as exc:
+        except pubmed.MissingRequiredElementError as exc:
             ids = pubmed.get_elocation(xml_tree)
             identifier = ids.get("doi") or ids.get("v2") or "artigo sem identificador"
             errors.append({"filename": identifier, "error": str(exc)})
