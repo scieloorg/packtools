@@ -126,9 +126,15 @@ def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
 
 
 def get_date(xml_tree):
+    """
+    article_date (epub) alone misses articles whose only pub-date is tagged
+    date-type="collection"/pub-type="epub-ppub" or "collection" -- common in
+    older SciELO articles (~80% of tests/samples/*.xml). Same collection_date
+    fallback already used by references.py and oai_dc.py for this reason.
+    """
     date = dates.ArticleDates(xml_tree)
 
-    return date.article_date
+    return date.article_date or date.collection_date
 
 
 def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
@@ -206,9 +212,14 @@ def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
 
 
 def get_first_page(xml_tree):
+    """
+    Prefers the real //fpage (traditional pagination); falls back to
+    //elocation-id for continuous-publication articles that have no fpage
+    at all -- NCBI's own convention for representing those in FirstPage.
+    """
     issue = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
 
-    return issue.elocation_id
+    return issue.fpage or issue.elocation_id
 
 
 def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
@@ -220,6 +231,23 @@ def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
         el = ET.Element("FirstPage")
         el.set("LZero", "save")
         el.text = first_page
+        xml_pubmed.append(el)
+
+
+def get_last_page(xml_tree):
+    issue = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
+
+    return issue.lpage
+
+
+def xml_pubmed_last_page_pipe(xml_pubmed, xml_tree):
+    """
+    <LastPage>232</LastPage>
+    """
+    last_page = get_last_page(xml_tree)
+    if last_page is not None:
+        el = ET.Element("LastPage")
+        el.text = last_page
         xml_pubmed.append(el)
 
 
@@ -295,6 +323,7 @@ def build_pubmed_article(xml_tree):
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_last_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
     xml_pubmed_author_list(xml_pubmed, xml_tree)
@@ -693,8 +722,17 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
             </Reference>
      </ReferenceList>
     """
-    refs = references.XMLReferences(xml_tree).main_references
+    refs = list(references.XMLReferences(xml_tree).main_references)
+    if not refs:
+        return
     xml = xml_pubmed.find("./ReferenceList")
+    if xml is None:
+        # ref-list/title is optional in JATS; xml_pubmed_title_reference_list
+        # only creates <ReferenceList> when a title is present, but a
+        # reference list without a <Title> is still valid per the DTD
+        # (`ReferenceList (Title?, Reference*, ReferenceList*)`).
+        xml = ET.Element("ReferenceList")
+        xml_pubmed.append(xml)
     for ref in refs:
         ref_el = ET.Element("Reference")
         citation = ET.Element("Citation")

@@ -13,6 +13,7 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_pub_date_pipe,
     xml_pubmed_article_title_pipe,
     xml_pubmed_first_page_pipe,
+    xml_pubmed_last_page_pipe,
     xml_pubmed_elocation_pipe,
     xml_pubmed_language_pipe,
     xml_pubmed_author_list,
@@ -400,6 +401,48 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_pub_date_pipe_falls_back_to_collection_date(self):
+        # date-type="pub"/pub-type="epub" is absent; the only pub-date is
+        # pub-type="epub-ppub" (date-type="collection"), common in older
+        # SciELO articles -- article_date alone misses this, so get_date
+        # must fall back to collection_date instead of treating it as
+        # "no date at all".
+        expected = (
+            '<Article>'
+            '<Journal>'
+            '<PubDate PubStatus="epublish">'
+            '<Year>2014</Year>'
+            '<Month>04</Month>'
+            '</PubDate>'
+            '</Journal>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article>'
+            '<Journal/>'
+            '</Article>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date pub-type="epub-ppub">'
+            '<month>04</month>'
+            '<year>2014</year>'
+            '</pub-date>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
     def test_xml_pubmed_pub_date_pipe_without_day(self):
         expected = (
             '<Article>'
@@ -701,6 +744,89 @@ class PipelinePubmed(unittest.TestCase):
         )
 
         xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_first_page_pipe_prefers_real_fpage_over_elocation_id(self):
+        # Articles with traditional pagination (//fpage) must not lose it --
+        # elocation-id is only a fallback for continuous-publication articles
+        # that have no fpage at all.
+        expected = (
+            '<Article>'
+            '<FirstPage LZero="save">227</FirstPage>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<fpage>227</fpage>'
+            '<elocation-id>e2022440</elocation-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_last_page_pipe(self):
+        expected = (
+            '<Article>'
+            '<LastPage>232</LastPage>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<fpage>227</fpage>'
+            '<lpage>232</lpage>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_last_page_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_last_page_pipe_without_last_page(self):
+        expected = (
+            '<Article/>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_last_page_pipe(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -1581,6 +1707,63 @@ class PipelinePubmed(unittest.TestCase):
             '</ref>'
             '</ref-list>'
             '</back>'
+            '</article>'
+        )
+
+        xml_pubmed_citations(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_citations_creates_reference_list_when_ref_list_has_no_title(self):
+        # ref-list/title is optional in JATS. xml_pubmed_title_reference_list
+        # only creates <ReferenceList> when a title is present, so
+        # xml_pubmed_citations must create it itself when there are
+        # references but no title -- it used to crash with AttributeError
+        # ('NoneType' object has no attribute 'append') in this case.
+        expected = (
+            '<Article>'
+            '<ReferenceList>'
+            '<Reference>'
+            '<Citation>Some citation text.</Citation>'
+            '</Reference>'
+            '</ReferenceList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<back>'
+            '<ref-list>'
+            '<ref id="B1">'
+            '<mixed-citation>Some citation text.</mixed-citation>'
+            '</ref>'
+            '</ref-list>'
+            '</back>'
+            '</article>'
+        )
+
+        xml_pubmed_citations(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_citations_without_refs_does_not_create_reference_list(self):
+        expected = '<Article/>'
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<back></back>'
             '</article>'
         )
 
