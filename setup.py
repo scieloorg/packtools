@@ -18,12 +18,16 @@ with open('packtools/version.py') as fp:
 
 
 INSTALL_REQUIRES = [
+    'aiohttp>=3.9.1',
     'lxml>=4.9.2',
     'langcodes>=3.3.0',
+    'langdetect>=1.0.9',
     'picles.plumber>=0.11',
     'Pillow',
+    'requests>=2.32.0',
     'openpyxl>=3.1.5',
     'python-docx>=1.1.2',
+    'tenacity>=8.2.3',
 ]
 
 
@@ -43,9 +47,6 @@ TESTS_REQUIRE = [
     'Flask-WTF',
     'python-magic',
     'charset-normalizer<3.0',
-    'aiohttp',
-    'tenacity',
-    'requests',
 ]
 
 
