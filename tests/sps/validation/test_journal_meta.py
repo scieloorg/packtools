@@ -117,8 +117,15 @@ class ISSNTest(TestCase):
                     'expected': '<issn pub-type="ppub">0103-5054</issn>',
                 },
                 'advice': 'Mark print ISSN with <issn pub-type="ppub">0103-5054</issn> inside <journal-meta>',
-                'adv_text': 'Mark print ISSN with <issn pub-type="ppub">0103-5054</issn> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark {name} ISSN with <issn pub-type="{tp}">{issn}</issn> '
+                    'inside <journal-meta>'
+                ),
+                'adv_params': {
+                    'name': 'print',
+                    'tp': 'ppub',
+                    'issn': '0103-5054',
+                },
                 'data': [
                     {'type': 'ppub', 'value': '0103-5053'},
                     {'type': 'epub', 'value': '1678-4790'},
@@ -143,8 +150,15 @@ class ISSNTest(TestCase):
                     'expected': '<issn pub-type="epub">1678-4791</issn>',
                 },
                 'advice': 'Mark electronic ISSN with <issn pub-type="epub">1678-4791</issn> inside <journal-meta>',
-                'adv_text': 'Mark electronic ISSN with <issn pub-type="epub">1678-4791</issn> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark {name} ISSN with <issn pub-type="{tp}">{issn}</issn> '
+                    'inside <journal-meta>'
+                ),
+                'adv_params': {
+                    'name': 'electronic',
+                    'tp': 'epub',
+                    'issn': '1678-4791',
+                },
                 'data': [
                     {'type': 'ppub', 'value': '0103-5053'},
                     {'type': 'epub', 'value': '1678-4790'},
@@ -221,8 +235,12 @@ class AcronymTest(TestCase):
                 'msg_text': 'Got {obtained}, expected {expected}',
                 'msg_params': {'obtained': 'hcsm', 'expected': 'hcs'},
                 'advice': 'Mark journal acronym with <journal-id journal-id-type="publisher-id">hcs</journal-id> inside <journal-meta>',
-                'adv_text': 'Mark journal acronym with <journal-id journal-id-type="publisher-id">hcs</journal-id> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark journal acronym with <journal-id '
+                    'journal-id-type="publisher-id">{acronym}</journal-id> inside '
+                    '<journal-meta>'
+                ),
+                'adv_params': {'acronym': 'hcs'},
                 'data': {'acronym': 'hcsm'},
             }
         ]
@@ -486,8 +504,12 @@ class PublisherTest(TestCase):
                     'expected': 'Fund. Oswaldo Cruz',
                 },
                 'advice': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
-                'adv_text': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark publisher name with '
+                    '<publisher><publisher-name>{name}</publisher-name></publisher> '
+                    'inside <journal-meta>'
+                ),
+                'adv_params': {'name': 'Fund. Oswaldo Cruz'},
                 'data': None,
             }
         ]
@@ -573,8 +595,12 @@ class PublisherTest(TestCase):
                     'expected': 'Fund. Oswaldo Cruz',
                 },
                 'advice': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
-                'adv_text': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark publisher name with '
+                    '<publisher><publisher-name>{name}</publisher-name></publisher> '
+                    'inside <journal-meta>'
+                ),
+                'adv_params': {'name': 'Fund. Oswaldo Cruz'},
                 'data': None,
             },
             {
@@ -596,8 +622,12 @@ class PublisherTest(TestCase):
                     'expected': 'UNIFESP',
                 },
                 'advice': 'Mark publisher name with <publisher><publisher-name>UNIFESP</publisher-name></publisher> inside <journal-meta>',
-                'adv_text': 'Mark publisher name with <publisher><publisher-name>UNIFESP</publisher-name></publisher> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark publisher name with '
+                    '<publisher><publisher-name>{name}</publisher-name></publisher> '
+                    'inside <journal-meta>'
+                ),
+                'adv_params': {'name': 'UNIFESP'},
                 'data': None,
             }
         ]
@@ -647,12 +677,18 @@ class PublisherTest(TestCase):
                 'message': "Got ['Fundação Oswaldo Cruz', 'UNESP'], expected ['Fundação Oswaldo Cruz']",
                 'msg_text': 'Got {obtained}, expected {expected}',
                 'msg_params': {
-                    'obtained': ['Fundação Oswaldo Cruz', 'UNESP'],
-                    'expected': ['Fundação Oswaldo Cruz'],
+                    'obtained': "['Fundação Oswaldo Cruz', 'UNESP']",
+                    'expected': "['Fundação Oswaldo Cruz']",
                 },
                 'advice': 'Remove the following items from the XML: UNESP',
-                'adv_text': 'Remove the following items from the XML: UNESP',
-                'adv_params': {},
+                'adv_text': (
+                    '{action} the following items {in_from} the XML: {items}'
+                ),
+                'adv_params': {
+                    'action': 'Remove',
+                    'in_from': 'from',
+                    'items': 'UNESP',
+                },
                 'data': None,
             }
         ]
@@ -702,12 +738,18 @@ class PublisherTest(TestCase):
                 'message': "Got ['Fundação Oswaldo Cruz'], expected ['Fundação Oswaldo Cruz', 'UNESP']",
                 'msg_text': 'Got {obtained}, expected {expected}',
                 'msg_params': {
-                    'obtained': ['Fundação Oswaldo Cruz'],
-                    'expected': ['Fundação Oswaldo Cruz', 'UNESP'],
+                    'obtained': "['Fundação Oswaldo Cruz']",
+                    'expected': "['Fundação Oswaldo Cruz', 'UNESP']",
                 },
                 'advice': 'Complete the following items in the XML: UNESP',
-                'adv_text': 'Complete the following items in the XML: UNESP',
-                'adv_params': {},
+                'adv_text': (
+                    '{action} the following items {in_from} the XML: {items}'
+                ),
+                'adv_params': {
+                    'action': 'Complete',
+                    'in_from': 'in',
+                    'items': 'UNESP',
+                },
                 'data': None,
             }
         ]
@@ -786,8 +828,14 @@ class JournalIdValidationTest(TestCase):
                     'expected': 'Rev de Saude Publica',
                 },
                 'advice': 'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">Rev de Saude Publica</journal-id> inside <journal-meta>',
-                'adv_text': 'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">Rev de Saude Publica</journal-id> inside <journal-meta>',
-                'adv_params': {},
+                'adv_text': (
+                    'Mark an nlm-ta value with <journal-id '
+                    'journal-id-type="nlm-ta">{nlm_ta}</journal-id> inside '
+                    '<journal-meta>'
+                ),
+                'adv_params': {
+                    'nlm_ta': 'Rev de Saude Publica',
+                },
                 'data': None,
             }
         ]
