@@ -304,7 +304,24 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}, expected License data that matches the language en",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                    'expected': 'License data that matches the language en',
+                },
                 'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal',
+                'adv_text': (
+                    'Provide license data that is consistent with the language: '
+                    '{lang} and standard adopted by the journal'
+                ),
+                'adv_params': {'lang': 'en'},
                 'data': {
                     'lang': 'en',
                     'license_p': 'This is an article published in open access under a Creative Commons license.',
@@ -340,7 +357,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'pt',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este é um artigo publicado em acesso aberto sob uma '
+                            'licença Creative Commons.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'pt',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este é um artigo publicado em acesso aberto sob uma '
+                            'licença Creative Commons.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'pt',
                     'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
@@ -376,7 +414,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'es',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este es un artículo publicado en acceso abierto bajo '
+                            'una licencia Creative Commons.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'es',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este es un artículo publicado en acceso abierto bajo '
+                            'una licencia Creative Commons.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'es',
                     'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
@@ -446,6 +505,23 @@ class ArticleLicenseValidationTest(TestCase):
                            "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}, expected License data that matches the language en",
                 'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                    'expected': 'License data that matches the language en',
+                },
+                'adv_text': (
+                    'Provide license data that is consistent with the language: '
+                    '{lang} and standard adopted by the journal'
+                ),
+                'adv_params': {'lang': 'en'},
                 'data': {
                     'lang': 'en',
                     'license_p': 'This is an article published in open access under a Creative Commons license.',
