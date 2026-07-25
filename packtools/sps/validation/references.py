@@ -223,7 +223,9 @@ class ReferenceValidation:
     def validate_mixed_citation_sub_tags(self):
         allowed_tags = self.params["allowed_tags"]
         if found_sub_tags := self.data.get("mixed_citation_sub_tags"):
-            remaining_tags = list(set(found_sub_tags) - set(allowed_tags))
+            remaining_tags = [
+                tag for tag in found_sub_tags if tag not in allowed_tags
+            ]
             if remaining_tags:
                 yield build_response(
                     title="mixed-citation sub elements",
