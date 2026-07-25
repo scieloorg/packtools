@@ -1,49 +1,82 @@
 import unittest
 from unittest import skip
+from unittest.mock import patch
 
-from packtools.sps.validation.utils import get_doi_information, is_valid_url_format
+from packtools.sps.validation.utils import (
+    get_doi_information,
+    handle_doi_response,
+    is_valid_url_format,
+)
 from packtools.sps.utils import xml_utils
 
 
 class MyTestCase(unittest.TestCase):
-    def test_get_doi_information(self):
-        self.maxDiff = None
-        expected = [
-            {
-                'authors': [
-                    'Rossi, Luciano',
-                    'Damaceno, Rafael J.P.',
-                    'Freire, Igor L.',
-                    'Bechara, Etelvino J.H.',
-                    'Mena-Chalco, Jesús P.'
+    @patch("packtools.sps.validation.utils.fetch_data")
+    def test_get_doi_information(self, mock_fetch_data):
+        doi = "10.1016/j.joi.2018.08.004"
+        expected = {
+            "status": "ok",
+            "message": {
+                "DOI": doi,
+                "title": [
+                    "Topological metrics in academic genealogy graphs"
                 ],
-                'en': {
-                    'doi': '10.1016/j.joi.2018.08.004',
-                    'title': 'Topological metrics in academic genealogy graphs'
-                }
             },
+        }
+        mock_fetch_data.return_value = expected
+
+        obtained = get_doi_information(doi)
+
+        self.assertEqual(expected, obtained)
+        mock_fetch_data.assert_called_once_with(
+            url=f"https://api.crossref.org/works/{doi}",
+            json=True,
+        )
+
+    def test_handle_doi_response(self):
+        item = {
+            "title": ["English title"],
+            "original-title": ["Título original"],
+            "author": [
+                {
+                    "family": "Rossi",
+                    "given": "Luciano",
+                },
+                {
+                    "family": "Damaceno",
+                    "given": "Rafael J.P.",
+                },
+            ],
+        }
+
+        obtained = handle_doi_response(item)
+
+        self.assertEqual(
             {
-                'authors': [
-                    'Carlos de Carvalho, João'
+                "titles": ["English title"],
+                "original_titles": ["Título original"],
+                "all_titles": ["English title", "Título original"],
+                "authors": [
+                    "Rossi, Luciano",
+                    "Damaceno, Rafael J.P.",
                 ],
-                'en': {
-                    'doi': '10.1590/2176-4573p59270',
-                    'title': 'The Jewish Amazon by Moacyr Scliar: The Word of the Other as Affirmation of the '
-                             'Noncoincidence of the Other in Oneself'},
-                'pt': {
-                    'doi': '10.1590/2176-4573p59270',
-                    'title': 'A Amazônia judaica de Moacyr Scliar: a palavra alheia como afirmação da '
-                             'não-coincidência do outro em si'
-                }
-            }
-            ]
+            },
+            obtained,
+        )
 
-        dois = ["10.1016/j.joi.2018.08.004", "10.1590/2176-4573p59270"]
+    @patch("packtools.sps.validation.utils.fetch_data")
+    def test_get_doi_information_request_error(self, mock_fetch_data):
+        mock_fetch_data.side_effect = RuntimeError("Crossref unavailable")
 
-        for i, doi in enumerate(dois):
-            with self.subTest(i):
-                obtained = get_doi_information(doi)
-                self.assertDictEqual(expected[i], obtained)
+        obtained = get_doi_information("10.1234/example")
+
+        self.assertEqual(
+            {
+                "exception_msg": "Crossref unavailable",
+                "exception_type": "<class 'RuntimeError'>",
+            },
+            obtained,
+        )
 
     @skip("Teste pendente de correção e/ou ajuste")
     def test_is_valid_url_format(self):
