@@ -123,6 +123,34 @@ class ArticleLicenseValidation:
             is_valid = expected_license_p == obtained_license_p
             expected_value_msg = expected_value.get(
                 lang) if is_valid else 'License data that matches the language {}'.format(lang)
+
+            if expected_license_p is None:
+                advice = (
+                    "Provide license data that is consistent with the language: "
+                    f"{lang} and standard adopted by the journal"
+                )
+                advice_text = (
+                    "Provide license data that is consistent with the language: "
+                    "{lang} and standard adopted by the journal"
+                )
+                advice_params = {"lang": lang}
+            else:
+                advice = (
+                    "Mark license information with "
+                    '<license license-type="open-access" '
+                    f'xlink:href={expected_license_p["link"]} '
+                    f'xml:lang={expected_license_p["lang"]}>'
+                    f'<license-p>{expected_license_p["license_p"]}</license-p>'
+                    "</license>"
+                )
+                advice_text = (
+                    "Mark license information with "
+                    '<license license-type="open-access" xlink:href={link} '
+                    "xml:lang={lang}>"
+                    "<license-p>{license_p}</license-p></license>"
+                )
+                advice_params = expected_license_p
+
             yield build_response(
                 title='Article license validation',
                 parent={
@@ -137,17 +165,11 @@ class ArticleLicenseValidation:
                 is_valid=is_valid,
                 expected=expected_value_msg,
                 obtained=obtained_license_p,
-                advice=f'Mark license information with '
-                       f'<license license-type="open-access" xlink:href={expected_license_p["link"]} '
-                       f'xml:lang={expected_license_p["lang"]}>'
-                       f'<license-p>{expected_license_p["license_p"]}</license-p></license>',
+                advice=advice,
                 data=obtained_license_p,
                 error_level=error_level,
-                advice_text=f'Mark license information with '
-                       f'<license license-type="open-access" xlink:href={{link}} '
-                       f'xml:lang={{lang}}>'
-                       f'<license-p>{{license_p}}</license-p></license>',
-                advice_params=expected_license_p,
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
     def validate_license_code(self, expected_code, error_level="ERROR"):

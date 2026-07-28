@@ -339,10 +339,7 @@ class ArticleTocSectionsErrorTest(TestCase):
             </article>
             """
         )
-        params = {
-            "error_level_section": "CRITICAL"
-        }
-        validator = XMLTocSectionsValidation(self.xmltree, params)
+        validator = XMLTocSectionsValidation(self.xmltree)
         results = list(validator.validate())
         
         responses = [item["response"] for item in results]
@@ -360,7 +357,7 @@ class ArticleTocSectionsErrorTest(TestCase):
 
         # validate_section
         result = results[2]
-        self.assertEqual(result['response'], 'CRITICAL')
+        self.assertEqual(result["response"], "WARNING")
         self.assertEqual(result['advice'], 'Unable to check if Health Sciences (<subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>) is a valid table of contents section because the journal (Braz Journal ...) sections were not informed'
         )
 

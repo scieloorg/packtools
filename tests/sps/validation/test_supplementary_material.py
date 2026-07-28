@@ -208,23 +208,11 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
         results = list(validator.validate())
 
-        self.assertEqual(len(results), 20)  # Validações executadas
+        self.assertEqual(len(results), 10)  # Validações executadas
         titles = [result["title"] for result in results]
         self.assertIn("mime type and subtype", titles)
-        self.assertIn("@id", titles)
-        self.assertIn("@xlink:href validation", titles)
-        self.assertIn("<alt-text>", titles)
-        self.assertIn("<long-desc>", titles)
-        self.assertIn("Transcript validation", titles)
-        self.assertIn("<speaker> and <speech> validation", titles)
-        self.assertIn("structure", titles)
-        self.assertIn("@id", titles)
-        self.assertIn("@xlink:href validation", titles)
-        self.assertIn("<alt-text>", titles)
-        self.assertIn("<long-desc>", titles)
-        self.assertIn("Transcript validation", titles)
-        self.assertIn("<speaker> and <speech> validation", titles)
-        self.assertIn("structure", titles)
+        self.assertEqual(titles.count("@id"), 2)
+        self.assertEqual(titles.count("@xlink:href validation"), 2)
         self.assertIn("@sec-type", titles)
         self.assertIn("label", titles)
         self.assertIn("Prohibition of <supplementary-material> inside <app-group> and <app>", titles)

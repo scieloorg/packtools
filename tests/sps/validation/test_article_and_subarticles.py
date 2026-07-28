@@ -50,7 +50,10 @@ class TestArticleLangValidation(unittest.TestCase):
         result = results[0]
         self.assertEqual(result['response'], "OK")
         self.assertEqual(result['got_value'], "en")
-        self.assertEqual(result['expected_value'], "en")  # For valid case, expected_value equals got_value
+        self.assertEqual(
+            result['expected_value'],
+            f"one of {validator.params['language_codes_list']}",
+        )
         self.assertIsNone(result['advice'])  # For valid case, advice should be None
 
     def test_validate_language_with_invalid_language(self):
@@ -97,7 +100,10 @@ class TestArticleLangValidation(unittest.TestCase):
         result = results[0]
         self.assertEqual(result['response'], "OK")
         self.assertEqual(result['got_value'], "fr")
-        self.assertEqual(result['expected_value'], "fr")  # For valid case, expected_value equals got_value
+        self.assertEqual(
+            result['expected_value'],
+            f"one of {validator.params['language_codes_list']}",
+        )
         self.assertIsNone(result['advice'])  # For valid case, advice should be None
 
     def test_validate_language_with_custom_error_level(self):
@@ -314,7 +320,10 @@ class TestArticleTypeValidation(unittest.TestCase):
         result = results[0]
         self.assertEqual(result['response'], "OK")
         self.assertEqual(result['got_value'], "research-article")
-        self.assertEqual(result['expected_value'], "research-article")  # For valid case
+        self.assertEqual(
+            result['expected_value'],
+            f"one of {validator.params['article_type_list']}",
+        )
         self.assertIsNone(result['advice'])  # For valid case, advice should be None
 
     def test_validate_article_type_with_invalid_type(self):
@@ -345,7 +354,10 @@ class TestArticleTypeValidation(unittest.TestCase):
         result = results[0]
         self.assertEqual(result['response'], "OK")
         self.assertEqual(result['got_value'], "unknown-type")
-        self.assertEqual(result['expected_value'], "unknown-type")
+        self.assertEqual(
+            result['expected_value'],
+            f"one of {validator.params['article_type_list']}",
+        )
         self.assertIsNone(result['advice'])
 
     def test_validate_article_type_with_custom_error_level(self):

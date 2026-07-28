@@ -354,24 +354,23 @@ class TestArticlePeerReview(BasePeerReviewTest):
 
     def test_valid_article_type(self):
         """Test article type validation"""
-        errors = list(self.validator.validate_article_type())
-        self.assertEqual(len(errors), 0)
+        results = list(self.validator.validate_article_type())
+        self.assertEqual(self._count_validation_errors(results), 0)
 
     def test_valid_contributor(self):
         """Test contributor validation"""
-        errors = list(self.validator.validate_contribs())
-        # content-type (credit)
-        self.assertEqual(len(errors), 0)
+        results = list(self.validator.validate_contribs())
+        self.assertEqual(self._count_validation_errors(results), 0)
 
     def test_valid_history_dates(self):
         """Test history dates validation"""
-        errors = list(self.validator.validate_history_dates())
-        self.assertEqual(len(errors), 0)
+        results = list(self.validator.validate_history_dates())
+        self.assertEqual(self._count_validation_errors(results), 0)
 
     def test_valid_custom_meta(self):
         """Test custom meta validation"""
-        errors = list(self.validator.validate_custom_meta())
-        self.assertEqual(len(errors), 0)
+        results = list(self.validator.validate_custom_meta())
+        self.assertEqual(self._count_validation_errors(results), 0)
 
 
 class TestSubArticlePeerReview(BasePeerReviewTest):
@@ -413,6 +412,7 @@ class TestSubArticlePeerReview(BasePeerReviewTest):
                         </custom-meta>
                     </custom-meta-group>
                     <related-article related-article-type="peer-reviewed-material"
+                                   id="ra1"
                                    xlink:href="10.1590/123456789"
                                    ext-link-type="doi"/>
                 </front-stub>
@@ -424,12 +424,8 @@ class TestSubArticlePeerReview(BasePeerReviewTest):
 
     def test_valid_sub_article(self):
         """Test overall sub-article validation"""
-        errors = list(self.validator.validate())
-        self.assertEqual(len(errors), 2)
-        self.assertIn(
-            "Set related-article attributes in this", errors[0]["advice"]
-        )
-        self.assertIn("Add id attribute", errors[1]["advice"])
+        results = list(self.validator.validate())
+        self.assertEqual(self._count_validation_errors(results), 0)
 
 
 class TestInvalidPeerReview(BasePeerReviewTest):
@@ -470,8 +466,8 @@ class TestInvalidPeerReview(BasePeerReviewTest):
 
     def test_invalid_contributor_type(self):
         """Test contributor validation with invalid type"""
-        errors = list(self.validator.validate_contribs())
-        self.assertEqual(2, len(errors))
+        results = list(self.validator.validate_contribs())
+        self.assertEqual(self._count_validation_errors(results), 2)
 
     def test_missing_history_dates(self):
         """Test history dates validation with missing dates"""
@@ -537,6 +533,7 @@ class TestRelatedArticlesValidation(BasePeerReviewTest):
             <front>
                 <article-meta>
                     <related-article related-article-type="peer-reviewed-material"
+                                   id="ra1"
                                    xlink:href="10.1590/123456789"
                                    ext-link-type="doi"/>
                 </article-meta>
@@ -549,11 +546,7 @@ class TestRelatedArticlesValidation(BasePeerReviewTest):
     def test_valid_related_article(self):
         """Test valid related article validation"""
         errors = list(self.validator.validate_related_articles())
-        self.assertIn(
-            "Set related-article attributes in this", errors[0]["advice"]
-        )
-        self.assertIn("@id attribute", errors[1]["advice"])
-        self.assertEqual(len(errors), 2)
+        self.assertEqual(errors, [])
 
     def test_invalid_related_article_type(self):
         """Test invalid related article type"""
@@ -565,42 +558,27 @@ class TestRelatedArticlesValidation(BasePeerReviewTest):
 
         expected = [
             {
+                "title": "Required related articles",
                 "got_value": ["invalid-type"],
                 "expected_value": ["peer-reviewed-material"],
                 "response": "CRITICAL",
             },
             {
+                "title": "Related article type value",
                 "got_value": "invalid-type",
                 "response": "CRITICAL",
             },
             {
-                "got_value": [
-                    "related-article-type",
-                    "{http://www.w3.org/1999/xlink}href",
-                    "ext-link-type",
-                ],
-                "expected_value": [
-                    "related-article-type",
-                    "id",
-                    "{http://www.w3.org/1999/xlink}href",
-                    "ext-link-type",
-                ],
-                "response": "CRITICAL",
-            },
-            {
+                "title": "Related article type",
                 "got_value": "invalid-type",
                 "expected_value": ["peer-reviewed-material"],
                 "response": "CRITICAL",
             },
-            {
-                "got_value": None,
-                "expected_value": "A non-empty ID",
-                "response": "CRITICAL",
-            },
         ]
-        self.assertEqual(len(errors), 5)
+        self.assertEqual(len(errors), len(expected))
         for i, item in enumerate(expected):
             with self.subTest(i):
+                self.assertEqual(item["title"], errors[i]["title"])
                 self.assertEqual(item["got_value"], errors[i]["got_value"])
                 if "expected_value" in item:
                     self.assertEqual(

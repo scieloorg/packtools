@@ -5,7 +5,10 @@ from packtools.sps.validation.exceptions import (
     ValidationIssnsException,
     ValidationJournalMetaException
 )
-from packtools.sps.validation.utils import build_response
+from packtools.sps.validation.utils import (
+    build_response,
+    format_response,
+)
 
 
 class ISSNValidation:

@@ -27,20 +27,30 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
 
         expected = [
             {
-                'title': 'title element lang attribute',
+                'title': 'article title element lang attribute',
                 'parent': None,
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'pt',
-                'item': 'title',
+                'item': 'article title',
                 'sub_item': None,
                 'validation_type': 'match',
                 'response': 'ERROR',
-                'expected_value': 'title in pt',
+                'expected_value': 'article title in pt',
                 'got_value': None,
-                'message': 'Got None, expected title in pt',
-                'advice': 'Provide title in the pt language',
-                'data': None
+                'message': 'Got None, expected article title in pt',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'article title in pt',
+                },
+                'advice': 'Mark article title for pt language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'article title',
+                    'language': 'pt',
+                },
+                'data': None,
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -78,20 +88,30 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
 
         expected = [
             {
-                'title': 'title element lang attribute',
+                'title': 'article title element lang attribute',
                 'parent': None,
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
-                'item': 'title',
+                'item': 'article title',
                 'sub_item': None,
                 'validation_type': 'match',
                 'response': 'ERROR',
-                'expected_value': 'title in en',
+                'expected_value': 'article title in en',
                 'got_value': None,
-                'message': 'Got None, expected title in en',
-                'advice': 'Provide title in the en language',
-                'data': None
+                'message': 'Got None, expected article title in en',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'article title in en',
+                },
+                'advice': 'Mark article title for en language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'article title',
+                    'language': 'en',
+                },
+                'data': None,
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -135,7 +155,17 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
                 'expected_value': 'abstract in pt',
                 'got_value': None,
                 'message': 'Got None, expected abstract in pt',
-                'advice': 'Provide abstract in the pt language',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'abstract in pt',
+                },
+                'advice': 'Mark abstract for pt language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'abstract',
+                    'language': 'pt',
+                },
                 'data': None
             }
         ]
@@ -186,7 +216,17 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
                 'expected_value': 'abstract in en',
                 'got_value': None,
                 'message': 'Got None, expected abstract in en',
-                'advice': 'Provide abstract in the en language',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'abstract in en',
+                },
+                'advice': 'Mark abstract for en language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'abstract',
+                    'language': 'en',
+                },
                 'data': None
             }
         ]
@@ -228,7 +268,17 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
                 'expected_value': 'kwd-group in pt',
                 'got_value': None,
                 'message': 'Got None, expected kwd-group in pt',
-                'advice': 'Provide kwd-group in the pt language',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'kwd-group in pt',
+                },
+                'advice': 'Mark kwd-group for pt language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'kwd-group',
+                    'language': 'pt',
+                },
                 'data': None
             }
         ]
@@ -278,7 +328,17 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
                 'expected_value': 'kwd-group in en',
                 'got_value': None,
                 'message': 'Got None, expected kwd-group in en',
-                'advice': 'Provide kwd-group in the en language',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'kwd-group in en',
+                },
+                'advice': 'Mark kwd-group for en language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'kwd-group',
+                    'language': 'en',
+                },
                 'data': None
             }
         ]
@@ -332,20 +392,30 @@ class MetadataLanguagesValidationTest(unittest.TestCase):
 
         expected = [
             {
-                'title': 'title element lang attribute',
+                'title': 'article title element lang attribute',
                 'parent': None,
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'pt',
-                'item': 'title',
+                'item': 'article title',
                 'sub_item': None,
                 'validation_type': 'match',
                 'response': 'ERROR',
-                'expected_value': 'title in pt',
+                'expected_value': 'article title in pt',
                 'got_value': None,
-                'message': 'Got None, expected title in pt',
-                'advice': 'Provide title in the pt language',
-                'data': None
+                'message': 'Got None, expected article title in pt',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'None',
+                    'expected': 'article title in pt',
+                },
+                'advice': 'Mark article title for pt language',
+                'adv_text': 'Mark {element} for {language} language',
+                'adv_params': {
+                    'element': 'article title',
+                    'language': 'pt',
+                },
+                'data': None,
             }
         ]
         self.assertEqual(len(obtained), 1)

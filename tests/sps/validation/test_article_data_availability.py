@@ -54,7 +54,7 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("OK", mode_validation["response"])
         self.assertEqual("data-available", mode_validation["got_value"])
         self.assertEqual(
-            ["data-available", "data-available-upon-request"],
+            f"one of {params['specific_use_list']}",
             mode_validation["expected_value"],
         )
         self.assertIsNone(mode_validation["advice"])
@@ -93,7 +93,7 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("OK", mode_validation["response"])
         self.assertEqual("data-available-upon-request", mode_validation["got_value"])
         self.assertEqual(
-            ["data-available", "data-available-upon-request"],
+            f"one of {params['specific_use_list']}",
             mode_validation["expected_value"],
         )
         self.assertIsNone(mode_validation["advice"])
@@ -182,7 +182,8 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("ERROR", mode_validation["response"])
         self.assertEqual("data-available", mode_validation["got_value"])
         self.assertEqual(
-            ["data-not-available", "uninformed"], mode_validation["expected_value"]
+            f"one of {params['specific_use_list']}",
+            mode_validation["expected_value"],
         )
         self.assertIn("Complete  specific-use=", mode_validation["advice"])
 

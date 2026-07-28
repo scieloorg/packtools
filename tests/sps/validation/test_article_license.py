@@ -66,7 +66,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'en',
                     'license_p': 'This is an article published in open access under a Creative Commons license.',
@@ -102,7 +123,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'pt',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este é um artigo publicado em acesso aberto sob uma '
+                            'licença Creative Commons.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'pt',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este é um artigo publicado em acesso aberto sob uma '
+                            'licença Creative Commons.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'pt',
                     'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
@@ -138,7 +180,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'es',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este es un artículo publicado en acceso abierto bajo '
+                            'una licencia Creative Commons.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'es',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este es un artículo publicado en acceso abierto bajo '
+                            'una licencia Creative Commons.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'es',
                     'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
@@ -220,7 +283,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'en',
                     'license_p': 'This is an article published in open access under a Creative Commons license.',
@@ -304,7 +388,24 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}, expected License data that matches the language en",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                    'expected': 'License data that matches the language en',
+                },
                 'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal',
+                'adv_text': (
+                    'Provide license data that is consistent with the language: '
+                    '{lang} and standard adopted by the journal'
+                ),
+                'adv_params': {'lang': 'en'},
                 'data': {
                     'lang': 'en',
                     'license_p': 'This is an article published in open access under a Creative Commons license.',
@@ -340,7 +441,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'pt',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este é um artigo publicado em acesso aberto sob uma '
+                            'licença Creative Commons.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'pt',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este é um artigo publicado em acesso aberto sob uma '
+                            'licença Creative Commons.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'pt',
                     'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
@@ -376,7 +498,28 @@ class ArticleLicenseValidationTest(TestCase):
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                            "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "}",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'es',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este es un artículo publicado en acceso abierto bajo '
+                            'una licencia Creative Commons.'
+                        ),
+                    }),
+                    'expected': str({
+                        'lang': 'es',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'Este es un artículo publicado en acceso abierto bajo '
+                            'una licencia Creative Commons.'
+                        ),
+                    }),
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'es',
                     'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
@@ -446,6 +589,23 @@ class ArticleLicenseValidationTest(TestCase):
                            "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}, expected License data that matches the language en",
                 'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': str({
+                        'lang': 'en',
+                        'link': 'http://creativecommons.org/licenses/by/4.0/',
+                        'license_p': (
+                            'This is an article published in open access under '
+                            'a Creative Commons license.'
+                        ),
+                    }),
+                    'expected': 'License data that matches the language en',
+                },
+                'adv_text': (
+                    'Provide license data that is consistent with the language: '
+                    '{lang} and standard adopted by the journal'
+                ),
+                'adv_params': {'lang': 'en'},
                 'data': {
                     'lang': 'en',
                     'license_p': 'This is an article published in open access under a Creative Commons license.',
@@ -516,7 +676,14 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': 'by',
                 'got_value': 'by',
                 'message': "Got by, expected by",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'by',
+                    'expected': 'by',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'en',
                     'license_p': {
@@ -529,6 +696,9 @@ class ArticleLicenseValidationTest(TestCase):
                     'parent_article_type': "research-article",
                     'parent_id': None,
                     'parent_lang': "pt",
+                    'type': 'open-access',
+                    'code': 'by',
+                    'original_article_type': 'research-article',
                 }
             },
             {
@@ -544,7 +714,14 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': 'by',
                 'got_value': 'by',
                 'message': "Got by, expected by",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'by',
+                    'expected': 'by',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'pt',
                     'license_p': {
@@ -557,6 +734,9 @@ class ArticleLicenseValidationTest(TestCase):
                     'parent_article_type': "research-article",
                     'parent_id': None,
                     'parent_lang': "pt",
+                    'type': 'open-access',
+                    'code': 'by',
+                    'original_article_type': 'research-article',
                 }
             },
             {
@@ -572,7 +752,14 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': 'by',
                 'got_value': 'by',
                 'message': "Got by, expected by",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'by',
+                    'expected': 'by',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'lang': 'es',
                     'license_p': {
@@ -585,6 +772,9 @@ class ArticleLicenseValidationTest(TestCase):
                     'parent_article_type': "research-article",
                     'parent_id': None,
                     'parent_lang': "pt",
+                    'type': 'open-access',
+                    'code': 'by',
+                    'original_article_type': 'research-article',
                 }
             },
             ]
@@ -638,7 +828,22 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': 'bye',
                 'got_value': 'by',
                 'message': "Got by, expected bye",
-                'advice': 'Provide bye code license information',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'by',
+                    'expected': 'bye',
+                },
+                'advice': (
+                    'add <permissions><license '
+                    'xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> '
+                    'and replace VALUE with bye'
+                ),
+                'adv_text': (
+                    'add <permissions><license '
+                    'xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> '
+                    'and replace VALUE with {code}'
+                ),
+                'adv_params': {'code': 'bye'},
                 'data': {
                     'lang': 'en',
                     'license_p': {
@@ -651,6 +856,9 @@ class ArticleLicenseValidationTest(TestCase):
                     'parent_article_type': "research-article",
                     'parent_id': None,
                     'parent_lang': "pt",
+                    'type': 'open-access',
+                    'code': 'by',
+                    'original_article_type': 'research-article',
                 }
             },
             {
@@ -666,7 +874,22 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': 'bye',
                 'got_value': 'by',
                 'message': "Got by, expected bye",
-                'advice': 'Provide bye code license information',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'by',
+                    'expected': 'bye',
+                },
+                'advice': (
+                    'add <permissions><license '
+                    'xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> '
+                    'and replace VALUE with bye'
+                ),
+                'adv_text': (
+                    'add <permissions><license '
+                    'xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> '
+                    'and replace VALUE with {code}'
+                ),
+                'adv_params': {'code': 'bye'},
                 'data': {
                     'lang': 'pt',
                     'license_p': {
@@ -679,6 +902,9 @@ class ArticleLicenseValidationTest(TestCase):
                     'parent_article_type': "research-article",
                     'parent_id': None,
                     'parent_lang': "pt",
+                    'type': 'open-access',
+                    'code': 'by',
+                    'original_article_type': 'research-article',
                 }
             },
             {
@@ -694,7 +920,22 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': 'bye',
                 'got_value': 'by',
                 'message': "Got by, expected bye",
-                'advice': 'Provide bye code license information',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'by',
+                    'expected': 'bye',
+                },
+                'advice': (
+                    'add <permissions><license '
+                    'xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> '
+                    'and replace VALUE with bye'
+                ),
+                'adv_text': (
+                    'add <permissions><license '
+                    'xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> '
+                    'and replace VALUE with {code}'
+                ),
+                'adv_params': {'code': 'bye'},
                 'data': {
                     'lang': 'es',
                     'license_p': {
@@ -707,6 +948,9 @@ class ArticleLicenseValidationTest(TestCase):
                     'parent_article_type': "research-article",
                     'parent_id': None,
                     'parent_lang': "pt",
+                    'type': 'open-access',
+                    'code': 'by',
+                    'original_article_type': 'research-article',
                 }
             },
             ]
