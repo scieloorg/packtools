@@ -1,6 +1,7 @@
 from packtools.sps.models.funding_group import FundingGroup
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.similarity_utils import most_similar, similarity
+from packtools.sps import i18n
 
 def _callable_extern_validate_default(award_id):
     raise NotImplementedError
@@ -56,15 +57,24 @@ class FundingGroupValidation:
             if funding_sources and award_ids:
                 valid = True
                 advice = None
+                advice_text = None
+                advice_params = {}
             elif award_ids:
                 valid = False
                 advice = f'Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail'
+                advice_text = i18n._("Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail")
+                advice_params = {"award_ids": award_ids}
             elif funding_sources:
                 valid = False
                 advice = f'Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail'
+                advice_text = i18n._("Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail")
+                advice_params = {"funding_sources": funding_sources}
             else:
                 valid = False
-                advice = f'Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail'
+                advice = 'Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail'
+                advice_text = i18n._("Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail")
+                advice_params = {}
+
             yield build_response(
                 title="award-id and funding-source",
                 parent=parent,
@@ -75,6 +85,20 @@ class FundingGroupValidation:
                 expected="award-id and funding-source in award-group",
                 obtained=item,
                 advice=advice,
+                advice_text=advice_text,
+                advice_params=advice_params,
+                message_text=(
+                    i18n._(
+                        "<award-group> contains both <award-id> and "
+                        "<funding-source>"
+                    )
+                    if valid
+                    else i18n._(
+                        "<award-group> must contain both <award-id> and "
+                        "<funding-source>"
+                    )
+                ),
+                message_params={},
                 data=item,
                 error_level=self.params["award_id_error_level"],
             )
@@ -101,6 +125,12 @@ class FundingGroupValidation:
                     expected="award-id and funding-source in award-group",
                     obtained=None,
                     advice=f"Found {missing} in {text} ({context}), if {missing} is a contract number, add <award-id>{missing}</award-id> and the corresponding funding institution with <funding-source> inside <award-group>. Consult the SPS documentation for more detail",
+                    advice_text=i18n._("Found {missing} in {text} ({context}), if {missing} is a contract number, add <award-id>{missing}</award-id> and the corresponding funding institution with <funding-source> inside <award-group>. Consult the SPS documentation for more detail"),
+                    advice_params={
+                        "missing": missing,
+                        "text": text,
+                        "context": context,
+                    },
                     data=item,
                     error_level=self.params["award_id_error_level"],
                 )
@@ -174,6 +204,8 @@ class FundingGroupValidation:
             texts = all_texts
             valid = False
             advice = None
+            advice_text = None
+            advice_params = {}
 
             if funding_statement and texts:
                 # Both a <funding-statement> and reference texts exist: compare them.
@@ -187,6 +219,11 @@ class FundingGroupValidation:
                         f"Replace <funding-statement>{funding_statement}</funding-statement>"
                         f" by <funding-statement>{texts[0]}</funding-statement>"
                     )
+                    advice_text = i18n._("Replace <funding-statement>{funding_statement}</funding-statement> by <funding-statement>{reference_text}</funding-statement>")
+                    advice_params = {
+                        "funding_statement": funding_statement,
+                        "reference_text": texts[0],
+                    }
             elif funding_statement and not texts:
                 # <funding-statement> is present but no reference texts (fn/ack) were
                 # found to compare against.  We cannot invalidate the statement, so
@@ -196,18 +233,22 @@ class FundingGroupValidation:
                     "No reference texts (fn/ack elements) were found to compare with"
                     " <funding-statement>. Verify manually that the statement is correct."
                 )
+                advice_text = i18n._("No reference texts (fn/ack elements) were found to compare with <funding-statement>. Verify manually that the statement is correct.")
             elif texts:
                 # Reference texts exist but <funding-statement> is absent.
                 advice = (
                     f"Add <funding-statement>{texts[0]}</funding-statement>"
                     " in <funding-group>. Consult SPS documentation for more detail"
                 )
+                advice_text = i18n._("Add <funding-statement>{reference_text}</funding-statement> in <funding-group>. Consult SPS documentation for more detail")
+                advice_params = {"reference_text": texts[0]}
             else:
                 # Neither <funding-statement> nor reference texts are present.
                 advice = (
                     "Add funding statement with <funding-statement> inside"
                     " <funding-group>. Consult SPS documentation for more detail"
                 )
+                advice_text = i18n._("Add funding statement with <funding-statement> inside <funding-group>. Consult SPS documentation for more detail")
 
             yield build_response(
                 title="funding-statement",
@@ -219,6 +260,8 @@ class FundingGroupValidation:
                 expected="funding-statement",
                 obtained=funding_statement or "None",
                 advice=advice,
+                advice_text=advice_text,
+                advice_params=advice_params,
                 data={"funding_statement": funding_statement, "texts": texts},
                 error_level=self.params["funding_statement_error_level"],
             )
@@ -281,6 +324,8 @@ class FundingGroupValidation:
                 expected="At most one <funding-group> in <article-meta>",
                 obtained=f"{count} <funding-group> element(s) found",
                 advice=advice,
+                advice_text=i18n._("Found {count} <funding-group> elements in <article-meta>. Only one is allowed. Merge them into a single <funding-group>."),
+                advice_params={"count": count},
                 data={"count": count},
                 error_level=error_level,
             )
@@ -346,6 +391,16 @@ class FundingGroupValidation:
                 expected="<funding-statement> present in <funding-group>",
                 obtained=obtained,
                 advice=advice,
+                advice_text=i18n._("Add <funding-statement> element inside <funding-group> (index {index}). It is mandatory according to SPS 1.10."),
+                advice_params={"index": idx + 1},
+                message_text=(
+                    i18n._("<funding-statement> is present in <funding-group>")
+                    if is_valid
+                    else i18n._(
+                        "<funding-statement> is required in <funding-group>"
+                    )
+                ),
+                message_params={},
                 data={"funding_group_index": idx + 1, "has_funding_statement": is_valid},
                 error_level=error_level,
             )
@@ -393,6 +448,8 @@ class FundingGroupValidation:
                 expected="At least one <funding-source> in <award-group>",
                 obtained=f"{len(funding_sources)} <funding-source> element(s) found",
                 advice=advice,
+                advice_text=i18n._("Add at least one <funding-source> element inside this <award-group>. It is mandatory when <award-group> exists."),
+                advice_params={},
                 data=item,
                 error_level=error_level,
             )
@@ -439,6 +496,8 @@ class FundingGroupValidation:
             expected="No <label> elements in <funding-group>",
             obtained=f"{count} <label> element(s) found",
             advice=advice,
+            advice_text=i18n._("Remove {count} <label> element(s) from <funding-group>. <label> is not allowed according to SPS 1.10."),
+            advice_params={"count": count},
             data={
                 "count": count,
                 "labels": [
@@ -493,6 +552,8 @@ class FundingGroupValidation:
             expected="No <title> elements in <funding-group>",
             obtained=f"{count} <title> element(s) found",
             advice=advice,
+            advice_text=i18n._("Remove {count} <title> element(s) from <funding-group>. <title> is not allowed according to SPS 1.10."),
+            advice_params={"count": count},
             data={
                 "count": count,
                 "titles": [
@@ -557,6 +618,11 @@ class FundingGroupValidation:
                 expected="Consistent quantities: 0 awards (support), 1 award (contract), or N awards matching N sources",
                 obtained=f"{num_sources} funding-source(s), {num_awards} award-id(s)",
                 advice=advice,
+                advice_text=i18n._("Inconsistent quantities: {num_sources} <funding-source>(s) but {num_awards} <award-id>(s). When multiple <award-id> elements exist, they should typically match the number of <funding-source> elements, or use separate <award-group> elements."),
+                advice_params={
+                    "num_sources": num_sources,
+                    "num_awards": num_awards,
+                },
                 data=item,
                 error_level=error_level,
             )
