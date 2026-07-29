@@ -1,6 +1,11 @@
 import unittest
+
 from lxml import etree
-from packtools.sps.validation.author_notes import XMLAuthorNotesValidation
+
+from packtools.sps.validation.author_notes import (
+    CorrespValidation,
+    XMLAuthorNotesValidation,
+)
 
 
 class TestAuthorNotesFnValidation(unittest.TestCase):
@@ -75,6 +80,12 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         self.assertEqual(len(current_aff_deprecation), 1)
         self.assertEqual(current_aff_deprecation[0]["validation_type"], "unexpected")
         self.assertEqual(current_aff_deprecation[0]["response"], "CRITICAL")
+        self.assertEqual(
+            current_aff_deprecation[0]["adv_text"].format(
+                **current_aff_deprecation[0]["adv_params"]
+            ),
+            current_aff_deprecation[0]["advice"],
+        )
 
     def test_validate_contribution_attrib_type_deprecation(self):
         xml_tree = etree.fromstring('''
@@ -112,6 +123,12 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         self.assertEqual(len(con_deprecation), 1)
         self.assertEqual(con_deprecation[0]["validation_type"], "unexpected")
         self.assertEqual(con_deprecation[0]["response"], "CRITICAL")
+        self.assertEqual(
+            con_deprecation[0]["adv_text"].format(
+                **con_deprecation[0]["adv_params"]
+            ),
+            con_deprecation[0]["advice"],
+        )
 
     def test_validate_corresp_label_presence(self):
         xml_tree = etree.fromstring('''
@@ -134,6 +151,10 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         self.assertEqual(len(obtained), 1)
         self.assertEqual(obtained[0]["response"], "WARNING")
         self.assertIn("corresp label", obtained[0]["advice"])
+        self.assertEqual(
+            obtained[0]["adv_text"].format(**obtained[0]["adv_params"]),
+            obtained[0]["advice"],
+        )
 
     def test_validate_corresp_title_unexpected(self):
         xml_tree = etree.fromstring('''
@@ -157,6 +178,23 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         self.assertEqual(len(obtained), 1)
         self.assertEqual(obtained[0]["response"], "CRITICAL")
         self.assertIn("Replace <corresp><title> with <corresp><label>", obtained[0]["advice"])
+        self.assertEqual(
+            obtained[0]["adv_text"].format(**obtained[0]["adv_params"]),
+            obtained[0]["advice"],
+        )
+
+    def test_validate_corresp_bold_i18n(self):
+        validator = CorrespValidation(
+            {"corresp_bold": "Correspondence"},
+            self.rules,
+        )
+
+        result = validator.validate_bold()
+
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_fn_type_attribute_expected_value(self):
         xml_tree = etree.fromstring('''
