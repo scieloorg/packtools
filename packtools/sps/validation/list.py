@@ -1,5 +1,6 @@
 from packtools.sps.models.list import ArticleLists
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class ArticleListValidation:
@@ -58,12 +59,15 @@ class ListValidation:
         if list_type is None:
             obtained = None
             advice = "Add list-type attribute to <list> element. Use one of: order, bullet, alpha-lower, alpha-upper, roman-lower, roman-upper, simple"
+            advice_text = i18n._("Add list-type attribute to <list> element. Use one of: {values}")
         elif list_type == "":
             obtained = '""'
             advice = "The @list-type attribute cannot be empty. Use one of: order, bullet, alpha-lower, alpha-upper, roman-lower, roman-upper, simple"
+            advice_text = i18n._("The @list-type attribute cannot be empty. Use one of: {values}")
         else:
             obtained = list_type
             advice = None
+            advice_text = None
 
         yield build_response(
             title="@list-type presence",
@@ -75,6 +79,13 @@ class ListValidation:
             expected="@list-type",
             obtained=obtained,
             advice=advice,
+            advice_text=advice_text,
+            advice_params={
+                "values": (
+                    "order, bullet, alpha-lower, alpha-upper, roman-lower, "
+                    "roman-upper, simple"
+                )
+            },
             data=self.data,
             error_level=self.rules["list_type_presence_error_level"],
         )
@@ -105,6 +116,14 @@ class ListValidation:
                 expected=allowed_list_types,
                 obtained=list_type,
                 advice=advice,
+                advice_text=(
+                    i18n._('Value "{list_type}" is not allowed for @list-type. '
+                    "Use one of: {allowed_types}")
+                ),
+                advice_params={
+                    "list_type": list_type,
+                    "allowed_types": ", ".join(allowed_list_types),
+                },
                 data=self.data,
                 error_level=self.rules["list_type_value_error_level"],
             )
@@ -132,6 +151,14 @@ class ListValidation:
             expected=f"at least {min_items} list-item elements",
             obtained=f"{list_items_count} list-item elements",
             advice=advice,
+            advice_text=(
+                i18n._("<list> must contain at least {min_items} <list-item> "
+                "elements. Found {count}")
+            ),
+            advice_params={
+                "min_items": min_items,
+                "count": list_items_count,
+            },
             data=self.data,
             error_level=self.rules["min_list_items_error_level"],
         )
@@ -158,6 +185,11 @@ class ListValidation:
             expected="no <label> in <list-item>",
             obtained="<label> found in <list-item>" if has_label else "no <label>",
             advice=advice,
+            advice_text=(
+                i18n._("For accessibility, do not use <label> in <list-item>. "
+                "The @list-type attribute generates labels automatically")
+            ),
+            advice_params={},
             data=self.data,
             error_level=self.rules["label_in_list_item_error_level"],
         )
@@ -184,6 +216,11 @@ class ListValidation:
             expected="all list-item elements with content",
             obtained=f"{empty_count} empty list-item(s)" if not is_valid else "all list-items have content",
             advice=advice,
+            advice_text=(
+                i18n._("Found {count} empty <list-item> element(s). Each <list-item> "
+                "should contain at least one child element (typically <p>)")
+            ),
+            advice_params={"count": empty_count},
             data=self.data,
             error_level=self.rules["empty_list_item_error_level"],
         )
@@ -210,6 +247,20 @@ class ListValidation:
             expected="<title> when list has a descriptive heading",
             obtained="<title> present" if has_title else "no <title>",
             advice=advice,
+            advice_text=(
+                i18n._("Consider adding a <title> element if the list has a "
+                "descriptive heading")
+            ),
+            advice_params={},
+            message_text=(
+                i18n._("<title> is present in the list")
+                if has_title
+                else i18n._(
+                    "<title> is recommended when the list has a "
+                    "descriptive heading"
+                )
+            ),
+            message_params={},
             data=self.data,
             error_level=self.rules["missing_title_error_level"],
         )
