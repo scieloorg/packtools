@@ -463,6 +463,11 @@ class TestInvalidPeerReview(BasePeerReviewTest):
         """Test article type validation with invalid type"""
         errors = list(self.validator.validate_article_type())
         self.assertEqual(1, len(errors))
+        self.assertEqual(
+            errors[0]["adv_text"].format(**errors[0]["adv_params"]),
+            "Add article_type in <article article-type='VALUE'> and replace "
+            "VALUE with ['reviewer-report']",
+        )
 
     def test_invalid_contributor_type(self):
         """Test contributor validation with invalid type"""
@@ -473,6 +478,11 @@ class TestInvalidPeerReview(BasePeerReviewTest):
         """Test history dates validation with missing dates"""
         errors = list(self.validator.validate_history_dates())
         self.assertEqual(1, len(errors))
+        self.assertEqual(
+            errors[0]["adv_text"].format(**errors[0]["adv_params"]),
+            'Add date-type in <history><date date-type="VALUE"> and replace '
+            "VALUE with : reviewer-report-received",
+        )
 
 
 class TestCustomMetaValidation(BasePeerReviewTest):
@@ -506,6 +516,15 @@ class TestCustomMetaValidation(BasePeerReviewTest):
         )
         errors = list(validator.validate_custom_meta())
         self.assertTrue(any(e["response"] == "CRITICAL" for e in errors))
+        result = next(
+            error
+            for error in errors
+            if error["title"] == "Review recommendation name"
+        )
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            "Mark peer review name with <custom-meta><meta-name>.",
+        )
 
     def test_missing_meta_value(self):
         """Test validation with missing meta-value"""
@@ -521,6 +540,16 @@ class TestCustomMetaValidation(BasePeerReviewTest):
         )
         errors = list(validator.validate_custom_meta())
         self.assertTrue(any(e["response"] == "CRITICAL" for e in errors))
+        result = next(
+            error
+            for error in errors
+            if error["title"] == "Review recommendation value"
+        )
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            "Mark peer review recommendation value with "
+            "<custom-meta><meta-value>.",
+        )
 
 
 class TestRelatedArticlesValidation(BasePeerReviewTest):

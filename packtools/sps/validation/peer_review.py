@@ -5,6 +5,7 @@ from packtools.sps.validation.related_articles import (
     FulltextRelatedArticlesValidation,
 )
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class CustomMetaPeerReviewValidation:
@@ -29,7 +30,9 @@ class CustomMetaPeerReviewValidation:
             is_valid=is_valid,
             expected="meta-name",
             obtained=meta_name,
-            advice=f"Mark peer review name with <custom-meta><meta-name>.",
+            advice="Mark peer review name with <custom-meta><meta-name>.",
+            advice_text=i18n._("Mark peer review name with <custom-meta><meta-name>."),
+            advice_params={},
             data=self.custom_meta,
             error_level=self.params.get("meta_name_error_level"),
             element_name="custom-meta",
@@ -51,6 +54,8 @@ class CustomMetaPeerReviewValidation:
             expected="peer review recommendation",
             obtained=meta_value,
             advice="Mark peer review recommendation value with <custom-meta><meta-value>.",
+            advice_text=i18n._("Mark peer review recommendation value with <custom-meta><meta-value>."),
+            advice_params={},
             data=self.custom_meta,
             error_level=self.params.get("meta_value_error_level"),
             element_name="custom-meta",
@@ -162,6 +167,10 @@ class PeerReviewValidation:
             expected=self.params["article_type_list"],
             obtained=article_type,
             advice=f"Add article_type in <article article-type='VALUE'> and replace VALUE with {self.params['article_type_list']}",
+            advice_text=i18n._("Add article_type in <article article-type='VALUE'> and replace VALUE with {article_types}"),
+            advice_params={
+                "article_types": self.params["article_type_list"],
+            },
             data=self.peer_review.attribs,
             error_level=self.params["article_type_error_level"],
             element_name="article",
@@ -194,6 +203,8 @@ class PeerReviewValidation:
                 expected=item,
                 obtained=obtained,
                 advice=f'Add date-type in <history><date date-type="VALUE"> and replace VALUE with : {item}',
+                advice_text=i18n._('Add date-type in <history><date date-type="VALUE"> and replace VALUE with : {event}'),
+                advice_params={"event": item},
                 data=self.peer_review.history_dates,
                 error_level=self.params["missing_events_error_level"],
                 element_name="history",
