@@ -170,6 +170,25 @@ class TestArticleDoiValidation(unittest.TestCase):
 
         # Should have results (validation executed)
         self.assertEqual(len(results), 2)  # Main article + translation
+        for result in results:
+            self.assertEqual(
+                "Got {obtained}, expected DOI registered for {metadata}",
+                result["msg_text"],
+            )
+            self.assertTrue(result["advice"].startswith("Check doi ("))
+            self.assertEqual(
+                "The DOI (<article-id pub-id-type=\"doi\">{xml_doi}</article-id>) "
+                "is not registered for {expected}. It is registered for {registered}",
+                result["adv_text"],
+            )
+            self.assertEqual(
+                result["got_value"],
+                result["msg_params"]["obtained"],
+            )
+            self.assertIn(
+                "article title",
+                result["msg_params"]["metadata"],
+            )
 
     @patch("packtools.sps.validation.utils.check_doi_is_registered")
     def test_validate_doi_registered_skip(self, mock_check_doi):
