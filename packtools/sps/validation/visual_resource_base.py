@@ -1,6 +1,7 @@
 import os
 
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class VisualResourceBaseValidation:
@@ -38,6 +39,8 @@ class VisualResourceBaseValidation:
             expected=expected,
             obtained=self.data.get("id"),
             advice=f'Add id="" to {xml}',
+            advice_text=i18n._('Add id="" to {element}'),
+            advice_params={"element": xml},
             error_level=self.params["media_attributes_error_level"],
             data=self.data,
         )
@@ -62,7 +65,13 @@ class VisualResourceBaseValidation:
             expected="File name with extension",
             obtained=obtained,
             advice=f'In @xlink:href, provide a valid file name with its extension in {self.params["valid_extension"]}.',
+            advice_text=(
+                i18n._("In @xlink:href, provide a valid file name with its extension "
+                "in {valid_extensions}.")
+            ),
+            advice_params={
+                "valid_extensions": self.params["valid_extension"],
+            },
             error_level=self.params["xlink_href_error_level"],
             data=self.data,
         )
-

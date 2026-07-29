@@ -17,6 +17,10 @@ class TestVisualResourceBaseValidation(unittest.TestCase):
         self.assertEqual(result["response"], self.params["media_attributes_error_level"])
         self.assertIsNone(result["got_value"])
         self.assertEqual(result["advice"], 'Add id="" to <media></media>')
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_id_present_on_non_inline(self):
         data = {"tag": "media", "xml": "<media></media>", "id": "media1"}
@@ -45,6 +49,10 @@ class TestVisualResourceBaseValidation(unittest.TestCase):
         result = validator.validate_xlink_href()
         self.assertEqual(result["response"], "WARNING")
         self.assertEqual(result["expected_value"], "File name with extension")
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_integration_yields_only_id_and_xlink_href(self):
         data = {
