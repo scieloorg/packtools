@@ -1,5 +1,6 @@
 from packtools.sps.validation.models.tablewrap import ArticleTableWrappers
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class ArticleTableWrapValidation:
@@ -49,7 +50,7 @@ class ArticleTableWrapValidation:
                 advice=f'({self.article_type}) No <table-wrap> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
-                advice_text='({article_type}) No <table-wrap> found in XML',
+                advice_text=i18n._('({article_type}) No <table-wrap> found in XML'),
                 advice_params={"article_type": self.article_type},
             )
         else:
@@ -134,7 +135,7 @@ class TableWrapValidation:
             advice='Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
-            advice_text='Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.',
+            advice_text=i18n._('Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.'),
             advice_params={},
         )
 
@@ -185,8 +186,12 @@ class TableWrapValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["label_or_caption_error_level"],
-            advice_text='Add <label> or <caption> with <title> inside {xml}. Consult SPS documentation for more detail.',
+            advice_text=i18n._('Add <label> or <caption> with <title> inside {xml}. Consult SPS documentation for more detail.'),
             advice_params={"xml": self.xml},
+            message_text=i18n._(
+                "Expected <label> or <caption> with <title> inside <table-wrap>"
+            ),
+            message_params={},
         )
 
     def validate_table(self):
@@ -215,7 +220,7 @@ class TableWrapValidation:
             advice=f'Wrap each table with <table> inside {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["table_error_level"],
-            advice_text='Wrap each table with <table> inside {xml}. Consult SPS documentation for more detail.',
+            advice_text=i18n._('Wrap each table with <table> inside {xml}. Consult SPS documentation for more detail.'),
             advice_params={"xml": self.xml},
         )
 
@@ -234,14 +239,14 @@ class TableWrapValidation:
             expected = "alternatives"
             obtained = None
             advice = f'Wrap <table> and <graphic> with <alternatives> inside {self.xml} '
-            advice_text = 'Wrap <table> and <graphic> with <alternatives> inside {xml} '
+            advice_text = i18n._('Wrap <table> and <graphic> with <alternatives> inside {xml} ')
             advice_params = {"xml": self.xml}
             valid = False
         elif graphic + table == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
             advice = f'Remove the <alternatives> from {self.xml}.'
-            advice_text = 'Remove the <alternatives> from {xml}.'
+            advice_text = i18n._('Remove the <alternatives> from {xml}.')
             advice_params = {"xml": self.xml}
             valid = False
         else:
@@ -302,7 +307,7 @@ class TableWrapValidation:
             advice=f'Remove <tr> as a direct child of <table> in {self.xml}. Use <thead> or <tbody> to wrap <tr> elements.',
             data=self.data,
             error_level=self.rules["tr_in_table_error_level"],
-            advice_text='Remove <tr> as a direct child of <table> in {xml}. Use <thead> or <tbody> to wrap <tr> elements.',
+            advice_text=i18n._('Remove <tr> as a direct child of <table> in {xml}. Use <thead> or <tbody> to wrap <tr> elements.'),
             advice_params={"xml": self.xml},
         )
 
@@ -334,7 +339,7 @@ class TableWrapValidation:
             advice=f'Move <th> elements to be inside <thead> in {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["th_in_thead_error_level"],
-            advice_text='Move <th> elements to be inside <thead> in {xml}. Consult SPS documentation for more detail.',
+            advice_text=i18n._('Move <th> elements to be inside <thead> in {xml}. Consult SPS documentation for more detail.'),
             advice_params={"xml": self.xml},
         )
 
@@ -366,7 +371,7 @@ class TableWrapValidation:
             advice=f'Move <td> elements to be inside <tbody> in {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["td_in_tbody_error_level"],
-            advice_text='Move <td> elements to be inside <tbody> in {xml}. Consult SPS documentation for more detail.',
+            advice_text=i18n._('Move <td> elements to be inside <tbody> in {xml}. Consult SPS documentation for more detail.'),
             advice_params={"xml": self.xml},
         )
 
@@ -398,6 +403,6 @@ class TableWrapValidation:
             advice=f'Add <tbody> inside <table> in {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["tbody_error_level"],
-            advice_text='Add <tbody> inside <table> in {xml}. Consult SPS documentation for more detail.',
+            advice_text=i18n._('Add <tbody> inside <table> in {xml}. Consult SPS documentation for more detail.'),
             advice_params={"xml": self.xml},
         )
