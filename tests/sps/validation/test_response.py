@@ -674,3 +674,42 @@ class TestCustomErrorLevels(TestCase):
 
         for r in results:
             self.assertEqual(r["response"], "CRITICAL")
+
+
+class TestResponseI18n(TestCase):
+
+    def test_invalid_advices(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <response response-type="wrong"/>
+            <response response-type="reply" xml:lang="en" id="S1">
+                <front-stub/>
+                <body/>
+            </response>
+            <response xml:lang="en" id="S1">
+                <front-stub/>
+                <body/>
+            </response>
+        </article>
+        """
+        results = list(ResponseValidation(etree.fromstring(xml)).validate())
+        invalid = [result for result in results if result["response"] != "OK"]
+
+        self.assertEqual(
+            {result["title"] for result in invalid},
+            {
+                "response @response-type presence",
+                "response @response-type value",
+                "response @xml:lang presence",
+                "response @id presence",
+                "response @id uniqueness",
+                "response front-stub presence",
+                "response body presence",
+            },
+        )
+
+        for result in invalid:
+            self.assertEqual(
+                result["adv_text"].format(**result["adv_params"]),
+                result["advice"],
+            )

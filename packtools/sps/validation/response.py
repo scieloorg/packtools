@@ -9,6 +9,7 @@ Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJ
 """
 
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 XML_LANG = "{http://www.w3.org/XML/1998/namespace}lang"
@@ -132,6 +133,8 @@ class ResponseValidation:
                 expected="reply",
                 obtained=response_type,
                 advice='Add @response-type="reply" to <response>.',
+                advice_text=i18n._('Add @response-type="reply" to <response>.'),
+                advice_params={},
                 data=ctx.get("id"),
                 error_level=error_level,
             )
@@ -158,6 +161,8 @@ class ResponseValidation:
                 expected="reply",
                 obtained=response_type,
                 advice='Replace @response-type with "reply" in <response>.',
+                advice_text=i18n._('Replace @response-type with "reply" in <response>.'),
+                advice_params={},
                 data=ctx.get("id"),
                 error_level=error_level,
                 element_name="response",
@@ -186,6 +191,8 @@ class ResponseValidation:
                 expected="a valid xml:lang value",
                 obtained=xml_lang,
                 advice="Add @xml:lang to <response>.",
+                advice_text=i18n._("Add @xml:lang to <response>."),
+                advice_params={},
                 data=ctx.get("id"),
                 error_level=error_level,
             )
@@ -212,6 +219,8 @@ class ResponseValidation:
                 expected="a unique id value",
                 obtained=response_id,
                 advice="Add @id to <response>.",
+                advice_text=i18n._("Add @id to <response>."),
+                advice_params={},
                 data=ctx.get("id"),
                 error_level=error_level,
             )
@@ -252,6 +261,8 @@ class ResponseValidation:
                 expected="a unique @id for each <response>",
                 obtained=response_id,
                 advice=f'Replace duplicate @id="{response_id}" with a unique value in <response>.',
+                advice_text=i18n._('Replace duplicate @id="{response_id}" with a unique value in <response>.'),
+                advice_params={"response_id": response_id},
                 data=response_id,
                 error_level=error_level,
                 element_name="response",
@@ -279,6 +290,8 @@ class ResponseValidation:
                 expected="<front-stub> element",
                 obtained="front-stub" if is_valid else None,
                 advice="Add <front-stub> with response metadata inside <response>.",
+                advice_text=i18n._("Add <front-stub> with response metadata inside <response>."),
+                advice_params={},
                 data=ctx.get("id"),
                 error_level=error_level,
             )
@@ -304,6 +317,8 @@ class ResponseValidation:
                 expected="<body> element",
                 obtained="body" if is_valid else None,
                 advice="Add <body> with response content inside <response>.",
+                advice_text=i18n._("Add <body> with response content inside <response>."),
+                advice_params={},
                 data=ctx.get("id"),
                 error_level=error_level,
             )
