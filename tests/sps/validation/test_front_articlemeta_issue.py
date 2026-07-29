@@ -692,8 +692,11 @@ class IssueTest(TestCase):
             "msg_text": "Got {obtained}, expected {expected}",
             "msg_params": {"obtained": "*2", "expected": "alphanumeric value"},
             "advice": "Replace *2 in <article-meta><supplement> with alphanumeric value",
-            "adv_text": None,
-            "adv_params": {},
+            "adv_text": "Replace {obtained} in <article-meta><supplement> with {expected}",
+            "adv_params": {
+                "obtained": "*2",
+                "expected": "alphanumeric value",
+            },
             "data": {"number": "4", "suppl": "*2", "volume": "56"},
         }
 

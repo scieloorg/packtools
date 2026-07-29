@@ -1,6 +1,8 @@
+import re
+
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
 from packtools.sps.validation.utils import build_response
-import re
+from packtools.sps import i18n
 
 
 def is_valid_value(value, zero_is_allowed):
@@ -72,6 +74,11 @@ class IssueValidation:
                 expected=result["expected"],
                 obtained=result["got"],
                 advice=f'Replace {result["got"]} in <article-meta><volume> with {result["expected"]}',
+                advice_text=i18n._("Replace {obtained} in <article-meta><volume> with {expected}"),
+                advice_params={
+                    "obtained": result["got"],
+                    "expected": result["expected"],
+                },
                 data=self.article_issue.data,
                 error_level=self.params["volume_format_error_level"],
                 element_name="article-meta",
@@ -101,6 +108,11 @@ class IssueValidation:
                 expected=result["expected"],
                 obtained=result["got"],
                 advice=f'Replace {result["got"]} in <article-meta><issue> with {result["expected"]}',
+                advice_text=i18n._("Replace {obtained} in <article-meta><issue> with {expected}"),
+                advice_params={
+                    "obtained": result["got"],
+                    "expected": result["expected"],
+                },
                 data=self.article_issue.data,
                 error_level=self.params["number_format_error_level"],
                 element_name="article-meta",
@@ -130,6 +142,11 @@ class IssueValidation:
                 expected=result["expected"],
                 obtained=result["got"],
                 advice=f'Replace {result["got"]} in <article-meta><supplement> with {result["expected"]}',
+                advice_text=i18n._("Replace {obtained} in <article-meta><supplement> with {expected}"),
+                advice_params={
+                    "obtained": result["got"],
+                    "expected": result["expected"],
+                },
                 data=self.article_issue.data,
                 error_level=self.params["supplement_format_error_level"],
                 element_name="article-meta",
@@ -189,6 +206,11 @@ class IssueValidation:
                     if not got_valid_format
                     else None
                 ),
+                advice_text=i18n._("Replace {issue} in <article-meta><issue> with one of {expected}"),
+                advice_params={
+                    "issue": self.article_issue.issue,
+                    "expected": expected,
+                },
                 data={"issue": self.article_issue.issue},
                 error_level=self.params["issue_format_error_level"],
             )
@@ -225,6 +247,13 @@ class IssueValidation:
                 expected="Journal issue registered in title manager or scielo manager or core",
                 obtained=issue,
                 advice="Unable to check if issue is registered",
+                message_text=i18n._(
+                    "Got {issue}, but the registered journal issue could not "
+                    "be checked"
+                ),
+                message_params={"issue": issue},
+                advice_text=i18n._("Unable to check if issue is registered"),
+                advice_params={},
                 data=issue,
                 error_level="WARNING",
             )
@@ -239,6 +268,11 @@ class IssueValidation:
             expected=expected_issues,
             obtained=issue,
             advice=f'Replace {issue} in <article-meta> with one of {expected_issues}',
+            advice_text=i18n._("Replace {issue} in <article-meta> with one of {expected_issues}"),
+            advice_params={
+                "issue": issue,
+                "expected_issues": expected_issues,
+            },
             data=issue,
             error_level=self.params["expected_issues_error_level"],
         )
@@ -265,6 +299,8 @@ class IssueValidation:
             expected="at most one <issue> element in <article-meta>",
             obtained=f"{count} <issue> element(s) found",
             advice=f"Remove duplicate <issue> elements from <article-meta>. Found {count} elements, expected at most 1.",
+            advice_text=i18n._("Remove duplicate <issue> elements from <article-meta>. Found {count} elements, expected at most 1."),
+            advice_params={"count": count},
             data={"issue_count": count, "issue_values": [elem.text for elem in issue_elements]},
             error_level=self.params.get("issue_element_uniqueness_error_level", "ERROR"),
         )
@@ -296,6 +332,11 @@ class IssueValidation:
             expected="issue value without punctuation marks",
             obtained=issue_value,
             advice=f"Remove punctuation marks {found_punctuation} from <issue> value '{issue_value}'",
+            advice_text=i18n._("Remove punctuation marks {found_punctuation} from <issue> value '{issue_value}'"),
+            advice_params={
+                "found_punctuation": found_punctuation,
+                "issue_value": issue_value,
+            },
             data={"issue": issue_value, "punctuation_found": found_punctuation},
             error_level=self.params.get("issue_no_punctuation_error_level", "ERROR"),
         )
@@ -325,6 +366,11 @@ class IssueValidation:
             expected="issue value in lowercase only",
             obtained=issue_value,
             advice=f"Convert uppercase letters to lowercase in <issue> value '{issue_value}'. Expected: '{issue_value.lower()}'",
+            advice_text=i18n._("Convert uppercase letters to lowercase in <issue> value '{issue_value}'. Expected: '{expected}'"),
+            advice_params={
+                "issue_value": issue_value,
+                "expected": issue_value.lower(),
+            },
             data={"issue": issue_value, "expected": issue_value.lower()},
             error_level=self.params.get("issue_no_uppercase_error_level", "ERROR"),
         )
@@ -370,6 +416,11 @@ class IssueValidation:
             expected="supplement nomenclature as 'suppl'",
             obtained=issue_value,
             advice=f"Use 'suppl' for supplement nomenclature in <issue> value '{issue_value}'. Invalid terms found: {invalid_patterns}",
+            advice_text=i18n._("Use 'suppl' for supplement nomenclature in <issue> value '{issue_value}'. Invalid terms found: {invalid_patterns}"),
+            advice_params={
+                "issue_value": issue_value,
+                "invalid_patterns": invalid_patterns,
+            },
             data={"issue": issue_value, "invalid_terms": invalid_patterns},
             error_level=self.params.get("issue_supplement_nomenclature_error_level", "ERROR"),
         )
@@ -422,6 +473,11 @@ class IssueValidation:
             expected="special issue nomenclature as 'spe'",
             obtained=issue_value,
             advice=f"Use 'spe' for special issue nomenclature in <issue> value '{issue_value}'. Invalid terms found: {found_invalid}",
+            advice_text=i18n._("Use 'spe' for special issue nomenclature in <issue> value '{issue_value}'. Invalid terms found: {found_invalid}"),
+            advice_params={
+                "issue_value": issue_value,
+                "found_invalid": found_invalid,
+            },
             data={"issue": issue_value, "invalid_terms": found_invalid},
             error_level=self.params.get("issue_special_nomenclature_error_level", "ERROR"),
         )
@@ -449,6 +505,8 @@ class IssueValidation:
             expected="no <supplement> element in <article-meta>",
             obtained=f"{count} <supplement> element(s) found",
             advice="Remove <supplement> element(s) from <article-meta>. Use <issue> element to indicate supplements (e.g., '4 suppl 1').",
+            advice_text=i18n._("Remove <supplement> element(s) from <article-meta>. Use <issue> element to indicate supplements (e.g., '4 suppl 1')."),
+            advice_params={},
             data={"supplement_count": count, "supplement_values": [elem.text for elem in supplement_elements]},
             error_level=self.params.get("no_supplement_element_error_level", "CRITICAL"),
         )
@@ -502,6 +560,11 @@ class IssueValidation:
             expected="numeric values without leading zeros",
             obtained=issue_value,
             advice=f"Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'",
+            advice_text=i18n._("Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'"),
+            advice_params={
+                "issue_value": issue_value,
+                "expected_value": expected_value,
+            },
             data={"issue": issue_value, "parts_with_leading_zeros": issues_found, "expected": expected_value},
             error_level=self.params.get("issue_no_leading_zeros_error_level", "WARNING"),
         )
@@ -587,6 +650,8 @@ class PaginationValidation:
             expected="elocation id or first and last pages",
             obtained=f"elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}",
             advice="Mark elocation id with <elocation-id> or first page with <fpage> and last page with <lpage>",
+            advice_text=i18n._("Mark elocation id with <elocation-id> or first page with <fpage> and last page with <lpage>"),
+            advice_params={},
             data=self.issue.data,
             error_level=self.params["pagination_error_level"],
         )
