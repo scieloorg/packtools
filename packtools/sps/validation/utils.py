@@ -1,13 +1,44 @@
 import urllib.parse
 import re
-import gettext
 from datetime import date, timedelta
 
+from packtools.sps import i18n
 from packtools.sps.libs.requester import fetch_data
 from packtools.sps.validation.similarity_utils import most_similar, similarity, how_similar
 
-# Configuração de internacionalização
-_ = gettext.gettext
+
+def _normalize_message_value(value):
+    if isinstance(value, str):
+        preserve_leading_space = value.startswith(" ")
+        preserve_trailing_space = value.endswith(" ")
+        value = (
+            value.replace("\\n", " ")
+            .replace("\\r", " ")
+            .replace("\\t", " ")
+        )
+        value = re.sub(r"[\x00-\x1f\x7f]+", " ", value)
+        value = " ".join(value.split())
+
+        if value and preserve_leading_space:
+            value = f" {value}"
+        if value and preserve_trailing_space:
+            value = f"{value} "
+
+        return value
+
+    if isinstance(value, dict):
+        return {
+            key: _normalize_message_value(item)
+            for key, item in value.items()
+        }
+
+    if isinstance(value, list):
+        return [_normalize_message_value(item) for item in value]
+
+    if isinstance(value, tuple):
+        return tuple(_normalize_message_value(item) for item in value)
+
+    return value
 
 
 def format_response(
@@ -29,10 +60,19 @@ def format_response(
     sub_element_name=None,
     attribute_name=None,
     xml=None,
+    message_text=None,
+    message_params=None,
+    advice_text=None,
+    advice_params=None,
 ):
+    message_expected = (
+        expected.removeprefix("one of ")
+        if isinstance(expected, str)
+        else expected
+    )
     if validation_type == "value in list" and "one of " not in expected:
         expected = f"one of {expected}"
-    
+
     advice = format_advice(
         title,
         validation_type,
@@ -50,6 +90,29 @@ def format_response(
     )
 
     message = f"Got {obtained}, expected {expected}"
+    if message_text:
+        localized_message = message_text
+    elif validation_type == "value in list":
+        localized_message = i18n._(
+            "Got {obtained}, expected one of {expected}"
+        )
+    else:
+        localized_message = i18n._(
+            "Got {obtained}, expected {expected}"
+        )
+    localized_message_params = (
+        _normalize_message_value(message_params or {})
+        if message_text
+        else {
+            "obtained": _normalize_message_value(obtained),
+            "expected": _normalize_message_value(message_expected),
+        }
+    )
+    localized_advice = (
+        advice_text
+        if advice_text
+        else i18n._(advice) if advice else None
+    )
 
     return {
         "title": title,
@@ -64,11 +127,17 @@ def format_response(
         "expected_value": obtained if is_valid else expected,
         "got_value": obtained,
         "message": message,
-        "msg_text": _("Got {obtained}, expected {expected}"),
-        "msg_params": {"obtained": obtained, "expected": expected},
+        "msg_text": localized_message,
+        "msg_params": localized_message_params,
         "advice": None if is_valid else advice,
-        "adv_text": None if is_valid else advice,  # Por enquanto, será melhorado no build_response
-        "adv_params": None if is_valid else {},
+        "adv_text": (
+            localized_advice if not is_valid else None
+        ),
+        "adv_params": (
+            None
+            if is_valid
+            else _normalize_message_value(advice_params or {})
+        ),
         "data": data,
     }
 
@@ -89,28 +158,18 @@ def build_response(
     sub_element_name=None,
     attribute_name=None,
     xml=None,
+    message_text=None,
+    message_params=None,
     advice_text=None,
     advice_params=None,
 ):
-    """
-    Constrói um dicionário de resposta para validações.
-
-    NOVO: Adicionado suporte para internacionalização com:
-    - msg_text e msg_params: para a mensagem principal
-    - adv_text e adv_params: para o conselho (advice)
-
-    Args:
-        advice_text: Template de mensagem internacionalizada usando _()
-        advice_params: Dicionário com parâmetros para o template
-    """
+    message_expected = (
+        expected.removeprefix("one of ")
+        if isinstance(expected, str)
+        else expected
+    )
     if validation_type == "value in list" and "one of " not in expected:
         expected = f"one of {expected}"
-
-    # if not attribute_name:
-    #     if sub_item and '@' == sub_item[0]:
-    #         attribute_name = sub_item[1:]
-    # if not element_name:
-    #     element_name = item
 
     advice = format_advice(
         title,
@@ -125,10 +184,33 @@ def build_response(
         attribute_name,
         xml,
         item,
-        sub_item
+        sub_item,
     )
 
     message = f"Got {obtained}, expected {expected}"
+    if message_text:
+        localized_message = message_text
+    elif validation_type == "value in list":
+        localized_message = i18n._(
+            "Got {obtained}, expected one of {expected}"
+        )
+    else:
+        localized_message = i18n._(
+            "Got {obtained}, expected {expected}"
+        )
+    localized_message_params = (
+        _normalize_message_value(message_params or {})
+        if message_text
+        else {
+            "obtained": str(_normalize_message_value(obtained)),
+            "expected": str(_normalize_message_value(message_expected)),
+        }
+    )
+    localized_advice = (
+        advice_text
+        if advice_text
+        else i18n._(advice) if advice else None
+    )
 
     return {
         "title": title,
@@ -143,11 +225,17 @@ def build_response(
         "expected_value": expected,
         "got_value": obtained,
         "message": message,
-        "msg_text": _("Got {obtained}, expected {expected}"),
-        "msg_params": {"obtained": str(obtained), "expected": str(expected)},
+        "msg_text": localized_message,
+        "msg_params": localized_message_params,
         "advice": None if is_valid else advice,
-        "adv_text": None if is_valid else advice_text,
-        "adv_params": None if is_valid else (advice_params or {}),
+        "adv_text": (
+            localized_advice if not is_valid else None
+        ),
+        "adv_params": (
+            None
+            if is_valid
+            else _normalize_message_value(advice_params or {})
+        ),
         "data": data,
     }
 
@@ -276,16 +364,7 @@ def format_advice(
     sub_item,
 ):
     if is_valid:
-        return ''
-
-    # if not attribute_name:
-    #     if sub_item:
-    #         if '@' == sub_item[0]:
-    #             attribute_name = sub_item[1:]
-    #         else:
-    #             sub_element_name = sub_item
-    # if not element_name:
-    #     element_name = item
+        return ""
 
     if element_name or sub_element_name or attribute_name or xml:
         if validation_type == "value in list" and "one of " not in expected:
@@ -294,38 +373,52 @@ def format_advice(
         if validation_type == "exist":
             marked = ""
             verb = "Mark"
+
             if attribute_name:
                 verb = "Add "
                 marked = f' {attribute_name}="VALUE"'
+
             if sub_element_name:
                 marked = f"<{sub_element_name}{marked}>"
+
             if element_name:
                 marked = f"<{element_name}{marked}>"
+
             advice = f"{verb} {title} with {marked}"
 
         elif validation_type == "value in list":
-
             if obtained:
                 incorrect = ""
+
                 if attribute_name:
                     incorrect = f' {attribute_name}="{obtained}"'
+
                 if sub_element_name:
                     incorrect = f"<{sub_element_name}{incorrect}>"
+
                 if element_name:
                     incorrect = f"<{element_name}{incorrect}>"
+
                 advice = f"Replace {obtained} in {incorrect} with {expected}"
             else:
                 incomplete = ""
+
                 if attribute_name:
                     attribute = f' {attribute_name}="VALUE"'
+
                 if sub_element_name:
                     incomplete = f"<{sub_element_name}{incomplete}>"
+
                 if element_name:
                     incomplete = f"<{element_name}{incomplete}>"
-                advice = f"Add {attribute} in {incomplete} and replace VALUE with {expected}"
+
+                advice = (
+                    f"Add {attribute} in {incomplete} "
+                    f"and replace VALUE with {expected}"
+                )
 
     return advice
-    
+
 
 def get_future_date(from_date, days):
     if isinstance(from_date, str):
