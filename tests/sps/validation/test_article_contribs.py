@@ -186,6 +186,12 @@ class TestContribValidation(unittest.TestCase):
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
+        self.assertEqual("Smith, John", errors[0]["adv_params"]["info"])
+        self.assertEqual(
+            "Smith, John: Unable to automatically check the "
+            "0000-0002-1234-5678. Check it manually",
+            errors[0]["adv_text"].format(**errors[0]["adv_params"]),
+        )
 
     def test_validate_affiliations_success(self):
         """Test validate_affiliations with valid affiliation"""
@@ -237,6 +243,20 @@ class TestContribRoleValidation(unittest.TestCase):
         responses = [error['response'] for error in errors]
         expected_responses = ['ERROR', 'ERROR']
         self.assertEqual(responses, expected_responses)
+
+        term_error = next(
+            error
+            for error in errors
+            if error["title"] == "CRediT taxonomy term"
+        )
+        rendered_advice = term_error["adv_text"].format(
+            **term_error["adv_params"]
+        )
+        self.assertIn(
+            '<role content-type="invalid-uri">',
+            rendered_advice,
+        )
+        self.assertNotIn("<rolecontent-type=", rendered_advice)
 
     def test_validate_role_specific_use_success(self):
         """Test validate_role_specific_use with valid role"""
