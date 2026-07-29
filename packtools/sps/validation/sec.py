@@ -2,6 +2,7 @@ import re
 
 from packtools.sps.models.sec import ArticleSecs, VALID_SEC_TYPES, NON_COMBINABLE_SEC_TYPES
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class SecValidation:
@@ -40,6 +41,8 @@ class SecValidation:
             expected="<title> element in <sec>",
             obtained=self.data.get("title"),
             advice="Add <title> element to <sec> for accessibility",
+            advice_text=i18n._("Add <title> element to <sec> for accessibility"),
+            advice_params={},
             data=self.data,
             error_level=self.params.get("title_error_level", "CRITICAL"),
         )
@@ -75,6 +78,11 @@ class SecValidation:
             expected=str(valid_sec_types),
             obtained=sec_type,
             advice=f'Replace @sec-type="{sec_type}" with a valid value: {valid_sec_types}',
+            advice_text=i18n._('Replace @sec-type="{sec_type}" with a valid value: {valid_types}'),
+            advice_params={
+                "sec_type": sec_type,
+                "valid_types": valid_sec_types,
+            },
             data=self.data,
             error_level=self.params.get("sec_type_value_error_level", "ERROR"),
         )
@@ -98,6 +106,8 @@ class SecValidation:
             expected='@id attribute in <sec sec-type="transcript">',
             obtained=sec_id,
             advice='Add @id attribute to <sec sec-type="transcript">',
+            advice_text=i18n._('Add @id attribute to <sec sec-type="transcript">'),
+            advice_params={},
             data=self.data,
             error_level=self.params.get("transcript_id_error_level", "ERROR"),
         )
@@ -128,6 +138,8 @@ class SecValidation:
             expected='Combined sec-types separated by pipe "|" (e.g., "materials|methods")',
             obtained=sec_type,
             advice=f'Use pipe "|" as separator in @sec-type="{sec_type}" (e.g., "materials|methods")',
+            advice_text=i18n._('Use pipe "|" as separator in @sec-type="{sec_type}" (e.g., "materials|methods")'),
+            advice_params={"sec_type": sec_type},
             data=self.data,
             error_level=self.params.get("combined_format_error_level", "WARNING"),
         )
@@ -162,6 +174,11 @@ class SecValidation:
             expected=f"Types {non_combinable} must not be combined with other types",
             obtained=sec_type,
             advice=f'Do not combine "{found_non_combinable[0]}" with other types in @sec-type="{sec_type}"',
+            advice_text=i18n._('Do not combine "{non_combinable}" with other types in @sec-type="{sec_type}"'),
+            advice_params={
+                "non_combinable": found_non_combinable[0],
+                "sec_type": sec_type,
+            },
             data=self.data,
             error_level=self.params.get("non_combinable_error_level", "WARNING"),
         )
@@ -181,6 +198,12 @@ class SecValidation:
             expected="At least one <p> element in <sec>",
             obtained=f"{paragraph_count} paragraphs",
             advice="Add at least one <p> element to <sec>",
+            advice_text=i18n._("Add at least one <p> element to <sec>"),
+            advice_params={},
+            message_text=i18n._(
+                "Found {count} paragraphs in <sec>; expected at least one <p>"
+            ),
+            message_params={"count": paragraph_count},
             data=self.data,
             error_level=self.params.get("content_error_level", "WARNING"),
         )
@@ -265,11 +288,24 @@ class XMLSecValidation:
                 if has_data_availability
                 else "missing"
             ),
+            message_text=i18n._(
+                "Data availability statement is missing; expected "
+                '<sec sec-type="data-availability"> in <body> or <back>, '
+                'or <fn fn-type="data-availability">'
+            ),
+            message_params={},
             advice=(
                 f'Add <sec sec-type="data-availability" specific-use="..."> to <body> or <back>, '
                 f'or <fn fn-type="data-availability"> '
                 f'(required for article-type="{article_type}")'
             ),
+            advice_text=(
+                i18n._('Add <sec sec-type="data-availability" specific-use="..."> '
+                "to <body> or <back>, or "
+                '<fn fn-type="data-availability"> '
+                '(required for article-type="{article_type}")')
+            ),
+            advice_params={"article_type": article_type},
             data=parent,
             error_level=self.params.get("data_availability_error_level", "ERROR"),
         )
