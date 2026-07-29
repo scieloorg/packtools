@@ -2,6 +2,7 @@ from datetime import date, datetime
 
 from packtools.sps.models.dates import FulltextDates
 from packtools.sps.validation.utils import build_response, get_future_date
+from packtools.sps import i18n
 
 
 def is_subsequence_in_order(subsequence, main_sequence):
@@ -77,6 +78,13 @@ class DateValidation:
             expected=f"{number}-digits {label}",
             obtained=self.date_data.get(label),
             advice=f'Complete <{self.tag} date-type="{self.date_type}"><{label}> with {number}-digits',
+            advice_text=i18n._('Complete <{tag} date-type="{date_type}"><{label}> with {number}-digits'),
+            advice_params={
+                "tag": self.tag,
+                "date_type": self.date_type,
+                "label": label,
+                "number": number,
+            },
             data=self.date_data,
             error_level=self.params[f"{label}_format_error_level"],
         )
@@ -106,6 +114,12 @@ class DateValidation:
             expected="max one year in the future",
             obtained=year,
             advice=advice,
+            advice_text=i18n._('Complete <{tag} date-type="{date_type}"><year> with an year previous or equal to {limit_year}'),
+            advice_params={
+                "tag": self.tag,
+                "date_type": self.date_type,
+                "limit_year": limit_year,
+            },
             data=self.date_data,
             error_level=self.params["year_value_error_level"],
         )
@@ -137,6 +151,12 @@ class DateValidation:
                 expected="valid date",
                 obtained=self.date_data,
                 advice=f'<date date-type="{self.date_type}"> ({parts}) is invalid: {e}',
+                advice_text=i18n._('<date date-type="{date_type}"> ({parts}) is invalid: {error}'),
+                advice_params={
+                    "date_type": self.date_type,
+                    "parts": parts,
+                    "error": e,
+                },
                 data=self.date_data,
                 error_level=self.params["value_error_level"],
             )
@@ -172,6 +192,13 @@ class DateValidation:
                 expected="valid date",
                 obtained=formatted_date,
                 advice=advice,
+                advice_text=i18n._('<date date-type="{date_type}"> ({formatted_date}) must be previous to {max_date_label} ({max_date})'),
+                advice_params={
+                    "date_type": date_type,
+                    "formatted_date": formatted_date,
+                    "max_date_label": max_date_label,
+                    "max_date": max_date,
+                },
                 data=self.date_data,
                 error_level=self.params["limit_error_level"],
             )
@@ -187,6 +214,11 @@ class DateValidation:
                 expected="a date with year, month (2-digits) and day (2-digits)",
                 obtained=self.date_data,
                 advice=advice,
+                advice_text=i18n._('<date date-type="{date_type}"> ({parts}) must be a date with year, month (2-digits) and day (2-digits)'),
+                advice_params={
+                    "date_type": date_type,
+                    "parts": parts,
+                },
                 data=self.date_data,
                 error_level=self.params["format_error_level"],
             )
@@ -332,6 +364,8 @@ class FulltextDatesValidation:
             expected='<pub-date date-type="pub">',
             obtained='<pub-date date-type="pub">' if is_valid else None,
             advice='Add <pub-date publication-format="electronic" date-type="pub"> with <day>, <month> and <year>',
+            advice_text=i18n._('Add <pub-date publication-format="electronic" date-type="pub"> with <day>, <month> and <year>'),
+            advice_params={},
             data=None,
             error_level=self.params["pub_date_presence_error_level"],
         )
@@ -353,6 +387,8 @@ class FulltextDatesValidation:
             expected='<pub-date date-type="collection">',
             obtained='<pub-date date-type="collection">' if is_valid else None,
             advice='Add <pub-date publication-format="electronic" date-type="collection"> with <year>',
+            advice_text=i18n._('Add <pub-date publication-format="electronic" date-type="collection"> with <year>'),
+            advice_params={},
             data=None,
             error_level=self.params["collection_date_presence_error_level"],
         )
@@ -372,6 +408,8 @@ class FulltextDatesValidation:
                 expected="electronic",
                 obtained=pub_format,
                 advice=f'Set @publication-format="electronic" in <pub-date date-type="{date_obj.type}">',
+                advice_text=i18n._('Set @publication-format="electronic" in <pub-date date-type="{date_type}">'),
+                advice_params={"date_type": date_obj.type},
                 data=date_obj.data,
                 error_level=self.params["publication_format_error_level"],
             )
@@ -393,6 +431,8 @@ class FulltextDatesValidation:
                 expected=f"<{element}> in pub-date[@date-type='pub']",
                 obtained=article_date.get(element),
                 advice=f'Add <{element}> to <pub-date date-type="pub">',
+                advice_text=i18n._('Add <{element}> to <pub-date date-type="pub">'),
+                advice_params={"element": element},
                 data=article_date,
                 error_level=self.params["pub_date_required_elements_error_level"],
             )
@@ -413,6 +453,8 @@ class FulltextDatesValidation:
             expected="<year> in pub-date[@date-type='collection']",
             obtained=collection_date.get("year"),
             advice='Add <year> to <pub-date date-type="collection">',
+            advice_text=i18n._('Add <year> to <pub-date date-type="collection">'),
+            advice_params={},
             data=collection_date,
             error_level=self.params["collection_date_year_error_level"],
         )
@@ -434,6 +476,8 @@ class FulltextDatesValidation:
             expected="no <day> in pub-date[@date-type='collection']",
             obtained=f"<day>{collection_date.get('day')}</day>" if has_day else None,
             advice='Remove <day> from <pub-date date-type="collection">',
+            advice_text=i18n._('Remove <day> from <pub-date date-type="collection">'),
+            advice_params={},
             data=collection_date,
             error_level=self.params["collection_date_day_error_level"],
         )
@@ -454,6 +498,8 @@ class FulltextDatesValidation:
                 expected=f"at most 1 pub-date[@date-type='{date_type}']",
                 obtained=f"{count} pub-date[@date-type='{date_type}']",
                 advice=f'Ensure there is at most one <pub-date date-type="{date_type}">',
+                advice_text=i18n._('Ensure there is at most one <pub-date date-type="{date_type}">'),
+                advice_params={"date_type": date_type},
                 data=None,
                 error_level=self.params["pub_date_uniqueness_error_level"],
             )
@@ -480,6 +526,8 @@ class FulltextDatesValidation:
                     expected="a value between 00 and 31",
                     obtained=day,
                     advice=f'Fix <day> value in <pub-date date-type="{date_type}">. Must be between 00 and 31',
+                    advice_text=i18n._('Fix <day> value in <pub-date date-type="{date_type}">. Must be between 00 and 31'),
+                    advice_params={"date_type": date_type},
                     data=date_data,
                     error_level=self.params["day_value_error_level"],
                 )
@@ -499,6 +547,8 @@ class FulltextDatesValidation:
                     expected="a value between 00 and 12",
                     obtained=month,
                     advice=f'Fix <month> value in <pub-date date-type="{date_type}">. Must be between 00 and 12',
+                    advice_text=i18n._('Fix <month> value in <pub-date date-type="{date_type}">. Must be between 00 and 12'),
+                    advice_params={"date_type": date_type},
                     data=date_data,
                     error_level=self.params["month_value_error_level"],
                 )
@@ -579,6 +629,11 @@ class FulltextDatesValidation:
             expected=self.expected_events,
             obtained=self.date_types_ordered_by_date,
             advice=f"History dates found: {self.date_types_ordered_by_date}. Exclude unexpected dates: {self.unexpected_events}",
+            advice_text=i18n._("History dates found: {date_types}. Exclude unexpected dates: {unexpected_events}"),
+            advice_params={
+                "date_types": self.date_types_ordered_by_date,
+                "unexpected_events": self.unexpected_events,
+            },
             data=history_dates,
             error_level=self.params["unexpected_events_error_level"],
         )
@@ -593,6 +648,11 @@ class FulltextDatesValidation:
             expected=self.expected_events,
             obtained=self.date_types_ordered_by_date,
             advice=f"History dates found: {self.date_types_ordered_by_date}. Add missing dates: {self.missing_events}",
+            advice_text=i18n._("History dates found: {date_types}. Add missing dates: {missing_events}"),
+            advice_params={
+                "date_types": self.date_types_ordered_by_date,
+                "missing_events": self.missing_events,
+            },
             data=history_dates,
             error_level=self.params["missing_events_error_level"],
         )
@@ -614,6 +674,11 @@ class FulltextDatesValidation:
             expected=expected,
             obtained=self.date_types_ordered_by_date,
             advice=f"History dates ({self.date_types_ordered_by_date}) must be in chronological order: {expected}",
+            advice_text=i18n._("History dates ({date_types}) must be in chronological order: {expected}"),
+            advice_params={
+                "date_types": self.date_types_ordered_by_date,
+                "expected": expected,
+            },
             data=self.history_dates,
             error_level=self.params["history_order_error_level"],
         )
