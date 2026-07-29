@@ -72,6 +72,10 @@ class TestGraphicValidation(unittest.TestCase):
         self.assertIsNone(result["got_value"])
         self.assertIn("Add id=", result["advice"])
         self.assertEqual(result["expected_value"], "@id attribute")
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_inline_graphic_with_id_passes(self):
         """Test that <inline-graphic> with @id attribute passes validation."""
@@ -141,6 +145,10 @@ class TestGraphicValidation(unittest.TestCase):
         self.assertEqual(result["response"], "ERROR")
         self.assertIsNone(result["got_value"])
         self.assertIsNotNone(result["advice"])
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_inline_graphic_missing_xlink_href_fails(self):
         """Test that <inline-graphic> without @xlink:href returns ERROR gracefully."""
@@ -358,6 +366,10 @@ class TestGraphicValidation(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "ERROR")
         self.assertIn("alternatives", results[0]["advice"].lower())
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
 
     def test_non_svg_not_in_alternatives_passes(self):
         """Test that non-.svg file NOT in <alternatives> passes validation."""
