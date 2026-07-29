@@ -1,4 +1,5 @@
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class BaseFnValidation:
@@ -40,6 +41,8 @@ class BaseFnValidation:
             expected="fn/label",
             obtained="fn/label" if is_valid else None,
             advice=f"Mark footnote label with <fn><label>",
+            advice_text=i18n._("Mark footnote label with <fn><label>"),
+            advice_params={},
             data=self.fn_data,
             error_level=self.rules["fn_label_error_level"],
         )
@@ -60,6 +63,8 @@ class BaseFnValidation:
             expected="fn/label" if not is_valid else None,
             obtained="fn/title" if not is_valid else None,
             advice=f"Replace <fn><title> with <fn><label>",
+            advice_text=i18n._("Replace <fn><title> with <fn><label>"),
+            advice_params={},
             data=self.fn_data,
             error_level=self.rules["fn_title_error_level"],
         )
@@ -80,6 +85,8 @@ class BaseFnValidation:
             expected="fn/label" if not is_valid else None,
             obtained="fn/bold" if not is_valid else None,
             advice=f"Replace <fn><bold> with <fn><label>",
+            advice_text=i18n._("Replace <fn><bold> with <fn><label>"),
+            advice_params={},
             data=self.fn_data,
             error_level=self.rules["fn_bold_error_level"],
         )
@@ -105,6 +112,8 @@ class BaseFnValidation:
             expected=expected,
             obtained=fn_type,
             advice=f'Complete fn-type="" in <fn fn-type=""> with a valid values: {expected}',
+            advice_text=i18n._('Complete fn-type="" in <fn fn-type=""> with a valid values: {expected}'),
+            advice_params={"expected": expected},
             data=self.fn_data,
             error_level=self.rules["fn_type_error_level"],
         )
@@ -131,6 +140,8 @@ class BaseFnValidation:
                 expected=expected_fn_type,
                 obtained=obtained_fn_type,
                 advice='Use <fn fn-type="conflict"> for JATS < 1.3 and <fn fn-type="coi-statement"> for JATS ≥ 1.3.',
+                advice_text=i18n._('Use <fn fn-type="conflict"> for JATS < 1.3 and <fn fn-type="coi-statement"> for JATS ≥ 1.3.'),
+                advice_params={},
                 data=self.fn_data,
                 error_level=self.rules["conflict_error_level"],
             )
