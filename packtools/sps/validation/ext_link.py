@@ -11,12 +11,11 @@ Implements validations for external link elements to ensure:
 Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit?tab=t.0#heading=h.n2z5yrri2aba
 """
 import re
-import gettext
 
+from packtools.sps import i18n
 from packtools.sps.models.ext_link import ArticleExtLinks
 from packtools.sps.validation.utils import build_response
 
-_ = gettext.gettext
 
 
 class ExtLinkValidation:
@@ -97,7 +96,7 @@ class ExtLinkValidation:
 
             is_valid = bool(ext_link_type)
 
-            advice_text = _(
+            advice_text = i18n._(
                 'Add @ext-link-type attribute to <ext-link> with text "{text}".'
                 " Valid values: {allowed_values}"
             )
@@ -122,11 +121,18 @@ class ExtLinkValidation:
                 is_valid=is_valid,
                 expected="@ext-link-type attribute present",
                 obtained=ext_link_type,
-                advice=advice_text.format(**advice_params),
+                advice=('Add @ext-link-type attribute to <ext-link> with text "{text}".'
+                " Valid values: {allowed_values}").format(**advice_params),
                 data=ext_link,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=(
+                    i18n._("The @ext-link-type attribute is present")
+                    if is_valid
+                    else i18n._("The @ext-link-type attribute is required")
+                ),
+                message_params={},
             )
 
     def validate_xlink_href_presence(self, error_level=None):
@@ -153,7 +159,7 @@ class ExtLinkValidation:
 
             is_valid = bool(xlink_href)
 
-            advice_text = _(
+            advice_text = i18n._(
                 'Add @xlink:href attribute to <ext-link> with text "{text}"'
             )
             advice_params = {"text": text}
@@ -174,11 +180,17 @@ class ExtLinkValidation:
                 is_valid=is_valid,
                 expected="@xlink:href attribute present",
                 obtained=xlink_href,
-                advice=advice_text.format(**advice_params),
+                advice=('Add @xlink:href attribute to <ext-link> with text "{text}"').format(**advice_params),
                 data=ext_link,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=(
+                    i18n._("The @xlink:href attribute is present")
+                    if is_valid
+                    else i18n._("The @xlink:href attribute is required")
+                ),
+                message_params={},
             )
 
     def validate_xlink_href_format(self, error_level=None):
@@ -208,7 +220,7 @@ class ExtLinkValidation:
 
             is_valid = bool(re.match(r'^https?://', xlink_href, re.IGNORECASE))
 
-            advice_text = _(
+            advice_text = i18n._(
                 'URL in @xlink:href="{xlink_href}" must start with http:// or https://'
             )
             advice_params = {"xlink_href": xlink_href}
@@ -229,11 +241,15 @@ class ExtLinkValidation:
                 is_valid=is_valid,
                 expected="URL starting with http:// or https://",
                 obtained=xlink_href,
-                advice=advice_text.format(**advice_params),
+                advice=('URL in @xlink:href="{xlink_href}" must start with http:// or https://').format(**advice_params),
                 data=ext_link,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=i18n._(
+                    "URL {url} must start with http:// or https://"
+                ),
+                message_params={"url": xlink_href},
             )
 
     def validate_ext_link_type_value(self, error_level=None):
@@ -263,7 +279,7 @@ class ExtLinkValidation:
 
             is_valid = ext_link_type in self.ALLOWED_EXT_LINK_TYPES
 
-            advice_text = _(
+            advice_text = i18n._(
                 'Replace @ext-link-type="{ext_link_type}" with one of: {allowed_values}'
             )
             advice_params = {
@@ -287,7 +303,7 @@ class ExtLinkValidation:
                 is_valid=is_valid,
                 expected=", ".join(self.ALLOWED_EXT_LINK_TYPES),
                 obtained=ext_link_type,
-                advice=advice_text.format(**advice_params),
+                advice=('Replace @ext-link-type="{ext_link_type}" with one of: {allowed_values}').format(**advice_params),
                 data=ext_link,
                 error_level=error_level,
                 advice_text=advice_text,
@@ -326,7 +342,7 @@ class ExtLinkValidation:
             if not is_generic:
                 continue
 
-            advice_text = _(
+            advice_text = i18n._(
                 'Replace generic text "{text}" in <ext-link> with descriptive text,'
                 " or add @xlink:title attribute"
             )
@@ -348,7 +364,8 @@ class ExtLinkValidation:
                 is_valid=False,
                 expected="descriptive text (not generic)",
                 obtained=text,
-                advice=advice_text.format(**advice_params),
+                advice=('Replace generic text "{text}" in <ext-link> with descriptive text,'
+                " or add @xlink:title attribute").format(**advice_params),
                 data=ext_link,
                 error_level=error_level,
                 advice_text=advice_text,
@@ -401,12 +418,20 @@ class ExtLinkValidation:
             # English words ("generic", "URL") into translated messages,
             # which was the original i18n bug (Copilot observation).
             if is_generic:
-                advice_text = _(
+                advice = (
+                    'Add @xlink:title attribute to <ext-link> with generic text'
+                    ' "{text}" to describe the link destination'
+                ).format(text=text)
+                advice_text = i18n._(
                     'Add @xlink:title attribute to <ext-link> with generic text'
                     ' "{text}" to describe the link destination'
                 )
             else:
-                advice_text = _(
+                advice = (
+                    'Add @xlink:title attribute to <ext-link> where the text is'
+                    ' the URL "{text}" to describe the link destination'
+                ).format(text=text)
+                advice_text = i18n._(
                     'Add @xlink:title attribute to <ext-link> where the text is'
                     ' the URL "{text}" to describe the link destination'
                 )
@@ -429,9 +454,14 @@ class ExtLinkValidation:
                 is_valid=False,
                 expected="@xlink:title attribute when text is generic or URL",
                 obtained=xlink_title,
-                advice=advice_text.format(**advice_params),
+                advice=advice,
                 data=ext_link,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=i18n._(
+                    "The @xlink:title attribute is required when the link "
+                    "text is generic or a URL"
+                ),
+                message_params={},
             )
