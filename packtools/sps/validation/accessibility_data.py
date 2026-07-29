@@ -1,8 +1,7 @@
-import gettext
+from packtools.sps import i18n
 from packtools.sps.validation.models.accessibility_data import XMLAccessibilityData
 from packtools.sps.validation.utils import build_response
 
-_ = gettext.gettext
 
 
 class XMLAccessibilityDataValidation:
@@ -103,7 +102,7 @@ class AccessibilityDataValidation:
         if parent_id:
             advice += f" (Found in <{parent_tag} id=\"{parent_id}\">)"
 
-        advice_text = _(
+        advice_text = i18n._(
             "<alt-text> is incorrectly located inside <{parent_tag}>. "
             "According to SPS 1.9/1.10, <alt-text> must be inside one of these elements: "
             "{expected_elements}. "
@@ -155,14 +154,14 @@ class AccessibilityDataValidation:
             valid = False
             validation_type = "exist"
             advice = "Missing <alt-text>. Provide a concise textual description of the visual element content."
-            advice_text = _("Missing <alt-text>. Provide a concise textual description of the visual element content.")
+            advice_text = i18n._("Missing <alt-text>. Provide a concise textual description of the visual element content.")
             advice_params = {}
         elif len(alt_text) > 120:
             error_level = self.params["alt_text_content_error_level"]
             valid = False
             validation_type = "format"
             advice = f"alt-text has {len(alt_text)} characters in {xml}. Provide text with up to 120 characters."
-            advice_text = _("alt-text has {length} characters in {xml}. Provide text with up to {max_length} characters.")
+            advice_text = i18n._("alt-text has {length} characters in {xml}. Provide text with up to {max_length} characters.")
             advice_params = {"length": len(alt_text), "xml": xml, "max_length": 120}
         else:
             error_level = None
@@ -186,6 +185,13 @@ class AccessibilityDataValidation:
             data=self.data,
             advice_text=advice_text,
             advice_params=advice_params,
+            message_text=i18n._(
+                "Got {obtained}, expected up to {max_length} characters"
+            ),
+            message_params={
+                "obtained": alt_text,
+                "max_length": 120,
+            },
         )
 
         # Valida @content-type quando presente
@@ -196,7 +202,7 @@ class AccessibilityDataValidation:
             if not valid:
                 advice = (f'The value \'{alt_text_content_type}\' is invalid in {self.data.get("alt_text_xml")}. '
                          f'Replace it with one of the accepted values: {self.params["content_types"]}.')
-                advice_text = _('The value {value} is invalid in {xml}. Replace it with one of the accepted values: {accepted_values}.')
+                advice_text = i18n._('The value {value} is invalid in {xml}. Replace it with one of the accepted values: {accepted_values}.')
                 advice_params = {
                     "value": alt_text_content_type,
                     "xml": self.data.get("alt_text_xml"),
@@ -267,7 +273,7 @@ class AccessibilityDataValidation:
                 f"For other file types (PDF, ZIP, XLSX), remove <alt-text> or consider using <long-desc> instead. "
                 f"Refer to SPS 1.10 documentation for details."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "In <{tag}>, <alt-text> should only be used for video (mp4) or audio (mp3) files. "
                 "Current mime-type is {mimetype} with mime-subtype {mime_subtype}. "
                 "For other file types (PDF, ZIP, XLSX), remove <alt-text> or consider using <long-desc> instead. "
@@ -342,7 +348,7 @@ class AccessibilityDataValidation:
                 f"According to SPS 1.9/1.10, <alt-text> should not copy content from <label> or <caption>. "
                 f"Provide a unique, descriptive text for the visual element instead."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "<alt-text> content duplicates {duplicated_element}. "
                 "According to SPS 1.9/1.10, <alt-text> should not copy content from <label> or <caption>. "
                 "Provide a unique, descriptive text for the visual element instead."
@@ -400,7 +406,7 @@ class AccessibilityDataValidation:
                 "(not essential for understanding the content). "
                 "Refer to SPS 1.10 documentation for decorative images guidance."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "<alt-text>null</alt-text> indicates a decorative figure. "
                 "Ensure this is an editorial decision and the image is truly decorative "
                 "(not essential for understanding the content). "
@@ -452,7 +458,7 @@ class AccessibilityDataValidation:
                     f'The value \'{long_desc_content_type}\' is invalid in {self.data.get("long_desc_xml")}. '
                     f'Replace it with one of the accepted values: {self.params["content_types"]}.'
                 )
-                advice_text = _(
+                advice_text = i18n._(
                     'The value {value} is invalid in {xml}. '
                     'Replace it with one of the accepted values: {accepted_values}.'
                 )
@@ -512,7 +518,7 @@ class AccessibilityDataValidation:
                 f"According to SPS 1.9/1.10, <long-desc> must have MORE than 120 characters. "
                 f"Use <alt-text> for descriptions up to 120 characters, or expand this <long-desc> to provide more detail."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "<long-desc> has only {length} characters. "
                 "According to SPS 1.9/1.10, <long-desc> must have MORE than 120 characters. "
                 "Use <alt-text> for descriptions up to 120 characters, or expand this <long-desc> to provide more detail."
@@ -583,7 +589,7 @@ class AccessibilityDataValidation:
                 f"For other file types, <long-desc> is not appropriate. "
                 f"Refer to SPS 1.10 documentation for details."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "In <{tag}>, <long-desc> should only be used for video (mp4) or audio (mp3) files. "
                 "Current mime-type is {mimetype} with mime-subtype {mime_subtype}. "
                 "For other file types, <long-desc> is not appropriate. "
@@ -658,7 +664,7 @@ class AccessibilityDataValidation:
                 f"According to SPS 1.9/1.10, <long-desc> should not copy content from <label> or <caption>. "
                 f"Provide a detailed, unique description that adds value beyond the label or caption."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "<long-desc> content duplicates {duplicated_element}. "
                 "According to SPS 1.9/1.10, <long-desc> should not copy content from <label> or <caption>. "
                 "Provide a detailed, unique description that adds value beyond the label or caption."
@@ -713,7 +719,7 @@ class AccessibilityDataValidation:
                 f"Remove duplicate <long-desc> elements. "
                 f"Refer to SPS 1.10 documentation for details."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "Found {count} <long-desc> elements. "
                 "Only one <long-desc> is allowed per graphic/media element. "
                 "Remove duplicate <long-desc> elements. "
@@ -741,6 +747,10 @@ class AccessibilityDataValidation:
             data=self.data,
             advice_text=advice_text,
             advice_params=advice_params,
+            message_text=i18n._(
+                "Found {count} <long-desc> elements; expected at most one"
+            ),
+            message_params={"count": long_desc_count},
         )
 
     def validate_long_desc_incompatible_with_null_alt(self):
@@ -776,7 +786,7 @@ class AccessibilityDataValidation:
                 f"Either remove <alt-text> or provide meaningful content instead of 'null'. "
                 f"Refer to SPS 1.10 documentation for combined markup guidance."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "Found <alt-text>null</alt-text> combined with <long-desc>. "
                 "When using <long-desc>, do not use <alt-text>null</alt-text>. "
                 "Either remove <alt-text> or provide meaningful content instead of 'null'. "
@@ -802,6 +812,10 @@ class AccessibilityDataValidation:
             data=self.data,
             advice_text=advice_text,
             advice_params=advice_params,
+            message_text=i18n._(
+                "<alt-text> must not be 'null' when <long-desc> is present"
+            ),
+            message_params={},
         )
 
     def validate_media_xref_to_transcript(self):
@@ -839,7 +853,7 @@ class AccessibilityDataValidation:
                 f"Add: <xref ref-type=\"sec\" rid=\"TRANSCRIPT_ID\"/> inside <{tag}>. "
                 f"Refer to SPS 1.10 documentation for details."
             )
-            advice_text = _(
+            advice_text = i18n._(
                 "<{tag}> with {mimetype} is missing <xref ref-type=\"sec\"> linking to transcript section. "
                 "According to SPS 1.9/1.10, audio and video elements should include a reference to their transcript section. "
                 "Add: <xref ref-type=\"sec\" rid=\"TRANSCRIPT_ID\"/> inside <{tag}>. "
@@ -901,7 +915,7 @@ class AccessibilityDataValidation:
         if not valid:
             advice = (f'The transcript is missing in the {tag} element. '
                      'Add a <sec sec-type="transcript"> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details.')
-            advice_text = _('The transcript is missing in the {tag} element. Add a <sec sec-type="transcript"> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details.')
+            advice_text = i18n._('The transcript is missing in the {tag} element. Add a <sec sec-type="transcript"> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details.')
             advice_params = {"tag": tag}
         else:
             advice = None
@@ -965,7 +979,7 @@ class AccessibilityDataValidation:
             obtained = "Missing"
             advice = ("Dialog elements are missing in the <sec sec-type='transcript'> section. "
                      "Use <speaker> and <speech> to represent the dialogue. Refer to SPS 1.10 docs for details.")
-            advice_text = _("Dialog elements are missing in the <sec sec-type='transcript'> section. Use <speaker> and <speech> to represent the dialogue. Refer to SPS 1.10 docs for details.")
+            advice_text = i18n._("Dialog elements are missing in the <sec sec-type='transcript'> section. Use <speaker> and <speech> to represent the dialogue. Refer to SPS 1.10 docs for details.")
             advice_params = {}
         else:
             valid = True
@@ -1013,7 +1027,7 @@ class AccessibilityDataValidation:
         if not valid:
             advice = (f"Accessibility data is located in an invalid element: <{tag}>. "
                      f"Use one of the valid elements: {valid_tags}. Refer to SPS 1.10 docs for details.")
-            advice_text = _("Accessibility data is located in an invalid element: <{tag}>. Use one of the valid elements: {valid_elements}. Refer to SPS 1.10 docs for details.")
+            advice_text = i18n._("Accessibility data is located in an invalid element: <{tag}>. Use one of the valid elements: {valid_elements}. Refer to SPS 1.10 docs for details.")
             advice_params = {"tag": tag, "valid_elements": str(valid_tags)}
         else:
             advice = None
