@@ -1,6 +1,6 @@
 import logging
-from gettext import gettext as _
 
+from packtools.sps import i18n
 from packtools.sps.validation.models.formula import ArticleFormulas
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.xml_validator_rules import get_group_rules
@@ -45,10 +45,10 @@ class ArticleDispFormulaValidation:
                 is_valid=False,
                 expected="disp-formula",
                 obtained=None,
-                advice=_('No <disp-formula> found in XML'),
+                advice='No <disp-formula> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
-                advice_text=_('No <disp-formula> found in XML'),
+                advice_text=i18n._('No <disp-formula> found in XML'),
                 advice_params={},
             )
         else:
@@ -126,10 +126,10 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="@id",
             obtained=formula_id,
-            advice=_('Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.'),
+            advice='Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
-            advice_text=_('Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.'),
             advice_params={},
         )
 
@@ -147,7 +147,7 @@ class DispFormulaValidation:
             return None
 
         is_valid = formula_id.startswith("e")
-        expected = _("id starting with 'e'")
+        expected = "id starting with 'e'"
 
         return build_response(
             title="@id prefix",
@@ -158,10 +158,10 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected=expected,
             obtained=formula_id,
-            advice=_('The @id of <disp-formula> must start with prefix "e". Change {id} to e{id} in <disp-formula id="{id}">. Consult SPS documentation for more detail.').format(id=formula_id),
+            advice='The @id of <disp-formula> must start with prefix "e". Change {id} to e{id} in <disp-formula id="{id}">. Consult SPS documentation for more detail.'.format(id=formula_id),
             data=self.data,
             error_level=self.rules["id_prefix_error_level"],
-            advice_text=_('The @id of <disp-formula> must start with prefix "e". Change {id} to e{id} in <disp-formula id="{id}">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('The @id of <disp-formula> must start with prefix "e". Change {id} to e{id} in <disp-formula id="{id}">. Consult SPS documentation for more detail.'),
             advice_params={"id": formula_id},
         )
 
@@ -186,10 +186,10 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice=_('Mark each label with <label> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.').format(id=item_id),
+            advice='Mark each label with <label> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.'.format(id=item_id),
             data=self.data,
             error_level=self.rules["label_error_level"],
-            advice_text=_('Mark each label with <label> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Mark each label with <label> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.'),
             advice_params={"id": item_id},
         )
 
@@ -209,7 +209,7 @@ class DispFormulaValidation:
             count += 1
             found.append("tex-math")
 
-        obtained = " and ".join(found) if found else _("not found codification formula")
+        obtained = " and ".join(found) if found else "not found codification formula"
 
         alternatives = self.data.get("alternative_elements") or []
         is_valid = (count == 1) or (count == len(alternatives) and count > 1)
@@ -223,10 +223,10 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice=_('Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.').format(id=item_id),
+            advice='Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.'.format(id=item_id),
             data=self.data,
             error_level=self.rules["codification_error_level"],
-            advice_text=_('Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{id}">. Consult SPS documentation for more detail.'),
             advice_params={"id": item_id},
         )
 
@@ -254,10 +254,10 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="@id in mml:math",
             obtained=mml_math_id,
-            advice=_('Add the @id attribute in <mml:math> inside <disp-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.').format(formula_id=item_id),
+            advice='Add the @id attribute in <mml:math> inside <disp-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.'.format(formula_id=item_id),
             data=self.data,
             error_level=self.rules["mml_math_id_error_level"],
-            advice_text=_('Add the @id attribute in <mml:math> inside <disp-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Add the @id attribute in <mml:math> inside <disp-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.'),
             advice_params={"formula_id": item_id},
         )
 
@@ -274,7 +274,7 @@ class DispFormulaValidation:
 
         mml_math_id = self.data.get("mml_math_id")
         is_valid = mml_math_id.startswith("m")
-        expected = _("id starting with 'm'")
+        expected = "id starting with 'm'"
         item_id = self.data.get("id")
 
         return build_response(
@@ -286,10 +286,10 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected=expected,
             obtained=mml_math_id,
-            advice=_('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <disp-formula id="{formula_id}">. Consult SPS documentation for more detail.').format(mml_id=mml_math_id, formula_id=item_id),
+            advice='The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <disp-formula id="{formula_id}">. Consult SPS documentation for more detail.'.format(mml_id=mml_math_id, formula_id=item_id),
             data=self.data,
             error_level=self.rules["mml_math_id_prefix_error_level"],
-            advice_text=_('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <disp-formula id="{formula_id}">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <disp-formula id="{formula_id}">. Consult SPS documentation for more detail.'),
             advice_params={"mml_id": mml_math_id, "formula_id": item_id},
         )
 
@@ -314,7 +314,7 @@ class DispFormulaValidation:
                 validation_type="exist",
                 is_valid=True,
                 expected="mml:math or tex-math",
-                obtained=_("no codification found"),
+                obtained="no codification found",
                 advice=None,
                 data=self.data,
                 error_level=self.rules["mathml_error_level"],
@@ -337,10 +337,10 @@ class DispFormulaValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=obtained,
-                advice=_('For accessibility, consider adding <mml:math> in <disp-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.').format(formula_id=item_id),
+                advice='For accessibility, consider adding <mml:math> in <disp-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'.format(formula_id=item_id),
                 data=self.data,
                 error_level=self.rules["mathml_error_level"],
-                advice_text=_('For accessibility, consider adding <mml:math> in <disp-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'),
+                advice_text=i18n._('For accessibility, consider adding <mml:math> in <disp-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'),
                 advice_params={"formula_id": item_id},
             )
         
@@ -379,22 +379,22 @@ class DispFormulaValidation:
         if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
             expected = "alternatives"
             obtained = None
-            advice = _('Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula>')
-            advice_text = _('Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula>')
+            advice = 'Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula>'
+            advice_text = i18n._('Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula>')
             advice_params = {}
             valid = False
         elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
-            advice = _('Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>').format(found=found)
-            advice_text = _('Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>')
+            advice = 'Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>'.format(found=found)
+            advice_text = i18n._('Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>')
             advice_params = {"found": found}
             valid = False
         elif len(alternatives) == 1:
             expected = None
             obtained = "alternatives"
-            advice = _('Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>').format(found=found)
-            advice_text = _('Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>')
+            advice = 'Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>'.format(found=found)
+            advice_text = i18n._('Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>')
             advice_params = {"found": found}
             valid = False
         else:
@@ -463,10 +463,10 @@ class ArticleInlineFormulaValidation:
                 is_valid=False,
                 expected="inline-formula",
                 obtained=None,
-                advice=_('No <inline-formula> found in XML'),
+                advice='No <inline-formula> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
-                advice_text=_('No <inline-formula> found in XML'),
+                advice_text=i18n._('No <inline-formula> found in XML'),
                 advice_params={},
             )
         else:
@@ -545,10 +545,10 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected="@id",
             obtained=formula_id,
-            advice=_('Add the formula ID with id="" in <inline-formula>: <inline-formula id="">. Consult SPS documentation for more detail.'),
+            advice='Add the formula ID with id="" in <inline-formula>: <inline-formula id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
-            advice_text=_('Add the formula ID with id="" in <inline-formula>: <inline-formula id="">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Add the formula ID with id="" in <inline-formula>: <inline-formula id="">. Consult SPS documentation for more detail.'),
             advice_params={},
         )
 
@@ -566,7 +566,7 @@ class InlineFormulaValidation:
             return None
 
         is_valid = formula_id.startswith("e")
-        expected = _("id starting with 'e'")
+        expected = "id starting with 'e'"
 
         return build_response(
             title="@id prefix",
@@ -577,10 +577,10 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected=expected,
             obtained=formula_id,
-            advice=_('The @id of <inline-formula> must start with prefix "e". Change {id} to e{id} in <inline-formula id="{id}">. Consult SPS documentation for more detail.').format(id=formula_id),
+            advice='The @id of <inline-formula> must start with prefix "e". Change {id} to e{id} in <inline-formula id="{id}">. Consult SPS documentation for more detail.'.format(id=formula_id),
             data=self.data,
             error_level=self.rules["id_prefix_error_level"],
-            advice_text=_('The @id of <inline-formula> must start with prefix "e". Change {id} to e{id} in <inline-formula id="{id}">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('The @id of <inline-formula> must start with prefix "e". Change {id} to e{id} in <inline-formula id="{id}">. Consult SPS documentation for more detail.'),
             advice_params={"id": formula_id},
         )
 
@@ -601,7 +601,7 @@ class InlineFormulaValidation:
             count += 1
             found.append("tex-math")
 
-        obtained = " and ".join(found) if found else _("not found codification formula")
+        obtained = " and ".join(found) if found else "not found codification formula"
 
         alternatives = self.data.get("alternative_elements") or []
         is_valid = (count == 1) or ((count == len(alternatives)) and (count > 1))
@@ -615,10 +615,10 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice=_('Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.'),
+            advice='Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["codification_error_level"],
-            advice_text=_('Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.'),
             advice_params={},
         )
 
@@ -646,10 +646,10 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected="@id in mml:math",
             obtained=mml_math_id,
-            advice=_('Add the @id attribute in <mml:math> inside <inline-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.').format(formula_id=item_id),
+            advice='Add the @id attribute in <mml:math> inside <inline-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.'.format(formula_id=item_id),
             data=self.data,
             error_level=self.rules["mml_math_id_error_level"],
-            advice_text=_('Add the @id attribute in <mml:math> inside <inline-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('Add the @id attribute in <mml:math> inside <inline-formula id="{formula_id}">: <mml:math id="">. Consult SPS documentation for more detail.'),
             advice_params={"formula_id": item_id},
         )
 
@@ -666,7 +666,7 @@ class InlineFormulaValidation:
 
         mml_math_id = self.data.get("mml_math_id")
         is_valid = mml_math_id.startswith("m")
-        expected = _("id starting with 'm'")
+        expected = "id starting with 'm'"
         item_id = self.data.get("id")
 
         return build_response(
@@ -678,10 +678,10 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected=expected,
             obtained=mml_math_id,
-            advice=_('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <inline-formula id="{formula_id}">. Consult SPS documentation for more detail.').format(mml_id=mml_math_id, formula_id=item_id),
+            advice='The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <inline-formula id="{formula_id}">. Consult SPS documentation for more detail.'.format(mml_id=mml_math_id, formula_id=item_id),
             data=self.data,
             error_level=self.rules["mml_math_id_prefix_error_level"],
-            advice_text=_('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <inline-formula id="{formula_id}">. Consult SPS documentation for more detail.'),
+            advice_text=i18n._('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <inline-formula id="{formula_id}">. Consult SPS documentation for more detail.'),
             advice_params={"mml_id": mml_math_id, "formula_id": item_id},
         )
 
@@ -706,7 +706,7 @@ class InlineFormulaValidation:
                 validation_type="exist",
                 is_valid=True,
                 expected="mml:math or tex-math",
-                obtained=_("no codification found"),
+                obtained="no codification found",
                 advice=None,
                 data=self.data,
                 error_level=self.rules["mathml_error_level"],
@@ -729,10 +729,10 @@ class InlineFormulaValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=obtained,
-                advice=_('For accessibility, consider adding <mml:math> in <inline-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.').format(formula_id=item_id),
+                advice='For accessibility, consider adding <mml:math> in <inline-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'.format(formula_id=item_id),
                 data=self.data,
                 error_level=self.rules["mathml_error_level"],
-                advice_text=_('For accessibility, consider adding <mml:math> in <inline-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'),
+                advice_text=i18n._('For accessibility, consider adding <mml:math> in <inline-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'),
                 advice_params={"formula_id": item_id},
             )
         
@@ -771,22 +771,22 @@ class InlineFormulaValidation:
         if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
             expected = "alternatives"
             obtained = None
-            advice = _('Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>')
-            advice_text = _('Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>')
+            advice = 'Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>'
+            advice_text = i18n._('Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>')
             advice_params = {}
             valid = False
         elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
-            advice = _('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>').format(found=found)
-            advice_text = _('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>')
+            advice = 'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'.format(found=found)
+            advice_text = i18n._('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>')
             advice_params = {"found": found}
             valid = False
         elif len(alternatives) == 1:
             expected = None
             obtained = "alternatives"
-            advice = _('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>').format(found=found)
-            advice_text = _('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>')
+            advice = 'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'.format(found=found)
+            advice_text = i18n._('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>')
             advice_params = {"found": found}
             valid = False
         else:
