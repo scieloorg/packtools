@@ -11,6 +11,7 @@ Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJ
 import re
 
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 XLINK_HREF = "{http://www.w3.org/1999/xlink}href"
@@ -97,6 +98,8 @@ class PermissionsValidation:
             expected="<permissions> element in <article-meta>",
             obtained="<permissions>" if is_valid else None,
             advice="Add <permissions> element to <article-meta> with a Creative Commons license declaration",
+            advice_text=i18n._("Add <permissions> element to <article-meta> with a Creative Commons license declaration"),
+            advice_params={},
             data={"permissions_count": len(permissions)},
             error_level=error_level,
         )
@@ -121,6 +124,8 @@ class PermissionsValidation:
             expected="exactly 1 <permissions> element",
             obtained=f"{count} <permissions> elements",
             advice="Remove duplicate <permissions> elements. Only one <permissions> should exist in <article-meta>",
+            advice_text=i18n._("Remove duplicate <permissions> elements. Only one <permissions> should exist in <article-meta>"),
+            advice_params={},
             data={"permissions_count": count},
             error_level=error_level,
         )
@@ -146,6 +151,8 @@ class PermissionsValidation:
                 expected="<license> element in <permissions>",
                 obtained="<license>" if is_valid else None,
                 advice="Add <license> element to <permissions> with Creative Commons CC-BY attributes",
+                advice_text=i18n._("Add <license> element to <permissions> with Creative Commons CC-BY attributes"),
+                advice_params={},
                 data={"license_count": len(licenses)},
                 error_level=error_level,
             )
@@ -170,6 +177,8 @@ class PermissionsValidation:
                 expected=expected_type,
                 obtained=obtained_type,
                 advice=f'Set license-type="{expected_type}" in <license> element',
+                advice_text=i18n._('Set license-type="{license_type}" in <license> element'),
+                advice_params={"license_type": expected_type},
                 data={
                     "license_type": obtained_type,
                     "lang": license_node.get(XML_LANG),
@@ -196,6 +205,8 @@ class PermissionsValidation:
                 expected="@xlink:href attribute in <license>",
                 obtained=href,
                 advice="Add xlink:href attribute with a valid Creative Commons CC-BY URL to <license>",
+                advice_text=i18n._("Add xlink:href attribute with a valid Creative Commons CC-BY URL to <license>"),
+                advice_params={},
                 data={
                     "xlink_href": href,
                     "lang": license_node.get(XML_LANG),
@@ -222,6 +233,8 @@ class PermissionsValidation:
                 expected="@xml:lang attribute in <license>",
                 obtained=lang,
                 advice="Add xml:lang attribute to <license> element indicating the language of the license text",
+                advice_text=i18n._("Add xml:lang attribute to <license> element indicating the language of the license text"),
+                advice_params={},
                 data={
                     "xml_lang": lang,
                     "xlink_href": license_node.get(XLINK_HREF),
@@ -248,6 +261,8 @@ class PermissionsValidation:
                 expected="<license-p> element in <license>",
                 obtained="<license-p>" if is_valid else None,
                 advice="Add <license-p> element with the license text to <license>",
+                advice_text=i18n._("Add <license-p> element with the license text to <license>"),
+                advice_params={},
                 data={
                     "has_license_p": is_valid,
                     "lang": license_node.get(XML_LANG),
@@ -281,6 +296,16 @@ class PermissionsValidation:
                 expected=f"a Creative Commons CC-BY URL starting with one of {valid_patterns}",
                 obtained=href,
                 advice=f"Use a valid Creative Commons CC-BY 4.0 URL, e.g. https://creativecommons.org/licenses/by/4.0/",
+                advice_text=i18n._("Use a valid Creative Commons CC-BY 4.0 URL, e.g. https://creativecommons.org/licenses/by/4.0/"),
+                advice_params={},
+                message_text=i18n._(
+                    "URL {url} must start with one of the valid Creative "
+                    "Commons CC-BY prefixes: {valid_prefixes}"
+                ),
+                message_params={
+                    "url": href,
+                    "valid_prefixes": ", ".join(valid_patterns),
+                },
                 data={
                     "xlink_href": href,
                     "lang": license_node.get(XML_LANG),
@@ -327,6 +352,15 @@ class PermissionsValidation:
                 obtained=href,
                 advice=f"For xml:lang=\"{lang}\", use a URL ending with '{expected_deed}', "
                        f"e.g. https://creativecommons.org/licenses/by/4.0/{expected_deed}",
+                advice_text=(
+                    i18n._('For xml:lang="{language}", use a URL ending with '
+                    "'{expected_deed}', e.g. "
+                    "https://creativecommons.org/licenses/by/4.0/{expected_deed}")
+                ),
+                advice_params={
+                    "language": lang,
+                    "expected_deed": expected_deed,
+                },
                 data={
                     "xml_lang": lang,
                     "xlink_href": href,
@@ -363,6 +397,17 @@ class PermissionsValidation:
                     obtained=None,
                     advice=f"Add <copyright-year>{year_match.group(1)}</copyright-year> to <permissions> "
                            f"since the copyright statement mentions the year '{year_match.group(1)}'",
+                    advice_text=(
+                        i18n._("Add <copyright-year>{year}</copyright-year> to "
+                        "<permissions> since the copyright statement mentions "
+                        "the year '{year}'")
+                    ),
+                    advice_params={"year": year_match.group(1)},
+                    message_text=i18n._(
+                        "<copyright-year> is required when "
+                        "<copyright-statement> mentions a year"
+                    ),
+                    message_params={},
                     data={
                         "copyright_statement": statement_text,
                         "mentioned_year": year_match.group(1),
