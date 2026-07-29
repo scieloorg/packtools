@@ -101,6 +101,10 @@ class TestHistoryUniqueness(TestCase):
         self.assertEqual(results[0]["response"], "ERROR")
         self.assertIn("duplicate", results[0]["advice"].lower())
         self.assertIn("2", results[0]["got_value"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
     
     def test_no_history_element(self):
         """Test that no <history> element is valid."""
@@ -174,6 +178,10 @@ class TestDateTypePresence(TestCase):
         self.assertEqual(results[0]["response"], "CRITICAL")
         self.assertEqual(results[0]["got_value"], "missing")
         self.assertIn("Add @date-type", results[0]["advice"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
     
     def test_date_with_empty_date_type(self):
         """Test that <date> with empty @date-type is invalid."""
@@ -289,6 +297,10 @@ class TestDateTypeValues(TestCase):
         self.assertEqual(results[0]["response"], "CRITICAL")
         self.assertEqual(results[0]["got_value"], "invalid-type")
         self.assertIn("allowed values", results[0]["advice"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
     
     def test_multiple_dates_mixed_validity(self):
         """Test validation with both valid and invalid date types."""
@@ -382,6 +394,10 @@ class TestRequiredDates(TestCase):
         self.assertNotEqual(received_result["response"], "OK")
         self.assertEqual(received_result["response"], "CRITICAL")
         self.assertIn("Add <date date-type=\"received\">", received_result["advice"])
+        self.assertEqual(
+            received_result["adv_text"].format(**received_result["adv_params"]),
+            received_result["advice"],
+        )
         # accepted should be valid
         accepted_result = next(r for r in results if "accepted" in r["title"])
         self.assertEqual(accepted_result["response"], "OK")
@@ -519,6 +535,10 @@ class TestCompleteDateForCriticalTypes(TestCase):
         self.assertNotEqual(results[0]["response"], "OK")
         self.assertEqual(results[0]["response"], "CRITICAL")
         self.assertIn("day", results[0]["advice"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
     
     def test_accepted_missing_month(self):
         """Test that accepted date without month is invalid."""
@@ -710,6 +730,10 @@ class TestYearPresence(TestCase):
         self.assertEqual(results[0]["response"], "CRITICAL")
         self.assertEqual(results[0]["got_value"], "missing")
         self.assertIn("Add <year>", results[0]["advice"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
     
     def test_date_with_empty_year(self):
         """Test that date with empty year is invalid."""
