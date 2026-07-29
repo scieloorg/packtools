@@ -1,6 +1,7 @@
 from packtools.sps.validation.models.fn import XMLFns
 from packtools.sps.validation.basefn import BaseFnValidation
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class FnValidation(BaseFnValidation):
@@ -21,7 +22,7 @@ class FnValidation(BaseFnValidation):
         
         if not is_valid:
             advice = 'Add mandatory @fn-type attribute to <fn> in <fn-group>'
-            advice_text = 'Add mandatory @fn-type attribute to <fn> in <fn-group>'
+            advice_text = i18n._('Add mandatory @fn-type attribute to <fn> in <fn-group>')
             advice_params = {}
             
             return build_response(
@@ -136,7 +137,7 @@ class XMLFnGroupValidation:
         
         if article_fn_group_count > 1:
             advice = f'<fn-group> element should appear at most once in the article. Found {article_fn_group_count} occurrences.'
-            advice_text = '<fn-group> element should appear at most once in the article. Found {count} occurrences.'
+            advice_text = i18n._('<fn-group> element should appear at most once in the article. Found {count} occurrences.')
             advice_params = {"count": str(article_fn_group_count)}
             
             yield build_response(
@@ -162,7 +163,7 @@ class XMLFnGroupValidation:
             
             if sub_fn_group_count > 1:
                 advice = f'<fn-group> element should appear at most once in sub-article (id={sub_article_id}). Found {sub_fn_group_count} occurrences.'
-                advice_text = '<fn-group> element should appear at most once in sub-article (id={id}). Found {count} occurrences.'
+                advice_text = i18n._('<fn-group> element should appear at most once in sub-article (id={id}). Found {count} occurrences.')
                 advice_params = {
                     "id": sub_article_id,
                     "count": str(sub_fn_group_count)
@@ -212,6 +213,8 @@ class XMLFnGroupValidation:
             expected='<fn fn-type="edited-by">',
             obtained='<fn fn-type="edited-by">' if is_valid else None,
             advice='Make the responsible editor with <fn fn-type="edited-by">',
+            advice_text=i18n._('Make the responsible editor with <fn fn-type="edited-by">'),
+            advice_params={},
             data=list(self.xml_article.fn_edited_by),
             error_level=self.rules["fn_type_error_level"]
         )
