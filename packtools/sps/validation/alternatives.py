@@ -1,6 +1,6 @@
 from itertools import chain
-from gettext import gettext as _
 
+from packtools.sps import i18n
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.exceptions import ValidationAlternativesException
 from packtools.sps.validation.models import fig, formula, tablewrap
@@ -56,12 +56,12 @@ class AlternativeValidation:
             is_valid=is_valid,
             expected=self.expected_elements,
             obtained=self.obtained_elements,
-            advice=_('Add {} as sub-elements of {}/alternatives').format(
+            advice='Add {} as sub-elements of {}/alternatives'.format(
                 self.expected_elements, self.parent_element
             ),
             data=self.alternative_data,
             error_level=error_level,
-            advice_text=_('Add {expected} as sub-elements of {parent}/alternatives'),
+            advice_text=i18n._('Add {expected} as sub-elements of {parent}/alternatives'),
             advice_params={
                 "expected": str(self.expected_elements),
                 "parent": self.parent_element
@@ -110,14 +110,12 @@ class AlternativeValidation:
                 sub_item="alternatives/graphic",
                 validation_type="format",
                 is_valid=is_valid,
-                expected=_(".svg format"),
+                expected=".svg format",
                 obtained=obtained,
-                advice=None if is_valid else _(
-                    'Use SVG format for graphic in {}/alternatives. Got: {}'
-                ).format(self.parent_element, obtained),
+                advice=None if is_valid else 'Use SVG format for graphic in {}/alternatives. Got: {}'.format(self.parent_element, obtained),
                 data=self.alternative_data,
                 error_level=error_level,
-                advice_text=None if is_valid else _('Use SVG format for graphic in {parent}/alternatives. Got: {obtained}'),
+                advice_text=None if is_valid else i18n._('Use SVG format for graphic in {parent}/alternatives. Got: {obtained}'),
                 advice_params={
                     "parent": self.parent_element,
                     "obtained": obtained
@@ -149,16 +147,14 @@ class AlternativeValidation:
             sub_item="alternatives/graphic",
             validation_type="exist",
             is_valid=is_valid,
-            expected=_("no <alt-text> in alternatives/graphic"),
-            obtained=_("no <alt-text> found") if is_valid else _("<alt-text> found: {}").format(alt_text),
-            advice=None if is_valid else _(
-                'Remove <alt-text> from graphic in {}/alternatives. '
+            expected="no <alt-text> in alternatives/graphic",
+            obtained="no <alt-text> found" if is_valid else "<alt-text> found: {}".format(alt_text),
+            advice=None if is_valid else 'Remove <alt-text> from graphic in {}/alternatives. '
                 'Alternative images do not require alt-text because the coded version '
-                '(table/formula) is already accessible.'
-            ).format(self.parent_element),
+                '(table/formula) is already accessible.'.format(self.parent_element),
             data=self.alternative_data,
             error_level=error_level,
-            advice_text=None if is_valid else _(
+            advice_text=None if is_valid else i18n._(
                 'Remove <alt-text> from graphic in {parent}/alternatives. '
                 'Alternative images do not require alt-text because the coded version '
                 '({coded_version}) is already accessible.'
@@ -195,16 +191,14 @@ class AlternativeValidation:
             sub_item="alternatives/graphic",
             validation_type="exist",
             is_valid=is_valid,
-            expected=_("no <long-desc> in alternatives/graphic"),
-            obtained=_("no <long-desc> found") if is_valid else _("<long-desc> found"),
-            advice=None if is_valid else _(
-                'Remove <long-desc> from graphic in {}/alternatives. '
+            expected="no <long-desc> in alternatives/graphic",
+            obtained="no <long-desc> found" if is_valid else "<long-desc> found",
+            advice=None if is_valid else 'Remove <long-desc> from graphic in {}/alternatives. '
                 'Alternative images do not require long-desc because the coded version '
-                '(table/formula) is already accessible.'
-            ).format(self.parent_element),
+                '(table/formula) is already accessible.'.format(self.parent_element),
             data=self.alternative_data,
             error_level=error_level,
-            advice_text=None if is_valid else _(
+            advice_text=None if is_valid else i18n._(
                 'Remove <long-desc> from graphic in {parent}/alternatives. '
                 'Alternative images do not require long-desc because the coded version '
                 '({coded_version}) is already accessible.'
@@ -279,14 +273,12 @@ class AlternativeValidation:
                 sub_item="alternatives",
                 validation_type="exist",
                 is_valid=is_valid,
-                expected=_("both {} and {}").format(coded_version, image_version),
-                obtained=_("found: {}, missing: {}").format(elements, missing),
-                advice=_(
-                    'Add both coded version ({}) and image ({}) to {}/alternatives'
-                ).format(coded_version, image_version, self.parent_element),
+                expected="both {} and {}".format(coded_version, image_version),
+                obtained="found: {}, missing: {}".format(elements, missing),
+                advice='Add both coded version ({}) and image ({}) to {}/alternatives'.format(coded_version, image_version, self.parent_element),
                 data=self.alternative_data,
                 error_level=error_level,
-                advice_text=_('Add both coded version ({coded}) and image ({image}) to {parent}/alternatives'),
+                advice_text=i18n._('Add both coded version ({coded}) and image ({image}) to {parent}/alternatives'),
                 advice_params={
                     "coded": coded_version,
                     "image": image_version,
