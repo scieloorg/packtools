@@ -9,8 +9,8 @@ Implements validations for related article elements to ensure:
 
 Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit?tab=t.0#heading=h.relatedarticle
 """
-import gettext
 
+from packtools.sps import i18n
 from packtools.sps.models.v2.related_articles import RelatedArticlesByNode
 from packtools.sps.validation.utils import (
     build_response,
@@ -18,7 +18,6 @@ from packtools.sps.validation.utils import (
     validate_doi_format,
 )
 
-_ = gettext.gettext
 
 ALLOWED_RELATED_ARTICLE_TYPES = [
     "corrected-article",
@@ -126,7 +125,7 @@ class RelatedArticleValidation:
         obtained = self.related_article.get("related-article-type")
         is_valid = obtained is not None and obtained.strip() != ""
 
-        advice_text = _(
+        advice_text = i18n._(
             'Add @related-article-type attribute to <related-article>.'
             ' Valid values: {allowed_values}'
         )
@@ -144,11 +143,16 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected="@related-article-type attribute present",
                 obtained=obtained,
-                advice=advice_text.format(**advice_params),
+                advice=('Add @related-article-type attribute to <related-article>.'
+            ' Valid values: {allowed_values}').format(**advice_params),
                 data=self.related_article,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=i18n._(
+                    "The @related-article-type attribute is required"
+                ),
+                message_params={},
             )
 
     def validate_ext_link_type_presence(self):
@@ -166,7 +170,7 @@ class RelatedArticleValidation:
         obtained = self.related_article.get("ext-link-type")
         is_valid = obtained is not None and obtained.strip() != ""
 
-        advice_text = _(
+        advice_text = i18n._(
             'Add @ext-link-type attribute to <related-article>.'
             ' Valid values: {allowed_values}'
         )
@@ -184,11 +188,16 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected="@ext-link-type attribute present",
                 obtained=obtained,
-                advice=advice_text.format(**advice_params),
+                advice=('Add @ext-link-type attribute to <related-article>.'
+            ' Valid values: {allowed_values}').format(**advice_params),
                 data=self.related_article,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=i18n._(
+                    "The @ext-link-type attribute is required"
+                ),
+                message_params={},
             )
 
     def validate_related_article_type_value(self):
@@ -210,7 +219,7 @@ class RelatedArticleValidation:
         error_level = self._get_error_level("related_article_type_value")
         is_valid = obtained in ALLOWED_RELATED_ARTICLE_TYPES
 
-        advice_text = _(
+        advice_text = i18n._(
             'Value "{obtained}" is not allowed for @related-article-type.'
             ' Valid values: {allowed_values}'
         )
@@ -229,11 +238,16 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=ALLOWED_RELATED_ARTICLE_TYPES,
                 obtained=obtained,
-                advice=advice_text.format(**advice_params),
+                advice=('Value "{obtained}" is not allowed for @related-article-type.'
+            ' Valid values: {allowed_values}').format(**advice_params),
                 data=self.related_article,
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=i18n._(
+                    "The @xlink:href attribute is required"
+                ),
+                message_params={},
             )
 
     def validate_xlink_href_presence(self):
@@ -251,7 +265,7 @@ class RelatedArticleValidation:
         obtained = self.related_article.get("href")
         is_valid = obtained is not None and obtained.strip() != ""
 
-        advice_text = _(
+        advice_text = i18n._(
             'Add @xlink:href attribute to <related-article>.'
             ' Provide a valid DOI or URI.'
         )
@@ -267,7 +281,8 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected="@xlink:href attribute present",
                 obtained=obtained,
-                advice=advice_text.format(**advice_params),
+                advice=('Add @xlink:href attribute to <related-article>.'
+            ' Provide a valid DOI or URI.').format(**advice_params),
                 data=self.related_article,
                 error_level=error_level,
                 advice_text=advice_text,
@@ -293,7 +308,7 @@ class RelatedArticleValidation:
         error_level = self._get_error_level("ext_link_type_value")
         is_valid = obtained in ALLOWED_EXT_LINK_TYPES
 
-        advice_text = _(
+        advice_text = i18n._(
             'Value "{obtained}" is not allowed for @ext-link-type.'
             ' Valid values: {allowed_values}'
         )
@@ -312,7 +327,8 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=ALLOWED_EXT_LINK_TYPES,
                 obtained=obtained,
-                advice=advice_text.format(**advice_params),
+                advice=('Value "{obtained}" is not allowed for @ext-link-type.'
+            ' Valid values: {allowed_values}').format(**advice_params),
                 data=self.related_article,
                 error_level=error_level,
                 advice_text=advice_text,
@@ -344,7 +360,7 @@ class RelatedArticleValidation:
 
         error_level = self._get_error_level("doi_preference")
 
-        advice_text = _(
+        advice_text = i18n._(
             'For @related-article-type="{related_type}", use @ext-link-type="doi".'
             ' Value "uri" is only recommended for: {uri_types}'
         )
@@ -362,7 +378,8 @@ class RelatedArticleValidation:
             is_valid=False,
             expected="doi",
             obtained=ext_link_type,
-            advice=advice_text.format(**advice_params),
+            advice=('For @related-article-type="{related_type}", use @ext-link-type="doi".'
+            ' Value "uri" is only recommended for: {uri_types}').format(**advice_params),
             data=self.related_article,
             error_level=error_level,
             advice_text=advice_text,
@@ -378,7 +395,7 @@ class RelatedArticleValidation:
         obtained_type = self.related_article.get("related-article-type")
 
         if not expected_values:
-            advice_text = _(
+            advice_text = i18n._(
                 'The article-type "{article_type}" does not match the'
                 ' related-article-type "{obtained_type}".'
                 ' Provide one of: {expected_values}'
@@ -397,7 +414,9 @@ class RelatedArticleValidation:
                 is_valid=False,
                 expected=expected_values,
                 obtained=obtained_type,
-                advice=advice_text.format(**advice_params),
+                advice=('The article-type "{article_type}" does not match the'
+                ' related-article-type "{obtained_type}".'
+                ' Provide one of: {expected_values}').format(**advice_params),
                 data=self.related_article,
                 error_level=self._get_error_level("type"),
                 advice_text=advice_text,
@@ -406,7 +425,7 @@ class RelatedArticleValidation:
 
         is_valid = obtained_type in expected_values
         if not is_valid:
-            advice_text = _(
+            advice_text = i18n._(
                 'The article-type "{article_type}" does not match the'
                 ' related-article-type "{obtained_type}".'
                 ' Provide one of: {expected_values}'
@@ -425,7 +444,9 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=expected_values,
                 obtained=obtained_type,
-                advice=advice_text.format(**advice_params),
+                advice=('The article-type "{article_type}" does not match the'
+                ' related-article-type "{obtained_type}".'
+                ' Provide one of: {expected_values}').format(**advice_params),
                 data=self.related_article,
                 error_level=self._get_error_level("type"),
                 advice_text=advice_text,
@@ -438,7 +459,7 @@ class RelatedArticleValidation:
         is_valid = ext_link_type in self.valid_ext_link_types
 
         if not is_valid:
-            advice_text = _(
+            advice_text = i18n._(
                 'The @ext-link-type should be one of {allowed_values}'
                 ' for related article with id="{related_id}"'
             )
@@ -455,7 +476,8 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=self.valid_ext_link_types,
                 obtained=ext_link_type,
-                advice=advice_text.format(**advice_params),
+                advice=('The @ext-link-type should be one of {allowed_values}'
+                ' for related article with id="{related_id}"').format(**advice_params),
                 data=self.related_article,
                 error_level=self._get_error_level("ext_link_type"),
                 advice_text=advice_text,
@@ -470,7 +492,7 @@ class RelatedArticleValidation:
 
         link = self.related_article.get("href")
         if not link:
-            advice_text = _(
+            advice_text = i18n._(
                 'Provide a valid {link_type} for <related-article'
                 ' id="{related_id}" />'
             )
@@ -487,7 +509,8 @@ class RelatedArticleValidation:
                 is_valid=False,
                 expected=f'A valid {ext_link_type.upper() if ext_link_type else "link"}',
                 obtained=link,
-                advice=advice_text.format(**advice_params),
+                advice=('Provide a valid {link_type} for <related-article'
+                ' id="{related_id}" />').format(**advice_params),
                 data=self.related_article,
                 error_level=self._get_error_level("uri"),
                 advice_text=advice_text,
@@ -498,7 +521,7 @@ class RelatedArticleValidation:
         expected = "A valid URI format (e.g., http://example.com)"
 
         if not is_valid:
-            advice_text = _(
+            advice_text = i18n._(
                 'Invalid {link_type} format for link: {link}'
             )
             advice_params = {
@@ -514,7 +537,7 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=link,
-                advice=advice_text.format(**advice_params),
+                advice=('Invalid {link_type} format for link: {link}').format(**advice_params),
                 data=self.related_article,
                 error_level=self._get_error_level("uri_format"),
                 advice_text=advice_text,
@@ -529,7 +552,7 @@ class RelatedArticleValidation:
 
         link = self.related_article.get("href")
         if not link:
-            advice_text = _(
+            advice_text = i18n._(
                 'Provide a valid {link_type} for <related-article'
                 ' id="{related_id}" />'
             )
@@ -546,7 +569,8 @@ class RelatedArticleValidation:
                 is_valid=False,
                 expected=f'A valid {ext_link_type.upper() if ext_link_type else "link"}',
                 obtained=link,
-                advice=advice_text.format(**advice_params),
+                advice=('Provide a valid {link_type} for <related-article'
+                ' id="{related_id}" />').format(**advice_params),
                 data=self.related_article,
                 error_level=self.params.get("doi_error_level"),
                 advice_text=advice_text,
@@ -558,7 +582,7 @@ class RelatedArticleValidation:
         expected = "A valid DOI"
 
         if not is_valid:
-            advice_text = _(
+            advice_text = i18n._(
                 'Invalid {link_type} format for link: {link}'
             )
             advice_params = {
@@ -574,7 +598,7 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=link,
-                advice=advice_text.format(**advice_params),
+                advice=('Invalid {link_type} format for link: {link}').format(**advice_params),
                 data=self.related_article,
                 error_level=self.params.get("doi_format_error_level"),
                 advice_text=advice_text,
@@ -596,7 +620,7 @@ class RelatedArticleValidation:
         is_valid = related_id is not None and related_id.strip() != ""
 
         if not is_valid:
-            advice_text = _(
+            advice_text = i18n._(
                 'Add @id attribute to <related-article>.'
                 ' The @id must be a non-empty unique identifier.'
             )
@@ -610,7 +634,8 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected="A non-empty ID",
                 obtained=related_id,
-                advice=advice_text.format(**advice_params),
+                advice=('Add @id attribute to <related-article>.'
+                ' The @id must be a non-empty unique identifier.').format(**advice_params),
                 data=self.related_article,
                 error_level=self._get_error_level("id"),
                 advice_text=advice_text,
@@ -647,7 +672,7 @@ class RelatedArticleValidation:
             return
 
         if list(order) != list(expected_order):
-            advice_text = _(
+            advice_text = i18n._(
                 'Set related-article attributes in this order: {expected_order}'
             )
             advice_params = {
@@ -662,7 +687,7 @@ class RelatedArticleValidation:
                 is_valid=False,
                 expected=expected_order,
                 obtained=list(order),
-                advice=advice_text.format(**advice_params),
+                advice=('Set related-article attributes in this order: {expected_order}').format(**advice_params),
                 data=self.related_article,
                 error_level=self.params.get("attrib_order_error_level", "INFO"),
                 advice_text=advice_text,
@@ -811,7 +836,7 @@ class FulltextRelatedArticlesValidation:
                 "lang": self.node.get("{http://www.w3.org/XML/1998/namespace}lang"),
                 "article_type": self._article_type,
             }
-            advice_text = _(
+            advice_text = i18n._(
                 'Article type "{article_type}" requires related articles'
                 ' of types: {missing_types}'
             )
@@ -828,7 +853,8 @@ class FulltextRelatedArticlesValidation:
                 is_valid=False,
                 expected=self.required_types,
                 obtained=list(found_types),
-                advice=advice_text.format(**advice_params),
+                advice=('Article type "{article_type}" requires related articles'
+                ' of types: {missing_types}').format(**advice_params),
                 data={
                     "article_type": self._article_type,
                     "missing_types": list(missing_types),
