@@ -1,3 +1,4 @@
+from packtools.sps import i18n
 from packtools.sps.models.related_articles import RelatedItems
 from packtools.sps.models.dates import ArticleDates
 
@@ -55,17 +56,36 @@ class PreprintValidation:
         if not (has_preprint or has_preprint_date):
             return []
 
-        response, expected_value, got_value, advice = 'OK', has_preprint_date, has_preprint_date, None
+        response = "OK"
+        expected_value = has_preprint_date
+        got_value = has_preprint_date
+        advice = None
+        advice_text = None
 
         if has_preprint and not has_preprint_date:
-            response, expected_value, got_value, advice = \
-                'ERROR', 'The preprint publication date', None, 'Provide the publication date of the preprint'
+            response = "ERROR"
+            expected_value = "The preprint publication date"
+            got_value = None
+            advice = "Provide the publication date of the preprint"
+            advice_text = i18n._(
+                "Provide the publication date of the preprint"
+            )
         elif not has_preprint and has_preprint_date:
-            response, expected_value, got_value, advice = \
-                'ERROR', None, has_preprint_date, 'The article does not reference the preprint, ' \
-                                                  'provide it as in the example: <related-article id="pp1" ' \
-                                                  'related-article-type="preprint" ext-link-type="doi" ' \
-                                                  'xlink:href="10.1590/SciELOPreprints.1174"/>'
+            response = "ERROR"
+            expected_value = None
+            got_value = has_preprint_date
+            advice = (
+                "The article does not reference the preprint, "
+                "provide it as in the example: <related-article id=\"pp1\" "
+                "related-article-type=\"preprint\" ext-link-type=\"doi\" "
+                "xlink:href=\"10.1590/SciELOPreprints.1174\"/>"
+            )
+            advice_text = i18n._(
+                "The article does not reference the preprint, "
+                "provide it as in the example: <related-article id=\"pp1\" "
+                "related-article-type=\"preprint\" ext-link-type=\"doi\" "
+                "xlink:href=\"10.1590/SciELOPreprints.1174\"/>"
+            )
 
         return [
             {
@@ -76,6 +96,15 @@ class PreprintValidation:
                 'expected_value': expected_value,
                 'got_value': got_value,
                 'message': f'Got {got_value} expected {expected_value}',
-                'advice': advice
+                "msg_text": i18n._(
+                    "Got {obtained}, expected {expected}"
+                ),
+                "msg_params": {
+                    "obtained": got_value,
+                    "expected": expected_value,
+                },
+                'advice': advice,
+                "adv_text": advice_text,
+                "adv_params": {} if advice else None,
             }
         ]
