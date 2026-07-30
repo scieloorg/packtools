@@ -47,9 +47,6 @@ class GetXMLItemsError(Exception): ...
 class GetXMLWithPreFromZipFileError(Exception): ...
 
 
-class XMLWithPreArticlePublicationDateError(Exception): ...
-
-
 def get_xml_items(xml_sps_file_path, filenames=None, capture_errors=None):
     """
     Get XML items from XML file or Zip file
@@ -1099,33 +1096,38 @@ class XMLWithPre:
         # href, ext-link-type, related-article-type
         return self.issns.get("epub")
 
-    @cached_property
+    @property
     def _article_dates(self):
         return ArticleDates(self.xmltree)
 
     def get_complete_publication_date(self, default_month=6, default_day=15):
         try:
             xml = self._article_dates
-        except Exception as e:
-            logging.exception(e)
-            return None
-        try:
             return xml.article_date_isoformat
         except Exception as e:
+            pass
+        try:
+            year = month = day = None
             data = xml.article_date
+            if data:
+                year = data.get("year")
+                month = data.get("month")
+                day = data.get("day")
             return date(
-                int(data["year"]),
-                int(data.get("month") or default_month),
-                int(data.get("day") or default_day),
+                int(year or self.pub_year),
+                int(month or default_month),
+                int(day or default_day),
             ).isoformat()
-        return self.article_publication_date
+        except (TypeError, KeyError):
+            raise XMLWithPreArticlePublicationDateError(
+                f"Unable to get complete publication date from {data}"
+            )
 
     @property
     def article_publication_date(self):
         try:
             return self._article_dates.article_date_isoformat
         except Exception as e:
-            logging.exception(e)
             return self.pub_year
 
     @article_publication_date.setter
@@ -1177,13 +1179,62 @@ class XMLWithPre:
                 "article-id",
             )
             articlemeta_node = self.xmltree.find(".//article-meta")
+            added = False
             for sibling_name in pub_date_preceding_siblings:
                 try:
                     articlemeta_node.find(sibling_name).addnext(node)
+                    added = True
                     break
                 except AttributeError:
                     continue
-
+            if not added:
+                pub_date_following_siblings = (
+                    "volume",
+                    "volume-id",
+                    "volume-series",
+                    "issue",
+                    "issue-id",
+                    "issue-title",
+                    "issue-title-group",
+                    "issue-sponsor",
+                    "issue-part",
+                    "volume-issue-group",
+                    "isbn",
+                    "supplement",
+                    "fpage",
+                    "lpage",
+                    "page-range",
+                    "elocation-id",
+                    "email",
+                    "ext-link",
+                    "uri",
+                    "product",
+                    "supplementary-material",
+                    "history",
+                    "pub-history",
+                    "permissions",
+                    "self-uri",
+                    "related-article",
+                    "related-object",
+                    "abstract",
+                    "trans-abstract",
+                    "kwd-group",
+                    "funding-group",
+                    "support-group",
+                    "conference",
+                    "counts",
+                    "custom-meta-group",
+                )
+                articlemeta_node = self.xmltree.find(".//article-meta")
+                for sibling_name in pub_date_following_siblings:
+                    try:
+                        articlemeta_node.find(sibling_name).addprevious(node)
+                        added = True
+                        break
+                    except AttributeError:
+                        continue
+            if not added:
+                articlemeta_node.append(node)
         previous = None
         for name, val in zip(("day", "month", "year"), reversed(formatted.split("-"))):
             elem = node.find(name)

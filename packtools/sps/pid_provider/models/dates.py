@@ -1,3 +1,5 @@
+import logging
+
 from datetime import date
 from functools import lru_cache, cached_property
 
@@ -114,12 +116,15 @@ class ArticleDates:
             return Date(nodes[0]).data
         except IndexError:
             return None
-        except Exception:
-            return None
 
     @property
     def article_date_isoformat(self):
-        return format_date(**self.article_date)
+        try:
+            return format_date(**self.article_date)
+        except TypeError:
+            raise XMLWithPreArticlePublicationDateError(
+                f"Unable to get ArticleDates.article_date_isoformat for {self.article_date}"
+            )
 
     @property
     def article_year(self):
@@ -144,8 +149,6 @@ class ArticleDates:
             )
             return Date(nodes[0]).data
         except IndexError:
-            return None
-        except Exception:
             return None
 
     @property
