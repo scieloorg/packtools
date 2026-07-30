@@ -274,6 +274,7 @@ class Abstract:
             "sections": list(self.sections),
             "list_items": list(self.list_items),
             "kwds": list(self.kwds),
+            "text": self.text,
             "graphic_href": self.graphic_href,  # For visual abstracts
             "fig_id": self.fig_id,    # For visual abstracts
             "caption": self.caption,  # For visual abstracts
