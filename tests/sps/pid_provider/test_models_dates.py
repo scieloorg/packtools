@@ -1,7 +1,20 @@
+import os
 import unittest
+from datetime import date
+from tempfile import NamedTemporaryFile, TemporaryDirectory
+from unittest import TestCase
+from zipfile import ZipFile, ZIP_DEFLATED
+
 from lxml import etree
 
-from packtools.sps.pid_provider.models.dates import format_date, Date, ArticleDates, XMLWithPreArticlePublicationDateError
+from packtools.sps.pid_provider.models.dates import (
+    format_date, Date, ArticleDates, XMLWithPreArticlePublicationDateError
+)
+from packtools.sps.pid_provider.xml_sps_lib import (
+    GetXMLItemsError,
+    XMLWithPre,
+    get_xml_items,
+)
 
 
 class TestFormatDate(unittest.TestCase):
@@ -137,5 +150,147 @@ class TestArticleDatesClass(unittest.TestCase):
         self.assertEqual(dates.article_date_isoformat, "2021-01-15")
 
 
-if __name__ == '__main__':
+class TestGetXmlItems(TestCase):
+    """Testes para a função get_xml_items."""
+
+    def test_get_xml_items_single_xml_file(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article><front><journal-meta><journal-id>abc</journal-id></journal-meta></front></article>"""
+
+        with NamedTemporaryFile(suffix=".xml", mode="w", encoding="utf-8", delete=False) as tmp:
+            tmp.write(xml_content)
+            tmp_path = tmp.name
+
+        try:
+            items = get_xml_items(tmp_path)
+            self.assertEqual(len(items), 1)
+            self.assertIn("xml_with_pre", items[0])
+            self.assertEqual(items[0]["filename"], os.path.basename(tmp_path))
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+
+    def test_get_xml_items_invalid_extension_raises_error(self):
+        with NamedTemporaryFile(suffix=".txt", mode="w", delete=False) as tmp:
+            tmp.write("invalid")
+            tmp_path = tmp.name
+
+        try:
+            # Sem capture_errors deve lançar GetXMLItemsError
+            with self.assertRaises(GetXMLItemsError):
+                get_xml_items(tmp_path, capture_errors=False)
+
+            # Com capture_errors deve retornar uma lista com dict contendo a chave 'error'
+            result = get_xml_items(tmp_path, capture_errors=True)
+            self.assertIn("error", result[0])
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+
+    def test_get_xml_items_zip_file(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article><front><journal-meta><journal-id>abc</journal-id></journal-meta></front></article>"""
+
+        with TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, "package.zip")
+            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
+                zf.writestr("article1.xml", xml_content)
+
+            items = list(get_xml_items(zip_path))
+            self.assertEqual(len(items), 1)
+            self.assertEqual(items[0]["filename"], "article1.xml")
+            self.assertIn("xml_with_pre", items[0])
+
+
+class TestPublicationDates(TestCase):
+    """Testes para get_complete_publication_date e article_publication_date."""
+
+    def test_get_complete_publication_date_isoformat_success(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+          <front>
+            <article-meta>
+              <pub-date date-type="pub" publication-format="electronic">
+                <day>15</day>
+                <month>08</month>
+                <year>2023</year>
+              </pub-date>
+            </article-meta>
+          </front>
+        </article>"""
+
+        xml_obj = next(XMLWithPre.create(xml_content=xml_content))
+        self.assertEqual(xml_obj.get_complete_publication_date(), "2023-08-15")
+
+    def test_get_complete_publication_date_fallback_to_defaults(self):
+        # Quando faltam mês e dia no dicionário de datas, usa default_month e default_day
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+          <front>
+            <article-meta>
+              <pub-date date-type="collection">
+                <year>2022</year>
+              </pub-date>
+            </article-meta>
+          </front>
+        </article>"""
+
+        xml_obj = next(XMLWithPre.create(xml_content=xml_content))
+        # Mês padrão (6) e Dia padrão (15)
+        self.assertEqual(
+            xml_obj.get_complete_publication_date(default_month=6, default_day=15),
+            "2022-06-15",
+        )
+
+    def test_get_complete_publication_date_missing_year_raises_exception(self):
+        # Sem data ou sem chave de ano válida deve lançar XMLWithPreArticlePublicationDateError
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+          <front>
+            <article-meta>
+            </article-meta>
+          </front>
+        </article>"""
+
+        xml_obj = next(XMLWithPre.create(xml_content=xml_content))
+        with self.assertRaises(XMLWithPreArticlePublicationDateError):
+            xml_obj.get_complete_publication_date()
+
+    def test_article_publication_date_isoformat_success(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+          <front>
+            <article-meta>
+              <pub-date date-type="pub">
+                <day>01</day>
+                <month>12</month>
+                <year>2021</year>
+              </pub-date>
+            </article-meta>
+          </front>
+        </article>"""
+
+        xml_obj = next(XMLWithPre.create(xml_content=xml_content))
+        self.assertEqual(xml_obj.article_publication_date, "2021-12-01")
+
+    def test_article_publication_date_fallback_to_pub_year(self):
+        # Caso ocorra erro ao tentar extrair a data completa em ISO, faz o fallback para pub_year
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+          <front>
+            <article-meta>
+              <pub-date date-type="collection">
+                <year>2020</year>
+              </pub-date>
+            </article-meta>
+          </front>
+        </article>"""
+
+        xml_obj = next(XMLWithPre.create(xml_content=xml_content))
+        self.assertEqual(xml_obj.article_publication_date, "2020")
+
+
+if __name__ == "__main__":
+    import unittest
+
     unittest.main()
