@@ -1179,13 +1179,62 @@ class XMLWithPre:
                 "article-id",
             )
             articlemeta_node = self.xmltree.find(".//article-meta")
+            added = False
             for sibling_name in pub_date_preceding_siblings:
                 try:
                     articlemeta_node.find(sibling_name).addnext(node)
+                    added = True
                     break
                 except AttributeError:
                     continue
-
+            if not added:
+                pub_date_following_siblings = (
+                    "volume",
+                    "volume-id",
+                    "volume-series",
+                    "issue",
+                    "issue-id",
+                    "issue-title",
+                    "issue-title-group",
+                    "issue-sponsor",
+                    "issue-part",
+                    "volume-issue-group",
+                    "isbn",
+                    "supplement",
+                    "fpage",
+                    "lpage",
+                    "page-range",
+                    "elocation-id",
+                    "email",
+                    "ext-link",
+                    "uri",
+                    "product",
+                    "supplementary-material",
+                    "history",
+                    "pub-history",
+                    "permissions",
+                    "self-uri",
+                    "related-article",
+                    "related-object",
+                    "abstract",
+                    "trans-abstract",
+                    "kwd-group",
+                    "funding-group",
+                    "support-group",
+                    "conference",
+                    "counts",
+                    "custom-meta-group",
+                )
+                articlemeta_node = self.xmltree.find(".//article-meta")
+                for sibling_name in pub_date_following_siblings:
+                    try:
+                        articlemeta_node.find(sibling_name).addprevious(node)
+                        added = True
+                        break
+                    except AttributeError:
+                        continue
+            if not added:
+                articlemeta_node.append(node)
         previous = None
         for name, val in zip(("day", "month", "year"), reversed(formatted.split("-"))):
             elem = node.find(name)
