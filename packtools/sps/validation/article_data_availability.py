@@ -1,6 +1,7 @@
 from packtools.sps.validation.models.article_data_availability import DataAvailability
 from packtools.sps.validation.exceptions import ValidationDataAvailabilityException
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class DataAvailabilityValidation:
@@ -118,6 +119,11 @@ class DataAvailabilityValidation:
                     expected=specific_use_list,
                     obtained=got_value,
                     advice=f"""Complete  specific-use="" in {xml} with valid value: {valid_values}""",
+                    advice_text=i18n._('Complete  specific-use="" in {xml} with valid value: {valid_values}'),
+                    advice_params={
+                        "xml": xml,
+                        "valid_values": valid_values,
+                    },
                     data=item,
                     error_level=error_level,
                 )
@@ -158,6 +164,9 @@ class DataAvailabilityValidation:
             else:
                 xml = f"""<{representative_item["parent"]}>"""
 
+            advice_text = None
+            advice_params = {}
+
             # Validate based on the demand level
             if demand in ("required", None):
                 valid = has_data_availability
@@ -169,6 +178,12 @@ class DataAvailabilityValidation:
                         f"""Mark in {xml} the data availability statement in footnote with <fn fn-type="data-availability" specific-use=""> or in text with <sec sec-type="data-availability" specific-use="">. And complete specific-use="" with valid value: {valid_values}"""
                     )
                 )
+                if not valid:
+                    advice_text = i18n._('Mark in {xml} the data availability statement in footnote with <fn fn-type="data-availability" specific-use=""> or in text with <sec sec-type="data-availability" specific-use="">. And complete specific-use="" with valid value: {valid_values}')
+                    advice_params = {
+                        "xml": xml,
+                        "valid_values": valid_values,
+                    }
             elif demand == "optional":
                 valid = True
                 expected = representative_item
@@ -185,6 +200,13 @@ class DataAvailabilityValidation:
                         f"""Remove from {xml} the data availability statement (<{tag} {tag}-type="data-availability">) because it is unexpected for {article_type}"""
                     )
                 )
+                if not valid:
+                    advice_text = i18n._('Remove from {xml} the data availability statement (<{tag} {tag}-type="data-availability">) because it is unexpected for {article_type}')
+                    advice_params = {
+                        "xml": xml,
+                        "tag": tag,
+                        "article_type": article_type,
+                    }
 
             yield build_response(
                 title="data availability statement",
@@ -196,6 +218,8 @@ class DataAvailabilityValidation:
                 expected=expected,
                 obtained=representative_item,
                 advice=advice,
+                advice_text=advice_text,
+                advice_params=advice_params,
                 data=representative_item,
                 error_level=error_level,
             )

@@ -1,5 +1,6 @@
 from packtools.sps.models import article_and_subarticles, article_titles, article_abstract, kwd_group
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 def _elements_exist(title, abstract, keyword):
@@ -129,6 +130,6 @@ class MetadataLanguagesValidation:
                     advice=f'Mark {missing_element_name} for {lang} language',
                     data=None,
                     error_level=error_level,
-                    advice_text='Mark {element} for {language} language',
+                    advice_text=i18n._('Mark {element} for {language} language'),
                     advice_params={"element": missing_element_name, "language": lang},
                 )

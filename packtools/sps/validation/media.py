@@ -1,6 +1,7 @@
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.visual_resource_base import VisualResourceBaseValidation
 from packtools.sps.validation.models.media import XmlMedias
+from packtools.sps import i18n
 
 
 class MediaValidation(VisualResourceBaseValidation):
@@ -28,6 +29,8 @@ class MediaValidation(VisualResourceBaseValidation):
             expected=mime_types_and_subtypes,
             obtained=got,
             advice=f"Use expected values: {mime_types_and_subtypes}",
+            advice_text=i18n._("Use expected values: {expected_values}"),
+            advice_params={"expected_values": mime_types_and_subtypes},
             error_level=self.params["mime_type_error_level"],
             data=self.data,
         )

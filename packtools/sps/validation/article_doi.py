@@ -5,6 +5,7 @@ from packtools.sps.validation.utils import (
     build_response,
     validate_doi_format as validate_doi_format_util,
 )
+from packtools.sps import i18n
 
 
 def _callable_extern_validate_default(doi):
@@ -43,7 +44,7 @@ class ArticleDoiValidation:
                 text = f"<article>"
 
             advice = f'Mark DOI for {text} with <article-id pub-id-type="doi"></article-id>'
-            advice_text = 'Mark DOI for {text} with <article-id pub-id-type="doi"></article-id>'
+            advice_text = i18n._('Mark DOI for {text} with <article-id pub-id-type="doi"></article-id>')
             advice_params = {"text": text}
 
             # Preparar dicionário parent para build_response
@@ -101,7 +102,7 @@ class ArticleDoiValidation:
                 text = f"<article>"
 
             advice = f'Mark DOI for {text} with <article-id pub-id-type="doi"></article-id>'
-            advice_text = 'Mark DOI for {text} with <article-id pub-id-type="doi"></article-id>'
+            advice_text = i18n._('Mark DOI for {text} with <article-id pub-id-type="doi"></article-id>')
             advice_params = {"text": text}
 
             parent = {
@@ -151,7 +152,7 @@ class ArticleDoiValidation:
         diff = [doi for doi, freq in dois.items() if freq > 1]
 
         advice = f"Fix doi to be unique. Found repetition: {diff}"
-        advice_text = "Fix doi to be unique. Found repetition: {diff}"
+        advice_text = i18n._("Fix doi to be unique. Found repetition: {diff}")
         advice_params = {"diff": str(diff)}
 
         parent = {
@@ -210,7 +211,7 @@ class ArticleDoiValidation:
             if not result.get("valid"):
                 if registered := result.get("registered"):
                     advice = f'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}'
-                    advice_text = 'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}'
+                    advice_text = i18n._('The DOI (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}')
                     advice_params = {
                         "xml_doi": xml_doi,
                         "expected": str(expected),
@@ -219,7 +220,7 @@ class ArticleDoiValidation:
                 else:
                     current_error_level = "WARNING"
                     advice = f"Unable to check if {xml_doi} is registered for {expected}"
-                    advice_text = "Unable to check if {xml_doi} is registered for {expected}"
+                    advice_text = i18n._("Unable to check if {xml_doi} is registered for {expected}")
                     advice_params = {
                         "xml_doi": xml_doi,
                         "expected": str(expected)
@@ -246,6 +247,13 @@ class ArticleDoiValidation:
                 error_level=current_error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
+                message_text=i18n._(
+                    "Got {obtained}, expected DOI registered for {metadata}"
+                ),
+                message_params={
+                    "obtained": xml_doi,
+                    "metadata": str(expected),
+                },
             )
 
     def validate_different_doi_in_translation(self, error_level="WARNING"):
@@ -282,7 +290,7 @@ class ArticleDoiValidation:
                 xml = f'<{parent_tag} id="{parent_id}"><article-id pub-id-type="doi">{doi}</article-id>'
 
                 advice = f"Change {doi} in {xml} for a DOI different from {doi_list}"
-                advice_text = "Change {doi} in {xml} for a DOI different from {doi_list}"
+                advice_text = i18n._("Change {doi} in {xml} for a DOI different from {doi_list}")
                 advice_params = {
                     "doi": doi,
                     "xml": xml,

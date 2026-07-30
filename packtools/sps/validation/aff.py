@@ -1,7 +1,7 @@
 from copy import deepcopy
 from difflib import SequenceMatcher
-from gettext import gettext as _
 
+from packtools.sps import i18n
 from packtools.sps.models.v2.aff import FulltextAffiliations
 from packtools.sps.validation.utils import build_response
 
@@ -100,16 +100,16 @@ class FulltextAffiliationsValidation:
                     sub_item="quantity",
                     validation_type="match",
                     is_valid=False,
-                    expected=_("{} affiliations").format(len(main_affs)),
-                    obtained=_("{} affiliations").format(len(trans_affs)),
-                    advice=_("Ensure translation has same number of affiliations as main text"),
+                    expected="{} affiliations".format(len(main_affs)),
+                    obtained="{} affiliations".format(len(trans_affs)),
+                    advice="Ensure translation has same number of affiliations as main text",
                     error_level=self.params["translation_qty_error_level"],
                     data={
                         "main_count": len(main_affs),
                         "translation_count": len(trans_affs),
                         "language": lang,
                     },
-                    advice_text=_('Ensure translation has same number of affiliations ({expected_count}) as main text'),
+                    advice_text=i18n._('Ensure translation has same number of affiliations ({expected_count}) as main text'),
                     advice_params={
                         "expected_count": len(main_affs),
                         "obtained_count": len(trans_affs),
@@ -288,12 +288,12 @@ class AffiliationValidation:
             sub_item='@content-type="original"',
             validation_type="exist",
             is_valid=bool(self.original),
-            expected=_("original affiliation"),
+            expected="original affiliation",
             obtained=self.original,
-            advice=_('Mark the complete original affiliation text with <institution content-type="original"> in <aff> for {}').format(self.original),
+            advice='Mark the complete original affiliation text with <institution content-type="original"> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark the complete original affiliation text with <institution content-type="original"> in <aff>'),
+            advice_text=i18n._('Mark the complete original affiliation text with <institution content-type="original"> in <aff>'),
             advice_params={}
         )
 
@@ -314,10 +314,10 @@ class AffiliationValidation:
             is_valid=bool(orgname),
             expected="orgname",
             obtained=orgname,
-            advice=_('Mark the main institution with <institution content-type="orgname"> in <aff> for {}').format(self.original),
+            advice='Mark the main institution with <institution content-type="orgname"> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark the main institution with <institution content-type="orgname"> in <aff> for {original}'),
+            advice_text=i18n._('Mark the main institution with <institution content-type="orgname"> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -332,12 +332,12 @@ class AffiliationValidation:
             sub_item='@content-type="orgdiv1"',
             validation_type="exist",
             is_valid=bool(orgdiv1),
-            expected=_("orgdiv1 affiliation"),
+            expected="orgdiv1 affiliation",
             obtained=orgdiv1,
-            advice=_('Mark the first hierarchical subdivision with <institution content-type="orgdiv1"> in <aff> for {}').format(self.original),
+            advice='Mark the first hierarchical subdivision with <institution content-type="orgdiv1"> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark the first hierarchical subdivision with <institution content-type="orgdiv1"> in <aff> for {original}'),
+            advice_text=i18n._('Mark the first hierarchical subdivision with <institution content-type="orgdiv1"> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -352,12 +352,12 @@ class AffiliationValidation:
             sub_item='@content-type="orgdiv2"',
             validation_type="exist",
             is_valid=bool(orgdiv2),
-            expected=_("orgdiv2 affiliation"),
+            expected="orgdiv2 affiliation",
             obtained=orgdiv2,
-            advice=_('Mark the second hierarchical subdivision with <institution content-type="orgdiv2"> in <aff> for {}').format(self.original),
+            advice='Mark the second hierarchical subdivision with <institution content-type="orgdiv2"> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark the second hierarchical subdivision with <institution content-type="orgdiv2"> in <aff> for {original}'),
+            advice_text=i18n._('Mark the second hierarchical subdivision with <institution content-type="orgdiv2"> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -374,10 +374,10 @@ class AffiliationValidation:
             is_valid=bool(label),
             expected="label",
             obtained=label,
-            advice=_('Mark affiliation label with <label> in <aff> for {}').format(self.original),
+            advice='Mark affiliation label with <label> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark affiliation label with <label> in <aff> for {original}'),
+            advice_text=i18n._('Mark affiliation label with <label> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -392,12 +392,12 @@ class AffiliationValidation:
             sub_item="country",
             validation_type="exist",
             is_valid=bool(country),
-            expected=_("country name"),
+            expected="country name",
             obtained=country,
-            advice=_('Mark affiliation country with <country> in <aff> for {}').format(self.original),
+            advice='Mark affiliation country with <country> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark affiliation country with <country> in <aff> for {original}'),
+            advice_text=i18n._('Mark affiliation country with <country> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -411,7 +411,7 @@ class AffiliationValidation:
         # Format country codes list for display (max 5 examples)
         codes_display = ", ".join(country_codes_list[:5])
         if len(country_codes_list) > 5:
-            codes_display += _(", ... ({} codes total)").format(len(country_codes_list))
+            codes_display += ", ... ({} codes total)".format(len(country_codes_list))
 
         yield build_response(
             title="country code",
@@ -421,13 +421,13 @@ class AffiliationValidation:
             validation_type="value in list",
             is_valid=is_valid,
             expected=(
-                country_code if is_valid else _("one of {}").format(country_codes_list)
+                country_code if is_valid else "one of {}".format(country_codes_list)
             ),
             obtained=country_code,
-            advice=_('Complete <country country=""> in <aff> with a valid value: {} for {}').format(country_codes_list, self.original),
+            advice='Complete <country country=""> in <aff> with a valid value: {} for {}'.format(country_codes_list, self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Complete <country country=""> in <aff> with a valid value from the ISO 3166 list: {codes} for {original}'),
+            advice_text=i18n._('Complete <country country=""> in <aff> with a valid value from the ISO 3166 list: {codes} for {original}'),
             advice_params={
                 "codes": codes_display,
                 "original": self.original or ""
@@ -447,10 +447,10 @@ class AffiliationValidation:
             is_valid=bool(state),
             expected="state",
             obtained=state,
-            advice=_('Mark affiliation state with <addr-line><state> in <aff> for {}').format(self.original),
+            advice='Mark affiliation state with <addr-line><state> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark affiliation state with <addr-line><state> in <aff> for {original}'),
+            advice_text=i18n._('Mark affiliation state with <addr-line><state> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -467,10 +467,10 @@ class AffiliationValidation:
             is_valid=bool(city),
             expected="city",
             obtained=city,
-            advice=_('Mark affiliation city with <addr-line><city> in <aff> for {}').format(self.original),
+            advice='Mark affiliation city with <addr-line><city> in <aff> for {}'.format(self.original),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Mark affiliation city with <addr-line><city> in <aff> for {original}'),
+            advice_text=i18n._('Mark affiliation city with <addr-line><city> in <aff> for {original}'),
             advice_params={"original": self.original or ""}
         )
 
@@ -485,12 +485,12 @@ class AffiliationValidation:
             sub_item="@id",
             validation_type="exist",
             is_valid=bool(aff_id),
-            expected=_("affiliation ID"),
+            expected="affiliation ID",
             obtained=aff_id,
-            advice=_('Complete <aff id=""> with affiliation identifier. Consult the documentation of SPS of the current version'),
+            advice='Complete <aff id=""> with affiliation identifier. Consult the documentation of SPS of the current version',
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Complete <aff id=""> with affiliation identifier'),
+            advice_text=i18n._('Complete <aff id=""> with affiliation identifier'),
             advice_params={}
         )
 
@@ -539,12 +539,12 @@ class AffiliationValidation:
             sub_item='@content-type="original"',
             validation_type="exist",
             is_valid=is_valid,
-            expected=_("email {} in original").format(email),
-            obtained=_("email {} {} in original").format(email, _('found') if is_valid else _('not found')),
-            advice=_('Add email {} to <institution content-type="original"> in <aff>. The email present in <email> must also be present in the original affiliation text').format(email),
+            expected="email {} in original".format(email),
+            obtained="email {} {} in original".format(email, 'found' if is_valid else 'not found'),
+            advice='Add email {} to <institution content-type="original"> in <aff>. The email present in <email> must also be present in the original affiliation text'.format(email),
             data=self.affiliation,
             error_level=error_level,
-            advice_text=_('Add email {email} to <institution content-type="original"> in <aff>. The email present in <email> must also be present in the original affiliation text'),
+            advice_text=i18n._('Add email {email} to <institution content-type="original"> in <aff>. The email present in <email> must also be present in the original affiliation text'),
             advice_params={"email": email}
         )
 
@@ -620,7 +620,7 @@ class AffiliationValidation:
             aff_info = self.affiliation.get("id") or self.affiliation
             main_info = main_aff.get("id") or main_aff
 
-            advice = _('Compare {} and {}. Make sure they are corresponding').format(main_info, aff_info)
+            advice = 'Compare {} and {}. Make sure they are corresponding'.format(main_info, aff_info)
             yield build_response(
                 title="low similarity",
                 parent=self.affiliation,
@@ -628,12 +628,12 @@ class AffiliationValidation:
                 sub_item="translation",
                 validation_type="similarity",
                 is_valid=False,
-                expected=_('{} and {} are similar').format(main_info, aff_info),
-                obtained=_('{} and {} are not similar').format(main_info, aff_info),
+                expected='{} and {} are similar'.format(main_info, aff_info),
+                obtained='{} and {} are not similar'.format(main_info, aff_info),
                 advice=advice,
                 error_level=self.params["translation_similarity_error_level"],
                 data=items,
-                advice_text=_('Compare {main_id} and {trans_id}. Make sure they are corresponding. Low similarity found in: {differences}'),
+                advice_text=i18n._('Compare {main_id} and {trans_id}. Make sure they are corresponding. Low similarity found in: {differences}'),
                 advice_params={
                     "main_id": str(main_info),
                     "trans_id": str(aff_info),
@@ -662,9 +662,18 @@ class AffiliationValidation:
                     sub_item='@content-type="original"',
                     validation_type="exist",
                     is_valid=is_valid,
-                    expected=_('{} marked').format(k),
+                    expected='{} marked'.format(k),
                     obtained=v,
                     advice=advice,
+                    advice_text=None,
+                    advice_params={},
+                    message_text=i18n._(
+                        "Got {obtained}, expected {component} to be marked"
+                    ),
+                    message_params={
+                        "obtained": v,
+                        "component": k,
+                    },
                     data={k: v},
                     error_level=self.params["aff_components_error_level"]
                 )
@@ -676,8 +685,8 @@ class AffiliationValidation:
         if words:
             for k, v in not_found.items():
                 if v:
-                    advice = _('{}: {} ({}) not found in {}').format(self.info, v, k, self.original)
-                    advice_i18n = _('{info}: {value} ({key}) not found in {original}')
+                    advice = '{}: {} ({}) not found in {}'.format(self.info, v, k, self.original)
+                    advice_i18n = i18n._('{info}: {value} ({key}) not found in {original}')
                     params = {
                         "info": self.info,
                         "value": v,
@@ -685,8 +694,8 @@ class AffiliationValidation:
                         "original": self.original
                     }
                 else:
-                    advice = _('{}: {} was not marked. Check {} is found in {}').format(self.info, k, k, self.original)
-                    advice_i18n = _('{info}: {key} was not marked. Check {key} is found in {original}')
+                    advice = '{}: {} was not marked. Check {} is found in {}'.format(self.info, k, k, self.original)
+                    advice_i18n = i18n._('{info}: {key} was not marked. Check whether {key} appears in {original}')
                     params = {
                         "info": self.info,
                         "key": k,
@@ -694,6 +703,21 @@ class AffiliationValidation:
                     }
 
                 is_valid = False
+                if v:
+                    message_text = i18n._(
+                        "Got {obtained}, expected {component} to be marked"
+                    )
+                    message_params = {
+                        "obtained": v,
+                        "component": k,
+                    }
+                else:
+                    message_text = i18n._(
+                        "No value was found for {component}; "
+                        "expected {component} to be marked"
+                    )
+                    message_params = {"component": k}
+
                 yield build_response(
                     title="original",
                     parent=self.affiliation,
@@ -701,13 +725,15 @@ class AffiliationValidation:
                     sub_item='@content-type="original"',
                     validation_type="exist",
                     is_valid=is_valid,
-                    expected=_('{} marked').format(k),
+                    expected='{} marked'.format(k),
                     obtained=v,
                     advice=advice,
                     data={k: v, "original": self.original},
                     error_level=self.params["aff_components_error_level"],
                     advice_text=advice_i18n,
-                    advice_params=params
+                    advice_params=params,
+                    message_text=message_text,
+                    message_params=message_params,
                 )
 
     def validate(self):

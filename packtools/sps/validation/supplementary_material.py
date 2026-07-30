@@ -5,6 +5,7 @@ from packtools.sps.validation.graphic import GraphicValidation
 from packtools.sps.validation.media import MediaValidation
 from packtools.sps.validation.utils import build_response
 from packtools.sps.utils.xml_utils import tostring
+from packtools.sps import i18n
 
 
 class SupplementaryMaterialValidation:
@@ -45,6 +46,8 @@ class SupplementaryMaterialValidation:
                 expected="<sec sec-type='supplementary-material'>",
                 obtained=self.data.get("parent_tag"),
                 advice=f'In <sec sec-type="{sec_type}"><supplementary-material> replace "{sec_type}" with "supplementary-material".',
+                advice_text=i18n._('In <sec sec-type="{sec_type}"><supplementary-material> replace "{sec_type}" with "supplementary-material".'),
+                advice_params={"sec_type": sec_type},
                 error_level=self.params["sec_type_error_level"],
                 data=self.data,
             )
@@ -65,6 +68,8 @@ class SupplementaryMaterialValidation:
             expected="<label> in <supplementary-material>",
             obtained=label,
             advice="Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail.",
+            advice_text=i18n._("Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail."),
+            advice_params={},
             error_level=self.params["label_error_level"],
             data=self.data,
         )
@@ -84,6 +89,8 @@ class SupplementaryMaterialValidation:
             expected="Outside <app-group> and <app>",
             obtained=self.data.get("parent_tag"),
             advice="Do not use <supplementary-material> inside <app-group> or <app>.",
+            advice_text=i18n._("Do not use <supplementary-material> inside <app-group> or <app>."),
+            advice_params={},
             error_level=self.params["app_group_error_level"],
             data=self.data,
         )
@@ -115,6 +122,12 @@ class XmlSupplementaryMaterialValidation:
             expected="No <inline-supplementary-material>",
             obtained=obtained,
             advice="The use of <inline-supplementary-material> is prohibited.",
+            advice_text=i18n._("The use of <inline-supplementary-material> is prohibited."),
+            advice_params={},
+            message_text=i18n._(
+                "The <inline-supplementary-material> element is not allowed"
+            ),
+            message_params={},
             error_level=self.params["inline_error_level"],
             data={},
         )
@@ -163,6 +176,13 @@ class XmlSupplementaryMaterialValidation:
             expected="Last section of <body> or inside <back>",
             obtained=parent_tag,
             advice="The supplementary materials section must be at the end of <body> or inside <back>.",
+            advice_text=i18n._("The supplementary materials section must be at the end of <body> or inside <back>."),
+            advice_params={},
+            message_text=i18n._(
+                "The supplementary materials section must be the last "
+                "section of <body> or be inside <back>"
+            ),
+            message_params={},
             error_level=self.params["position_error_level"],
             data={},
         )

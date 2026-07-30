@@ -79,6 +79,10 @@ class TestSecValidationTitle(unittest.TestCase):
         result = validator.validate_title()
         self.assertEqual(result["response"], "CRITICAL")
         self.assertIn("Add <title>", result["advice"])
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
 
 class TestSecValidationSecTypeValue(unittest.TestCase):
@@ -138,6 +142,10 @@ class TestSecValidationSecTypeValue(unittest.TestCase):
         result = validator.validate_sec_type_value()
         self.assertEqual(result["response"], "ERROR")
         self.assertEqual(result["got_value"], "invalid-type")
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_no_sec_type_returns_none(self):
         xml = """
@@ -231,6 +239,10 @@ class TestSecValidationTranscriptId(unittest.TestCase):
         result = validator.validate_transcript_id()
         self.assertEqual(result["response"], "ERROR")
         self.assertIn("Add @id", result["advice"])
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_non_transcript_returns_none(self):
         xml = """
@@ -306,6 +318,10 @@ class TestSecValidationCombinedFormat(unittest.TestCase):
         validator = SecValidation(secs[0], self.params)
         result = validator.validate_combined_format()
         self.assertEqual(result["response"], "WARNING")
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_comma_separator_fails(self):
         xml = """
@@ -381,6 +397,10 @@ class TestSecValidationNonCombinable(unittest.TestCase):
         validator = SecValidation(secs[0], self.params)
         result = validator.validate_non_combinable()
         self.assertEqual(result["response"], "WARNING")
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_combined_data_availability_fails(self):
         xml = """
@@ -490,6 +510,10 @@ class TestSecValidationContent(unittest.TestCase):
         result = validator.validate_content()
         self.assertEqual(result["response"], "WARNING")
         self.assertIn("Add at least one <p>", result["advice"])
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
 
 class TestXMLSecValidationDataAvailability(unittest.TestCase):
@@ -561,6 +585,10 @@ class TestXMLSecValidationDataAvailability(unittest.TestCase):
                    if r is not None]
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "ERROR")
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
 
     def test_editorial_no_data_availability_check(self):
         xml = """

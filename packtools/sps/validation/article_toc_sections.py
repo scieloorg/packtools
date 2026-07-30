@@ -1,6 +1,7 @@
 from packtools.sps.validation.models.article_toc_sections import ArticleTocSections
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.similarity_utils import how_similar
+from packtools.sps import i18n
 
 
 class XMLTocSectionsValidation:
@@ -86,8 +87,11 @@ class SubjectValidation:
         # Há seções excedentes (heading)
         if subj_group_type:
             advice = f'Remove <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
+            advice_text = i18n._('Remove <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable')
         else:
             advice = f'Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
+            advice_text = i18n._('Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable')
+
         return build_response(
             title="unexpected subject-group",
             parent=self.data,
@@ -98,6 +102,8 @@ class SubjectValidation:
             expected=None,
             obtained=self.data,
             advice=advice,
+            advice_text=advice_text,
+            advice_params={"subject": subject},
             data=self.data,
             error_level=self.params["unexpected_subj_group_error_level"],
         )
@@ -112,10 +118,20 @@ class SubjectValidation:
         valid = subj_group_type == "heading"
         if subj_group_type and subject:
             advice = f'Replace <subject-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>'
+            advice_text = i18n._('Replace <subject-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>')
+            advice_params = {
+                "subj_group_type": subj_group_type,
+                "subject": subject,
+            }
         elif subject:
             advice = f'Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>'
+            advice_text = i18n._('Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>')
+            advice_params = {"subject": subject}
         else:
             advice = f'Mark table of contents section with  <subject-group subj-group-type="heading"><subject>table of contents section</subject></subject-group>'
+            advice_text = i18n._('Mark table of contents section with  <subject-group subj-group-type="heading"><subject>table of contents section</subject></subject-group>')
+            advice_params = {}
+
         return build_response(
             title="table of contents section",
             parent=self.data,
@@ -126,6 +142,8 @@ class SubjectValidation:
             expected="heading",
             obtained=subj_group_type,
             advice=advice,
+            advice_text=advice_text,
+            advice_params=advice_params,
             data=self.data,
             error_level=self.subj_group_type_error_level,
         )
@@ -142,6 +160,7 @@ class SubjectValidation:
         # É desincentivado a usar subject-group/subject-group
         valid = not subsections
         advice = f'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>{subject}: {subsection_text}</subject></subject-group>. Remove <subject-group><subject>{subsection_text}</subject></subject-group>'
+
         return build_response(
             title="table of contents section with subsection",
             parent=self.data,
@@ -152,6 +171,16 @@ class SubjectValidation:
             expected=[],
             obtained=subsections,
             advice=advice,
+            advice_text=(
+                i18n._("Write section and subsection in one subject: "
+                '<subject-group subj-group-type="heading"><subject>'
+                "{subject}: {subsection}</subject></subject-group>. Remove "
+                "<subject-group><subject>{subsection}</subject></subject-group>")
+            ),
+            advice_params={
+                "subject": subject,
+                "subsection": subsection_text,
+            },
             data=self.data,
             error_level=self.subsection_error_level,
         )
@@ -184,12 +213,24 @@ class SubjectValidation:
                     expected_toc_sections or self.expected_toc_sections
                 )
                 advice = f"{subject} is not registered as a table of contents section. Valid values: {self.expected_toc_sections}"
+                advice_text = i18n._("{subject} is not registered as a table of contents section. Valid values: {valid_values}")
+                advice_params = {
+                    "subject": subject,
+                    "valid_values": self.expected_toc_sections,
+                }
             else:
                 error_level = "WARNING"
                 advice = f'Unable to check if {subject} (<subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>) is a valid table of contents section because the journal ({journal}) sections were not informed'
+                advice_text = i18n._('Unable to check whether {subject} (<subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>) is a valid table of contents section because no sections were provided for the journal {journal}')
+                advice_params = {
+                    "subject": subject,
+                    "journal": journal,
+                }
         else:
             validation_type = "exist"
             advice = 'Mark table of contents section with <subject-group subj-group-type="heading"><subject></subject></subject-group>'
+            advice_text = i18n._('Mark table of contents section with <subject-group subj-group-type="heading"><subject></subject></subject-group>')
+            advice_params = {}
 
         return build_response(
             title="table of contents section",
@@ -201,6 +242,17 @@ class SubjectValidation:
             expected=expected,
             obtained=subject,
             advice=advice,
+            message_text=(
+                i18n._(
+                    "Got {subject}, but the registered table of contents "
+                    "sections could not be checked"
+                )
+                if subject and not self.expected_toc_sections
+                else None
+            ),
+            message_params={"subject": subject},
+            advice_text=advice_text,
+            advice_params=advice_params,
             data=self.data,
             error_level=error_level,
         )
@@ -235,6 +287,15 @@ class SubjectValidation:
             expected=msg,
             obtained=article_title,
             advice=msg,
+            advice_text=(
+                i18n._("The article title ({article_title}) must represent its "
+                "contents and must be different from the section title "
+                "({section_title}) to get a better ranking in search results")
+            ),
+            advice_params={
+                "article_title": article_title,
+                "section_title": section_title,
+            },
             data=data,
             error_level=self.article_title_and_toc_section_are_similar_error_level,
         )

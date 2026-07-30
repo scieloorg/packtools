@@ -83,6 +83,10 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             results["advice"],
             'In <sec sec-type="None"><supplementary-material> replace "None" with "supplementary-material".',
         )
+        self.assertEqual(
+            results["adv_text"].format(**results["adv_params"]),
+            results["advice"],
+        )
 
     def test_validate_label(self):
         """Fails when supplementary material lacks an label element."""
@@ -106,6 +110,10 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         self.assertEqual(
             results["advice"],
             "Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail.",
+        )
+        self.assertEqual(
+            results["adv_text"].format(**results["adv_params"]),
+            results["advice"],
         )
 
     def test_validate_position_failure(self):
@@ -138,6 +146,10 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             results["advice"],
             "The supplementary materials section must be at the end of <body> or inside <back>.",
         )
+        self.assertEqual(
+            results["adv_text"].format(**results["adv_params"]),
+            results["advice"],
+        )
 
     def test_validate_supplementary_material_not_in_app_group(self):
         """Verifies that <supplementary-material> does not occur inside <app-group> or <app>."""
@@ -166,6 +178,10 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             results["advice"],
             "Do not use <supplementary-material> inside <app-group> or <app>.",
         )
+        self.assertEqual(
+            results["adv_text"].format(**results["adv_params"]),
+            results["advice"],
+        )
 
     def test_validate_prohibited_inline_supplementary_material(self):
         """Verifies that <inline-supplementary-material> is not used."""
@@ -187,6 +203,10 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         self.assertEqual(
             results["advice"],
             "The use of <inline-supplementary-material> is prohibited.",
+        )
+        self.assertEqual(
+            results["adv_text"].format(**results["adv_params"]),
+            results["advice"],
         )
 
     def test_validate_full_workflow(self):

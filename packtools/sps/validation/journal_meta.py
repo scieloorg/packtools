@@ -9,6 +9,7 @@ from packtools.sps.validation.utils import (
     build_response,
     format_response,
 )
+from packtools.sps import i18n
 
 
 class ISSNValidation:
@@ -91,7 +92,7 @@ class ISSNValidation:
                 advice='Mark {} ISSN with <issn pub-type="{}">{}</issn> inside <journal-meta>'.format(name, tp, issn_expected),
                 data=self.journal_issns.data,
                 error_level=error_level,
-                advice_text='Mark {name} ISSN with <issn pub-type="{tp}">{issn}</issn> inside <journal-meta>',
+                advice_text=i18n._('Mark {name} ISSN with <issn pub-type="{tp}">{issn}</issn> inside <journal-meta>'),
                 advice_params={"name": name, "tp": tp, "issn": issn_expected},
             )
 
@@ -122,7 +123,7 @@ class AcronymValidation:
             advice='Mark journal acronym with <journal-id journal-id-type="publisher-id">{}</journal-id> inside <journal-meta>'.format(expected_value),
             data={'acronym': self.journal_acronym.text},
             error_level=error_level,
-            advice_text='Mark journal acronym with <journal-id journal-id-type="publisher-id">{acronym}</journal-id> inside <journal-meta>',
+            advice_text=i18n._('Mark journal acronym with <journal-id journal-id-type="publisher-id">{acronym}</journal-id> inside <journal-meta>'),
             advice_params={"acronym": expected_value},
         )
 
@@ -156,7 +157,7 @@ class TitleValidation:
                 for item in self.journal_titles.data
             },
             error_level=error_level,
-            advice_text='Mark journal title with <journal-title> inside <journal-title-group>',
+            advice_text=i18n._('Mark journal title with <journal-title> inside <journal-title-group>'),
             advice_params={},
         )
 
@@ -184,7 +185,7 @@ class TitleValidation:
                 for item in self.journal_titles.data
             },
             error_level=error_level,
-            advice_text='Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
+            advice_text=i18n._('Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>'),
             advice_params={},
         )
 
@@ -266,7 +267,7 @@ class PublisherNameValidation:
                 advice=f'Mark publisher name with <publisher><publisher-name>{expected}</publisher-name></publisher> inside <journal-meta>',
                 data=None,
                 error_level=error_level,
-                advice_text='Mark publisher name with <publisher><publisher-name>{name}</publisher-name></publisher> inside <journal-meta>',
+                advice_text=i18n._('Mark publisher name with <publisher><publisher-name>{name}</publisher-name></publisher> inside <journal-meta>'),
                 advice_params={"name": expected},
             )
 
@@ -301,7 +302,7 @@ class PublisherNameValidation:
                 advice=advice,
                 data=None,
                 error_level=error_level,
-                advice_text='{action} the following items {in_from} the XML: {items}',
+                advice_text=i18n._('{action} the following items {in_from} the XML: {items}'),
                 advice_params={"action": action[0], "in_from": action[1], "items": diff_str},
             )
 
@@ -374,7 +375,7 @@ class JournalIdValidation:
             advice=f'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{expected_value}</journal-id> inside <journal-meta>',
             data=None,
             error_level=error_level,
-            advice_text='Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{nlm_ta}</journal-id> inside <journal-meta>',
+            advice_text=i18n._('Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{nlm_ta}</journal-id> inside <journal-meta>'),
             advice_params={"nlm_ta": expected_value},
         )
 
@@ -448,6 +449,8 @@ class JournalMetaPresenceValidation:
             expected='<journal-meta> element',
             obtained='<journal-meta>' if is_valid else None,
             advice='Add <journal-meta> element inside <front>',
+            advice_text=i18n._('Add <journal-meta> element inside <front>'),
+            advice_params={},
             data=None,
             error_level=error_level,
         )
@@ -485,6 +488,8 @@ class JournalMetaPresenceValidation:
             expected='exactly one <journal-meta> element',
             obtained=obtained,
             advice='Ensure exactly one <journal-meta> element exists inside <front>',
+            advice_text=i18n._('Ensure exactly one <journal-meta> element exists inside <front>'),
+            advice_params={},
             data={'count': count},
             error_level=error_level,
         )
@@ -514,6 +519,8 @@ class JournalMetaPresenceValidation:
             expected='<journal-id journal-id-type="publisher-id"> with non-empty value',
             obtained=publisher_id if is_valid else None,
             advice='Add <journal-id journal-id-type="publisher-id">ACRONYM</journal-id> inside <journal-meta>',
+            advice_text=i18n._('Add <journal-id journal-id-type="publisher-id">ACRONYM</journal-id> inside <journal-meta>'),
+            advice_params={},
             data={'publisher_id': publisher_id} if is_valid else None,
             error_level=error_level,
         )
@@ -543,6 +550,8 @@ class JournalMetaPresenceValidation:
             expected='<journal-title> with non-empty value',
             obtained=journal_title if is_valid else None,
             advice='Add <journal-title>Title</journal-title> inside <journal-title-group>',
+            advice_text=i18n._('Add <journal-title>Title</journal-title> inside <journal-title-group>'),
+            advice_params={},
             data={'journal_title': journal_title} if is_valid else None,
             error_level=error_level,
         )
@@ -572,6 +581,8 @@ class JournalMetaPresenceValidation:
             expected='<abbrev-journal-title abbrev-type="publisher"> with non-empty value',
             obtained=abbrev_title if is_valid else None,
             advice='Add <abbrev-journal-title abbrev-type="publisher">Abbrev. Title</abbrev-journal-title> inside <journal-title-group>',
+            advice_text=i18n._('Add <abbrev-journal-title abbrev-type="publisher">Abbrev. Title</abbrev-journal-title> inside <journal-title-group>'),
+            advice_params={},
             data={'abbrev_title': abbrev_title} if is_valid else None,
             error_level=error_level,
         )
@@ -603,6 +614,8 @@ class JournalMetaPresenceValidation:
             expected='at least one <issn> element',
             obtained=f'{len(issn_list)} ISSN(s) found' if is_valid else 'No ISSN found',
             advice='Add at least one <issn pub-type="epub">XXXX-XXXX</issn> or <issn pub-type="ppub">XXXX-XXXX</issn> inside <journal-meta>',
+            advice_text=i18n._('Add at least one <issn pub-type="epub">XXXX-XXXX</issn> or <issn pub-type="ppub">XXXX-XXXX</issn> inside <journal-meta>'),
+            advice_params={},
             data=issn_data if is_valid else None,
             error_level=error_level,
         )
@@ -632,6 +645,8 @@ class JournalMetaPresenceValidation:
             expected='<publisher-name> with non-empty value',
             obtained=publisher_name if is_valid else None,
             advice='Add <publisher><publisher-name>Publisher Name</publisher-name></publisher> inside <journal-meta>',
+            advice_text=i18n._('Add <publisher><publisher-name>Publisher Name</publisher-name></publisher> inside <journal-meta>'),
+            advice_params={},
             data={'publisher_name': publisher_name} if is_valid else None,
             error_level=error_level,
         )
@@ -679,6 +694,8 @@ class ISSNFormatValidation:
                 expected='ISSN with format XXXX-XXXX (where X can be a digit or letter X)',
                 obtained=issn_value,
                 advice=f'Correct ISSN format to XXXX-XXXX pattern. Current value: {issn_value}',
+                advice_text=i18n._('Correct ISSN format to XXXX-XXXX pattern. Current value: {issn_value}'),
+                advice_params={'issn_value': issn_value},
                 data=issn_data,
                 error_level=error_level,
             )
@@ -723,6 +740,11 @@ class JournalMetaAttributeValidation:
                 expected=allowed_types,
                 obtained=id_type,
                 advice=f'Set @journal-id-type to one of {allowed_types}. Current value: {id_type}',
+                advice_text=i18n._('Set @journal-id-type to one of {allowed_types}. Current value: {id_type}'),
+                advice_params={
+                    'allowed_types': allowed_types,
+                    'id_type': id_type,
+                },
                 data={'journal_id_type': id_type, 'value': id_value},
                 error_level=error_level,
             )
@@ -758,6 +780,11 @@ class JournalMetaAttributeValidation:
                 expected=allowed_types,
                 obtained=pub_type,
                 advice=f'Set @pub-type to one of {allowed_types}. Current value: {pub_type}',
+                advice_text=i18n._('Set @pub-type to one of {allowed_types}. Current value: {pub_type}'),
+                advice_params={
+                    'allowed_types': allowed_types,
+                    'pub_type': pub_type,
+                },
                 data={'pub_type': pub_type, 'value': issn_value},
                 error_level=error_level,
             )
@@ -801,6 +828,8 @@ class JournalMetaAttributeValidation:
             expected='unique pub-type values for each ISSN',
             obtained=obtained,
             advice=f'Remove duplicate ISSN elements with same pub-type. Duplicates: {duplicates}' if duplicates else None,
+            advice_text=i18n._('Remove duplicate ISSN elements with same pub-type. Duplicates: {duplicates}'),
+            advice_params={'duplicates': duplicates},
             data={'type_counts': type_counts, 'duplicates': duplicates},
             error_level=error_level,
         )

@@ -4,7 +4,7 @@ from tempfile import TemporaryDirectory
 
 from packtools import XMLValidator, etree, XML
 from packtools.domain import SchematronValidator, PyValidator
-from gettext import gettext as _
+from packtools.sps import i18n
 
 
 IS_PACKTOOLS_INSTALLED = False
@@ -85,21 +85,39 @@ class StructureValidator:
         except KeyError:
             yield {
                 "result": "error",
-                "message": _('Unknown {}: {}').format(
+                "message": 'Unknown {}: {}'.format(
                     'PUBLIC ID',
                     self.xml_with_pre.public_id,
-                )
+                ),
+                "msg_text": i18n._("Unknown {identifier}: {value}"),
+                "msg_params": {
+                    "identifier": "PUBLIC ID",
+                    "value": self.xml_with_pre.public_id,
+                },
+                "adv_text": None,
+                "adv_params": None,
             }
             return
 
         if self.xml_with_pre.sps_version not in dtd_version["sps_versions"]:
             yield {
                 "result": "error",
-                "message": _('Unmatched {}: {}. Expected one of {}').format(
+                "message": 'Unmatched {}: {}. Expected one of {}'.format(
                     'sps version',
                     self.xml_with_pre.sps_version,
                     dtd_version["sps_versions"],
-                )
+                ),
+                "msg_text": i18n._(
+                    "Unmatched {identifier}: {value}. "
+                    "Expected one of {expected}"
+                ),
+                "msg_params": {
+                    "identifier": "sps version",
+                    "value": self.xml_with_pre.sps_version,
+                    "expected": dtd_version["sps_versions"],
+                },
+                "adv_text": None,
+                "adv_params": None,
             }
 
         try:
@@ -107,20 +125,41 @@ class StructureValidator:
             if system_id not in dtd_version['url']:
                 yield {
                     "result": "error",
-                    "message": _('Unmatched {}: {}. Expected {}').format(
+                    "message": 'Unmatched {}: {}. Expected {}'.format(
                         'SYSTEM ID',
                         self.xml_with_pre.system_id,
                         dtd_version['url'],
-                    )
+                    ),
+                    "msg_text": i18n._(
+                        "Unmatched {identifier}: {value}. "
+                        "Expected {expected}"
+                    ),
+                    "msg_params": {
+                        "identifier": "SYSTEM ID",
+                        "value": self.xml_with_pre.system_id,
+                        "expected": dtd_version["url"],
+                    },
+                    "adv_text": None,
+                    "adv_params": None,
                 }
         except (AttributeError, ValueError, TypeError, IndexError):
             yield {
                 "result": "error",
-                "message": _('Unmatched {}: {}. Expected {}').format(
+                "message": 'Unmatched {}: {}. Expected {}'.format(
                     'SYSTEM ID',
                     self.xml_with_pre.system_id,
                     dtd_version['url'],
-                )
+                ),
+                "msg_text": i18n._(
+                    "Unmatched {identifier}: {value}. Expected {expected}"
+                ),
+                "msg_params": {
+                    "identifier": "SYSTEM ID",
+                    "value": self.xml_with_pre.system_id,
+                    "expected": dtd_version["url"],
+                },
+                "adv_text": None,
+                "adv_params": None,
             }
 
     def annotate_errors(self):

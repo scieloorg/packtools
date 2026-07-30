@@ -103,6 +103,10 @@ class ArticleTocSectionsTest(TestCase):
             result['advice'],
             'Replace <subject-group subj-group-type="wrong-type"><subject>Health Sciences</subject></subject-group> by <subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>'
         )
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_article_title_similarity(self):
         self.maxDiff = None
@@ -139,6 +143,10 @@ class ArticleTocSectionsTest(TestCase):
         self.assertEqual(
             result['advice'],
             'The article title (Health Sciences) must represent its contents and must be different from the section title (Health Sciences) to get a better ranking in search results'
+        )
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
         )
 
     def test_validate_full_process(self):
@@ -237,6 +245,10 @@ class ArticleTocSectionsErrorTest(TestCase):
         self.assertEqual(
             result['advice'], 
             'Incorrect Section is not registered as a table of contents section. Valid values: {\'en\': [\'Health Sciences\', \'Biology\']}'
+        )
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
         )
 
     def test_validate_missing_subj_group_type(self):
@@ -360,6 +372,14 @@ class ArticleTocSectionsErrorTest(TestCase):
         self.assertEqual(result["response"], "WARNING")
         self.assertEqual(result['advice'], 'Unable to check if Health Sciences (<subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>) is a valid table of contents section because the journal (Braz Journal ...) sections were not informed'
         )
+        self.assertEqual(
+            "Unable to check whether Health Sciences "
+            "(<subject-group subj-group-type=\"heading\"><subject>Health "
+            "Sciences</subject></subject-group>) is a valid table of contents "
+            "section because no sections were provided for the journal "
+            "Braz Journal ...",
+            result["adv_text"].format(**result["adv_params"]),
+        )
 
         # validade_article_title_is_different_from_section_title
         result = results[3]
@@ -413,6 +433,10 @@ class ArticleTocSectionsErrorTest(TestCase):
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], ['Public Health'])
         self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>Health Sciences: Public Health</subject></subject-group>. Remove <subject-group><subject>Public Health</subject></subject-group>')
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_all_validation_types_with_errors(self):
         """Testa múltiplos tipos de erro em uma única validação"""
@@ -494,6 +518,10 @@ class TestUnexpectedItemValidation(unittest.TestCase):
         self.assertEqual(
             result['response'],
             'CRITICAL'
+        )
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
         )
 
 

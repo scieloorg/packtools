@@ -9,12 +9,11 @@ Implements validations for book review product elements to ensure:
 
 Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit?tab=t.0#heading=h.product
 """
-import gettext
 
+from packtools.sps import i18n
 from packtools.sps.models.product import ArticleProducts
 from packtools.sps.validation.utils import build_response
 
-_ = gettext.gettext
 
 
 class ProductValidation:
@@ -62,11 +61,16 @@ class ProductValidation:
         # Distinguish between absent attribute and present-but-empty attribute
         # to produce a more accurate advice message.
         if product_type is None:
-            advice_text = _(
+            advice = 'Add @product-type="book" attribute to <product>.'
+            advice_text = i18n._(
                 'Add @product-type="book" attribute to <product>.'
             )
         else:
-            advice_text = _(
+            advice = (
+                '@product-type is present but empty.'
+                ' Set the value to "book".'
+            )
+            advice_text = i18n._(
                 '@product-type is present but empty.'
                 ' Set the value to "book".'
             )
@@ -81,11 +85,21 @@ class ProductValidation:
             is_valid=is_valid,
             expected='@product-type attribute present with value "book"',
             obtained=product_type,
-            advice=advice_text,
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,
             advice_params=advice_params,
+            message_text=(
+                i18n._(
+                    'The @product-type attribute is present with value "book"'
+                )
+                if is_valid
+                else i18n._(
+                    'The @product-type attribute with value "book" is required'
+                )
+            ),
+            message_params={},
         )
 
     def validate_product_type_value(self):
@@ -112,7 +126,14 @@ class ProductValidation:
 
         is_valid = product_type in expected_values
 
-        advice_text = _(
+        advice = (
+            'Replace @product-type="{product_type}" with one of:'
+            " {allowed_values}."
+        ).format(
+            product_type=product_type,
+            allowed_values=", ".join(expected_values),
+        )
+        advice_text = i18n._(
             'Replace @product-type="{product_type}" with one of: {allowed_values}.'
         )
         advice_params = {
@@ -129,7 +150,7 @@ class ProductValidation:
             is_valid=is_valid,
             expected=", ".join(expected_values),
             obtained=product_type,
-            advice=advice_text.format(**advice_params),
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,
@@ -152,7 +173,8 @@ class ProductValidation:
 
         is_valid = source is not None and bool(source.strip())
 
-        advice_text = _(
+        advice = "Add <source> element with the book title inside <product>"
+        advice_text = i18n._(
             "Add <source> element with the book title inside <product>"
         )
         advice_params = {}
@@ -166,7 +188,7 @@ class ProductValidation:
             is_valid=is_valid,
             expected="<source> element with book title",
             obtained=source,
-            advice=advice_text,
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,
@@ -190,7 +212,11 @@ class ProductValidation:
 
         is_valid = article_type == "book-review"
 
-        advice_text = _(
+        advice = (
+            '<product> is present but @article-type="{article_type}".'
+            ' For book reviews, use @article-type="book-review" in <article>'
+        ).format(article_type=article_type)
+        advice_text = i18n._(
             '<product> is present but @article-type="{article_type}".'
             ' For book reviews, use @article-type="book-review" in <article>'
         )
@@ -205,7 +231,7 @@ class ProductValidation:
             is_valid=is_valid,
             expected="book-review",
             obtained=article_type,
-            advice=advice_text.format(**advice_params),
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,
@@ -227,7 +253,11 @@ class ProductValidation:
         error_level = self.rules.get("author_presence_error_level", "WARNING")
         has_author = self.data.get("has_author", False)
 
-        advice_text = _(
+        advice = (
+            'Add <person-group person-group-type="author"> with the'
+            " author(s) of the reviewed book inside <product>"
+        )
+        advice_text = i18n._(
             "Add <person-group person-group-type=\"author\"> with the"
             " author(s) of the reviewed book inside <product>"
         )
@@ -242,7 +272,7 @@ class ProductValidation:
             is_valid=has_author,
             expected='<person-group person-group-type="author">',
             obtained=str(has_author),
-            advice=advice_text,
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,
@@ -263,7 +293,11 @@ class ProductValidation:
         error_level = self.rules.get("publisher_name_presence_error_level", "WARNING")
         has_publisher = self.data.get("has_publisher_name", False)
 
-        advice_text = _(
+        advice = (
+            "Add <publisher-name> element with the publisher name"
+            " inside <product> for bibliographic completeness"
+        )
+        advice_text = i18n._(
             "Add <publisher-name> element with the publisher name"
             " inside <product> for bibliographic completeness"
         )
@@ -278,7 +312,7 @@ class ProductValidation:
             is_valid=has_publisher,
             expected="<publisher-name>",
             obtained=str(has_publisher),
-            advice=advice_text,
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,
@@ -299,7 +333,11 @@ class ProductValidation:
         error_level = self.rules.get("year_presence_error_level", "WARNING")
         has_year = self.data.get("has_year", False)
 
-        advice_text = _(
+        advice = (
+            "Add <year> element with the publication year"
+            " inside <product> for bibliographic completeness"
+        )
+        advice_text = i18n._(
             "Add <year> element with the publication year"
             " inside <product> for bibliographic completeness"
         )
@@ -314,7 +352,7 @@ class ProductValidation:
             is_valid=has_year,
             expected="<year>",
             obtained=str(has_year),
-            advice=advice_text,
+            advice=advice,
             data=self.data,
             error_level=error_level,
             advice_text=advice_text,

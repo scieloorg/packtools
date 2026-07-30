@@ -5,6 +5,7 @@ from packtools.sps.validation.exceptions import (
     ValidationLicenseCodeException
 )
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class ArticleLicenseValidation:
@@ -130,8 +131,8 @@ class ArticleLicenseValidation:
                     f"{lang} and standard adopted by the journal"
                 )
                 advice_text = (
-                    "Provide license data that is consistent with the language: "
-                    "{lang} and standard adopted by the journal"
+                    i18n._("Provide license data that is consistent with the language: "
+                    "{lang} and standard adopted by the journal")
                 )
                 advice_params = {"lang": lang}
             else:
@@ -144,10 +145,10 @@ class ArticleLicenseValidation:
                     "</license>"
                 )
                 advice_text = (
-                    "Mark license information with "
+                    i18n._("Mark license information with "
                     '<license license-type="open-access" xlink:href={link} '
                     "xml:lang={lang}>"
-                    "<license-p>{license_p}</license-p></license>"
+                    "<license-p>{license_p}</license-p></license>")
                 )
                 advice_params = expected_license_p
 
@@ -248,7 +249,7 @@ class ArticleLicenseValidation:
                 advice=f'add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {expected_code}',
                 data=licenses,
                 error_level=error_level,
-                advice_text='add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {code}',
+                advice_text=i18n._('add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {code}'),
                 advice_params={"code": expected_code},
             )
 

@@ -2,6 +2,7 @@ import os
 from packtools.sps.validation.visual_resource_base import VisualResourceBaseValidation
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.models.graphic import XmlGraphic
+from packtools.sps import i18n
 
 
 class GraphicValidation(VisualResourceBaseValidation):
@@ -51,6 +52,14 @@ class GraphicValidation(VisualResourceBaseValidation):
             expected="@id attribute",
             obtained=id_value,
             advice=f'Add id="" to {elem}' if not valid else None,
+            advice_text=i18n._('Add id="" to {element}'),
+            advice_params={"element": elem},
+            message_text=(
+                i18n._("The @id attribute is present in <{element}>")
+                if valid
+                else i18n._("The @id attribute is required in <{element}>")
+            ),
+            message_params={"element": tag},
             error_level=self.params["media_attributes_error_level"],
             data=self.data,
         )
@@ -82,6 +91,11 @@ class GraphicValidation(VisualResourceBaseValidation):
                     f'<{self.data.get("tag")}> '
                     f'(valid extensions: jpg, jpeg, png, tif, tiff, svg)'
                 ),
+                advice_text=(
+                    i18n._('Add xlink:href="filename.ext" to <{tag}> '
+                    '(valid extensions: jpg, jpeg, png, tif, tiff, svg)')
+                ),
+                advice_params={"tag": self.data.get("tag")},
                 error_level=self.params["xlink_href_error_level"],
                 data=self.data,
             )
@@ -125,6 +139,16 @@ class GraphicValidation(VisualResourceBaseValidation):
                     f"Either move this <graphic> inside <alternatives> or use a "
                     f"different format (.jpg, .png, .tif)."
                 ) if not is_valid else None,
+                advice_text=(
+                    i18n._("SVG files are only allowed inside <alternatives>. "
+                    "The file '{xlink_href}' is currently in <{parent_tag}>. "
+                    "Either move this <graphic> inside <alternatives> or use a "
+                    "different format (.jpg, .png, .tif).")
+                ),
+                advice_params={
+                    "xlink_href": xlink_href,
+                    "parent_tag": parent_tag,
+                },
                 error_level=self.params.get("svg_error_level", "ERROR"),
                 data=self.data,
             )

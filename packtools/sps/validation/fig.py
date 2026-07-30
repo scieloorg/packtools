@@ -1,6 +1,6 @@
+from packtools.sps import i18n
 from packtools.sps.validation.models.fig import ArticleFigs
 from packtools.sps.validation.utils import build_response
-from gettext import gettext as _
 
 
 class ArticleFigValidation:
@@ -26,10 +26,10 @@ class ArticleFigValidation:
                 is_valid=False,
                 expected="<fig>",
                 obtained=None,
-                advice=_('article-type={article_type} requires <fig>. Found 0. Identify the fig or check if article-type is correct').format(article_type=self.article_type),
+                advice='article-type={article_type} requires <fig>. Found 0. Identify the fig or check if article-type is correct'.format(article_type=self.article_type),
                 data=None,
                 error_level=self.rules.get("absent_error_level", "WARNING"),
-                advice_text=_('article-type={article_type} requires <fig>. Found 0. Identify the fig or check if article-type is correct'),
+                advice_text=i18n._('article-type={article_type} requires <fig>. Found 0. Identify the fig or check if article-type is correct'),
                 advice_params={"article_type": self.article_type},
             )
 
@@ -105,10 +105,10 @@ class FigValidation:
             is_valid=is_valid,
             expected="@id attribute",
             obtained=obtained,
-            advice=_('Add @id attribute to <fig>. Example: <fig id="f01">. The @id attribute is mandatory.'),
+            advice='Add @id attribute to <fig>. Example: <fig id="f01">. The @id attribute is mandatory.',
             data=self.data,
             error_level=self.rules["id_error_level"],
-            advice_text=_('Add @id attribute to <fig>. Example: <fig id="f01">. The @id attribute is mandatory.'),
+            advice_text=i18n._('Add @id attribute to <fig>. Example: <fig id="f01">. The @id attribute is mandatory.'),
             advice_params={},
         )
 
@@ -124,10 +124,10 @@ class FigValidation:
             is_valid=has_graphic,
             expected="<graphic> element",
             obtained="<graphic>" if has_graphic else None,
-            advice=_('Add <graphic> element inside <fig>. Example: <graphic xlink:href="image.jpg"/>. Every <fig> must contain at least one <graphic> element.'),
+            advice='Add <graphic> element inside <fig>. Example: <graphic xlink:href="image.jpg"/>. Every <fig> must contain at least one <graphic> element.',
             data=self.data,
             error_level=self.rules["graphic_error_level"],
-            advice_text=_('Add <graphic> element inside <fig>. Example: <graphic xlink:href="image.jpg"/>. Every <fig> must contain at least one <graphic> element.'),
+            advice_text=i18n._('Add <graphic> element inside <fig>. Example: <graphic xlink:href="image.jpg"/>. Every <fig> must contain at least one <graphic> element.'),
             advice_params={},
         )
 
@@ -149,10 +149,10 @@ class FigValidation:
             is_valid=is_valid,
             expected="@xlink:href attribute in <graphic>",
             obtained=href,
-            advice=_('Add @xlink:href attribute to <graphic>. Example: <graphic xlink:href="image.jpg"/>. The @xlink:href attribute is mandatory in <graphic>.'),
+            advice='Add @xlink:href attribute to <graphic>. Example: <graphic xlink:href="image.jpg"/>. The @xlink:href attribute is mandatory in <graphic>.',
             data=self.data,
             error_level=self.rules["xlink_href_error_level"],
-            advice_text=_('Add @xlink:href attribute to <graphic>. Example: <graphic xlink:href="image.jpg"/>. The @xlink:href attribute is mandatory in <graphic>.'),
+            advice_text=i18n._('Add @xlink:href attribute to <graphic>. Example: <graphic xlink:href="image.jpg"/>. The @xlink:href attribute is mandatory in <graphic>.'),
             advice_params={},
         )
 
@@ -185,8 +185,8 @@ class FigValidation:
             # SVG is only valid when the <graphic> is a direct child of <alternatives>
             is_valid = is_in_alternatives
             if not is_valid:
-                advice = _('SVG files are only allowed inside <alternatives>. Either use a different format ({allowed_formats}) or wrap the graphic in <alternatives>.').format(allowed_formats=", ".join(allowed_extensions))
-                advice_text = _('SVG files are only allowed inside <alternatives>. Either use a different format ({allowed_formats}) or wrap the graphic in <alternatives>.')
+                advice = 'SVG files are only allowed inside <alternatives>. Either use a different format ({allowed_formats}) or wrap the graphic in <alternatives>.'.format(allowed_formats=", ".join(allowed_extensions))
+                advice_text = i18n._('SVG files are only allowed inside <alternatives>. Either use a different format ({allowed_formats}) or wrap the graphic in <alternatives>.')
                 advice_params = {"allowed_formats": ", ".join(allowed_extensions)}
             else:
                 advice = None
@@ -195,12 +195,12 @@ class FigValidation:
         else:
             is_valid = file_extension in allowed_extensions if file_extension else False
             if file_extension and not is_valid:
-                advice = _('File extension "{file_extension}" is not allowed. Use one of: {allowed_formats}. If using SVG, it must be inside <alternatives>.').format(file_extension=file_extension, allowed_formats=", ".join(allowed_extensions))
-                advice_text = _('File extension "{file_extension}" is not allowed. Use one of: {allowed_formats}. If using SVG, it must be inside <alternatives>.')
+                advice = 'File extension "{file_extension}" is not allowed. Use one of: {allowed_formats}. If using SVG, it must be inside <alternatives>.'.format(file_extension=file_extension, allowed_formats=", ".join(allowed_extensions))
+                advice_text = i18n._('File extension "{file_extension}" is not allowed. Use one of: {allowed_formats}. If using SVG, it must be inside <alternatives>.')
                 advice_params = {"file_extension": file_extension, "allowed_formats": ", ".join(allowed_extensions)}
             elif not file_extension:
-                advice = _('File "{graphic_href}" must have a valid extension. Allowed: {allowed_formats}. SVG is only allowed inside <alternatives>.').format(graphic_href=graphic_href, allowed_formats=", ".join(allowed_extensions))
-                advice_text = _('File "{graphic_href}" must have a valid extension. Allowed: {allowed_formats}. SVG is only allowed inside <alternatives>.')
+                advice = 'File "{graphic_href}" must have a valid extension. Allowed: {allowed_formats}. SVG is only allowed inside <alternatives>.'.format(graphic_href=graphic_href, allowed_formats=", ".join(allowed_extensions))
+                advice_text = i18n._('File "{graphic_href}" must have a valid extension. Allowed: {allowed_formats}. SVG is only allowed inside <alternatives>.')
                 advice_params = {"graphic_href": graphic_href, "allowed_formats": ", ".join(allowed_extensions)}
             else:
                 advice = None
@@ -238,10 +238,10 @@ class FigValidation:
             is_valid=is_valid,
             expected=f'one of {allowed_types}',
             obtained=fig_type,
-            advice=_('Invalid @fig-type value "{fig_type}". Use one of: {allowed_types}.').format(fig_type=fig_type, allowed_types=", ".join(allowed_types)),
+            advice='Invalid @fig-type value "{fig_type}". Use one of: {allowed_types}.'.format(fig_type=fig_type, allowed_types=", ".join(allowed_types)),
             data=self.data,
             error_level=self.rules["fig_type_error_level"],
-            advice_text=_('Invalid @fig-type value "{fig_type}". Use one of: {allowed_types}.'),
+            advice_text=i18n._('Invalid @fig-type value "{fig_type}". Use one of: {allowed_types}.'),
             advice_params={"fig_type": fig_type, "allowed_types": ", ".join(allowed_types)},
         )
 
@@ -259,10 +259,10 @@ class FigValidation:
             is_valid=is_valid,
             expected="@xml:lang attribute",
             obtained=xml_lang,
-            advice=_('When <fig> is inside <fig-group>, the @xml:lang attribute is mandatory. Add xml:lang attribute to <fig>. Example: <fig xml:lang="en">.'),
+            advice='When <fig> is inside <fig-group>, the @xml:lang attribute is mandatory. Add xml:lang attribute to <fig>. Example: <fig xml:lang="en">.',
             data=self.data,
             error_level=self.rules["xml_lang_in_fig_group_error_level"],
-            advice_text=_('When <fig> is inside <fig-group>, the @xml:lang attribute is mandatory. Add xml:lang attribute to <fig>. Example: <fig xml:lang="en">.'),
+            advice_text=i18n._('When <fig> is inside <fig-group>, the @xml:lang attribute is mandatory. Add xml:lang attribute to <fig>. Example: <fig xml:lang="en">.'),
             advice_params={},
         )
 
@@ -271,6 +271,13 @@ class FigValidation:
         alt_text = self.data.get("graphic_alt_text")
         long_desc = self.data.get("graphic_long_desc")
         has_accessibility = bool(alt_text or long_desc)
+        if has_accessibility:
+            message_text = i18n._("Accessibility description is present")
+        else:
+            message_text = i18n._(
+                "No accessibility description was found; "
+                "expected <alt-text> or <long-desc>"
+            )
 
         return build_response(
             title="accessibility",
@@ -281,11 +288,13 @@ class FigValidation:
             is_valid=has_accessibility,
             expected="<alt-text> or <long-desc>",
             obtained="present" if has_accessibility else None,
-            advice=_('For accessibility, add <alt-text> or <long-desc> inside <graphic>. Example: <graphic xlink:href="image.jpg"><alt-text>Brief description</alt-text></graphic>.'),
+            advice='For accessibility, add <alt-text> or <long-desc> inside <graphic>. Example: <graphic xlink:href="image.jpg"><alt-text>Brief description</alt-text></graphic>.',
             data=self.data,
             error_level=self.rules["accessibility_error_level"],
-            advice_text=_('For accessibility, add <alt-text> or <long-desc> inside <graphic>. Example: <graphic xlink:href="image.jpg"><alt-text>Brief description</alt-text></graphic>.'),
+            advice_text=i18n._('For accessibility, add <alt-text> or <long-desc> inside <graphic>. Example: <graphic xlink:href="image.jpg"><alt-text>Brief description</alt-text></graphic>.'),
             advice_params={},
+            message_text=message_text,
+            message_params={},
         )
 
     def validate_alt_text_length(self):
@@ -304,9 +313,9 @@ class FigValidation:
             is_valid=is_valid,
             expected=f"≤ {max_length} characters",
             obtained=f"{current_length} characters",
-            advice=_('The <alt-text> content has {current_length} characters, exceeding the recommended maximum of {max_length}. Please shorten the description.').format(current_length=current_length, max_length=max_length),
+            advice='The <alt-text> content has {current_length} characters, exceeding the recommended maximum of {max_length}. Please shorten the description.'.format(current_length=current_length, max_length=max_length),
             data=self.data,
             error_level=self.rules["alt_text_length_error_level"],
-            advice_text=_('The <alt-text> content has {current_length} characters, exceeding the recommended maximum of {max_length}. Please shorten the description.'),
+            advice_text=i18n._('The <alt-text> content has {current_length} characters, exceeding the recommended maximum of {max_length}. Please shorten the description.'),
             advice_params={"current_length": current_length, "max_length": max_length},
         )

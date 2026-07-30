@@ -1,5 +1,6 @@
 from packtools.sps.validation.models.article_xref import XMLCrossReference
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 # Allowed values for @ref-type per SPS 1.10
@@ -110,7 +111,7 @@ class ArticleXrefValidation:
                 advice=f'Provide a valid @rid attribute for <xref>',
                 data=xref_data,
                 error_level=error_level,
-                advice_text='Provide a valid @rid attribute for <xref>',
+                advice_text=i18n._('Provide a valid @rid attribute for <xref>'),
                 advice_params={},
             )
 
@@ -139,7 +140,7 @@ class ArticleXrefValidation:
                 advice=f'Provide a valid @ref-type attribute for <xref>',
                 data=xref_data,
                 error_level=error_level,
-                advice_text='Provide a valid @ref-type attribute for <xref>',
+                advice_text=i18n._('Provide a valid @ref-type attribute for <xref>'),
                 advice_params={},
             )
 
@@ -171,7 +172,7 @@ class ArticleXrefValidation:
                 advice=f'Replace "{ref_type}" with one of the allowed values: {ref_type_list}',
                 data=xref_data,
                 error_level=error_level,
-                advice_text='Replace "{ref_type}" with one of the allowed values: {ref_type_list}',
+                advice_text=i18n._('Replace "{ref_type}" with one of the allowed values: {ref_type_list}'),
                 advice_params={"ref_type": ref_type, "ref_type_list": str(ref_type_list)},
             )
 
@@ -201,8 +202,8 @@ class ArticleXrefValidation:
             advice='Add at least one <xref ref-type="bibr"> to the document (SciELO Brasil criterion)',
             data={"bibr_count": bibr_count},
             error_level=error_level,
-            advice_text='Add at least one <xref ref-type="bibr"> to the document (SciELO Brasil criterion)',
-            advice_params={"bibr_count": str(bibr_count)},
+            advice_text=i18n._('Add at least one <xref ref-type="bibr"> to the document (SciELO Brasil criterion)'),
+            advice_params={},
         )
 
     def validate_rid_has_corresponding_id(self):
@@ -234,7 +235,7 @@ class ArticleXrefValidation:
                 advice=f'@rid="{rid}" in <xref> has no corresponding @id in the document',
                 data=xref_data,
                 error_level=error_level,
-                advice_text='@rid="{rid}" in <xref> has no corresponding @id in the document',
+                advice_text=i18n._('@rid="{rid}" in <xref> has no corresponding @id in the document'),
                 advice_params={"rid": rid},
             )
 
@@ -273,7 +274,7 @@ class ArticleXrefValidation:
                 advice=f'Add <xref ref-type="sec" rid="{sec_id}"> to reference the transcript section',
                 data={"transcript_sec_id": sec_id},
                 error_level=error_level,
-                advice_text='Add <xref ref-type="sec" rid="{sec_id}"> to reference the transcript section',
+                advice_text=i18n._('Add <xref ref-type="sec" rid="{sec_id}"> to reference the transcript section'),
                 advice_params={"sec_id": sec_id},
             )
 
@@ -310,7 +311,7 @@ class ArticleXrefValidation:
                 advice=f'For @ref-type="aff" without text content, use self-closing: <xref ref-type="aff" rid="{rid}"/>',
                 data=xref_data,
                 error_level=error_level,
-                advice_text='For @ref-type="aff" without text content, use self-closing: <xref ref-type="aff" rid="{rid}"/>',
+                advice_text=i18n._('For @ref-type="aff" without text content, use self-closing: <xref ref-type="aff" rid="{rid}"/>'),
                 advice_params={"rid": rid},
             )
 
@@ -353,7 +354,7 @@ class ArticleXrefValidation:
                         "missing_elems": self.missing_elems,
                     },
                     error_level=self.params["xref_rid_error_level"],
-                    advice_text='Found {tag_and_attribs}, but not found the corresponding {elem_xml}',
+                    advice_text=i18n._('Found {tag_and_attribs}, but not found the corresponding {elem_xml}'),
                     advice_params={
                         "tag_and_attribs": xref.get("tag_and_attribs"),
                         "elem_xml": xref.get("elem_xml"),
@@ -393,8 +394,8 @@ class ArticleXrefValidation:
                             f'Mark {label}, mention to {tag_and_attribs}, with {xref_xml}'
                         )
                         advice_text = (
-                            'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
-                            'Mark {label}, mention to {tag_and_attribs}, with {xref_xml}'
+                            i18n._('Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
+                            'Mark {label}, mention to {tag_and_attribs}, with {xref_xml}')
                         )
                         advice_params = {
                             "tag_and_attribs": tag_and_attribs,
@@ -406,7 +407,7 @@ class ArticleXrefValidation:
                             f'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
                         )
                         advice_text = (
-                            'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
+                            i18n._('Found {tag_and_attribs}, but no corresponding {xref_xml} was found. ')
                         )
                         advice_params = {
                             "tag_and_attribs": tag_and_attribs,
@@ -489,8 +490,8 @@ class ArticleXrefValidation:
                         "missing_elems": self.missing_elems,
                     },
                     error_level=error_level,
-                    advice_text='Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
-                    'Mark the {tag_and_attribs} cross-references using {xref_xml}',
+                    advice_text=i18n._('Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
+                    'Mark the {tag_and_attribs} cross-references using {xref_xml}'),
                     advice_params={
                         "tag_and_attribs": tag_and_attribs,
                         "xref_xml": xref_xml,

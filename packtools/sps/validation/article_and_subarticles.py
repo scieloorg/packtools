@@ -8,6 +8,7 @@ from packtools.sps.validation.exceptions import (
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class ArticleLangValidation:
@@ -93,14 +94,14 @@ class ArticleLangValidation:
             if article_lang:
                 xml = f'<{parent}{parent_id} xml:lang="{article_lang}">'
                 advice = f'Replace {article_lang} in {xml} with one of {language_codes_list}'
-                advice_text = 'Replace {lang} in {xml} with one of {lang_list}'
+                advice_text = i18n._('Replace {lang} in {xml} with one of {lang_list}')
                 advice_params = {"lang": article_lang, "xml": xml, "lang_list": str(language_codes_list)}
             else:
                 xml = f'<{parent}{parent_id}>'
                 xml2 = f'<{parent}{parent_id} xml:lang="VALUE">'
 
                 advice = f'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {language_codes_list}'
-                advice_text = 'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {lang_list}'
+                advice_text = i18n._('Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {lang_list}')
                 advice_params = {"xml": xml, "xml2": xml2, "lang_list": str(language_codes_list)}
             yield build_response(
                     title=f"{name} language",
@@ -171,7 +172,14 @@ class ArticleTypeValidation:
             name = article_id or parent
             xml = f'<{parent} article-type=""/>'
             advice = None if valid else f'Complete {name} article-type {xml} with valid value {article_type_list}'
-            advice_text = None if valid else 'Complete {name} article-type {xml} with valid value {type_list}'
+            advice_text = (
+                None
+                if valid
+                else i18n._(
+                    "Complete {name} article-type {xml} with valid value"
+                    " {type_list}"
+                )
+            )
             advice_params = {} if valid else {"name": name, "xml": xml, "type_list": str(article_type_list)}
             yield build_response(
                     title=f"{name} article-type",
@@ -251,7 +259,7 @@ class ArticleTypeValidation:
                     f"Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
                 )
                 advice_text = (
-                    "Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
+                    i18n._("Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. ")
                 )
                 advice_params = {
                     "xml_article_type": xml_article_type,
@@ -326,6 +334,15 @@ class ArticleIdValidation:
             expected=expected_value,
             obtained=order,
             advice=f'Fix the table of contents article order {order} in <article-id pub-id-type="other">{order}</article-id>. It must be {expected_value}',
+            advice_text=(
+                i18n._("Fix the table of contents article order {order} in "
+                '<article-id pub-id-type="other">{order}</article-id>. '
+                "It must be {expected}")
+            ),
+            advice_params={
+                "order": order,
+                "expected": expected_value,
+            },
             data=self.article_ids.data,
             error_level=self.params["id_other_error_level"],
         )
@@ -371,13 +388,13 @@ class JATSAndDTDVersionValidation:
         advice_params = {}
         if not versions:
             advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}',
-            advice_text = 'Complete SPS version <article specific-use=""/> with valid value: {versions}'
+            advice_text = i18n._('Complete SPS version <article specific-use=""/> with valid value: {versions}')
             advice_params = {"versions": str(list(versions.keys()))}
 
         elif jats_version not in expected_jats_versions:
             xml = f'<article specific-use="" dtd-version=""/>'
             advice = f'Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}'
-            advice_text = 'Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}'
+            advice_text = i18n._('Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}')
             advice_params = {"xml": xml, "versions": str(versions)}
 
         expected = expected_jats_versions or versions

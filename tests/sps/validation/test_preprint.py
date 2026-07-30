@@ -70,7 +70,14 @@ class PreprintValidationTest(unittest.TestCase):
                 'expected_value': 'The preprint publication date',
                 'got_value': None,
                 'message': 'Got None expected The preprint publication date',
-                'advice': 'Provide the publication date of the preprint'
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': None,
+                    'expected': 'The preprint publication date',
+                },
+                'advice': 'Provide the publication date of the preprint',
+                'adv_text': 'Provide the publication date of the preprint',
+                'adv_params': {},
 
             }
         ]
@@ -108,9 +115,18 @@ class PreprintValidationTest(unittest.TestCase):
                 'expected_value': None,
                 'got_value': '2002-10-18',
                 'message': 'Got 2002-10-18 expected None',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '2002-10-18',
+                    'expected': None,
+                },
                 'advice': 'The article does not reference the preprint, provide it as in the example: '
                           '<related-article id="pp1" related-article-type="preprint" ext-link-type="doi" '
-                          'xlink:href="10.1590/SciELOPreprints.1174"/>'
+                          'xlink:href="10.1590/SciELOPreprints.1174"/>',
+                'adv_text': 'The article does not reference the preprint, provide it as in the example: '
+                            '<related-article id="pp1" related-article-type="preprint" ext-link-type="doi" '
+                            'xlink:href="10.1590/SciELOPreprints.1174"/>',
+                'adv_params': {},
 
             }
         ]

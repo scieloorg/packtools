@@ -567,6 +567,10 @@ class TestArticleIdValidation(unittest.TestCase):
         self.assertIn("a numerical value from 1 to 99999", result['expected_value'])
         self.assertIsNotNone(result['advice'])
         self.assertIn("Fix the table of contents article order", result['advice'])
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_article_id_other_with_zero_id(self):
         """Testa validação com um ID inválido (zero)"""

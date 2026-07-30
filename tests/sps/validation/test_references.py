@@ -65,6 +65,11 @@ class ReferenceValidationTest(TestCase):
         self.assertEqual("2015", result["got_value"])
         self.assertEqual("reference year (2015) previous or equal to 2014", result["expected_value"])
         self.assertEqual("B1 (journal) : Mark the reference year (2015) with <year> and it must be previous or equal to 2014", result["advice"])
+        self.assertEqual(
+            "B1 (journal): Mark the reference year (2015) with <year>; "
+            "it must be earlier than or equal to 2014",
+            result["adv_text"].format(**result["adv_params"]),
+        )
 
     def test_validate_year_fail_invalid_year(self):
         reference_data = self.reference_data.copy()
@@ -80,6 +85,11 @@ class ReferenceValidationTest(TestCase):
         self.assertEqual("201a", result["got_value"])
         self.assertEqual("reference year (201a) previous or equal to 2014", result["expected_value"])
         self.assertEqual("B1 (journal) : Mark the reference year (201a) with <year> and it must be previous or equal to 2014", result["advice"])
+        self.assertEqual(
+            "B1 (journal): Mark the reference year (201a) with <year>; "
+            "it must be earlier than or equal to 2014",
+            result["adv_text"].format(**result["adv_params"]),
+        )
 
     # Testes para validate_source
     def test_validate_source_fail_missing(self):

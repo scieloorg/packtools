@@ -1,4 +1,5 @@
 recursive-include packtools *.xsd *.sch *.xml *.ent *.dtd *.mod *.xslt *.json *.xsl *.html *.ico *.css *.txt *.png *.js
+recursive-include packtools/sps/locale *.mo
 recursive-exclude tests *
 include README.md HISTORY.md
 exclude tox.ini

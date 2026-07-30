@@ -82,6 +82,12 @@ class ListValidationTest(unittest.TestCase):
         self.assertEqual(list_type_validation["response"], "CRITICAL")
         self.assertIsNone(list_type_validation["got_value"])
         self.assertIn("Add list-type attribute", list_type_validation["advice"])
+        self.assertEqual(
+            list_type_validation["adv_text"].format(
+                **list_type_validation["adv_params"]
+            ),
+            list_type_validation["advice"],
+        )
 
     def test_list_validation_empty_list_type(self):
         """Test list with empty @list-type attribute (CRITICAL error)"""
@@ -154,6 +160,12 @@ class ListValidationTest(unittest.TestCase):
         self.assertEqual(list_type_value_validation["response"], "ERROR")
         self.assertEqual(list_type_value_validation["got_value"], "numbered")
         self.assertIn('"numbered" is not allowed', list_type_value_validation["advice"])
+        self.assertEqual(
+            list_type_value_validation["adv_text"].format(
+                **list_type_value_validation["adv_params"]
+            ),
+            list_type_value_validation["advice"],
+        )
 
     def test_list_validation_only_one_list_item(self):
         """Test list with only one <list-item> (ERROR)"""
@@ -185,6 +197,12 @@ class ListValidationTest(unittest.TestCase):
         ][0]
         self.assertEqual(min_items_validation["response"], "ERROR")
         self.assertIn("at least 2", min_items_validation["advice"])
+        self.assertEqual(
+            min_items_validation["adv_text"].format(
+                **min_items_validation["adv_params"]
+            ),
+            min_items_validation["advice"],
+        )
 
     def test_list_validation_with_label_in_list_item(self):
         """Test list with <label> in <list-item> (WARNING)"""
@@ -221,6 +239,10 @@ class ListValidationTest(unittest.TestCase):
         ][0]
         self.assertEqual(label_validation["response"], "WARNING")
         self.assertIn("For accessibility", label_validation["advice"])
+        self.assertEqual(
+            label_validation["adv_text"].format(**label_validation["adv_params"]),
+            label_validation["advice"],
+        )
 
     def test_list_validation_empty_list_items(self):
         """Test list with empty <list-item> elements (WARNING)"""
@@ -254,6 +276,12 @@ class ListValidationTest(unittest.TestCase):
         ][0]
         self.assertEqual(empty_items_validation["response"], "WARNING")
         self.assertIn("empty <list-item>", empty_items_validation["advice"])
+        self.assertEqual(
+            empty_items_validation["adv_text"].format(
+                **empty_items_validation["adv_params"]
+            ),
+            empty_items_validation["advice"],
+        )
 
     def test_list_validation_all_list_types(self):
         """Test that all valid list-type values are accepted"""
@@ -380,6 +408,10 @@ class ListValidationTest(unittest.TestCase):
         ][0]
         # This is a recommendation, so it should pass but have advice
         self.assertEqual(title_validation["response"], "INFO")
+        self.assertEqual(
+            title_validation["adv_text"].format(**title_validation["adv_params"]),
+            title_validation["advice"],
+        )
         # Since it's just a recommendation with INFO level, it should still pass
 
     def test_list_validation_with_title_present(self):

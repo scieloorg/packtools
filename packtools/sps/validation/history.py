@@ -9,6 +9,7 @@ Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJ
 """
 
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 # Allowed values for @date-type according to SPS 1.10
@@ -225,6 +226,11 @@ class HistoryValidation:
                 expected="at most one <history> element",
                 obtained=f"{history_count} <history> element(s)",
                 advice=advice,
+                advice_text=(
+                    i18n._("Remove duplicate <history> elements. Found {count} "
+                    "occurrences, expected at most 1.")
+                ),
+                advice_params={"count": history_count},
                 data={"history_count": history_count},
                 error_level=self.params["history_uniqueness_error_level"],
             )
@@ -269,6 +275,17 @@ class HistoryValidation:
                     expected="@date-type attribute present",
                     obtained=date_type if has_date_type else "missing",
                     advice=advice,
+                    advice_text=(
+                        i18n._("Add @date-type attribute to <date> element. "
+                        "Date parts: {date_parts}")
+                    ),
+                    advice_params={"date_parts": date_parts},
+                    message_text=(
+                        i18n._("The @date-type attribute is present")
+                        if has_date_type
+                        else i18n._("The @date-type attribute is required")
+                    ),
+                    message_params={},
                     data=date_parts,
                     error_level=self.params["date_type_presence_error_level"],
                 )
@@ -323,6 +340,14 @@ class HistoryValidation:
                     expected=ALLOWED_DATE_TYPES,
                     obtained=date_type,
                     advice=advice,
+                    advice_text=(
+                        i18n._("Change @date-type='{date_type}' to one of the "
+                        "allowed values: {allowed_values}")
+                    ),
+                    advice_params={
+                        "date_type": date_type,
+                        "allowed_values": ", ".join(ALLOWED_DATE_TYPES),
+                    },
                     data=date_parts,
                     error_level=self.params["date_type_value_error_level"],
                 )
@@ -370,6 +395,20 @@ class HistoryValidation:
                         "to <history>"
                     )
 
+                if has_date:
+                    message_text = i18n._(
+                        'The required <date date-type="{date_type}"> is present'
+                    )
+                elif date_required:
+                    message_text = i18n._(
+                        'The required <date date-type="{date_type}"> is missing'
+                    )
+                else:
+                    message_text = i18n._(
+                        '<date date-type="{date_type}"> is not required for '
+                        "article type {article_type}"
+                    )
+
                 yield build_response(
                     title=f"required date: {required_type}",
                     parent=parent,
@@ -384,6 +423,13 @@ class HistoryValidation:
                     ),
                     obtained="present" if has_date else "missing",
                     advice=advice,
+                    advice_text=i18n._('Add <date date-type="{date_type}"> to <history>'),
+                    advice_params={"date_type": required_type},
+                    message_text=message_text,
+                    message_params={
+                        "date_type": required_type,
+                        "article_type": article_type,
+                    },
                     data={
                         "article_type": article_type,
                         "is_exempt": is_exempt,
@@ -459,6 +505,14 @@ class HistoryValidation:
                     expected="complete date with day, month, and year",
                     obtained=f"day={day}, month={month}, year={year}",
                     advice=advice,
+                    advice_text=(
+                        i18n._('Add missing elements to <date date-type="{date_type}">: '
+                        "{missing_parts}")
+                    ),
+                    advice_params={
+                        "date_type": date_type,
+                        "missing_parts": ", ".join(missing_parts),
+                    },
                     data=date_parts,
                     error_level=self.params["complete_date_error_level"],
                 )
@@ -508,6 +562,20 @@ class HistoryValidation:
                     expected="<year> element present",
                     obtained=year if has_year else "missing",
                     advice=advice,
+                    advice_text=i18n._('Add <year> element to <date date-type="{date_type}">'),
+                    advice_params={"date_type": date_type},
+                    message_text=(
+                        i18n._(
+                            "<year> is present in "
+                            '<date date-type="{date_type}">'
+                        )
+                        if has_year
+                        else i18n._(
+                            "<year> is required in "
+                            '<date date-type="{date_type}">'
+                        )
+                    ),
+                    message_params={"date_type": date_type},
                     data=date_parts,
                     error_level=self.params["year_presence_error_level"],
                 )

@@ -1,0 +1,1906 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-07-29 11:03-0300\n"
+"PO-Revision-Date: 2026-07-29 11:32-0300\n"
+"Last-Translator: Rafael JPD / Pitanga Innovare <rafael@pitangainnovare.com.br>\n"
+"Language-Team: pt_BR <LL@li.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: packtools/sps/validation/accessibility_data.py:106
+#, python-brace-format
+msgid "<alt-text> is incorrectly located inside <{parent_tag}>. According to SPS 1.9/1.10, <alt-text> must be inside one of these elements: {expected_elements}. Move the <alt-text> element inside the appropriate <graphic> or <media> element."
+msgstr "<alt-text> está localizado incorretamente dentro de <{parent_tag}>. De acordo com SPS 1.9/1.10, <alt-text> deve estar dentro de um destes elementos: {expected_elements}. Mova o elemento <alt-text> dentro do elemento <graphic> ou <media> apropriado."
+
+#: packtools/sps/validation/accessibility_data.py:157
+msgid "Missing <alt-text>. Provide a concise textual description of the visual element content."
+msgstr "Falta o elemento <alt-text>. Forneça uma descrição textual concisa do conteúdo do elemento visual."
+
+#: packtools/sps/validation/accessibility_data.py:164
+#, python-brace-format
+msgid "alt-text has {length} characters in {xml}. Provide text with up to {max_length} characters."
+msgstr "alt-text tem {length} caracteres em {xml}. Forneça um texto com até {max_length} caracteres."
+
+#: packtools/sps/validation/accessibility_data.py:189
+#, python-brace-format
+msgid "Got {obtained}, expected up to {max_length} characters"
+msgstr "Obtido {obtained}, esperado no máximo {max_length} caracteres"
+
+#: packtools/sps/validation/accessibility_data.py:205
+#: packtools/sps/validation/accessibility_data.py:462
+#, python-brace-format
+msgid "The value {value} is invalid in {xml}. Replace it with one of the accepted values: {accepted_values}."
+msgstr "O valor {value} é inválido em {xml}. Substitua-o por um dos valores aceitos: {accepted_values}."
+
+#: packtools/sps/validation/accessibility_data.py:277
+#, python-brace-format
+msgid "In <{tag}>, <alt-text> should only be used for video (mp4) or audio (mp3) files. Current mime-type is {mimetype} with mime-subtype {mime_subtype}. For other file types (PDF, ZIP, XLSX), remove <alt-text> or consider using <long-desc> instead. Refer to SPS 1.10 documentation for details."
+msgstr "Em <{tag}>, <alt-text> deve ser usado apenas para arquivos de vídeo (mp4) ou áudio (mp3). O tipo mime atual é {mimetype} com o subtipo mime {mime_subtype}. Para outros tipos de arquivo (PDF, ZIP, XLSX), remova <alt-text> ou considere usar <long-desc>. Consulte a documentação do SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:352
+#, python-brace-format
+msgid "<alt-text> content duplicates {duplicated_element}. According to SPS 1.9/1.10, <alt-text> should not copy content from <label> or <caption>. Provide a unique, descriptive text for the visual element instead."
+msgstr "O conteúdo <alt-text> duplica {duplicated_element}. De acordo com SPS 1.9/1.10, <alt-text> não deve copiar conteúdo de <label> ou <caption>. Em vez disso, forneça um texto descritivo exclusivo para o elemento visual."
+
+#: packtools/sps/validation/accessibility_data.py:410
+msgid "<alt-text>null</alt-text> indicates a decorative figure. Ensure this is an editorial decision and the image is truly decorative (not essential for understanding the content). Refer to SPS 1.10 documentation for decorative images guidance."
+msgstr "<alt-text>null</alt-text> indica uma figura decorativa. Certifique-se de que esta é uma decisão editorial e que a imagem é verdadeiramente decorativa (não essencial para a compreensão do conteúdo). Consulte a documentação do SPS 1.10 para orientação sobre imagens decorativas."
+
+#: packtools/sps/validation/accessibility_data.py:522
+#, python-brace-format
+msgid "<long-desc> has only {length} characters. According to SPS 1.9/1.10, <long-desc> must have MORE than 120 characters. Use <alt-text> for descriptions up to 120 characters, or expand this <long-desc> to provide more detail."
+msgstr "<long-desc> tem apenas {length} caracteres. De acordo com SPS 1.9/1.10, <long-desc> deve ter MAIS de 120 caracteres. Use <alt-text> para descrições com até 120 caracteres ou amplie <long-desc> para fornecer mais detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:593
+#, python-brace-format
+msgid "In <{tag}>, <long-desc> should only be used for video (mp4) or audio (mp3) files. Current mime-type is {mimetype} with mime-subtype {mime_subtype}. For other file types, <long-desc> is not appropriate. Refer to SPS 1.10 documentation for details."
+msgstr "Em <{tag}>, <long-desc> deve ser usado apenas para arquivos de vídeo (mp4) ou áudio (mp3). O tipo mime atual é {mimetype} com o subtipo mime {mime_subtype}. Para outros tipos de arquivo, <long-desc> não é apropriado. Consulte a documentação do SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:668
+#, python-brace-format
+msgid "<long-desc> content duplicates {duplicated_element}. According to SPS 1.9/1.10, <long-desc> should not copy content from <label> or <caption>. Provide a detailed, unique description that adds value beyond the label or caption."
+msgstr "O conteúdo <long-desc> duplica {duplicated_element}. De acordo com SPS 1.9/1.10, <long-desc> não deve copiar conteúdo de <label> ou <caption>. Forneça uma descrição detalhada e exclusiva que agregue valor além do rótulo ou legenda."
+
+#: packtools/sps/validation/accessibility_data.py:723
+#, python-brace-format
+msgid "Found {count} <long-desc> elements. Only one <long-desc> is allowed per graphic/media element. Remove duplicate <long-desc> elements. Refer to SPS 1.10 documentation for details."
+msgstr "Foram encontrados {count} elementos <long-desc>. Apenas um <long-desc> é permitido por elemento graphic/media. Remova os elementos <long-desc> duplicados. Consulte a documentação SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:751
+#, python-brace-format
+msgid "Found {count} <long-desc> elements; expected at most one"
+msgstr "Encontrados {count} elementos <long-desc>; esperado no máximo um"
+
+#: packtools/sps/validation/accessibility_data.py:790
+msgid "Found <alt-text>null</alt-text> combined with <long-desc>. When using <long-desc>, do not use <alt-text>null</alt-text>. Either remove <alt-text> or provide meaningful content instead of 'null'. Refer to SPS 1.10 documentation for combined markup guidance."
+msgstr "Encontrado <alt-text>null</alt-text> combinado com <long-desc>. Ao usar <long-desc>, não use <alt-text>null</alt-text>. Remova <alt-text> ou forneça conteúdo significativo em vez de 'null'. Consulte a documentação do SPS 1.10 para orientação de marcação combinada."
+
+#: packtools/sps/validation/accessibility_data.py:816
+msgid "<alt-text> must not be 'null' when <long-desc> is present"
+msgstr "<alt-text> não deve ser 'null' quando <long-desc> estiver presente"
+
+#: packtools/sps/validation/accessibility_data.py:857
+#, python-brace-format
+msgid "<{tag}> with {mimetype} is missing <xref ref-type=\"sec\"> linking to transcript section. According to SPS 1.9/1.10, audio and video elements should include a reference to their transcript section. Add: <xref ref-type=\"sec\" rid=\"TRANSCRIPT_ID\"/> inside <{tag}>. Refer to SPS 1.10 documentation for details."
+msgstr "<{tag}> com {mimetype} está faltando <xref ref-type=\"sec\"> vinculando à seção de transcrição. De acordo com SPS 1.9/1.10, os elementos de áudio e vídeo devem incluir uma referência à sua secção de transcrição. Adicione: <xref ref-type=\"sec\" rid=\"TRANSCRIPT_ID\"/> dentro de <{tag}>. Consulte a documentação do SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:918
+#, python-brace-format
+msgid "The transcript is missing in the {tag} element. Add a <sec sec-type=\"transcript\"> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details."
+msgstr "A transcrição está faltando no elemento {tag}. Adicione uma seção <sec sec-type=\"transcript\"> para fornecer alternativas de texto acessíveis. Consulte a documentação do SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:982
+msgid "Dialog elements are missing in the <sec sec-type='transcript'> section. Use <speaker> and <speech> to represent the dialogue. Refer to SPS 1.10 docs for details."
+msgstr "Os elementos da caixa de diálogo estão faltando na seção <sec sec-type='transcript'>. Use <speaker> e <speech> para representar o diálogo. Consulte a documentação do SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/accessibility_data.py:1030
+#, python-brace-format
+msgid "Accessibility data is located in an invalid element: <{tag}>. Use one of the valid elements: {valid_elements}. Refer to SPS 1.10 docs for details."
+msgstr "Os dados de acessibilidade estão localizados em um elemento inválido: <{tag}>. Use um dos elementos válidos: {valid_elements}. Consulte a documentação do SPS 1.10 para obter detalhes."
+
+#: packtools/sps/validation/aff.py:112
+#, python-brace-format
+msgid "Ensure translation has same number of affiliations ({expected_count}) as main text"
+msgstr "Certifique-se de que a tradução tenha o mesmo número de afiliações ({expected_count}) que o texto principal"
+
+#: packtools/sps/validation/aff.py:296
+msgid "Mark the complete original affiliation text with <institution content-type=\"original\"> in <aff>"
+msgstr "Marque o texto de afiliação original completo com <institution content-type=\"original\"> em <aff>"
+
+#: packtools/sps/validation/aff.py:320
+#, python-brace-format
+msgid "Mark the main institution with <institution content-type=\"orgname\"> in <aff> for {original}"
+msgstr "Marque a instituição principal com <institution content-type=\"orgname\"> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:340
+#, python-brace-format
+msgid "Mark the first hierarchical subdivision with <institution content-type=\"orgdiv1\"> in <aff> for {original}"
+msgstr "Marque a primeira subdivisão hierárquica com <institution content-type=\"orgdiv1\"> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:360
+#, python-brace-format
+msgid "Mark the second hierarchical subdivision with <institution content-type=\"orgdiv2\"> in <aff> for {original}"
+msgstr "Marque a segunda subdivisão hierárquica com <institution content-type=\"orgdiv2\"> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:380
+#, python-brace-format
+msgid "Mark affiliation label with <label> in <aff> for {original}"
+msgstr "Marque o rótulo de afiliação com <label> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:400
+#, python-brace-format
+msgid "Mark affiliation country with <country> in <aff> for {original}"
+msgstr "Marque o país de afiliação com <country> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:430
+#, python-brace-format
+msgid "Complete <country country=\"\"> in <aff> with a valid value from the ISO 3166 list: {codes} for {original}"
+msgstr "Preencha <country country=\"\"> em <aff> com um valor válido da lista ISO 3166: {codes} para {original}"
+
+#: packtools/sps/validation/aff.py:453
+#, python-brace-format
+msgid "Mark affiliation state with <addr-line><state> in <aff> for {original}"
+msgstr "Marque o estado de afiliação com <addr-line><state> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:473
+#, python-brace-format
+msgid "Mark affiliation city with <addr-line><city> in <aff> for {original}"
+msgstr "Marque a cidade de afiliação com <addr-line><city> em <aff> para {original}"
+
+#: packtools/sps/validation/aff.py:493
+msgid "Complete <aff id=\"\"> with affiliation identifier"
+msgstr "Preencha <aff id=\"\"> com identificador de afiliação"
+
+#: packtools/sps/validation/aff.py:547
+#, python-brace-format
+msgid "Add email {email} to <institution content-type=\"original\"> in <aff>. The email present in <email> must also be present in the original affiliation text"
+msgstr "Adicione o e-mail {email} a <institution content-type=\"original\"> em <aff>. O email presente em <email> também deve estar presente no texto original da afiliação"
+
+#: packtools/sps/validation/aff.py:636
+#, python-brace-format
+msgid "Compare {main_id} and {trans_id}. Make sure they are corresponding. Low similarity found in: {differences}"
+msgstr "Compare {main_id} e {trans_id}. Certifique-se de que eles sejam correspondentes. Baixa similaridade encontrada em: {differences}"
+
+#: packtools/sps/validation/aff.py:671 packtools/sps/validation/aff.py:708
+#, python-brace-format
+msgid "Got {obtained}, expected {component} to be marked"
+msgstr "Obtido {obtained}, esperado que {component} esteja marcado"
+
+#: packtools/sps/validation/aff.py:689
+#, python-brace-format
+msgid "{info}: {value} ({key}) not found in {original}"
+msgstr "{info}: {value} ({key}) não encontrado em {original}"
+
+#: packtools/sps/validation/aff.py:698
+#, python-brace-format
+msgid "{info}: {key} was not marked. Check whether {key} appears in {original}"
+msgstr "{info}: {key} não foi marcado. Verifique se {key} aparece em {original}"
+
+#: packtools/sps/validation/aff.py:716
+#, python-brace-format
+msgid "No value was found for {component}; expected {component} to be marked"
+msgstr "Nenhum valor foi encontrado para {component}; esperado que {component} esteja marcado"
+
+#: packtools/sps/validation/alternatives.py:64
+#, python-brace-format
+msgid "Add {expected} as sub-elements of {parent}/alternatives"
+msgstr "Adicione {expected} como subelementos de {parent}/alternativas"
+
+#: packtools/sps/validation/alternatives.py:118
+#, python-brace-format
+msgid "Use SVG format for graphic in {parent}/alternatives. Got: {obtained}"
+msgstr "Use o formato SVG para gráficos em {parent}/alternatives. Obteve: {obtained}"
+
+#: packtools/sps/validation/alternatives.py:158
+#, python-brace-format
+msgid "Remove <alt-text> from graphic in {parent}/alternatives. Alternative images do not require alt-text because the coded version ({coded_version}) is already accessible."
+msgstr "Remova <alt-text> do gráfico em {parent}/alternatives. Imagens alternativas não requerem texto alternativo porque a versão codificada ({coded_version}) já está acessível."
+
+#: packtools/sps/validation/alternatives.py:202
+#, python-brace-format
+msgid "Remove <long-desc> from graphic in {parent}/alternatives. Alternative images do not require long-desc because the coded version ({coded_version}) is already accessible."
+msgstr "Remova <long-desc> do gráfico em {parent}/alternatives. Imagens alternativas não requerem descrição longa porque a versão codificada ({coded_version}) já está acessível."
+
+#: packtools/sps/validation/alternatives.py:281
+#, python-brace-format
+msgid "Add both coded version ({coded}) and image ({image}) to {parent}/alternatives"
+msgstr "Adicione a versão codificada ({coded}) e a imagem ({image}) a {parent}/alternatives"
+
+#: packtools/sps/validation/app_group.py:52
+msgid "Consider adding an <app> element to include additional content such as appendices."
+msgstr "Considere adicionar um elemento <app> para incluir conteúdo adicional, como apêndices."
+
+#: packtools/sps/validation/app_group.py:54
+msgid "No <app> element was found"
+msgstr "Nenhum elemento <app> foi encontrado"
+
+#: packtools/sps/validation/app_group.py:100
+msgid "Add @id attribute to <app>. Example: <app id=\"app1\">"
+msgstr "Adicione o atributo @id a <app>. Exemplo: <app id=\"app1\">"
+
+#: packtools/sps/validation/app_group.py:132
+#, python-brace-format
+msgid "Add <label> element to <app id=\"{app_id_or_placeholder}\">. Example: <app id=\"{app_id_or_example_fix}\"><label>Appendix 1</label></app>"
+msgstr "Adicione o elemento <label> a <app id=\"{app_id_or_placeholder}\">. Exemplo: <app id=\"{app_id_or_example_fix}\"><label>Apêndice 1</label></app>"
+
+#: packtools/sps/validation/app_group.py:187
+#, python-brace-format
+msgid "Wrap <app id=\"{app_id}\"> with <app-group>. Example: <back><app-group><app id=\"{app_id}\">...</app></app-group></back>"
+msgstr "Enrole <app id=\"{app_id}\"> com <app-group>. Exemplo: <back><app-group><app id=\"{app_id}\">...</app></app-group></back>"
+
+#: packtools/sps/validation/app_group.py:224
+#, python-brace-format
+msgid "Merge all {count} <app-group> elements into a single <app-group>."
+msgstr "Mescle todos os {count} elementos <app-group> em um único <app-group>."
+
+#: packtools/sps/validation/app_group.py:229
+#, python-brace-format
+msgid "Found {count} <app-group> elements in <back>; expected at most one"
+msgstr "Encontrados {count} elementos <app-group> em <back>; esperado no máximo um"
+
+#: packtools/sps/validation/article_abstract.py:181
+#, python-brace-format
+msgid "Replace {value} in {element} by a valid value: {valid_values}"
+msgstr "Substitua {value} em {element} por um valor válido: {valid_values}"
+
+#: packtools/sps/validation/article_abstract.py:189
+#, python-brace-format
+msgid "Add abstract type in {element}. Valid values: {valid_values}"
+msgstr "Adicione o tipo abstrato em {element}. Valores válidos: {valid_values}"
+
+#: packtools/sps/validation/article_abstract.py:238
+#, python-brace-format
+msgid "Mark {element} in {container}"
+msgstr "Marque {element} em {container}"
+
+#: packtools/sps/validation/article_abstract.py:272
+#, python-brace-format
+msgid "Add {element} as sibling of {container}"
+msgstr "Adicione {element} como irmão de {container}"
+
+#: packtools/sps/validation/article_abstract.py:310
+#, python-brace-format
+msgid "Remove {element} which is associated with {container} by language"
+msgstr "Remova {element} que está associado a {container} por idioma"
+
+#: packtools/sps/validation/article_abstract.py:350
+#, python-brace-format
+msgid "Mark abstract title with {element} in {container}"
+msgstr "Marque o título do resumo com {element} em {container}"
+
+#: packtools/sps/validation/article_abstract.py:380
+#, python-brace-format
+msgid "Replace {wrong_element} inside {container} by {correct_element}"
+msgstr "Substitua {wrong_element} dentro de {container} por {correct_element}"
+
+#: packtools/sps/validation/article_abstract.py:414
+#, python-brace-format
+msgid "Provide more than one {element} in {container}"
+msgstr "Forneça mais de um {element} em {container}"
+
+#: packtools/sps/validation/article_abstract.py:527
+#, python-brace-format
+msgid "Mark abstract which is required for {article_type}"
+msgstr "Marque o resumo que é necessário para {article_type}"
+
+#: packtools/sps/validation/article_abstract.py:534
+#, python-brace-format
+msgid "Abstract is not expected for {article_type}"
+msgstr "Resumo não é esperado para {article_type}"
+
+#: packtools/sps/validation/article_and_subarticles.py:97
+#, python-brace-format
+msgid "Replace {lang} in {xml} with one of {lang_list}"
+msgstr "Substitua {lang} em {xml} por um de {lang_list}"
+
+#: packtools/sps/validation/article_and_subarticles.py:104
+#, python-brace-format
+msgid "Add xml:lang=\"VALUE\" in {xml}: {xml2} and replace VALUE with one of {lang_list}"
+msgstr "Adicione xml:lang=\"VALUE\" em {xml}: {xml2} e substitua VALUE por um de {lang_list}"
+
+#: packtools/sps/validation/article_and_subarticles.py:179
+#, python-brace-format
+msgid "Complete {name} article-type {xml} with valid value {type_list}"
+msgstr "Preencha o article-type de {name} em {xml} com um valor válido de {type_list}"
+
+#: packtools/sps/validation/article_and_subarticles.py:262
+#, python-brace-format
+msgid "Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
+msgstr "Verifique {xml_article_type} e {xml_subject}. Outros valores para tipo de artigo parecem ser mais adequados: {choices}."
+
+#: packtools/sps/validation/article_and_subarticles.py:338
+#, python-brace-format
+msgid "Fix the table of contents article order {order} in <article-id pub-id-type=\"other\">{order}</article-id>. It must be {expected}"
+msgstr "Corrija a ordem do artigo do índice {order} em <article-id pub-id-type=\"other\">{order}</article-id>. Deve ser {expected}"
+
+#: packtools/sps/validation/article_and_subarticles.py:391
+#, python-brace-format
+msgid "Complete SPS version <article specific-use=\"\"/> with valid value: {versions}"
+msgstr "Versão completa do SPS <article specific-use=\"\"/> com valor válido: {versions}"
+
+#: packtools/sps/validation/article_and_subarticles.py:397
+#, python-brace-format
+msgid "Complete SPS (specific-use=\"\") and JATS (dtd-version=\"\") versions in {xml} with compatible values: {versions}"
+msgstr "Preencha as versões SPS (specific-use=\"\") e JATS (dtd-version=\"\") em {xml} com valores compatíveis: {versions}"
+
+#: packtools/sps/validation/article_contribs.py:76
+#, python-brace-format
+msgid "{info}: Add @contrib-type attribute to <contrib>. Valid values: {values}"
+msgstr "{info}: Adicione o atributo @contrib-type a <contrib>. Valores válidos: {values}"
+
+#: packtools/sps/validation/article_contribs.py:107
+#, python-brace-format
+msgid "{info}: @contrib-type=\"{obtained}\" is invalid. Use: {expected}"
+msgstr "{info}: @contrib-type=\"{obtained}\" é inválido. Use: {expected}"
+
+#: packtools/sps/validation/article_contribs.py:137
+#, python-brace-format
+msgid "{info}: @contrib-type must be \"author\" for this document type (except reviewer reports)"
+msgstr "{info}: @contrib-type deve ser \"author\" para este tipo de documento (exceto relatórios de revisores)"
+
+#: packtools/sps/validation/article_contribs.py:169
+#, python-brace-format
+msgid "{info}: Mark the contrib role. Consult SPS documentation for detailed instructions"
+msgstr "{info}: Marque a função de contribuição. Consulte a documentação do SPS para obter instruções detalhadas"
+
+#: packtools/sps/validation/article_contribs.py:230
+#, python-brace-format
+msgid "{info}: Do not use URLs. Extract only the alphanumeric identifier from {orcid}"
+msgstr "{info}: Não use URLs. Extraia apenas o identificador alfanumérico de {orcid}"
+
+#: packtools/sps/validation/article_contribs.py:261
+#, python-brace-format
+msgid "Fix ORCID format <contrib-id contrib-id-type=\"orcid\">{orcid}</contrib-id>"
+msgstr "Corrija formato ORCID <contrib-id contrib-id-type=\"orcid\">{orcid}</contrib-id>"
+
+#: packtools/sps/validation/article_contribs.py:269
+#, python-brace-format
+msgid "{info}: Add ORCID <contrib-id contrib-id-type=\"orcid\"></contrib-id> in <contrib>"
+msgstr "{info}: Adicione ORCID <contrib-id contrib-id-type=\"orcid\"></contrib-id> em <contrib>"
+
+#: packtools/sps/validation/article_contribs.py:290
+#, python-brace-format
+msgid "ORCID {orcid} is valid"
+msgstr "O ORCID {orcid} é válido"
+
+#: packtools/sps/validation/article_contribs.py:294
+#, python-brace-format
+msgid "ORCID {orcid} is invalid; expected format XXXX-XXXX-XXXX-XXXX"
+msgstr "O ORCID {orcid} é inválido; esperado o formato XXXX-XXXX-XXXX-XXXX"
+
+#: packtools/sps/validation/article_contribs.py:298
+msgid "A valid ORCID is required"
+msgstr "É obrigatório informar um ORCID válido"
+
+#: packtools/sps/validation/article_contribs.py:337
+#, python-brace-format
+msgid "{info}: Unable to automatically check the {orcid}. Check it manually"
+msgstr "{info}: Não é possível verificar automaticamente o {orcid}. Verifique manualmente"
+
+#: packtools/sps/validation/article_contribs.py:376
+#, python-brace-format
+msgid "{info}: Add <xref ref-type=\"aff\" rid=\"\"> in <contrib>"
+msgstr "{info}: Adicione <xref ref-type=\"aff\" rid=\"\"> em <contrib>"
+
+#: packtools/sps/validation/article_contribs.py:405
+#, python-brace-format
+msgid "{info}: Mark contributor name with <name> in <contrib>"
+msgstr "{info}: Marque o nome do colaborador com <name> em <contrib>"
+
+#: packtools/sps/validation/article_contribs.py:434
+#, python-brace-format
+msgid "{info}: Mark institutional contributor with <collab> in <contrib>"
+msgstr "{info}: Marque o contribuidor institucional com <collab> em <contrib>"
+
+#: packtools/sps/validation/article_contribs.py:470
+#, python-brace-format
+msgid "{info}: Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>"
+msgstr "{info}: Marque o contribuidor com <name> e o contribuidor anônimo com <anonymous/> em <contrib>"
+
+#: packtools/sps/validation/article_contribs.py:480
+#, python-brace-format
+msgid "{info}: Mark contributor with <name> and institutional contributor with <collab> in <contrib>"
+msgstr "{info}: Marque o contribuidor com <name> e o contribuidor institucional com <collab> em <contrib>"
+
+#: packtools/sps/validation/article_contribs.py:543
+#, python-brace-format
+msgid "ORCID must be unique. {questions}"
+msgstr "ORCID deve ser único. {questions}"
+
+#: packtools/sps/validation/article_contribs.py:635
+#, python-brace-format
+msgid "Add person authors, members of {collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type=\"collab-list\"></contrib-group>"
+msgstr "Adicione autores pessoais, membros de {collab}, com <contrib><name>...</name></contrib> em <contrib-group content-type=\"collab-list\"></contrib-group>"
+
+#: packtools/sps/validation/article_contribs.py:644
+#, python-brace-format
+msgid "Remove content-type=\"{type}\" from <contrib-group content-type=\"{type}\">"
+msgstr "Remover content-type=\"{type}\" de <contrib-group content-type=\"{type}\">"
+
+#: packtools/sps/validation/article_contribs.py:711
+msgid "All members of collaboration group must have name <name> in <contrib-group content-type='collab-list'>"
+msgstr "Todos os membros do grupo de colaboração devem ter o nome <name> em <contrib-group content-type='collab-list'>"
+
+#: packtools/sps/validation/article_contribs.py:747
+msgid "All members of collaboration group must have complete affiliation <xref ref-type='aff'> (described in PDF)"
+msgstr "Todos os membros do grupo de colaboração devem ter afiliação completa <xref ref-type='aff'> (descrita em PDF)"
+
+#: packtools/sps/validation/article_contribs.py:775
+msgid "All members of collaboration group MUST have ORCID (described in PDF). Without ORCID identification, authors cannot assign DOI as their work in curriculum databases"
+msgstr "Todos os membros do grupo de colaboração DEVEM ter ORCID (descrito em PDF). Sem identificação ORCID, os autores não podem atribuir DOI como seu trabalho em bases de dados curriculares"
+
+#: packtools/sps/validation/article_contribs.py:870
+msgid "Do not mix CRediT taxonomy with other taxonomies in the same contributor. All roles for a contributor must use the same taxonomy."
+msgstr "Não misture a taxonomia CRediT com outras taxonomias no mesmo contribuidor. Todas as funções de um colaborador devem usar a mesma taxonomia."
+
+#: packtools/sps/validation/article_contribs.py:901
+msgid "CRediT taxonomy must be used consistently: either ALL contributors use CRediT or NONE use it. Do not mix taxonomies in the document. SciELO Rule: 'tudo ou nada' (all or nothing)."
+msgstr "A taxonomia CRediT deve ser usada de forma consistente: TODOS os contribuidores usam CRediT ou NENHUM o usa. Não misture taxonomias no documento. Regra SciELO: 'tudo ou nada' (tudo ou nada)."
+
+#: packtools/sps/validation/article_contribs.py:1007
+#, python-brace-format
+msgid "Sub-article {sub_id} uses same @id as main article: {collisions}. If article uses id='collab', sub-article should use id='collab1'"
+msgstr "O subartigo {sub_id} usa o mesmo @id do artigo principal: {collisions}. Se o artigo usar id='collab', o subartigo deverá usar id='collab1'"
+
+#: packtools/sps/validation/article_contribs.py:1042
+#, python-brace-format
+msgid "Sub-article {sub_id} uses same @rid as main article: {collisions}. If article uses rid='collab', sub-article should use rid='collab1'"
+msgstr "O subartigo {sub_id} usa o mesmo @rid do artigo principal: {collisions}. Se o artigo usar rid='collab', o subartigo deverá usar rid='collab1'"
+
+#: packtools/sps/validation/article_contribs.py:1172
+#, python-brace-format
+msgid "{info}: replace <role content-type=\"{uri}\"> by <role content-type=\"{expected_uri}\">"
+msgstr "{info}: substitua <role content-type=\"{uri}\"> por <role content-type=\"{expected_uri}\">"
+
+#: packtools/sps/validation/article_contribs.py:1176
+#, python-brace-format
+msgid "{info}: replace <role>{text}</role> by <role content-type=\"{expected_uri}\">{text}</role>"
+msgstr "{info}: substitua <role>{text}</role> por <role content-type=\"{expected_uri}\">{text}</role>"
+
+#: packtools/sps/validation/article_contribs.py:1181
+#, python-brace-format
+msgid "{info}: check if <role content-type=\"{uri}\">{text}</role> has corresponding CRediT URI"
+msgstr "{info}: verifique se <role content-type=\"{uri}\">{text}</role> tem URI CRediT correspondente"
+
+#: packtools/sps/validation/article_contribs.py:1186
+#, python-brace-format
+msgid "{info}: check if <role>{text}</role> has corresponding CRediT URI"
+msgstr "{info}: verifique se <role>{text}</role> tem URI CRediT correspondente"
+
+#: packtools/sps/validation/article_contribs.py:1212
+#, python-brace-format
+msgid "{info}: replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>"
+msgstr "{info}: substitua <role{content_type}>{text}</role> por <role{content_type}>{expected_term}</role>"
+
+#: packtools/sps/validation/article_contribs.py:1216
+#, python-brace-format
+msgid "{info}: replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>"
+msgstr "{info}: substitua <role{content_type}></role> por <role{content_type}>{expected_term}</role>"
+
+#: packtools/sps/validation/article_contribs.py:1221
+#: packtools/sps/validation/article_contribs.py:1226
+#, python-brace-format
+msgid "{info}: check if <role{content_type}>{text}</role> has corresponding CRediT term"
+msgstr "{info}: verifique se <role{content_type}>{text}</role> tem o termo CRediT correspondente"
+
+#: packtools/sps/validation/article_contribs.py:1266
+#, python-brace-format
+msgid "{info}: add <role specific-use=\"\"> with {expected}"
+msgstr "{info}: adicionar <role specific-use=\"\"> com {expected}"
+
+#: packtools/sps/validation/article_contribs.py:1293
+#, python-brace-format
+msgid "{info}: replace <role specific-use=\"{specific_use}\"> with {expected}"
+msgstr "{info}: substitua <role specific-use=\"{specific_use}\"> por {expected}"
+
+#: packtools/sps/validation/article_data_availability.py:122
+#, python-brace-format
+msgid "Complete  specific-use=\"\" in {xml} with valid value: {valid_values}"
+msgstr "Preencha specific-use=\"\" em {xml} com um valor válido: {valid_values}"
+
+#: packtools/sps/validation/article_data_availability.py:182
+#, python-brace-format
+msgid "Mark in {xml} the data availability statement in footnote with <fn fn-type=\"data-availability\" specific-use=\"\"> or in text with <sec sec-type=\"data-availability\" specific-use=\"\">. And complete specific-use=\"\" with valid value: {valid_values}"
+msgstr "Marque em {xml} a declaração de disponibilidade de dados em nota de rodapé com <fn fn-type=\"data-availability\" specific-use=\"\"> ou em texto com <sec sec-type=\"data-availability\" specific-use=\"\">. E preencha specific-use=\"\" com um valor válido: {valid_values}"
+
+#: packtools/sps/validation/article_data_availability.py:204
+#, python-brace-format
+msgid "Remove from {xml} the data availability statement (<{tag} {tag}-type=\"data-availability\">) because it is unexpected for {article_type}"
+msgstr "Remova de {xml} a declaração de disponibilidade de dados (<{tag} {tag}-type=\"data-availability\">) porque ela é inesperada para {article_type}"
+
+#: packtools/sps/validation/article_doi.py:47
+#: packtools/sps/validation/article_doi.py:105
+#, python-brace-format
+msgid "Mark DOI for {text} with <article-id pub-id-type=\"doi\"></article-id>"
+msgstr "Marque DOI para {text} com <article-id pub-id-type=\"doi\"></article-id>"
+
+#: packtools/sps/validation/article_doi.py:155
+#, python-brace-format
+msgid "Fix doi to be unique. Found repetition: {diff}"
+msgstr "Corrija doi para ser único. Repetição encontrada: {diff}"
+
+#: packtools/sps/validation/article_doi.py:214
+#, python-brace-format
+msgid "The DOI (<article-id pub-id-type=\"doi\">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}"
+msgstr "O DOI (<article-id pub-id-type=\"doi\">{xml_doi}</article-id>) não está registrado para {expected}. Ele está registrado para {registered}"
+
+#: packtools/sps/validation/article_doi.py:223
+#, python-brace-format
+msgid "Unable to check if {xml_doi} is registered for {expected}"
+msgstr "Não foi possível verificar se {xml_doi} está registrado para {expected}"
+
+#: packtools/sps/validation/article_doi.py:251
+#, python-brace-format
+msgid "Got {obtained}, expected DOI registered for {metadata}"
+msgstr "Obtido {obtained}, esperado DOI registrado para {metadata}"
+
+#: packtools/sps/validation/article_doi.py:293
+#, python-brace-format
+msgid "Change {doi} in {xml} for a DOI different from {doi_list}"
+msgstr "Alterar {doi} em {xml} para um DOI diferente de {doi_list}"
+
+#: packtools/sps/validation/article_license.py:134
+#, python-brace-format
+msgid "Provide license data that is consistent with the language: {lang} and standard adopted by the journal"
+msgstr "Fornecer dados de licença que sejam consistentes com o idioma: {lang} e padrão adotado pela revista"
+
+#: packtools/sps/validation/article_license.py:148
+#, python-brace-format
+msgid "Mark license information with <license license-type=\"open-access\" xlink:href={link} xml:lang={lang}><license-p>{license_p}</license-p></license>"
+msgstr "Marque as informações de licença com <license license-type=\"open-access\" xlink:href={link} xml:lang={lang}><license-p>{license_p}</license-p></license>"
+
+#: packtools/sps/validation/article_license.py:252
+#, python-brace-format
+msgid "add <permissions><license xlink:href=\"http://creativecommons.org/licenses/VALUE/4.0/\"> and replace VALUE with {code}"
+msgstr "adicione <permissions><license xlink:href=\"http://creativecommons.org/licenses/VALUE/4.0/\"> e substitua VALUE por {code}"
+
+#: packtools/sps/validation/article_toc_sections.py:90
+#, python-brace-format
+msgid "Remove <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable"
+msgstr "Remova <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group> porque é inesperado, apenas um grupo de assuntos é aceitável"
+
+#: packtools/sps/validation/article_toc_sections.py:93
+#, python-brace-format
+msgid "Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable"
+msgstr "Remova <subject-group><subject>{subject}</subject></subject-group> porque é inesperado, apenas um grupo de assuntos é aceitável"
+
+#: packtools/sps/validation/article_toc_sections.py:121
+#, python-brace-format
+msgid "Replace <subject-group subj-group-type=\"{subj_group_type}\"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
+msgstr "Substitua <subject-group subj-group-type=\"{subj_group_type}\"><subject>{subject}</subject></subject-group> por <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
+
+#: packtools/sps/validation/article_toc_sections.py:128
+#, python-brace-format
+msgid "Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
+msgstr "Substitua <subject-group><subject>{subject}</subject></subject-group> por <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
+
+#: packtools/sps/validation/article_toc_sections.py:132
+msgid "Mark table of contents section with  <subject-group subj-group-type=\"heading\"><subject>table of contents section</subject></subject-group>"
+msgstr "Marque a seção do sumário com <subject-group subj-group-type=\"heading\"><subject>seção do sumário</subject></subject-group>"
+
+#: packtools/sps/validation/article_toc_sections.py:175
+#, python-brace-format
+msgid "Write section and subsection in one subject: <subject-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subject-group>. Remove <subject-group><subject>{subsection}</subject></subject-group>"
+msgstr "Escreva seção e subseção em um assunto: <subject-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subject-group>. Remova <subject-group><subject>{subsection}</subject></subject-group>"
+
+#: packtools/sps/validation/article_toc_sections.py:216
+#, python-brace-format
+msgid "{subject} is not registered as a table of contents section. Valid values: {valid_values}"
+msgstr "{subject} não está registrado como uma seção de sumário. Valores válidos: {valid_values}"
+
+#: packtools/sps/validation/article_toc_sections.py:224
+#, python-brace-format
+msgid "Unable to check whether {subject} (<subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>) is a valid table of contents section because no sections were provided for the journal {journal}"
+msgstr "Não foi possível verificar se {subject} (<subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>) é uma seção de sumário válida porque não foram informadas seções para o periódico {journal}"
+
+#: packtools/sps/validation/article_toc_sections.py:232
+msgid "Mark table of contents section with <subject-group subj-group-type=\"heading\"><subject></subject></subject-group>"
+msgstr "Marque a seção do sumário com <subject-group subj-group-type=\"heading\"><subject></subject></subject-group>"
+
+#: packtools/sps/validation/article_toc_sections.py:247
+#, python-brace-format
+msgid "Got {subject}, but the registered table of contents sections could not be checked"
+msgstr "Obtido {subject}, mas não foi possível verificar as seções de sumário cadastradas"
+
+#: packtools/sps/validation/article_toc_sections.py:291
+#, python-brace-format
+msgid "The article title ({article_title}) must represent its contents and must be different from the section title ({section_title}) to get a better ranking in search results"
+msgstr "O título do artigo ({article_title}) deve representar seu conteúdo e deve ser diferente do título da seção ({section_title}) para obter uma melhor classificação nos resultados de pesquisa"
+
+#: packtools/sps/validation/article_xref.py:114
+msgid "Provide a valid @rid attribute for <xref>"
+msgstr "Forneça um atributo @rid válido para <xref>"
+
+#: packtools/sps/validation/article_xref.py:143
+msgid "Provide a valid @ref-type attribute for <xref>"
+msgstr "Forneça um atributo @ref-type válido para <xref>"
+
+#: packtools/sps/validation/article_xref.py:175
+#, python-brace-format
+msgid "Replace \"{ref_type}\" with one of the allowed values: {ref_type_list}"
+msgstr "Substitua \"{ref_type}\" por um dos valores permitidos: {ref_type_list}"
+
+#: packtools/sps/validation/article_xref.py:205
+msgid "Add at least one <xref ref-type=\"bibr\"> to the document (SciELO Brasil criterion)"
+msgstr "Adicione pelo menos um <xref ref-type=\"bibr\"> ao documento (critério SciELO Brasil)"
+
+#: packtools/sps/validation/article_xref.py:238
+#, python-brace-format
+msgid "@rid=\"{rid}\" in <xref> has no corresponding @id in the document"
+msgstr "@rid=\"{rid}\" em <xref> não possui @id correspondente no documento"
+
+#: packtools/sps/validation/article_xref.py:277
+#, python-brace-format
+msgid "Add <xref ref-type=\"sec\" rid=\"{sec_id}\"> to reference the transcript section"
+msgstr "Adicione <xref ref-type=\"sec\" rid=\"{sec_id}\"> para fazer referência à seção de transcrição"
+
+#: packtools/sps/validation/article_xref.py:314
+#, python-brace-format
+msgid "For @ref-type=\"aff\" without text content, use self-closing: <xref ref-type=\"aff\" rid=\"{rid}\"/>"
+msgstr "Para @ref-type=\"aff\" sem conteúdo de texto, use fechamento automático: <xref ref-type=\"aff\" rid=\"{rid}\"/>"
+
+#: packtools/sps/validation/article_xref.py:357
+#, python-brace-format
+msgid "Found {tag_and_attribs}, but not found the corresponding {elem_xml}"
+msgstr "{tag_and_attribs} encontrado, mas não encontrado o {elem_xml} correspondente"
+
+#: packtools/sps/validation/article_xref.py:397
+#, python-brace-format
+msgid "Found {tag_and_attribs}, but no corresponding {xref_xml} was found. Mark {label}, mention to {tag_and_attribs}, with {xref_xml}"
+msgstr "{tag_and_attribs} encontrado, mas nenhum {xref_xml} correspondente foi encontrado. Marca {label}, menção a {tag_and_attribs}, com {xref_xml}"
+
+#: packtools/sps/validation/article_xref.py:410
+#, python-brace-format
+msgid "Found {tag_and_attribs}, but no corresponding {xref_xml} was found. "
+msgstr "{tag_and_attribs} encontrado, mas nenhum {xref_xml} correspondente foi encontrado."
+
+#: packtools/sps/validation/article_xref.py:493
+#, python-brace-format
+msgid "Found {tag_and_attribs}, but no corresponding {xref_xml} was found. Mark the {tag_and_attribs} cross-references using {xref_xml}"
+msgstr "{tag_and_attribs} encontrado, mas nenhum {xref_xml} correspondente foi encontrado. Marque as referências cruzadas {tag_and_attribs} usando {xref_xml}"
+
+#: packtools/sps/validation/author_notes.py:22
+#, python-brace-format
+msgid "Add mandatory @fn-type attribute to <fn> in <author-notes>. Valid values for author notes: {values}"
+msgstr "Adicione o atributo obrigatório @fn-type a <fn> em <author-notes>. Valores válidos para notas do autor: {values}"
+
+#: packtools/sps/validation/author_notes.py:80
+#, python-brace-format
+msgid "@fn-type=\"{fn_type}\" is not valid for <fn> in <author-notes>. Use one of: {values}"
+msgstr "@fn-type=\"{fn_type}\" não é válido para <fn> em <author-notes>. Use um dos: {values}"
+
+#: packtools/sps/validation/author_notes.py:112
+msgid "For corresponding author information, use <corresp> element instead of <fn fn-type=\"corresp\">"
+msgstr "Para obter informações do autor correspondente, use o elemento <corresp> em vez de <fn fn-type=\"corresp\">"
+
+#: packtools/sps/validation/author_notes.py:143
+msgid "<fn fn-type=\"current-aff\"> is deprecated. Use <fn fn-type=\"bio\"> instead."
+msgstr "<fn fn-type=\"current-aff\"> está obsoleto. Use <fn fn-type=\"bio\">."
+
+#: packtools/sps/validation/author_notes.py:163
+msgid "<fn fn-type=\"con\"> is deprecated. Use <role content-type=\"http://credit.niso.org/contributor-roles/CONTRIBUTION/\"> inside <contrib> instead. Replace CONTRIBUTION with the author's contribution type."
+msgstr "<fn fn-type=\"con\"> está obsoleto. Use <role content-type=\"http://credit.niso.org/contributor-roles/CONTRIBUTION/\"> dentro de <contrib>. Substitua CONTRIBUTION pelo tipo de contribuição do autor."
+
+#: packtools/sps/validation/author_notes.py:243
+#, python-brace-format
+msgid "<author-notes> element should appear at most once in the article. Found {count} occurrences."
+msgstr "O elemento <author-notes> deverá aparecer no máximo uma vez no artigo. Ocorrências {count} encontradas."
+
+#: packtools/sps/validation/author_notes.py:269
+#, python-brace-format
+msgid "<author-notes> element should appear at most once in sub-article (id={id}). Found {count} occurrences."
+msgstr "O elemento <author-notes> deverá aparecer no máximo uma vez no subartigo (id={id}). Ocorrências {count} encontradas."
+
+#: packtools/sps/validation/author_notes.py:357
+msgid "Mark corresp label with <corresp><label>"
+msgstr "Marque a etiqueta correspondente com <corresp><label>"
+
+#: packtools/sps/validation/author_notes.py:379
+msgid "Replace <corresp><title> with <corresp><label>"
+msgstr "Substitua <corresp><title> por <corresp><label>"
+
+#: packtools/sps/validation/author_notes.py:401
+msgid "Replace <corresp><bold> with <corresp><label>"
+msgstr "Substitua <corresp><bold> por <corresp><label>"
+
+#: packtools/sps/validation/basefn.py:44
+msgid "Mark footnote label with <fn><label>"
+msgstr "Marque a etiqueta da nota de rodapé com <fn><label>"
+
+#: packtools/sps/validation/basefn.py:66
+msgid "Replace <fn><title> with <fn><label>"
+msgstr "Substitua <fn><title> por <fn><label>"
+
+#: packtools/sps/validation/basefn.py:88
+msgid "Replace <fn><bold> with <fn><label>"
+msgstr "Substitua <fn><bold> por <fn><label>"
+
+#: packtools/sps/validation/basefn.py:115
+#, python-brace-format
+msgid "Complete fn-type=\"\" in <fn fn-type=\"\"> with a valid values: {expected}"
+msgstr "Preencha fn-type=\"\" em <fn fn-type=\"\"> com valores válidos: {expected}"
+
+#: packtools/sps/validation/basefn.py:143
+msgid "Use <fn fn-type=\"conflict\"> for JATS < 1.3 and <fn fn-type=\"coi-statement\"> for JATS ≥ 1.3."
+msgstr "Use <fn fn-type=\"conflict\"> para JATS < 1,3 e <fn fn-type=\"coi-statement\"> para JATS ≥ 1,3."
+
+#: packtools/sps/validation/dates.py:81
+#, python-brace-format
+msgid "Complete <{tag} date-type=\"{date_type}\"><{label}> with {number}-digits"
+msgstr "Complete <{tag} date-type=\"{date_type}\"><{label}> com dígitos {number}"
+
+#: packtools/sps/validation/dates.py:117
+#, python-brace-format
+msgid "Complete <{tag} date-type=\"{date_type}\"><year> with an year previous or equal to {limit_year}"
+msgstr "Complete <{tag} date-type=\"{date_type}\"><year> com um ano anterior ou igual a {limit_year}"
+
+#: packtools/sps/validation/dates.py:154
+#, python-brace-format
+msgid "<date date-type=\"{date_type}\"> ({parts}) is invalid: {error}"
+msgstr "<date date-type=\"{date_type}\"> ({parts}) é inválido: {error}"
+
+#: packtools/sps/validation/dates.py:195
+#, python-brace-format
+msgid "<date date-type=\"{date_type}\"> ({formatted_date}) must be previous to {max_date_label} ({max_date})"
+msgstr "<date date-type=\"{date_type}\"> ({formatted_date}) deve ser anterior a {max_date_label} ({max_date})"
+
+#: packtools/sps/validation/dates.py:217
+#, python-brace-format
+msgid "<date date-type=\"{date_type}\"> ({parts}) must be a date with year, month (2-digits) and day (2-digits)"
+msgstr "<date date-type=\"{date_type}\"> ({parts}) deve ser uma data com ano, mês (2 dígitos) e dia (2 dígitos)"
+
+#: packtools/sps/validation/dates.py:367
+msgid "Add <pub-date publication-format=\"electronic\" date-type=\"pub\"> with <day>, <month> and <year>"
+msgstr "Adicione <pub-date publication-format=\"electronic\" date-type=\"pub\"> com <day>, <month> e <year>"
+
+#: packtools/sps/validation/dates.py:390
+msgid "Add <pub-date publication-format=\"electronic\" date-type=\"collection\"> with <year>"
+msgstr "Adicione <pub-date publication-format=\"electronic\" date-type=\"collection\"> com <year>"
+
+#: packtools/sps/validation/dates.py:411
+#, python-brace-format
+msgid "Set @publication-format=\"electronic\" in <pub-date date-type=\"{date_type}\">"
+msgstr "Defina @publication-format=\"electronic\" em <pub-date date-type=\"{date_type}\">"
+
+#: packtools/sps/validation/dates.py:434
+#, python-brace-format
+msgid "Add <{element}> to <pub-date date-type=\"pub\">"
+msgstr "Adicione <{element}> a <pub-date date-type=\"pub\">"
+
+#: packtools/sps/validation/dates.py:456
+msgid "Add <year> to <pub-date date-type=\"collection\">"
+msgstr "Adicione <year> a <pub-date date-type=\"collection\">"
+
+#: packtools/sps/validation/dates.py:479
+msgid "Remove <day> from <pub-date date-type=\"collection\">"
+msgstr "Remover <day> de <pub-date date-type=\"collection\">"
+
+#: packtools/sps/validation/dates.py:501
+#, python-brace-format
+msgid "Ensure there is at most one <pub-date date-type=\"{date_type}\">"
+msgstr "Certifique-se de que haja no máximo um <pub-date date-type=\"{date_type}\">"
+
+#: packtools/sps/validation/dates.py:529
+#, python-brace-format
+msgid "Fix <day> value in <pub-date date-type=\"{date_type}\">. Must be between 00 and 31"
+msgstr "Corrija o valor <day> em <pub-date date-type=\"{date_type}\">. Deve estar entre 00 e 31"
+
+#: packtools/sps/validation/dates.py:550
+#, python-brace-format
+msgid "Fix <month> value in <pub-date date-type=\"{date_type}\">. Must be between 00 and 12"
+msgstr "Corrija o valor <month> em <pub-date date-type=\"{date_type}\">. Deve ser entre 00 e 12"
+
+#: packtools/sps/validation/dates.py:632
+#, python-brace-format
+msgid "History dates found: {date_types}. Exclude unexpected dates: {unexpected_events}"
+msgstr "Datas históricas encontradas: {date_types}. Excluir datas inesperadas: {unexpected_events}"
+
+#: packtools/sps/validation/dates.py:651
+#, python-brace-format
+msgid "History dates found: {date_types}. Add missing dates: {missing_events}"
+msgstr "Datas históricas encontradas: {date_types}. Adicione datas faltantes: {missing_events}"
+
+#: packtools/sps/validation/dates.py:677
+#, python-brace-format
+msgid "History dates ({date_types}) must be in chronological order: {expected}"
+msgstr "As datas do histórico ({date_types}) devem estar em ordem cronológica: {expected}"
+
+#: packtools/sps/validation/ext_link.py:100
+#, python-brace-format
+msgid "Add @ext-link-type attribute to <ext-link> with text \"{text}\". Valid values: {allowed_values}"
+msgstr "Adicione o atributo @ext-link-type a <ext-link> com o texto \"{text}\". Valores válidos: {allowed_values}"
+
+#: packtools/sps/validation/ext_link.py:131
+msgid "The @ext-link-type attribute is present"
+msgstr "O atributo @ext-link-type está presente"
+
+#: packtools/sps/validation/ext_link.py:133
+#: packtools/sps/validation/related_articles.py:198
+msgid "The @ext-link-type attribute is required"
+msgstr "O atributo @ext-link-type é obrigatório"
+
+#: packtools/sps/validation/ext_link.py:163
+#, python-brace-format
+msgid "Add @xlink:href attribute to <ext-link> with text \"{text}\""
+msgstr "Adicione o atributo @xlink:href a <ext-link> com o texto \"{text}\""
+
+#: packtools/sps/validation/ext_link.py:189
+msgid "The @xlink:href attribute is present"
+msgstr "O atributo @xlink:href está presente"
+
+#: packtools/sps/validation/ext_link.py:191
+#: packtools/sps/validation/related_articles.py:248
+msgid "The @xlink:href attribute is required"
+msgstr "O atributo @xlink:href é obrigatório"
+
+#: packtools/sps/validation/ext_link.py:224
+#, python-brace-format
+msgid "URL in @xlink:href=\"{xlink_href}\" must start with http:// or https://"
+msgstr "O URL em @xlink:href=\"{xlink_href}\" deve começar com http:// ou https://"
+
+#: packtools/sps/validation/ext_link.py:250
+#, python-brace-format
+msgid "URL {url} must start with http:// or https://"
+msgstr "O URL {url} deve começar com http:// ou https://"
+
+#: packtools/sps/validation/ext_link.py:283
+#, python-brace-format
+msgid "Replace @ext-link-type=\"{ext_link_type}\" with one of: {allowed_values}"
+msgstr "Substitua @ext-link-type=\"{ext_link_type}\" por um de: {allowed_values}"
+
+#: packtools/sps/validation/ext_link.py:346
+#, python-brace-format
+msgid "Replace generic text \"{text}\" in <ext-link> with descriptive text, or add @xlink:title attribute"
+msgstr "Substitua o texto genérico \"{text}\" em <ext-link> por texto descritivo ou adicione o atributo @xlink:title"
+
+#: packtools/sps/validation/ext_link.py:426
+#, python-brace-format
+msgid "Add @xlink:title attribute to <ext-link> with generic text \"{text}\" to describe the link destination"
+msgstr "Adicione o atributo @xlink:title a <ext-link> com texto genérico \"{text}\" para descrever o destino do link"
+
+#: packtools/sps/validation/ext_link.py:435
+#, python-brace-format
+msgid "Add @xlink:title attribute to <ext-link> where the text is the URL \"{text}\" to describe the link destination"
+msgstr "Adicione o atributo @xlink:title a <ext-link> onde o texto é o URL \"{text}\" para descrever o destino do link"
+
+#: packtools/sps/validation/ext_link.py:463
+msgid "The @xlink:title attribute is required when the link text is generic or a URL"
+msgstr "O atributo @xlink:title é obrigatório quando o texto do link é genérico ou um URL"
+
+#: packtools/sps/validation/fig.py:32
+#, python-brace-format
+msgid "article-type={article_type} requires <fig>. Found 0. Identify the fig or check if article-type is correct"
+msgstr "article-type={article_type} requer <fig>. Encontrado 0. Identifique a fig ou verifique se o tipo de artigo está correto"
+
+#: packtools/sps/validation/fig.py:111
+msgid "Add @id attribute to <fig>. Example: <fig id=\"f01\">. The @id attribute is mandatory."
+msgstr "Adicione o atributo @id a <fig>. Exemplo: <fig id=\"f01\">. O atributo @id é obrigatório."
+
+#: packtools/sps/validation/fig.py:130
+msgid "Add <graphic> element inside <fig>. Example: <graphic xlink:href=\"image.jpg\"/>. Every <fig> must contain at least one <graphic> element."
+msgstr "Adicione o elemento <graphic> dentro de <fig>. Exemplo: <graphic xlink:href=\"image.jpg\"/>. Cada <fig> deve conter pelo menos um elemento <graphic>."
+
+#: packtools/sps/validation/fig.py:155
+msgid "Add @xlink:href attribute to <graphic>. Example: <graphic xlink:href=\"image.jpg\"/>. The @xlink:href attribute is mandatory in <graphic>."
+msgstr "Adicione o atributo @xlink:href a <graphic>. Exemplo: <graphic xlink:href=\"image.jpg\"/>. O atributo @xlink:href é obrigatório em <graphic>."
+
+#: packtools/sps/validation/fig.py:189
+#, python-brace-format
+msgid "SVG files are only allowed inside <alternatives>. Either use a different format ({allowed_formats}) or wrap the graphic in <alternatives>."
+msgstr "Arquivos SVG só são permitidos dentro de <alternatives>. Use um formato diferente ({allowed_formats}) ou envolva o gráfico em <alternatives>."
+
+#: packtools/sps/validation/fig.py:199
+#, python-brace-format
+msgid "File extension \"{file_extension}\" is not allowed. Use one of: {allowed_formats}. If using SVG, it must be inside <alternatives>."
+msgstr "A extensão de arquivo \"{file_extension}\" não é permitida. Use um dos: {allowed_formats}. Se estiver usando SVG, ele deve estar dentro de <alternatives>."
+
+#: packtools/sps/validation/fig.py:203
+#, python-brace-format
+msgid "File \"{graphic_href}\" must have a valid extension. Allowed: {allowed_formats}. SVG is only allowed inside <alternatives>."
+msgstr "O arquivo \"{graphic_href}\" deve ter uma extensão válida. Permitido: {allowed_formats}. SVG só é permitido dentro de <alternatives>."
+
+#: packtools/sps/validation/fig.py:244
+#, python-brace-format
+msgid "Invalid @fig-type value \"{fig_type}\". Use one of: {allowed_types}."
+msgstr "Valor inválido de @fig-type \"{fig_type}\". Use um dos seguintes valores: {allowed_types}."
+
+#: packtools/sps/validation/fig.py:265
+msgid "When <fig> is inside <fig-group>, the @xml:lang attribute is mandatory. Add xml:lang attribute to <fig>. Example: <fig xml:lang=\"en\">."
+msgstr "Quando <fig> está dentro de <fig-group>, o atributo @xml:lang é obrigatório. Adicione o atributo xml:lang a <fig>. Exemplo: <fig xml:lang=\"en\">."
+
+#: packtools/sps/validation/fig.py:275
+msgid "Accessibility description is present"
+msgstr "A descrição de acessibilidade está presente"
+
+#: packtools/sps/validation/fig.py:278
+msgid "No accessibility description was found; expected <alt-text> or <long-desc>"
+msgstr "Nenhuma descrição de acessibilidade foi encontrada; esperado <alt-text> ou <long-desc>"
+
+#: packtools/sps/validation/fig.py:294
+msgid "For accessibility, add <alt-text> or <long-desc> inside <graphic>. Example: <graphic xlink:href=\"image.jpg\"><alt-text>Brief description</alt-text></graphic>."
+msgstr "Para acessibilidade, adicione <alt-text> ou <long-desc> dentro de <graphic>. Exemplo: <graphic xlink:href=\"image.jpg\"><alt-text>Breve descrição</alt-text></graphic>."
+
+#: packtools/sps/validation/fig.py:319
+#, python-brace-format
+msgid "The <alt-text> content has {current_length} characters, exceeding the recommended maximum of {max_length}. Please shorten the description."
+msgstr "O conteúdo de <alt-text> tem {current_length} caracteres e excede o máximo recomendado de {max_length}. Reduza a descrição."
+
+#: packtools/sps/validation/fn.py:25
+msgid "Add mandatory @fn-type attribute to <fn> in <fn-group>"
+msgstr "Adicione o atributo obrigatório @fn-type a <fn> em <fn-group>"
+
+#: packtools/sps/validation/fn.py:140
+#, python-brace-format
+msgid "<fn-group> element should appear at most once in the article. Found {count} occurrences."
+msgstr "O elemento <fn-group> deverá aparecer no máximo uma vez no artigo. Ocorrências {count} encontradas."
+
+#: packtools/sps/validation/fn.py:166
+#, python-brace-format
+msgid "<fn-group> element should appear at most once in sub-article (id={id}). Found {count} occurrences."
+msgstr "O elemento <fn-group> deverá aparecer no máximo uma vez no subartigo (id={id}). Ocorrências {count} encontradas."
+
+#: packtools/sps/validation/fn.py:216
+msgid "Make the responsible editor with <fn fn-type=\"edited-by\">"
+msgstr "Torne-se o editor responsável com <fn fn-type=\"edited-by\">"
+
+#: packtools/sps/validation/formula.py:51
+msgid "No <disp-formula> found in XML"
+msgstr "Nenhum <disp-formula> encontrado em XML"
+
+#: packtools/sps/validation/formula.py:132
+msgid "Add the formula ID with id=\"\" in <disp-formula>: <disp-formula id=\"\">. Consult SPS documentation for more detail."
+msgstr "Adicione o ID da fórmula com id=\"\" em <disp-formula>: <disp-formula id=\"\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:164
+#, python-brace-format
+msgid "The @id of <disp-formula> must start with prefix \"e\". Change {id} to e{id} in <disp-formula id=\"{id}\">. Consult SPS documentation for more detail."
+msgstr "O @id de <disp-formula> deve começar com o prefixo \"e\". Altere {id} para e{id} em <disp-formula id=\"{id}\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:192
+#, python-brace-format
+msgid "Mark each label with <label> inside <disp-formula id=\"{id}\">. Consult SPS documentation for more detail."
+msgstr "Marque cada etiqueta com <label> dentro de <disp-formula id=\"{id}\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:229
+#, python-brace-format
+msgid "Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id=\"{id}\">. Consult SPS documentation for more detail."
+msgstr "Marque cada codificação de fórmula com <mml:math> ou <tex-math> dentro de <disp-formula id=\"{id}\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:260
+#, python-brace-format
+msgid "Add the @id attribute in <mml:math> inside <disp-formula id=\"{formula_id}\">: <mml:math id=\"\">. Consult SPS documentation for more detail."
+msgstr "Adicione o atributo @id em <mml:math> dentro de <disp-formula id=\"{formula_id}\">: <mml:math id=\"\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:292
+#, python-brace-format
+msgid "The @id of <mml:math> must start with prefix \"m\". Change {mml_id} to m{mml_id} in <mml:math id=\"{mml_id}\"> inside <disp-formula id=\"{formula_id}\">. Consult SPS documentation for more detail."
+msgstr "O @id de <mml:math> deve começar com o prefixo \"m\". Altere {mml_id} para m{mml_id} em <mml:math id=\"{mml_id}\"> dentro de <disp-formula id=\"{formula_id}\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:343
+#, python-brace-format
+msgid "For accessibility, consider adding <mml:math> in <disp-formula id=\"{formula_id}\">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail."
+msgstr "Para acessibilidade, considere adicionar <mml:math> em <disp-formula id=\"{formula_id}\">. MathML melhora a acessibilidade para leitores de tela. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:383
+msgid "Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula>"
+msgstr "Enrole <tex-math> e <mml:math> com <alternatives> dentro de <disp-formula>"
+
+#: packtools/sps/validation/formula.py:390
+#: packtools/sps/validation/formula.py:397
+#, python-brace-format
+msgid "Remove the <alternatives> from <disp-formula> and keep <{found}> inside <disp-formula>"
+msgstr "Remova o <alternatives> de <disp-formula> e mantenha <{found}> dentro de <disp-formula>"
+
+#: packtools/sps/validation/formula.py:469
+msgid "No <inline-formula> found in XML"
+msgstr "Nenhum <inline-formula> encontrado em XML"
+
+#: packtools/sps/validation/formula.py:551
+msgid "Add the formula ID with id=\"\" in <inline-formula>: <inline-formula id=\"\">. Consult SPS documentation for more detail."
+msgstr "Adicione o ID da fórmula com id=\"\" em <inline-formula>: <inline-formula id=\"\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:583
+#, python-brace-format
+msgid "The @id of <inline-formula> must start with prefix \"e\". Change {id} to e{id} in <inline-formula id=\"{id}\">. Consult SPS documentation for more detail."
+msgstr "O @id de <inline-formula> deve começar com o prefixo \"e\". Altere {id} para e{id} em <inline-formula id=\"{id}\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:621
+msgid "Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail."
+msgstr "Marque cada codificação de fórmula com <mml:math> ou <tex-math> dentro de <inline-formula>. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:652
+#, python-brace-format
+msgid "Add the @id attribute in <mml:math> inside <inline-formula id=\"{formula_id}\">: <mml:math id=\"\">. Consult SPS documentation for more detail."
+msgstr "Adicione o atributo @id em <mml:math> dentro de <inline-formula id=\"{formula_id}\">: <mml:math id=\"\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:684
+#, python-brace-format
+msgid "The @id of <mml:math> must start with prefix \"m\". Change {mml_id} to m{mml_id} in <mml:math id=\"{mml_id}\"> inside <inline-formula id=\"{formula_id}\">. Consult SPS documentation for more detail."
+msgstr "O @id de <mml:math> deve começar com o prefixo \"m\". Altere {mml_id} para m{mml_id} em <mml:math id=\"{mml_id}\"> dentro de <inline-formula id=\"{formula_id}\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:735
+#, python-brace-format
+msgid "For accessibility, consider adding <mml:math> in <inline-formula id=\"{formula_id}\">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail."
+msgstr "Para acessibilidade, considere adicionar <mml:math> em <inline-formula id=\"{formula_id}\">. MathML melhora a acessibilidade para leitores de tela. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/formula.py:775
+msgid "Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>"
+msgstr "Enrole <tex-math> e <mml:math> com <alternatives> dentro de <inline-formula>"
+
+#: packtools/sps/validation/formula.py:782
+#: packtools/sps/validation/formula.py:789
+#, python-brace-format
+msgid "Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>"
+msgstr "Remova o <alternatives> de <inline-formula> e mantenha <{found}> dentro de <inline-formula>"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:77
+#, python-brace-format
+msgid "Replace {obtained} in <article-meta><volume> with {expected}"
+msgstr "Substitua {obtained} em <article-meta><volume> por {expected}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:111
+#, python-brace-format
+msgid "Replace {obtained} in <article-meta><issue> with {expected}"
+msgstr "Substitua {obtained} em <article-meta><issue> por {expected}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:145
+#, python-brace-format
+msgid "Replace {obtained} in <article-meta><supplement> with {expected}"
+msgstr "Substitua {obtained} em <article-meta><supplement> por {expected}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:209
+#, python-brace-format
+msgid "Replace {issue} in <article-meta><issue> with one of {expected}"
+msgstr "Substitua {issue} em <article-meta><issue> por um de {expected}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:251
+#, python-brace-format
+msgid "Got {issue}, but the registered journal issue could not be checked"
+msgstr "Obtido {issue}, mas não foi possível verificar o fascículo cadastrado"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:255
+msgid "Unable to check if issue is registered"
+msgstr "Não é possível verificar se o fascículo está cadastrado"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:271
+#, python-brace-format
+msgid "Replace {issue} in <article-meta> with one of {expected_issues}"
+msgstr "Substitua {issue} em <article-meta> por um de {expected_issues}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:302
+#, python-brace-format
+msgid "Remove duplicate <issue> elements from <article-meta>. Found {count} elements, expected at most 1."
+msgstr "Remova os elementos <issue> duplicados de <article-meta>. Foram encontrados {count} elementos; esperava-se no máximo 1."
+
+#: packtools/sps/validation/front_articlemeta_issue.py:335
+#, python-brace-format
+msgid "Remove punctuation marks {found_punctuation} from <issue> value '{issue_value}'"
+msgstr "Remova os sinais de pontuação {found_punctuation} do valor <issue> '{issue_value}'"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:369
+#, python-brace-format
+msgid "Convert uppercase letters to lowercase in <issue> value '{issue_value}'. Expected: '{expected}'"
+msgstr "Converta letras maiúsculas em minúsculas no valor <issue> '{issue_value}'. Esperado: '{expected}'"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:419
+#, python-brace-format
+msgid "Use 'suppl' for supplement nomenclature in <issue> value '{issue_value}'. Invalid terms found: {invalid_patterns}"
+msgstr "Utilize 'suppl' para nomenclatura do suplemento no valor <issue> '{issue_value}'. Termos inválidos encontrados: {invalid_patterns}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:476
+#, python-brace-format
+msgid "Use 'spe' for special issue nomenclature in <issue> value '{issue_value}'. Invalid terms found: {found_invalid}"
+msgstr "Use 'spe' para nomenclatura de emissão especial no valor <issue> '{issue_value}'. Termos inválidos encontrados: {found_invalid}"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:508
+msgid "Remove <supplement> element(s) from <article-meta>. Use <issue> element to indicate supplements (e.g., '4 suppl 1')."
+msgstr "Remova o(s) elemento(s) <supplement> de <article-meta>. Use o elemento <issue> para indicar suplementos (por exemplo, '4 suppl 1')."
+
+#: packtools/sps/validation/front_articlemeta_issue.py:563
+#, python-brace-format
+msgid "Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'"
+msgstr "Remova os zeros à esquerda das partes numéricas no valor <issue> '{issue_value}'. Esperado: '{expected_value}'"
+
+#: packtools/sps/validation/front_articlemeta_issue.py:653
+msgid "Mark elocation id with <elocation-id> or first page with <fpage> and last page with <lpage>"
+msgstr "Marque o ID de localização com <elocation-id> ou a primeira página com <fpage> e a última página com <lpage>"
+
+#: packtools/sps/validation/funding_group.py:65
+#, python-brace-format
+msgid "Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail"
+msgstr "Marque a instituição patrocinadora com <funding-source> para <award-id> ({award_ids}). Consulte a documentação SPS para mais detalhes"
+
+#: packtools/sps/validation/funding_group.py:70
+#, python-brace-format
+msgid "Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail"
+msgstr "Marque o número do contrato com <award-id> para <funding-source> ({funding_sources}). Consulte a documentação SPS para mais detalhes"
+
+#: packtools/sps/validation/funding_group.py:75
+msgid "Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail"
+msgstr "Marque o número do contrato com <award-id> e a instituição financiadora com <funding-source> insider <award-group>. Consulte a documentação SPS para mais detalhes"
+
+#: packtools/sps/validation/funding_group.py:92
+msgid "<award-group> contains both <award-id> and <funding-source>"
+msgstr "<award-group> contém <award-id> e <funding-source>"
+
+#: packtools/sps/validation/funding_group.py:97
+msgid "<award-group> must contain both <award-id> and <funding-source>"
+msgstr "<award-group> deve conter <award-id> e <funding-source>"
+
+#: packtools/sps/validation/funding_group.py:128
+#, python-brace-format
+msgid "Found {missing} in {text} ({context}), if {missing} is a contract number, add <award-id>{missing}</award-id> and the corresponding funding institution with <funding-source> inside <award-group>. Consult the SPS documentation for more detail"
+msgstr "Encontrado {missing} em {text} ({context}), se {missing} for um número de contrato, adicione <award-id>{missing}</award-id> e a instituição financiadora correspondente com <funding-source> dentro <award-group>. Consulte a documentação do SPS para mais detalhes"
+
+#: packtools/sps/validation/funding_group.py:222
+#, python-brace-format
+msgid "Replace <funding-statement>{funding_statement}</funding-statement> by <funding-statement>{reference_text}</funding-statement>"
+msgstr "Substitua <funding-statement>{funding_statement}</funding-statement> por <funding-statement>{reference_text}</funding-statement>"
+
+#: packtools/sps/validation/funding_group.py:236
+msgid "No reference texts (fn/ack elements) were found to compare with <funding-statement>. Verify manually that the statement is correct."
+msgstr "Nenhum texto de referência (elementos fn/ack) foi encontrado para comparar com <funding-statement>. Verifique manualmente se a afirmação está correta."
+
+#: packtools/sps/validation/funding_group.py:243
+#, python-brace-format
+msgid "Add <funding-statement>{reference_text}</funding-statement> in <funding-group>. Consult SPS documentation for more detail"
+msgstr "Adicione <funding-statement>{reference_text}</funding-statement> em <funding-group>. Consulte a documentação SPS para mais detalhes"
+
+#: packtools/sps/validation/funding_group.py:251
+msgid "Add funding statement with <funding-statement> inside <funding-group>. Consult SPS documentation for more detail"
+msgstr "Adicione o extrato de financiamento com <funding-statement> dentro de <funding-group>. Consulte a documentação SPS para mais detalhes"
+
+#: packtools/sps/validation/funding_group.py:327
+#, python-brace-format
+msgid "Found {count} <funding-group> elements in <article-meta>. Only one is allowed. Merge them into a single <funding-group>."
+msgstr "Foram encontrados {count} elementos <funding-group> em <article-meta>. Apenas um é permitido. Mescle-os em um único <funding-group>."
+
+#: packtools/sps/validation/funding_group.py:394
+#, python-brace-format
+msgid "Add <funding-statement> element inside <funding-group> (index {index}). It is mandatory according to SPS 1.10."
+msgstr "Adicione o elemento <funding-statement> dentro de <funding-group> (índice {index}). É obrigatório de acordo com SPS 1.10."
+
+#: packtools/sps/validation/funding_group.py:397
+msgid "<funding-statement> is present in <funding-group>"
+msgstr "<funding-statement> está presente em <funding-group>"
+
+#: packtools/sps/validation/funding_group.py:400
+msgid "<funding-statement> is required in <funding-group>"
+msgstr "<funding-statement> é obrigatório em <funding-group>"
+
+#: packtools/sps/validation/funding_group.py:451
+msgid "Add at least one <funding-source> element inside this <award-group>. It is mandatory when <award-group> exists."
+msgstr "Adicione pelo menos um elemento <funding-source> dentro deste <award-group>. É obrigatório quando <award-group> existe."
+
+#: packtools/sps/validation/funding_group.py:499
+#, python-brace-format
+msgid "Remove {count} <label> element(s) from <funding-group>. <label> is not allowed according to SPS 1.10."
+msgstr "Remova o(s) elemento(s) {count} <label> de <funding-group>. <label> não é permitido de acordo com SPS 1.10."
+
+#: packtools/sps/validation/funding_group.py:555
+#, python-brace-format
+msgid "Remove {count} <title> element(s) from <funding-group>. <title> is not allowed according to SPS 1.10."
+msgstr "Remova o(s) elemento(s) {count} <title> de <funding-group>. <title> não é permitido de acordo com SPS 1.10."
+
+#: packtools/sps/validation/funding_group.py:621
+#, python-brace-format
+msgid "Inconsistent quantities: {num_sources} <funding-source>(s) but {num_awards} <award-id>(s). When multiple <award-id> elements exist, they should typically match the number of <funding-source> elements, or use separate <award-group> elements."
+msgstr "Quantidades inconsistentes: {num_sources} <funding-source>(s), mas {num_awards} <award-id>(s). Quando existem vários elementos <award-id>, eles normalmente devem corresponder ao número de elementos <funding-source> ou usar elementos <award-group> separados."
+
+#: packtools/sps/validation/graphic.py:55
+#: packtools/sps/validation/visual_resource_base.py:42
+#, python-brace-format
+msgid "Add id=\"\" to {element}"
+msgstr "Adicione id=\"\" a {element}"
+
+#: packtools/sps/validation/graphic.py:58
+#, python-brace-format
+msgid "The @id attribute is present in <{element}>"
+msgstr "O atributo @id está presente em <{element}>"
+
+#: packtools/sps/validation/graphic.py:60
+#, python-brace-format
+msgid "The @id attribute is required in <{element}>"
+msgstr "O atributo @id é obrigatório em <{element}>"
+
+#: packtools/sps/validation/graphic.py:95
+#, python-brace-format
+msgid "Add xlink:href=\"filename.ext\" to <{tag}> (valid extensions: jpg, jpeg, png, tif, tiff, svg)"
+msgstr "Adicione xlink:href=\"filename.ext\" a <{tag}> (extensões válidas: jpg, jpeg, png, tif, tiff, svg)"
+
+#: packtools/sps/validation/graphic.py:143
+#, python-brace-format
+msgid "SVG files are only allowed inside <alternatives>. The file '{xlink_href}' is currently in <{parent_tag}>. Either move this <graphic> inside <alternatives> or use a different format (.jpg, .png, .tif)."
+msgstr "Arquivos SVG só são permitidos dentro de <alternatives>. O arquivo '{xlink_href}' está atualmente em <{parent_tag}>. Mova este <graphic> para dentro de <alternatives> ou use um formato diferente (.jpg, .png, .tif)."
+
+#: packtools/sps/validation/history.py:230
+#, python-brace-format
+msgid "Remove duplicate <history> elements. Found {count} occurrences, expected at most 1."
+msgstr "Remova elementos <history> duplicados. Ocorrências {count} encontradas, esperadas no máximo 1."
+
+#: packtools/sps/validation/history.py:279
+#, python-brace-format
+msgid "Add @date-type attribute to <date> element. Date parts: {date_parts}"
+msgstr "Adicione o atributo @date-type ao elemento <date>. Peças de data: {date_parts}"
+
+#: packtools/sps/validation/history.py:284
+msgid "The @date-type attribute is present"
+msgstr "O atributo @date-type está presente"
+
+#: packtools/sps/validation/history.py:286
+msgid "The @date-type attribute is required"
+msgstr "O atributo @date-type é obrigatório"
+
+#: packtools/sps/validation/history.py:344
+#, python-brace-format
+msgid "Change @date-type='{date_type}' to one of the allowed values: {allowed_values}"
+msgstr "Altere @date-type='{date_type}' para um dos valores permitidos: {allowed_values}"
+
+#: packtools/sps/validation/history.py:400
+#, python-brace-format
+msgid "The required <date date-type=\"{date_type}\"> is present"
+msgstr "O elemento obrigatório <date date-type=\"{date_type}\"> está presente"
+
+#: packtools/sps/validation/history.py:404
+#, python-brace-format
+msgid "The required <date date-type=\"{date_type}\"> is missing"
+msgstr "O elemento obrigatório <date date-type=\"{date_type}\"> está ausente"
+
+#: packtools/sps/validation/history.py:408
+#, python-brace-format
+msgid "<date date-type=\"{date_type}\"> is not required for article type {article_type}"
+msgstr "<date date-type=\"{date_type}\"> não é obrigatório para o tipo de artigo {article_type}"
+
+#: packtools/sps/validation/history.py:426
+#, python-brace-format
+msgid "Add <date date-type=\"{date_type}\"> to <history>"
+msgstr "Adicione <date date-type=\"{date_type}\"> a <history>"
+
+#: packtools/sps/validation/history.py:509
+#, python-brace-format
+msgid "Add missing elements to <date date-type=\"{date_type}\">: {missing_parts}"
+msgstr "Adicione elementos ausentes a <date date-type=\"{date_type}\">: {missing_parts}"
+
+#: packtools/sps/validation/history.py:565
+#, python-brace-format
+msgid "Add <year> element to <date date-type=\"{date_type}\">"
+msgstr "Adicione o elemento <year> a <date date-type=\"{date_type}\">"
+
+#: packtools/sps/validation/history.py:569
+#, python-brace-format
+msgid "<year> is present in <date date-type=\"{date_type}\">"
+msgstr "<year> está presente em <date date-type=\"{date_type}\">"
+
+#: packtools/sps/validation/history.py:574
+#, python-brace-format
+msgid "<year> is required in <date date-type=\"{date_type}\">"
+msgstr "<year> é obrigatório em <date date-type=\"{date_type}\">"
+
+#: packtools/sps/validation/journal_meta.py:95
+#, python-brace-format
+msgid "Mark {name} ISSN with <issn pub-type=\"{tp}\">{issn}</issn> inside <journal-meta>"
+msgstr "Marque {name} ISSN com <issn pub-type=\"{tp}\">{issn}</issn> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:126
+#, python-brace-format
+msgid "Mark journal acronym with <journal-id journal-id-type=\"publisher-id\">{acronym}</journal-id> inside <journal-meta>"
+msgstr "Marque o acrônimo do periódico com <journal-id journal-id-type=\"publisher-id\">{acronym}</journal-id> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:160
+msgid "Mark journal title with <journal-title> inside <journal-title-group>"
+msgstr "Marque o título do periódico com <journal-title> dentro de <journal-title-group>"
+
+#: packtools/sps/validation/journal_meta.py:188
+msgid "Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>"
+msgstr "Marque o título abreviado do periódico com <abbrev-journal-title> dentro de <journal-title-group>"
+
+#: packtools/sps/validation/journal_meta.py:270
+#, python-brace-format
+msgid "Mark publisher name with <publisher><publisher-name>{name}</publisher-name></publisher> inside <journal-meta>"
+msgstr "Marque o nome do editor com <publisher><publisher-name>{name}</publisher-name></publisher> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:305
+#, python-brace-format
+msgid "{action} the following items {in_from} the XML: {items}"
+msgstr "{action} os seguintes itens {in_from} o XML: {items}"
+
+#: packtools/sps/validation/journal_meta.py:378
+#, python-brace-format
+msgid "Mark an nlm-ta value with <journal-id journal-id-type=\"nlm-ta\">{nlm_ta}</journal-id> inside <journal-meta>"
+msgstr "Marque um valor nlm-ta com <journal-id journal-id-type=\"nlm-ta\">{nlm_ta}</journal-id> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:452
+msgid "Add <journal-meta> element inside <front>"
+msgstr "Adicione o elemento <journal-meta> dentro de <front>"
+
+#: packtools/sps/validation/journal_meta.py:491
+msgid "Ensure exactly one <journal-meta> element exists inside <front>"
+msgstr "Certifique-se de que exista exatamente um elemento <journal-meta> dentro de <front>"
+
+#: packtools/sps/validation/journal_meta.py:522
+msgid "Add <journal-id journal-id-type=\"publisher-id\">ACRONYM</journal-id> inside <journal-meta>"
+msgstr "Adicione <journal-id journal-id-type=\"publisher-id\">ACRONYM</journal-id> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:553
+msgid "Add <journal-title>Title</journal-title> inside <journal-title-group>"
+msgstr "Adicione <journal-title>Title</journal-title> dentro de <journal-title-group>"
+
+#: packtools/sps/validation/journal_meta.py:584
+msgid "Add <abbrev-journal-title abbrev-type=\"publisher\">Abbrev. Title</abbrev-journal-title> inside <journal-title-group>"
+msgstr "Adicione <abbrev-journal-title abbrev-type=\"publisher\">Abrev. Título</abbrev-journal-title> dentro de <journal-title-group>"
+
+#: packtools/sps/validation/journal_meta.py:617
+msgid "Add at least one <issn pub-type=\"epub\">XXXX-XXXX</issn> or <issn pub-type=\"ppub\">XXXX-XXXX</issn> inside <journal-meta>"
+msgstr "Adicione pelo menos um <issn pub-type=\"epub\">XXXX-XXXX</issn> ou <issn pub-type=\"ppub\">XXXX-XXXX</issn> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:648
+msgid "Add <publisher><publisher-name>Publisher Name</publisher-name></publisher> inside <journal-meta>"
+msgstr "Adicione <publisher><publisher-name>Nome do editor</publisher-name></publisher> dentro de <journal-meta>"
+
+#: packtools/sps/validation/journal_meta.py:697
+#, python-brace-format
+msgid "Correct ISSN format to XXXX-XXXX pattern. Current value: {issn_value}"
+msgstr "Corrija o formato do ISSN para o padrão XXXX-XXXX. Valor atual: {issn_value}"
+
+#: packtools/sps/validation/journal_meta.py:743
+#, python-brace-format
+msgid "Set @journal-id-type to one of {allowed_types}. Current value: {id_type}"
+msgstr "Defina @journal-id-type como {allowed_types}. Valor atual: {id_type}"
+
+#: packtools/sps/validation/journal_meta.py:783
+#, python-brace-format
+msgid "Set @pub-type to one of {allowed_types}. Current value: {pub_type}"
+msgstr "Defina @pub-type como {allowed_types}. Valor atual: {pub_type}"
+
+#: packtools/sps/validation/journal_meta.py:831
+#, python-brace-format
+msgid "Remove duplicate ISSN elements with same pub-type. Duplicates: {duplicates}"
+msgstr "Remova elementos ISSN duplicados com o mesmo tipo de publicação. Duplicados: {duplicates}"
+
+#: packtools/sps/validation/list.py:62
+#, python-brace-format
+msgid "Add list-type attribute to <list> element. Use one of: {values}"
+msgstr "Adicione o atributo do tipo lista ao elemento <list>. Use um dos: {values}"
+
+#: packtools/sps/validation/list.py:66
+#, python-brace-format
+msgid "The @list-type attribute cannot be empty. Use one of: {values}"
+msgstr "O atributo @list-type não pode estar vazio. Use um dos: {values}"
+
+#: packtools/sps/validation/list.py:120
+#, python-brace-format
+msgid "Value \"{list_type}\" is not allowed for @list-type. Use one of: {allowed_types}"
+msgstr "O valor \"{list_type}\" não é permitido para @list-type. Use um dos: {allowed_types}"
+
+#: packtools/sps/validation/list.py:155
+#, python-brace-format
+msgid "<list> must contain at least {min_items} <list-item> elements. Found {count}"
+msgstr "<list> deve conter pelo menos {min_items} elementos <list-item>. Foram encontrados {count}."
+
+#: packtools/sps/validation/list.py:189
+msgid "For accessibility, do not use <label> in <list-item>. The @list-type attribute generates labels automatically"
+msgstr "Para acessibilidade, não use <label> em <list-item>. O atributo @list-type gera rótulos automaticamente"
+
+#: packtools/sps/validation/list.py:220
+#, python-brace-format
+msgid "Found {count} empty <list-item> element(s). Each <list-item> should contain at least one child element (typically <p>)"
+msgstr "Foram encontrados {count} elementos <list-item> vazios. Cada <list-item> deve conter pelo menos um elemento filho (normalmente <p>)."
+
+#: packtools/sps/validation/list.py:251
+msgid "Consider adding a <title> element if the list has a descriptive heading"
+msgstr "Considere adicionar um elemento <title> se a lista tiver um título descritivo"
+
+#: packtools/sps/validation/list.py:256
+msgid "<title> is present in the list"
+msgstr "<title> está presente na lista"
+
+#: packtools/sps/validation/list.py:259
+msgid "<title> is recommended when the list has a descriptive heading"
+msgstr "<title> é recomendado quando a lista tem um título descritivo"
+
+#: packtools/sps/validation/media.py:32
+#, python-brace-format
+msgid "Use expected values: {expected_values}"
+msgstr "Use valores esperados: {expected_values}"
+
+#: packtools/sps/validation/metadata_langs.py:133
+#, python-brace-format
+msgid "Mark {element} for {language} language"
+msgstr "Marque {element} para idioma {language}"
+
+#: packtools/sps/validation/peer_review.py:34
+msgid "Mark peer review name with <custom-meta><meta-name>."
+msgstr "Marque o nome da revisão por pares com <custom-meta><meta-name>."
+
+#: packtools/sps/validation/peer_review.py:57
+msgid "Mark peer review recommendation value with <custom-meta><meta-value>."
+msgstr "Marque o valor da recomendação de revisão por pares com <custom-meta><meta-value>."
+
+#: packtools/sps/validation/peer_review.py:170
+#, python-brace-format
+msgid "Add article_type in <article article-type='VALUE'> and replace VALUE with {article_types}"
+msgstr "Adicione article_type em <article article-type='VALUE'> e substitua VALUE por {article_types}"
+
+#: packtools/sps/validation/peer_review.py:206
+#, python-brace-format
+msgid "Add date-type in <history><date date-type=\"VALUE\"> and replace VALUE with : {event}"
+msgstr "Adicione o tipo de data em <history><date date-type=\"VALUE\"> e substitua VALUE por: {event}"
+
+#: packtools/sps/validation/permissions.py:101
+msgid "Add <permissions> element to <article-meta> with a Creative Commons license declaration"
+msgstr "Adicione o elemento <permissions> a <article-meta> com uma declaração de licença Creative Commons"
+
+#: packtools/sps/validation/permissions.py:127
+msgid "Remove duplicate <permissions> elements. Only one <permissions> should exist in <article-meta>"
+msgstr "Remova elementos <permissions> duplicados. Apenas um <permissions> deve existir em <article-meta>"
+
+#: packtools/sps/validation/permissions.py:154
+msgid "Add <license> element to <permissions> with Creative Commons CC-BY attributes"
+msgstr "Adicione elemento <license> a <permissions> com atributos Creative Commons CC-BY"
+
+#: packtools/sps/validation/permissions.py:180
+#, python-brace-format
+msgid "Set license-type=\"{license_type}\" in <license> element"
+msgstr "Defina license-type=\"{license_type}\" no elemento <license>"
+
+#: packtools/sps/validation/permissions.py:208
+msgid "Add xlink:href attribute with a valid Creative Commons CC-BY URL to <license>"
+msgstr "Adicione o atributo xlink:href com um URL Creative Commons CC-BY válido a <license>"
+
+#: packtools/sps/validation/permissions.py:236
+msgid "Add xml:lang attribute to <license> element indicating the language of the license text"
+msgstr "Adicione o atributo xml:lang ao elemento <license> indicando o idioma do texto da licença"
+
+#: packtools/sps/validation/permissions.py:264
+msgid "Add <license-p> element with the license text to <license>"
+msgstr "Adicione o elemento <license-p> com o texto da licença a <license>"
+
+#: packtools/sps/validation/permissions.py:299
+msgid "Use a valid Creative Commons CC-BY 4.0 URL, e.g. https://creativecommons.org/licenses/by/4.0/"
+msgstr "Use um URL válido do Creative Commons CC-BY 4.0, por exemplo. https://creativecommons.org/licenses/by/4.0/"
+
+#: packtools/sps/validation/permissions.py:302
+#, python-brace-format
+msgid "URL {url} must start with one of the valid Creative Commons CC-BY prefixes: {valid_prefixes}"
+msgstr "O URL {url} deve começar com um dos prefixos Creative Commons CC-BY válidos: {valid_prefixes}"
+
+#: packtools/sps/validation/permissions.py:356
+#, python-brace-format
+msgid "For xml:lang=\"{language}\", use a URL ending with '{expected_deed}', e.g. https://creativecommons.org/licenses/by/4.0/{expected_deed}"
+msgstr "Para xml:lang=\"{language}\", use um URL que termine com '{expected_deed}', por exemplo https://creativecommons.org/licenses/by/4.0/{expected_deed}"
+
+#: packtools/sps/validation/permissions.py:401
+#, python-brace-format
+msgid "Add <copyright-year>{year}</copyright-year> to <permissions> since the copyright statement mentions the year '{year}'"
+msgstr "Adicione <copyright-year>{year}</copyright-year> a <permissions>, pois a declaração de direitos autorais menciona o ano '{year}'"
+
+#: packtools/sps/validation/permissions.py:407
+msgid "<copyright-year> is required when <copyright-statement> mentions a year"
+msgstr "<copyright-year> é obrigatório quando <copyright-statement> menciona um ano"
+
+#: packtools/sps/validation/preprint.py:71
+msgid "Provide the publication date of the preprint"
+msgstr "Forneça a data de publicação da pré-impressão"
+
+#: packtools/sps/validation/preprint.py:84
+msgid "The article does not reference the preprint, provide it as in the example: <related-article id=\"pp1\" related-article-type=\"preprint\" ext-link-type=\"doi\" xlink:href=\"10.1590/SciELOPreprints.1174\"/>"
+msgstr "O artigo não faz referência ao preprint, forneça-o como no exemplo: <related-article id=\"pp1\" related-article-type=\"preprint\" ext-link-type=\"doi\" xlink:href=\"10.1590/SciELOPreprints.1174\"/>"
+
+#: packtools/sps/validation/preprint.py:100
+#: packtools/sps/validation/utils.py:101 packtools/sps/validation/utils.py:199
+#, python-brace-format
+msgid "Got {obtained}, expected {expected}"
+msgstr "Obtido {obtained}, esperado {expected}"
+
+#: packtools/sps/validation/product.py:66
+msgid "Add @product-type=\"book\" attribute to <product>."
+msgstr "Adicione o atributo @product-type=\"book\" a <product>."
+
+#: packtools/sps/validation/product.py:74
+msgid "@product-type is present but empty. Set the value to \"book\"."
+msgstr "@product-type está presente, mas vazio. Configure o valor como \"book\"."
+
+#: packtools/sps/validation/product.py:95
+msgid "The @product-type attribute is present with value \"book\""
+msgstr "O atributo @product-type está presente com o valor \"book\""
+
+#: packtools/sps/validation/product.py:99
+msgid "The @product-type attribute with value \"book\" is required"
+msgstr "O atributo @product-type com o valor \"book\" é obrigatório"
+
+#: packtools/sps/validation/product.py:137
+#, python-brace-format
+msgid "Replace @product-type=\"{product_type}\" with one of: {allowed_values}."
+msgstr "Substitua @product-type=\"{product_type}\" por um de: {allowed_values}."
+
+#: packtools/sps/validation/product.py:178
+msgid "Add <source> element with the book title inside <product>"
+msgstr "Adicione o elemento <source> com o título do livro dentro de <product>"
+
+#: packtools/sps/validation/product.py:220
+#, python-brace-format
+msgid "<product> is present but @article-type=\"{article_type}\". For book reviews, use @article-type=\"book-review\" in <article>"
+msgstr "<product> está presente, mas @article-type=\"{article_type}\". Para resenhas de livros, use @article-type=\"book-review\" em <article>"
+
+#: packtools/sps/validation/product.py:261
+msgid "Add <person-group person-group-type=\"author\"> with the author(s) of the reviewed book inside <product>"
+msgstr "Adicione <person-group person-group-type=\"author\"> com o(s) autor(es) do livro resenhado dentro de <product>"
+
+#: packtools/sps/validation/product.py:301
+msgid "Add <publisher-name> element with the publisher name inside <product> for bibliographic completeness"
+msgstr "Adicione o elemento <publisher-name> com o nome do editor dentro de <product> para integridade bibliográfica"
+
+#: packtools/sps/validation/product.py:341
+msgid "Add <year> element with the publication year inside <product> for bibliographic completeness"
+msgstr "Adicione o elemento <year> com o ano de publicação dentro de <product> para integridade bibliográfica"
+
+#: packtools/sps/validation/references.py:69
+#, python-brace-format
+msgid "Mark {label} with <{element_name}>"
+msgstr "Marque {label} com <{element_name}>"
+
+#: packtools/sps/validation/references.py:117
+#, python-brace-format
+msgid "Mark the reference year ({year}) with <year>; it must be earlier than or equal to {end_year}"
+msgstr "Marque o ano da referência ({year}) com <year>; ele deve ser anterior ou igual a {end_year}"
+
+#: packtools/sps/validation/references.py:127
+#, python-brace-format
+msgid "Mark the reference year with <year>; it must be earlier than or equal to {end_year}"
+msgstr "Marque o ano da referência com <year>; ele deve ser anterior ou igual a {end_year}"
+
+#: packtools/sps/validation/references.py:143
+#, python-brace-format
+msgid "Reference year {year} must be numeric and no later than {end_year}"
+msgstr "O ano da referência {year} deve ser numérico e não posterior a {end_year}"
+
+#: packtools/sps/validation/references.py:177
+msgid "Mark reference authors with <name> (person) or <collab> (institutional)"
+msgstr "Marque autores de referência com <name> (pessoa) ou <collab> (institucional)"
+
+#: packtools/sps/validation/references.py:198
+#, python-brace-format
+msgid "Complete publication-type=\"\" in <element-citation publication-type=\"\"> with valid value: {publication_type_list}"
+msgstr "Preencha publication-type=\"\" em <element-citation publication-type=\"\"> com um valor válido: {publication_type_list}"
+
+#: packtools/sps/validation/references.py:223
+#, python-brace-format
+msgid "{info}: Wrap {text_before_extlink}{ext_link_xml} with <comment> tag"
+msgstr "{info}: Enrole {text_before_extlink}{ext_link_xml} com etiqueta <comment>"
+
+#: packtools/sps/validation/references.py:235
+#: packtools/sps/validation/references.py:256
+#, python-brace-format
+msgid "{info}: Analyze and decide to remove <comment> or mark the text between <comment> and {ext_link_tag_with_attrib}"
+msgstr "{info}: Analise e decida remover <comment> ou marcar o texto entre <comment> e {ext_link_tag_with_attrib}"
+
+#: packtools/sps/validation/references.py:246
+#, python-brace-format
+msgid "{info}: Wrap the {text_before_extlink}{ext_link_xml} with <comment> tag"
+msgstr "{info}: envolva o {text_before_extlink}{ext_link_xml} com a tag <comment>"
+
+#: packtools/sps/validation/references.py:304
+#, python-brace-format
+msgid "remove {remaining_tags} from mixed-citation"
+msgstr "remova {remaining_tags} da citação mista"
+
+#: packtools/sps/validation/references.py:323
+#, python-brace-format
+msgid "{info}: mark the full reference with <mixed-citation>"
+msgstr "{info}: marque a referência completa com <mixed-citation>"
+
+#: packtools/sps/validation/references.py:347
+#, python-brace-format
+msgid "{info}: replace <chapter-title> by <part-title>"
+msgstr "{info}: substitua <chapter-title> por <part-title>"
+
+#: packtools/sps/validation/references.py:367
+#, python-brace-format
+msgid "{info}: {text} ({tag}) not found in <mixed-citation>{mixed_citation}</mixed-citation>"
+msgstr "{info}: {text} ({tag}) não encontrado em <mixed-citation>{mixed_citation}</mixed-citation>"
+
+#: packtools/sps/validation/references.py:392
+#, python-brace-format
+msgid "{info}: \"{item}\" was not marked, analyze it and mark it with a corresponding tag"
+msgstr "{info}: \"{item}\" não foi marcado, analise-o e marque-o com uma tag correspondente"
+
+#: packtools/sps/validation/references.py:414
+#, python-brace-format
+msgid "{info}: mark the structured reference with <element-citation>"
+msgstr "{info}: marque a referência estruturada com <element-citation>"
+
+#: packtools/sps/validation/references.py:433
+#, python-brace-format
+msgid "{info}: remove extra <ext-link> from <element-citation>, keep at most one"
+msgstr "{info}: remova <ext-link> extra de <element-citation>, mantenha no máximo um"
+
+#: packtools/sps/validation/references.py:452
+#, python-brace-format
+msgid "{info}: remove extra <ext-link> from <mixed-citation>, keep at most one"
+msgstr "{info}: remova <ext-link> extra de <mixed-citation>, mantenha no máximo um"
+
+#: packtools/sps/validation/references.py:472
+#, python-brace-format
+msgid "{info}: add <lpage> because <fpage> is present"
+msgstr "{info}: adicione <lpage> porque <fpage> está presente"
+
+#: packtools/sps/validation/references.py:475
+msgid "<lpage> is required when <fpage> is present"
+msgstr "<lpage> é obrigatório quando <fpage> está presente"
+
+#: packtools/sps/validation/references.py:497
+#, python-brace-format
+msgid "{info}: set @units=\"pages\" in <size>"
+msgstr "{info}: defina @units=\"pages\" em <size>"
+
+#: packtools/sps/validation/references.py:517
+#, python-brace-format
+msgid "{info}: set @content-type=\"access-date\" in <date-in-citation>"
+msgstr "{info}: definir @content-type=\"access-date\" em <date-in-citation>"
+
+#: packtools/sps/validation/references.py:536
+#, python-brace-format
+msgid "{info}: add <surname> to <name> in <person-group>"
+msgstr "{info}: adicione <surname> a <name> em <person-group>"
+
+#: packtools/sps/validation/references.py:600
+msgid "Add <ref-list> to <back> with at least one <ref>"
+msgstr "Adicione <ref-list> a <back> com pelo menos um <ref>"
+
+#: packtools/sps/validation/references.py:622
+msgid "Add at least one <ref> to <ref-list>"
+msgstr "Adicione pelo menos um <ref> a <ref-list>"
+
+#: packtools/sps/validation/related_articles.py:129
+#, python-brace-format
+msgid "Add @related-article-type attribute to <related-article>. Valid values: {allowed_values}"
+msgstr "Adicione o atributo @related-article-type a <related-article>. Valores válidos: {allowed_values}"
+
+#: packtools/sps/validation/related_articles.py:153
+msgid "The @related-article-type attribute is required"
+msgstr "O atributo @related-article-type é obrigatório"
+
+#: packtools/sps/validation/related_articles.py:174
+#, python-brace-format
+msgid "Add @ext-link-type attribute to <related-article>. Valid values: {allowed_values}"
+msgstr "Adicione o atributo @ext-link-type a <related-article>. Valores válidos: {allowed_values}"
+
+#: packtools/sps/validation/related_articles.py:223
+#, python-brace-format
+msgid "Value \"{obtained}\" is not allowed for @related-article-type. Valid values: {allowed_values}"
+msgstr "O valor \"{obtained}\" não é permitido para @related-article-type. Valores válidos: {allowed_values}"
+
+#: packtools/sps/validation/related_articles.py:269
+msgid "Add @xlink:href attribute to <related-article>. Provide a valid DOI or URI."
+msgstr "Adicione o atributo @xlink:href a <related-article>. Forneça um DOI ou URI válido."
+
+#: packtools/sps/validation/related_articles.py:312
+#, python-brace-format
+msgid "Value \"{obtained}\" is not allowed for @ext-link-type. Valid values: {allowed_values}"
+msgstr "O valor \"{obtained}\" não é permitido para @ext-link-type. Valores válidos: {allowed_values}"
+
+#: packtools/sps/validation/related_articles.py:364
+#, python-brace-format
+msgid "For @related-article-type=\"{related_type}\", use @ext-link-type=\"doi\". Value \"uri\" is only recommended for: {uri_types}"
+msgstr "Para @related-article-type=\"{related_type}\", use @ext-link-type=\"doi\". O valor \"uri\" é recomendado apenas para: {uri_types}"
+
+#: packtools/sps/validation/related_articles.py:399
+#: packtools/sps/validation/related_articles.py:429
+#, python-brace-format
+msgid "The article-type \"{article_type}\" does not match the related-article-type \"{obtained_type}\". Provide one of: {expected_values}"
+msgstr "O tipo de artigo \"{article_type}\" não corresponde ao tipo de artigo relacionado \"{obtained_type}\". Forneça um dos seguintes: {expected_values}"
+
+#: packtools/sps/validation/related_articles.py:463
+#, python-brace-format
+msgid "The @ext-link-type should be one of {allowed_values} for related article with id=\"{related_id}\""
+msgstr "O @ext-link-type deve ser {allowed_values} para artigo relacionado com id=\"{related_id}\""
+
+#: packtools/sps/validation/related_articles.py:496
+#: packtools/sps/validation/related_articles.py:556
+#, python-brace-format
+msgid "Provide a valid {link_type} for <related-article id=\"{related_id}\" />"
+msgstr "Forneça um {link_type} válido para <related-article id=\"{related_id}\" />"
+
+#: packtools/sps/validation/related_articles.py:525
+#: packtools/sps/validation/related_articles.py:586
+#, python-brace-format
+msgid "Invalid {link_type} format for link: {link}"
+msgstr "Formato {link_type} inválido para link: {link}"
+
+#: packtools/sps/validation/related_articles.py:624
+msgid "Add @id attribute to <related-article>. The @id must be a non-empty unique identifier."
+msgstr "Adicione o atributo @id a <related-article>. O @id deve ser um identificador exclusivo não vazio."
+
+#: packtools/sps/validation/related_articles.py:676
+#, python-brace-format
+msgid "Set related-article attributes in this order: {expected_order}"
+msgstr "Defina atributos de artigos relacionados nesta ordem: {expected_order}"
+
+#: packtools/sps/validation/related_articles.py:840
+#, python-brace-format
+msgid "Article type \"{article_type}\" requires related articles of types: {missing_types}"
+msgstr "O tipo de artigo \"{article_type}\" requer artigos relacionados dos tipos: {missing_types}"
+
+#: packtools/sps/validation/response.py:136
+msgid "Add @response-type=\"reply\" to <response>."
+msgstr "Adicione @response-type=\"reply\" a <response>."
+
+#: packtools/sps/validation/response.py:164
+msgid "Replace @response-type with \"reply\" in <response>."
+msgstr "Substitua @response-type por \"reply\" em <response>."
+
+#: packtools/sps/validation/response.py:194
+msgid "Add @xml:lang to <response>."
+msgstr "Adicione @xml:lang a <response>."
+
+#: packtools/sps/validation/response.py:222
+msgid "Add @id to <response>."
+msgstr "Adicione @id a <response>."
+
+#: packtools/sps/validation/response.py:264
+#, python-brace-format
+msgid "Replace duplicate @id=\"{response_id}\" with a unique value in <response>."
+msgstr "Substitua @id=\"{response_id}\" duplicado por um valor exclusivo em <response>."
+
+#: packtools/sps/validation/response.py:293
+msgid "Add <front-stub> with response metadata inside <response>."
+msgstr "Adicione <front-stub> com metadados de resposta dentro de <response>."
+
+#: packtools/sps/validation/response.py:320
+msgid "Add <body> with response content inside <response>."
+msgstr "Adicione <body> com conteúdo de resposta dentro de <response>."
+
+#: packtools/sps/validation/sec.py:44
+msgid "Add <title> element to <sec> for accessibility"
+msgstr "Adicione o elemento <title> a <sec> para acessibilidade"
+
+#: packtools/sps/validation/sec.py:81
+#, python-brace-format
+msgid "Replace @sec-type=\"{sec_type}\" with a valid value: {valid_types}"
+msgstr "Substitua @sec-type=\"{sec_type}\" por um valor válido: {valid_types}"
+
+#: packtools/sps/validation/sec.py:109
+msgid "Add @id attribute to <sec sec-type=\"transcript\">"
+msgstr "Adicione o atributo @id a <sec sec-type=\"transcript\">"
+
+#: packtools/sps/validation/sec.py:141
+#, python-brace-format
+msgid "Use pipe \"|\" as separator in @sec-type=\"{sec_type}\" (e.g., \"materials|methods\")"
+msgstr "Use o tubo \"|\" como separador em @sec-type=\"{sec_type}\" (por exemplo, \"materials|methods\")"
+
+#: packtools/sps/validation/sec.py:177
+#, python-brace-format
+msgid "Do not combine \"{non_combinable}\" with other types in @sec-type=\"{sec_type}\""
+msgstr "Não combine \"{non_combinable}\" com outros tipos em @sec-type=\"{sec_type}\""
+
+#: packtools/sps/validation/sec.py:201
+msgid "Add at least one <p> element to <sec>"
+msgstr "Adicione pelo menos um elemento <p> a <sec>"
+
+#: packtools/sps/validation/sec.py:204
+#, python-brace-format
+msgid "Found {count} paragraphs in <sec>; expected at least one <p>"
+msgstr "Encontrados {count} parágrafos em <sec>; esperado pelo menos um <p>"
+
+#: packtools/sps/validation/sec.py:292
+msgid "Data availability statement is missing; expected <sec sec-type=\"data-availability\"> in <body> or <back>, or <fn fn-type=\"data-availability\">"
+msgstr "A declaração de disponibilidade de dados está ausente; esperava-se <sec sec-type=\"data-availability\"> em <body> ou <back>, ou <fn fn-type=\"data-availability\">"
+
+#: packtools/sps/validation/sec.py:303
+#, python-brace-format
+msgid "Add <sec sec-type=\"data-availability\" specific-use=\"...\"> to <body> or <back>, or <fn fn-type=\"data-availability\"> (required for article-type=\"{article_type}\")"
+msgstr "Adicione <sec sec-type=\"data-availability\" specific-use=\"...\"> a <body> ou <back> ou <fn fn-type=\"data-availability\"> (obrigatório para article-type=\"{article_type}\")"
+
+#: packtools/sps/validation/supplementary_material.py:49
+#, python-brace-format
+msgid "In <sec sec-type=\"{sec_type}\"><supplementary-material> replace \"{sec_type}\" with \"supplementary-material\"."
+msgstr "Em <sec sec-type=\"{sec_type}\"><supplementary-material> substitua \"{sec_type}\" por \"supplementary-material\"."
+
+#: packtools/sps/validation/supplementary_material.py:71
+msgid "Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail."
+msgstr "Adicione rótulo em <supplementary-material>: <supplementary-material><label>. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/supplementary_material.py:92
+msgid "Do not use <supplementary-material> inside <app-group> or <app>."
+msgstr "Não use <supplementary-material> dentro de <app-group> ou <app>."
+
+#: packtools/sps/validation/supplementary_material.py:125
+msgid "The use of <inline-supplementary-material> is prohibited."
+msgstr "O uso de <inline-supplementary-material> é proibido."
+
+#: packtools/sps/validation/supplementary_material.py:128
+msgid "The <inline-supplementary-material> element is not allowed"
+msgstr "O elemento <inline-supplementary-material> não é permitido"
+
+#: packtools/sps/validation/supplementary_material.py:179
+msgid "The supplementary materials section must be at the end of <body> or inside <back>."
+msgstr "A seção de materiais suplementares deve estar no final de <body> ou dentro de <back>."
+
+#: packtools/sps/validation/supplementary_material.py:182
+msgid "The supplementary materials section must be the last section of <body> or be inside <back>"
+msgstr "A seção de materiais suplementares deve ser a última seção de <body> ou estar dentro de <back>"
+
+#: packtools/sps/validation/tablewrap.py:53
+#, python-brace-format
+msgid "({article_type}) No <table-wrap> found in XML"
+msgstr "({article_type}) Nenhum <table-wrap> encontrado em XML"
+
+#: packtools/sps/validation/tablewrap.py:138
+msgid "Add the table ID with id=\"\" in <table-wrap>: <table-wrap id=\"\">. Consult SPS documentation for more detail."
+msgstr "Adicione o ID da tabela com id=\"\" em <table-wrap>: <table-wrap id=\"\">. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/tablewrap.py:189
+#, python-brace-format
+msgid "Add <label> or <caption> with <title> inside {xml}. Consult SPS documentation for more detail."
+msgstr "Adicione <label> ou <caption> com <title> dentro de {xml}. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/tablewrap.py:192
+msgid "Expected <label> or <caption> with <title> inside <table-wrap>"
+msgstr "Esperado <label> ou <caption> com <title> dentro de <table-wrap>"
+
+#: packtools/sps/validation/tablewrap.py:223
+#, python-brace-format
+msgid "Wrap each table with <table> inside {xml}. Consult SPS documentation for more detail."
+msgstr "Envolva cada tabela com <table> dentro de {xml}. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/tablewrap.py:242
+#, python-brace-format
+msgid "Wrap <table> and <graphic> with <alternatives> inside {xml} "
+msgstr "Enrole <table> e <graphic> com <alternatives> dentro de {xml}"
+
+#: packtools/sps/validation/tablewrap.py:249
+#, python-brace-format
+msgid "Remove the <alternatives> from {xml}."
+msgstr "Remova o <alternatives> de {xml}."
+
+#: packtools/sps/validation/tablewrap.py:310
+#, python-brace-format
+msgid "Remove <tr> as a direct child of <table> in {xml}. Use <thead> or <tbody> to wrap <tr> elements."
+msgstr "Remova <tr> como filho direto de <table> em {xml}. Use <thead> ou <tbody> para agrupar elementos <tr>."
+
+#: packtools/sps/validation/tablewrap.py:342
+#, python-brace-format
+msgid "Move <th> elements to be inside <thead> in {xml}. Consult SPS documentation for more detail."
+msgstr "Mova os elementos <th> para dentro de <thead> em {xml}. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/tablewrap.py:374
+#, python-brace-format
+msgid "Move <td> elements to be inside <tbody> in {xml}. Consult SPS documentation for more detail."
+msgstr "Mova os elementos <td> para dentro de <tbody> em {xml}. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/tablewrap.py:406
+#, python-brace-format
+msgid "Add <tbody> inside <table> in {xml}. Consult SPS documentation for more detail."
+msgstr "Adicione <tbody> dentro de <table> em {xml}. Consulte a documentação do SPS para obter mais detalhes."
+
+#: packtools/sps/validation/utils.py:97 packtools/sps/validation/utils.py:195
+#, python-brace-format
+msgid "Got {obtained}, expected one of {expected}"
+msgstr "Obtido {obtained}, esperado um dos seguintes valores: {expected}"
+
+#: packtools/sps/validation/visual_resource_base.py:69
+#, python-brace-format
+msgid "In @xlink:href, provide a valid file name with its extension in {valid_extensions}."
+msgstr "Em @xlink:href, forneça um nome de arquivo válido com extensão em {valid_extensions}."
+
+#: packtools/sps/validation/xml_structure.py:92
+#, python-brace-format
+msgid "Unknown {identifier}: {value}"
+msgstr "{identifier} desconhecido: {value}"
+
+#: packtools/sps/validation/xml_structure.py:111
+#, python-brace-format
+msgid "Unmatched {identifier}: {value}. Expected one of {expected}"
+msgstr "{identifier} incomparável: {value}. Esperado um de {expected}"
+
+#: packtools/sps/validation/xml_structure.py:134
+#: packtools/sps/validation/xml_structure.py:154
+#, python-brace-format
+msgid "Unmatched {identifier}: {value}. Expected {expected}"
+msgstr "{identifier} incomparável: {value}. {expected} esperado"

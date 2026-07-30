@@ -1,6 +1,7 @@
 from packtools.sps.models.references import XMLReferences
 from packtools.sps.validation.exceptions import ValidationReferencesException
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class ReferenceValidation:
@@ -53,19 +54,33 @@ class ReferenceValidation:
         element_name=None,
         valid=None,
         advice=None,
+        advice_text=None,
+        advice_params=None,
         expected=None,
         error_level=None,
         validation_type=None,
+        message_text=None,
+        message_params=None,
     ):
         value = self.data.get(item_name)
         element_name = element_name or item_name
         advice = advice or f"Mark {label} with <{element_name}>"
+        advice_text = advice_text or i18n._(
+            "Mark {label} with <{element_name}>"
+        )
+        advice_params = advice_params or {
+            "label": label,
+            "element_name": element_name,
+        }
         expected = expected or f"reference {element_name}"
 
         advice = f'{self.info} : {advice}'
+        advice_text = "{info}: " + advice_text
+        advice_params["info"] = self.info
 
         if valid is None:
             valid = bool(value)
+
         yield build_response(
             title=f"reference {element_name}",
             parent=self.data,
@@ -76,6 +91,10 @@ class ReferenceValidation:
             expected=expected,
             obtained=value,
             advice=advice,
+            advice_text=advice_text,
+            advice_params=advice_params,
+            message_text=message_text,
+            message_params=message_params,
             data=self.data,
             error_level=error_level,
         )
@@ -95,20 +114,37 @@ class ReferenceValidation:
             advice = (
                 f"Mark the reference year ({year}) with <year> and it must be previous or equal to {end_year}"
             )
+            advice_text = i18n._("Mark the reference year ({year}) with <year>; it must be earlier than or equal to {end_year}")
+            advice_params = {
+                "year": year,
+                "end_year": end_year,
+            }
             expected = f"reference year ({year}) previous or equal to {end_year}"
         else:
             advice = (
                 f"Mark the reference year with <year> and it must be previous or equal to {end_year}"
             )
+            advice_text = i18n._("Mark the reference year with <year>; it must be earlier than or equal to {end_year}")
+            advice_params = {"end_year": end_year}
             expected = f"reference year previous or equal to {end_year}"
+
         yield from self._validate_item(
             "reference year",
             "year",
             valid=is_valid,
             advice=advice,
+            advice_text=advice_text,
+            advice_params=advice_params,
             expected=expected,
             error_level=self.params["year_error_level"],
-            validation_type="format"
+            validation_type="format",
+            message_text=(
+                i18n._(
+                    "Reference year {year} must be numeric and no later "
+                    "than {end_year}"
+                )
+            ),
+            message_params={"year": year, "end_year": end_year},
         )
 
     def validate_source(self):
@@ -137,7 +173,9 @@ class ReferenceValidation:
                 "all_authors",
                 element_name="person-group//name or person-group//collab",
                 valid=valid,
-                advice=f'Mark reference authors with <name> (person) or <collab> (institutional)',
+                advice='Mark reference authors with <name> (person) or <collab> (institutional)',
+                advice_text=i18n._("Mark reference authors with <name> (person) or <collab> (institutional)"),
+                advice_params={},
                 error_level=self.params["authors_error_level"],
             )
 
@@ -153,9 +191,12 @@ class ReferenceValidation:
         advice = (
             f'Complete publication-type="" in <element-citation publication-type=""> with valid value: {publication_type_list}'
         )
+
         yield from self._validate_item(
-            "reference type",
-            "publication_type", advice=advice,
+            "reference type", "publication_type",
+            advice=advice,
+            advice_text=i18n._('Complete publication-type="" in <element-citation publication-type=""> with valid value: {publication_type_list}'),
+            advice_params={"publication_type_list": publication_type_list},
             valid=valid,
             error_level=error_level, expected=publication_type_list, validation_type="value in list"
         )
@@ -178,6 +219,10 @@ class ReferenceValidation:
                 "expected": f"<comment>{text_before_extlink}{ext_link_xml}</comment>",
                 "obtained": f"<comment></comment>{text_before_extlink}{ext_link_xml}",
                 "advice": f"Wrap {text_before_extlink}{ext_link_xml} with <comment> tag",
+                "advice_text": i18n._(
+                    "{info}: Wrap {text_before_extlink}{ext_link_xml} "
+                    "with <comment> tag"
+                ),
             },
             {
                 "condition": has_comment
@@ -186,18 +231,32 @@ class ReferenceValidation:
                 "expected": ext_link_xml,
                 "obtained": f"<comment></comment>{ext_link_xml}",
                 "advice": f"Analyze and decide to remove <comment> or mark the text between <comment> and {ext_link_tag_with_attrib}",
+                "advice_text": i18n._(
+                    "{info}: Analyze and decide to remove <comment> or "
+                    "mark the text between <comment> and "
+                    "{ext_link_tag_with_attrib}"
+                ),
             },
             {
                 "condition": not has_comment and text_before_extlink,
                 "expected": f"<comment>{text_before_extlink}{ext_link_xml}</comment>",
                 "obtained": f"{text_before_extlink}{ext_link_xml}",
                 "advice": f"Wrap the {text_before_extlink}{ext_link_xml} with <comment> tag",
+                "advice_text": i18n._(
+                    "{info}: Wrap the "
+                    "{text_before_extlink}{ext_link_xml} with <comment> tag"
+                ),
             },
             {
                 "condition": full_comment and not text_between,
                 "expected": ext_link_xml,
                 "obtained": f"<comment>{ext_link_xml}</comment>",
                 "advice": f"Analyze and decide to remove <comment> or mark the text between <comment> and {ext_link_tag_with_attrib}",
+                "advice_text": i18n._(
+                    "{info}: Analyze and decide to remove <comment> or "
+                    "mark the text between <comment> and "
+                    "{ext_link_tag_with_attrib}"
+                ),
             },
         ]
 
@@ -216,6 +275,13 @@ class ReferenceValidation:
                     expected=scenario["expected"],
                     obtained=scenario["obtained"],
                     advice=advice,
+                    advice_text=scenario["advice_text"],
+                    advice_params={
+                        "info": self.info,
+                        "text_before_extlink": text_before_extlink,
+                        "ext_link_xml": ext_link_xml,
+                        "ext_link_tag_with_attrib": ext_link_tag_with_attrib,
+                    },
                     data=self.data,
                     error_level=self.params["comment_error_level"],
                 )
@@ -235,6 +301,8 @@ class ReferenceValidation:
                     expected=allowed_tags,
                     obtained=self.data.get("mixed_citation_sub_tags"),
                     advice=f"remove {remaining_tags} from mixed-citation",
+                    advice_text=i18n._("remove {remaining_tags} from mixed-citation"),
+                    advice_params={"remaining_tags": remaining_tags},
                     data=self.data,
                     error_level=self.params["mixed_citation_sub_tags_error_level"],
                 )
@@ -252,6 +320,8 @@ class ReferenceValidation:
             expected="mixed-citation",
             obtained=None,
             advice=advice,
+            advice_text=i18n._("{info}: mark the full reference with <mixed-citation>"),
+            advice_params={"info": self.info},
             data=self.data,
             error_level=self.params["mixed_citation_error_level"],
         )
@@ -274,6 +344,8 @@ class ReferenceValidation:
                 expected="<part-title>",
                 obtained="<chapter-title>",
                 advice=f'{self.info} : replace <chapter-title> by <part-title>',
+                advice_text=i18n._("{info}: replace <chapter-title> by <part-title>"),
+                advice_params={"info": self.info},
                 data=self.data,
                 error_level=self.params.get("title_tag_by_dtd_version_error_level"),
             )
@@ -292,6 +364,13 @@ class ReferenceValidation:
                 expected=None,
                 obtained=item,
                 advice=f'{self.info} : {item.get("text")} ({item.get("tag")}) not found in <mixed-citation>{self.data.get("mixed_citation")}</mixed-citation>',
+                advice_text=i18n._("{info}: {text} ({tag}) not found in <mixed-citation>{mixed_citation}</mixed-citation>"),
+                advice_params={
+                    "info": self.info,
+                    "text": item.get("text"),
+                    "tag": item.get("tag"),
+                    "mixed_citation": self.data.get("mixed_citation"),
+                },
                 data=self.data,
                 error_level=self.params.get("unmatched_data_error_level"),
             )
@@ -310,6 +389,11 @@ class ReferenceValidation:
                 expected=None,
                 obtained=item,
                 advice=f'{self.info} : "{item}" was not marked, analyze it and mark it with a corresponding tag',
+                advice_text=i18n._('{info}: "{item}" was not marked, analyze it and mark it with a corresponding tag'),
+                advice_params={
+                    "info": self.info,
+                    "item": item,
+                },
                 data=self.data,
                 error_level=self.params.get("not_marked_data_error_level"),
             )
@@ -327,6 +411,8 @@ class ReferenceValidation:
             expected="element-citation",
             obtained="element-citation" if has_ec else None,
             advice=advice,
+            advice_text=i18n._("{info}: mark the structured reference with <element-citation>"),
+            advice_params={"info": self.info},
             data=self.data,
             error_level=self.params.get("element_citation_error_level", "CRITICAL"),
         )
@@ -344,6 +430,8 @@ class ReferenceValidation:
                 expected="at most 1 <ext-link> in <element-citation>",
                 obtained=f"{count} <ext-link> elements",
                 advice=f"{self.info}: remove extra <ext-link> from <element-citation>, keep at most one",
+                advice_text=i18n._("{info}: remove extra <ext-link> from <element-citation>, keep at most one"),
+                advice_params={"info": self.info},
                 data=self.data,
                 error_level=self.params.get("ext_link_count_element_citation_error_level", "ERROR"),
             )
@@ -361,6 +449,8 @@ class ReferenceValidation:
                 expected="at most 1 <ext-link> in <mixed-citation>",
                 obtained=f"{count} <ext-link> elements",
                 advice=f"{self.info}: remove extra <ext-link> from <mixed-citation>, keep at most one",
+                advice_text=i18n._("{info}: remove extra <ext-link> from <mixed-citation>, keep at most one"),
+                advice_params={"info": self.info},
                 data=self.data,
                 error_level=self.params.get("ext_link_count_mixed_citation_error_level", "ERROR"),
             )
@@ -379,6 +469,12 @@ class ReferenceValidation:
                 expected="<lpage> when <fpage> is present",
                 obtained=f"<fpage>{fpage}</fpage> without <lpage>",
                 advice=f"{self.info}: add <lpage> because <fpage> is present",
+                advice_text=i18n._("{info}: add <lpage> because <fpage> is present"),
+                advice_params={"info": self.info},
+                message_text=i18n._(
+                    "<lpage> is required when <fpage> is present"
+                ),
+                message_params={},
                 data=self.data,
                 error_level=self.params.get("lpage_error_level", "ERROR"),
             )
@@ -398,6 +494,8 @@ class ReferenceValidation:
                     expected='<size units="pages">',
                     obtained=f'<size units="{units}">',
                     advice=f'{self.info}: set @units="pages" in <size>',
+                    advice_text=i18n._('{info}: set @units="pages" in <size>'),
+                    advice_params={"info": self.info},
                     data=self.data,
                     error_level=self.params.get("size_units_error_level", "ERROR"),
                 )
@@ -416,6 +514,8 @@ class ReferenceValidation:
                 expected='<date-in-citation content-type="access-date">',
                 obtained=f'<date-in-citation content-type="{content_type}">',
                 advice=f'{self.info}: set @content-type="access-date" in <date-in-citation>',
+                advice_text=i18n._('{info}: set @content-type="access-date" in <date-in-citation>'),
+                advice_params={"info": self.info},
                 data=self.data,
                 error_level=self.params.get("date_in_citation_content_type_error_level", "ERROR"),
             )
@@ -433,6 +533,8 @@ class ReferenceValidation:
                 expected="<surname> in <name>",
                 obtained=name,
                 advice=f"{self.info}: add <surname> to <name> in <person-group>",
+                advice_text=i18n._("{info}: add <surname> to <name> in <person-group>"),
+                advice_params={"info": self.info},
                 data=self.data,
                 error_level=self.params.get("surname_error_level", "ERROR"),
             )
@@ -495,6 +597,8 @@ class ReferencesValidation:
             expected="<ref-list> in <back>",
             obtained="<ref-list>" if is_valid else None,
             advice="Add <ref-list> to <back> with at least one <ref>",
+            advice_text=i18n._("Add <ref-list> to <back> with at least one <ref>"),
+            advice_params={},
             data=self._get_parent_data(),
             error_level=self.params.get("ref_list_presence_error_level", "CRITICAL"),
         )
@@ -515,6 +619,8 @@ class ReferencesValidation:
                 expected="at least one <ref> in <ref-list>",
                 obtained=f"{len(refs)} <ref> elements",
                 advice="Add at least one <ref> to <ref-list>",
+                advice_text=i18n._("Add at least one <ref> to <ref-list>"),
+                advice_params={},
                 data=self._get_parent_data(),
                 error_level=self.params.get("ref_presence_error_level", "CRITICAL"),
             )

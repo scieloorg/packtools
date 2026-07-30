@@ -186,6 +186,10 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             mode_validation["expected_value"],
         )
         self.assertIn("Complete  specific-use=", mode_validation["advice"])
+        self.assertEqual(
+            mode_validation["adv_text"].format(**mode_validation["adv_params"]),
+            mode_validation["advice"],
+        )
 
     def test_validate_data_availability_without_data_availability(self):
         self.maxDiff = None
@@ -217,6 +221,10 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("ERROR", exist_validation["response"])
         self.assertIsNone(exist_validation["got_value"].get("tag"))
         self.assertIn("Mark in <article>", exist_validation["advice"])
+        self.assertEqual(
+            exist_validation["adv_text"].format(**exist_validation["adv_params"]),
+            exist_validation["advice"],
+        )
 
     def test_validate_data_availability_article_type_optional(self):
         self.maxDiff = None
@@ -282,6 +290,10 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("data availability statement", exist_validation["title"])
         self.assertEqual("ERROR", exist_validation["response"])
         self.assertIn("Remove from <article>", exist_validation["advice"])
+        self.assertEqual(
+            exist_validation["adv_text"].format(**exist_validation["adv_params"]),
+            exist_validation["advice"],
+        )
 
         # Check the mode validation
         mode_validation = validations[1]

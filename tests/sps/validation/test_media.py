@@ -65,6 +65,10 @@ class MediaValidationTest(unittest.TestCase):
         result = validator.validate_mime_type_and_subtype()
         self.assertEqual(result["response"], "CRITICAL")
         self.assertIsNotNone(result["advice"])
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_mime_type_and_subtype_success(self):
         """Passes when mime-type/mime-subtype combination is valid."""

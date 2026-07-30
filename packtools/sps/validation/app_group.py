@@ -1,5 +1,6 @@
 from packtools.sps.validation.models.app_group import XmlAppGroup
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 class AppValidation:
@@ -48,8 +49,10 @@ class AppValidation:
                 advice="Consider adding an <app> element to include additional content such as appendices.",
                 data=None,
                 error_level=self.params["app_existence_error_level"],
-                advice_text="Consider adding an <app> element to include additional content such as appendices.",
-                advice_params={}
+                advice_text=i18n._("Consider adding an <app> element to include additional content such as appendices."),
+                advice_params={},
+                message_text=i18n._("No <app> element was found"),
+                message_params={},
             )
         else:
             for app in self.apps:
@@ -94,7 +97,7 @@ class AppValidation:
                 advice='Add @id attribute to <app>. Example: <app id="app1">',
                 data=app,
                 error_level=self.params["app_id_error_level"],
-                advice_text='Add @id attribute to <app>. Example: <app id="app1">',
+                advice_text=i18n._('Add @id attribute to <app>. Example: <app id="app1">'),
                 advice_params=None
             )
 
@@ -126,8 +129,8 @@ class AppValidation:
                        f'Example: <app id="{app_id_or_example_fix}"><label>Appendix 1</label></app>',
                 data=app,
                 error_level=self.params["app_label_error_level"],
-                advice_text='Add <label> element to <app id="{app_id_or_placeholder}">. '
-                           'Example: <app id="{app_id_or_example_fix}"><label>Appendix 1</label></app>',
+                advice_text=i18n._('Add <label> element to <app id="{app_id_or_placeholder}">. '
+                           'Example: <app id="{app_id_or_example_fix}"><label>Appendix 1</label></app>'),
                 advice_params={
                     "app_id_or_placeholder": app_id_or_placeholder,
                     "app_id_or_example_fix": app_id_or_example_fix
@@ -181,8 +184,8 @@ class AppValidation:
                            f'Example: <back><app-group><app id="{app_id}">...</app></app-group></back>',
                     data={"app_id": app_id},
                     error_level=self.params["app_group_wrapper_error_level"],
-                    advice_text='Wrap <app id="{app_id}"> with <app-group>. '
-                               'Example: <back><app-group><app id="{app_id}">...</app></app-group></back>',
+                    advice_text=i18n._('Wrap <app id="{app_id}"> with <app-group>. '
+                               'Example: <back><app-group><app id="{app_id}">...</app></app-group></back>'),
                     advice_params={
                         "app_id": app_id
                     }
@@ -218,8 +221,13 @@ class AppValidation:
                 advice=f'Merge all {len(app_groups)} <app-group> elements into a single <app-group>.',
                 data={"count": len(app_groups)},
                 error_level=self.params["app_group_occurrence_error_level"],
-                advice_text='Merge all {count} <app-group> elements into a single <app-group>.',
+                advice_text=i18n._('Merge all {count} <app-group> elements into a single <app-group>.'),
                 advice_params={
                     "count": len(app_groups)
-                }
+                },
+                message_text=i18n._(
+                    "Found {count} <app-group> elements in <back>; "
+                    "expected at most one"
+                ),
+                message_params={"count": len(app_groups)},
             )

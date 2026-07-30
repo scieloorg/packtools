@@ -3,6 +3,7 @@ from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.basefn import BaseFnValidation
+from packtools.sps import i18n
 
 
 class AuthorNotesFnValidation(BaseFnValidation):
@@ -18,7 +19,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
         
         if not is_valid:
             advice = 'Add mandatory @fn-type attribute to <fn> in <author-notes>. Valid values for author notes: abbr, coi-statement, corresp'
-            advice_text = 'Add mandatory @fn-type attribute to <fn> in <author-notes>. Valid values for author notes: {values}'
+            advice_text = i18n._('Add mandatory @fn-type attribute to <fn> in <author-notes>. Valid values for author notes: {values}')
             advice_params = {"values": "abbr, coi-statement, corresp"}
             
             return build_response(
@@ -76,7 +77,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
         
         if not is_valid:
             advice = f'@fn-type="{fn_type}" is not valid for <fn> in <author-notes>. Use one of: {", ".join(allowed_values)}'
-            advice_text = '@fn-type="{fn_type}" is not valid for <fn> in <author-notes>. Use one of: {values}'
+            advice_text = i18n._('@fn-type="{fn_type}" is not valid for <fn> in <author-notes>. Use one of: {values}')
             advice_params = {
                 "fn_type": fn_type,
                 "values": ", ".join(allowed_values)
@@ -108,7 +109,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
         
         if fn_type == "corresp":
             advice = 'For corresponding author information, use <corresp> element instead of <fn fn-type="corresp">'
-            advice_text = 'For corresponding author information, use <corresp> element instead of <fn fn-type="corresp">'
+            advice_text = i18n._('For corresponding author information, use <corresp> element instead of <fn fn-type="corresp">')
             advice_params = {}
             
             return build_response(
@@ -139,6 +140,8 @@ class AuthorNotesFnValidation(BaseFnValidation):
                 expected="bio",
                 obtained=self.fn_data.get("fn_type"),
                 advice='<fn fn-type="current-aff"> is deprecated. Use <fn fn-type="bio"> instead.',
+                advice_text=i18n._('<fn fn-type="current-aff"> is deprecated. Use <fn fn-type="bio"> instead.'),
+                advice_params={},
                 data=self.fn_data,
                 error_level=self.rules["current-aff_error_level"],
             )
@@ -157,6 +160,10 @@ class AuthorNotesFnValidation(BaseFnValidation):
                 advice='<fn fn-type="con"> is deprecated. '
                        'Use <role content-type="http://credit.niso.org/contributor-roles/CONTRIBUTION/"> '
                        'inside <contrib> instead. Replace CONTRIBUTION with the author\'s contribution type.',
+                advice_text=i18n._('<fn fn-type="con"> is deprecated. '
+                            'Use <role content-type="http://credit.niso.org/contributor-roles/CONTRIBUTION/"> '
+                            'inside <contrib> instead. Replace CONTRIBUTION with the author\'s contribution type.'),
+                advice_params={},
                 data=self.fn_data,
                 error_level=self.rules["con_error_level"],
             )
@@ -233,7 +240,7 @@ class XMLAuthorNotesValidation:
         
         if article_author_notes_count > 1:
             advice = f'<author-notes> element should appear at most once in the article. Found {article_author_notes_count} occurrences.'
-            advice_text = '<author-notes> element should appear at most once in the article. Found {count} occurrences.'
+            advice_text = i18n._('<author-notes> element should appear at most once in the article. Found {count} occurrences.')
             advice_params = {"count": str(article_author_notes_count)}
             
             yield build_response(
@@ -259,7 +266,7 @@ class XMLAuthorNotesValidation:
             
             if sub_author_notes_count > 1:
                 advice = f'<author-notes> element should appear at most once in sub-article (id={sub_article_id}). Found {sub_author_notes_count} occurrences.'
-                advice_text = '<author-notes> element should appear at most once in sub-article (id={id}). Found {count} occurrences.'
+                advice_text = i18n._('<author-notes> element should appear at most once in sub-article (id={id}). Found {count} occurrences.')
                 advice_params = {
                     "id": sub_article_id,
                     "count": str(sub_author_notes_count)
@@ -347,6 +354,8 @@ class CorrespValidation:
             expected="corresp/label",
             obtained="corresp/label" if is_valid else None,
             advice=f"Mark corresp label with <corresp><label>",
+            advice_text=i18n._("Mark corresp label with <corresp><label>"),
+            advice_params={},
             data=self.corresp_data,
             error_level=self.rules["corresp_label_error_level"],
         )
@@ -367,6 +376,8 @@ class CorrespValidation:
             expected="corresp/label" if not is_valid else None,
             obtained="corresp/title" if not is_valid else None,
             advice=f"Replace <corresp><title> with <corresp><label>",
+            advice_text=i18n._("Replace <corresp><title> with <corresp><label>"),
+            advice_params={},
             data=self.corresp_data,
             error_level=self.rules["corresp_title_error_level"],
         )
@@ -387,6 +398,8 @@ class CorrespValidation:
             expected="corresp/label" if not is_valid else None,
             obtained="corresp/bold" if not is_valid else None,
             advice=f"Replace <corresp><bold> with <corresp><label>",
+            advice_text=i18n._("Replace <corresp><bold> with <corresp><label>"),
+            advice_params={},
             data=self.corresp_data,
             error_level=self.rules["corresp_bold_error_level"],
         )

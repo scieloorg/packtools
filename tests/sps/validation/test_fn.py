@@ -1,5 +1,9 @@
 import unittest
+from unittest.mock import Mock
+
 from lxml import etree
+
+from packtools.sps.validation.basefn import BaseFnValidation
 from packtools.sps.validation.fn import XMLFnGroupValidation, FnValidation
 
 
@@ -54,6 +58,37 @@ class TestFnValidation(unittest.TestCase):
         self.assertEqual(results[4]["response"], "OK")
         self.assertIsNone(results[4]["advice"])
 
+    def test_base_fn_invalid_advices_i18n(self):
+        validator = BaseFnValidation(
+            {
+                "fn_label": None,
+                "fn_title": "Title",
+                "fn_bold": "Label",
+                "fn_type": "invalid",
+            },
+            self.rules,
+            1.3,
+        )
+        conflict_validator = BaseFnValidation(
+            {"fn_type": "conflict"},
+            self.rules,
+            1.3,
+        )
+
+        results = [
+            validator.validate_label(),
+            validator.validate_title(),
+            validator.validate_bold(),
+            validator.validate_type(),
+            conflict_validator.validate_conflict(),
+        ]
+
+        for result in results:
+            self.assertEqual(
+                result["adv_text"].format(**result["adv_params"]),
+                result["advice"],
+            )
+
     def test_validate_group(self):
         xml_tree = etree.fromstring('''
             <article>
@@ -81,6 +116,18 @@ class TestFnValidation(unittest.TestCase):
         # Check that edited-by validation exists (may be OK or CRITICAL depending on presence)
         edited_by = [r for r in results if r["title"] == "edited-by"]
         self.assertEqual(len(edited_by), 1)
+
+    def test_validate_edited_by_i18n(self):
+        xml_tree = etree.fromstring("<article/>")
+        validator = XMLFnGroupValidation(xml_tree, self.rules)
+        validator.xml_article = Mock(fn_edited_by=[])
+
+        result = list(validator.validate_edited_by())[0]
+
+        self.assertEqual(
+            result["adv_text"].format(**result["adv_params"]),
+            result["advice"],
+        )
 
     def test_validate_sub_article(self):
         xml_tree = etree.fromstring('''

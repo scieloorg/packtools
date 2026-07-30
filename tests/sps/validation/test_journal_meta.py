@@ -1,8 +1,17 @@
 from unittest import TestCase
 from lxml import etree
 
-from packtools.sps.validation.journal_meta import ISSNValidation, AcronymValidation, TitleValidation, \
-    PublisherNameValidation, JournalMetaValidation, JournalIdValidation
+from packtools.sps.validation.journal_meta import (
+    AcronymValidation,
+    ISSNFormatValidation,
+    ISSNValidation,
+    JournalIdValidation,
+    JournalMetaAttributeValidation,
+    JournalMetaPresenceValidation,
+    JournalMetaValidation,
+    PublisherNameValidation,
+    TitleValidation,
+)
 
 
 class ISSNTest(TestCase):
@@ -1534,3 +1543,67 @@ class JournalMetaAttributeTest(TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]['response'], 'WARNING')
         self.assertIn('epub', results[0]['data']['duplicates'])
+
+
+class JournalMetaI18nTest(TestCase):
+    def assert_i18n_advice(self, result):
+        self.assertIsNotNone(result["adv_text"])
+        self.assertIsInstance(result["adv_params"], dict)
+        self.assertEqual(
+            result["advice"],
+            result["adv_text"].format(**result["adv_params"]),
+        )
+
+    def test_static_advices_have_templates(self):
+        xmltree = etree.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front/>
+            </article>
+            """
+        )
+        validation = JournalMetaPresenceValidation(xmltree)
+        results = [
+            *validation.validate_journal_meta_presence(),
+            *validation.validate_journal_meta_uniqueness(),
+            *validation.validate_publisher_id_presence(),
+            *validation.validate_journal_title_presence(),
+            *validation.validate_abbrev_journal_title_presence(),
+            *validation.validate_issn_presence(),
+            *validation.validate_publisher_name_presence(),
+        ]
+
+        self.assertEqual(7, len(results))
+
+        for result in results:
+            with self.subTest(title=result["title"]):
+                self.assert_i18n_advice(result)
+
+    def test_dynamic_advices_have_templates(self):
+        xmltree = etree.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="invalid-type">test</journal-id>
+                        <issn pub-type="online">invalid</issn>
+                        <issn pub-type="online">invalid</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        format_validation = ISSNFormatValidation(xmltree)
+        attribute_validation = JournalMetaAttributeValidation(xmltree)
+        results = [
+            *format_validation.validate_issn_format(),
+            *attribute_validation.validate_journal_id_type_values(),
+            *attribute_validation.validate_issn_pub_type_values(),
+            *attribute_validation.validate_issn_type_uniqueness(),
+        ]
+
+        self.assertEqual(6, len(results))
+
+        for result in results:
+            with self.subTest(title=result["title"]):
+                self.assert_i18n_advice(result)

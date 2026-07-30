@@ -1,9 +1,8 @@
 from packtools.sps.validation.models.abstract import XMLAbstracts
 from packtools.sps.validation.utils import build_response
-import gettext
+from packtools.sps import i18n
 
 # Configuração de internacionalização
-_ = gettext.gettext
 
 
 class AbstractValidation:
@@ -179,7 +178,7 @@ class AbstractValidation:
 
         if abstract_type:
             advice = f'Replace {abstract_type} in {xml} by a valid value: {expected_abstract_type_list}'
-            advice_text = _('Replace {value} in {element} by a valid value: {valid_values}')
+            advice_text = i18n._('Replace {value} in {element} by a valid value: {valid_values}')
             advice_params = {
                 "value": abstract_type,
                 "element": xml,
@@ -187,7 +186,7 @@ class AbstractValidation:
             }
         else:
             advice = f'Add abstract type in {xml}. Valid values: {expected_abstract_type_list}'
-            advice_text = _('Add abstract type in {element}. Valid values: {valid_values}')
+            advice_text = i18n._('Add abstract type in {element}. Valid values: {valid_values}')
             advice_params = {
                 "element": xml,
                 "valid_values": str(expected_abstract_type_list)
@@ -236,7 +235,7 @@ class AbstractValidation:
             expected="graphic",
             obtained=graphic,
             advice='Mark graphic in <abstract abstract-type="graphical">',
-            advice_text=_('Mark {element} in {container}'),
+            advice_text=i18n._('Mark {element} in {container}'),
             advice_params={
                 "element": "graphic",
                 "container": '<abstract abstract-type="graphical">'
@@ -270,7 +269,7 @@ class AbstractValidation:
             expected=f"<kwd-group xml:lang='{lang}'>",
             obtained=kwds,
             advice=f'Add <kwd-group xml:lang="{lang}"> as sibling of {xml}',
-            advice_text=_('Add {element} as sibling of {container}'),
+            advice_text=i18n._('Add {element} as sibling of {container}'),
             advice_params={
                 "element": f'<kwd-group xml:lang="{lang}">',
                 "container": xml
@@ -308,7 +307,7 @@ class AbstractValidation:
                 expected=None,
                 obtained=kwds,
                 advice=f'Remove <kwd-group xml:lang="{lang}"> which is associated with {xml} by language',
-                advice_text=_('Remove {element} which is associated with {container} by language'),
+                advice_text=i18n._('Remove {element} which is associated with {container} by language'),
                 advice_params={
                     "element": f'<kwd-group xml:lang="{lang}">',
                     "container": xml
@@ -348,7 +347,7 @@ class AbstractValidation:
             expected="title",
             obtained=title,
             advice="Mark abstract title with <title> in <abstract>",
-            advice_text=_("Mark abstract title with {element} in {container}"),
+            advice_text=i18n._("Mark abstract title with {element} in {container}"),
             advice_params={
                 "element": "<title>",
                 "container": "<abstract>"
@@ -378,7 +377,7 @@ class AbstractValidation:
             expected=None,
             obtained=list_items,
             advice='Replace <list> inside <abstract abstract-type="key-points"> by <p>',
-            advice_text=_('Replace {wrong_element} inside {container} by {correct_element}'),
+            advice_text=i18n._('Replace {wrong_element} inside {container} by {correct_element}'),
             advice_params={
                 "wrong_element": "<list>",
                 "container": '<abstract abstract-type="key-points">',
@@ -412,7 +411,7 @@ class AbstractValidation:
             expected="more than one p",
             obtained=p_list,
             advice='Provide more than one <p> in <abstract abstract-type="key-points">',
-            advice_text=_('Provide more than one {element} in {container}'),
+            advice_text=i18n._('Provide more than one {element} in {container}'),
             advice_params={
                 "element": "<p>",
                 "container": '<abstract abstract-type="key-points">'
@@ -525,14 +524,14 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             is_valid = bool(data)
             error_level = self.params["article_type_requires_abstract_error_level"]
             advice = f"Mark abstract which is required for {self.article_type}"
-            advice_text = "Mark abstract which is required for {article_type}"
+            advice_text = i18n._("Mark abstract which is required for {article_type}")
             advice_params = {"article_type": self.article_type}
         elif self.article_type in self.params["article_type_unexpects"]:
             expected = f"Abstract is unexpected"
             is_valid = not bool(data)
             error_level = self.params["article_type_unexpects_abstract_error_level"]
             advice = f"Abstract is not expected for {self.article_type}"
-            advice_text = "Abstract is not expected for {article_type}"
+            advice_text = i18n._("Abstract is not expected for {article_type}")
             advice_params = {"article_type": self.article_type}
         elif self.article_type in self.params["article_type_neutral"]:
             is_valid = True

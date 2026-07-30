@@ -93,6 +93,14 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         self.assertEqual(len(alt_text_results), 1)
         self.assertIn(alt_text_results[0]["response"], ["WARNING", "ERROR", "CRITICAL"])
         self.assertEqual(alt_text_results[0]["response"], "WARNING")
+        self.assertEqual(
+            "Got {obtained}, expected up to {max_length} characters",
+            alt_text_results[0]["msg_text"],
+        )
+        self.assertEqual(
+            {"obtained": None, "max_length": 120},
+            alt_text_results[0]["msg_params"],
+        )
 
     # ========== TESTES: <alt-text> LOCALIZAÇÃO (NOVA VALIDAÇÃO) ==========
 

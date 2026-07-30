@@ -2,6 +2,7 @@ import re
 
 from packtools.sps.models.article_contribs import TextContribs, XMLContribs
 from packtools.sps.validation.utils import build_response
+from packtools.sps import i18n
 
 
 def _callable_extern_validate_default(orcid, data):
@@ -26,6 +27,10 @@ class ContribValidation:
         if parent_id := self.data.get("parent_id"):
             return f'{self.contrib_name} (sub-article {parent_id}) :'
         return f'{self.contrib_name} :'
+
+    @property
+    def i18n_info(self):
+        return self.info.removesuffix(" :")
 
     def _get_default_params(self):
         return {
@@ -68,10 +73,10 @@ class ContribValidation:
             valid_values_str = ", ".join(valid_values)
             advice = f'{self.info} Add @contrib-type attribute to <contrib>. Valid values: {valid_values_str}'
             advice_text = (
-                '{info} Add @contrib-type attribute to <contrib>. Valid values: {values}'
+                i18n._('{info}: Add @contrib-type attribute to <contrib>. Valid values: {values}')
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
                 "values": ", ".join(valid_values),
             }
 
@@ -99,10 +104,10 @@ class ContribValidation:
             valid_values_str = " or ".join(valid_values)
             advice = f'{self.info} @contrib-type="{contrib_type}" is invalid. Use: {valid_values_str}'
             advice_text = (
-                '{info} @contrib-type="{obtained}" is invalid. Use: {expected}'
+                i18n._('{info}: @contrib-type="{obtained}" is invalid. Use: {expected}')
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
                 "obtained": contrib_type,
                 "expected": " or ".join(valid_values),
             }
@@ -129,10 +134,10 @@ class ContribValidation:
             if not is_author:
                 advice = f'{self.info} @contrib-type must be "author" for this document type (except reviewer reports)'
                 advice_text = (
-                    '{info} @contrib-type must be "author" for this document type (except reviewer reports)'
+                    i18n._('{info}: @contrib-type must be "author" for this document type (except reviewer reports)')
                 )
                 advice_params = {
-                    "info": self.info,
+                    "info": self.i18n_info,
                 }
 
                 yield build_response(
@@ -161,10 +166,10 @@ class ContribValidation:
 
             advice = f"{self.info} Mark the contrib role. Consult SPS documentation for detailed instructions"
             advice_text = (
-                "{info} Mark the contrib role. Consult SPS documentation for detailed instructions"
+                i18n._("{info}: Mark the contrib role. Consult SPS documentation for detailed instructions")
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
             }
 
             yield build_response(
@@ -222,10 +227,10 @@ class ContribValidation:
         if _orcid and ("http://" in _orcid or "https://" in _orcid or "orcid.org" in _orcid):
             advice = f'{self.info} Do not use URLs. Extract only the alphanumeric identifier from {_orcid}'
             advice_text = (
-                "{info} Do not use URLs. Extract only the alphanumeric identifier from {orcid}"
+                i18n._("{info}: Do not use URLs. Extract only the alphanumeric identifier from {orcid}")
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
                 "orcid": _orcid,
             }
 
@@ -253,7 +258,7 @@ class ContribValidation:
         if _orcid:
             advice = f'Fix ORCID format <contrib-id contrib-id-type="orcid">{_orcid}</contrib-id>'
             advice_text = (
-                'Fix ORCID format <contrib-id contrib-id-type="orcid">{orcid}</contrib-id>'
+                i18n._('Fix ORCID format <contrib-id contrib-id-type="orcid">{orcid}</contrib-id>')
             )
             advice_params = {
                 "orcid": _orcid,
@@ -261,10 +266,10 @@ class ContribValidation:
         else:
             advice = f'{self.info} Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib>'
             advice_text = (
-                '{info} Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib>'
+                i18n._('{info}: Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib>')
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
             }
 
         yield build_response(
@@ -281,6 +286,19 @@ class ContribValidation:
             error_level=error_level,
             advice_text=advice_text,
             advice_params=advice_params,
+            message_text=(
+                i18n._("ORCID {orcid} is valid")
+                if is_valid
+                else (
+                    i18n._(
+                        "ORCID {orcid} is invalid; expected format "
+                        "XXXX-XXXX-XXXX-XXXX"
+                    )
+                    if _orcid
+                    else i18n._("A valid ORCID is required")
+                )
+            ),
+            message_params={"orcid": _orcid} if _orcid else {},
         )
 
     def validate_orcid_is_registered(self):
@@ -316,10 +334,10 @@ class ContribValidation:
 
         advice = f'{self.info} Unable to automatically check the {orcid}. Check it manually'
         advice_text = (
-            '{info} Unable to automatically check the {orcid}. Check it manually'
+            i18n._('{info}: Unable to automatically check the {orcid}. Check it manually')
         )
         advice_params = {
-            "info": self.info,
+            "info": self.i18n_info,
             "orcid": orcid,
         }
 
@@ -355,10 +373,10 @@ class ContribValidation:
 
         advice = f'{self.info} Add <xref ref-type="aff" rid=""> in <contrib>'
         advice_text = (
-            '{info} Add <xref ref-type="aff" rid=""> in <contrib>'
+            i18n._('{info}: Add <xref ref-type="aff" rid=""> in <contrib>')
         )
         advice_params = {
-            "info": self.info,
+            "info": self.i18n_info,
         }
 
         yield build_response(
@@ -384,10 +402,10 @@ class ContribValidation:
 
         advice = f"{self.info} Mark contributor name with <name> in <contrib>"
         advice_text = (
-            "{info} Mark contributor name with <name> in <contrib>"
+            i18n._("{info}: Mark contributor name with <name> in <contrib>")
         )
         advice_params = {
-            "info": self.info,
+            "info": self.i18n_info,
         }
 
         yield build_response(
@@ -413,10 +431,10 @@ class ContribValidation:
 
         advice = f"{self.info} Mark institutional contributor with <collab> in <contrib>"
         advice_text = (
-            "{info} Mark institutional contributor with <collab> in <contrib>"
+            i18n._("{info}: Mark institutional contributor with <collab> in <contrib>")
         )
         advice_params = {
-            "info": self.info,
+            "info": self.i18n_info,
         }
 
         yield build_response(
@@ -449,20 +467,20 @@ class ContribValidation:
             value = self.contrib.get("contrib_name") or self.contrib.get("anonymous")
             advice = f"{self.info} Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>"
             advice_text = (
-                "{info} Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>"
+                i18n._("{info}: Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>")
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
             }
         else:
             expected = ["name", "collab"]
             value = self.contrib.get("contrib_name") or self.contrib.get("collab")
             advice = f"{self.info} Mark contributor with <name> and institutional contributor with <collab> in <contrib>"
             advice_text = (
-                "{info} Mark contributor with <name> and institutional contributor with <collab> in <contrib>"
+                i18n._("{info}: Mark contributor with <name> and institutional contributor with <collab> in <contrib>")
             )
             advice_params = {
-                "info": self.info,
+                "info": self.i18n_info,
             }
 
         yield build_response(
@@ -522,7 +540,7 @@ class XMLContribsValidation:
         questions = "; ".join(questions)
 
         advice = f"ORCID must be unique. {questions}"
-        advice_text = ("ORCID must be unique. {questions}")
+        advice_text = (i18n._("ORCID must be unique. {questions}"))
         advice_params = {
             "questions": questions,
         }
@@ -614,7 +632,7 @@ class CollabListValidation:
             if expected_type == "collab-list":
                 advice = f'Add person authors, members of {self.text_contribs.collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>'
                 advice_text = (
-                    'Add person authors, members of {collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>'
+                    i18n._('Add person authors, members of {collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>')
                 )
                 advice_params = {
                     "collab": self.text_contribs.collab,
@@ -623,7 +641,7 @@ class CollabListValidation:
                 type_value = contrib_group_data["type"]
                 advice = f'Remove content-type="{type_value}" from <contrib-group content-type="{type_value}">'
                 advice_text = (
-                    'Remove content-type="{type}" from <contrib-group content-type="{type}">'
+                    i18n._('Remove content-type="{type}" from <contrib-group content-type="{type}">')
                 )
                 advice_params = {
                     "type": type_value,
@@ -690,7 +708,7 @@ class CollabGroupValidation:
                 if not contrib_data.get("contrib_name"):
                     advice = "All members of collaboration group must have name <name> in <contrib-group content-type='collab-list'>"
                     advice_text = (
-                        "All members of collaboration group must have name <name> in <contrib-group content-type='collab-list'>"
+                        i18n._("All members of collaboration group must have name <name> in <contrib-group content-type='collab-list'>")
                     )
                     advice_params = {}
 
@@ -726,7 +744,7 @@ class CollabGroupValidation:
                 if not has_affiliation:
                     advice = "All members of collaboration group must have complete affiliation <xref ref-type='aff'> (described in PDF)"
                     advice_text = (
-                        "All members of collaboration group must have complete affiliation <xref ref-type='aff'> (described in PDF)"
+                        i18n._("All members of collaboration group must have complete affiliation <xref ref-type='aff'> (described in PDF)")
                     )
                     advice_params = {}
 
@@ -754,8 +772,8 @@ class CollabGroupValidation:
                         "Without ORCID identification, authors cannot assign DOI as their work in curriculum databases"
                     )
                     advice_text = (
-                        "All members of collaboration group MUST have ORCID (described in PDF). "
-                        "Without ORCID identification, authors cannot assign DOI as their work in curriculum databases"
+                        i18n._("All members of collaboration group MUST have ORCID (described in PDF). "
+                        "Without ORCID identification, authors cannot assign DOI as their work in curriculum databases")
                     )
                     advice_params = {}
 
@@ -849,8 +867,8 @@ class DocumentCreditConsistencyValidation:
                 "All roles for a contributor must use the same taxonomy."
             )
             advice_text = (
-                "Do not mix CRediT taxonomy with other taxonomies in the same contributor. "
-                "All roles for a contributor must use the same taxonomy."
+                i18n._("Do not mix CRediT taxonomy with other taxonomies in the same contributor. "
+                "All roles for a contributor must use the same taxonomy.")
             )
             advice_params = {}
 
@@ -880,9 +898,9 @@ class DocumentCreditConsistencyValidation:
                 "SciELO Rule: 'tudo ou nada' (all or nothing)."
             )
             advice_text = (
-                "CRediT taxonomy must be used consistently: either ALL contributors use CRediT "
+                i18n._("CRediT taxonomy must be used consistently: either ALL contributors use CRediT "
                 "or NONE use it. Do not mix taxonomies in the document. "
-                "SciELO Rule: 'tudo ou nada' (all or nothing)."
+                "SciELO Rule: 'tudo ou nada' (all or nothing).")
             )
             advice_params = {}
 
@@ -986,8 +1004,8 @@ class SubArticleCollabIDValidation:
                     f"If article uses id='collab', sub-article should use id='collab1'"
                 )
                 advice_text = (
-                    "Sub-article {sub_id} uses same @id as main article: {collisions}. "
-                    "If article uses id='collab', sub-article should use id='collab1'"
+                    i18n._("Sub-article {sub_id} uses same @id as main article: {collisions}. "
+                    "If article uses id='collab', sub-article should use id='collab1'")
                 )
                 advice_params = {
                     "sub_id": sub_article_id,
@@ -1021,8 +1039,8 @@ class SubArticleCollabIDValidation:
                     f"If article uses rid='collab', sub-article should use rid='collab1'"
                 )
                 advice_text = (
-                    "Sub-article {sub_id} uses same @rid as main article: {collisions}. "
-                    "If article uses rid='collab', sub-article should use rid='collab1'"
+                    i18n._("Sub-article {sub_id} uses same @rid as main article: {collisions}. "
+                    "If article uses rid='collab', sub-article should use rid='collab1'")
                 )
                 advice_params = {
                     "sub_id": sub_article_id,
@@ -1076,6 +1094,10 @@ class ContribRoleValidation:
         if parent_id := self.contrib.get("parent_id"):
             return f'{contrib_name} (sub-article {parent_id}) :'
         return f'{contrib_name} :'
+
+    @property
+    def i18n_info(self):
+        return self.info.removesuffix(" :")
 
     def _get_default_params(self):
         return {
@@ -1147,22 +1169,22 @@ class ContribRoleValidation:
         if not valid_uri:
             if expected_uri and uri:
                 advice = f'{self.info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">'
-                advice_text = ('{info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">')
-                advice_params = {"info": self.info, "uri": uri, "expected_uri": expected_uri}
+                advice_text = (i18n._('{info}: replace <role content-type="{uri}"> by <role content-type="{expected_uri}">'))
+                advice_params = {"info": self.i18n_info, "uri": uri, "expected_uri": expected_uri}
             elif expected_uri:
                 advice = f'{self.info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>'
-                advice_text = ('{info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>')
-                advice_params = {"info": self.info, "text": text, "expected_uri": expected_uri}
+                advice_text = (i18n._('{info}: replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>'))
+                advice_params = {"info": self.i18n_info, "text": text, "expected_uri": expected_uri}
             elif uri:
                 expected_uris = list(credit_taxonomy_by_uri.keys())
                 advice = f'{self.info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI: {expected_uris}'
-                advice_text = ('{info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI')
-                advice_params = {"info": self.info, "uri": uri, "text": text}
+                advice_text = (i18n._('{info}: check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI'))
+                advice_params = {"info": self.i18n_info, "uri": uri, "text": text}
             elif text:
                 expected_uris = list(credit_taxonomy_by_uri.keys())
                 advice = f'{self.info} check if <role>{text}</role> has corresponding CRediT URI: {expected_uris}'
-                advice_text = ('{info} check if <role>{text}</role> has corresponding CRediT URI')
-                advice_params = {"info": self.info, "text": text}
+                advice_text = (i18n._('{info}: check if <role>{text}</role> has corresponding CRediT URI'))
+                advice_params = {"info": self.i18n_info, "text": text}
 
         yield build_response(
             title="CRediT taxonomy URI",
@@ -1187,22 +1209,22 @@ class ContribRoleValidation:
                 content_type = ''
             if expected_term and text:
                 advice = f'{self.info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>'
-                advice_text = ('{info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>')
-                advice_params = {"info": self.info, "content_type": content_type, "text": text, "expected_term": expected_term}
+                advice_text = (i18n._('{info}: replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>'))
+                advice_params = {"info": self.i18n_info, "content_type": content_type, "text": text, "expected_term": expected_term}
             elif expected_term:
                 advice = f'{self.info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>'
-                advice_text = ('{info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>')
-                advice_params = {"info": self.info, "content_type": content_type, "expected_term": expected_term}
+                advice_text = (i18n._('{info}: replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>'))
+                advice_params = {"info": self.i18n_info, "content_type": content_type, "expected_term": expected_term}
             elif text:
                 expected_terms = self.params["credit_taxonomy_by_terms"]
                 advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'
-                advice_text = ('{info} check if <role{content_type}>{text}</role> has corresponding CRediT term')
-                advice_params = {"info": self.info, "content_type": content_type, "text": text}
+                advice_text = (i18n._('{info}: check if <role{content_type}>{text}</role> has corresponding CRediT term'))
+                advice_params = {"info": self.i18n_info, "content_type": content_type, "text": text}
             else:
                 expected_terms = self.params["credit_taxonomy_by_terms"]
                 advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'
-                advice_text = ('{info} check if <role{content_type}>{text}</role> has corresponding CRediT term')
-                advice_params = {"info": self.info, "content_type": content_type, "text": text}
+                advice_text = (i18n._('{info}: check if <role{content_type}>{text}</role> has corresponding CRediT term'))
+                advice_params = {"info": self.i18n_info, "content_type": content_type, "text": text}
 
         yield build_response(
             title="CRediT taxonomy term",
@@ -1241,8 +1263,8 @@ class ContribRoleValidation:
             if is_reviewer_report:
                 # Para reviewer-report, ausência é ERRO
                 advice = f'{self.info} add <role specific-use="[reviewer|editor]"> for reviewer report'
-                advice_text = '{info} add <role specific-use=""> with {expected}'
-                advice_params = {"info": self.info, "expected": " or ".join(expected)}
+                advice_text = i18n._('{info}: add <role specific-use=""> with {expected}')
+                advice_params = {"info": self.i18n_info, "expected": " or ".join(expected)}
 
                 yield build_response(
                     title="contributor role type (reviewer report)",
@@ -1268,8 +1290,8 @@ class ContribRoleValidation:
         if not valid:
             expected_str = " or ".join(expected)
             advice = f'{self.info} replace <role specific-use="{specific_use}"> with {expected_str}'
-            advice_text = '{info} replace <role specific-use="{specific_use}"> with {expected}'
-            advice_params = {"info": self.info, "specific_use": specific_use, "expected": expected_str}
+            advice_text = i18n._('{info}: replace <role specific-use="{specific_use}"> with {expected}')
+            advice_params = {"info": self.i18n_info, "specific_use": specific_use, "expected": expected_str}
 
             yield build_response(
                 title="contributor role type value",
@@ -1286,4 +1308,3 @@ class ContribRoleValidation:
                 advice_text=advice_text,
                 advice_params=advice_params,
             )
-
