@@ -13,7 +13,6 @@ from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
 from packtools.sps.pid_provider.name2number import fix_pre_loading
-
 # 4.7.1 packtools.sps.models.*
 from packtools.sps.pid_provider.models.article_assets import ArticleAssets
 from packtools.sps.pid_provider.models.article_and_subarticles import (
@@ -379,9 +378,6 @@ class XMLWithPre:
         self._sps_version = None
         self.errors = None
         self.pkg_name_version = None
-        # html or xml
-        self.source_filename = None
-        self.source_ext = None
 
         self.xml_name = None # nome original encontrado no xml ou no zip
         self.zip_basenames = None # nome original encontrado no xml ou no zip, exceto xml
@@ -422,7 +418,7 @@ class XMLWithPre:
 
     def add_pkg_name_components(self, source_filename, pkg_name_version=3):
         self.pkg_name_version = pkg_name_version
-        self.source_filename, self.source_ext = os.path.splitext(source_filename)
+        self.submitted_file = source_filename
 
     @property
     def data(self):
@@ -1252,7 +1248,7 @@ class XMLWithPre:
     @property
     def body_fragment_fingerprint(self):
         # gera um novo fingerprint do XML, para ser usado na comparação com o fingerprint registrado
-        return generate_finger_print(self.get_body_fragment(max_length=None))
+        return generate_finger_print(self.get_body_fragment(300))
 
     @property
     def finger_print(self):
