@@ -382,6 +382,8 @@ class XMLWithPre:
         self.xml_name = None # nome original encontrado no xml ou no zip
         self.zip_basenames = None # nome original encontrado no xml ou no zip, exceto xml
         self.zip_namelist = None # nome original encontrado no xml ou no zip, exceto xml
+        self.submitted_filename = None
+        self.submitted_ext = None
 
     @property
     def filename(self):
@@ -407,6 +409,22 @@ class XMLWithPre:
     def filenames(self, value):
         self.zip_basenames = value
 
+    @property
+    def source_filename(self):
+        return self.submitted_filename
+
+    @source_filename.setter
+    def source_filename(self, value):
+        self.submitted_filename = value
+
+    @property
+    def source_ext(self):
+        return self.submitted_ext
+
+    @source_ext.setter
+    def source_ext(self, value):
+        self.submitted_ext = value
+
     def add_xml_info(self, xml_name, xml_file_path=None):
         self.xml_name = xml_name
         self.xml_file_path = xml_file_path
@@ -418,7 +436,7 @@ class XMLWithPre:
 
     def add_pkg_name_components(self, source_filename, pkg_name_version=3):
         self.pkg_name_version = pkg_name_version
-        self.submitted_file = source_filename
+        self.submitted_filename, self.submitted_ext = os.path.splitext(source_filename)
 
     @property
     def data(self):
@@ -427,6 +445,11 @@ class XMLWithPre:
             pid_v3=self.v3,
             pid_v2=self.v2,
             aop_pid=self.aop_pid,
+            submitted_filename=self.submitted_filename,
+            submitted_ext=self.submitted_ext,
+            xml_name=self.xml_name,
+            zip_namelist=self.zip_namelist,
+            zip_basenames=self.zip_basenames,
             filename=self.filename,
             files=self.files,
             filenames=self.filenames,
