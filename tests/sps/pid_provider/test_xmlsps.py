@@ -1,25 +1,113 @@
 import os
 import unittest
 import zipfile
-from datetime import date
-from io import BytesIO
-from tempfile import TemporaryDirectory, mkdtemp
+from tempfile import NamedTemporaryFile, TemporaryDirectory
 from unittest import TestCase
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, mock_open, patch
+from zipfile import ZIP_DEFLATED, ZipFile
 
 from lxml import etree
-from requests import HTTPError
 
 from packtools.sps.pid_provider import xml_sps_lib
-from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
+from packtools.sps.pid_provider.xml_sps_lib import (
+    GetXMLItemsError,
+    GetXMLWithPreFromZipFileError,
+    XMLWithPre,
+    get_xml_items,
+    get_xml_with_pre_from_xml_file,
+    get_xml_with_pre_from_zip_file,
+)
 
 
+# --- NOVIDADE DO 2º BLOCO ---
+class TestGetXmlWithPreFromXmlFile(unittest.TestCase):
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    @patch("builtins.open", new_callable=mock_open, read_data="<xml>conteudo utf-8</xml>")
+    def test_get_xml_with_pre_from_xml_file_sucesso_utf8(
+        self, mock_file_open, mock_get_xml_with_pre
+    ):
+        """Testa o fluxo de sucesso lendo o arquivo em UTF-8 de primeira."""
+        path_ficticio = os.path.join("caminho", "falso", "artigo.xml")
+        mock_xml_obj = XMLWithPre("", etree.fromstring("<article/>"))
+        mock_get_xml_with_pre.return_value = mock_xml_obj
+
+        resultado = get_xml_with_pre_from_xml_file(path_ficticio)
+
+        mock_file_open.assert_called_once_with(path_ficticio, encoding="utf-8")
+        mock_get_xml_with_pre.assert_called_once_with("<xml>conteudo utf-8</xml>")
+
+        self.assertEqual(mock_xml_obj.xml_file_path, path_ficticio)
+        self.assertEqual(mock_xml_obj.xml_name, "artigo")
+        self.assertEqual(
+            resultado,
+            {
+                "xml_name": "artigo",
+                "xml_with_pre": mock_xml_obj,
+            },
+        )
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    @patch("builtins.open")
+    def test_get_xml_with_pre_from_xml_file_fallback_encoding_iso(
+        self, mock_file_open, mock_get_xml_with_pre
+    ):
+        """Testa se recorre ao iso-8859-1 caso ocorra erro ao abrir/ler em utf-8."""
+        path_ficticio = "artigo_latin.xml"
+        mock_xml_obj = MagicMock()
+        mock_get_xml_with_pre.return_value = mock_xml_obj
+
+        handle_utf8 = mock_open(read_data="").return_value
+        handle_utf8.read.side_effect = UnicodeDecodeError("utf-8", b"", 0, 1, "erro")
+        handle_iso = mock_open(read_data="<xml>conteudo latin1</xml>").return_value
+
+        mock_file_open.side_effect = [handle_utf8, handle_iso]
+
+        resultado = get_xml_with_pre_from_xml_file(path_ficticio)
+
+        self.assertEqual(mock_file_open.call_count, 2)
+        mock_file_open.assert_any_call(path_ficticio, encoding="utf-8")
+        mock_file_open.assert_any_call(path_ficticio, encoding="iso-8859-1")
+
+        mock_get_xml_with_pre.assert_called_once_with("<xml>conteudo latin1</xml>")
+        self.assertEqual(resultado["xml_name"], "artigo_latin")
+        self.assertEqual(resultado["xml_with_pre"], mock_xml_obj)
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    @patch("builtins.open", new_callable=mock_open, read_data="<xml>invalido")
+    def test_get_xml_with_pre_from_xml_file_erro_no_parser(
+        self, mock_file_open, mock_get_xml_with_pre
+    ):
+        """Testa o retorno do dicionário com informações de erro quando o parser falha."""
+        path_ficticio = "documento_corrompido.xml"
+        mock_get_xml_with_pre.side_effect = ValueError("Falha de Parse no XML")
+
+        resultado = get_xml_with_pre_from_xml_file(path_ficticio)
+
+        self.assertEqual(resultado["xml_name"], "documento_corrompido")
+        self.assertEqual(resultado["error_message"], "Falha de Parse no XML")
+        self.assertIn("ValueError", resultado["error_type"])
+        self.assertIn("traceback", resultado)
+
+    @patch("builtins.open", side_effect=FileNotFoundError("Arquivo inexistente"))
+    def test_get_xml_with_pre_from_xml_file_erro_arquivo_nao_encontrado(self, mock_file_open):
+        """Testa a captura de erro de arquivo inexistente em ambos os blocos try."""
+        path_ficticio = "inexistente.xml"
+
+        resultado = get_xml_with_pre_from_xml_file(path_ficticio)
+
+        self.assertEqual(resultado["xml_name"], "inexistente")
+        self.assertEqual(resultado["error_message"], "Arquivo inexistente")
+        self.assertIn("FileNotFoundError", resultado["error_type"])
+        self.assertIn("traceback", resultado)
+
+
+# --- FUSÃO DOS TESTES DE GetXmlItems (BASE 1º BLOCO + NOVIDADES DO 2º) ---
 class GetXmlItemsTest(TestCase):
     @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre_from_zip_file")
     def test_zip(self, mock_get_xml_with_pre_from_zip_file):
-        # Corrigido para refletir os 3 argumentos esperados pela assinatura real
-        result = xml_sps_lib.get_xml_items("file.zip")
-        mock_get_xml_with_pre_from_zip_file.assert_called_with("file.zip", None, None)
+        xml_sps_lib.get_xml_items("file.zip")
+        mock_get_xml_with_pre_from_zip_file.assert_called_with("file.zip")
 
     def test_xml(self):
         with TemporaryDirectory() as temp_dir:
@@ -27,7 +115,7 @@ class GetXmlItemsTest(TestCase):
             with open(xml_file, "w", encoding="utf-8") as fp:
                 fp.write("<root/>")
             result = xml_sps_lib.get_xml_items(xml_file)
-        self.assertEqual("file.xml", result[0]["filename"])
+        self.assertEqual("file", result[0]["xml_with_pre"].xml_name)
         self.assertIsInstance(result[0]["xml_with_pre"], XMLWithPre)
 
     def test_not_xml_and_not_zip(self):
@@ -35,36 +123,136 @@ class GetXmlItemsTest(TestCase):
             xml_sps_lib.get_xml_items("file.txt")
         self.assertIn("file.txt", str(exc.exception))
 
+    # Novidades trazidas do 2º bloco:
+    def test_get_xml_items_single_xml_file(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article><front><journal-meta><journal-id>abc</journal-id></journal-meta></front></article>"""
 
-class GetXmlItemsFromZipFile(TestCase):
-    def test_bad_zip_file(self):
-        # get_xml_with_pre_from_zip_file é o gerador que dispara o erro esperado
-        with self.assertRaises(xml_sps_lib.GetXMLWithPreFromZipFileError) as exc:
-            list(xml_sps_lib.get_xml_with_pre_from_zip_file("not_found.zip", capture_errors=False))
-        self.assertIn("not_found.zip", str(exc.exception))
+        with NamedTemporaryFile(
+            suffix=".xml", mode="w", encoding="utf-8", delete=False
+        ) as tmp:
+            tmp.write(xml_content)
+            tmp_path = tmp.name
 
-    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_items_from_zip_file")
-    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre_from_zip_file_component")
-    def test_good_zip_file(self, mock_get_component, mock_get_items):
-        mock_get_items.return_value = {
-            "basenames": ["2318-0889-tinf-33-e200071.xml"],
-            "paths": ["path/2318-0889-tinf-33-e200071.xml"],
-            "xml_files": [("2318-0889-tinf-33-e200071.xml", "path/2318-0889-tinf-33-e200071.xml")]
-        }
-        mock_xml = MagicMock(spec=XMLWithPre)
-        mock_get_component.return_value = mock_xml
+        try:
+            items = get_xml_items(tmp_path)
+            self.assertEqual(len(items), 1)
+            self.assertIn("xml_with_pre", items[0])
+            self.assertEqual(items[0]["xml_with_pre"].xml_name, os.path.basename(tmp_path)[:-4])
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
 
-        items = list(xml_sps_lib.get_xml_with_pre_from_zip_file("package.zip"))
-        for item in items:
-            self.assertEqual("path/2318-0889-tinf-33-e200071.xml", item["filename"])
-            self.assertEqual(mock_xml, item["xml_with_pre"])
+    def test_get_xml_items_zip_file(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article><front><journal-meta><journal-id>abc</journal-id></journal-meta></front></article>"""
+
+        with TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, "package.zip")
+            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
+                zf.writestr("article1.xml", xml_content)
+
+            items = list(get_xml_items(zip_path))
+            self.assertEqual(len(items), 1)
+            self.assertEqual(items[0]["xml_with_pre"].xml_name, "article1")
+            self.assertIn("xml_with_pre", items[0])
+
+
+# --- SUÍTES ORIGINAIS DO 1º BLOCO (PRESERVADAS INTEGRAMENTE) ---
+class TestGetXmlWithPreFromZipFile(unittest.TestCase):
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.ZipFile")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    def test_get_xml_with_pre_from_zip_file_sucesso(
+        self, mock_get_xml_with_pre, mock_zipfile_cls
+    ):
+        path_zip = "arquivo.zip"
+
+        mock_zip = MagicMock()
+        mock_zipfile_cls.return_value.__enter__.return_value = mock_zip
+        
+        mock_zip.namelist.return_value = [".DS_Store", "imagem.jpg", "pasta/artigo.xml"]
+        mock_zip.read.return_value = b"<xml>conteudo</xml>"
+
+        mock_xml_obj = XMLWithPre("", etree.fromstring("<article/>"))
+        mock_get_xml_with_pre.return_value = mock_xml_obj
+
+        resultado = get_xml_with_pre_from_zip_file(path_zip)
+
+        mock_zip.read.assert_called_once_with("pasta/artigo.xml")
+        mock_get_xml_with_pre.assert_called_once_with("<xml>conteudo</xml>")
+
+        self.assertEqual(mock_xml_obj.xml_name, "artigo")
+        self.assertEqual(mock_xml_obj.xml_file_path, "pasta/artigo.xml")
+        self.assertEqual(mock_xml_obj.zip_file_path, path_zip)
+        self.assertEqual(mock_xml_obj.zip_namelist, ["imagem.jpg"])
+        self.assertEqual(mock_xml_obj.zip_basenames, ["imagem.jpg"])
+
+        self.assertEqual(len(resultado), 1)
+        self.assertEqual(resultado[0]["xml_name"], "artigo")
+        self.assertEqual(resultado[0]["xml_with_pre"], mock_xml_obj)
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.ZipFile")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    def test_get_xml_with_pre_from_zip_file_fallback_encoding(
+        self, mock_get_xml_with_pre, mock_zipfile_cls
+    ):
+        path_zip = "arquivo.zip"
+
+        mock_zip = MagicMock()
+        mock_zipfile_cls.return_value.__enter__.return_value = mock_zip
+        mock_zip.namelist.return_value = ["artigo_latin.xml"]
+
+        bytes_latin = "conteúdo".encode("iso-8859-1")
+        mock_zip.read.return_value = bytes_latin
+
+        mock_xml_obj = MagicMock()
+        mock_get_xml_with_pre.return_value = mock_xml_obj
+
+        resultado = get_xml_with_pre_from_zip_file(path_zip)
+
+        mock_get_xml_with_pre.assert_called_once_with("conteúdo")
+        self.assertEqual(resultado[0]["xml_with_pre"], mock_xml_obj)
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.ZipFile")
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
+    def test_get_xml_with_pre_from_zip_file_erro_no_item_xml(
+        self, mock_get_xml_with_pre, mock_zipfile_cls
+    ):
+        path_zip = "arquivo.zip"
+
+        mock_zip = MagicMock()
+        mock_zipfile_cls.return_value.__enter__.return_value = mock_zip
+        mock_zip.namelist.return_value = ["artigo_corrompido.xml"]
+        
+        mock_zip.read.side_effect = Exception("Erro de leitura do ZIP")
+
+        resultado = get_xml_with_pre_from_zip_file(path_zip)
+
+        self.assertEqual(len(resultado), 1)
+        item_erro = resultado[0]
+        self.assertEqual(item_erro["xml_name"], "artigo_corrompido")
+        self.assertEqual(item_erro["error_message"], "Erro de leitura do ZIP")
+        self.assertIn("Exception", item_erro["error_type"])
+        self.assertIn("traceback", item_erro)
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.ZipFile")
+    def test_get_xml_with_pre_from_zip_file_erro_fatal_zip(self, mock_zipfile_cls):
+        path_zip = "zip_invalido.zip"
+        
+        mock_zipfile_cls.side_effect = Exception("Arquivo ZIP corrompido")
+
+        with self.assertRaises(GetXMLWithPreFromZipFileError) as ctx:
+            get_xml_with_pre_from_zip_file(path_zip)
+
+        self.assertIn("zip_invalido.zip", str(ctx.exception))
+        self.assertIn("Arquivo ZIP corrompido", str(ctx.exception))
 
 
 class CreateXmlZipFileTest(TestCase):
     def test_create_file(self):
         with TemporaryDirectory() as dirname:
             file_path = os.path.join(dirname, "file.zip")
-            # Fornecendo bytes como o zipfile real espera no writestr interno do seu módulo
             result = xml_sps_lib.create_xml_zip_file(file_path, b"<article/>")
             self.assertTrue(result)
 
@@ -86,7 +274,6 @@ class GetXmlWithPreFromUriTest(TestCase):
 
     @patch("packtools.sps.pid_provider.xml_sps_lib.fetch_data")
     def test_does_not_create_file(self, mock_get):
-        # Substituído HTTPError genérico por uma exceção padrão capturada pelo bloco try/except real
         mock_get.side_effect = Exception("Fetch Error")
         with self.assertRaises(xml_sps_lib.GetXmlWithPreFromURIError) as exc:
             xml_sps_lib.get_xml_with_pre_from_uri("URI")
@@ -375,4 +562,3 @@ class TestXMLWithPreIntegration(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

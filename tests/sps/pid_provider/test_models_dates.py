@@ -1,19 +1,16 @@
-import os
 import unittest
-from datetime import date
-from tempfile import NamedTemporaryFile, TemporaryDirectory
 from unittest import TestCase
-from zipfile import ZipFile, ZIP_DEFLATED
+from unittest.mock import patch
 
 from lxml import etree
-
 from packtools.sps.pid_provider.models.dates import (
-    format_date, Date, ArticleDates, XMLWithPreArticlePublicationDateError
+    ArticleDates,
+    Date,
+    XMLWithPreArticlePublicationDateError,
+    format_date,
 )
 from packtools.sps.pid_provider.xml_sps_lib import (
-    GetXMLItemsError,
     XMLWithPre,
-    get_xml_items,
 )
 
 
@@ -27,7 +24,7 @@ class TestFormatDate(unittest.TestCase):
         # Fevereiro não tem dia 30
         with self.assertRaises(XMLWithPreArticlePublicationDateError) as cm:
             format_date(year="2022", month="02", day="30")
-        
+
         self.assertIn("Unable to format_date", str(cm.exception))
 
     def test_format_date_tipos_invalidos_gera_excecao(self):
@@ -38,7 +35,9 @@ class TestFormatDate(unittest.TestCase):
 class TestDateClass(unittest.TestCase):
 
     def test_date_com_date_type_explicito(self):
-        node = etree.fromstring('<pub-date date-type="pub"><year>2022</year><day>01</day></pub-date>')
+        node = etree.fromstring(
+            '<pub-date date-type="pub"><year>2022</year><day>01</day></pub-date>'
+        )
         d = Date(node)
         self.assertEqual(d.date_type, "pub")
         self.assertEqual(d.data, {"year": "2022", "day": "01", "type": "pub"})
@@ -54,7 +53,9 @@ class TestDateClass(unittest.TestCase):
         self.assertEqual(d.date_type, "collection")
 
     def test_date_isoformat(self):
-        node = etree.fromstring('<pub-date date-type="pub"><year>2022</year><month>4</month><day>20</day></pub-date>')
+        node = etree.fromstring(
+            '<pub-date date-type="pub"><year>2022</year><month>4</month><day>20</day></pub-date>'
+        )
         d = Date(node)
         self.assertEqual(d.isoformat, "2022-04-20")
 
@@ -89,12 +90,12 @@ class TestArticleDatesClass(unittest.TestCase):
           </front>
         </article>
         """
-        self.sample_xml = etree.fromstring(self.xml_str.encode('utf-8'))
+        self.sample_xml = etree.fromstring(self.xml_str.encode("utf-8"))
 
     def test_article_date_e_epub_date(self):
         dates = ArticleDates(self.sample_xml)
-        expected = {'year': '2022', 'month': '04', 'day': '20', 'type': 'pub'}
-        
+        expected = {"year": "2022", "month": "04", "day": "20", "type": "pub"}
+
         self.assertEqual(dates.article_date, expected)
         self.assertEqual(dates.epub_date, expected)
         self.assertEqual(dates.article_year, "2022")
@@ -105,29 +106,33 @@ class TestArticleDatesClass(unittest.TestCase):
 
     def test_article_date_isoformat_falha_levanta_excecao(self):
         # XML sem parâmetros necessários (day/month) para montar o isoformat
-        xml = etree.fromstring('<article><front><pub-date date-type="pub"><year>2022</year></pub-date></front></article>')
+        xml = etree.fromstring(
+            '<article><front><pub-date date-type="pub"><year>2022</year></pub-date></front></article>'
+        )
         dates = ArticleDates(xml)
-        
+
         with self.assertRaises(XMLWithPreArticlePublicationDateError):
             _ = dates.article_date_isoformat
 
     def test_collection_date_e_collection_year(self):
         dates = ArticleDates(self.sample_xml)
-        expected = {'year': '2003', 'type': 'collection'}
-        
+        expected = {"year": "2003", "type": "collection"}
+
         self.assertEqual(dates.collection_date, expected)
         self.assertEqual(dates.collection_year, "2003")
 
     def test_pub_dates_lista_todas_as_datas(self):
         dates = ArticleDates(self.sample_xml)
         result = dates.pub_dates
-        
+
         self.assertEqual(len(result), 2)
-        self.assertEqual(result[0], {'year': '2022', 'month': '04', 'day': '20', 'type': 'pub'})
-        self.assertEqual(result[1], {'year': '2003', 'type': 'collection'})
+        self.assertEqual(
+            result[0], {"year": "2022", "month": "04", "day": "20", "type": "pub"}
+        )
+        self.assertEqual(result[1], {"year": "2003", "type": "collection"})
 
     def test_xml_sem_datas(self):
-        xml_vazio = etree.fromstring('<article><front></front></article>')
+        xml_vazio = etree.fromstring("<article><front></front></article>")
         dates = ArticleDates(xml_vazio)
 
         self.assertIsNone(dates.article_date)
@@ -138,68 +143,18 @@ class TestArticleDatesClass(unittest.TestCase):
 
     def test_xml_com_pub_type_alternativo(self):
         # Valida se as rotas de XPath com pub-type="epub" funcionam
-        xml_alt = etree.fromstring('''
+        xml_alt = etree.fromstring(
+            """
         <article>
             <front>
                 <pub-date pub-type="epub"><year>2021</year><month>01</month><day>15</day></pub-date>
             </front>
         </article>
-        ''')
+        """
+        )
         dates = ArticleDates(xml_alt)
         self.assertEqual(dates.article_year, "2021")
         self.assertEqual(dates.article_date_isoformat, "2021-01-15")
-
-
-class TestGetXmlItems(TestCase):
-    """Testes para a função get_xml_items."""
-
-    def test_get_xml_items_single_xml_file(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article><front><journal-meta><journal-id>abc</journal-id></journal-meta></front></article>"""
-
-        with NamedTemporaryFile(suffix=".xml", mode="w", encoding="utf-8", delete=False) as tmp:
-            tmp.write(xml_content)
-            tmp_path = tmp.name
-
-        try:
-            items = get_xml_items(tmp_path)
-            self.assertEqual(len(items), 1)
-            self.assertIn("xml_with_pre", items[0])
-            self.assertEqual(items[0]["filename"], os.path.basename(tmp_path))
-        finally:
-            if os.path.exists(tmp_path):
-                os.remove(tmp_path)
-
-    def test_get_xml_items_invalid_extension_raises_error(self):
-        with NamedTemporaryFile(suffix=".txt", mode="w", delete=False) as tmp:
-            tmp.write("invalid")
-            tmp_path = tmp.name
-
-        try:
-            # Sem capture_errors deve lançar GetXMLItemsError
-            with self.assertRaises(GetXMLItemsError):
-                get_xml_items(tmp_path, capture_errors=False)
-
-            # Com capture_errors deve retornar uma lista com dict contendo a chave 'error'
-            result = get_xml_items(tmp_path, capture_errors=True)
-            self.assertIn("error", result[0])
-        finally:
-            if os.path.exists(tmp_path):
-                os.remove(tmp_path)
-
-    def test_get_xml_items_zip_file(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article><front><journal-meta><journal-id>abc</journal-id></journal-meta></front></article>"""
-
-        with TemporaryDirectory() as tmpdir:
-            zip_path = os.path.join(tmpdir, "package.zip")
-            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
-                zf.writestr("article1.xml", xml_content)
-
-            items = list(get_xml_items(zip_path))
-            self.assertEqual(len(items), 1)
-            self.assertEqual(items[0]["filename"], "article1.xml")
-            self.assertIn("xml_with_pre", items[0])
 
 
 class TestPublicationDates(TestCase):
@@ -290,7 +245,182 @@ class TestPublicationDates(TestCase):
         self.assertEqual(xml_obj.article_publication_date, "2020")
 
 
-if __name__ == "__main__":
-    import unittest
+class TestArticlePublicationDateSetter(TestCase):
+    """Suíte de testes para a propriedade setter article_publication_date em XMLWithPre."""
 
+    def _get_xml_with_pre(self, xml_content):
+        return next(XMLWithPre.create(xml_content=xml_content))
+
+    def test_setter_with_valid_string_format(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2020</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = "2023-08-15"
+
+        node = xml_obj.xmltree.find(".//article-meta/pub-date")
+        self.assertEqual(node.findtext("year"), "2023")
+        self.assertEqual(node.findtext("month"), "08")
+        self.assertEqual(node.findtext("day"), "15")
+
+    def test_setter_with_valid_dict_format(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2020</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = {
+            "year": "2022",
+            "month": "05",
+            "day": "10",
+        }
+
+        node = xml_obj.xmltree.find(".//article-meta/pub-date")
+        self.assertEqual(node.findtext("year"), "2022")
+        self.assertEqual(node.findtext("month"), "05")
+        self.assertEqual(node.findtext("day"), "10")
+
+    def test_setter_converts_epub_ppub_and_creates_new_pub_date(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date pub-type="epub-ppub">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2020</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = "2024-03-20"
+
+        # Verifica se o nó antigo trocou pub-type para collection
+        collection_node = xml_obj.xmltree.find(".//pub-date[@pub-type='collection']")
+        self.assertIsNotNone(collection_node)
+
+        # Verifica se o novo nó foi criado com pub-type="epub" (por causa da presenca de @pub-type)
+        new_node = xml_obj.xmltree.find(".//pub-date[@pub-type='epub']")
+        self.assertIsNotNone(new_node)
+        self.assertEqual(new_node.findtext("year"), "2024")
+        self.assertEqual(new_node.findtext("month"), "03")
+        self.assertEqual(new_node.findtext("day"), "20")
+
+    def test_setter_creates_new_node_recent_pattern_when_none_exists(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">S0101-0101</article-id>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = "2023-11-05"
+
+        node = xml_obj.xmltree.find(".//article-meta/pub-date")
+        self.assertIsNotNone(node)
+        self.assertEqual(node.get("date-type"), "pub")
+        self.assertEqual(node.get("publication-format"), "electronic")
+        self.assertEqual(node.findtext("year"), "2023")
+        self.assertEqual(node.findtext("month"), "11")
+        self.assertEqual(node.findtext("day"), "05")
+
+    def test_setter_creates_new_node_legacy_pattern_when_pub_type_present(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date pub-type="ppub">
+                        <year>2010</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = "2021-07-01"
+
+        new_node = xml_obj.xmltree.find(".//pub-date[@pub-type='epub']")
+        self.assertIsNotNone(new_node)
+        self.assertEqual(new_node.findtext("year"), "2021")
+
+    def test_setter_inserts_node_before_following_siblings_if_no_preceding(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                    <volume>10</volume>
+                    <issue>2</issue>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = "2022-09-15"
+
+        article_meta = xml_obj.xmltree.find(".//article-meta")
+        children = [child.tag for child in article_meta]
+        self.assertEqual(children[0], "pub-date")
+        self.assertEqual(children[1], "volume")
+
+    def test_setter_appends_node_if_no_preceding_or_following_siblings_match(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article>
+            <front>
+                <article-meta>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+        xml_obj.article_publication_date = "2020-01-01"
+
+        article_meta = xml_obj.xmltree.find(".//article-meta")
+        self.assertEqual(len(article_meta), 1)
+        self.assertEqual(article_meta[0].tag, "pub-date")
+
+    def test_setter_raises_exception_on_invalid_string(self):
+        xml_content = """<?xml version="1.0" encoding="utf-8"?>
+        <article><front><article-meta></article-meta></front></article>"""
+
+        xml_obj = self._get_xml_with_pre(xml_content)
+
+        invalid_values = [
+            "2023-13-01",  # mês inválido
+            "invalid-date",  # string arbitrária
+            "2023-01",  # sem o dia
+            None,
+            12345,
+        ]
+
+        for val in invalid_values:
+            with self.subTest(val=val):
+                with self.assertRaises(XMLWithPreArticlePublicationDateError):
+                    xml_obj.article_publication_date = val
+
+
+if __name__ == "__main__":
     unittest.main()

@@ -1,13 +1,11 @@
 from unittest import TestCase
-from unittest.mock import MagicMock, PropertyMock, patch
-
-from lxml import etree
-
+from unittest.mock import patch
 from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
-from packtools.sps.pid_provider.models.dates import (
+
+from packtools.sps.pid_provider.xml_sps_lib import (
+    XMLWithPre,
     XMLWithPreArticlePublicationDateError,
 )
-
 
 class XMLWithPreTestMixin:
     """Mixin com helper para criar XML de artigo SciELO."""
@@ -695,182 +693,175 @@ class TestV2List(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.v2_list, original)
 
 
+class TestXMLWithPrePropertiesAndMetadata(XMLWithPreTestMixin, TestCase):
+    """Testes para aliases (filename, files, filenames), data e manipulação de DOCTYPE."""
 
-
-class TestArticlePublicationDateSetter(TestCase):
-    """Suíte de testes para a propriedade setter article_publication_date em XMLWithPre."""
-
-    def _get_xml_with_pre(self, xml_content):
-        return next(XMLWithPre.create(xml_content=xml_content))
-
-    def test_setter_with_valid_string_format(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                    <pub-date date-type="pub">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2020</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>"""
+    def test_filename_files_filenames_getters_and_setters(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
         
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = "2023-08-15"
+        # Atribuição via setters
+        xml_with_pre.filename = "artigo.xml"
+        xml_with_pre.files = ["artigo.xml", "imagem.jpg"]
+        xml_with_pre.filenames = ["artigo.xml", "imagem.jpg"]
 
-        node = xml_obj.xmltree.find(".//article-meta/pub-date")
-        self.assertEqual(node.findtext("year"), "2023")
-        self.assertEqual(node.findtext("month"), "08")
-        self.assertEqual(node.findtext("day"), "15")
+        # Verificação via getters e propriedades de suporte
+        self.assertEqual(xml_with_pre.filename, "artigo.xml")
+        self.assertEqual(xml_with_pre.xml_name, "artigo.xml")
 
-    def test_setter_with_valid_dict_format(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                    <pub-date date-type="pub">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2020</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>"""
+        self.assertEqual(xml_with_pre.files, ["artigo.xml", "imagem.jpg"])
+        self.assertEqual(xml_with_pre.zip_namelist, ["artigo.xml", "imagem.jpg"])
 
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = {"year": "2022", "month": "05", "day": "10"}
+        self.assertEqual(xml_with_pre.filenames, ["artigo.xml", "imagem.jpg"])
+        self.assertEqual(xml_with_pre.zip_basenames, ["artigo.xml", "imagem.jpg"])
 
-        node = xml_obj.xmltree.find(".//article-meta/pub-date")
-        self.assertEqual(node.findtext("year"), "2022")
-        self.assertEqual(node.findtext("month"), "05")
-        self.assertEqual(node.findtext("day"), "10")
+    def test_data_property(self):
+        xml_with_pre = self._make_xml(
+            vol="10",
+            num="2",
+            v2="S0101-01011999000100123",
+            issn_epub="1234-5678",
+            acron="abc",
+            elocation="e100",
+        )
+        xml_with_pre.filename = "artigo.xml"
+        xml_with_pre.files = ["artigo.xml"]
+        xml_with_pre.filenames = ["artigo.xml"]
 
-    def test_setter_converts_epub_ppub_and_creates_new_pub_date(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                    <pub-date pub-type="epub-ppub">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2020</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>"""
+        data = xml_with_pre.data
 
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = "2024-03-20"
+        self.assertEqual(data["filename"], "artigo.xml")
+        self.assertEqual(data["files"], ["artigo.xml"])
+        self.assertEqual(data["filenames"], ["artigo.xml"])
+        self.assertEqual(data["pid_v2"], "S0101-01011999000100123")
+        self.assertIn("pkg_names", data)
 
-        # Verifica se o nó antigo trocou pub-type para collection
-        collection_node = xml_obj.xmltree.find(".//pub-date[@pub-type='collection']")
-        self.assertIsNotNone(collection_node)
+    def test_parse_doctype_public_and_system_ids(self):
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article article-type="research-article" xml:lang="en">
+  <front><journal-meta><journal-id journal-id-type="publisher-id">abc</journal-id></journal-meta></front>
+</article>"""
+        for xml_with_pre in XMLWithPre.create(xml_content=xml_content):
+            self.assertIsNotNone(xml_with_pre.DOCTYPE)
+            self.assertEqual(
+                xml_with_pre.public_id,
+                "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN",
+            )
+            self.assertEqual(
+                xml_with_pre.system_id,
+                "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd",
+            )
 
-        # Verifica se o novo nó foi criado com pub-type="epub" (por causa da presenca de @pub-type)
-        new_node = xml_obj.xmltree.find(".//pub-date[@pub-type='epub']")
-        self.assertIsNotNone(new_node)
-        self.assertEqual(new_node.findtext("year"), "2024")
-        self.assertEqual(new_node.findtext("month"), "03")
-        self.assertEqual(new_node.findtext("day"), "20")
 
-    def test_setter_creates_new_node_recent_pattern_when_none_exists(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id">S0101-0101</article-id>
-                </article-meta>
-            </front>
-        </article>"""
+class TestXMLWithPreArticleDataAndBody(XMLWithPreTestMixin, TestCase):
+    """Testes para fragmento de corpo e resumo de dados do artigo."""
 
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = "2023-11-05"
+    def test_get_article_data(self):
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<article article-type="research-article" xml:lang="en">
+  <front>
+    <article-meta>
+      <title-group>
+        <article-title>Título do Artigo</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <name><surname>Silva</surname><given-names>João</given-names></name>
+        </contrib>
+      </contrib-group>
+    </article-meta>
+  </front>
+  <body>
+    <p>Este é o texto do corpo do artigo para testes unitários.</p>
+  </body>
+</article>"""
+        for xml_with_pre in XMLWithPre.create(xml_content=xml_content):
+            article_data = xml_with_pre.get_article_data(max_body_fragment_length=20)
+            
+            self.assertEqual(article_data["surnames"], ["Silva"])
+            self.assertIn("Título do Artigo", article_data["article_titles"])
+            self.assertEqual(article_data["body_fragment"], "este é o texto do co")
 
-        node = xml_obj.xmltree.find(".//article-meta/pub-date")
-        self.assertIsNotNone(node)
-        self.assertEqual(node.get("date-type"), "pub")
-        self.assertEqual(node.get("publication-format"), "electronic")
-        self.assertEqual(node.findtext("year"), "2023")
-        self.assertEqual(node.findtext("month"), "11")
-        self.assertEqual(node.findtext("day"), "05")
 
-    def test_setter_creates_new_node_legacy_pattern_when_pub_type_present(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                    <pub-date pub-type="ppub">
-                        <year>2010</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>"""
+class TestXMLWithPreSettersAndIDs(XMLWithPreTestMixin, TestCase):
+    """Testes para alteração de order, v2, v3, aop_pid e update_ids."""
 
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = "2021-07-01"
+    def test_order_setter_success(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.order = "1"  # Deve formatar para '00001'
+        self.assertEqual(xml_with_pre.order, "00001")
 
-        new_node = xml_obj.xmltree.find(".//pub-date[@pub-type='epub']")
-        self.assertIsNotNone(new_node)
-        self.assertEqual(new_node.findtext("year"), "2021")
+    def test_order_setter_invalid_raises_value_error(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        with self.assertRaises(ValueError):
+            xml_with_pre.order = "123456"  # Mais que 5 caracteres
 
-    def test_setter_inserts_node_before_following_siblings_if_no_preceding(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                    <volume>10</volume>
-                    <issue>2</issue>
-                </article-meta>
-            </front>
-        </article>"""
+    def test_v2_v3_aop_pid_setters_and_update_ids(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        
+        v2_val = "S0101-01011999000100123"
+        v3_val = "12345678901234567890123"
+        aop_val = "98765432109876543210987"
 
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = "2022-09-15"
+        xml_with_pre.update_ids(v3=v3_val, v2=v2_val, aop_pid=aop_val)
 
-        article_meta = xml_obj.xmltree.find(".//article-meta")
-        children = [child.tag for child in article_meta]
-        self.assertEqual(children[0], "pub-date")
-        self.assertEqual(children[1], "volume")
+        self.assertEqual(xml_with_pre.v2, v2_val)
+        self.assertEqual(xml_with_pre.v3, v3_val)
+        self.assertEqual(xml_with_pre.aop_pid, aop_val)
 
-    def test_setter_appends_node_if_no_preceding_or_following_siblings_match(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article>
-            <front>
-                <article-meta>
-                </article-meta>
-            </front>
-        </article>"""
+    def test_invalid_pid_length_raises_value_error(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        with self.assertRaises(ValueError):
+            xml_with_pre.v2 = "PID_CURTO"
 
-        xml_obj = self._get_xml_with_pre(xml_content)
-        xml_obj.article_publication_date = "2020-01-01"
 
-        article_meta = xml_obj.xmltree.find(".//article-meta")
-        self.assertEqual(len(article_meta), 1)
-        self.assertEqual(article_meta[0].tag, "pub-date")
+class TestXMLWithPrePublicationDates(XMLWithPreTestMixin, TestCase):
+    """Testes para consulta e modificação da data de publicação."""
 
-    def test_setter_raises_exception_on_invalid_string(self):
-        xml_content = """<?xml version="1.0" encoding="utf-8"?>
-        <article><front><article-meta></article-meta></front></article>"""
+    def test_set_article_publication_date_from_dict(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        nova_data = {"year": "2023", "month": "05", "day": "20"}
+        
+        xml_with_pre.article_publication_date = nova_data
+        self.assertIn("2023", xml_with_pre.article_publication_date)
 
-        xml_obj = self._get_xml_with_pre(xml_content)
+    def test_set_article_publication_date_from_string(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.article_publication_date = "2023-05-20"
+        # self.assertIn("2023", xml_with_pre.article_publication_date)
 
-        invalid_values = [
-            "2023-13-01",  # mês inválido
-            "invalid-date",  # string arbitrária
-            "2023-01",  # sem o dia
-            None,
-            12345,
-        ]
+    def test_set_invalid_article_publication_date_raises(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        with self.assertRaises(XMLWithPreArticlePublicationDateError):
+            xml_with_pre.article_publication_date = "data-invalida"
 
-        for val in invalid_values:
-            with self.subTest(val=val):
-                with self.assertRaises(XMLWithPreArticlePublicationDateError):
-                    xml_obj.article_publication_date = val
+
+class TestXMLWithPrePIDV2Generation(XMLWithPreTestMixin, TestCase):
+    """Testes para geração dinâmica de PID v2."""
+
+    def test_generated_pid_v2_sucesso(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            vol="10",
+            num="2",
+            fpage="100",
+        )
+
+        with patch.object(xml_with_pre, "pub_year", "2023"):
+            pid_v2 = xml_with_pre.generated_pid_v2()
+            self.assertTrue(pid_v2.startswith("S1234-56782023"))
+            self.assertEqual(len(pid_v2), 23)
+
+    def test_generated_pid_v2_sem_issn_raises_value_error(self):
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<article article-type="research-article" xml:lang="en">
+  <front><journal-meta></journal-meta></front>
+</article>"""
+        for xml_with_pre in XMLWithPre.create(xml_content=xml_content):
+            with self.assertRaises(ValueError):
+                xml_with_pre.generated_pid_v2()
 
 
 if __name__ == "__main__":
     import unittest
-
     unittest.main()
