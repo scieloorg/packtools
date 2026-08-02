@@ -911,7 +911,10 @@ class PackageNamingMixin:
             variations.add(self.submitted_filename)
 
         for issn in self.available_issns:
-            variations.add(self.build_sps_pkg_name(issn=issn))
+            try:
+                variations.add(self.build_sps_pkg_name(issn=issn))
+            except ValueError:
+                pass
 
         variations.update(self.deprecated_sps_pkg_name_list)
 
@@ -922,13 +925,18 @@ class PackageNamingMixin:
 
         if provided_sps_pkg_name := self.provided_sps_pkg_name:
             variations.add(provided_sps_pkg_name)
-
+        if self.xml_name:
+            variations.add(self.xml_name)
         return variations
 
     @property
     def built_sps_pkg_name(self) -> str:
         """Retorna o nome do pacote SPS construído com base nas regras atuais."""
         return self._built_sps_pkg_name
+
+    @built_sps_pkg_name.setter
+    def built_sps_pkg_name(self, value):
+        self._built_sps_pkg_name = value
 
     @property
     def provided_sps_pkg_name(self) -> str:
@@ -943,29 +951,37 @@ class PackageNamingMixin:
         # não sanitizar, pois pode ser nome legado
         self._provided_sps_pkg_name = value
 
-    @property
-    def sps_pkg_name(self):
+    def set_sps_pkg_data(self):
+        if self._sps_pkg_name_origin and self._sps_pkg_name:
+            return
         if name := self.provided_sps_pkg_name:
-            return name
+            self._sps_pkg_name_origin = "provided_sps_pkg_name"
+            self._sps_pkg_name = name
+            return
         if name := self.built_sps_pkg_name:
-            return name
+            self._sps_pkg_name_origin = "built_sps_pkg_name"
+            self._sps_pkg_name = name
+            return
+        if name := self.xml_name:
+            self._sps_pkg_name_origin = "xml_name"
+            self._sps_pkg_name = name
+            return
         # comportamento defensivo em caso de não ajuste no upload / core
         # versão mais compatível com o guia sps 1.10
-        return self.deprecated_sps_pkg_name_version_2
+        self._sps_pkg_name_origin = "deprecated_sps_pkg_name_version_2"
+        self._sps_pkg_name = self.deprecated_sps_pkg_name_version_2
+
+    @property
+    def sps_pkg_name(self):
+        if not self._sps_pkg_name_origin or not self._sps_pkg_name:
+            self.set_sps_pkg_data()
+        return self._sps_pkg_name
 
     @property
     def sps_pkg_name_origin(self):
-        if name := self.provided_sps_pkg_name:
-            return "provided_sps_pkg_name"
-        if name := self.built_sps_pkg_name:
-            return "built_sps_pkg_name"
-        # comportamento defensivo em caso de não ajuste no upload / core
-        # versão mais compatível com o guia sps 1.10
-        return "deprecated_sps_pkg_name_version_2"
-
-    @sps_pkg_name.setter
-    def sps_pkg_name(self, value):
-        self.provided_sps_pkg_name = value
+        if not self._sps_pkg_name_origin or not self._sps_pkg_name:
+            self.set_sps_pkg_data()
+        return self._sps_pkg_name_origin
 
     @property
     def pkg_names_dict(self) -> dict:
@@ -1630,6 +1646,8 @@ class XMLWithPre(
         self._provided_sps_pkg_name = None
         self._built_sps_pkg_name = None
         self.is_html_source = None
+        self._sps_pkg_name_origin = None
+        self._sps_pkg_name = None
 
     def __str__(self):
         return self.xml_name or self.submitted_filename or self.zip_file_path or self.uri or "<XMLWithPre>"
@@ -1653,14 +1671,7 @@ class XMLWithPre(
                     continue
                 try:
                     xml_with_pre = item["xml_with_pre"]
-                    if xml_native_name:
-                        xml_with_pre.provided_sps_pkg_name = xml_native_name
-                    if xml_native_name or html_name:
-                        xml_with_pre.submitted_filename = xml_native_name or html_name
-                    if built_name:
-                        xml_with_pre._built_sps_pkg_name = built_name
-                    if not xml_native_name and not built_name:
-                        xml_with_pre._built_sps_pkg_name = xml_with_pre.build_sps_pkg_name()
+                    xml_with_pre.add_pkg_name(xml_native_name=xml_native_name, html_name=html_name, built_name=built_name)
                     yield xml_with_pre
                 except (KeyError, ValueError) as e:
                     errors.append(item)
@@ -1672,6 +1683,15 @@ class XMLWithPre(
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout)
             return
+
+    def add_pkg_name(self, xml_native_name=None, html_name=None, built_name=None):
+        if xml_native_name:
+            self.provided_sps_pkg_name = xml_native_name
+            self.submitted_filename = xml_native_name + ".xml"
+        elif html_name:
+            self.submitted_filename = html_name + ".html"
+        if built_name:
+            self._built_sps_pkg_name = built_name
 
     def tostring(self, pretty_print=False):
         return self.xmlpre + etree.tostring(
