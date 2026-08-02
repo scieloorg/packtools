@@ -405,11 +405,10 @@ class PackagingAndFilesMixin:
     # --------------------------------------------------------------------------
     @property
     def filename(self):
-        return self.xml_name
-
-    @filename.setter
-    def filename(self, value):
-        self.xml_name = value
+        if self.zip_file_path:
+            return self.xml_file_path
+        if self.xml_name:
+            return f"{self.xml_name}.xml"
 
     @property
     def files(self):
