@@ -1,11 +1,13 @@
+import os
+from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
-from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
 
 from packtools.sps.pid_provider.xml_sps_lib import (
     XMLWithPre,
     XMLWithPreArticlePublicationDateError,
     XMLWithPreMissingISSNError,
+    GetXmlWithPreError,
 )
 
 class XMLWithPreTestMixin:
@@ -1318,7 +1320,7 @@ class TestSpsPkgNamePriority(XMLWithPreTestMixin, TestCase):
 
     def test_sps_pkg_name_setter_sets_provided_name(self):
         xml_with_pre = self._make_xml(vol="10", num="2")
-        xml_with_pre.sps_pkg_name = "meu-pacote-1"
+        xml_with_pre.provided_sps_pkg_name = "meu-pacote-1"
         self.assertEqual(xml_with_pre.provided_sps_pkg_name, "meu-pacote-1")
         self.assertEqual(xml_with_pre.sps_pkg_name, "meu-pacote-1")
 
@@ -1457,11 +1459,12 @@ class TestSpsPkgNameOrigin(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         self.assertIsNone(xml_with_pre.provided_sps_pkg_name)
         self.assertIsNone(xml_with_pre.built_sps_pkg_name)
+        self.assertIsNone(xml_with_pre.xml_name)                
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "deprecated_sps_pkg_name_version_2")
 
     def test_origin_is_built_when_built_name_is_set(self):
         xml_with_pre = self._make_base_xml()
-        xml_with_pre._built_sps_pkg_name = "built-name"
+        xml_with_pre.built_sps_pkg_name = "built-name"
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "built_sps_pkg_name")
 
     def test_origin_is_provided_when_provided_name_is_set(self):
@@ -1758,6 +1761,225 @@ class TestGetData(XMLWithPreTestMixin, TestCase):
             self.assertIn(key, result)
 
 
-if __name__ == "__main__":
-    import unittest
-    unittest.main()
+# ==============================================================================
+# 1. TESTES PARA XMLWithPre.create
+# ==============================================================================
+class TestXMLWithPreCreate(XMLWithPreTestMixin, TestCase):
+    """Testes para o método construtor alternativo e gerador XMLWithPre.create."""
+
+    def test_create_from_xml_content_string(self):
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article article-type="research-article" xml:lang="en">
+            <front><journal-meta><journal-id journal-id-type="publisher-id">abc</journal-id></journal-meta></front>
+        </article>"""
+        instances = list(XMLWithPre.create(xml_content=xml_content))
+        self.assertEqual(len(instances), 1)
+        self.assertIsInstance(instances[0], XMLWithPre)
+        self.assertEqual(instances[0].journal_acron, "abc")
+
+    def test_create_from_path_single_xml_file(self):
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article article-type="research-article" xml:lang="en">
+            <front><journal-meta><journal-id journal-id-type="publisher-id">xyz</journal-id></journal-meta></front>
+        </article>"""
+        with TemporaryDirectory() as tmpdir:
+            file_path = os.path.join(tmpdir, "test_doc.xml")
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(xml_content)
+
+            instances = list(XMLWithPre.create(path=file_path))
+            self.assertEqual(len(instances), 1)
+            self.assertIsInstance(instances[0], XMLWithPre)
+            self.assertEqual(instances[0].journal_acron, "xyz")
+            self.assertEqual(instances[0].xml_name, "test_doc")
+
+    def test_create_from_path_with_custom_names(self):
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article article-type="research-article" xml:lang="en">
+            <front><journal-meta><journal-id journal-id-type="publisher-id">abc</journal-id></journal-meta></front>
+        </article>"""
+        with TemporaryDirectory() as tmpdir:
+            file_path = os.path.join(tmpdir, "doc.xml")
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(xml_content)
+
+            instances = list(
+                XMLWithPre.create(
+                    path=file_path,
+                    xml_native_name="custom_native",
+                    built_name="custom_built",
+                )
+            )
+            self.assertEqual(len(instances), 1)
+            self.assertEqual(instances[0].provided_sps_pkg_name, "custom_native")
+            self.assertEqual(instances[0].built_sps_pkg_name, "custom_built")
+            self.assertEqual(instances[0].submitted_filename, "custom_native.xml")
+
+    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre_from_uri")
+    def test_create_from_uri(self, mock_get_from_uri):
+        mock_instance = self._make_base_xml()
+        mock_get_from_uri.return_value = mock_instance
+
+        instances = list(XMLWithPre.create(uri="https://scielo.org/sample.xml"))
+        self.assertEqual(len(instances), 1)
+        self.assertEqual(instances[0], mock_instance)
+        mock_get_from_uri.assert_called_once_with("https://scielo.org/sample.xml", 30)
+
+    def test_create_from_path_invalid_file_raises_get_xml_with_pre_error(self):
+        with TemporaryDirectory() as tmpdir:
+            file_path = os.path.join(tmpdir, "invalid.xml")
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write("CONTEUDO_XML_INVALIDO_SEM_TAGS")
+
+            with self.assertRaises(GetXmlWithPreError):
+                list(XMLWithPre.create(path=file_path))
+
+
+# ==============================================================================
+# 2. TESTES PARA XMLWithPre.add_pkg_name
+# ==============================================================================
+class TestAddPkgName(XMLWithPreTestMixin, TestCase):
+    """Testes de atribuição explícita de nomes via add_pkg_name."""
+
+    def test_add_pkg_name_with_xml_native_name(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_pkg_name(xml_native_name="native-pkg-name")
+        self.assertEqual(xml_with_pre.provided_sps_pkg_name, "native-pkg-name")
+        self.assertEqual(xml_with_pre.submitted_filename, "native-pkg-name.xml")
+        self.assertEqual(xml_with_pre.source_filename, "native-pkg-name")
+        self.assertEqual(xml_with_pre.source_ext, ".xml")
+
+    def test_add_pkg_name_with_html_name(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_pkg_name(html_name="legacy_page")
+        self.assertIsNone(xml_with_pre.provided_sps_pkg_name)
+        self.assertEqual(xml_with_pre.submitted_filename, "legacy_page.html")
+        self.assertEqual(xml_with_pre.source_filename, "legacy_page")
+        self.assertEqual(xml_with_pre.source_ext, ".html")
+        self.assertTrue(xml_with_pre.is_html_source)
+
+    def test_add_pkg_name_with_built_name(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_pkg_name(built_name="constructed-name-v1")
+        self.assertEqual(xml_with_pre.built_sps_pkg_name, "constructed-name-v1")
+
+    def test_add_pkg_name_xml_native_precedes_html_name(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_pkg_name(xml_native_name="native_win", html_name="html_lose")
+        self.assertEqual(xml_with_pre.provided_sps_pkg_name, "native_win")
+        self.assertEqual(xml_with_pre.submitted_filename, "native_win.xml")
+
+    def test_add_pkg_name_combining_native_and_built(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_pkg_name(xml_native_name="pkg-123", built_name="built-123")
+        self.assertEqual(xml_with_pre.provided_sps_pkg_name, "pkg-123")
+        self.assertEqual(xml_with_pre.built_sps_pkg_name, "built-123")
+        self.assertEqual(xml_with_pre.sps_pkg_name, "pkg-123")
+
+
+# ==============================================================================
+# 3. TESTES PARA XMLWithPre.pkg_name_variations
+# ==============================================================================
+class TestPkgNameVariations(XMLWithPreTestMixin, TestCase):
+    """Testes para geração de variações de nomes utilizadas em buscas/queries do Django ORM."""
+
+    def test_pkg_name_variations_includes_multi_issn(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            issn_ppub="8765-4321",
+            acron="abc",
+            vol="10",
+            num="2",
+            elocation="e100",
+        )
+        variations = xml_with_pre.pkg_name_variations
+        self.assertIn("1234-5678-abc-10-02-e100", variations)
+        self.assertIn("8765-4321-abc-10-02-e100", variations)
+
+    def test_pkg_name_variations_includes_submitted_filename(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.submitted_filename = "artigo_original.xml"
+        variations = xml_with_pre.pkg_name_variations
+        self.assertIn("artigo_original.xml", variations)
+
+    def test_pkg_name_variations_includes_provided_and_built_names(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.provided_sps_pkg_name = "provided-name"
+        xml_with_pre._built_sps_pkg_name = "built-name"
+        variations = xml_with_pre.pkg_name_variations
+        self.assertIn("provided-name", variations)
+        self.assertIn("built-name", variations)
+
+    def test_pkg_name_variations_includes_xml_name(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.xml_name = "artigo_parsed"
+        variations = xml_with_pre.pkg_name_variations
+        self.assertIn("artigo_parsed", variations)
+
+    def test_pkg_name_variations_includes_deprecated_list(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678",
+            acron="abc",
+            vol="10",
+            num="2",
+            suppl="1",
+            fpage="100",
+            lpage="110",
+        )
+        variations = xml_with_pre.pkg_name_variations
+        for dep_name in xml_with_pre.deprecated_sps_pkg_name_list:
+            self.assertIn(dep_name, variations)
+
+    def test_pkg_name_variations_returns_set(self):
+        xml_with_pre = self._make_base_xml()
+        variations = xml_with_pre.pkg_name_variations
+        self.assertIsInstance(variations, set)
+
+
+# ==============================================================================
+# 4. TESTES PARA XMLWithPre.sps_pkg_name (Regras Globais de Precedência e Fallback)
+# ==============================================================================
+class TestSpsPkgNameComprehensive(XMLWithPreTestMixin, TestCase):
+    """Testes de alta cobertura cobrindo a hierarquia completa de sps_pkg_name."""
+
+    def test_sps_pkg_name_hierarchy_1_provided_has_top_priority(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.provided_sps_pkg_name = "1-provided"
+        xml_with_pre._built_sps_pkg_name = "2-built"
+        xml_with_pre.xml_name = "3-xml-name"
+
+        self.assertEqual(xml_with_pre.sps_pkg_name, "1-provided")
+        self.assertEqual(xml_with_pre.sps_pkg_name_origin, "provided_sps_pkg_name")
+
+    def test_sps_pkg_name_hierarchy_2_built_has_second_priority(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.provided_sps_pkg_name = None
+        xml_with_pre._built_sps_pkg_name = "2-built"
+        xml_with_pre.xml_name = "3-xml-name"
+
+        self.assertEqual(xml_with_pre.sps_pkg_name, "2-built")
+        self.assertEqual(xml_with_pre.sps_pkg_name_origin, "built_sps_pkg_name")
+
+    def test_sps_pkg_name_hierarchy_3_xml_name_has_third_priority(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.provided_sps_pkg_name = None
+        xml_with_pre._built_sps_pkg_name = None
+        xml_with_pre.xml_name = "3-xml-name"
+
+        self.assertEqual(xml_with_pre.sps_pkg_name, "3-xml-name")
+        # Nota: O código atual mantém fallback de origem como 'deprecated_sps_pkg_name_version_2'
+        self.assertEqual(xml_with_pre.sps_pkg_name_origin, "xml_name")
+
+    def test_sps_pkg_name_hierarchy_4_deprecated_v2_as_final_fallback(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.provided_sps_pkg_name = None
+        xml_with_pre._built_sps_pkg_name = None
+        xml_with_pre.xml_name = None
+
+        self.assertEqual(xml_with_pre.sps_pkg_name, xml_with_pre.deprecated_sps_pkg_name_version_2)
+        self.assertEqual(xml_with_pre.sps_pkg_name_origin, "deprecated_sps_pkg_name_version_2")
+
+    def test_sps_pkg_name_setter_is_rejected(self):
+        xml_with_pre = self._make_base_xml()
+        with self.assertRaises(AttributeError):
+            xml_with_pre.sps_pkg_name = "new-set-name"
