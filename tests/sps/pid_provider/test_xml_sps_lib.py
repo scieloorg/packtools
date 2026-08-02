@@ -2,12 +2,15 @@ import os
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
+from zipfile import ZipFile, ZIP_DEFLATED
 
 from packtools.sps.pid_provider.xml_sps_lib import (
     XMLWithPre,
     XMLWithPreArticlePublicationDateError,
     XMLWithPreMissingISSNError,
     GetXmlWithPreError,
+    get_xml_with_pre_from_xml_file,
+    get_xml_with_pre_from_zip_file,
 )
 
 class XMLWithPreTestMixin:
@@ -792,8 +795,15 @@ class TestSPSPkgNameSuffix(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.legacy_alternative_sps_pkg_name_suffix, "00001")
 
     def test_legacy_alternative_sps_pkg_name_suffix_filename(self):
+        # legacy_alternative_sps_pkg_name_suffix cai para `filename` quando
+        # não há `order`. `filename` NÃO tem setter: é sempre derivado de
+        # xml_name (via add_xml_info) — aqui, sem zip_file_path, filename ==
+        # f"{xml_name}.xml".
         xml_with_pre = self._make_xml(vol="10", num="2")
-        xml_with_pre.filename = "article.xml"
+        xml_with_pre.add_xml_info("article")
+        self.assertIsNone(xml_with_pre.order)
+        self.assertEqual(xml_with_pre.xml_name, "article")
+        self.assertEqual(xml_with_pre.filename, "article.xml")
         self.assertEqual(xml_with_pre.legacy_alternative_sps_pkg_name_suffix, "article.xml")
 
 
@@ -981,25 +991,41 @@ class TestV2List(XMLWithPreTestMixin, TestCase):
 
 
 class TestXMLWithPrePropertiesAndMetadata(XMLWithPreTestMixin, TestCase):
-    """Testes para aliases (filename, files, filenames), data e manipulação de DOCTYPE."""
+    """Testes para aliases (files, filenames), data e manipulação de DOCTYPE.
 
-    def test_filename_files_filenames_getters_and_setters(self):
+    `filename` (singular) NÃO possui setter — é sempre derivado de
+    xml_name/xml_file_path/zip_file_path, atribuídos via add_xml_info /
+    add_zip_info. Já `files`/`filenames` (plural) SÃO aliases graváveis
+    para zip_namelist/zip_basenames.
+    """
+
+    def test_files_and_filenames_getters_and_setters(self):
         xml_with_pre = self._make_xml(vol="10", num="2")
-        
-        # Atribuição via setters
-        xml_with_pre.filename = "artigo.xml"
+
+        # Atribuição via setters (aliases de zip_namelist/zip_basenames)
         xml_with_pre.files = ["artigo.xml", "imagem.jpg"]
         xml_with_pre.filenames = ["artigo.xml", "imagem.jpg"]
-
-        # Verificação via getters e propriedades de suporte
-        self.assertEqual(xml_with_pre.filename, "artigo.xml")
-        self.assertEqual(xml_with_pre.xml_name, "artigo.xml")
 
         self.assertEqual(xml_with_pre.files, ["artigo.xml", "imagem.jpg"])
         self.assertEqual(xml_with_pre.zip_namelist, ["artigo.xml", "imagem.jpg"])
 
         self.assertEqual(xml_with_pre.filenames, ["artigo.xml", "imagem.jpg"])
         self.assertEqual(xml_with_pre.zip_basenames, ["artigo.xml", "imagem.jpg"])
+
+    def test_filename_singular_has_no_setter(self):
+        # `filename` é somente leitura; tentar atribuí-lo diretamente
+        # deve falhar (não existe filename.setter no código-fonte).
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        with self.assertRaises(AttributeError):
+            xml_with_pre.filename = "artigo.xml"
+
+    def test_filename_getter_uses_xml_name_when_set_via_add_xml_info(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_xml_info("artigo", "/tmp/uploads/artigo.xml")
+        self.assertEqual(xml_with_pre.xml_name, "artigo")
+        # sem zip_file_path, filename ignora o path completo do arquivo e
+        # usa somente xml_name + ".xml"
+        self.assertEqual(xml_with_pre.filename, "artigo.xml")
 
     def test_data_property(self):
         xml_with_pre = self._make_xml(
@@ -1010,7 +1036,7 @@ class TestXMLWithPrePropertiesAndMetadata(XMLWithPreTestMixin, TestCase):
             acron="abc",
             elocation="e100",
         )
-        xml_with_pre.filename = "artigo.xml"
+        xml_with_pre.add_xml_info("artigo")
         xml_with_pre.files = ["artigo.xml"]
         xml_with_pre.filenames = ["artigo.xml"]
 
@@ -1447,6 +1473,7 @@ Foco:
     - get_pmc_pkg_name (com e sem revision_number)
     - pkg_names_dict / sps_pkg_names_dict / input_files_dict / data
     - get_data (composição condicional dos dicionários acima)
+    - xml_name vs filename conforme a origem (arquivo .xml avulso x .zip)
 
 Arquivo independente (contém sua própria mixin de fabricação de XML).
 """
@@ -1479,6 +1506,17 @@ class TestSpsPkgNameOrigin(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "provided_sps_pkg_name")
         # sps_pkg_name e sps_pkg_name_origin devem ser sempre consistentes
         self.assertEqual(xml_with_pre.sps_pkg_name, "provided-name")
+
+    def test_origin_is_xml_name_when_only_xml_name_is_set(self):
+        # xml_name é atribuído via add_xml_info (não confundir com
+        # provided_sps_pkg_name / built_sps_pkg_name)
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_xml_info("nome-do-arquivo")
+        self.assertIsNone(xml_with_pre.provided_sps_pkg_name)
+        self.assertIsNone(xml_with_pre.built_sps_pkg_name)
+        self.assertEqual(xml_with_pre.xml_name, "nome-do-arquivo")
+        self.assertEqual(xml_with_pre.sps_pkg_name_origin, "xml_name")
+        self.assertEqual(xml_with_pre.sps_pkg_name, "nome-do-arquivo")
 
 
 # ==============================================================================
@@ -1578,7 +1616,7 @@ class TestDictProperties(XMLWithPreTestMixin, TestCase):
         # "vazam" de volta para `data` por engano em uma futura refatoração.
         xml_with_pre = self._make_base_xml()
         xml_with_pre.submitted_filename = "artigo.xml"
-        xml_with_pre.xml_name = "artigo"
+        xml_with_pre.add_xml_info("artigo")
         data = xml_with_pre.data
         self.assertNotIn("submitted_filename", data)
         self.assertNotIn("submitted_ext", data)
@@ -1762,6 +1800,117 @@ class TestGetData(XMLWithPreTestMixin, TestCase):
 
 
 # ==============================================================================
+# xml_name vs filename: comportamento conforme a origem (arquivo .xml
+# avulso versus item dentro de um .zip)
+# ==============================================================================
+class TestXmlNameVsFilenameOrigin(XMLWithPreTestMixin, TestCase):
+    """
+    `xml_name` e `filename` NÃO são a mesma coisa:
+
+    - `xml_name`: nome "lógico" do XML, sem extensão. É atribuído
+      explicitamente via `add_xml_info(xml_name, xml_file_path=None)` — seja
+      manualmente, seja internamente por `get_xml_with_pre_from_xml_file`
+      (nome do arquivo, sem ".xml") ou por `get_xml_with_pre_from_zip_file`
+      (nome-base do item do zip, sem ".xml").
+
+    - `filename` (propriedade só de leitura, sem setter): nome "físico"
+      calculado a partir de `zip_file_path`/`xml_file_path`/`xml_name`:
+        * SEM zip (zip_file_path vazio): filename = f"{xml_name}.xml"
+          (o path completo em xml_file_path é ignorado).
+        * COM zip (zip_file_path setado): filename = xml_file_path, ou
+          seja, o caminho do XML *dentro do zip* — que pode incluir
+          subpastas e diferir de f"{xml_name}.xml".
+
+    Ou seja: a mesma instância pode ter xml_name="artigo" e filename
+    "artigo.xml" (origem: arquivo avulso) ou filename
+    "subpasta/artigo.xml" (origem: zip com o XML dentro de uma subpasta).
+    """
+
+    def test_filename_from_plain_xml_equals_xml_name_plus_extension(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_xml_info("artigo", "/tmp/uploads/artigo.xml")
+
+        self.assertEqual(xml_with_pre.xml_name, "artigo")
+        self.assertIsNone(xml_with_pre.zip_file_path)
+        # sem zip, filename ignora o path completo e usa apenas
+        # xml_name + ".xml"
+        self.assertEqual(xml_with_pre.filename, "artigo.xml")
+
+    def test_filename_from_zip_uses_xml_file_path_not_xml_name(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        # xml_name é o nome lógico (sem extensão); xml_file_path é o
+        # caminho do item dentro do zip, que pode ter subpastas e diferir
+        # do valor de xml_name
+        xml_with_pre.add_xml_info("artigo", "pasta/artigo.xml")
+        xml_with_pre.add_zip_info("/tmp/pacote.zip", ["pasta/artigo.xml"], ["artigo.xml"])
+
+        self.assertEqual(xml_with_pre.xml_name, "artigo")
+        self.assertEqual(xml_with_pre.zip_file_path, "/tmp/pacote.zip")
+        # com zip, filename é o path do XML dentro do zip (xml_file_path),
+        # não xml_name + ".xml"
+        self.assertEqual(xml_with_pre.filename, "pasta/artigo.xml")
+        self.assertNotEqual(xml_with_pre.filename, f"{xml_with_pre.xml_name}.xml")
+
+    def test_filename_from_zip_when_xml_file_path_matches_xml_name(self):
+        # Caso comum: sem subpastas, xml_file_path coincide com
+        # xml_name + ".xml", mas ainda assim é xml_file_path (não xml_name)
+        # quem determina o valor de filename.
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_xml_info("artigo", "artigo.xml")
+        xml_with_pre.add_zip_info("/tmp/pacote.zip", ["artigo.xml"], ["artigo.xml"])
+
+        self.assertEqual(xml_with_pre.filename, "artigo.xml")
+        self.assertEqual(xml_with_pre.filename, f"{xml_with_pre.xml_name}.xml")
+
+    def test_xml_name_is_not_changed_by_add_zip_info(self):
+        # add_zip_info altera zip_file_path/zip_namelist/zip_basenames, mas
+        # nunca xml_name — só add_xml_info define/altera xml_name.
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_xml_info("artigo", "artigo.xml")
+        self.assertEqual(xml_with_pre.xml_name, "artigo")
+
+        xml_with_pre.add_zip_info(
+            "/tmp/pacote.zip", ["artigo.xml", "artigo.pdf"], ["artigo.xml", "artigo.pdf"]
+        )
+        self.assertEqual(xml_with_pre.xml_name, "artigo")  # inalterado
+
+    def test_get_xml_with_pre_from_xml_file_sets_xml_name_from_basename_without_extension(self):
+        xml_content = self._make_base_xml().tostring()
+        with TemporaryDirectory() as tmpdir:
+            file_path = os.path.join(tmpdir, "meu-artigo-123.xml")
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(xml_content)
+
+            result = get_xml_with_pre_from_xml_file(file_path)
+            xml_with_pre = result["xml_with_pre"]
+
+            self.assertEqual(xml_with_pre.xml_name, "meu-artigo-123")
+            self.assertIsNone(xml_with_pre.zip_file_path)
+            # sem zip, filename = xml_name + ".xml"
+            self.assertEqual(xml_with_pre.filename, "meu-artigo-123.xml")
+
+    def test_get_xml_with_pre_from_zip_file_sets_xml_name_and_filename_from_zip_item(self):
+        xml_content = self._make_base_xml().tostring()
+        with TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, "pacote.zip")
+            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
+                zf.writestr("subpasta/meu-artigo-123.xml", xml_content)
+
+            items = get_xml_with_pre_from_zip_file(zip_path)
+            self.assertEqual(len(items), 1)
+            xml_with_pre = items[0]["xml_with_pre"]
+
+            # xml_name vem apenas do nome-base do item, sem extensão e sem
+            # subpasta
+            self.assertEqual(xml_with_pre.xml_name, "meu-artigo-123")
+            self.assertEqual(xml_with_pre.zip_file_path, zip_path)
+            # filename, por outro lado, é o path COMPLETO do XML dentro do
+            # zip (inclui a subpasta) — diferente de f"{xml_name}.xml"
+            self.assertEqual(xml_with_pre.filename, "subpasta/meu-artigo-123.xml")
+            self.assertNotEqual(xml_with_pre.filename, f"{xml_with_pre.xml_name}.xml")
+
+
+# ==============================================================================
 # 1. TESTES PARA XMLWithPre.create
 # ==============================================================================
 class TestXMLWithPreCreate(XMLWithPreTestMixin, TestCase):
@@ -1792,6 +1941,9 @@ class TestXMLWithPreCreate(XMLWithPreTestMixin, TestCase):
             self.assertIsInstance(instances[0], XMLWithPre)
             self.assertEqual(instances[0].journal_acron, "xyz")
             self.assertEqual(instances[0].xml_name, "test_doc")
+            # origem: arquivo .xml avulso -> filename = xml_name + ".xml"
+            self.assertIsNone(instances[0].zip_file_path)
+            self.assertEqual(instances[0].filename, "test_doc.xml")
 
     def test_create_from_path_with_custom_names(self):
         xml_content = """<?xml version="1.0" encoding="UTF-8"?>
@@ -1814,6 +1966,10 @@ class TestXMLWithPreCreate(XMLWithPreTestMixin, TestCase):
             self.assertEqual(instances[0].provided_sps_pkg_name, "custom_native")
             self.assertEqual(instances[0].built_sps_pkg_name, "custom_built")
             self.assertEqual(instances[0].submitted_filename, "custom_native.xml")
+            # xml_name continua vindo do nome físico do arquivo lido (doc),
+            # independente de xml_native_name/built_name, que afetam apenas
+            # provided/built_sps_pkg_name e submitted_filename
+            self.assertEqual(instances[0].xml_name, "doc")
 
     @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre_from_uri")
     def test_create_from_uri(self, mock_get_from_uri):
@@ -1912,7 +2068,7 @@ class TestPkgNameVariations(XMLWithPreTestMixin, TestCase):
 
     def test_pkg_name_variations_includes_xml_name(self):
         xml_with_pre = self._make_base_xml()
-        xml_with_pre.xml_name = "artigo_parsed"
+        xml_with_pre.add_xml_info("artigo_parsed")
         variations = xml_with_pre.pkg_name_variations
         self.assertIn("artigo_parsed", variations)
 
@@ -1946,7 +2102,7 @@ class TestSpsPkgNameComprehensive(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.provided_sps_pkg_name = "1-provided"
         xml_with_pre._built_sps_pkg_name = "2-built"
-        xml_with_pre.xml_name = "3-xml-name"
+        xml_with_pre.add_xml_info("3-xml-name")
 
         self.assertEqual(xml_with_pre.sps_pkg_name, "1-provided")
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "provided_sps_pkg_name")
@@ -1955,7 +2111,7 @@ class TestSpsPkgNameComprehensive(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.provided_sps_pkg_name = None
         xml_with_pre._built_sps_pkg_name = "2-built"
-        xml_with_pre.xml_name = "3-xml-name"
+        xml_with_pre.add_xml_info("3-xml-name")
 
         self.assertEqual(xml_with_pre.sps_pkg_name, "2-built")
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "built_sps_pkg_name")
@@ -1964,17 +2120,16 @@ class TestSpsPkgNameComprehensive(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.provided_sps_pkg_name = None
         xml_with_pre._built_sps_pkg_name = None
-        xml_with_pre.xml_name = "3-xml-name"
+        xml_with_pre.add_xml_info("3-xml-name")
 
         self.assertEqual(xml_with_pre.sps_pkg_name, "3-xml-name")
-        # Nota: O código atual mantém fallback de origem como 'deprecated_sps_pkg_name_version_2'
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "xml_name")
 
     def test_sps_pkg_name_hierarchy_4_deprecated_v2_as_final_fallback(self):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.provided_sps_pkg_name = None
         xml_with_pre._built_sps_pkg_name = None
-        xml_with_pre.xml_name = None
+        self.assertIsNone(xml_with_pre.xml_name)
 
         self.assertEqual(xml_with_pre.sps_pkg_name, xml_with_pre.deprecated_sps_pkg_name_version_2)
         self.assertEqual(xml_with_pre.sps_pkg_name_origin, "deprecated_sps_pkg_name_version_2")
