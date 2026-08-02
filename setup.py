@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 #coding:utf-8
 from __future__ import unicode_literals
+from pathlib import Path
 from setuptools import setup
+from setuptools.command.build_py import build_py as _build_py
 import setuptools
 import codecs
 import sys
@@ -9,6 +11,34 @@ import sys
 
 if sys.version_info[0:2] < (3, 9):
     raise RuntimeError('Requires Python 3.9 or newer')
+
+
+LOCALE_DIR = Path(__file__).resolve().parent / "packtools" / "sps" / "locale"
+
+
+def compile_sps_i18n_catalogs():
+    """Compila packtools/sps/locale/*/LC_MESSAGES/*.po para .mo.
+
+    MANIFEST.in so inclui *.mo (nao *.po) na distribuicao, entao sem esse
+    passo os catalogos ficam de fora do sdist/wheel e
+    packtools.sps.i18n.set_locale() nunca encontra traducao nenhuma - ver
+    issue #1267.
+    """
+    from babel.messages.mofile import write_mo
+    from babel.messages.pofile import read_po
+
+    for po_path in sorted(LOCALE_DIR.glob("*/LC_MESSAGES/*.po")):
+        with po_path.open("rb") as po_file:
+            catalog = read_po(po_file)
+        mo_path = po_path.with_suffix(".mo")
+        with mo_path.open("wb") as mo_file:
+            write_mo(mo_file, catalog)
+
+
+class build_py(_build_py):
+    def run(self):
+        compile_sps_i18n_catalogs()
+        super().run()
 
 
 # adds version to the local namespace
@@ -67,6 +97,7 @@ setup(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests", "docs"]
     ),
     include_package_data=True,
+    cmdclass={"build_py": build_py},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
