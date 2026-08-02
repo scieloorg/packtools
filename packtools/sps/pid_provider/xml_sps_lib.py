@@ -1,6 +1,7 @@
 import hashlib
 import logging
 import os
+import re
 import traceback
 from datetime import date
 from functools import cached_property
@@ -33,6 +34,9 @@ from packtools.sps.pid_provider.models.related_articles import RelatedItems
 
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+
+
+class XMLWithPreMissingISSNError(Exception): ...
 
 
 class GetXmlWithPreError(Exception): ...
@@ -425,7 +429,7 @@ class PackagingAndFilesMixin:
 
     @property
     def source_filename(self):
-        return self.submitted_filename
+        return self._submitted_filename
 
     @source_filename.setter
     def source_filename(self, value):
@@ -433,11 +437,35 @@ class PackagingAndFilesMixin:
 
     @property
     def source_ext(self):
-        return self.submitted_ext
+        return self._submitted_ext
 
     @source_ext.setter
     def source_ext(self, value):
-        self.submitted_ext = value
+        self._submitted_ext = value
+
+    @property
+    def submitted_filename(self) -> str:
+        if self._submitted_filename:
+            return f"{self._submitted_filename}{self._submitted_ext}"
+
+    @submitted_filename.setter
+    def submitted_filename(self, value: str):
+        """Atribui o nome submetido e extrai/separa a extensão automaticamente."""
+        if not value:
+            self._submitted_filename = None
+            self._submitted_ext = None
+            return
+
+        self._submitted_filename, ext = os.path.splitext(value)
+        if ext:
+            self._submitted_ext = ext.lower()
+        self.is_html_source = bool(self.is_html_source or self.submitted_ext in [".html", ".htm"])
+
+    @property
+    def submitted_ext(self) -> str:
+        """Extensão do arquivo submetido (ex: '.html', '.xml')."""
+        if self._submitted_ext:
+            return self._submitted_ext
 
     # --------------------------------------------------------------------------
     # Métodos Mutadores de Informações do Pacote
@@ -453,7 +481,9 @@ class PackagingAndFilesMixin:
 
     def add_pkg_name_components(self, source_filename, pkg_name_version=3):
         self.pkg_name_version = pkg_name_version
-        self.submitted_filename, self.submitted_ext = os.path.splitext(source_filename)
+        self.submitted_filename = source_filename
+        if source_filename and source_filename.endswith(".xml"):
+            self.provided_sps_pkg_name = source_filename[:-4]  # Remove .xml extension
 
     def get_zip_content(self, xml_filename, pretty_print=False):
         zip_content = None
@@ -514,17 +544,17 @@ class PackagingAndFilesMixin:
 
 
 # ==============================================================================
-# 3. NOMEAÇÃO DO PACOTE SCIELO (SPS PKG NAME)
+# 3. NOMEAÇÃO DO PACOTE
 # ==============================================================================
-class PackageNamingMixin:
+class LegacyPackageNamingMixin:
     """Regras de montagem do sps_pkg_name e suas variações históricas/deprecated."""
 
     @cached_property
-    def sps_pkg_name_suffix(self):
+    def legacy_sps_pkg_name_suffix(self):
         if self.elocation_id:
             return self.elocation_id
-        if self.sps_pkg_name_fpage:
-            return self.sps_pkg_name_fpage
+        if self.legacy_sps_pkg_name_fpage:
+            return self.legacy_sps_pkg_name_fpage
         if self.main_doi:
             doi = self.main_doi
             if "/" in doi:
@@ -532,7 +562,7 @@ class PackageNamingMixin:
             return doi.replace(".", "-")
 
     @cached_property
-    def sps_pkg_name_fpage(self):
+    def legacy_sps_pkg_name_fpage(self):
         fpage = fix_number(self.fpage)
         if not fpage:
             return None
@@ -553,10 +583,10 @@ class PackageNamingMixin:
         return f"{fpage}{seq}"
 
     @cached_property
-    def alternative_sps_pkg_name_suffix(self):
+    def legacy_alternative_sps_pkg_name_suffix(self):
         return self.order or self.filename
 
-    def get_pkg_name_prefix(self, suppl):
+    def legacy_get_pkg_name_prefix(self, suppl):
         parts = [
             self.journal_issn_electronic or self.journal_issn_print,
             self.journal_acron,
@@ -566,7 +596,7 @@ class PackageNamingMixin:
         ]
         return "-".join([part for part in parts if part])
 
-    def get_pkg_name_suffix(self):
+    def legacy_get_pkg_name_suffix(self):
         parts = [
             self.elocation_id,
             self.fpage,
@@ -580,13 +610,14 @@ class PackageNamingMixin:
         return "_".join([part for part in parts if part])
 
     @cached_property
-    def sps_pkg_name(self):
+    def deprecated_sps_pkg_name_version_3(self):
+        """Nome ficou muito diferente do que guia sps requer"""               
         if self.source_ext == ".xml":
             return self.source_filename
 
         parts = [
-            self.get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
-            self.get_pkg_name_suffix(),
+            self.legacy_get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
+            self.legacy_get_pkg_name_suffix(),
         ]
         return "-".join([part for part in parts if part])
 
@@ -594,8 +625,8 @@ class PackageNamingMixin:
     def deprecated_sps_pkg_name_version_2(self):
         """Problema com o sufixo - número de páginas se repete por erro humano, usar mais dados para desambiguar."""
         parts = [
-            self.get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
-            self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
+            self.legacy_get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
+            self.legacy_sps_pkg_name_suffix or self.legacy_alternative_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
 
@@ -603,8 +634,8 @@ class PackageNamingMixin:
     def deprecated_sps_pkg_name(self):
         """Tinha defeito na parte referente ao suppl (ausente o 's' antes do número)."""
         parts = [
-            self.get_pkg_name_prefix(suppl=self.deprecated_sps_pkg_name_suppl),
-            self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
+            self.legacy_get_pkg_name_prefix(suppl=self.incorrect_sps_pkg_name_suppl),
+            self.legacy_sps_pkg_name_suffix or self.legacy_alternative_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
 
@@ -613,10 +644,11 @@ class PackageNamingMixin:
         return [
             self.deprecated_sps_pkg_name,
             self.deprecated_sps_pkg_name_version_2,
+            self.deprecated_sps_pkg_name_version_3,
         ]
 
     @property
-    def deprecated_sps_pkg_name_suppl(self):
+    def incorrect_sps_pkg_name_suppl(self):
         suppl = self.suppl
         if not suppl:
             return None
@@ -629,10 +661,347 @@ class PackageNamingMixin:
 
     @property
     def sps_pkg_name_suppl(self):
-        suppl = self.deprecated_sps_pkg_name_suppl
+        suppl = self.incorrect_sps_pkg_name_suppl
         if not suppl or suppl == "suppl":
             return suppl
         return f"s{suppl}"
+
+
+class PackageNamingMixin:
+    """
+    Mixin para gerenciamento transparente e desacoplado da nomenclatura de pacotes.
+    """
+    # -------------------------------------------------------------------------
+    # HIGIENIZAÇÃO SPS ESTREITA
+    # -------------------------------------------------------------------------
+    def get_fpage_for_pkg_name_suffix(self):
+        """
+        xml nativo: fpage pode ser usada para desambiguar, pois forma o nome do pacote,
+        html: fpage não é confiável, pois o order ou o submitted_file são usados no nome do pacote,
+        fpage pode gerar ambiguidade
+        """
+        if not self.fpage:
+            return None
+        if not self.order:
+            return None
+        order = str(int(self.order))
+        if order == self.fpage:
+            return self.fpage
+        return self.order
+
+    def get_fpage_suffix(self) -> str:
+        """
+        Calcula o sufixo de paginação combinando fpage + fpage_seq SEM separador.
+        Retorna None se for detectado fpage 'fake'.
+        Exemplo válido: fpage='365', fpage_seq='a' -> '365a'
+        """
+        fpage = self.get_fpage_for_pkg_name_suffix()
+        if not fpage:
+            return None
+
+        seq = self.fpage_seq or ""
+        return f"{fpage}{seq}"
+
+    def get_page_suffix(self) -> str:
+        """
+        Calcula o sufixo de paginação combinando fpage + fpage_seq SEM separador.
+        Retorna None se for detectado fpage 'fake'.
+        Exemplo válido: fpage='365', fpage_seq='a' -> '365a'
+        """
+        fpage = self.get_fpage_for_pkg_name_suffix()
+        if not fpage:
+            return None
+
+        seq = self.fpage_seq or ""
+        lpage = self.lpage and f"-{self.lpage}" or ""
+        return f"{fpage}{seq}{lpage}"
+
+    def get_main_doi_for_pkg_name_suffix(self) -> str:
+        """
+        Retorna o sufixo do DOI principal (após a barra) para uso no nome do pacote.
+        Exemplo: '10.1234/abcd.efgh' -> 'abcd.efgh'
+        """
+        main_doi = self.main_doi
+        if not main_doi or "/" not in main_doi:
+            return None
+        return main_doi.split("/")[-1]
+
+    def get_body_fragment_for_pkg_name_suffix(self) -> str:
+        """
+        Gera um fragmento de hash do corpo do artigo para uso no nome do pacote.
+        Útil quando outros identificadores não estão disponíveis.
+        """
+        body_content = self.get_body_fragment(max_length=300)
+        if not body_content:
+            return None
+        # Gerar um hash MD5 do conteúdo do corpo e retornar os primeiros 8 caracteres
+        return hashlib.md5(body_content.encode("utf-8").lower()).hexdigest()[:8]
+
+    def get_submitted_filename_for_pkg_name_suffix(self) -> str:
+        """
+        Retorna o nome do arquivo submetido (sem extensão) para uso no nome do pacote.
+        Útil quando outros identificadores não estão disponíveis.
+        """
+        if not self.submitted_filename:
+            return None
+        return self._submitted_filename.lower()
+
+    def get_lang_suffix(self, lang):
+        lang_suffix = ""
+        main_lang = getattr(self, "main_lang", "")
+        if lang and main_lang and lang.lower() != main_lang.lower():
+            lang_suffix = f"-{lang.lower()}"
+        return lang_suffix
+
+    def get_suppl_for_pkg_name_suffix(self):
+        """
+        Retorna o sufixo do pacote SPS para suplementos:
+        'suppl' para valor 0
+        's{valor}' para valores diferentes de 0
+        """
+        suppl = self.suppl
+        if suppl is None:
+            return None
+        try:
+            if int(suppl) == 0:
+                return "suppl"
+        except (TypeError, ValueError):
+            pass
+        return f"s{suppl}"
+
+    # -------------------------------------------------------------------------
+    # RESOLUÇÃO DE SUFIXO (Estratégias Sequenciais)
+    # -------------------------------------------------------------------------
+    def get_pkg_suffix(self, strategies: list = None) -> str:
+        """
+        Avalia a lista ordenada de estratégias e retorna o PRIMEIRO dado válido.
+
+        Estratégias suportadas:
+        - 'elocation_id': ID de localização eletrônica
+        - 'fpage': fpage + fpage_seq (desconsiderando fpage fake)
+        - 'page': fpage + fpage_seq + lpage (desconsiderando fpage fake)
+        - 'order': Ordem do artigo
+        - 'body_fragment': usando body_fragment_fingerprint
+        - 'submitted_filename': Nome do arquivo enviado pelo produtor
+        - 'doi_suffix': Sufixo após a barra do DOI
+        """
+        if not strategies:
+            strategies = [
+                "elocation_id",
+                "submitted_filename",
+                "order",
+                "fpage",
+                "page",
+                "body_fragment",
+                "doi_suffix",
+            ]
+
+        for strategy in strategies:
+            val = None
+            if strategy == "elocation_id":
+                val = self.elocation_id
+            elif strategy == "order":
+                val = getattr(self, "order", None)
+            elif strategy == "fpage":
+                val = self.get_fpage_suffix()
+            elif strategy == "page":
+                val = self.get_page_suffix()
+            elif strategy == "submitted_filename":
+                val = self.get_submitted_filename_for_pkg_name_suffix()
+            elif strategy == "doi_suffix":
+                 val = self.get_main_doi_for_pkg_name_suffix()
+            elif strategy == "body_fragment":
+                val = self.get_body_fragment_for_pkg_name_suffix()
+            if val:
+                sanitized = sanitize_name(val)
+                if sanitized:
+                    return sanitized
+
+        raise ValueError(
+            f"Unable to get pkg name suffix. No valid strategy produced a value. Strategies tried: {strategies}"
+        )
+
+    # -------------------------------------------------------------------------
+    # RESOLUÇÃO DE PREFIXO
+    # -------------------------------------------------------------------------
+    @cached_property
+    def sps_issue_segment(self):
+        """
+        Segmento volume-número-suplemento, usado por XMLNamingMixin.get_sps_prefix
+        para montar variações genéricas de nome (matching ORM).
+        """
+        parts = [
+            self.volume,
+            self.number and self.number.zfill(2),
+            self.get_suppl_for_pkg_name_suffix(),
+        ]
+        if not any(parts):
+            parts = [self.pub_year]
+        return "-".join(p for p in parts if p)
+
+    def get_sps_prefix(self, issn: str = None) -> str:
+        """Gera o prefixo determinístico: ISSN-Acrônimo-Volume-Número-Suplemento."""
+        chosen_issn = issn or self.sps_issn
+        if not chosen_issn:
+            raise ValueError(
+                "Unable to get SPS prefix. No ISSN available. Provide an ISSN or ensure the XML has a valid journal_issn_electronic or journal_issn_print."
+            )
+        if not self.journal_acron:
+            raise ValueError(
+                "Unable to get SPS prefix. No journal acronym available. Ensure the XML has a valid journal_acron."
+            )
+        if not self.sps_issue_segment:
+            raise ValueError(
+                "Unable to get SPS prefix. No issue segment available. Ensure the XML has valid volume, number, and/or suppl."
+            )
+        prefix_parts = [
+            chosen_issn,
+            self.journal_acron,
+            self.sps_issue_segment,
+        ]
+        return "-".join([p for p in prefix_parts if p])
+
+    # -------------------------------------------------------------------------
+    # CONSTRUTOR DE PACOTES
+    # -------------------------------------------------------------------------
+    def build_pkg_name(self, suffix: str, prefix: str = None, lang: str = None) -> str:
+        """Junta o prefixo fornecido/gerado com o sufixo e idioma secundário."""
+        if not suffix:
+            raise ValueError("Suffix is required to build package name.")
+        base_prefix = prefix or self.get_sps_prefix()
+        lang_suffix = self.get_lang_suffix(lang)
+        return sanitize_name(f"{base_prefix}-{suffix}{lang_suffix}")
+
+    # -------------------------------------------------------------------------
+    # CONVENÇÕES PADRÃO
+    # -------------------------------------------------------------------------
+    def build_sps_pkg_name(self, lang: str = None, issn: str = None) -> str:
+        """Gera o nome do pacote no padrão SPS utilizando a busca de sufixo padrão."""
+        prefix = self.get_sps_prefix(issn=issn)
+        suffix = self.get_pkg_suffix(
+            strategies=["elocation_id", "order", "submitted_filename"]
+        )
+        return sanitize_sps_name(self.build_pkg_name(suffix=suffix, prefix=prefix, lang=lang))
+
+    def get_pmc_pkg_name(self, revision_number=None) -> str:
+        """Gera o nome do pacote no padrão PMC (jour-vol-iss-uid)."""
+        acron = getattr(self, "journal_acron", None) or "jour"
+        vol = getattr(self, "volume", None) or "0"
+        iss = getattr(self, "number", None) or "0"
+        uid = self.get_pkg_suffix(
+            strategies=["elocation_id", "fpage", "order", "uid"]
+        )
+        revision = ""
+        if revision_number:
+            revision = f".r{revision_number}"
+        return sanitize_name(f"{acron}-{vol}-{iss}-{uid}{revision}")
+
+    # -------------------------------------------------------------------------
+    # VARIAÇÕES PARA DJANGO ORM E VISÃO DICTIONARY
+    # -------------------------------------------------------------------------
+    @property
+    def pkg_name_variations(self) -> list:
+        """
+        Retorna TODAS as variações de nomes para buscas de match no Django ORM.
+        Considera ISSN eletrônico, impresso, originais e traduções.
+        """
+        variations = set()
+
+        if self.submitted_filename:
+            variations.add(self.submitted_filename)
+
+        for issn in self.available_issns:
+            variations.add(self.build_sps_pkg_name(issn=issn))
+
+        variations.update(self.deprecated_sps_pkg_name_list)
+
+        try:
+            variations.add(self.built_sps_pkg_name)
+        except ValueError:
+            pass
+
+        if provided_sps_pkg_name := self.provided_sps_pkg_name:
+            variations.add(provided_sps_pkg_name)
+
+        return variations
+
+    @property
+    def built_sps_pkg_name(self) -> str:
+        """Retorna o nome do pacote SPS construído com base nas regras atuais."""
+        return self._built_sps_pkg_name
+
+    @property
+    def provided_sps_pkg_name(self) -> str:
+        """Retorna o nome do pacote SPS fornecido no XML, se presente."""
+        return self._provided_sps_pkg_name
+
+    @provided_sps_pkg_name.setter
+    def provided_sps_pkg_name(self, value):
+        if not value:
+            self._provided_sps_pkg_name = None
+            return
+        # não sanitizar, pois pode ser nome legado
+        self._provided_sps_pkg_name = value
+
+    @property
+    def sps_pkg_name(self):
+        if name := self.provided_sps_pkg_name:
+            return name
+        if name := self.built_sps_pkg_name:
+            return name
+        # comportamento defensivo em caso de não ajuste no upload / core
+        # versão mais compatível com o guia sps 1.10
+        return self.deprecated_sps_pkg_name_version_2
+
+    @property
+    def sps_pkg_name_origin(self):
+        if name := self.provided_sps_pkg_name:
+            return "provided_sps_pkg_name"
+        if name := self.built_sps_pkg_name:
+            return "built_sps_pkg_name"
+        # comportamento defensivo em caso de não ajuste no upload / core
+        # versão mais compatível com o guia sps 1.10
+        return "deprecated_sps_pkg_name_version_2"
+
+    @sps_pkg_name.setter
+    def sps_pkg_name(self, value):
+        self.provided_sps_pkg_name = value
+
+    @property
+    def pkg_names_dict(self) -> dict:
+        """Panorama estruturado dos nomes do documento."""
+        return {
+            "pmc_pkg_name": self.get_pmc_pkg_name(),
+            "built_sps_pkg_name": self.built_sps_pkg_name,
+            "provided_sps_pkg_name": self.provided_sps_pkg_name,
+            "sps_pkg_name": self.sps_pkg_name,
+            "sps_pkg_name_origin": self.sps_pkg_name_origin,
+            "pkg_name_list": self.pkg_name_variations,}
+
+    @property
+    def sps_pkg_names_dict(self):
+        return {
+            "sps_pkg_name": self.sps_pkg_name,
+            "sps_pkg_name_origin": self.sps_pkg_name_origin,
+            "pkg_name_list": self.pkg_name_variations,
+            "built_sps_pkg_name": self.built_sps_pkg_name,
+            "built_sps_pkg_name_now": self.build_sps_pkg_name(),
+            "provided_sps_pkg_name": self.provided_sps_pkg_name,
+        }
+
+    @property
+    def input_files_dict(self):
+        return {
+            "xml_name": self.xml_name,
+            "zip_namelist": self.zip_namelist,
+            "zip_basenames": self.zip_basenames,
+            "zip_file_path": self.zip_file_path,
+            "xml_file_path": self.xml_file_path,
+            "submitted_filename": self.submitted_filename,
+            "submitted_ext": self.submitted_ext,
+            "is_html": self.is_html_source,
+            "provided_sps_pkg_name": self.provided_sps_pkg_name,
+        }
 
 
 # ==============================================================================
@@ -896,6 +1265,28 @@ class ArticleMetadataMixin:
     def journal_issn_electronic(self):
         return self.issns.get("epub")
 
+    @property
+    def available_issns(self) -> list:
+        """
+        Retorna a lista de ISSNs disponíveis (eletrônico e impresso).
+
+        Raises
+        ------
+        XMLWithPreMissingISSNError: Se nenhum ISSN for encontrado no XML.
+        """
+        issns = [item for item in self.issns.values() if item]
+        if not issns:
+            raise XMLWithPreMissingISSNError(
+                f"Não foi possível determinar o nome do pacote para o arquivo '{self}': "
+                f"Nenhum ISSN (eletrônico ou impresso) foi encontrado no XML."
+            )
+        return issns
+
+    @property
+    def sps_issn(self) -> str:
+        """Retorna o ISSN principal (eletrônico priorizado, ou primeiro disponível)."""
+        return self.available_issns[0]
+
     @cached_property
     def main_toc_section(self):
         node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
@@ -1137,6 +1528,10 @@ class ArticleMetadataMixin:
         return text.lower()
 
     @property
+    def body_fingerprint(self):
+        return generate_finger_print(self.get_body_fragment(max_length=None))
+
+    @property
     def body_fragment_fingerprint(self):
         return generate_finger_print(self.get_body_fragment(300))
 
@@ -1199,6 +1594,7 @@ class XMLWithPre(
     DOCTYPEParserMixin,
     PackagingAndFilesMixin,
     PackageNamingMixin,
+    LegacyPackageNamingMixin,
     IdentifiersMixin,
     ArticleMetadataMixin,
 ):
@@ -1229,15 +1625,24 @@ class XMLWithPre(
         self.xml_name = None
         self.zip_basenames = None
         self.zip_namelist = None
-        self.submitted_filename = None
-        self.submitted_ext = None
+        self._submitted_filename = None
+        self._submitted_ext = None
+        self._provided_sps_pkg_name = None
+        self._built_sps_pkg_name = None
+        self.is_html_source = None
+
+    def __str__(self):
+        return self.xml_name or self.submitted_filename or self.zip_file_path or self.uri or "<XMLWithPre>"
 
     # --------------------------------------------------------------------------
     # Construtores & Serializadores
     # --------------------------------------------------------------------------
     @classmethod
     def create(
-        cls, path=None, uri=None, xml_content=None, capture_errors=False, timeout=30
+        cls, path=None, uri=None, xml_content=None, capture_errors=False, timeout=30,
+        xml_native_name=None,
+        html_name=None,
+        built_name=None,
     ):
         """Retorna gerador de instâncias de XMLWithPre."""
         if path:
@@ -1248,8 +1653,16 @@ class XMLWithPre(
                     continue
                 try:
                     xml_with_pre = item["xml_with_pre"]
+                    if xml_native_name:
+                        xml_with_pre.provided_sps_pkg_name = xml_native_name
+                    if xml_native_name or html_name:
+                        xml_with_pre.submitted_filename = xml_native_name or html_name
+                    if built_name:
+                        xml_with_pre._built_sps_pkg_name = built_name
+                    if not xml_native_name and not built_name:
+                        xml_with_pre._built_sps_pkg_name = xml_with_pre.build_sps_pkg_name()
                     yield xml_with_pre
-                except KeyError:
+                except (KeyError, ValueError) as e:
                     errors.append(item)
             if not xml_with_pre or errors:
                 raise GetXmlWithPreError(f"Unable to get xml with pre {errors}")
@@ -1287,21 +1700,30 @@ class XMLWithPre(
 
     @property
     def data(self):
-        return dict(
+        data = dict(
             sps_pkg_name=self.sps_pkg_name,
             pid_v3=self.v3,
             pid_v2=self.v2,
             aop_pid=self.aop_pid,
-            submitted_filename=self.submitted_filename,
-            submitted_ext=self.submitted_ext,
-            xml_name=self.xml_name,
-            zip_namelist=self.zip_namelist,
-            zip_basenames=self.zip_basenames,
             filename=self.filename,
             files=self.files,
             filenames=self.filenames,
             pkg_names=self.deprecated_sps_pkg_name_list,
         )
+        return data
+
+    def get_data(self, input_files=None, sps_pkg_names=None, pkg_names=False, article=False, max_body_fragment_length=300):
+        data = self.data
+        if input_files:
+            data.update(self.input_files_dict)
+        if pkg_names:
+            data.update(self.pkg_names_dict)
+        if sps_pkg_names:
+            data.update(self.sps_pkg_names_dict)
+        if article:
+            data.update(self.get_article_data(max_body_fragment_length))
+        return data
+    
 
 def string_to_5_digits(input_string):
     return str((crc32(input_string.encode()) & 0xFFFFFFFF) % 100000)
@@ -1341,3 +1763,27 @@ def remove_comments(xmltree):
         parent = comment.getparent()
         if parent is not None:
             parent.remove(comment)
+
+
+def sanitize_name(value: str) -> str:
+    """
+    Regra estrita do SPS: Proibido underline (_), ponto (.),
+    acentuação, espaços ou caracteres especiais. Permite apenas [a-zA-Z0-9-].
+    """
+    if not value:
+        return ""
+    clean = str(value).replace(" ", "")
+    clean = re.sub(r"[^a-zA-Z0-9\-]", "", clean)
+    return re.sub(r"-+", "-", clean).strip("-")
+
+
+def sanitize_sps_name(value: str) -> str:
+    """
+    Regra estrita do SPS: Proibido underline (_), ponto (.),
+    acentuação, espaços ou caracteres especiais. Permite apenas [a-zA-Z0-9-].
+    """
+    if not value:
+        return ""
+    clean = str(value).replace("_", "-").replace(".", "-").replace(" ", "")
+    clean = re.sub(r"[^a-zA-Z0-9\-]", "", clean)
+    return re.sub(r"-+", "-", clean).strip("-")
