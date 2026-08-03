@@ -5,17 +5,19 @@ changelog:
     authors:
       - octocat
   categories:
-    - title: Breaking Changes 🛠
+    - title: Quebram compatibilidade Breaking Changes  🛠
       labels:
         - breaking-change
-    - title: New Features 🎉
+    - title: Novas funcionalidades New Features 🎉
       labels:
         - feature
+    - title: Melhorias 🎉
+      labels:
         - enhancement
-    - title: Bug Fixes 🐛
+    - title: Correções Bug Fixes 🐛
       labels:
         - bug
         - fix
-    - title: Quebram compatibilidade, Novas funcionalidades, Melhorias, Correções, Outras mudanças
+    - title: Outras mudanças
       labels:
         - "*"
