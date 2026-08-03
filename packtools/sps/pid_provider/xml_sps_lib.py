@@ -527,19 +527,38 @@ class PackagingAndFilesMixin:
 
     @property
     def renditions(self):
+        if not self.zip_namelist:
+            return []
+
+        xml_name = self.xml_name
+        if not xml_name:
+            raise ValueError("XMLWithPre.renditions: Missing xml_name")
+
         xml_renditions = ArticleRenditions(self.xmltree)
+        sps_pkg_name = self.sps_pkg_name
+
+        namelist = {}
+        for item in self.zip_namelist:
+            key = os.path.basename(item)
+            namelist[key] = item
+
+        items = []
         for item in xml_renditions.article_renditions:
-            name = (
-                self.sps_pkg_name + ".pdf"
-                if item.is_main_language
-                else f"{self.sps_pkg_name}-{item.language}.pdf"
-            )
-            yield {
+            suffix = ".pdf"
+            if not item.is_main_language:
+                suffix = f"-{item.language}.pdf"
+
+            name = f"{xml_name}{suffix}"
+            
+            items.append({
                 "name": name,
                 "lang": item.language,
                 "component_type": "rendition",
                 "main": item.is_main_language,
-            }
+                "sps_pkg_name": f"{sps_pkg_name}{suffix}",
+                "path_in_zip": namelist.get(name),
+            })
+        return items
 
 
 # ==============================================================================
