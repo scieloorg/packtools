@@ -218,6 +218,70 @@ class AbstractTextMultipleParagraphsTest(TestCase):
         self.assertEqual(abstract.text, expected)
 
 
+class AbstractTextWithoutPWrapperTest(TestCase):
+    """Regression test for scieloorg/scms-upload#1031: some legacy migrated
+    XML (e.g. URY collection) has abstract text sitting directly under
+    <abstract>/<trans-abstract>, not wrapped in <p> or <sec>. packtools
+    never read this text, so it was silently dropped."""
+
+    def test_text_without_p_wrapper(self):
+        xml = """
+        <abstract xml:lang="es">
+            <title>Resumen:</title> Texto do resumo sem tag p.
+        </abstract>
+        """
+        node = etree.fromstring(xml)
+        abstract = Abstract(
+            node, lang="es",
+            tags_to_keep=None, tags_to_keep_with_content=None,
+            tags_to_remove_with_content=None, tags_to_convert_to_html=None
+        )
+        self.assertEqual(abstract.text, "Texto do resumo sem tag p.")
+
+    def test_data_text_value_without_p_wrapper(self):
+        xml = """
+        <trans-abstract xml:lang="en">
+            <title>Abstract:</title> Abstract text without a p tag.
+        </trans-abstract>
+        """
+        node = etree.fromstring(xml)
+        abstract = Abstract(
+            node, lang="en",
+            tags_to_keep=None, tags_to_keep_with_content=None,
+            tags_to_remove_with_content=None, tags_to_convert_to_html=None
+        )
+        self.assertEqual(abstract.data["text"], "Abstract text without a p tag.")
+
+    def test_without_p_wrapper_and_without_title(self):
+        """No title to strip, entire node text is the abstract."""
+        xml = """
+        <abstract xml:lang="en"> Just loose text, no title, no p.</abstract>
+        """
+        node = etree.fromstring(xml)
+        abstract = Abstract(
+            node, lang="en",
+            tags_to_keep=None, tags_to_keep_with_content=None,
+            tags_to_remove_with_content=None, tags_to_convert_to_html=None
+        )
+        self.assertEqual(abstract.text, "Just loose text, no title, no p.")
+
+    def test_only_title_still_returns_empty(self):
+        """Existing behavior must be preserved: a title with no further
+        loose text still yields an empty abstract text."""
+        xml = """
+        <abstract xml:lang="en">
+            <title>Abstract</title>
+        </abstract>
+        """
+        node = etree.fromstring(xml)
+        abstract = Abstract(
+            node, lang="en",
+            tags_to_keep=None, tags_to_keep_with_content=None,
+            tags_to_remove_with_content=None, tags_to_convert_to_html=None
+        )
+        self.assertEqual(abstract.text, "")
+
+
 class AbstractTextLanguageTest(TestCase):
     """Test the text property with different languages"""
 

@@ -238,10 +238,13 @@ class Abstract:
         """
         Returns the concatenated text content of the abstract.
         - With sections: concatenates title and p from each section
-        - Without sections: concatenates p elements
+        - Without sections but with p: concatenates p elements
+        - Without sections or p (non-SPS-compliant legacy XML, e.g. some
+          migrated articles): falls back to the node's raw text, excluding
+          the title
         """
         text_parts = []
-        
+
         # Check if abstract has sections by querying the node directly
         if self.node.xpath("sec"):
             # With sections: include title and p from each section
@@ -251,12 +254,32 @@ class Abstract:
                 if section.get("p") and section["p"].get("plain_text"):
                     text_parts.append(section["p"]["plain_text"])
         else:
-            # Without sections: include only p elements
-            for p_item in self.p:
-                if p_item.get("plain_text"):
-                    text_parts.append(p_item["plain_text"])
-        
+            p_items = list(self.p)
+            if p_items:
+                # Without sections: include only p elements
+                for p_item in p_items:
+                    if p_item.get("plain_text"):
+                        text_parts.append(p_item["plain_text"])
+            else:
+                # Legacy/non-SPS-compliant abstracts: text sits directly
+                # under <abstract>/<trans-abstract>, not wrapped in <p>/<sec>
+                raw_text = self._raw_text_excluding_title
+                if raw_text:
+                    text_parts.append(raw_text)
+
         return " ".join(text_parts)
+
+    @property
+    def _raw_text_excluding_title(self):
+        full_text = " ".join(t.strip() for t in self.node.itertext() if t.strip())
+        title_node = self.node.find("title")
+        if title_node is not None:
+            title_text = " ".join(
+                t.strip() for t in title_node.itertext() if t.strip()
+            )
+            if title_text and full_text.startswith(title_text):
+                full_text = full_text[len(title_text):].strip()
+        return full_text
 
     @property
     def data(self):
