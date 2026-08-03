@@ -1,6 +1,7 @@
 import hashlib
 import logging
 import os
+import re
 import traceback
 from datetime import date
 from functools import cached_property
@@ -13,7 +14,6 @@ from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
 from packtools.sps.pid_provider.name2number import fix_pre_loading
-
 # 4.7.1 packtools.sps.models.*
 from packtools.sps.pid_provider.models.article_assets import ArticleAssets
 from packtools.sps.pid_provider.models.article_and_subarticles import (
@@ -34,6 +34,9 @@ from packtools.sps.pid_provider.models.related_articles import RelatedItems
 
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+
+
+class XMLWithPreMissingISSNError(Exception): ...
 
 
 class GetXmlWithPreError(Exception): ...
@@ -355,151 +358,24 @@ def fix_number(value):
         return value
 
 
-class XMLWithPre:
-    """
-    Preserva o texto anterior ao elemento `root`
-    """
-
-    def __init__(self, xmlpre, xmltree, pretty_print=True):
-        self.xmltree = xmltree
-        self.xmlpre = xmlpre or ""
-
-        # Parse DOCTYPE uma única vez durante init
-        self.DOCTYPE = None
-        self.public_id = None
-        self.system_id = None
-        if self.xmlpre and "<!DOCTYPE" in self.xmlpre:
-            self.parse_doctype()
-
-        self.pretty_print = pretty_print
-        self.uri = None
-        self.zip_file_path = None
-        self.xml_file_path = None
-        self.relative_system_id = None
-        self._sps_version = None
-        self.errors = None
-        self.pkg_name_version = None
-        # html or xml
-        self.source_filename = None
-        self.source_ext = None
-
-        self.xml_name = None # nome original encontrado no xml ou no zip
-        self.zip_basenames = None # nome original encontrado no xml ou no zip, exceto xml
-        self.zip_namelist = None # nome original encontrado no xml ou no zip, exceto xml
-
-    @property
-    def filename(self):
-        return self.xml_name
-
-    @filename.setter
-    def filename(self, value):
-        self.xml_name = value
-
-    @property
-    def files(self):
-        return self.zip_namelist
-
-    @files.setter
-    def files(self, value):
-        self.zip_namelist = value
-
-    @property
-    def filenames(self):
-        return self.zip_basenames
-
-    @filenames.setter
-    def filenames(self, value):
-        self.zip_basenames = value
-
-    def add_xml_info(self, xml_name, xml_file_path=None):
-        self.xml_name = xml_name
-        self.xml_file_path = xml_file_path
-
-    def add_zip_info(self, zip_file_path, zip_namelist, zip_basenames):
-        self.zip_basenames = zip_basenames
-        self.zip_namelist = zip_namelist
-        self.zip_file_path = zip_file_path
-
-    def add_pkg_name_components(self, source_filename, pkg_name_version=3):
-        self.pkg_name_version = pkg_name_version
-        self.source_filename, self.source_ext = os.path.splitext(source_filename)
-
-    @property
-    def data(self):
-        return dict(
-            sps_pkg_name=self.sps_pkg_name,
-            pid_v3=self.v3,
-            pid_v2=self.v2,
-            aop_pid=self.aop_pid,
-            filename=self.filename,
-            files=self.files,
-            filenames=self.filenames,
-            pkg_names=self.deprecated_sps_pkg_name_list,
-        )
-    
-    def get_article_data(self, max_body_fragment_length=300):
-        try:
-            persons = self.authors.get("person") or []
-            surnames = [p.get("surname") for p in persons if p.get("surname")]
-        except Exception:
-            surnames = []
-        return {
-            "surnames": surnames,
-            "collab": self.collab,
-            "links": self.links,
-            "article_titles": self.article_titles_texts,
-            "partial_body": self.partial_body,
-            "body_fragment": self.get_body_fragment(max_body_fragment_length),
-        }
-
-    @classmethod
-    def create(
-        cls, path=None, uri=None, xml_content=None, capture_errors=False, timeout=30
-    ):
-        """
-        Returns instance of XMLWithPre
-
-        path : str
-            zip or XML file
-        uri : str
-            XML file URI
-        """
-        if path:
-            errors = []
-            xml_with_pre = None
-            for item in get_xml_items(path):
-                if not item:
-                    continue
-                try:
-                    xml_with_pre = item["xml_with_pre"]
-                    yield xml_with_pre
-                except KeyError:
-                    errors.append(item)
-            if not xml_with_pre or errors:
-                raise GetXmlWithPreError("Unable to get xml with pre %s" % str(errors))
-        if xml_content:
-            yield get_xml_with_pre(xml_content)
-            return
-        if uri:
-            yield get_xml_with_pre_from_uri(uri, timeout)
-            return
+# ==============================================================================
+# 1. PARSER DE DOCTYPE
+# ==============================================================================
+class DOCTYPEParserMixin:
+    """Gerencia o parsing e extração de informações do DOCTYPE."""
 
     def parse_doctype(self):
         """
         Extrai informações do DOCTYPE de forma pythônica.
-
-        Returns:
-            DoctypeInfo com doctype, public_id e system_id
+        Atualiza self.DOCTYPE, self.public_id e self.system_id.
         """
-        if not self.xmlpre or "<!DOCTYPE" not in self.xmlpre:
+        if not getattr(self, "xmlpre", None) or "<!DOCTYPE" not in self.xmlpre:
             return
         try:
-            # Extrai DOCTYPE
             start = self.xmlpre.index("<!DOCTYPE")
             end = self.xmlpre.index(">", start) + 1
             self.DOCTYPE = self.xmlpre[start:end]
 
-            # Parse dos IDs usando split
             parts = self.DOCTYPE.split('"')
 
             if "PUBLIC" in self.DOCTYPE and len(parts) >= 4:
@@ -517,12 +393,96 @@ class XMLWithPre:
         except (ValueError, IndexError):
             return
 
-    @cached_property
-    def sps_version(self):
-        try:
-            return self.xmltree.find(".").get("specific-use")
-        except (AttributeError, TypeError, ValueError):
-            return None
+
+# ==============================================================================
+# 2. GESTÃO DE ARQUIVOS, ZIPS E COMPONENTES
+# ==============================================================================
+class PackagingAndFilesMixin:
+    """Propriedades e métodos relacionados a arquivos, zips, assets e renditions."""
+
+    # --------------------------------------------------------------------------
+    # Aliases e Setters/Getters para Retrocompatibilidade
+    # --------------------------------------------------------------------------
+    @property
+    def filename(self):
+        if self.zip_file_path:
+            return self.xml_file_path
+        if self.xml_name:
+            return f"{self.xml_name}.xml"
+
+    @property
+    def files(self):
+        return self.zip_namelist
+
+    @files.setter
+    def files(self, value):
+        self.zip_namelist = value
+
+    @property
+    def filenames(self):
+        return self.zip_basenames
+
+    @filenames.setter
+    def filenames(self, value):
+        self.zip_basenames = value
+
+    @property
+    def source_filename(self):
+        return self._submitted_filename
+
+    @source_filename.setter
+    def source_filename(self, value):
+        self.submitted_filename = value
+
+    @property
+    def source_ext(self):
+        return self._submitted_ext
+
+    @source_ext.setter
+    def source_ext(self, value):
+        self._submitted_ext = value
+
+    @property
+    def submitted_filename(self) -> str:
+        if self._submitted_filename:
+            return f"{self._submitted_filename}{self._submitted_ext}"
+
+    @submitted_filename.setter
+    def submitted_filename(self, value: str):
+        """Atribui o nome submetido e extrai/separa a extensão automaticamente."""
+        if not value:
+            self._submitted_filename = None
+            self._submitted_ext = None
+            return
+
+        self._submitted_filename, ext = os.path.splitext(value)
+        if ext:
+            self._submitted_ext = ext.lower()
+        self.is_html_source = bool(self.is_html_source or self.submitted_ext in [".html", ".htm"])
+
+    @property
+    def submitted_ext(self) -> str:
+        """Extensão do arquivo submetido (ex: '.html', '.xml')."""
+        if self._submitted_ext:
+            return self._submitted_ext
+
+    # --------------------------------------------------------------------------
+    # Métodos Mutadores de Informações do Pacote
+    # --------------------------------------------------------------------------
+    def add_xml_info(self, xml_name, xml_file_path=None):
+        self.xml_name = xml_name
+        self.xml_file_path = xml_file_path
+
+    def add_zip_info(self, zip_file_path, zip_namelist, zip_basenames):
+        self.zip_basenames = zip_basenames
+        self.zip_namelist = zip_namelist
+        self.zip_file_path = zip_file_path
+
+    def add_pkg_name_components(self, source_filename, pkg_name_version=3):
+        self.pkg_name_version = pkg_name_version
+        self.submitted_filename = source_filename
+        if source_filename and source_filename.endswith(".xml"):
+            self.provided_sps_pkg_name = source_filename[:-4]  # Remove .xml extension
 
     def get_zip_content(self, xml_filename, pretty_print=False):
         zip_content = None
@@ -534,750 +494,9 @@ class XMLWithPre:
                 zip_content = fp.read()
         return zip_content
 
-    @cached_property
-    def sps_pkg_name_suffix(self):
-        if self.elocation_id:
-            return self.elocation_id
-        if self.sps_pkg_name_fpage:
-            return self.sps_pkg_name_fpage
-        if self.main_doi:
-            doi = self.main_doi
-            if "/" in doi:
-                doi = doi[doi.rfind("/") + 1 :]
-            return doi.replace(".", "-")
-
-    @cached_property
-    def sps_pkg_name_fpage(self):
-        fpage = fix_number(self.fpage)
-        if not fpage:
-            return None
-        seq = self.fpage_seq
-        if not seq:
-            if self.lpage == fpage:
-                seq = self.v2 and self.v2[-5:]
-        if seq:
-            return f"{fpage}_{seq}"
-        return fpage
-
-    @cached_property
-    def deprecated_sps_pkg_name_fpage(self):
-        fpage = fix_number(self.fpage)
-        if not fpage:
-            return None
-        seq = self.fpage_seq or ""
-        return f"{fpage}{seq}"
-
-    @cached_property
-    def alternative_sps_pkg_name_suffix(self):
-        return self.order or self.filename
-
-    @cached_property
-    def journal_acron(self):
-        return Acronym(self.xmltree).text
-
-    def get_pkg_name_prefix(self, suppl):
-        parts = [
-            self.journal_issn_electronic or self.journal_issn_print,
-            self.journal_acron,
-            self.volume,
-            self.number and self.number.zfill(2),
-            suppl,
-        ]
-        return "-".join([part for part in parts if part])
-
-    def get_pkg_name_suffix(self):
-        parts = [
-            self.elocation_id,
-            self.fpage,
-            self.fpage_seq,
-            self.lpage,
-            self.order or self.v2 and self.v2[-5:],
-            self.source_filename,
-        ]
-        if not parts:
-            raise ValueError("Unable to get pkg name suffix. No valid parts found.")
-        return "_".join([part for part in parts if part])
-
-    @cached_property
-    def sps_pkg_name(self):
-        if self.source_ext == ".xml":
-            return self.source_filename
-
-        parts = [
-            self.get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
-            self.get_pkg_name_suffix(),
-        ]
-        return "-".join([part for part in parts if part])
-
-    @cached_property
-    def deprecated_sps_pkg_name_version_2(self):
-        """Problema com o sufixo - número de páginas se repete por erro humano, então usar mais dados para desambiguar"""
-        parts = [
-            self.get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
-            self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
-        ]
-        return "-".join([part for part in parts if part])
-
-    @cached_property
-    def deprecated_sps_pkg_name(self):
-        """Tinha defeito na parte referente ao suppl, ausente o 's' antes do número do suplemento"""
-        parts = [
-            self.get_pkg_name_prefix(suppl=self.deprecated_sps_pkg_name_suppl),
-            self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
-        ]
-        return "-".join([part for part in parts if part])
-
-    @cached_property
-    def deprecated_sps_pkg_name_list(self):
-        return [
-            self.deprecated_sps_pkg_name,
-            self.deprecated_sps_pkg_name_version_2,
-        ]
-
-    @property
-    def deprecated_sps_pkg_name_suppl(self):
-        suppl = self.suppl
-        if not suppl:
-            return None
-        try:
-            if int(suppl) == 0:
-                return "suppl"
-        except (TypeError, ValueError):
-            pass
-        return suppl
-
-    @property
-    def sps_pkg_name_suppl(self):
-        suppl = self.deprecated_sps_pkg_name_suppl
-        if not suppl or suppl == "suppl":
-            return suppl
-        return f"s{suppl}"
-
-    @cached_property
-    def article_id_parent(self):
-        """
-        Retorna o nó pai dos elementos article-id (v2, v3, aop_pid)
-        """
-        try:
-            return self.xmltree.xpath(".//article-meta")[0]
-        except IndexError:
-            node = self.xmltree.find(".")
-            front = node.find("front")
-            if front is None:
-                front = etree.Element("front")
-                node.append(front)
-            parent = etree.Element("article-meta")
-            front.append(parent)
-            return parent
-
-    def tostring(self, pretty_print=False):
-        return self.xmlpre + etree.tostring(
-            self.xmltree,
-            encoding="utf-8",
-            pretty_print=pretty_print,
-        ).decode("utf-8")
-
-    def update_ids(self, v3, v2, aop_pid):
-        """
-        Atualiza todos os elementos article-id (v2, v3, aop_pid)
-        """
-        self.article_ids.v3 = v3
-        self.article_ids.v2 = v2
-        if aop_pid:
-            self.article_ids.aop_pid = aop_pid
-
-    @cached_property
-    def related_items(self):
-        return RelatedItems(self.xmltree).related_articles
-
-    @cached_property
-    def links(self):
-        # Ha casos de related-article sem href
-        # <related-article id="pr03" related-article-type="press-release" specific-use="processing-only"/>
-        return [item["href"] for item in self.related_items if item.get("href")]
-
-    @property
-    def article_ids(self):
-        return ArticleIds(self.xmltree)
-
-    @property
-    def v3(self):
-        return self.article_ids.v3
-
-    @property
-    def v2(self):
-        return self.article_ids.v2
-
-    @property
-    def aop_pid(self):
-        return self.article_ids.aop_pid
-
-    @property
-    def order(self):
-        return self.article_ids.other
-
-    @order.setter
-    def order(self, value):
-        try:
-            new_value = str(int(value)).zfill(5)
-        except (TypeError, ValueError, AttributeError):
-            new_value = None
-
-        if not new_value or len(new_value) > 5:
-            raise ValueError(
-                "can't set attribute XMLWithPre.order. "
-                "Expected value must a 5 characters digit. Got: %s" % value
-            )
-        try:
-            node = self.xmltree.xpath('.//article-id[@pub-id-type="other"]')[0]
-        except IndexError:
-            node = etree.Element("article-id")
-            node.set("pub-id-type", "other")
-            parent = self.article_id_parent
-            parent.insert(1, node)
-        node.text = new_value
-
-    @v2.setter
-    def v2(self, value):
-        value = value and value.strip()
-        if not value or len(value) != 23:
-            raise ValueError(
-                "can't set attribute XMLWithPre.v2. "
-                "Expected value must have 23 characters. Got: %s" % value
-            )
-        try:
-            node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]')[0]
-        except IndexError:
-            node = etree.Element("article-id")
-            node.set("pub-id-type", "publisher-id")
-            node.set("specific-use", "scielo-v2")
-            parent = self.article_id_parent
-            parent.insert(1, node)
-        node.text = value
-
-    @v3.setter
-    def v3(self, value):
-        value = value and value.strip()
-        if not value or len(value) != 23:
-            raise ValueError(
-                "can't set attribute XMLWithPre.v3. "
-                "Expected value must have 23 characters. Got: %s" % value
-            )
-        try:
-            node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v3"]')[0]
-        except IndexError:
-            node = etree.Element("article-id")
-            node.set("pub-id-type", "publisher-id")
-            node.set("specific-use", "scielo-v3")
-            parent = self.article_id_parent
-            parent.insert(1, node)
-        node.text = value
-
-    @aop_pid.setter
-    def aop_pid(self, value):
-        value = value and value.strip()
-        if not value or len(value) != 23:
-            raise ValueError(
-                "can't set attribute XMLWithPre.aop_pid. "
-                "Expected value must have 23 characters. Got: %s" % value
-            )
-        try:
-            node = self.xmltree.xpath(
-                './/article-id[@specific-use="previous-pid" and '
-                '@pub-id-type="publisher-id"]'
-            )[0]
-        except IndexError:
-            node = etree.Element("article-id")
-            node.set("pub-id-type", "publisher-id")
-            node.set("specific-use", "previous-pid")
-            parent = self.article_id_parent
-            parent.insert(1, node)
-        node.text = value
-
-    @property
-    def v2_list(self):
-        """
-        Retorna TODOS os PID v2 (article-id[@specific-use="scielo-v2"])
-        presentes no XML, com ou sem `assigning-authority`, como uma
-        lista de dicts:
-
-            [
-                {"assigning-authority": "scielo-scl", "pid": "S0103-65642009000300003"},
-                {"assigning-authority": "scielo-psi", "pid": "S1678-51772009000300003"},
-            ]
-
-        Cenário: um mesmo artigo pode ter mais de um PID v2 quando
-        publicado em mais de uma coleção SciELO, cada um identificado
-        pelo atributo `assigning-authority`:
-
-        <article-id pub-id-type="publisher-id" specific-use="scielo-v2"
-                    assigning-authority="scielo-scl">S0103-65642009000300003</article-id>
-        <article-id pub-id-type="publisher-id" specific-use="scielo-v2"
-                    assigning-authority="scielo-psi">S1678-51772009000300003</article-id>
-
-        Compatibilidade retroativa: XML "clássico", com apenas 1
-        article-id scielo-v2 e sem o atributo `assigning-authority`
-        (formato original, anterior ao suporte a múltiplas coleções),
-        continua funcionando normalmente — é retornado como um único
-        item da lista com "assigning-authority" igual a None. O
-        getter/setter simples `v2` (primeiro nó encontrado) não é
-        afetado por esta propriedade.
-
-        Returns
-        -------
-        list of dict
-        """
-        items = []
-        for node in self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]'):
-            items.append(
-                {
-                    "assigning-authority": node.get("assigning-authority"),
-                    "pid": node.text,
-                }
-            )
-        return items
-
-    @v2_list.setter
-    def v2_list(self, items):
-        """
-        Recebe uma lista de dicts na mesma estrutura retornada pelo
-        getter `v2_list` (chaves "assigning-authority" e "pid") e
-        atualiza o XML, adicionando ou substituindo o article-id
-        scielo-v2 correspondente a cada `assigning-authority`.
-
-        "assigning-authority" == None representa o PID v2 "clássico"
-        (sem coleção / compatibilidade retroativa).
-
-        Não remove article-id que não estejam presentes em `items`.
-
-        Parameters
-        ----------
-        items : list of dict
-            [{"assigning-authority": str or None, "pid": str}, ...]
-
-        Raises
-        ------
-        ValueError
-        """
-        if not items:
-            return
-        for item in items:
-            item = item or {}
-            self._set_v2_item(item.get("assigning-authority"), item.get("pid"))
-
-    def _set_v2_item(self, assigning_authority, pid):
-        """
-        Adiciona ou atualiza um único article-id scielo-v2,
-        identificado por `assigning_authority` (None == PID v2
-        clássico, sem coleção).
-        """
-        pid = pid and pid.strip()
-        if not pid or len(pid) != 23:
-            raise ValueError(
-                "can't set attribute XMLWithPre.v2_list. "
-                "Expected pid value must have 23 characters. Got: %s" % pid
-            )
-        if assigning_authority:
-            matches = self.xmltree.xpath(
-                './/article-id[@specific-use="scielo-v2" and @assigning-authority=$aa]',
-                aa=assigning_authority,
-            )
-        else:
-            matches = self.xmltree.xpath(
-                './/article-id[@specific-use="scielo-v2" and not(@assigning-authority)]'
-            )
-        try:
-            node = matches[0]
-        except IndexError:
-            node = etree.Element("article-id")
-            node.set("pub-id-type", "publisher-id")
-            node.set("specific-use", "scielo-v2")
-            if assigning_authority:
-                node.set("assigning-authority", assigning_authority)
-            parent = self.article_id_parent
-            existing_article_ids = parent.findall("article-id")
-            if existing_article_ids:
-                # insere após o último article-id já existente, preservando
-                # a ordem de criação quando vários itens são adicionados
-                # em sequência (ex.: via setter v2_list)
-                existing_article_ids[-1].addnext(node)
-            else:
-                parent.insert(0, node)
-        node.text = pid
-
-    @property
-    def v2_prefix(self):
-        return (
-            f"S{self.journal_issn_electronic or self.journal_issn_print}{self.pub_year}"
-        )
-
-    @cached_property
-    def _doi_with_lang(self):
-        return DoiWithLang(self.xmltree)
-
-    @cached_property
-    def article_doi_with_lang(self):
-        # [{"lang": "en", "value": "DOI"}]
-        return self._doi_with_lang.data
-
-    @cached_property
-    def main_doi(self):
-        # [{"lang": "en", "value": "DOI"}]
-        return self._doi_with_lang.main_doi
-
-    @cached_property
-    def main_toc_section(self):
-        """
-        <subj-group subj-group-type="heading">
-            <subject>Articles</subject>
-        </subj-group>
-        """
-        node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
-        if node is not None:
-            return node.findtext("./subject")
-
-    @cached_property
-    def issns(self):
-        # [{"type": "epub", "value": "1234-9876"}]
-        return {item["type"]: item["value"] for item in ISSN(self.xmltree).data}
-
-    @cached_property
-    def is_aop(self):
-        if self.volume:
-            return False
-        if self.number:
-            return False
-        return True
-
-    @cached_property
-    def article_meta_issue(self):
-        # artigos podem ser publicados sem estarem associados a um fascículo
-        # Neste caso, não há volume, número, suppl, fpage, fpage_seq, lpage
-        # Mas deve ter ano de publicação em qualquer caso
-        return ArticleMetaIssue(self.xmltree)
-
-    @cached_property
-    def volume(self):
-        return self.article_meta_issue.volume
-
-    @cached_property
-    def number(self):
-        return self.article_meta_issue.number
-
-    @cached_property
-    def suppl(self):
-        return self.article_meta_issue.suppl
-
-    @cached_property
-    def fpage(self):
-        return self.article_meta_issue.fpage
-
-    @cached_property
-    def fpage_seq(self):
-        return self.article_meta_issue.fpage_seq
-
-    @cached_property
-    def lpage(self):
-        return self.article_meta_issue.lpage
-
-    @cached_property
-    def elocation_id(self):
-        return self.article_meta_issue.elocation_id
-
-    @cached_property
-    def pub_year(self):
-        return self.collection_pub_year or self.article_pub_year
-
-    @cached_property
-    def authors(self):
-        names = []
-        collab = None
-
-        contrib_group = self.xmltree.find(".//article-meta//contrib-group")
-        if contrib_group is not None:
-            for item in contrib_group.xpath(".//surname"):
-                content = " ".join(
-                    [
-                        text.strip()
-                        for text in item.xpath(".//text()")
-                        if (text or "").strip()
-                    ]
-                )
-                names.append({"surname": content})
-
-            for item in contrib_group.xpath(".//collab"):
-                content = " ".join(
-                    [
-                        text.strip()
-                        for text in item.xpath(".//text()")
-                        if (text or "").strip()
-                    ]
-                )
-                collab = content
-
-        return {
-            "person": names,
-            "collab": collab,
-        }
-
-    @cached_property
-    def article_titles(self):
-        # list of dict which keys are lang and text
-        xpath = "|".join(
-            [
-                ".//article-meta//article-title",
-                ".//article-meta//trans-title",
-                ".//front-stub//article-title",
-                ".//front-stub//trans-title",
-            ]
-        )
-        titles = []
-        for item in self.xmltree.xpath(xpath):
-            title = " ".join(
-                [
-                    text.strip()
-                    for text in item.xpath(".//text()")
-                    if text and text.strip()
-                ]
-            )
-            titles.append(title)
-        return sorted(titles)
-
-    @cached_property
-    def partial_body(self):
-        try:
-            body = Body(self.xmltree)
-            for text in body.main_body_texts:
-                if (text or "").strip():
-                    return text
-        except AttributeError:
-            pass
-        return None
-
-    @cached_property
-    def collab(self):
-        return self.authors.get("collab")
-
-    @cached_property
-    def journal_title(self):
-        return Title(self.xmltree).journal_title
-
-    @cached_property
-    def journal_issn_print(self):
-        # list of dict which keys are
-        # href, ext-link-type, related-article-type
-        return self.issns.get("ppub")
-
-    @cached_property
-    def journal_issn_electronic(self):
-        # list of dict which keys are
-        # href, ext-link-type, related-article-type
-        return self.issns.get("epub")
-
-    @property
-    def _article_dates(self):
-        return ArticleDates(self.xmltree)
-
-    def get_complete_publication_date(self, default_month=6, default_day=15):
-        try:
-            xml = self._article_dates
-            return xml.article_date_isoformat
-        except Exception as e:
-            pass
-        try:
-            year = month = day = None
-            data = xml.article_date
-            if data:
-                year = data.get("year")
-                month = data.get("month")
-                day = data.get("day")
-            return date(
-                int(year or self.pub_year),
-                int(month or default_month),
-                int(day or default_day),
-            ).isoformat()
-        except (TypeError, KeyError):
-            raise XMLWithPreArticlePublicationDateError(
-                f"Unable to get complete publication date from {data}"
-            )
-
-    @property
-    def article_publication_date(self):
-        try:
-            return self._article_dates.article_date_isoformat
-        except Exception as e:
-            return self.pub_year
-
-    @article_publication_date.setter
-    def article_publication_date(self, value):
-        """
-        value : dict (keys: year, month, day)
-        """
-        try:
-            if isinstance(value, str):
-                parts = value.split("-")
-                value = {
-                    "day": parts[2],
-                    "month": parts[1],
-                    "year": parts[0],
-                }
-            formatted = format_date(**value)
-        except Exception as e:
-            raise XMLWithPreArticlePublicationDateError(
-                f"Unable to set article_publication_date with {value}. Date with valid year, month, day is required"
-            )
-
-        try:
-            node = self.xmltree.xpath(
-                ".//article-meta//pub-date[@date-type='pub' or @pub-type='epub' or @pub-type='epub-ppub']"
-            )[0]
-            if node.get("pub-type") == "epub-ppub":
-                node.set("pub-type", "collection")
-                raise IndexError  # força criar novo nó pub-date (epub)
-        except IndexError:
-            node = etree.Element("pub-date")
-            if self.xmltree.xpath(".//article-meta//pub-date[@pub-type]"):
-                # mais antigo
-                node.set("pub-type", "epub")
-            else:
-                # mais recente
-                node.set("date-type", "pub")
-                node.set("publication-format", "electronic")
-
-            # https://jats.nlm.nih.gov/publishing/tag-library/1.3/element/article-meta.html
-            pub_date_preceding_siblings = (
-                "pub-date",
-                "author-notes",
-                "aff",
-                "contrib-group",
-                "title-group",
-                "article-categories",
-                "article-version-alternatives",
-                "article-version",
-                "article-id",
-            )
-            articlemeta_node = self.xmltree.find(".//article-meta")
-            added = False
-            for sibling_name in pub_date_preceding_siblings:
-                try:
-                    articlemeta_node.find(sibling_name).addnext(node)
-                    added = True
-                    break
-                except AttributeError:
-                    continue
-            if not added:
-                pub_date_following_siblings = (
-                    "volume",
-                    "volume-id",
-                    "volume-series",
-                    "issue",
-                    "issue-id",
-                    "issue-title",
-                    "issue-title-group",
-                    "issue-sponsor",
-                    "issue-part",
-                    "volume-issue-group",
-                    "isbn",
-                    "supplement",
-                    "fpage",
-                    "lpage",
-                    "page-range",
-                    "elocation-id",
-                    "email",
-                    "ext-link",
-                    "uri",
-                    "product",
-                    "supplementary-material",
-                    "history",
-                    "pub-history",
-                    "permissions",
-                    "self-uri",
-                    "related-article",
-                    "related-object",
-                    "abstract",
-                    "trans-abstract",
-                    "kwd-group",
-                    "funding-group",
-                    "support-group",
-                    "conference",
-                    "counts",
-                    "custom-meta-group",
-                )
-                articlemeta_node = self.xmltree.find(".//article-meta")
-                for sibling_name in pub_date_following_siblings:
-                    try:
-                        articlemeta_node.find(sibling_name).addprevious(node)
-                        added = True
-                        break
-                    except AttributeError:
-                        continue
-            if not added:
-                articlemeta_node.append(node)
-        previous = None
-        for name, val in zip(("day", "month", "year"), reversed(formatted.split("-"))):
-            elem = node.find(name)
-            if elem is None:
-                elem = etree.Element(name)
-                if previous is None:
-                    node.insert(0, elem)
-                else:
-                    previous.addnext(elem)
-            elem.text = val
-            previous = elem
-
-    @property
-    def article_pub_year(self):
-        return self._article_dates.article_year
-
-    @cached_property
-    def collection_pub_year(self):
-        return self._article_dates.collection_year
-
-    @cached_property
-    def article_titles_texts(self):
-        return self.article_titles
-
-    def get_body_fragment(self, max_length):
-        # obtém qualquer texto do corpo do artigo, removendo espaços extras e limitando o tamanho
-        # não é recomendável filtrar por p ou outro subelemento específico,
-        # pois se a estrutura do XML mudar impactará no retorno do método
-        text = " ".join(
-            " ".join(
-                self.xmltree.xpath(".//body//text()")
-            ).split())
-        if max_length:
-            return text[:max_length].lower()
-        return text.lower()
-
-    @property
-    def body_fragment_fingerprint(self):
-        # gera um novo fingerprint do XML, para ser usado na comparação com o fingerprint registrado
-        return generate_finger_print(self.get_body_fragment(max_length=None))
-
-    @property
-    def finger_print(self):
-        if self.xmltree.xpath(".//comment()"):
-            for item in XMLWithPre.create(
-                xml_content=self.tostring(pretty_print=self.pretty_print)
-            ):
-                remove_comments(item.xmltree)
-                return generate_finger_print(item.tostring(pretty_print=True))
-        else:
-            return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
-
-    @cached_property
-    def _article_and_subarticles(self):
-        return ArticleAndSubArticles(self.xmltree)
-
-    @cached_property
-    def main_lang(self):
-        return self._article_and_subarticles.main_lang
-
-    @cached_property
-    def langs(self):
-        for item in self._article_and_subarticles.data:
-            yield item["lang"]
-
+    # --------------------------------------------------------------------------
+    # Componentes, Assets e Renditions
+    # --------------------------------------------------------------------------
     @property
     def components(self):
         _components = {}
@@ -1308,19 +527,698 @@ class XMLWithPre:
 
     @property
     def renditions(self):
+        if not self.zip_namelist:
+            return []
+
+        xml_name = self.xml_name
+        if not xml_name:
+            raise ValueError("XMLWithPre.renditions: Missing xml_name")
+
         xml_renditions = ArticleRenditions(self.xmltree)
+        sps_pkg_name = self.sps_pkg_name
+
+        namelist = {}
+        for item in self.zip_namelist:
+            key = os.path.basename(item)
+            namelist[key] = item
+
+        items = []
         for item in xml_renditions.article_renditions:
-            name = (
-                self.sps_pkg_name + ".pdf"
-                if item.is_main_language
-                else f"{self.sps_pkg_name}-{item.language}.pdf"
-            )
-            yield {
+            suffix = ".pdf"
+            if not item.is_main_language:
+                suffix = f"-{item.language}.pdf"
+
+            name = f"{xml_name}{suffix}"
+            
+            items.append({
                 "name": name,
                 "lang": item.language,
                 "component_type": "rendition",
                 "main": item.is_main_language,
-            }
+                "sps_pkg_name": f"{sps_pkg_name}{suffix}",
+                "path_in_zip": namelist.get(name),
+            })
+        return items
+
+
+# ==============================================================================
+# 3. NOMEAÇÃO DO PACOTE
+# ==============================================================================
+class LegacyPackageNamingMixin:
+    """Regras de montagem do sps_pkg_name e suas variações históricas/deprecated."""
+
+    @cached_property
+    def legacy_sps_pkg_name_suffix(self):
+        if self.elocation_id:
+            return self.elocation_id
+        if self.legacy_sps_pkg_name_fpage:
+            return self.legacy_sps_pkg_name_fpage
+        if self.main_doi:
+            doi = self.main_doi
+            if "/" in doi:
+                doi = doi[doi.rfind("/") + 1 :]
+            return doi.replace(".", "-")
+
+    @cached_property
+    def legacy_sps_pkg_name_fpage(self):
+        fpage = fix_number(self.fpage)
+        if not fpage:
+            return None
+        seq = self.fpage_seq
+        if not seq:
+            if self.lpage == fpage:
+                seq = self.v2 and self.v2[-5:]
+        if seq:
+            return f"{fpage}_{seq}"
+        return fpage
+
+    @cached_property
+    def deprecated_sps_pkg_name_fpage(self):
+        fpage = fix_number(self.fpage)
+        if not fpage:
+            return None
+        seq = self.fpage_seq or ""
+        return f"{fpage}{seq}"
+
+    @cached_property
+    def legacy_alternative_sps_pkg_name_suffix(self):
+        return self.order or self.filename
+
+    def legacy_get_pkg_name_prefix(self, suppl):
+        parts = [
+            self.journal_issn_electronic or self.journal_issn_print,
+            self.journal_acron,
+            self.volume,
+            self.number and self.number.zfill(2),
+            suppl,
+        ]
+        return "-".join([part for part in parts if part])
+
+    def legacy_get_pkg_name_suffix(self):
+        parts = [
+            self.elocation_id,
+            self.fpage,
+            self.fpage_seq,
+            self.lpage,
+            self.order or (self.v2 and self.v2[-5:]),
+            self.source_filename,
+        ]
+        if not parts:
+            raise ValueError("Unable to get pkg name suffix. No valid parts found.")
+        return "_".join([part for part in parts if part])
+
+    @cached_property
+    def deprecated_sps_pkg_name_version_3(self):
+        """Nome ficou muito diferente do que guia sps requer"""               
+        if self.source_ext == ".xml":
+            return self.source_filename
+
+        parts = [
+            self.legacy_get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
+            self.legacy_get_pkg_name_suffix(),
+        ]
+        return "-".join([part for part in parts if part])
+
+    @cached_property
+    def deprecated_sps_pkg_name_version_2(self):
+        """Problema com o sufixo - número de páginas se repete por erro humano, usar mais dados para desambiguar."""
+        parts = [
+            self.legacy_get_pkg_name_prefix(suppl=self.sps_pkg_name_suppl),
+            self.legacy_sps_pkg_name_suffix or self.legacy_alternative_sps_pkg_name_suffix,
+        ]
+        return "-".join([part for part in parts if part])
+
+    @cached_property
+    def deprecated_sps_pkg_name(self):
+        """Tinha defeito na parte referente ao suppl (ausente o 's' antes do número)."""
+        parts = [
+            self.legacy_get_pkg_name_prefix(suppl=self.incorrect_sps_pkg_name_suppl),
+            self.legacy_sps_pkg_name_suffix or self.legacy_alternative_sps_pkg_name_suffix,
+        ]
+        return "-".join([part for part in parts if part])
+
+    @cached_property
+    def deprecated_sps_pkg_name_list(self):
+        return [
+            self.deprecated_sps_pkg_name,
+            self.deprecated_sps_pkg_name_version_2,
+            self.deprecated_sps_pkg_name_version_3,
+        ]
+
+    @property
+    def incorrect_sps_pkg_name_suppl(self):
+        suppl = self.suppl
+        if not suppl:
+            return None
+        try:
+            if int(suppl) == 0:
+                return "suppl"
+        except (TypeError, ValueError):
+            pass
+        return suppl
+
+    @property
+    def sps_pkg_name_suppl(self):
+        suppl = self.incorrect_sps_pkg_name_suppl
+        if not suppl or suppl == "suppl":
+            return suppl
+        return f"s{suppl}"
+
+
+class PackageNamingMixin:
+    """
+    Mixin para gerenciamento transparente e desacoplado da nomenclatura de pacotes.
+    """
+    # -------------------------------------------------------------------------
+    # HIGIENIZAÇÃO SPS ESTREITA
+    # -------------------------------------------------------------------------
+    def get_fpage_for_pkg_name_suffix(self):
+        """
+        xml nativo: fpage pode ser usada para desambiguar, pois forma o nome do pacote,
+        html: fpage não é confiável, pois o order ou o submitted_file são usados no nome do pacote,
+        fpage pode gerar ambiguidade
+        """
+        if not self.fpage:
+            return None
+        if not self.order:
+            return None
+        order = str(int(self.order))
+        if order == self.fpage:
+            return self.fpage
+        return self.order
+
+    def get_fpage_suffix(self) -> str:
+        """
+        Calcula o sufixo de paginação combinando fpage + fpage_seq SEM separador.
+        Retorna None se for detectado fpage 'fake'.
+        Exemplo válido: fpage='365', fpage_seq='a' -> '365a'
+        """
+        fpage = self.get_fpage_for_pkg_name_suffix()
+        if not fpage:
+            return None
+
+        seq = self.fpage_seq or ""
+        return f"{fpage}{seq}"
+
+    def get_page_suffix(self) -> str:
+        """
+        Calcula o sufixo de paginação combinando fpage + fpage_seq SEM separador.
+        Retorna None se for detectado fpage 'fake'.
+        Exemplo válido: fpage='365', fpage_seq='a' -> '365a'
+        """
+        fpage = self.get_fpage_for_pkg_name_suffix()
+        if not fpage:
+            return None
+
+        seq = self.fpage_seq or ""
+        lpage = self.lpage and f"-{self.lpage}" or ""
+        return f"{fpage}{seq}{lpage}"
+
+    def get_main_doi_for_pkg_name_suffix(self) -> str:
+        """
+        Retorna o sufixo do DOI principal (após a barra) para uso no nome do pacote.
+        Exemplo: '10.1234/abcd.efgh' -> 'abcd.efgh'
+        """
+        main_doi = self.main_doi
+        if not main_doi or "/" not in main_doi:
+            return None
+        return main_doi.split("/")[-1]
+
+    def get_body_fragment_for_pkg_name_suffix(self) -> str:
+        """
+        Gera um fragmento de hash do corpo do artigo para uso no nome do pacote.
+        Útil quando outros identificadores não estão disponíveis.
+        """
+        body_content = self.get_body_fragment(max_length=300)
+        if not body_content:
+            return None
+        # Gerar um hash MD5 do conteúdo do corpo e retornar os primeiros 8 caracteres
+        return hashlib.md5(body_content.encode("utf-8").lower()).hexdigest()[:8]
+
+    def get_submitted_filename_for_pkg_name_suffix(self) -> str:
+        """
+        Retorna o nome do arquivo submetido (sem extensão) para uso no nome do pacote.
+        Útil quando outros identificadores não estão disponíveis.
+        """
+        if not self.submitted_filename:
+            return None
+        return self._submitted_filename.lower()
+
+    def get_lang_suffix(self, lang):
+        lang_suffix = ""
+        main_lang = getattr(self, "main_lang", "")
+        if lang and main_lang and lang.lower() != main_lang.lower():
+            lang_suffix = f"-{lang.lower()}"
+        return lang_suffix
+
+    def get_suppl_for_pkg_name_suffix(self):
+        """
+        Retorna o sufixo do pacote SPS para suplementos:
+        'suppl' para valor 0
+        's{valor}' para valores diferentes de 0
+        """
+        suppl = self.suppl
+        if suppl is None:
+            return None
+        try:
+            if int(suppl) == 0:
+                return "suppl"
+        except (TypeError, ValueError):
+            pass
+        return f"s{suppl}"
+
+    # -------------------------------------------------------------------------
+    # RESOLUÇÃO DE SUFIXO (Estratégias Sequenciais)
+    # -------------------------------------------------------------------------
+    def get_pkg_suffix(self, strategies: list = None) -> str:
+        """
+        Avalia a lista ordenada de estratégias e retorna o PRIMEIRO dado válido.
+
+        Estratégias suportadas:
+        - 'elocation_id': ID de localização eletrônica
+        - 'fpage': fpage + fpage_seq (desconsiderando fpage fake)
+        - 'page': fpage + fpage_seq + lpage (desconsiderando fpage fake)
+        - 'order': Ordem do artigo
+        - 'body_fragment': usando body_fragment_fingerprint
+        - 'submitted_filename': Nome do arquivo enviado pelo produtor
+        - 'doi_suffix': Sufixo após a barra do DOI
+        """
+        if not strategies:
+            strategies = [
+                "elocation_id",
+                "submitted_filename",
+                "order",
+                "fpage",
+                "page",
+                "body_fragment",
+                "doi_suffix",
+            ]
+
+        for strategy in strategies:
+            val = None
+            if strategy == "elocation_id":
+                val = self.elocation_id
+            elif strategy == "order":
+                val = getattr(self, "order", None)
+            elif strategy == "fpage":
+                val = self.get_fpage_suffix()
+            elif strategy == "page":
+                val = self.get_page_suffix()
+            elif strategy == "submitted_filename":
+                val = self.get_submitted_filename_for_pkg_name_suffix()
+            elif strategy == "doi_suffix":
+                 val = self.get_main_doi_for_pkg_name_suffix()
+            elif strategy == "body_fragment":
+                val = self.get_body_fragment_for_pkg_name_suffix()
+            if val:
+                sanitized = sanitize_name(val)
+                if sanitized:
+                    return sanitized
+
+        raise ValueError(
+            f"Unable to get pkg name suffix. No valid strategy produced a value. Strategies tried: {strategies}"
+        )
+
+    # -------------------------------------------------------------------------
+    # RESOLUÇÃO DE PREFIXO
+    # -------------------------------------------------------------------------
+    @cached_property
+    def sps_issue_segment(self):
+        """
+        Segmento volume-número-suplemento, usado por XMLNamingMixin.get_sps_prefix
+        para montar variações genéricas de nome (matching ORM).
+        """
+        parts = [
+            self.volume,
+            self.number and self.number.zfill(2),
+            self.get_suppl_for_pkg_name_suffix(),
+        ]
+        if not any(parts):
+            parts = [self.pub_year]
+        return "-".join(p for p in parts if p)
+
+    def get_sps_prefix(self, issn: str = None) -> str:
+        """Gera o prefixo determinístico: ISSN-Acrônimo-Volume-Número-Suplemento."""
+        chosen_issn = issn or self.sps_issn
+        if not chosen_issn:
+            raise ValueError(
+                "Unable to get SPS prefix. No ISSN available. Provide an ISSN or ensure the XML has a valid journal_issn_electronic or journal_issn_print."
+            )
+        if not self.journal_acron:
+            raise ValueError(
+                "Unable to get SPS prefix. No journal acronym available. Ensure the XML has a valid journal_acron."
+            )
+        if not self.sps_issue_segment:
+            raise ValueError(
+                "Unable to get SPS prefix. No issue segment available. Ensure the XML has valid volume, number, and/or suppl."
+            )
+        prefix_parts = [
+            chosen_issn,
+            self.journal_acron,
+            self.sps_issue_segment,
+        ]
+        return "-".join([p for p in prefix_parts if p])
+
+    # -------------------------------------------------------------------------
+    # CONSTRUTOR DE PACOTES
+    # -------------------------------------------------------------------------
+    def build_pkg_name(self, suffix: str, prefix: str = None, lang: str = None) -> str:
+        """Junta o prefixo fornecido/gerado com o sufixo e idioma secundário."""
+        if not suffix:
+            raise ValueError("Suffix is required to build package name.")
+        base_prefix = prefix or self.get_sps_prefix()
+        lang_suffix = self.get_lang_suffix(lang)
+        return sanitize_name(f"{base_prefix}-{suffix}{lang_suffix}")
+
+    # -------------------------------------------------------------------------
+    # CONVENÇÕES PADRÃO
+    # -------------------------------------------------------------------------
+    def build_sps_pkg_name(self, lang: str = None, issn: str = None) -> str:
+        """Gera o nome do pacote no padrão SPS utilizando a busca de sufixo padrão."""
+        prefix = self.get_sps_prefix(issn=issn)
+        suffix = self.get_pkg_suffix(
+            strategies=["elocation_id", "order", "submitted_filename"]
+        )
+        return sanitize_sps_name(self.build_pkg_name(suffix=suffix, prefix=prefix, lang=lang))
+
+    def get_pmc_pkg_name(self, revision_number=None) -> str:
+        """Gera o nome do pacote no padrão PMC (jour-vol-iss-uid)."""
+        acron = getattr(self, "journal_acron", None) or "jour"
+        vol = getattr(self, "volume", None) or "0"
+        iss = getattr(self, "number", None) or "0"
+        uid = self.get_pkg_suffix(
+            strategies=["elocation_id", "fpage", "order", "uid"]
+        )
+        revision = ""
+        if revision_number:
+            revision = f".r{revision_number}"
+        return sanitize_name(f"{acron}-{vol}-{iss}-{uid}{revision}")
+
+    # -------------------------------------------------------------------------
+    # VARIAÇÕES PARA DJANGO ORM E VISÃO DICTIONARY
+    # -------------------------------------------------------------------------
+    @property
+    def pkg_name_variations(self) -> list:
+        """
+        Retorna TODAS as variações de nomes para buscas de match no Django ORM.
+        Considera ISSN eletrônico, impresso, originais e traduções.
+        """
+        variations = set()
+
+        if self.submitted_filename:
+            variations.add(self.submitted_filename)
+
+        for issn in self.available_issns:
+            try:
+                variations.add(self.build_sps_pkg_name(issn=issn))
+            except ValueError:
+                pass
+
+        variations.update(self.deprecated_sps_pkg_name_list)
+
+        try:
+            variations.add(self.built_sps_pkg_name)
+        except ValueError:
+            pass
+
+        if provided_sps_pkg_name := self.provided_sps_pkg_name:
+            variations.add(provided_sps_pkg_name)
+        if self.xml_name:
+            variations.add(self.xml_name)
+        return variations
+
+    @property
+    def built_sps_pkg_name(self) -> str:
+        """Retorna o nome do pacote SPS construído com base nas regras atuais."""
+        return self._built_sps_pkg_name
+
+    @built_sps_pkg_name.setter
+    def built_sps_pkg_name(self, value):
+        self._built_sps_pkg_name = value
+
+    @property
+    def provided_sps_pkg_name(self) -> str:
+        """Retorna o nome do pacote SPS fornecido no XML, se presente."""
+        return self._provided_sps_pkg_name
+
+    @provided_sps_pkg_name.setter
+    def provided_sps_pkg_name(self, value):
+        if not value:
+            self._provided_sps_pkg_name = None
+            return
+        # não sanitizar, pois pode ser nome legado
+        self._provided_sps_pkg_name = value
+
+    def set_sps_pkg_data(self):
+        if self._sps_pkg_name_origin and self._sps_pkg_name:
+            return
+        if name := self.provided_sps_pkg_name:
+            self._sps_pkg_name_origin = "provided_sps_pkg_name"
+            self._sps_pkg_name = name
+            return
+        if name := self.built_sps_pkg_name:
+            self._sps_pkg_name_origin = "built_sps_pkg_name"
+            self._sps_pkg_name = name
+            return
+        if name := self.xml_name:
+            self._sps_pkg_name_origin = "xml_name"
+            self._sps_pkg_name = name
+            return
+        # comportamento defensivo em caso de não ajuste no upload / core
+        # versão mais compatível com o guia sps 1.10
+        self._sps_pkg_name_origin = "deprecated_sps_pkg_name_version_2"
+        self._sps_pkg_name = self.deprecated_sps_pkg_name_version_2
+
+    @property
+    def sps_pkg_name(self):
+        if not self._sps_pkg_name_origin or not self._sps_pkg_name:
+            self.set_sps_pkg_data()
+        return self._sps_pkg_name
+
+    @property
+    def sps_pkg_name_origin(self):
+        if not self._sps_pkg_name_origin or not self._sps_pkg_name:
+            self.set_sps_pkg_data()
+        return self._sps_pkg_name_origin
+
+    @property
+    def pkg_names_dict(self) -> dict:
+        """Panorama estruturado dos nomes do documento."""
+        return {
+            "pmc_pkg_name": self.get_pmc_pkg_name(),
+            "built_sps_pkg_name": self.built_sps_pkg_name,
+            "provided_sps_pkg_name": self.provided_sps_pkg_name,
+            "sps_pkg_name": self.sps_pkg_name,
+            "sps_pkg_name_origin": self.sps_pkg_name_origin,
+            "pkg_name_list": self.pkg_name_variations,}
+
+    @property
+    def sps_pkg_names_dict(self):
+        return {
+            "sps_pkg_name": self.sps_pkg_name,
+            "sps_pkg_name_origin": self.sps_pkg_name_origin,
+            "pkg_name_list": self.pkg_name_variations,
+            "built_sps_pkg_name": self.built_sps_pkg_name,
+            "built_sps_pkg_name_now": self.build_sps_pkg_name(),
+            "provided_sps_pkg_name": self.provided_sps_pkg_name,
+        }
+
+    @property
+    def input_files_dict(self):
+        return {
+            "xml_name": self.xml_name,
+            "zip_namelist": self.zip_namelist,
+            "zip_basenames": self.zip_basenames,
+            "zip_file_path": self.zip_file_path,
+            "xml_file_path": self.xml_file_path,
+            "submitted_filename": self.submitted_filename,
+            "submitted_ext": self.submitted_ext,
+            "is_html": self.is_html_source,
+            "provided_sps_pkg_name": self.provided_sps_pkg_name,
+        }
+
+
+# ==============================================================================
+# 4. IDENTIFICADORES (PIDs: v2, v3, aop_pid, order)
+# ==============================================================================
+class IdentifiersMixin:
+    """Manipulação e geração de IDs SciELO (article-id)."""
+
+    @cached_property
+    def article_id_parent(self):
+        """Retorna o nó pai dos elementos article-id."""
+        try:
+            return self.xmltree.xpath(".//article-meta")[0]
+        except IndexError:
+            node = self.xmltree.find(".")
+            front = node.find("front")
+            if front is None:
+                front = etree.Element("front")
+                node.append(front)
+            parent = etree.Element("article-meta")
+            front.append(parent)
+            return parent
+
+    @property
+    def article_ids(self):
+        return ArticleIds(self.xmltree)
+
+    @property
+    def v3(self):
+        return self.article_ids.v3
+
+    @v3.setter
+    def v3(self, value):
+        value = value and value.strip()
+        if not value or len(value) != 23:
+            raise ValueError(
+                f"can't set attribute XMLWithPre.v3. Expected value must have 23 characters. Got: {value}"
+            )
+        try:
+            node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v3"]')[0]
+        except IndexError:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "publisher-id")
+            node.set("specific-use", "scielo-v3")
+            parent = self.article_id_parent
+            parent.insert(1, node)
+        node.text = value
+
+    @property
+    def v2(self):
+        return self.article_ids.v2
+
+    @v2.setter
+    def v2(self, value):
+        value = value and value.strip()
+        if not value or len(value) != 23:
+            raise ValueError(
+                f"can't set attribute XMLWithPre.v2. Expected value must have 23 characters. Got: {value}"
+            )
+        try:
+            node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]')[0]
+        except IndexError:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "publisher-id")
+            node.set("specific-use", "scielo-v2")
+            parent = self.article_id_parent
+            parent.insert(1, node)
+        node.text = value
+
+    @property
+    def aop_pid(self):
+        return self.article_ids.aop_pid
+
+    @aop_pid.setter
+    def aop_pid(self, value):
+        value = value and value.strip()
+        if not value or len(value) != 23:
+            raise ValueError(
+                f"can't set attribute XMLWithPre.aop_pid. Expected value must have 23 characters. Got: {value}"
+            )
+        try:
+            node = self.xmltree.xpath(
+                './/article-id[@specific-use="previous-pid" and @pub-id-type="publisher-id"]'
+            )[0]
+        except IndexError:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "publisher-id")
+            node.set("specific-use", "previous-pid")
+            parent = self.article_id_parent
+            parent.insert(1, node)
+        node.text = value
+
+    @property
+    def order(self):
+        return self.article_ids.other
+
+    @order.setter
+    def order(self, value):
+        try:
+            new_value = str(int(value)).zfill(5)
+        except (TypeError, ValueError, AttributeError):
+            new_value = None
+
+        if not new_value or len(new_value) > 5:
+            raise ValueError(
+                f"can't set attribute XMLWithPre.order. Expected value must a 5 characters digit. Got: {value}"
+            )
+        try:
+            node = self.xmltree.xpath('.//article-id[@pub-id-type="other"]')[0]
+        except IndexError:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "other")
+            parent = self.article_id_parent
+            parent.insert(1, node)
+        node.text = new_value
+
+    def update_ids(self, v3, v2, aop_pid):
+        """Atualiza todos os elementos article-id (v2, v3, aop_pid)."""
+        self.article_ids.v3 = v3
+        self.article_ids.v2 = v2
+        if aop_pid:
+            self.article_ids.aop_pid = aop_pid
+
+    # --------------------------------------------------------------------------
+    # Suporte a Múltiplos PIDs v2 (v2_list)
+    # --------------------------------------------------------------------------
+    @property
+    def v2_list(self):
+        items = []
+        for node in self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]'):
+            items.append(
+                {
+                    "assigning-authority": node.get("assigning-authority"),
+                    "pid": node.text,
+                }
+            )
+        return items
+
+    @v2_list.setter
+    def v2_list(self, items):
+        if not items:
+            return
+        for item in items:
+            item = item or {}
+            self._set_v2_item(item.get("assigning-authority"), item.get("pid"))
+
+    def _set_v2_item(self, assigning_authority, pid):
+        pid = pid and pid.strip()
+        if not pid or len(pid) != 23:
+            raise ValueError(
+                f"can't set attribute XMLWithPre.v2_list. Expected pid value must have 23 characters. Got: {pid}"
+            )
+        if assigning_authority:
+            matches = self.xmltree.xpath(
+                './/article-id[@specific-use="scielo-v2" and @assigning-authority=$aa]',
+                aa=assigning_authority,
+            )
+        else:
+            matches = self.xmltree.xpath(
+                './/article-id[@specific-use="scielo-v2" and not(@assigning-authority)]'
+            )
+        try:
+            node = matches[0]
+        except IndexError:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "publisher-id")
+            node.set("specific-use", "scielo-v2")
+            if assigning_authority:
+                node.set("assigning-authority", assigning_authority)
+            parent = self.article_id_parent
+            existing_article_ids = parent.findall("article-id")
+            if existing_article_ids:
+                existing_article_ids[-1].addnext(node)
+            else:
+                parent.insert(0, node)
+        node.text = pid
+
+    # --------------------------------------------------------------------------
+    # Algoritmo de Geração Dinâmica de PID v2
+    # --------------------------------------------------------------------------
+    @property
+    def v2_prefix(self):
+        return f"S{self.journal_issn_electronic or self.journal_issn_print}{self.pub_year}"
 
     def get_article_pid_suffix(self):
         return self.elocation_id or self.fpage or self.order or ""
@@ -1372,6 +1270,499 @@ class XMLWithPre:
         raise ValueError(f"Unable to generate pid v2: {parts} {pid_v2}")
 
 
+# ==============================================================================
+# 5. METADADOS DO ARTIGO (Datas, Títulos, Autores, Corpo, Periódico)
+# ==============================================================================
+class ArticleMetadataMixin:
+    """Extração e manipulação de metadados do artigo JATS."""
+
+    # --------------------------------------------------------------------------
+    # Periódico & Seções
+    # --------------------------------------------------------------------------
+    @cached_property
+    def journal_acron(self):
+        return Acronym(self.xmltree).text
+
+    @cached_property
+    def journal_title(self):
+        return Title(self.xmltree).journal_title
+
+    @cached_property
+    def issns(self):
+        return {item["type"]: item["value"] for item in ISSN(self.xmltree).data}
+
+    @cached_property
+    def journal_issn_print(self):
+        return self.issns.get("ppub")
+
+    @cached_property
+    def journal_issn_electronic(self):
+        return self.issns.get("epub")
+
+    @property
+    def available_issns(self) -> list:
+        """
+        Retorna a lista de ISSNs disponíveis (eletrônico e impresso).
+
+        Raises
+        ------
+        XMLWithPreMissingISSNError: Se nenhum ISSN for encontrado no XML.
+        """
+        issns = [item for item in self.issns.values() if item]
+        if not issns:
+            raise XMLWithPreMissingISSNError(
+                f"Não foi possível determinar o nome do pacote para o arquivo '{self}': "
+                f"Nenhum ISSN (eletrônico ou impresso) foi encontrado no XML."
+            )
+        return issns
+
+    @property
+    def sps_issn(self) -> str:
+        """Retorna o ISSN principal (eletrônico priorizado, ou primeiro disponível)."""
+        return self.available_issns[0]
+
+    @cached_property
+    def main_toc_section(self):
+        node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
+        if node is not None:
+            return node.findtext("./subject")
+
+    # --------------------------------------------------------------------------
+    # Fascículo / Edição
+    # --------------------------------------------------------------------------
+    @cached_property
+    def article_meta_issue(self):
+        return ArticleMetaIssue(self.xmltree)
+
+    @cached_property
+    def is_aop(self):
+        return not (self.volume or self.number)
+
+    @cached_property
+    def volume(self):
+        return self.article_meta_issue.volume
+
+    @cached_property
+    def number(self):
+        return self.article_meta_issue.number
+
+    @cached_property
+    def suppl(self):
+        return self.article_meta_issue.suppl
+
+    @cached_property
+    def fpage(self):
+        return self.article_meta_issue.fpage
+
+    @cached_property
+    def fpage_seq(self):
+        return self.article_meta_issue.fpage_seq
+
+    @cached_property
+    def lpage(self):
+        return self.article_meta_issue.lpage
+
+    @cached_property
+    def elocation_id(self):
+        return self.article_meta_issue.elocation_id
+
+    # --------------------------------------------------------------------------
+    # Datas de Publicação
+    # --------------------------------------------------------------------------
+    @property
+    def _article_dates(self):
+        return ArticleDates(self.xmltree)
+
+    @cached_property
+    def pub_year(self):
+        return self.collection_pub_year or self.article_pub_year
+
+    @property
+    def article_pub_year(self):
+        return self._article_dates.article_year
+
+    @cached_property
+    def collection_pub_year(self):
+        return self._article_dates.collection_year
+
+    @property
+    def article_publication_date(self):
+        try:
+            return self._article_dates.article_date_isoformat
+        except Exception:
+            return self.pub_year
+
+    @article_publication_date.setter
+    def article_publication_date(self, value):
+        try:
+            if isinstance(value, str):
+                parts = value.split("-")
+                value = {"day": parts[2], "month": parts[1], "year": parts[0]}
+            formatted = format_date(**value)
+        except Exception:
+            raise XMLWithPreArticlePublicationDateError(
+                f"Unable to set article_publication_date with {value}. Date with valid year, month, day is required"
+            )
+
+        try:
+            node = self.xmltree.xpath(
+                ".//article-meta//pub-date[@date-type='pub' or @pub-type='epub' or @pub-type='epub-ppub']"
+            )[0]
+            if node.get("pub-type") == "epub-ppub":
+                node.set("pub-type", "collection")
+                raise IndexError
+        except IndexError:
+            node = etree.Element("pub-date")
+            if self.xmltree.xpath(".//article-meta//pub-date[@pub-type]"):
+                node.set("pub-type", "epub")
+            else:
+                node.set("date-type", "pub")
+                node.set("publication-format", "electronic")
+
+            pub_date_preceding_siblings = (
+                "pub-date", "author-notes", "aff", "contrib-group",
+                "title-group", "article-categories", "article-version-alternatives",
+                "article-version", "article-id",
+            )
+            articlemeta_node = self.xmltree.find(".//article-meta")
+            added = False
+            for sibling_name in pub_date_preceding_siblings:
+                try:
+                    articlemeta_node.find(sibling_name).addnext(node)
+                    added = True
+                    break
+                except AttributeError:
+                    continue
+            if not added:
+                pub_date_following_siblings = (
+                    "volume", "volume-id", "volume-series", "issue", "issue-id",
+                    "issue-title", "issue-title-group", "issue-sponsor", "issue-part",
+                    "volume-issue-group", "isbn", "supplement", "fpage", "lpage",
+                    "page-range", "elocation-id", "email", "ext-link", "uri",
+                    "product", "supplementary-material", "history", "pub-history",
+                    "permissions", "self-uri", "related-article", "related-object",
+                    "abstract", "trans-abstract", "kwd-group", "funding-group",
+                    "support-group", "conference", "counts", "custom-meta-group",
+                )
+                for sibling_name in pub_date_following_siblings:
+                    try:
+                        articlemeta_node.find(sibling_name).addprevious(node)
+                        added = True
+                        break
+                    except AttributeError:
+                        continue
+            if not added:
+                articlemeta_node.append(node)
+
+        previous = None
+        for name, val in zip(("day", "month", "year"), reversed(formatted.split("-"))):
+            elem = node.find(name)
+            if elem is None:
+                elem = etree.Element(name)
+                if previous is None:
+                    node.insert(0, elem)
+                else:
+                    previous.addnext(elem)
+            elem.text = val
+            previous = elem
+
+    def get_complete_publication_date(self, default_month=6, default_day=15):
+        try:
+            return self._article_dates.article_date_isoformat
+        except Exception:
+            pass
+        try:
+            year = month = day = None
+            data = self._article_dates.article_date
+            if data:
+                year = data.get("year")
+                month = data.get("month")
+                day = data.get("day")
+            return date(
+                int(year or self.pub_year),
+                int(month or default_month),
+                int(day or default_day),
+            ).isoformat()
+        except (TypeError, KeyError):
+            raise XMLWithPreArticlePublicationDateError(
+                f"Unable to get complete publication date from {data}"
+            )
+
+    # --------------------------------------------------------------------------
+    # Autores, Títulos e Conteúdo do Artigo
+    # --------------------------------------------------------------------------
+    @cached_property
+    def authors(self):
+        names = []
+        collab = None
+
+        contrib_group = self.xmltree.find(".//article-meta//contrib-group")
+        if contrib_group is not None:
+            for item in contrib_group.xpath(".//surname"):
+                content = " ".join(
+                    [
+                        text.strip()
+                        for text in item.xpath(".//text()")
+                        if (text or "").strip()
+                    ]
+                )
+                names.append({"surname": content})
+
+            for item in contrib_group.xpath(".//collab"):
+                content = " ".join(
+                    [
+                        text.strip()
+                        for text in item.xpath(".//text()")
+                        if (text or "").strip()
+                    ]
+                )
+                collab = content
+
+        return {"person": names, "collab": collab}
+
+    @cached_property
+    def collab(self):
+        return self.authors.get("collab")
+
+    @cached_property
+    def article_titles(self):
+        xpath = "|".join([
+            ".//article-meta//article-title",
+            ".//article-meta//trans-title",
+            ".//front-stub//article-title",
+            ".//front-stub//trans-title",
+        ])
+        titles = []
+        for item in self.xmltree.xpath(xpath):
+            title = " ".join(
+                [text.strip() for text in item.xpath(".//text()") if text and text.strip()]
+            )
+            titles.append(title)
+        return sorted(titles)
+
+    @cached_property
+    def article_titles_texts(self):
+        return self.article_titles
+
+    @cached_property
+    def partial_body(self):
+        try:
+            body = Body(self.xmltree)
+            for text in body.main_body_texts:
+                if (text or "").strip():
+                    return text
+        except AttributeError:
+            pass
+        return None
+
+    def get_body_fragment(self, max_length):
+        text = " ".join(" ".join(self.xmltree.xpath(".//body//text()")).split())
+        if max_length:
+            return text[:max_length].lower()
+        return text.lower()
+
+    @property
+    def body_fingerprint(self):
+        return generate_finger_print(self.get_body_fragment(max_length=None))
+
+    @property
+    def body_fragment_fingerprint(self):
+        return generate_finger_print(self.get_body_fragment(300))
+
+    def get_article_data(self, max_body_fragment_length=300):
+        try:
+            persons = self.authors.get("person") or []
+            surnames = [p.get("surname") for p in persons if p.get("surname")]
+        except Exception:
+            surnames = []
+        return {
+            "surnames": surnames,
+            "collab": self.collab,
+            "links": self.links,
+            "article_titles": self.article_titles_texts,
+            "partial_body": self.partial_body,
+            "body_fragment": self.get_body_fragment(max_body_fragment_length),
+        }
+
+    # --------------------------------------------------------------------------
+    # Idiomas, DOIs e Relacionamentos
+    # --------------------------------------------------------------------------
+    @cached_property
+    def _article_and_subarticles(self):
+        return ArticleAndSubArticles(self.xmltree)
+
+    @cached_property
+    def main_lang(self):
+        return self._article_and_subarticles.main_lang
+
+    @cached_property
+    def langs(self):
+        for item in self._article_and_subarticles.data:
+            yield item["lang"]
+
+    @cached_property
+    def _doi_with_lang(self):
+        return DoiWithLang(self.xmltree)
+
+    @cached_property
+    def article_doi_with_lang(self):
+        return self._doi_with_lang.data
+
+    @cached_property
+    def main_doi(self):
+        return self._doi_with_lang.main_doi
+
+    @cached_property
+    def related_items(self):
+        return RelatedItems(self.xmltree).related_articles
+
+    @cached_property
+    def links(self):
+        return [item["href"] for item in self.related_items if item.get("href")]
+
+
+# ==============================================================================
+# 6. CLASSE PRINCIPAL: XMLWithPre
+# ==============================================================================
+class XMLWithPre(
+    DOCTYPEParserMixin,
+    PackagingAndFilesMixin,
+    PackageNamingMixin,
+    LegacyPackageNamingMixin,
+    IdentifiersMixin,
+    ArticleMetadataMixin,
+):
+    """Preserva o texto anterior ao elemento `root` e agrupa a manipulação do XML SciELO."""
+
+    def __init__(self, xmlpre, xmltree, pretty_print=True):
+        self.xmltree = xmltree
+        self.xmlpre = xmlpre or ""
+
+        # DOCTYPE
+        self.DOCTYPE = None
+        self.public_id = None
+        self.system_id = None
+        if self.xmlpre and "<!DOCTYPE" in self.xmlpre:
+            self.parse_doctype()
+
+        # Atributos gerais
+        self.pretty_print = pretty_print
+        self.uri = None
+        self.zip_file_path = None
+        self.xml_file_path = None
+        self.relative_system_id = None
+        self._sps_version = None
+        self.errors = None
+        self.pkg_name_version = None
+
+        # Atributos de arquivo
+        self.xml_name = None
+        self.zip_basenames = None
+        self.zip_namelist = None
+        self._submitted_filename = None
+        self._submitted_ext = None
+        self._provided_sps_pkg_name = None
+        self._built_sps_pkg_name = None
+        self.is_html_source = None
+        self._sps_pkg_name_origin = None
+        self._sps_pkg_name = None
+
+    def __str__(self):
+        return self.xml_name or self.submitted_filename or self.zip_file_path or self.uri or "<XMLWithPre>"
+
+    # --------------------------------------------------------------------------
+    # Construtores & Serializadores
+    # --------------------------------------------------------------------------
+    @classmethod
+    def create(
+        cls, path=None, uri=None, xml_content=None, capture_errors=False, timeout=30,
+        xml_native_name=None,
+        html_name=None,
+        built_name=None,
+    ):
+        """Retorna gerador de instâncias de XMLWithPre."""
+        if path:
+            errors = []
+            xml_with_pre = None
+            for item in get_xml_items(path):
+                if not item:
+                    continue
+                try:
+                    xml_with_pre = item["xml_with_pre"]
+                    xml_with_pre.add_pkg_name(xml_native_name=xml_native_name, html_name=html_name, built_name=built_name)
+                    yield xml_with_pre
+                except (KeyError, ValueError) as e:
+                    errors.append(item)
+            if not xml_with_pre or errors:
+                raise GetXmlWithPreError(f"Unable to get xml with pre {errors}")
+        if xml_content:
+            yield get_xml_with_pre(xml_content)
+            return
+        if uri:
+            yield get_xml_with_pre_from_uri(uri, timeout)
+            return
+
+    def add_pkg_name(self, xml_native_name=None, html_name=None, built_name=None):
+        if xml_native_name:
+            self.provided_sps_pkg_name = xml_native_name
+            self.submitted_filename = xml_native_name + ".xml"
+        elif html_name:
+            self.submitted_filename = html_name + ".html"
+        if built_name:
+            self._built_sps_pkg_name = built_name
+
+    def tostring(self, pretty_print=False):
+        return self.xmlpre + etree.tostring(
+            self.xmltree,
+            encoding="utf-8",
+            pretty_print=pretty_print,
+        ).decode("utf-8")
+
+    @cached_property
+    def sps_version(self):
+        try:
+            return self.xmltree.find(".").get("specific-use")
+        except (AttributeError, TypeError, ValueError):
+            return None
+
+    @property
+    def finger_print(self):
+        if self.xmltree.xpath(".//comment()"):
+            for item in XMLWithPre.create(
+                xml_content=self.tostring(pretty_print=self.pretty_print)
+            ):
+                remove_comments(item.xmltree)
+                return generate_finger_print(item.tostring(pretty_print=True))
+        else:
+            return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
+
+    @property
+    def data(self):
+        data = dict(
+            sps_pkg_name=self.sps_pkg_name,
+            pid_v3=self.v3,
+            pid_v2=self.v2,
+            aop_pid=self.aop_pid,
+            filename=self.filename,
+            files=self.files,
+            filenames=self.filenames,
+            pkg_names=self.deprecated_sps_pkg_name_list,
+        )
+        return data
+
+    def get_data(self, input_files=None, sps_pkg_names=None, pkg_names=False, article=False, max_body_fragment_length=300):
+        data = self.data
+        if input_files:
+            data.update(self.input_files_dict)
+        if pkg_names:
+            data.update(self.pkg_names_dict)
+        if sps_pkg_names:
+            data.update(self.sps_pkg_names_dict)
+        if article:
+            data.update(self.get_article_data(max_body_fragment_length))
+        return data
+    
+
 def string_to_5_digits(input_string):
     return str((crc32(input_string.encode()) & 0xFFFFFFFF) % 100000)
 
@@ -1410,3 +1801,27 @@ def remove_comments(xmltree):
         parent = comment.getparent()
         if parent is not None:
             parent.remove(comment)
+
+
+def sanitize_name(value: str) -> str:
+    """
+    Regra estrita do SPS: Proibido underline (_), ponto (.),
+    acentuação, espaços ou caracteres especiais. Permite apenas [a-zA-Z0-9-].
+    """
+    if not value:
+        return ""
+    clean = str(value).replace(" ", "")
+    clean = re.sub(r"[^a-zA-Z0-9\-]", "", clean)
+    return re.sub(r"-+", "-", clean).strip("-")
+
+
+def sanitize_sps_name(value: str) -> str:
+    """
+    Regra estrita do SPS: Proibido underline (_), ponto (.),
+    acentuação, espaços ou caracteres especiais. Permite apenas [a-zA-Z0-9-].
+    """
+    if not value:
+        return ""
+    clean = str(value).replace("_", "-").replace(".", "-").replace(" ", "")
+    clean = re.sub(r"[^a-zA-Z0-9\-]", "", clean)
+    return re.sub(r"-+", "-", clean).strip("-")
