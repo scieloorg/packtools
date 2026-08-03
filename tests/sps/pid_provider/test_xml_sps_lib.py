@@ -2138,3 +2138,261 @@ class TestSpsPkgNameComprehensive(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         with self.assertRaises(AttributeError):
             xml_with_pre.sps_pkg_name = "new-set-name"
+
+"""
+Testes complementares para packtools.sps.pid_provider.xml_sps_lib.XMLWithPre.renditions
+
+Última versão de `renditions`:
+    1. O "portão" agora verifica `self.zip_namelist` (não mais
+       `zip_basenames`) — se falsy, retorna [] imediatamente.
+    2. Constrói um mapa {basename: caminho_completo} a partir de
+       `self.zip_namelist` usando os.path.basename, permitindo localizar um
+       arquivo mesmo que esteja dentro de subpastas no zip.
+    3. Troca o campo booleano "in_zip" por "path_in_zip": o CAMINHO COMPLETO
+       (conforme está no zip) do arquivo cujo basename bate com "name", ou
+       None se não houver correspondência.
+    4. "sps_pkg_name" continua sendo montado por f-string direta.
+
+`ArticleRenditions` é mockado para isolar a lógica própria da property.
+"""
+from types import SimpleNamespace
+
+
+def _patch_article_renditions(items):
+    """Mocka ArticleRenditions(...).article_renditions com `items`."""
+    patcher = patch("packtools.sps.pid_provider.xml_sps_lib.ArticleRenditions")
+    mock_class = patcher.start()
+    mock_class.return_value.article_renditions = items
+    return mock_class
+
+
+class TestRenditionsGating(XMLWithPreTestMixin, TestCase):
+    """Testa o "portão" baseado em zip_namelist (não mais zip_basenames)."""
+
+    def tearDown(self):
+        patch.stopall()
+
+    def test_returns_empty_list_when_zip_namelist_is_none(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.xml_name = "artigo"
+        self.assertIsNone(xml_with_pre.zip_namelist)
+
+        mock_class = _patch_article_renditions(
+            [SimpleNamespace(is_main_language=True, language="en")]
+        )
+        self.assertEqual(xml_with_pre.renditions, [])
+        mock_class.assert_not_called()
+
+    def test_returns_empty_list_when_zip_namelist_is_empty_list(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.xml_name = "artigo"
+        xml_with_pre.zip_namelist = []
+
+        mock_class = _patch_article_renditions(
+            [SimpleNamespace(is_main_language=True, language="en")]
+        )
+        self.assertEqual(xml_with_pre.renditions, [])
+        mock_class.assert_not_called()
+
+    def test_zip_basenames_no_longer_gates_anything(self):
+        # zip_basenames (usado em versões anteriores) deixou de importar:
+        # com zip_namelist preenchido e zip_basenames vazio/None, a property
+        # deve funcionar normalmente.
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.xml_name = "artigo"
+        xml_with_pre.zip_namelist = ["artigo.pdf"]
+        xml_with_pre.zip_basenames = None
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+        self.assertEqual(len(result), 1)
+
+        # e o inverso: zip_basenames preenchido mas zip_namelist vazio ->
+        # continua retornando []
+        xml_with_pre2 = self._make_base_xml()
+        xml_with_pre2.xml_name = "artigo"
+        xml_with_pre2.zip_namelist = []
+        xml_with_pre2.zip_basenames = ["artigo.pdf"]
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+        self.assertEqual(xml_with_pre2.renditions, [])
+
+    def test_raises_value_error_immediately_on_property_access(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.zip_namelist = ["artigo.xml"]
+        # xml_name nunca foi atribuído (permanece None)
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        with self.assertRaises(ValueError):
+            xml_with_pre.renditions
+
+    def test_no_error_when_xml_name_missing_but_zip_namelist_falsy(self):
+        xml_with_pre = self._make_base_xml()
+        # nem xml_name nem zip_namelist foram definidos
+        mock_class = _patch_article_renditions(
+            [SimpleNamespace(is_main_language=True, language="en")]
+        )
+        self.assertEqual(xml_with_pre.renditions, [])
+        mock_class.assert_not_called()
+
+
+class TestRenditionsPathInZip(XMLWithPreTestMixin, TestCase):
+    """Testa o mapeamento basename -> caminho completo e o campo path_in_zip."""
+
+    def tearDown(self):
+        patch.stopall()
+
+    def _setup(self, xml_name="artigo", zip_namelist=None, provided_name="1234-5678-abc-10-02-e100"):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.xml_name = xml_name
+        xml_with_pre.zip_namelist = zip_namelist if zip_namelist is not None else []
+        if provided_name is not None:
+            xml_with_pre.provided_sps_pkg_name = provided_name
+        return xml_with_pre
+
+    def test_path_in_zip_equals_full_path_when_file_is_at_zip_root(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo.pdf"])
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+        self.assertEqual(result[0]["path_in_zip"], "artigo.pdf")
+
+    def test_path_in_zip_resolves_via_basename_when_file_is_in_subfolder(self):
+        # zip_namelist guarda o caminho completo dentro do zip; o match é
+        # feito pelo basename, mas o valor retornado é o caminho ORIGINAL.
+        xml_with_pre = self._setup(zip_namelist=["pkg/subpasta/artigo.pdf"])
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+        self.assertEqual(result[0]["name"], "artigo.pdf")
+        self.assertEqual(result[0]["path_in_zip"], "pkg/subpasta/artigo.pdf")
+
+    def test_path_in_zip_is_none_when_no_matching_basename(self):
+        xml_with_pre = self._setup(zip_namelist=["outro-arquivo.pdf"])
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+        self.assertIsNone(result[0]["path_in_zip"])
+
+    def test_duplicate_basenames_last_entry_in_zip_namelist_wins(self):
+        # Se dois caminhos no zip tiverem o MESMO basename (situação
+        # incomum, mas possível), o dict `namelist` é sobrescrito em ordem —
+        # o último item de zip_namelist "vence".
+        xml_with_pre = self._setup(
+            zip_namelist=["dir1/artigo.pdf", "dir2/artigo.pdf"]
+        )
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+        self.assertEqual(result[0]["path_in_zip"], "dir2/artigo.pdf")
+
+    def test_multiple_renditions_with_mixed_path_in_zip(self):
+        xml_with_pre = self._setup(
+            zip_namelist=["artigo.pdf", "pkg/artigo-pt.pdf"]
+        )
+        fake_items = [
+            SimpleNamespace(is_main_language=True, language="en"),
+            SimpleNamespace(is_main_language=False, language="pt"),
+            SimpleNamespace(is_main_language=False, language="es"),
+        ]
+        _patch_article_renditions(fake_items)
+
+        result = xml_with_pre.renditions
+
+        self.assertEqual(
+            [item["name"] for item in result],
+            ["artigo.pdf", "artigo-pt.pdf", "artigo-es.pdf"],
+        )
+        self.assertEqual(
+            [item["path_in_zip"] for item in result],
+            ["artigo.pdf", "pkg/artigo-pt.pdf", None],
+        )
+
+
+class TestRenditionsContent(XMLWithPreTestMixin, TestCase):
+    """Testa as demais chaves do dicionário retornado."""
+
+    def tearDown(self):
+        patch.stopall()
+
+    def _setup(self, xml_name="artigo", zip_namelist=None, provided_name="1234-5678-abc-10-02-e100"):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.xml_name = xml_name
+        xml_with_pre.zip_namelist = zip_namelist if zip_namelist is not None else []
+        if provided_name is not None:
+            xml_with_pre.provided_sps_pkg_name = provided_name
+        return xml_with_pre
+
+    def test_return_type_is_a_plain_list(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo.pdf"])
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+        self.assertIsInstance(xml_with_pre.renditions, list)
+
+    def test_main_language_dict_shape_and_values(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo.pdf"])
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+
+        self.assertEqual(len(result), 1)
+        item = result[0]
+        self.assertEqual(
+            set(item.keys()),
+            {"name", "lang", "component_type", "main", "sps_pkg_name", "path_in_zip"},
+        )
+        self.assertEqual(item["name"], "artigo.pdf")
+        self.assertEqual(item["lang"], "en")
+        self.assertEqual(item["component_type"], "rendition")
+        self.assertTrue(item["main"])
+        self.assertEqual(item["sps_pkg_name"], "1234-5678-abc-10-02-e100.pdf")
+        self.assertEqual(item["path_in_zip"], "artigo.pdf")
+
+    def test_translation_dict_shape_and_values(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo-pt.pdf"])
+        _patch_article_renditions([SimpleNamespace(is_main_language=False, language="pt")])
+
+        result = xml_with_pre.renditions
+
+        item = result[0]
+        self.assertEqual(item["name"], "artigo-pt.pdf")
+        self.assertEqual(item["lang"], "pt")
+        self.assertFalse(item["main"])
+        self.assertEqual(item["sps_pkg_name"], "1234-5678-abc-10-02-e100-pt.pdf")
+
+    def test_sps_pkg_name_uses_direct_fstring_not_replace(self):
+        xml_with_pre = self._setup(
+            xml_name="pt", zip_namelist=["pt-pt.pdf"], provided_name="pt"
+        )
+        _patch_article_renditions([SimpleNamespace(is_main_language=False, language="pt")])
+
+        result = xml_with_pre.renditions
+
+        self.assertEqual(result[0]["name"], "pt-pt.pdf")
+        self.assertEqual(result[0]["sps_pkg_name"], "pt-pt.pdf")
+
+    def test_uses_deprecated_fallback_sps_pkg_name_when_nothing_provided(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo.pdf"], provided_name=None)
+        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
+
+        result = xml_with_pre.renditions
+
+        self.assertEqual(result[0]["name"], "artigo.pdf")
+        self.assertEqual(result[0]["sps_pkg_name"], "artigo.pdf")
+
+    def test_empty_result_when_article_renditions_has_no_items(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo.pdf"])
+        _patch_article_renditions([])
+
+        self.assertEqual(xml_with_pre.renditions, [])
+
+    def test_article_renditions_called_with_xmltree_only_after_gate_passes(self):
+        xml_with_pre = self._setup(zip_namelist=["artigo.pdf"])
+        mock_class = _patch_article_renditions([])
+
+        xml_with_pre.renditions
+
+        mock_class.assert_called_once_with(xml_with_pre.xmltree)
+
+
+if __name__ == "__main__":
+    import unittest
+    unittest.main()
