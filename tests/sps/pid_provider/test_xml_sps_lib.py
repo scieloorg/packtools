@@ -2360,14 +2360,14 @@ class TestRenditionsContent(XMLWithPreTestMixin, TestCase):
 
     def test_sps_pkg_name_uses_direct_fstring_not_replace(self):
         xml_with_pre = self._setup(
-            xml_name="pt", zip_namelist=["pt-pt.pdf"], provided_name="pt"
+            xml_name="xmlname", zip_namelist=["xmlname-pt.pdf"], provided_name="provided"
         )
         _patch_article_renditions([SimpleNamespace(is_main_language=False, language="pt")])
 
         result = xml_with_pre.renditions
 
-        self.assertEqual(result[0]["name"], "pt-pt.pdf")
-        self.assertEqual(result[0]["sps_pkg_name"], "pt-pt.pdf")
+        self.assertEqual(result[0]["name"], "xmlname-pt.pdf")
+        self.assertEqual(result[0]["sps_pkg_name"], "provided-pt.pdf")
 
     def test_uses_deprecated_fallback_sps_pkg_name_when_nothing_provided(self):
         xml_with_pre = self._setup(zip_namelist=["artigo.pdf"], provided_name=None)
