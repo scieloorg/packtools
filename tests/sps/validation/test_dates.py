@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
@@ -1452,3 +1452,152 @@ class TestHistoryValidationRegression(TestCase):
                       "'accepted' deve constar em missing_events")
         self.assertNotIn("received", validator.missing_events,
                          "'received' está presente no histórico e não deve aparecer em missing_events")
+
+
+class TestPubDateFutureAndCollectionDistanceValidation(TestCase):
+    """Testes para as regras 9 e 10 (issue #1268):
+
+    - pub-date[@date-type="pub"] não pode estar no futuro além de uma
+      tolerância em dias (regra 1 da issue). Reproduz o bug real: o artigo
+      0102-6720-abcd-39-e1948 teve pub-date pub=2029 (digitado por engano
+      no lugar de 2026) e ficou oculto na produção sem gerar erro.
+    - pub-date pub não pode ser mais de N meses anterior ao ano de
+      pub-date[@date-type="collection"] (regra 2 da issue).
+    - Coleções retrospectivas (pub muito posterior ao collection, mas não
+      no futuro) continuam permitidas (regra 3 da issue) — testado como
+      guarda de regressão, já que não há checagem que bloqueie esse caso.
+
+    O parâmetro "today" é injetado nos params para tornar os testes
+    determinísticos, sem depender do relógio real da máquina.
+    """
+
+    TODAY = date(2026, 6, 15)
+
+    def _make_params(self, **overrides):
+        params = {
+            "parent": {"parent": "article"},
+            "required_events": [],
+            "pre_pub_ordered_events": [
+                "preprint", "received", "rev-request", "rev-recd", "revised", "accepted"
+            ],
+            "pos_pub_ordered_events": ["pub", "resubmitted", "corrected", "retracted"],
+            "required_history_events_for_article_type": {},
+            "required_history_events_for_related_article_type": {},
+            "today": self.TODAY,
+        }
+        params.update(overrides)
+        return params
+
+    def _article_xml(self, pub_date, collection_year=None):
+        collection_block = ""
+        if collection_year is not None:
+            collection_block = f"""
+                    <pub-date publication-format="electronic" date-type="collection">
+                        <year>{collection_year}</year>
+                    </pub-date>"""
+        return f"""
+        <article article-type="research-article" xml:lang="pt">
+            <front>
+                <article-meta>
+                    <pub-date publication-format="electronic" date-type="pub">
+                        <day>{pub_date.day:02d}</day><month>{pub_date.month:02d}</month><year>{pub_date.year}</year>
+                    </pub-date>{collection_block}
+                </article-meta>
+            </front>
+        </article>
+        """
+
+    def _results(self, pub_date, collection_year=None, **param_overrides):
+        tree = etree.fromstring(self._article_xml(pub_date, collection_year))
+        validator = FulltextDatesValidation(tree, self._make_params(**param_overrides))
+        results = list(validator.validate())
+        future = [r for r in results if r["title"] == "pub-date pub not in future"]
+        distance = [r for r in results if r["title"] == "pub-date pub not too far before collection"]
+        return future, distance
+
+    # Regra 1: pub não pode estar no futuro -----------------------------
+
+    def test_pub_equal_today_is_ok(self):
+        future, _ = self._results(self.TODAY, collection_year=self.TODAY.year)
+        self.assertEqual(1, len(future))
+        self.assertEqual("OK", future[0]["response"])
+
+    def test_pub_within_future_tolerance_is_ok(self):
+        pub = self.TODAY + timedelta(days=5)
+        future, _ = self._results(
+            pub, collection_year=self.TODAY.year, pub_date_future_tolerance_days=5
+        )
+        self.assertEqual("OK", future[0]["response"])
+
+    def test_pub_far_in_future_is_error(self):
+        """Reproduz o bug real da issue: pub 3 anos à frente (2029 vs 2026)."""
+        pub = date(self.TODAY.year + 3, 1, 1)
+        future, _ = self._results(pub, collection_year=self.TODAY.year)
+        self.assertEqual("CRITICAL", future[0]["response"])
+        self.assertIn("must not be later than", future[0]["advice"])
+
+    # Regra 4: pub == collection -----------------------------------------
+
+    def test_pub_equal_collection_year_is_ok(self):
+        pub = date(self.TODAY.year, 3, 1)
+        future, distance = self._results(pub, collection_year=self.TODAY.year)
+        self.assertEqual("OK", future[0]["response"])
+        self.assertEqual("OK", distance[0]["response"])
+
+    # Regra 2: pub não pode ser muito anterior ao collection -------------
+
+    def test_pub_up_to_12_months_before_collection_is_ok(self):
+        collection_year = self.TODAY.year
+        pub = date(collection_year - 1, 2, 1)  # dentro da tolerância de 12 meses
+        _, distance = self._results(pub, collection_year=collection_year)
+        self.assertEqual("OK", distance[0]["response"])
+
+    def test_pub_more_than_12_months_before_collection_is_error(self):
+        collection_year = self.TODAY.year
+        pub = date(collection_year - 2, 1, 1)  # bem além da tolerância de 12 meses
+        _, distance = self._results(pub, collection_year=collection_year)
+        self.assertEqual("CRITICAL", distance[0]["response"])
+        self.assertIn("must not be more than", distance[0]["advice"])
+
+    # Regra 3: coleção retrospectiva (pub muito posterior ao collection) -
+
+    def test_pub_many_years_after_collection_but_not_future_is_ok(self):
+        """Coleção retrospectiva: pub muito posterior ao collection, mas <= hoje."""
+        collection_year = self.TODAY.year - 100
+        future, distance = self._results(self.TODAY, collection_year=collection_year)
+        self.assertEqual("OK", future[0]["response"])
+        self.assertEqual("OK", distance[0]["response"])
+
+    def test_pub_many_years_after_collection_and_in_future_is_error(self):
+        """Mesmo em coleção retrospectiva, pub não pode estar no futuro."""
+        collection_year = self.TODAY.year - 100
+        pub = date(self.TODAY.year + 3, 1, 1)
+        future, distance = self._results(pub, collection_year=collection_year)
+        self.assertEqual("CRITICAL", future[0]["response"])
+        # A distância para trás não é violada (pub é muito posterior ao collection)
+        self.assertEqual("OK", distance[0]["response"])
+
+    # Casos sem collection -------------------------------------------------
+
+    def test_no_collection_date_skips_distance_rule(self):
+        _, distance = self._results(self.TODAY, collection_year=None)
+        self.assertEqual([], distance)
+
+    def test_no_pub_date_skips_both_rules(self):
+        tree = etree.fromstring("""
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <pub-date publication-format="electronic" date-type="collection">
+                            <year>2026</year>
+                        </pub-date>
+                    </article-meta>
+                </front>
+            </article>
+        """)
+        validator = FulltextDatesValidation(tree, self._make_params())
+        results = list(validator.validate())
+        future = [r for r in results if r["title"] == "pub-date pub not in future"]
+        distance = [r for r in results if r["title"] == "pub-date pub not too far before collection"]
+        self.assertEqual([], future)
+        self.assertEqual([], distance)
