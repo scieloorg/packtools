@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from packtools.sps.models.dates import FulltextDates
 from packtools.sps.validation.utils import build_response, get_future_date
@@ -284,6 +284,12 @@ class FulltextDatesValidation:
             "pub_date_uniqueness_error_level": "ERROR",
             "day_value_error_level": "ERROR",
             "month_value_error_level": "ERROR",
+            "pub_date_future_error_level": "CRITICAL",
+            "pub_date_past_collection_error_level": "CRITICAL",
+            # pub-date sanity tolerances (issue #1268)
+            "pub_date_future_tolerance_days": 0,
+            "pub_date_past_collection_tolerance_months": 12,
+            "today": None,
             # Event lists — alinhados com article_dates_rules.json
             "required_events": ["received", "accepted"],
             "pre_pub_ordered_events": [
@@ -329,6 +335,8 @@ class FulltextDatesValidation:
         yield from self.validate_pub_date_collection_required_year()
         yield from self.validate_pub_date_collection_no_day()
         yield from self.validate_day_month_values()
+        yield from self.validate_pub_date_not_in_future()
+        yield from self.validate_pub_date_not_too_far_before_collection()
         yield from self.validate_article_date()
         yield from self.validate_collection_date()
         yield from self.validate_history_dates()
@@ -552,6 +560,85 @@ class FulltextDatesValidation:
                     data=date_data,
                     error_level=self.params["month_value_error_level"],
                 )
+
+    def validate_pub_date_not_in_future(self):
+        """Rule 9: Validate that pub-date[@date-type='pub'] is not later than
+        today + tolerance (days). Catches typos such as year 2029 instead of
+        2026, which OPAC silently hides from public access (issue #1268).
+        Only applies to main article (not sub-articles).
+        """
+        if self.fulltext.tag != "article":
+            return
+        epub_date_model = self.fulltext.epub_date_model
+        pub_date = epub_date_model and epub_date_model.date
+        if not pub_date:
+            return
+
+        tolerance_days = self.params["pub_date_future_tolerance_days"]
+        today = self.params.get("today") or date.today()
+        limit = today + timedelta(days=tolerance_days)
+        is_valid = pub_date <= limit
+
+        yield build_response(
+            title="pub-date pub not in future",
+            parent=self.params["parent"],
+            item="pub-date",
+            sub_item="pub",
+            validation_type="value",
+            is_valid=is_valid,
+            expected=f'<pub-date date-type="pub"> no later than {limit.isoformat()}',
+            obtained=pub_date.isoformat(),
+            advice=f'<pub-date date-type="pub"> ({pub_date.isoformat()}) must not be later than {limit.isoformat()}',
+            advice_text=i18n._('<pub-date date-type="pub"> ({pub_date}) must not be later than {limit}'),
+            advice_params={
+                "pub_date": pub_date.isoformat(),
+                "limit": limit.isoformat(),
+            },
+            data=self.fulltext.epub_date,
+            error_level=self.params["pub_date_future_error_level"],
+        )
+
+    def validate_pub_date_not_too_far_before_collection(self):
+        """Rule 10: Validate that pub-date[@date-type='pub'] is not more than
+        N months before the collection year (issue #1268, regra 2).
+        Only applies to main article (not sub-articles).
+        """
+        if self.fulltext.tag != "article":
+            return
+        epub_date_model = self.fulltext.epub_date_model
+        pub_date = epub_date_model and epub_date_model.date
+        collection_date = self.fulltext.collection_date
+        collection_year = collection_date and collection_date.get("year")
+        if not pub_date or not collection_year:
+            return
+        try:
+            collection_start = date(int(collection_year), 1, 1)
+        except (ValueError, TypeError):
+            return
+
+        tolerance_months = self.params["pub_date_past_collection_tolerance_months"]
+        earliest_allowed = collection_start - timedelta(days=30 * tolerance_months)
+        is_valid = pub_date >= earliest_allowed
+
+        yield build_response(
+            title="pub-date pub not too far before collection",
+            parent=self.params["parent"],
+            item="pub-date",
+            sub_item="pub",
+            validation_type="value",
+            is_valid=is_valid,
+            expected=f'<pub-date date-type="pub"> no earlier than {earliest_allowed.isoformat()} ({tolerance_months} months before collection year {collection_year})',
+            obtained=pub_date.isoformat(),
+            advice=f'<pub-date date-type="pub"> ({pub_date.isoformat()}) must not be more than {tolerance_months} months before <pub-date date-type="collection"> year ({collection_year})',
+            advice_text=i18n._('<pub-date date-type="pub"> ({pub_date}) must not be more than {tolerance_months} months before <pub-date date-type="collection"> year ({collection_year})'),
+            advice_params={
+                "pub_date": pub_date.isoformat(),
+                "tolerance_months": tolerance_months,
+                "collection_year": collection_year,
+            },
+            data=self.fulltext.epub_date,
+            error_level=self.params["pub_date_past_collection_error_level"],
+        )
 
     def validate_article_date(self):
         """Validate the main article date."""
