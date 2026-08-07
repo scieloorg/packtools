@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from packtools.sps.formats import pubmed
 from packtools.sps.utils import xml_utils
@@ -27,7 +28,12 @@ def main():
     arguments = parser.parse_args()
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
-    xml_pubmed = pubmed.pipeline_pubmed(xml_tree)
+    try:
+        xml_pubmed = pubmed.pipeline_pubmed(xml_tree)
+    except pubmed.MissingRequiredElementError as exc:
+        print(f"Erro: {exc}", file=sys.stderr)
+        raise SystemExit(1)
+
     with open(arguments.path_to_write, "w", encoding="utf-8") as file:
         file.write(xml_pubmed)
         print(f"Arquivo criado em: {arguments.path_to_write}")
