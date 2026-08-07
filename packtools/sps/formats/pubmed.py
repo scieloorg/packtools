@@ -16,6 +16,19 @@ from packtools.sps.models import (
 )
 
 
+class MissingRequiredElementError(Exception):
+    """Raised when a SciELO article has no data for an element the PubMed
+    DTD marks as required (no `?`), so a valid <Article> cannot be built
+    for it. `element_path` identifies which element (e.g. "Journal/PubDate")."""
+
+    def __init__(self, element_path):
+        self.element_path = element_path
+        super().__init__(
+            f"{element_path} é obrigatório na DTD do PubMed e não foi "
+            "possível determinar seu valor para este artigo."
+        )
+
+
 def xml_pubmed_article_pipe():
     return ET.Element("Article")
 
@@ -113,9 +126,15 @@ def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
 
 
 def get_date(xml_tree):
+    """
+    article_date (epub) alone misses articles whose only pub-date is tagged
+    date-type="collection"/pub-type="epub-ppub" or "collection" -- common in
+    older SciELO articles (~80% of tests/samples/*.xml). Same collection_date
+    fallback already used by references.py and oai_dc.py for this reason.
+    """
     date = dates.ArticleDates(xml_tree)
 
-    return date.article_date
+    return date.article_date or date.collection_date
 
 
 def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
@@ -127,20 +146,21 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
     </PubDate>
     """
     date = get_date(xml_tree)
-    if date is not None:
-        dt = ET.Element("PubDate")
-        dt.set("PubStatus", "epublish")
-        for element in ["year", "month", "day"]:
-            # TODO
-            # Season
-            # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
-            # There is no example of using this value in the files.
+    if date is None:
+        raise MissingRequiredElementError("Journal/PubDate")
+    dt = ET.Element("PubDate")
+    dt.set("PubStatus", "epublish")
+    for element in ["year", "month", "day"]:
+        # TODO
+        # Season
+        # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
+        # There is no example of using this value in the files.
 
-            if date.get(element):
-                el = ET.Element(element.capitalize())
-                el.text = date.get(element)
-                dt.append(el)
-        xml_pubmed.find("Journal").append(dt)
+        if date.get(element):
+            el = ET.Element(element.capitalize())
+            el.text = date.get(element)
+            dt.append(el)
+    xml_pubmed.find("Journal").append(dt)
 
 
 def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
@@ -192,9 +212,14 @@ def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
 
 
 def get_first_page(xml_tree):
+    """
+    Prefers the real //fpage (traditional pagination); falls back to
+    //elocation-id for continuous-publication articles that have no fpage
+    at all -- NCBI's own convention for representing those in FirstPage.
+    """
     issue = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
 
-    return issue.elocation_id
+    return issue.fpage or issue.elocation_id
 
 
 def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
@@ -206,6 +231,23 @@ def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
         el = ET.Element("FirstPage")
         el.set("LZero", "save")
         el.text = first_page
+        xml_pubmed.append(el)
+
+
+def get_last_page(xml_tree):
+    issue = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
+
+    return issue.lpage
+
+
+def xml_pubmed_last_page_pipe(xml_pubmed, xml_tree):
+    """
+    <LastPage>232</LastPage>
+    """
+    last_page = get_last_page(xml_tree)
+    if last_page is not None:
+        el = ET.Element("LastPage")
+        el.text = last_page
         xml_pubmed.append(el)
 
 
@@ -256,7 +298,20 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
-def pipeline_pubmed(xml_tree, pretty_print=True):
+PUBMED_DOCTYPE = (
+    '<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 3.0//EN" '
+    '"https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">'
+)
+
+
+def xml_pubmed_article_set_pipe():
+    return ET.Element("ArticleSet")
+
+
+def build_pubmed_article(xml_tree):
+    """
+    Builds a single <Article> element for one SciELO XML tree.
+    """
     xml_pubmed = xml_pubmed_article_pipe()
     xml_pubmed_journal_pipe(xml_pubmed)
     xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
@@ -266,23 +321,65 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
     xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_last_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
     xml_pubmed_author_list(xml_pubmed, xml_tree)
     xml_pubmed_publication_type(xml_pubmed, xml_tree)
     xml_pubmed_article_id(xml_pubmed, xml_tree)
     xml_pubmed_history(xml_pubmed, xml_tree)
+    xml_pubmed_abstract(xml_pubmed, xml_tree)
+    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
     xml_pubmed_copyright_information(xml_pubmed, xml_tree)
     xml_pubmed_coi_statement(xml_pubmed, xml_tree)
     xml_pubmed_object_list(xml_pubmed, xml_tree)
     xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
     xml_pubmed_citations(xml_pubmed, xml_tree)
-    xml_pubmed_abstract(xml_pubmed, xml_tree)
-    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
+    return xml_pubmed
 
-    xml_tree = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode("utf-8")
+
+def build_article_set_xml(articles, pretty_print=True):
+    """
+    Wraps a list of already-built <Article> elements (see build_pubmed_article)
+    into the complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
+    <ArticleSet>).
+    """
+    article_set = xml_pubmed_article_set_pipe()
+    for article in articles:
+        article_set.append(article)
+
+    return ET.tostring(
+        ET.ElementTree(article_set),
+        pretty_print=pretty_print,
+        encoding="utf-8",
+        xml_declaration=True,
+        doctype=PUBMED_DOCTYPE,
+    ).decode("utf-8")
+
+
+def pipeline_pubmed_set(xml_trees, pretty_print=True):
+    """
+    Builds a complete PubMed XML document (<!DOCTYPE ArticleSet ...> +
+    <ArticleSet>) containing one <Article> per SciELO XML tree in xml_trees.
+
+    Raises MissingRequiredElementError immediately if any xml_tree is
+    missing data for a DTD-required element (e.g. no usable publication
+    date). Callers that want to skip such articles
+    instead of failing the whole batch (e.g. the batch CLI) should build
+    each <Article> themselves via build_pubmed_article and assemble the
+    final document with build_article_set_xml.
+    """
+    articles = [build_pubmed_article(xml_tree) for xml_tree in xml_trees]
+    return build_article_set_xml(articles, pretty_print=pretty_print)
+
+
+def pipeline_pubmed(xml_tree, pretty_print=True):
+    """
+    Builds a complete PubMed XML document for a single SciELO XML tree.
+    """
+    return pipeline_pubmed_set([xml_tree], pretty_print=pretty_print)
 
 
 def get_authors(xml_tree):
@@ -625,8 +722,17 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
             </Reference>
      </ReferenceList>
     """
-    refs = references.XMLReferences(xml_tree).main_references
+    refs = list(references.XMLReferences(xml_tree).main_references)
+    if not refs:
+        return
     xml = xml_pubmed.find("./ReferenceList")
+    if xml is None:
+        # ref-list/title is optional in JATS; xml_pubmed_title_reference_list
+        # only creates <ReferenceList> when a title is present, but a
+        # reference list without a <Title> is still valid per the DTD
+        # (`ReferenceList (Title?, Reference*, ReferenceList*)`).
+        xml = ET.Element("ReferenceList")
+        xml_pubmed.append(xml)
     for ref in refs:
         ref_el = ET.Element("Reference")
         citation = ET.Element("Citation")
