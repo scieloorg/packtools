@@ -65,8 +65,8 @@ EXTRAS_REQUIRE = {
     'webapp':[
         'Flask',
         'flask-babel',
-        'Flask-WTF',
-        'Werkzeug',
+        'Flask-WTF>=1.2.0',
+        'Werkzeug<3.0',
     ]
 }
 
@@ -74,7 +74,7 @@ EXTRAS_REQUIRE = {
 TESTS_REQUIRE = [
     'Flask-Testing>=0.6.2',
     'flask-babel',
-    'Flask-WTF',
+    'Flask-WTF>=1.2.0',
     'python-magic',
     'charset-normalizer<3.0',
 ]
