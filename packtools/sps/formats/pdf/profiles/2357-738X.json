@@ -11,6 +11,9 @@
   "calibration": {
     "source": "measured",
     "reference_pdf": "SciELO pilot download, article RytVCPNJPpW4cfyntgNHcqt",
-    "date": "2026-08-12"
-  }
+    "date": "2026-08-13"
+  },
+  "known_limitations": [
+    "figure_width_scale_override deliberately left unset: measured 7 of this journal's 11 figures against the reference PDF by image-content hash. The 4 within-column figures that render at their DPI-trustworthy natural size (Figures 1, 9, 10, 11) match the target almost exactly (~357-358pt on both sides). But 3 others (Figures 3, 4, 5) render ~30% WIDER in the generated PDF than in the target (e.g. Figure 4: 357pt target vs ~468pt generated), even though their measured natural size differs from Figures 1/9/10/11's. This suggests the journal may use a FIXED width (~357pt) for within-column figures regardless of each image's individual natural size, rather than a natural-size-based rule - the opposite kind of parameter from figure_width_scale_override (which scales the ceiling, not clamps to a fixed value). Not implemented: would need a new profile field (e.g. figure_width_fixed_pt) and confirmation this holds across more than 7 sampled figures before trusting it as a real per-journal rule."
+  ]
 }
