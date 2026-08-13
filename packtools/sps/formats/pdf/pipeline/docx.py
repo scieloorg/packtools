@@ -1,4 +1,5 @@
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.layout_config import LayoutConfig, load_profile
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
@@ -10,12 +11,22 @@ def pipeline_docx(xml_tree, data):
 
     Args:
         xml_tree: The XML tree containing the article data.
-        data: Additional data for the DOCX generation.
+        data: Additional data for the DOCX generation. An explicit
+            data['layout_config'] (a LayoutConfig) takes precedence; otherwise
+            the journal's electronic ISSN is read from xml_tree and its
+            calibrated profile (packtools/sps/formats/pdf/profiles/{issn}.json)
+            is loaded automatically - falling back to the default (A4, 2
+            columns) when the journal hasn't been calibrated yet.
 
     Returns:
         A DOCX Document object.
     """
     docx = docx_renderer.builder.init_docx(data)
+
+    layout_config = data.get('layout_config')
+    if layout_config is None:
+        issn_epub = xml_pipe.extract_issn_epub(xml_tree)
+        layout_config = LayoutConfig(profile=load_profile(issn_epub)) if issn_epub else LayoutConfig()
 
     # First page header
     journal_title = xml_pipe.extract_journal_title(xml_tree)
@@ -63,8 +74,8 @@ def pipeline_docx(xml_tree, data):
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
-    body_data = xml_pipe.extract_body_data(xml_tree)
-    docx_body_pipe(docx, body_data)
+    body_data = xml_pipe.extract_body_data(xml_tree, layout_config=layout_config)
+    docx_body_pipe(docx, body_data, layout_config=layout_config)
     
     # Acknowledgments
     acknow_data = xml_pipe.extract_acknowledgment_data(xml_tree)
@@ -81,8 +92,9 @@ def pipeline_docx(xml_tree, data):
         docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
 
     # Setting up sections
-    docx_renderer.section.docx_setup_sections(docx)
-    
+    page_attributes = layout_config.profile.to_page_attributes(pdf_enum.PAGE_ATTRIBUTES)
+    docx_renderer.section.docx_setup_sections(docx, page_attributes=page_attributes)
+
     return docx
 
 def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Title Char'):
@@ -386,21 +398,23 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     para.style = docx.styles[paragraph_style_name]
     para.add_run(f"{footer_data['fpage']} | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
 
-def docx_body_pipe(docx, body_data):
+def docx_body_pipe(docx, body_data, layout_config=None):
     """
     Adds the body content to the DOCX document.
 
     Args:
         docx (python-docx.Document): The DOCX document object.
         body_data (list): The list of body sections to be added.
+        layout_config (LayoutConfig, optional): Layout context passed through to
+            the body's column setup and to each section's tables/figures.
 
     Returns:
         None
     """
-    _setup_two_column_body_section(docx)
+    _setup_two_column_body_section(docx, layout_config=layout_config)
 
     for section_data in body_data:
-        _render_body_section(docx, section_data)
+        _render_body_section(docx, section_data, layout_config=layout_config)
 
 
 def docx_references_pipe(
@@ -484,21 +498,36 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # Private helpers
 # -----------------
 
-def _setup_two_column_body_section(docx):
-    """Create or get the second section and set it to two columns."""
+def _setup_two_column_body_section(docx, layout_config=None):
+    """
+    Create or get the second section and set its column count.
+
+    Args:
+        docx: The Document to set up.
+        layout_config (LayoutConfig, optional): When given, the column count and
+            spacing come from layout_config instead of the hardcoded "always 2
+            columns" default - this is what lets a 1-column journal (calibrated
+            via a profile in packtools/sps/formats/pdf/profiles/) actually render
+            as 1 column.
+    """
     section = docx_renderer.section.get_or_create_second_section(docx)
-    docx_renderer.section.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    if layout_config is not None:
+        column_count = layout_config.column_count
+        spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    else:
+        column_count, spacing = 2, pdf_enum.TWO_COLUMNS_SPACING
+    docx_renderer.section.setup_section_columns(section, column_count, spacing)
 
 
-def _render_body_section(docx, section_data):
+def _render_body_section(docx, section_data, layout_config=None):
     """Render a single body section including title, paragraphs, tables, and figures."""
     level = section_data.get('level')
     section_style_name = docx_renderer.style.level_to_style(level)
 
     _render_section_title(docx, section_data.get('title'), section_style_name, level)
     _render_paragraphs(docx, section_data.get('paragraphs', []))
-    _render_tables(docx, section_data.get('tables', []))
-    _render_figures(docx, section_data.get('figures', []))
+    _render_tables(docx, section_data.get('tables', []), layout_config=layout_config)
+    _render_figures(docx, section_data.get('figures', []), layout_config=layout_config)
 
 
 def _render_section_title(docx, title, style_name, level):
@@ -520,42 +549,58 @@ def _add_single_column_section(docx):
     return single_col_section
 
 
-def _add_two_column_section(docx):
-    """Insert a continuous section break and set a two column layout. Returns the section."""
+def _add_two_column_section(docx, layout_config=None):
+    """
+    Insert a continuous section break and restore the body's column layout.
+    Returns the section.
+
+    Args:
+        docx: The Document to insert the section into.
+        layout_config (LayoutConfig, optional): When given, restores
+            layout_config.column_count columns (1 or 2) instead of always 2 -
+            see _setup_two_column_body_section.
+    """
+    if layout_config is not None:
+        column_count = layout_config.column_count
+        spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    else:
+        column_count, spacing = 2, pdf_enum.TWO_COLUMNS_SPACING
     multi_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
-    docx_renderer.section.setup_section_columns(multi_col_section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    docx_renderer.section.setup_section_columns(multi_col_section, column_count, spacing)
     return multi_col_section
 
 
-def _render_tables(docx, tables):
+def _render_tables(docx, tables, layout_config=None):
     """Render tables, switching to single column when required by layout."""
     for table in tables:
         if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
             _add_single_column_section(docx)
-            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
-            _add_two_column_section(docx)
+            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES, layout_config=layout_config)
+            _add_two_column_section(docx, layout_config=layout_config)
         else:
-            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES, layout_config=layout_config)
 
 
-def _figure_layout(docx, fig):
+def _figure_layout(docx, fig, layout_config=None):
     """Resolve and cache figure layout if not provided."""
     layout = fig.get('layout') if isinstance(fig, dict) else None
     if not layout:
-        layout = docx_renderer.figure.decide_figure_layout(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+        layout = docx_renderer.figure.decide_figure_layout(
+            docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES, layout_config=layout_config
+        )
         if isinstance(fig, dict):
             fig['layout'] = layout
     return layout
 
 
-def _render_figures(docx, figures):
+def _render_figures(docx, figures, layout_config=None):
     """Render figures, switching to single column when the layout requires it."""
     for fig in figures:
-        layout = _figure_layout(docx, fig)
+        layout = _figure_layout(docx, fig, layout_config=layout_config)
 
         if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
             _add_single_column_section(docx)
-            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
-            _add_two_column_section(docx)
+            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES, layout_config=layout_config)
+            _add_two_column_section(docx, layout_config=layout_config)
         else:
-            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES, layout_config=layout_config)
