@@ -2,6 +2,7 @@ import unittest
 
 from lxml import etree
 
+from packtools.sps.formats.pdf.layout_config import LayoutConfig, PageProfile
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 
 
@@ -1242,3 +1243,62 @@ class TestExtractTransAbstractData(unittest.TestCase):
             namespaces={'xml': 'http://custom.namespace'}
         )
         self.assertEqual(result, expected)
+
+
+class TestExtractIssnEpub(unittest.TestCase):
+
+    def test_extracts_electronic_issn(self):
+        xml = etree.fromstring(
+            '<article><front><journal-meta>'
+            '<issn pub-type="ppub">0044-5967</issn>'
+            '<issn pub-type="epub">1809-4392</issn>'
+            '</journal-meta></front></article>'
+        )
+        self.assertEqual(xml_pipe.extract_issn_epub(xml), '1809-4392')
+
+    def test_returns_none_when_absent(self):
+        xml = etree.fromstring('<article><front><journal-meta/></front></article>')
+        self.assertIsNone(xml_pipe.extract_issn_epub(xml))
+
+
+def _table_wrap_with_columns(n_columns):
+    cells = ''.join(f'<th>c{i}</th>' for i in range(n_columns))
+    return etree.fromstring(
+        f'<table-wrap id="t1"><table><thead><tr>{cells}</tr></thead>'
+        f'<tbody><tr>{cells}</tr></tbody></table></table-wrap>'
+    )
+
+
+class TestDetermineTableLayout(unittest.TestCase):
+
+    def test_without_layout_config_matches_legacy_heuristic(self):
+        self.assertEqual(
+            xml_pipe.determine_table_layout(_table_wrap_with_columns(5)),
+            'single-column-layout',
+        )
+        self.assertEqual(
+            xml_pipe.determine_table_layout(_table_wrap_with_columns(4)),
+            'double-column-layout',
+        )
+
+    def test_with_layout_config_uses_the_same_heuristic_result(self):
+        # determine_table_layout does not have real per-column widths available
+        # (see LayoutConfig.decide_table_layout's column_min_widths_pt param),
+        # so passing a layout_config still resolves through the same ">4
+        # columns" heuristic fallback as the legacy path - column_count itself
+        # does not change this specific decision yet. This test documents that
+        # current, known limitation rather than assuming it away.
+        cfg = LayoutConfig(profile=PageProfile(default_column_count=1))
+        layout = xml_pipe.determine_table_layout(_table_wrap_with_columns(5), layout_config=cfg)
+        self.assertEqual(layout, 'single-column-layout')
+
+    def test_with_layout_config_matches_legacy_for_two_columns(self):
+        cfg = LayoutConfig(profile=PageProfile(default_column_count=2))
+        self.assertEqual(
+            xml_pipe.determine_table_layout(_table_wrap_with_columns(5), layout_config=cfg),
+            xml_pipe.determine_table_layout(_table_wrap_with_columns(5)),
+        )
+
+    def test_missing_table_element_defaults_to_double_column(self):
+        table_wrap = etree.fromstring('<table-wrap id="t1"/>')
+        self.assertEqual(xml_pipe.determine_table_layout(table_wrap), 'double-column-layout')
