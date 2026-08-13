@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issn_epub": "2357-738X",
+  "issn_ppub": "0102-4302",
+  "journal_name": "Anuário Antropológico",
+  "journal_acronym": "aantropol",
+  "page": {
+    "page_height_pt": 841.89,
+    "default_column_count": 1
+  },
+  "calibration": {
+    "source": "measured",
+    "reference_pdf": "SciELO pilot download, article RytVCPNJPpW4cfyntgNHcqt",
+    "date": "2026-08-12"
+  }
+}
