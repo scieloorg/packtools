@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "issn_epub": "1809-4392",
+  "issn_ppub": "0044-5967",
+  "journal_name": "Acta Amazonica",
+  "journal_acronym": "aa",
+  "page": {
+    "page_height_pt": 793.7,
+    "default_column_count": 2
+  },
+  "calibration": {
+    "source": "measured",
+    "reference_pdf": "tests/fixtures/pdf/a1.pdf (packtools test fixture)",
+    "date": "2026-08-12"
+  }
+}
