@@ -6,11 +6,13 @@
   "journal_acronym": "aa",
   "page": {
     "page_height_pt": 793.7,
-    "default_column_count": 2
+    "default_column_count": 2,
+    "figure_width_scale_override": 0.7236
   },
   "calibration": {
     "source": "measured",
     "reference_pdf": "tests/fixtures/pdf/a1.pdf (packtools test fixture)",
-    "date": "2026-08-12"
+    "date": "2026-08-13",
+    "notes": "figure_width_scale_override = 348.7pt (Figura 1 medida no PDF real) / 481.9pt (teto de largura total computado) = 0.7236. Calibrado a partir de um unico dado (Figura 1) - pode nao generalizar pra outras figuras deste periodico."
   }
 }
