@@ -1,4 +1,5 @@
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.layout_config import LayoutConfig
 from packtools.sps.formats.pdf.utils import xml_utils
 
 
@@ -43,6 +44,24 @@ def extract_journal_title(xml_tree, return_text=True):
     if return_text:
         return ''.join(node.itertext()).strip()
     return node
+
+def extract_issn_epub(xml_tree):
+    """
+    Extracts the journal's electronic ISSN from the given XML tree.
+
+    This is the same identifier SciELO uses as the key in its own asset storage
+    (minio.scielo.br/documentstore/{issn_epub}/...), which is why it is used to
+    look up a journal's calibrated layout profile - see
+    packtools.sps.formats.pdf.layout_config.load_profile.
+
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the ISSN from.
+
+    Returns:
+        str or None: The electronic ISSN (e.g. "1809-4392"), or None if absent.
+    """
+    node = xml_tree.find('.//issn[@pub-type="epub"]')
+    return node.text if node is not None else None
 
 def extract_doi(xml_tree, return_text=True):
     """
@@ -319,13 +338,15 @@ def extract_cite_as_part_one(xml_tree, return_node=False):
             else:
                 return part_one.text
 
-def extract_body_data(xml_tree):
+def extract_body_data(xml_tree, layout_config=None):
     """
     Extracts the body data from an XML tree, including section titles, paragraphs, and tables.
-    
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the body data from.
-    
+        layout_config (LayoutConfig, optional): Layout context passed through to
+            extract_table_data for each table's width decision.
+
     Returns:
         list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
             - 'level': The nesting level of the section.
@@ -359,7 +380,7 @@ def extract_body_data(xml_tree):
 
         # Tables within the section
         for table_wrap in document_section.findall('.//table-wrap'):
-            sec['tables'].append(extract_table_data(table_wrap))
+            sec['tables'].append(extract_table_data(table_wrap, layout_config=layout_config))
 
         # Figures within the section (deduplicated across the body)
         for fig in document_section.findall('.//fig'):
@@ -561,13 +582,15 @@ def extract_supplementary_data(xml_tree):
                     })
     return data
 
-def extract_table_data(table_wrap):
+def extract_table_data(table_wrap, layout_config=None):
     """
     Extracts table data from an XML table-wrap element, handling merged cells.
-    
+
     Args:
         table_wrap (ElementTree): The XML table-wrap element to extract data from.
-    
+        layout_config (LayoutConfig, optional): Layout context to consult for the
+            table's width decision. See determine_table_layout.
+
     Returns:
         dict: A dictionary containing the following keys:
             - 'label': The text content of the table label element, or an empty string if not found.
@@ -588,7 +611,7 @@ def extract_table_data(table_wrap):
     header_spans = []
     row_spans = []
     table = table_wrap.find('.//table')
-    layout = determine_table_layout(table_wrap)
+    layout = determine_table_layout(table_wrap, layout_config=layout_config)
 
     if table is not None:
         thead = table.find('.//thead')
@@ -619,32 +642,42 @@ def extract_table_data(table_wrap):
         'row_spans': row_spans,
     }
 
-def determine_table_layout(table_wrap):
+def determine_table_layout(table_wrap, layout_config=None):
     """
     Determines the layout of a table based on the number of columns it contains, considering merged cells.
 
     Args:
         table_wrap (ElementTree): The XML table-wrap element to analyze.
+        layout_config (LayoutConfig, optional): Layout context to consult for the
+            decision (page/column geometry calibrated per journal - see
+            packtools.sps.formats.pdf.layout_config). When omitted, falls back to
+            the previous behavior: a fixed ">4 columns" heuristic against an
+            implicit 2-column layout, with no per-journal awareness.
 
     Returns:
         str: A string indicating the table layout. Possible values are 'single-column-layout' and 'double-column-layout'.
     """
     table = table_wrap.find('.//table')
-    if table is not None:
-        # Check both thead and tbody for maximum columns
-        max_columns = 0
-        
-        thead = table.find('.//thead')
-        if thead is not None:
-            max_columns = max(max_columns, _calculate_max_columns(thead, 'th'))
-        
-        tbody = table.find('.//tbody')
-        if tbody is not None:
-            max_columns = max(max_columns, _calculate_max_columns(tbody, 'td'))
-        
-        if max_columns > 4:
-            return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-    
+    if table is None:
+        return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+
+    # Check both thead and tbody for maximum columns
+    max_columns = 0
+
+    thead = table.find('.//thead')
+    if thead is not None:
+        max_columns = max(max_columns, _calculate_max_columns(thead, 'th'))
+
+    tbody = table.find('.//tbody')
+    if tbody is not None:
+        max_columns = max(max_columns, _calculate_max_columns(tbody, 'td'))
+
+    if layout_config is not None:
+        return layout_config.decide_table_layout(n_columns=max_columns).label
+
+    if max_columns > 4:
+        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+
     return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
 
 def get_table_column_info(headers, rows):
