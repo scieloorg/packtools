@@ -23,8 +23,21 @@ def style_cell(cell, bold=False, font_size=7, font_color=None, align='center', b
 
 	_apply_cell_margins(cell)
 
-def add_table(docx, table_data, header_style_name='SCL Table Heading', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
-	"""Adds a table with caption and normalized spacing to a DOCX document."""
+def add_table(docx, table_data, header_style_name='SCL Table Heading', page_attributes=pdf_enum.PAGE_ATTRIBUTES, layout_config=None):
+	"""
+	Adds a table with caption and normalized spacing to a DOCX document.
+
+	Args:
+		docx: The Document to insert the table into.
+		table_data (dict): Table content and layout, as returned by
+			packtools.sps.formats.pdf.pipeline.xml.extract_table_data.
+		header_style_name (str): Style name applied to the caption paragraph.
+		page_attributes (dict): Page geometry, used when layout_config is not given.
+		layout_config (LayoutConfig, optional): Layout context to consult for the
+			table's width (see packtools.sps.formats.pdf.layout_config). When
+			omitted, falls back to page_attributes and a fixed "always 2 columns"
+			width formula for tables that stay within the body's column layout.
+	"""
 	# Caption
 	caption = _add_caption_paragraph(docx, table_data, header_style_name)
 
@@ -39,7 +52,7 @@ def add_table(docx, table_data, header_style_name='SCL Table Heading', page_attr
 	total_rows = header_lines + len(rows)
 	table = docx.add_table(rows=max(1, total_rows), cols=num_cols)
 
-	content_width, table_width, layout = _compute_table_width(page_attributes, table_data)
+	content_width, table_width, layout = _compute_table_width(page_attributes, table_data, layout_config=layout_config)
 	_configure_table_properties(table, table_width, layout)
 
 	col_widths = _compute_column_widths(num_cols, table_width, empty_cols)
@@ -232,8 +245,24 @@ def _detect_empty_columns(headers, rows, num_cols):
 
 	return empty_cols
 
-def _compute_table_width(page_attributes, table_data):
-	"""Compute content width and table width based on page attributes and table layout."""
+def _compute_table_width(page_attributes, table_data, layout_config=None):
+	"""
+	Compute content width and table width based on page attributes and table layout.
+
+	Args:
+		page_attributes (dict): Page geometry, used when layout_config is not given.
+		table_data (dict): Table content and layout (reads table_data['layout']).
+		layout_config (LayoutConfig, optional): When given, the "fits within
+			column" width comes from layout_config.column_width_pt - which
+			reflects the document's actual current column count - instead of a
+			fixed "always 2 columns" formula. This matters for a 1-column
+			journal: the previous formula always divided the content width by 2,
+			which is wrong when there is only one column to begin with.
+
+	Returns:
+		tuple: (content_width, table_width, layout), each a python-docx Length
+		except layout which is the legacy string label.
+	"""
 	page_width = page_attributes.get('page_width', Cm(21.0))
 	left_margin = page_attributes.get('left_margin', Cm(2.0))
 	right_margin = page_attributes.get('right_margin', Cm(2.0))
@@ -242,6 +271,8 @@ def _compute_table_width(page_attributes, table_data):
 	layout = table_data.get('layout', pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
 	if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
 		table_width = content_width
+	elif layout_config is not None:
+		table_width = Pt(layout_config.column_width_pt)
 	else:
 		column_spacing = getattr(pdf_enum, 'TWO_COLUMNS_SPACING', 300)
 		column_spacing = Cm(column_spacing / 567.0)
