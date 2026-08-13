@@ -117,12 +117,18 @@ class PageProfile:
             default_column_count > 1.
         figure_width_scale_override (float, optional): Escape hatch for the figure
             sizing problem confirmed in 2026-08 to not be a deterministic function
-            of image DPI (see known_limitations in profiles/1677-941X.json for a
-            concrete counter-example). None means "use the natural size, capped by
-            the available width" (today's best-effort behavior) - this field exists
-            so a specific journal/figure can be calibrated manually instead of
-            guessed, but is deliberately left unset until there is real calibration
-            data for it.
+            of image DPI. When set, scales the ceiling width used for a figure's
+            layout class (see renderer/docx/figure.py::add_figure) by this
+            factor, so a journal can be calibrated to render narrower (or wider)
+            than its raw column/content width would otherwise produce. None
+            means "use the ceiling as computed, no adjustment". Only apply this
+            when it has been calibrated against a real published PDF for that
+            journal - see profiles/1809-4392.json for a calibrated example and
+            profiles/1677-941X.json's known_limitations for a case where a
+            single per-journal scalar was tried and found NOT to fit (the
+            journal's own Figure 1 needs to be *larger*, not smaller, than its
+            trustworthy natural size - the opposite direction), so it was left
+            unset there rather than guessed.
     """
 
     page_width_pt: float = 595.28
