@@ -49,6 +49,8 @@ def add_figure(
     single_col_width = _compute_single_column_width(page_attributes, layout_config=layout_config)
 
     ceiling_width = content_width if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL else single_col_width
+    if layout_config is not None and layout_config.profile.figure_width_scale_override is not None:
+        ceiling_width = Emu(int(ceiling_width * layout_config.profile.figure_width_scale_override))
     context = _get_docx_context(docx)
     href, alt = _extract_figure_meta(figure_data)
     img_path = _resolve_image_path(href, context)
