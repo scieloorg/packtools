@@ -49,7 +49,7 @@ with open('packtools/version.py') as fp:
 
 INSTALL_REQUIRES = [
     'aiohttp>=3.9.1',
-    'lxml>=4.9.2',
+    'lxml>=6.1.0',
     'langcodes>=3.3.0',
     'langdetect>=1.0.9',
     'picles.plumber>=0.11',

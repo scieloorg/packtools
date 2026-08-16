@@ -31,11 +31,11 @@ PY2 = sys.version_info[0] == 2
 
 try:
     # available on lxml >= 3.4.0
-    NOIDS_XMLPARSER = etree.XMLParser(collect_ids=False)
+    NOIDS_XMLPARSER = etree.XMLParser(collect_ids=False, resolve_entities="internal")
 except TypeError:
     LOGGER.info('cannot instantiate an XML parser that avoids the collection '
                 'of ids from elements.')
-    NOIDS_XMLPARSER = etree.XMLParser()
+    NOIDS_XMLPARSER = etree.XMLParser(resolve_entities="internal")
 
 
 def setdefault(object, attribute, producer):
@@ -96,7 +96,8 @@ def XML(file, no_network=True, load_dtd=True):
     """
     parser = etree.XMLParser(remove_blank_text=True,
                              load_dtd=load_dtd,
-                             no_network=no_network)
+                             no_network=no_network,
+                             resolve_entities="internal")
     xml = etree.parse(file, parser)
 
     return xml
