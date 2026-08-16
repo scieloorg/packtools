@@ -287,7 +287,7 @@ class FulltextDatesValidation:
             "pub_date_future_error_level": "CRITICAL",
             "pub_date_past_collection_error_level": "CRITICAL",
             # pub-date sanity tolerances (issue #1268)
-            "pub_date_future_tolerance_days": 0,
+            "pub_date_future_tolerance_days": 7,
             "pub_date_past_collection_tolerance_months": 12,
             "today": None,
             # Event lists — alinhados com article_dates_rules.json

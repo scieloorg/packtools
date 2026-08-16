@@ -21,7 +21,7 @@
         "month_value_error_level":"ERROR",
         "pub_date_future_error_level":"CRITICAL",
         "pub_date_past_collection_error_level":"CRITICAL",
-        "pub_date_future_tolerance_days":0,
+        "pub_date_future_tolerance_days":7,
         "pub_date_past_collection_tolerance_months":12,
         "required_events":[
             "received",

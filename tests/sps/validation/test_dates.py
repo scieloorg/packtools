@@ -1515,6 +1515,13 @@ class TestPubDateFutureAndCollectionDistanceValidation(TestCase):
         distance = [r for r in results if r["title"] == "pub-date pub not too far before collection"]
         return future, distance
 
+    @staticmethod
+    def _rendered_advice(result):
+        """Renderiza adv_text + adv_params como um consumidor real faria
+        (ex.: spsvalidator), confirmando que os placeholders do template
+        i18n batem com as chaves de adv_params."""
+        return result["adv_text"].format(**result["adv_params"])
+
     # Regra 1: pub não pode estar no futuro -----------------------------
 
     def test_pub_equal_today_is_ok(self):
@@ -1535,6 +1542,11 @@ class TestPubDateFutureAndCollectionDistanceValidation(TestCase):
         future, _ = self._results(pub, collection_year=self.TODAY.year)
         self.assertEqual("CRITICAL", future[0]["response"])
         self.assertIn("must not be later than", future[0]["advice"])
+        self.assertEqual(
+            f'<pub-date date-type="pub"> ({pub.isoformat()}) must not be '
+            f"later than {(self.TODAY + timedelta(days=7)).isoformat()}",
+            self._rendered_advice(future[0]),
+        )
 
     # Regra 4: pub == collection -----------------------------------------
 
@@ -1558,6 +1570,12 @@ class TestPubDateFutureAndCollectionDistanceValidation(TestCase):
         _, distance = self._results(pub, collection_year=collection_year)
         self.assertEqual("CRITICAL", distance[0]["response"])
         self.assertIn("must not be more than", distance[0]["advice"])
+        self.assertEqual(
+            f'<pub-date date-type="pub"> ({pub.isoformat()}) must not be more '
+            f'than 12 months before <pub-date date-type="collection"> year '
+            f"({collection_year})",
+            self._rendered_advice(distance[0]),
+        )
 
     # Regra 3: coleção retrospectiva (pub muito posterior ao collection) -
 
@@ -1574,6 +1592,12 @@ class TestPubDateFutureAndCollectionDistanceValidation(TestCase):
         pub = date(self.TODAY.year + 3, 1, 1)
         future, distance = self._results(pub, collection_year=collection_year)
         self.assertEqual("CRITICAL", future[0]["response"])
+        self.assertIn("must not be later than", future[0]["advice"])
+        self.assertEqual(
+            f'<pub-date date-type="pub"> ({pub.isoformat()}) must not be '
+            f"later than {(self.TODAY + timedelta(days=7)).isoformat()}",
+            self._rendered_advice(future[0]),
+        )
         # A distância para trás não é violada (pub é muito posterior ao collection)
         self.assertEqual("OK", distance[0]["response"])
 
