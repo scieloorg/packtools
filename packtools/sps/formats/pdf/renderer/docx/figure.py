@@ -101,8 +101,14 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
     except Exception:
         return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
 
+    # single_col_width degraded from a Cm object to a raw EMU number in the
+    # subtraction/division above (python-docx's Length has no operator
+    # overloads that preserve units) - convert back to cm so this compares
+    # against width_in_cm in the same unit, instead of cm against EMU.
+    single_col_width_cm = single_col_width / Cm(1)
+
     # If the image is wider than a single column by the threshold factor, prefer a single-column-layout (full width). Otherwise, keep double-column-layout.
-    return pdf_enum.SINGLE_COLUMN_PAGE_LABEL if width_in_cm >= float(threshold) * float(single_col_width) else pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+    return pdf_enum.SINGLE_COLUMN_PAGE_LABEL if width_in_cm >= float(threshold) * single_col_width_cm else pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
 
 
 # -----------------
