@@ -22,11 +22,12 @@ def add_figure(docx, figure_data, header_style_name='SCL Table Heading', page_at
 
     single_col_width = _compute_single_column_width(page_attributes)
 
-    target_width = content_width if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL else single_col_width
+    ceiling_width = content_width if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL else single_col_width
     context = _get_docx_context(docx)
     href, alt = _extract_figure_meta(figure_data)
     img_path = _resolve_image_path(href, context)
 
+    target_width = _natural_width_capped(img_path, ceiling_width)
     picture_added = _try_insert_picture(docx, img_path, target_width, page_attributes)
     if not picture_added:
         _add_alt_paragraph(docx, alt)
@@ -191,15 +192,44 @@ def _resolve_image_path(href, context):
 
     return img_path
 
+def _natural_width_capped(img_path, ceiling_width):
+    """
+    Compute the image's natural width from its DPI metadata, capped at
+    ceiling_width - only ever shrunk to fit, never enlarged.
+    """
+    if not (img_path and os.path.exists(img_path)):
+        return ceiling_width
+    try:
+        from PIL import Image
+
+        with Image.open(img_path) as im:
+            px_w = im.width
+            dpi = _infer_image_dpi(im)
+            natural_width = Cm((px_w / max(1.0, dpi)) * 2.54)
+        return natural_width if natural_width < ceiling_width else ceiling_width
+    except Exception:
+        return ceiling_width
+
 def _try_insert_picture(docx, img_path, content_width, page_attributes):
-    """Try to insert a picture into the document, scaling it to fit content width. Returns True if successful."""
+    """
+    Insert a picture at content_width explicitly, then apply
+    _scale_picture_to_fit as a height safety net. Returns True if successful.
+
+    content_width is passed to add_picture(width=...) instead of left for
+    python-docx to infer: python-docx reads DPI metadata independently of
+    _infer_image_dpi (used above to compute content_width in the first
+    place), and the two can disagree - e.g. a PNG without DPI metadata makes
+    python-docx default to 72 DPI while _infer_image_dpi defaults to 96 DPI,
+    a ~33% size difference. Passing the width explicitly makes content_width
+    the actual inserted size.
+    """
     if not (img_path and os.path.exists(img_path)):
         return False
     try:
         pic_para = docx.add_paragraph()
         run = pic_para.add_run()
-        picture = run.add_picture(img_path)
-        
+        picture = run.add_picture(img_path, width=content_width)
+
         _scale_picture_to_fit(picture, content_width, page_attributes)
         pic_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
         
