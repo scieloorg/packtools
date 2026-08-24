@@ -38,7 +38,7 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
     Decide whether a figure should occupy the full page width (double-column-layout) or a single column (single-column-layout).
 
     Heuristic:
-    - Compute the natural width of the image in centimeters using Pillow and its DPI metadata (tries dpi, jfif_density; defaults to 150 DPI when missing).
+    - Compute the natural width of the image in centimeters using Pillow and its DPI metadata (tries dpi, jfif_density; defaults to 300 DPI when missing).
     - Compute the available content width (page width minus margins) and the single-column width ((content - column_spacing)/2).
     - If natural image width >= threshold * single-column width, return 'double-column-layout'; otherwise 'single-column-layout'.
 
@@ -82,24 +82,21 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
     column_spacing_cm = Cm(column_spacing_twips / 567.0)
     single_col_width = (content_width - column_spacing_cm) / 2
 
-    # Resolve image path (local or download)
-    context = _get_docx_context(docx)
-    href = figure_data.get('href') if isinstance(figure_data, dict) else None
-    img_path = _resolve_image_path(href, context)
-    if not img_path:
+    probe = probe_image_dpi(docx, figure_data)
+    if probe is None:
         return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+    px_w, dpi = probe
 
-    # Open image and compute its natural width in Cm using DPI (default 72 DPI)
-    if not os.path.exists(img_path):
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-    try:
-        with Image.open(img_path) as im:
-            px_w = im.width
-            dpi = _infer_image_dpi(im)
-            # width in inches then to Cm
-            width_in_cm = (px_w / max(1.0, dpi)) * 2.54
-    except Exception:
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+    # A caller may have compared this image's DPI against its siblings and
+    # supplied a more trustworthy value here - see 'layout_dpi_override'.
+    if isinstance(figure_data, dict) and figure_data.get('layout_dpi_override'):
+        try:
+            dpi = float(figure_data['layout_dpi_override'])
+        except (TypeError, ValueError):
+            pass
+
+    # width in inches then to Cm
+    width_in_cm = (px_w / max(1.0, dpi)) * 2.54
 
     # single_col_width degraded from a Cm object to a raw EMU number in the
     # subtraction/division above (python-docx's Length has no operator
@@ -111,9 +108,35 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
     return pdf_enum.SINGLE_COLUMN_PAGE_LABEL if width_in_cm >= float(threshold) * single_col_width_cm else pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
 
 
+def probe_image_dpi(docx, figure_data):
+    """
+    Resolve a figure's image and return its (pixel_width, dpi), or None if
+    the image can't be opened.
+    """
+    try:
+        from PIL import Image
+    except Exception:
+        return None
+
+    context = _get_docx_context(docx)
+    href = figure_data.get('href') if isinstance(figure_data, dict) else None
+    img_path = _resolve_image_path(href, context)
+    if not img_path or not os.path.exists(img_path):
+        return None
+
+    try:
+        with Image.open(img_path) as im:
+            return im.width, _infer_image_dpi(im)
+    except Exception:
+        return None
+
+
 # -----------------
 # Private helpers
 # -----------------
+
+_NO_METADATA_DPI_FALLBACK = 300.0
+
 
 def _infer_image_dpi(im) -> float:
     """Infer the horizontal DPI from a PIL Image, considering multiple metadata sources.
@@ -121,7 +144,7 @@ def _infer_image_dpi(im) -> float:
     Priority:
     - im.info['dpi']: tuple or number
     - im.info['jfif_unit'] and im.info['jfif_density'] (unit 1=inches, 2=cm)
-    Fallback: 96 dpi
+    Fallback: _NO_METADATA_DPI_FALLBACK.
     """
     try:
         info = getattr(im, 'info', {}) or {}
@@ -144,10 +167,10 @@ def _infer_image_dpi(im) -> float:
 
             if unit == 2:  # per cm
                 return float(density[0]) * 2.54
-        return 96.0
+        return _NO_METADATA_DPI_FALLBACK
 
     except Exception:
-        return 96.0
+        return _NO_METADATA_DPI_FALLBACK
 
 def _add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph'):
     """Minimal helper to add a paragraph with an optional style, avoiding circular imports."""

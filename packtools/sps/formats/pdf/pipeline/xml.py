@@ -423,11 +423,14 @@ def extract_figure_data(fig_node):
                 caption_texts.append(txt)
     caption = ' '.join([c for c in caption_texts if c])
 
-    # graphic may be direct child or inside <alternatives>
+    # graphic may be a direct child, or offered as several representations
+    # inside <alternatives> - only match the direct child here so the latter
+    # case falls through to the ranking logic below instead of grabbing the
+    # first <graphic> in document order.
     href = None
     alt_text = None
 
-    graphic = fig_node.find('.//graphic')
+    graphic = fig_node.find('graphic')
     if graphic is not None:
         href = _get_href_from_node(graphic)
         alt_text = graphic.get('alt') or graphic.get('alt-text')

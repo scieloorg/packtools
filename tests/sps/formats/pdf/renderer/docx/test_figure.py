@@ -49,6 +49,29 @@ class TestDecideFigureLayoutUnits(unittest.TestCase):
             decide_figure_layout(docx, fig), pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
         )
 
+    def test_untagged_image_uses_print_resolution_fallback(self):
+        # An image with no DPI tag at all must fall back to print
+        # resolution, not screen resolution.
+        img_path = self._make_png(px_width=700)
+        with Image.open(img_path) as im:
+            im.info.pop("dpi", None)
+            im.save(img_path)  # re-save without the dpi tag
+        docx = Document()
+        fig = {"href": img_path, "label": "Graph 1"}
+        self.assertEqual(
+            decide_figure_layout(docx, fig), pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+        )
+
+    def test_layout_dpi_override_replaces_embedded_dpi(self):
+        # 'layout_dpi_override' must take precedence over the image's own
+        # embedded DPI.
+        img_path = self._make_png(px_width=612, dpi=72)
+        docx = Document()
+        fig = {"href": img_path, "label": "Graph 1", "layout_dpi_override": 300.0}
+        self.assertEqual(
+            decide_figure_layout(docx, fig), pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
