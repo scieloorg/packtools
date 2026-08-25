@@ -484,10 +484,17 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # Private helpers
 # -----------------
 
+def _body_column_count():
+    """Number of columns configured for the body, from PAGE_ATTRIBUTES."""
+    return max(1, pdf_enum.PAGE_ATTRIBUTES.get('default_column_count', 2))
+
+
 def _setup_two_column_body_section(docx):
-    """Create or get the second section and set it to two columns."""
+    """Create or get the second section and set its column count from PAGE_ATTRIBUTES."""
     section = docx_renderer.section.get_or_create_second_section(docx)
-    docx_renderer.section.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    column_count = _body_column_count()
+    spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    docx_renderer.section.setup_section_columns(section, column_count, spacing)
 
 
 def _render_body_section(docx, section_data):
@@ -521,9 +528,11 @@ def _add_single_column_section(docx):
 
 
 def _add_two_column_section(docx):
-    """Insert a continuous section break and set a two column layout. Returns the section."""
+    """Insert a continuous section break and restore the body's configured column count. Returns the section."""
     multi_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
-    docx_renderer.section.setup_section_columns(multi_col_section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    column_count = _body_column_count()
+    spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    docx_renderer.section.setup_section_columns(multi_col_section, column_count, spacing)
     return multi_col_section
 
 

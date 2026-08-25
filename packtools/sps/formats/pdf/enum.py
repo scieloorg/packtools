@@ -18,6 +18,7 @@ PAGE_ATTRIBUTES = {
     "page_height": Cm(29.7),
     "different_first_page_header_footer": True,
     "start_type": WD_SECTION.NEW_PAGE,
+    "default_column_count": 2,
 }
 
 SUPPORTED_STYLES = [

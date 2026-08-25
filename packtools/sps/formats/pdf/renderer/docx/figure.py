@@ -71,16 +71,10 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
         # If Pillow is unavailable at runtime, fallback conservatively
         return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
 
-    # Compute layout widths (in Cm)
-    page_width = page_attributes.get('page_width', Cm(21.0))
-    left_margin = page_attributes.get('left_margin', Cm(2.0))
-    right_margin = page_attributes.get('right_margin', Cm(2.0))
-    content_width = page_width - left_margin - right_margin
-
-    # Convert TWO_COLUMNS_SPACING (twips) to Cm, mirroring table_utils logic
-    column_spacing_twips = getattr(pdf_enum, 'TWO_COLUMNS_SPACING', 300)
-    column_spacing_cm = Cm(column_spacing_twips / 567.0)
-    single_col_width = (content_width - column_spacing_cm) / 2
+    # Compute layout widths (in Cm) - reuses _compute_single_column_width so
+    # this decision honors the same configured column count as the rest of
+    # the layout, instead of duplicating (and drifting from) that formula.
+    single_col_width = _compute_single_column_width(page_attributes)
 
     # Resolve image path (local or download)
     context = _get_docx_context(docx)
@@ -160,11 +154,12 @@ def _compute_content_width(page_attributes):
     return page_width - left_margin - right_margin
 
 def _compute_single_column_width(page_attributes):
-    """Compute the width of a single column in a two-column layout, accounting for column spacing."""
+    """Compute the width of one body column, accounting for the configured column count and spacing between columns."""
     content_width = _compute_content_width(page_attributes)
+    column_count = max(1, page_attributes.get('default_column_count', 2))
     column_spacing_twips = getattr(pdf_enum, 'TWO_COLUMNS_SPACING', 300)
     column_spacing_cm = Cm(column_spacing_twips / 567.0)
-    return (content_width - column_spacing_cm) / 2
+    return (content_width - (column_count - 1) * column_spacing_cm) / column_count
 
 def _get_docx_context(docx):
     """Retrieve the _scl_context dictionary from the docx Document, if available."""
