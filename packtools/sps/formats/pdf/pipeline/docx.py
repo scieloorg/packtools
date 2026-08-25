@@ -318,6 +318,13 @@ def docx_second_header_pipe(
     """
     Adds the journal title and article title to the second page header of the DOCX document.
 
+    Written to the first section's default header (distinct from its
+    first-page header) rather than a separately unlinked header on the
+    second section: LibreOffice does not render a header defined on a
+    section that both starts with a continuous break and is unlinked from
+    the previous section, and the second section needs a continuous break
+    to let body content start on the same page as the front matter.
+
     Args:
         docx (python-docx.Document): The DOCX document object.
         journal_title (str): The title of the journal to be added.
@@ -328,8 +335,7 @@ def docx_second_header_pipe(
     Returns:
         None
     """
-    header = docx_renderer.section.get_second_header(docx)
-    header.is_linked_to_previous = False
+    header = docx_renderer.section.get_default_header(docx)
     para = header.add_paragraph()
     para.style = docx.styles[paragraph_header_style_name]
 
