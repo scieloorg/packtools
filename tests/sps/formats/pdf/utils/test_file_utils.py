@@ -51,9 +51,39 @@ class TestConvertDocxToPdfBinaryResolution(unittest.TestCase):
     @patch("packtools.sps.formats.pdf.utils.file_utils.subprocess.run")
     @patch("packtools.sps.formats.pdf.utils.file_utils.shutil.which", return_value=None)
     def test_raises_clear_error_when_no_binary_found(self, mock_which, mock_run):
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(FileNotFoundError):
             convert_docx_to_pdf(self.docx_path, libreoffice_binary=None)
         mock_run.assert_not_called()
+
+
+class TestConvertDocxToPdfRelativeOutputPath(unittest.TestCase):
+    """
+    Regression test for issue #773: os.path.dirname("doc.docx") is "" when
+    docx_path has no directory component (e.g. CLI -o doc.pdf), and
+    os.makedirs("") raises FileNotFoundError.
+    """
+
+    def setUp(self):
+        self.tmpdir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmpdir.cleanup)
+        self._cwd = os.getcwd()
+        os.chdir(self.tmpdir.name)
+        self.addCleanup(os.chdir, self._cwd)
+
+        self.docx_path = "doc.docx"
+        with open(self.docx_path, "wb") as f:
+            f.write(b"")
+        self.pdf_path = "doc.pdf"
+
+    def _touch_pdf(self, *args, **kwargs):
+        with open(self.pdf_path, "wb") as f:
+            f.write(b"")
+
+    @patch("packtools.sps.formats.pdf.utils.file_utils.subprocess.run")
+    def test_docx_path_without_directory_component_does_not_raise(self, mock_run):
+        mock_run.side_effect = self._touch_pdf
+        result = convert_docx_to_pdf(self.docx_path, libreoffice_binary="/usr/bin/soffice")
+        self.assertEqual(os.path.normpath(result), self.pdf_path)
 
 
 if __name__ == "__main__":
