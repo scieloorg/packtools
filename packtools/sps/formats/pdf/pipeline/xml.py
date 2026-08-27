@@ -458,6 +458,7 @@ def extract_figure_data(fig_node):
                         dims_area = 0
                 # Penalize obvious thumbnails
                 is_thumbnail = '267x140' in ctype
+                is_scielo_web = (g.get('specific-use') or '').lower() == 'scielo-web'
                 ext_rank = len(preferred_ext_order)
                 lu = _href.lower()
                 for i, ext in enumerate(preferred_ext_order):
@@ -469,12 +470,15 @@ def extract_figure_data(fig_node):
                     'dims_area': dims_area,
                     'ext_rank': ext_rank,
                     'is_thumbnail': is_thumbnail,
+                    'is_scielo_web': is_scielo_web,
                     'alt': g.get('alt') or g.get('alt-text')
                 })
             if candidates:
-                # Choose best: avoid thumbnails, larger area first, then better extension
+                # Choose best: avoid thumbnails, prefer the SciELO Web
+                # representation, larger area first, then better extension
                 candidates.sort(key=lambda c: (
                     c['is_thumbnail'],           # False (0) before True (1)
+                    not c['is_scielo_web'],       # scielo-web first
                     -c['dims_area'],              # larger first
                     c['ext_rank']                 # better extension first
                 ))
