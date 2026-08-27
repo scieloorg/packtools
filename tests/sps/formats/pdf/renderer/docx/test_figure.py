@@ -31,6 +31,13 @@ class TestComputeSingleColumnWidth(unittest.TestCase):
         content_width = attrs['page_width'] - attrs['left_margin'] - attrs['right_margin']
         self.assertEqual(_compute_single_column_width(attrs), content_width)
 
+    def test_three_columns_uses_generic_formula(self):
+        attrs = self._page_attributes(3)
+        content_width = attrs['page_width'] - attrs['left_margin'] - attrs['right_margin']
+        spacing_cm = Cm(pdf_enum.TWO_COLUMNS_SPACING / 567.0)
+        expected = (content_width - 2 * spacing_cm) / 3
+        self.assertEqual(_compute_single_column_width(attrs), expected)
+
     def test_missing_key_defaults_to_two_columns(self):
         attrs = dict(pdf_enum.PAGE_ATTRIBUTES)
         attrs.pop('default_column_count', None)
