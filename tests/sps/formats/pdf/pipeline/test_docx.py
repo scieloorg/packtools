@@ -125,14 +125,58 @@ class TestBodyColumnConfiguration(unittest.TestCase):
     def test_setup_body_section_uses_configured_column_count(self):
         docx = Document()
         with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 1}):
-            docx_pipe._setup_two_column_body_section(docx)
+            docx_pipe._setup_body_section(docx)
         self.assertEqual(self._cols_num(docx.sections[1]), '1')
 
-    def test_add_two_column_section_restores_configured_column_count(self):
+    def test_setup_body_section_supports_three_columns(self):
+        docx = Document()
+        with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 3}):
+            docx_pipe._setup_body_section(docx)
+        self.assertEqual(self._cols_num(docx.sections[1]), '3')
+
+    def test_restore_body_column_section_restores_configured_column_count(self):
         docx = Document()
         with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 1}):
-            section = docx_pipe._add_two_column_section(docx)
+            section = docx_pipe._restore_body_column_section(docx)
         self.assertEqual(self._cols_num(section), '1')
+
+    def test_restore_body_column_section_supports_three_columns(self):
+        docx = Document()
+        with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 3}):
+            section = docx_pipe._restore_body_column_section(docx)
+        self.assertEqual(self._cols_num(section), '3')
+
+    def test_render_tables_skips_section_switch_when_body_is_single_column(self):
+        docx = Document()
+        with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 1}), \
+             patch('packtools.sps.formats.pdf.pipeline.docx.docx_renderer.table.add_table'):
+            sections_before = len(docx.sections)
+            docx_pipe._render_tables(docx, [{'layout': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}])
+        self.assertEqual(len(docx.sections), sections_before)
+
+    def test_render_tables_switches_section_when_body_has_multiple_columns(self):
+        docx = Document()
+        with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 2}), \
+             patch('packtools.sps.formats.pdf.pipeline.docx.docx_renderer.table.add_table'):
+            sections_before = len(docx.sections)
+            docx_pipe._render_tables(docx, [{'layout': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}])
+        self.assertEqual(len(docx.sections), sections_before + 2)
+
+    def test_render_figures_skips_section_switch_when_body_is_single_column(self):
+        docx = Document()
+        with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 1}), \
+             patch('packtools.sps.formats.pdf.pipeline.docx.docx_renderer.figure.add_figure'):
+            sections_before = len(docx.sections)
+            docx_pipe._render_figures(docx, [{'layout': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}])
+        self.assertEqual(len(docx.sections), sections_before)
+
+    def test_render_figures_switches_section_when_body_has_multiple_columns(self):
+        docx = Document()
+        with patch.dict(pdf_enum.PAGE_ATTRIBUTES, {'default_column_count': 2}), \
+             patch('packtools.sps.formats.pdf.pipeline.docx.docx_renderer.figure.add_figure'):
+            sections_before = len(docx.sections)
+            docx_pipe._render_figures(docx, [{'layout': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}])
+        self.assertEqual(len(docx.sections), sections_before + 2)
 
 
 if __name__ == "__main__":
