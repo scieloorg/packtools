@@ -11,6 +11,7 @@ from packtools.sps.pid_provider.xml_sps_lib import (
     GetXmlWithPreError,
     get_xml_with_pre_from_xml_file,
     get_xml_with_pre_from_zip_file,
+    generate_finger_print,
 )
 
 class XMLWithPreTestMixin:
@@ -1768,12 +1769,12 @@ class TestGetData(XMLWithPreTestMixin, TestCase):
     def test_get_data_with_article_true_adds_article_data_keys(self):
         xml_with_pre = self._make_base_xml()
         result = xml_with_pre.get_data(article=True)
-        for key in ("surnames", "collab", "links", "article_titles", "partial_body", "body_fragment"):
+        for key in ("surnames", "collab", "links", "article_titles", "body_fragment"):
             self.assertIn(key, result)
+        self.assertNotIn("partial_body", result)
         # XML de teste não tem corpo, autores nem títulos
         self.assertEqual(result["surnames"], [])
         self.assertIsNone(result["collab"])
-        self.assertIsNone(result["partial_body"])
         self.assertEqual(result["body_fragment"], "")
 
     def test_get_data_default_flags_do_not_add_extra_dict_keys(self):
@@ -1790,13 +1791,13 @@ class TestGetData(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.submitted_filename = "artigo.xml"
         result = xml_with_pre.get_data(input_files=True, pkg_names=True, article=True)
-        # chaves de cada dicionário combinado devem estar todas presentes
         for key in xml_with_pre.input_files_dict:
             self.assertIn(key, result)
         for key in xml_with_pre.pkg_names_dict:
             self.assertIn(key, result)
-        for key in ("surnames", "collab", "links", "article_titles", "partial_body", "body_fragment"):
+        for key in ("surnames", "collab", "links", "article_titles", "body_fragment"):
             self.assertIn(key, result)
+        self.assertNotIn("partial_body", result)
 
 
 # ==============================================================================
@@ -2391,6 +2392,169 @@ class TestRenditionsContent(XMLWithPreTestMixin, TestCase):
         xml_with_pre.renditions
 
         mock_class.assert_called_once_with(xml_with_pre.xmltree)
+
+
+class TestMaxBodyFragmentLength(XMLWithPreTestMixin, TestCase):
+
+    def test_default_is_300(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertEqual(xml_with_pre.max_body_fragment_length, 300)
+
+    def test_setter_overrides_default(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.max_body_fragment_length = 50
+        self.assertEqual(xml_with_pre.max_body_fragment_length, 50)
+
+    def test_setter_none_falls_back_to_default(self):
+        # o getter usa `self._max_body_fragment_length or default`
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.max_body_fragment_length = 50
+        xml_with_pre.max_body_fragment_length = None
+        self.assertEqual(xml_with_pre.max_body_fragment_length, 300)
+
+    def test_setter_zero_falls_back_to_default_due_to_falsy_check(self):
+        # comportamento sutil: 0 é falsy, então "or default" faz o getter
+        # ignorar 0 e retornar 300 — documentando esse edge case
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.max_body_fragment_length = 0
+        self.assertEqual(xml_with_pre.max_body_fragment_length, 300)
+
+
+class TestBodyTextAndFragment(XMLWithPreTestMixin, TestCase):
+    """Cobre body_text (cached_property), body_fragment, body_fingerprint
+    e body_fragment_fingerprint, e a integração com max_body_fragment_length."""
+
+    def _xml_with_body(self, text):
+        xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<article article-type="research-article" xml:lang="en">
+  <front><article-meta></article-meta></front>
+  <body><p>{text}</p></body>
+</article>"""
+        for xml_with_pre in XMLWithPre.create(xml_content=xml_content):
+            return xml_with_pre
+
+    def test_body_text_returns_raw_joined_text(self):
+        xml_with_pre = self._xml_with_body("Texto de   Teste")
+        # normaliza espaços múltiplos, preserva capitalização
+        self.assertEqual(xml_with_pre.body_text, "Texto de Teste")
+
+    def test_body_text_empty_when_no_body(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertEqual(xml_with_pre.body_text, "")
+
+    def test_body_text_is_cached(self):
+        # cached_property: valor computado é armazenado em __dict__;
+        # não é possível espionar xmltree.xpath diretamente porque
+        # lxml.etree._Element é um tipo C-extension com atributos
+        # read-only (não suporta patch.object).
+        xml_with_pre = self._xml_with_body("abc")
+        first = xml_with_pre.body_text
+        self.assertIn("body_text", xml_with_pre.__dict__)
+        second = xml_with_pre.body_text
+        self.assertIs(first, second)
+
+    def test_body_fragment_uses_default_max_length_300(self):
+        xml_with_pre = self._xml_with_body("Texto de Teste Longo")
+        self.assertEqual(xml_with_pre.body_fragment, "texto de teste longo")
+
+    def test_body_fragment_respects_custom_max_body_fragment_length(self):
+        xml_with_pre = self._xml_with_body("Texto de Teste Longo")
+        xml_with_pre.max_body_fragment_length = 5
+        self.assertEqual(xml_with_pre.body_fragment, "texto")
+
+    def test_body_fragment_is_lowercased(self):
+        xml_with_pre = self._xml_with_body("TEXTO MAIÚSCULO")
+        self.assertIn("texto", xml_with_pre.body_fragment)
+
+    def test_body_fingerprint_uses_full_body_text_not_truncated_fragment(self):
+        xml_with_pre = self._xml_with_body("abc")
+        xml_with_pre.max_body_fragment_length = 1  # não deve afetar body_fingerprint
+        expected = generate_finger_print(xml_with_pre.body_text)
+        self.assertEqual(xml_with_pre.body_fingerprint, expected)
+
+    def test_body_fragment_fingerprint_uses_body_fragment(self):
+        xml_with_pre = self._xml_with_body("abc")
+        expected = generate_finger_print(xml_with_pre.body_fragment)
+        self.assertEqual(xml_with_pre.body_fragment_fingerprint, expected)
+
+    def test_body_fragment_fingerprint_changes_with_max_body_fragment_length(self):
+        xml_with_pre = self._xml_with_body("abcdefgh")
+        xml_with_pre.max_body_fragment_length = 3
+        truncated_fp = xml_with_pre.body_fragment_fingerprint
+        # instância separada para simular o valor "cheio" (default 300)
+        xml_with_pre2 = self._xml_with_body("abcdefgh")
+        full_fp = xml_with_pre2.body_fragment_fingerprint
+        self.assertNotEqual(truncated_fp, full_fp)
+
+    def test_body_fragment_reflects_max_length_change_after_first_access(self):
+        # body_fragment agora é @property (não mais cached_property), então
+        # mudar max_body_fragment_length DEPOIS de acessar body_fragment uma
+        # vez deve refletir no próximo acesso — sem cache obsoleto.
+        xml_with_pre = self._xml_with_body("abcdefgh")
+        first = xml_with_pre.body_fragment  # default 300 -> "abcdefgh"
+        xml_with_pre.max_body_fragment_length = 3
+        second = xml_with_pre.body_fragment
+        self.assertNotEqual(first, second)
+        self.assertEqual(second, "abc")
+
+
+class TestGetArticleDataCacheReuse(XMLWithPreTestMixin, TestCase):
+    """get_article_data reaproveita body_fragment cacheado quando o
+    max_body_fragment_length pedido bate com o já configurado."""
+
+    def _xml_with_body(self, text):
+        xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<article article-type="research-article" xml:lang="en">
+  <front><article-meta></article-meta></front>
+  <body><p>{text}</p></body>
+</article>"""
+        for xml_with_pre in XMLWithPre.create(xml_content=xml_content):
+            return xml_with_pre
+
+    def test_reuses_cached_body_fragment_when_length_matches_current_setting(self):
+        xml_with_pre = self._xml_with_body("abcdef")
+        cached = xml_with_pre.body_fragment  # popula body_text com default (300)
+        data = xml_with_pre.get_article_data(max_body_fragment_length=300)
+        self.assertEqual(data["body_fragment"], cached)
+
+    def test_bypasses_cache_when_length_differs_from_current_setting(self):
+        xml_with_pre = self._xml_with_body("abcdef")
+        data = xml_with_pre.get_article_data(max_body_fragment_length=3)
+        self.assertEqual(data["body_fragment"], "abc")
+        # max_body_fragment_length (default 300) não deve ter mudado
+        self.assertEqual(xml_with_pre.body_fragment, "abcdef")
+
+    def test_get_article_data_still_returns_partial_body_key(self):
+        xml_with_pre = self._xml_with_body("abc")
+        data = xml_with_pre.get_article_data()
+        self.assertIn("partial_body", data)
+
+
+class TestSurnamesCachedProperty(XMLWithPreTestMixin, TestCase):
+
+    def test_surnames_empty_list_on_exception_or_absence(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertEqual(xml_with_pre.surnames, [])
+
+    def test_surnames_matches_get_article_data_surnames(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertEqual(xml_with_pre.surnames, xml_with_pre.get_article_data()["surnames"])
+
+
+class TestReadableData(XMLWithPreTestMixin, TestCase):
+
+    def test_readable_data_has_no_partial_body_key(self):
+        xml_with_pre = self._make_base_xml()
+        result = xml_with_pre.readable_data
+        self.assertNotIn("partial_body", result)
+        self.assertEqual(
+            set(result.keys()),
+            {"surnames", "collab", "links", "article_titles", "body_fragment"},
+        )
+
+    def test_readable_data_body_fragment_matches_cached_body_fragment_property(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertEqual(xml_with_pre.readable_data["body_fragment"], xml_with_pre.body_fragment)
 
 
 if __name__ == "__main__":
