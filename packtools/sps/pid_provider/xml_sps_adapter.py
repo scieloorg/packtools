@@ -184,14 +184,19 @@ class PidProviderXMLAdapter:
             z_partial_body=self.z_partial_body,
         )
 
-    def get_data_to_compare(self, max_body_fragment_length=300):
+    def get_data_to_compare(
+        self,
+        max_body_fragment_length=300,
+    ):
+        if self.xml_with_pre.max_body_fragment_length != max_body_fragment_length:
+            self.xml_with_pre.max_body_fragment_length = max_body_fragment_length
         return {
             "article_titles": self.xml_with_pre.article_titles_texts,
             "z_surnames": self.z_surnames,
             "z_collab": self.z_collab,
             "z_links": self.z_links,
-            "z_partial_body": self.z_partial_body,
-            "body_fragment": self.xml_with_pre.get_body_fragment(max_body_fragment_length),
+            "body_fragment_fingerprint": self.xml_with_pre.body_fragment_fingerprint,
+            "body_fragment": self.xml_with_pre.body_fragment,
         }
 
 
