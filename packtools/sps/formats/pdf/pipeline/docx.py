@@ -1,5 +1,3 @@
-import statistics
-
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -550,39 +548,8 @@ def _figure_layout(docx, fig):
     return layout
 
 
-def _flag_dpi_outliers(docx, figures, outlier_ratio=2.0):
-    """
-    Compare embedded DPI across a batch of sibling figures (e.g. all the
-    graphs in one section) and flag figures whose own DPI is wildly off from
-    the group's median, so decide_figure_layout can be given a corrected
-    value instead of trusting a possibly-wrong per-image tag. Figures with
-    an explicit 'layout' override are left untouched; outliers get
-    'layout_dpi_override' set to the group median.
-    """
-    probed = []
-    for fig in figures:
-        if not isinstance(fig, dict) or fig.get('layout'):
-            continue
-        probe = docx_renderer.figure.probe_image_dpi(docx, fig)
-        if probe is not None:
-            probed.append((fig, probe[1]))
-
-    if len(probed) < 2:
-        return
-
-    median_dpi = statistics.median(dpi for _, dpi in probed)
-    if median_dpi <= 0:
-        return
-
-    for fig, dpi in probed:
-        ratio = dpi / median_dpi
-        if ratio >= outlier_ratio or ratio <= 1 / outlier_ratio:
-            fig['layout_dpi_override'] = median_dpi
-
-
 def _render_figures(docx, figures):
     """Render figures, switching to single column when the layout requires it."""
-    _flag_dpi_outliers(docx, figures)
     for fig in figures:
         layout = _figure_layout(docx, fig)
 
