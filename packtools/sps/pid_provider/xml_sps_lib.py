@@ -1563,17 +1563,20 @@ class ArticleMetadataMixin:
             pass
         return None
 
-    @lru_cache
+    @cached_property
     def body_text(self):
+        if self.xmltree is None:
+            return ""
         return " ".join(" ".join(self.xmltree.xpath(".//body//text()")).split())
 
+    @lru_cache(maxsize=10)
     def get_body_fragment(self, max_length):
         text = self.body_text
         if max_length:
             return text[:max_length].lower()
         return text.lower()
 
-    @cached_property
+    @property
     def body_fragment(self):
         return self.get_body_fragment(self.max_body_fragment_length)
 
@@ -1581,7 +1584,7 @@ class ArticleMetadataMixin:
     def body_fingerprint(self):
         return generate_finger_print(self.body_text)
 
-    @cached_property
+    @property
     def body_fragment_fingerprint(self):
         return generate_finger_print(self.body_fragment)
 
