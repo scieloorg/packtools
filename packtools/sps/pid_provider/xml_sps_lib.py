@@ -3,6 +3,7 @@ import logging
 import os
 import re
 import traceback
+from functools import lru_cache
 from datetime import date
 from functools import cached_property
 from gettext import gettext as _
@@ -1275,6 +1276,13 @@ class IdentifiersMixin:
 # ==============================================================================
 class ArticleMetadataMixin:
     """Extração e manipulação de metadados do artigo JATS."""
+    @property
+    def max_body_fragment_length(self):
+        return self._max_body_fragment_length or self._default_max_body_fragment_length
+
+    @max_body_fragment_length.setter
+    def max_body_fragment_length(self, value):
+        self._max_body_fragment_length = value
 
     # --------------------------------------------------------------------------
     # Periódico & Seções
@@ -1555,33 +1563,60 @@ class ArticleMetadataMixin:
             pass
         return None
 
+    @lru_cache
+    def body_text(self):
+        return " ".join(" ".join(self.xmltree.xpath(".//body//text()")).split())
+
     def get_body_fragment(self, max_length):
-        text = " ".join(" ".join(self.xmltree.xpath(".//body//text()")).split())
+        text = self.body_text
         if max_length:
             return text[:max_length].lower()
         return text.lower()
 
-    @property
-    def body_fingerprint(self):
-        return generate_finger_print(self.get_body_fragment(max_length=None))
+    @cached_property
+    def body_fragment(self):
+        return self.get_body_fragment(self.max_body_fragment_length)
 
-    @property
+    @cached_property
+    def body_fingerprint(self):
+        return generate_finger_print(self.body_text)
+
+    @cached_property
     def body_fragment_fingerprint(self):
-        return generate_finger_print(self.get_body_fragment(300))
+        return generate_finger_print(self.body_fragment)
 
     def get_article_data(self, max_body_fragment_length=300):
-        try:
-            persons = self.authors.get("person") or []
-            surnames = [p.get("surname") for p in persons if p.get("surname")]
-        except Exception:
-            surnames = []
+        if max_body_fragment_length == self.max_body_fragment_length:
+            body_fragment = self.body_fragment
+        else:
+            body_fragment = self.get_body_fragment(max_body_fragment_length)
         return {
-            "surnames": surnames,
+            "surnames": self.surnames,
             "collab": self.collab,
             "links": self.links,
             "article_titles": self.article_titles_texts,
             "partial_body": self.partial_body,
-            "body_fragment": self.get_body_fragment(max_body_fragment_length),
+            "body_fragment": body_fragment,
+        }
+
+    @cached_property
+    def surnames(self):
+        try:
+            persons = self.authors.get("person") or []
+            return [p.get("surname") for p in persons if p.get("surname")]
+        except Exception:
+            return []
+
+    @property
+    def readable_data(self):
+        # distinguir de get_article_data para preservar compatibilidade com o legado
+        # partial_body deve deixar de ser usado
+        return {
+            "surnames": self.surnames,
+            "collab": self.collab,
+            "links": self.links,
+            "article_titles": self.article_titles_texts,
+            "body_fragment": self.body_fragment,
         }
 
     # --------------------------------------------------------------------------
@@ -1666,6 +1701,8 @@ class XMLWithPre(
         self.is_html_source = None
         self._sps_pkg_name_origin = None
         self._sps_pkg_name = None
+        self._default_max_body_fragment_length = 300
+        self._max_body_fragment_length = None
 
     def __str__(self):
         return self.xml_name or self.submitted_filename or self.zip_file_path or self.uri or "<XMLWithPre>"
@@ -1759,7 +1796,7 @@ class XMLWithPre(
         if sps_pkg_names:
             data.update(self.sps_pkg_names_dict)
         if article:
-            data.update(self.get_article_data(max_body_fragment_length))
+            data.update(self.readable_data)
         return data
     
 
