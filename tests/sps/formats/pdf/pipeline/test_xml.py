@@ -1272,6 +1272,23 @@ class TestExtractFigureData(unittest.TestCase):
         result = xml_pipe.extract_figure_data(xml)
         self.assertEqual(result['href'], 'web.png')
 
+    def test_alternatives_prefers_scielo_web_over_raw_graphic(self):
+        # Isolates specific-use as the deciding factor: raw.png would win on
+        # extension ranking alone (png before jpg), so picking web.jpg here
+        # can only be explained by specific-use="scielo-web" taking priority.
+        xml = etree.fromstring(
+            '<fig xmlns:xlink="http://www.w3.org/1999/xlink" id="F1">'
+            '<label>Graph 1</label>'
+            '<alternatives>'
+            '<graphic xlink:href="raw.png"/>'
+            '<graphic xlink:href="web.jpg" specific-use="scielo-web"/>'
+            '<graphic xlink:href="thumb.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>'
+            '</alternatives>'
+            '</fig>'
+        )
+        result = xml_pipe.extract_figure_data(xml)
+        self.assertEqual(result['href'], 'web.jpg')
+
     def test_alternatives_falls_back_to_tif_when_no_better_option(self):
         xml = etree.fromstring(
             '<fig xmlns:xlink="http://www.w3.org/1999/xlink" id="F1">'
