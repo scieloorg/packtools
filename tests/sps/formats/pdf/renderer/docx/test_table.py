@@ -31,6 +31,14 @@ class TestComputeTableWidth(unittest.TestCase):
         content_width, table_width, _ = _compute_table_width(attrs, {})
         self.assertEqual(table_width, content_width)
 
+    def test_three_columns_uses_generic_formula(self):
+        attrs = self._page_attributes(3)
+        content_width, table_width, layout = _compute_table_width(attrs, {})
+        spacing_cm = Cm(pdf_enum.TWO_COLUMNS_SPACING / 567.0)
+        expected = (content_width - 2 * spacing_cm) // 3
+        self.assertEqual(table_width, expected)
+        self.assertEqual(layout, pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+
     def test_single_column_layout_override_ignores_column_count(self):
         attrs = self._page_attributes(1)
         content_width, table_width, layout = _compute_table_width(
