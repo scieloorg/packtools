@@ -6,7 +6,7 @@ requests==2.32.0
 tenacity==8.2.3
 picles.plumber==0.11
 charset-normalizer<3.0
-aiohttp==3.9.1
+aiohttp==3.14.3
 python-magic==0.4.27
 tox==4.11.4
 langcodes==3.3.0
