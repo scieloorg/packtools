@@ -64,11 +64,12 @@ def funding_group(message):
     funding_groups = et.findall('front//funding-group//award-id')
     financial_disclosures = et.findall(
             'back//fn[@fn-type="financial-disclosure"]')
-    has_funding_group = bool(all([bool(elem.text)
-                                  for elem in funding_groups]))
+
+    # Garantir que existem elementos e que nenhum deles está vazio
+    has_funding_group = bool(funding_groups) and all(bool(elem.text and elem.text.strip()) for elem in funding_groups)
     has_financial_disclosure = bool(financial_disclosures)
 
-    if has_financial_disclosure and not has_funding_group or (
+    if (has_financial_disclosure and not has_funding_group) or (
             len(financial_disclosures) > len(funding_groups)):
         err = StyleError()
         err.message = "Element 'fn-group': This element has occurrences not declared in funding-group."
@@ -76,54 +77,37 @@ def funding_group(message):
 
     if has_funding_group:
         def get_text(elem):
-            """Always returns a text string.
-            """
+            """Always returns a text string."""
             try:
-                return u''.join(elem.itertext())
-            except:
-                return u''
+                return ''.join(elem.itertext())
+            except Exception:
+                return ''
 
-        # only the main document is relevant
-        award_ids = [elem.text for elem in et.findall(
+        # Apenas os elementos do documento principal
+        award_ids = [elem.text.strip() for elem in et.findall(
             'front//funding-group/award-group/award-id')
             if elem.text is not None]
+        
         fn_occs = [get_text(elem) for elem in et.findall(
             'back//fn[@fn-type="financial-disclosure"]/p')]
         ack_occs = [get_text(elem) for elem in et.findall(
             'back//ack/p')]
 
-        def in_there(award_id, texts):
-            for text in texts:
-                if award_id in text:
-                    return True
-                else:
-                    LOGGER.info('cannot find award-id "%s" in text', award_id)
-
-            return False
-
-        LOGGER.info('declared contract numbers: %s', award_ids)
-
-        missing_award_ids = set(award_ids)
         paragraphs = [p for p in itertools.chain(fn_occs, ack_occs) if p]
 
-        for award_id in award_ids:
-            if in_there(award_id, paragraphs):
-                try:
-                    missing_award_ids.remove(award_id)
-                except KeyError:
-                    LOGGER.info('many occurences of award-id: "%s"',
-                                award_id)
-            else:
-                LOGGER.info('cannot find contract number "%s" in set "%s"',
-                        award_id, award_ids)
+        # Função pura sem efeitos colaterais na err_list
+        def in_there(award_id, texts):
+            return any(award_id in text for text in texts)
+
+        missing_award_ids = [
+            award_id for award_id in set(award_ids)
+            if not in_there(award_id, paragraphs)
+        ]
 
         if missing_award_ids:
-            LOGGER.info('missing award-id: "%s"', missing_award_ids)
             err = StyleError()
-            err.message = "Element 'funding-group': This element has occurrences not declared in fn or ack."
+            err.message = f"Element 'funding-group': The following award-ids were not found in fn or ack: {', '.join(missing_award_ids)}."
             err_list.append(err)
-    else:
-        LOGGER.info('no contract numbers found in %s', et)
 
     return message
 
