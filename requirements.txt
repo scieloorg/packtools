@@ -1,5 +1,5 @@
 urllib3==2.7.0
-lxml==4.9.3
+lxml==6.1.1
 Pillow==12.3.0
 minio==7.2.20
 requests==2.34.2
@@ -8,8 +8,8 @@ picles.plumber==0.11
 charset-normalizer==3.5.1
 aiohttp==3.9.1
 python-magic==0.4.27
-tox==4.11.4
-langcodes==3.3.0
+tox==4.60.0
+langcodes==3.5.1
 -e git+https://github.com/scieloorg/scielo_scholarly_data@v0.1.4#egg=scielo_scholarly_data
 ipdb==0.13.13
 langdetect~=1.0.9

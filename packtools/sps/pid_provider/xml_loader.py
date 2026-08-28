@@ -83,7 +83,7 @@ def xml_parser_ent2char(xml):
     ao invés de convertidas para seus caracteres correspondentes.
     """
     try:
-        parser = etree.XMLParser(recover=True, encoding="utf-8")
+        parser = etree.XMLParser(recover=True, encoding="utf-8", resolve_entities="internal")
         root = etree.fromstring(xml, parser)
         return etree.tostring(root, method="xml", encoding="utf-8").decode("utf-8")
     except Exception as e:
