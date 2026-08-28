@@ -1144,3 +1144,44 @@ class TestSPPackage(unittest.TestCase):
                     image_element.attrib["{http://www.w3.org/1999/xlink}href"],
                     expected_href,
                 )
+
+
+class XMLXXEProtectionTests(unittest.TestCase):
+    """
+    lxml < 6.1.0 resolve entidades externas por padrão, permitindo que um XML
+    malicioso leia arquivos locais via `<!ENTITY xxe SYSTEM "file://...">`.
+    utils.XML() é o parser principal de packtools (usado com load_dtd=True,
+    no_network=True); no_network só bloqueia esquemas de rede (http/ftp), não
+    file://, então precisa continuar bloqueado via resolve_entities="internal"
+    mesmo após o bump para lxml 6.1.1 (PYSEC-2026-87).
+    """
+
+    def setUp(self):
+        self.secret_content = "conteudo-secreto-que-nao-pode-vazar"
+        fd, self.secret_path = tempfile.mkstemp(suffix=".txt")
+        with os.fdopen(fd, "w") as f:
+            f.write(self.secret_content)
+
+    def tearDown(self):
+        os.unlink(self.secret_path)
+
+    def test_external_entity_file_read_is_blocked(self):
+        xml = (
+            '<?xml version="1.0"?>'
+            '<!DOCTYPE article [ <!ENTITY xxe SYSTEM "file://{}"> ]>'
+            "<article><body>&xxe;</body></article>"
+        ).format(self.secret_path)
+
+        with self.assertRaises(etree.XMLSyntaxError):
+            utils.XML(io.BytesIO(xml.encode("utf-8")))
+
+    def test_internal_character_entity_still_resolved(self):
+        xml = (
+            '<?xml version="1.0"?>'
+            '<!DOCTYPE article [ <!ENTITY ok "texto interno"> ]>'
+            "<article><body>&ok;</body></article>"
+        )
+        xml_tree = utils.XML(io.BytesIO(xml.encode("utf-8")))
+        self.assertEqual(
+            "texto interno", "".join(xml_tree.xpath(".//text()"))
+        )
