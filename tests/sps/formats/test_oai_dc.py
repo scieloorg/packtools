@@ -1072,6 +1072,7 @@ class TestPipelineOaiDc(unittest.TestCase):
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.0" '
             'specific-use="sps-1.6" xml:lang="pt">'
+            '<front><article-meta>'
             '<related-article ext-link-type="doi" id="A01" related-article-type="commentary-article" '
             'xlink:href="10.1590/0101-3173.2022.v45n1.p139">'
             'Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en'
@@ -1080,6 +1081,7 @@ class TestPipelineOaiDc(unittest.TestCase):
             '<bold>Trans/form/ação</bold>'
             ': revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.'
             '</related-article>'
+            '</article-meta></front>'
             '</article>'
         )
         expected = (
