@@ -43,10 +43,14 @@ def process_xref(node, footnote_markers=None):
             _next = xref.getnext()
             if _next is None or _next.tag != "xref":
                 e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                # Move o tail explicitamente antes do addnext: em lxml >= 5,
-                # addnext() deixou de transferir o tail automaticamente para
-                # o elemento inserido, o que fazia parent.remove(xref) (abaixo)
-                # descartar esse texto junto com o xref removido.
+                # Em lxml >= 5, addnext() não move mais o tail automaticamente:
+                # >>> root = etree.fromstring("<p>text <xref/>depois <b/></p>")
+                # >>> xref = root.find(".//xref")
+                # >>> xref.addnext(etree.Element("EMPTYTAGTOKEEPXREFTAIL"))
+                # >>> etree.tostring(root)
+                # b'<p>text <xref/>depois <EMPTYTAGTOKEEPXREFTAIL/><b/></p>'
+                # ("depois" ficou com o xref, não com o marcador) — por isso
+                # movemos o tail na mão antes de remover o xref abaixo.
                 e.tail = xref.tail
                 xref.tail = None
                 xref.addnext(e)
