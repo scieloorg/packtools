@@ -237,7 +237,8 @@ def xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree):
         raise AddLanguageError(f"Unable to add language {exc}")
 
     try:
-        el.text = title.article_title["text"].strip()
+        article_title = title.article_title or {}
+        el.text = article_title.get("text").strip()
     except Exception as exc:
         raise AddTitleError(f"Unable to add title {exc}")
 

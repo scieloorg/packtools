@@ -179,7 +179,8 @@ def xml_oai_dc_title(xml_oai_dc, xml_tree):
         La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil
     </dc:title>
     """
-    title = article_titles.ArticleTitles(xml_tree).article_title.get("text")
+    article_title = article_titles.ArticleTitles(xml_tree).article_title
+    title = article_title.get("text") if article_title else None
     if title is not None:
         el = ET.Element("{http://purl.org/dc/elements/1.1/}title")
         el.text = title.strip()
