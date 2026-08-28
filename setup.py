@@ -9,8 +9,8 @@ import codecs
 import sys
 
 
-if sys.version_info[0:2] < (3, 9):
-    raise RuntimeError('Requires Python 3.9 or newer')
+if sys.version_info[0:2] < (3, 11):
+    raise RuntimeError('Requires Python 3.11 or newer')
 
 
 LOCALE_DIR = Path(__file__).resolve().parent / "packtools" / "sps" / "locale"
@@ -101,11 +101,10 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
+    python_requires=">=3.11",
     tests_require=TESTS_REQUIRE,
     test_suite='tests',
     install_requires=INSTALL_REQUIRES,
