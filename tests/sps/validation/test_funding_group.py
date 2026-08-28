@@ -78,7 +78,6 @@ class TestAwardInAck(TestFundingValidationBase):
 
     def test_award_in_ack(self):
         results = list(self.validator.validate_required_award_ids())
-        print(results)
         self.assertEqual(len(results), 1)
         result = results[0]
         self.assertEqual(result["data"]["context"], "ack")
