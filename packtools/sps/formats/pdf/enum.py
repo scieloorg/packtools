@@ -17,7 +17,7 @@ PAGE_ATTRIBUTES = {
     "page_width": Cm(21.0),
     "page_height": Cm(29.7),
     "different_first_page_header_footer": True,
-    "start_type": WD_SECTION.NEW_PAGE,
+    "start_type": WD_SECTION.CONTINUOUS,
     "default_column_count": 2,
 }
 
