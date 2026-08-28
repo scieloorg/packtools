@@ -76,7 +76,7 @@ TESTS_REQUIRE = [
     'flask-babel',
     'Flask-WTF>=1.2.0',
     'python-magic>=0.4.27',
-    'charset-normalizer<3.0',
+    'charset-normalizer>=3.5.1',
 ]
 
 
