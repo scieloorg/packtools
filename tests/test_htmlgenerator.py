@@ -169,7 +169,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 1)
         self.assertEqual(title_tags[0].text, "Abstract")
 
@@ -191,7 +191,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 1)
         self.assertEqual(title_tags[0].text, "Abstract")
 
@@ -226,7 +226,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 3)
         self.assertEqual(
             {title_tag.text for title_tag in title_tags},
@@ -261,7 +261,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 1)
         self.assertEqual(title_tags[0].text, "Abstracts")
 
@@ -1154,7 +1154,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
           'um and establish professional profiles with a greater degree'
           ' of adaptation to the professional future. '
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
     def test_generate_html_for_es_abstract_in_subarticle(self):
@@ -1169,7 +1169,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
           'onales con un mayor grado de adaptación al futuro profesiona'
           'l.'
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
     def test_generate_html_for_pt_abstract_in_subarticle(self):
@@ -1181,7 +1181,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
           'O desenvolvimento de competências de 323 alunos foi analisad'
           'o usando um questionário '
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
     def test_generate_html_for_pt_trans_abstract(self):
@@ -1199,7 +1199,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
             'verificado, analisando as curvas características dos itens p'
             'ela idade e escolaridade.'
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
 

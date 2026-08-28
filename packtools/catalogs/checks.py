@@ -148,7 +148,7 @@ def country_code(message):
     """
     et, err_list = message
 
-    elements = et.findall('//*[@country]')
+    elements = et.xpath('.//*[@country]')
     for elem in elements:
         value = elem.attrib['country']
         if value not in ISO3166_CODES_SET():
