@@ -410,7 +410,7 @@ def docx_body_pipe(docx, body_data):
     Returns:
         None
     """
-    _setup_two_column_body_section(docx)
+    _setup_body_section(docx)
 
     for section_data in body_data:
         _render_body_section(docx, section_data)
@@ -497,10 +497,17 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # Private helpers
 # -----------------
 
-def _setup_two_column_body_section(docx):
-    """Create or get the second section and set it to two columns."""
+def _body_column_count():
+    """Number of columns configured for the body, from PAGE_ATTRIBUTES."""
+    return max(1, pdf_enum.PAGE_ATTRIBUTES.get('default_column_count', 2))
+
+
+def _setup_body_section(docx):
+    """Create or get the second section and set its column count from PAGE_ATTRIBUTES."""
     section = docx_renderer.section.get_or_create_second_section(docx)
-    docx_renderer.section.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    column_count = _body_column_count()
+    spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    docx_renderer.section.setup_section_columns(section, column_count, spacing)
 
 
 def _render_body_section(docx, section_data):
@@ -533,20 +540,22 @@ def _add_single_column_section(docx):
     return single_col_section
 
 
-def _add_two_column_section(docx):
-    """Insert a continuous section break and set a two column layout. Returns the section."""
+def _restore_body_column_section(docx):
+    """Insert a continuous section break and restore the body's configured column count. Returns the section."""
     multi_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
-    docx_renderer.section.setup_section_columns(multi_col_section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    column_count = _body_column_count()
+    spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    docx_renderer.section.setup_section_columns(multi_col_section, column_count, spacing)
     return multi_col_section
 
 
 def _render_tables(docx, tables):
     """Render tables, switching to single column when required by layout."""
     for table in tables:
-        if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+        if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL and _body_column_count() > 1:
             _add_single_column_section(docx)
             docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
-            _add_two_column_section(docx)
+            _restore_body_column_section(docx)
         else:
             docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
 
@@ -566,9 +575,9 @@ def _render_figures(docx, figures):
     for fig in figures:
         layout = _figure_layout(docx, fig)
 
-        if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+        if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL and _body_column_count() > 1:
             _add_single_column_section(docx)
             docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
-            _add_two_column_section(docx)
+            _restore_body_column_section(docx)
         else:
             docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)

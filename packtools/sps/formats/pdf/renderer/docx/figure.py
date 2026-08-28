@@ -183,11 +183,12 @@ def _compute_content_width(page_attributes):
     return page_width - left_margin - right_margin
 
 def _compute_single_column_width(page_attributes):
-    """Compute the width of a single column in a two-column layout, accounting for column spacing."""
+    """Compute the width of one body column, accounting for the configured column count and spacing between columns."""
     content_width = _compute_content_width(page_attributes)
+    column_count = max(1, page_attributes.get('default_column_count', 2))
     column_spacing_twips = getattr(pdf_enum, 'TWO_COLUMNS_SPACING', 300)
     column_spacing_cm = Cm(column_spacing_twips / 567.0)
-    return (content_width - column_spacing_cm) / 2
+    return (content_width - (column_count - 1) * column_spacing_cm) / column_count
 
 def _get_docx_context(docx):
     """Retrieve the _scl_context dictionary from the docx Document, if available."""
