@@ -82,7 +82,22 @@ def pipeline_docx(xml_tree, data):
 
     # Setting up sections
     docx_renderer.section.docx_setup_sections(docx)
-    
+
+    # Restart page numbering with the same start value on every section.
+    # LibreOffice does not honor a restart set on only one section of an
+    # otherwise-continuous document: setting it only on the body section
+    # gets ignored (rendered page keeps the raw physical count), and
+    # setting it only on the first section makes LibreOffice promote the
+    # continuous break back into a real page break. fpage (not fpage + 1)
+    # is used because the PAGE field already increments naturally within
+    # the continuous flow.
+    try:
+        start_page_number = int(footer_data['fpage'])
+    except ValueError:
+        start_page_number = 0
+    for section in docx.sections:
+        docx_renderer.section.set_start_page_number(section, start_page_number)
+
     return docx
 
 def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Title Char'):
@@ -318,6 +333,13 @@ def docx_second_header_pipe(
     """
     Adds the journal title and article title to the second page header of the DOCX document.
 
+    Written to the first section's default header (distinct from its
+    first-page header) rather than a separately unlinked header on the
+    second section: LibreOffice does not render a header defined on a
+    section that both starts with a continuous break and is unlinked from
+    the previous section, and the second section needs a continuous break
+    to let body content start on the same page as the front matter.
+
     Args:
         docx (python-docx.Document): The DOCX document object.
         journal_title (str): The title of the journal to be added.
@@ -328,8 +350,7 @@ def docx_second_header_pipe(
     Returns:
         None
     """
-    header = docx_renderer.section.get_second_header(docx)
-    header.is_linked_to_previous = False
+    header = docx_renderer.section.get_default_header(docx)
     para = header.add_paragraph()
     para.style = docx.styles[paragraph_header_style_name]
 
@@ -357,16 +378,8 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
     para.style = docx.styles[paragraph_style_name]
 
     docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
-    
+
     para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
-
-    try:
-        current_page_number = int(footer_data['fpage']) + 1
-    except ValueError:
-        current_page_number = 1
-
-    second_section = docx_renderer.section.get_or_create_second_section(docx)
-    docx_renderer.section.set_start_page_number(second_section, current_page_number)
 
 def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
     """
@@ -397,7 +410,7 @@ def docx_body_pipe(docx, body_data):
     Returns:
         None
     """
-    _setup_two_column_body_section(docx)
+    _setup_body_section(docx)
 
     for section_data in body_data:
         _render_body_section(docx, section_data)
@@ -484,10 +497,17 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # Private helpers
 # -----------------
 
-def _setup_two_column_body_section(docx):
-    """Create or get the second section and set it to two columns."""
+def _body_column_count():
+    """Number of columns configured for the body, from PAGE_ATTRIBUTES."""
+    return max(1, pdf_enum.PAGE_ATTRIBUTES.get('default_column_count', 2))
+
+
+def _setup_body_section(docx):
+    """Create or get the second section and set its column count from PAGE_ATTRIBUTES."""
     section = docx_renderer.section.get_or_create_second_section(docx)
-    docx_renderer.section.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    column_count = _body_column_count()
+    spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    docx_renderer.section.setup_section_columns(section, column_count, spacing)
 
 
 def _render_body_section(docx, section_data):
@@ -520,20 +540,22 @@ def _add_single_column_section(docx):
     return single_col_section
 
 
-def _add_two_column_section(docx):
-    """Insert a continuous section break and set a two column layout. Returns the section."""
+def _restore_body_column_section(docx):
+    """Insert a continuous section break and restore the body's configured column count. Returns the section."""
     multi_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
-    docx_renderer.section.setup_section_columns(multi_col_section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    column_count = _body_column_count()
+    spacing = pdf_enum.TWO_COLUMNS_SPACING if column_count > 1 else 0
+    docx_renderer.section.setup_section_columns(multi_col_section, column_count, spacing)
     return multi_col_section
 
 
 def _render_tables(docx, tables):
     """Render tables, switching to single column when required by layout."""
     for table in tables:
-        if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+        if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL and _body_column_count() > 1:
             _add_single_column_section(docx)
             docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
-            _add_two_column_section(docx)
+            _restore_body_column_section(docx)
         else:
             docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
 
@@ -553,9 +575,9 @@ def _render_figures(docx, figures):
     for fig in figures:
         layout = _figure_layout(docx, fig)
 
-        if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+        if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL and _body_column_count() > 1:
             _add_single_column_section(docx)
             docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
-            _add_two_column_section(docx)
+            _restore_body_column_section(docx)
         else:
             docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)

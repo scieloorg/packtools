@@ -243,9 +243,10 @@ def _compute_table_width(page_attributes, table_data):
 	if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
 		table_width = content_width
 	else:
+		column_count = max(1, page_attributes.get('default_column_count', 2))
 		column_spacing = getattr(pdf_enum, 'TWO_COLUMNS_SPACING', 300)
 		column_spacing = Cm(column_spacing / 567.0)
-		table_width = (content_width - column_spacing) // 2
+		table_width = (content_width - (column_count - 1) * column_spacing) // column_count
 
 	return content_width, table_width, layout
 
