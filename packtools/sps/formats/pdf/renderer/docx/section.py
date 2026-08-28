@@ -23,12 +23,15 @@ def get_first_section(docx):
         docx.add_section()
         return docx.sections[0]
 
-def get_or_create_second_section(docx):
+def get_or_create_second_section(docx, page_attributes=pdf_enum.PAGE_ATTRIBUTES):
     """
-    Get or create the second section in the document.
+    Get or create the second section in the document, using the configured
+    start_type (defaults to a continuous break, letting body content start
+    on page 1 when there's room for it).
     """
+    start_type = page_attributes.get('start_type', pdf_enum.WD_SECTION.CONTINUOUS)
     while len(docx.sections) < 2:
-        docx.add_section()
+        docx.add_section(start_type)
     return docx.sections[1]
 
 def get_first_page_header(docx):
@@ -45,11 +48,12 @@ def get_first_page_footer(docx):
     section = get_first_section(docx)
     return section.first_page_footer
 
-def get_second_header(docx):
+def get_default_header(docx):
     """
-    Get the second page header of the document.
+    Get the first section's default header (used from the second page
+    onward within that section, and inherited by any later linked section).
     """
-    section = get_or_create_second_section(docx)
+    section = get_first_section(docx)
     return section.header
 
 def get_second_footer(docx):
@@ -100,8 +104,6 @@ def _apply_header_footer_linking(sec, index, page_attributes):
     """ Apply header/footer linking rules based on section index."""
     if index == 0:
         sec.different_first_page_header_footer = page_attributes.get('different_first_page_header_footer')
-    elif index == 1:
-        sec.header.is_linked_to_previous = False
 
 def _apply_page_attributes(sec, page_attributes):
     """Apply page attributes from the given dictionary to the section."""

@@ -43,6 +43,16 @@ def process_xref(node, footnote_markers=None):
             _next = xref.getnext()
             if _next is None or _next.tag != "xref":
                 e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                # Em lxml >= 5, addnext() não move mais o tail automaticamente:
+                # >>> root = etree.fromstring("<p>text <xref/>depois <b/></p>")
+                # >>> xref = root.find(".//xref")
+                # >>> xref.addnext(etree.Element("EMPTYTAGTOKEEPXREFTAIL"))
+                # >>> etree.tostring(root)
+                # b'<p>text <xref/>depois <EMPTYTAGTOKEEPXREFTAIL/><b/></p>'
+                # ("depois" ficou com o xref, não com o marcador) — por isso
+                # movemos o tail na mão antes de remover o xref abaixo.
+                e.tail = xref.tail
+                xref.tail = None
                 xref.addnext(e)
 
     for xref in node.findall(".//xref"):
@@ -138,7 +148,7 @@ def _get_xml_content(xml):
 
 
 def get_xml_tree(content):
-    parser = etree.XMLParser(remove_blank_text=True, no_network=True)
+    parser = etree.XMLParser(remove_blank_text=True, no_network=True, resolve_entities="internal")
     try:
         content = _get_xml_content(content)
         xml_tree = etree.XML(content, parser)

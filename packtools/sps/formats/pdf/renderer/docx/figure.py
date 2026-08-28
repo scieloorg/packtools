@@ -36,18 +36,18 @@ def add_figure(docx, figure_data, header_style_name='SCL Table Heading', page_at
 
 def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIBUTES, threshold: float = 1.1):
     """
-    Decide whether a figure should occupy the full page width (double-column-layout) or a single column (single-column-layout).
+    Decide whether a figure should occupy the full page width (single-column-layout, i.e. a one-column docx section) or fit within one body column (double-column-layout, i.e. a two-column docx section).
 
     Heuristic:
-    - Compute the natural width of the image in centimeters using Pillow and its DPI metadata (tries dpi, jfif_density; defaults to 150 DPI when missing).
+    - Compute the natural width of the image in centimeters using Pillow and its DPI metadata (tries dpi, jfif_density; defaults to 300 DPI when missing).
     - Compute the available content width (page width minus margins) and the single-column width ((content - column_spacing)/2).
-    - If natural image width >= threshold * single-column width, return 'double-column-layout'; otherwise 'single-column-layout'.
+    - If natural image width >= threshold * single-column width, return 'single-column-layout' (full width); otherwise 'double-column-layout' (fits in one column).
 
     Args:
         docx: The Document, used to read `_scl_context` for assets_dir and cache.
         figure_data: Dict with at least 'href' (and optionally 'alt').
         page_attributes: Dict containing Cm values for page_width, margins, and optionally TWO_COLUMNS_SPACING in twips via pdf_enum.
-        threshold: Float in (0,1.5] to bias decision; higher means prefer double-column for larger images. Default 0.9.
+        threshold: Float in (0,1.5] to bias decision; higher means prefer double-column for larger images. Default 1.1.
 
     Returns:
         str: 'double-column-layout' or 'single-column-layout'
@@ -72,43 +72,66 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
         # If Pillow is unavailable at runtime, fallback conservatively
         return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
 
-    # Compute layout widths (in Cm)
-    page_width = page_attributes.get('page_width', Cm(21.0))
-    left_margin = page_attributes.get('left_margin', Cm(2.0))
-    right_margin = page_attributes.get('right_margin', Cm(2.0))
-    content_width = page_width - left_margin - right_margin
+    # Reuses _compute_single_column_width so this decision honors the same
+    # formula as the rest of the layout code, instead of duplicating (and
+    # risking drifting from) it here.
+    single_col_width = _compute_single_column_width(page_attributes)
 
-    # Convert TWO_COLUMNS_SPACING (twips) to Cm, mirroring table_utils logic
-    column_spacing_twips = getattr(pdf_enum, 'TWO_COLUMNS_SPACING', 300)
-    column_spacing_cm = Cm(column_spacing_twips / 567.0)
-    single_col_width = (content_width - column_spacing_cm) / 2
+    probe = probe_image_dpi(docx, figure_data)
+    if probe is None:
+        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+    px_w, dpi = probe
 
-    # Resolve image path (local or download)
+    # A caller may have compared this image's DPI against its siblings and
+    # supplied a more trustworthy value here - see 'layout_dpi_override'.
+    if isinstance(figure_data, dict) and figure_data.get('layout_dpi_override'):
+        try:
+            dpi = float(figure_data['layout_dpi_override'])
+        except (TypeError, ValueError):
+            pass
+
+    # width in inches then to Cm
+    width_in_cm = (px_w / max(1.0, dpi)) * 2.54
+
+    # single_col_width comes back as a raw EMU number, not a Cm object
+    # (python-docx's Length has no operator overloads that preserve units
+    # through subtraction/division) - convert back to cm so this compares
+    # against width_in_cm in the same unit, instead of cm against EMU.
+    single_col_width_cm = single_col_width / Cm(1)
+
+    # If the image is wider than a single column by the threshold factor, prefer a single-column-layout (full width). Otherwise, keep double-column-layout.
+    return pdf_enum.SINGLE_COLUMN_PAGE_LABEL if width_in_cm >= float(threshold) * single_col_width_cm else pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+
+
+def probe_image_dpi(docx, figure_data):
+    """
+    Resolve a figure's image and return its (pixel_width, dpi), or None if
+    the image can't be opened.
+    """
+    try:
+        from PIL import Image
+    except Exception:
+        return None
+
     context = _get_docx_context(docx)
     href = figure_data.get('href') if isinstance(figure_data, dict) else None
     img_path = _resolve_image_path(href, context)
-    if not img_path:
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+    if not img_path or not os.path.exists(img_path):
+        return None
 
-    # Open image and compute its natural width in Cm using DPI (default 72 DPI)
-    if not os.path.exists(img_path):
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
     try:
         with Image.open(img_path) as im:
-            px_w = im.width
-            dpi = _infer_image_dpi(im)
-            # width in inches then to Cm
-            width_in_cm = (px_w / max(1.0, dpi)) * 2.54
+            return im.width, _infer_image_dpi(im)
     except Exception:
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-
-    # If the image is wider than a single column by the threshold factor, prefer a single-column-layout (full width). Otherwise, keep double-column-layout.
-    return pdf_enum.SINGLE_COLUMN_PAGE_LABEL if width_in_cm >= float(threshold) * float(single_col_width) else pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+        return None
 
 
 # -----------------
 # Private helpers
 # -----------------
+
+_NO_METADATA_DPI_FALLBACK = 300.0
+
 
 def _infer_image_dpi(im) -> float:
     """Infer the horizontal DPI from a PIL Image, considering multiple metadata sources.
@@ -116,7 +139,7 @@ def _infer_image_dpi(im) -> float:
     Priority:
     - im.info['dpi']: tuple or number
     - im.info['jfif_unit'] and im.info['jfif_density'] (unit 1=inches, 2=cm)
-    Fallback: 96 dpi
+    Fallback: _NO_METADATA_DPI_FALLBACK.
     """
     try:
         info = getattr(im, 'info', {}) or {}
@@ -139,10 +162,10 @@ def _infer_image_dpi(im) -> float:
 
             if unit == 2:  # per cm
                 return float(density[0]) * 2.54
-        return 96.0
+        return _NO_METADATA_DPI_FALLBACK
 
     except Exception:
-        return 96.0
+        return _NO_METADATA_DPI_FALLBACK
 
 def _add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph'):
     """Minimal helper to add a paragraph with an optional style, avoiding circular imports."""
