@@ -50,7 +50,8 @@ def obtain_asset_dict(article_assets, package_name=None):
 
 class ArticleAssetsTest(TestCase):
     def test_article_assets_with_one_figure(self):
-        data = open("tests/sps/fixtures/document3.xml").read()
+        with open("tests/sps/fixtures/document3.xml") as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {"": [{"name": "document3-xdadaf.jpg", "type": "original"}]}
@@ -91,7 +92,8 @@ class ArticleAssetsTest(TestCase):
         self.assertDictEqual(expected, obtained)
 
     def test_article_assets_with_multiple_figures(self):
-        data = open("tests/sps/fixtures/document2.xml").read()
+        with open("tests/sps/fixtures/document2.xml") as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {
@@ -126,9 +128,10 @@ class ArticleAssetsTest(TestCase):
         #  um subartigo em Espanhol com 3 figuras (cada uma com original, otimizado e miniatura)
         #  um subartigo em Português com 3 figuras (cada uma com original, otimizado e miniatura)
         # Há 27 assets sem ID
-        data = open(
+        with open(
             "tests/fixtures/htmlgenerator/alternatives/imagens_fora_de_fig.xml"
-        ).read()
+        ) as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {
@@ -545,9 +548,9 @@ class ArticleAssetsTest(TestCase):
         self.assertDictEqual(expected, obtained)
 
     def test_article_assets_with_multiple_supplementary_material(self):
-        data = open(
-            "tests/sps/fixtures/document-with-supplementary-material.xml"
-        ).read()
+        with open("tests/sps/fixtures/document-with-supplementary-material.xml") as fp:
+            data = fp.read()
+        
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {
@@ -791,7 +794,8 @@ class ArticleAssetsTest(TestCase):
         self.assertDictEqual(expected, obtained)
 
     def test_article_assets_optimised_default(self):
-        data = open("tests/sps/fixtures/2318-0889-tinf-33-e200068.xml").read()
+        with open("tests/sps/fixtures/2318-0889-tinf-33-e200068.xml") as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {
@@ -947,9 +951,8 @@ class ArticleAssetsTest(TestCase):
     @skip("Teste pendente de correção e/ou ajuste")
     def test_assets_canonical_name_without_subarticles(self):
         self.maxDiff = None
-        data = open(
-            "tests/sps/fixtures/document-with-supplementary-material.xml"
-        ).read()
+        with open("tests/sps/fixtures/document-with-supplementary-material.xml") as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {
@@ -1108,7 +1111,8 @@ class ArticleAssetsTest(TestCase):
         self.assertListEqual(expected, obtained)
 
     def test_assets_canonical_name_with_subarticles_and_without_id(self):
-        data = open("tests/samples/0034-8910-rsp-48-2-0232.xml").read()
+        with open("tests/samples/0034-8910-rsp-48-2-0232.xml") as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {
@@ -1159,7 +1163,8 @@ class ArticleAssetsTest(TestCase):
         self.assertDictEqual(expected, obtained)
 
     def test_assets_canonical_name_with_subarticles_and_ids_with_lang(self):
-        data = open("tests/samples/0034-8910-rsp-48-2-0240.xml").read()
+        with open("tests/samples/0034-8910-rsp-48-2-0240.xml") as fp:
+            data = fp.read()
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = {

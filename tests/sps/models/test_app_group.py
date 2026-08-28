@@ -47,14 +47,15 @@ class AppTest(unittest.TestCase):
             "caption": None,
             "graphics": [
                 {
-                    "alt_text": None,
-                    "content_type": None,
                     "id": None,
-                    "long_desc": None,
-                    "speakers": None,
+                    "long_desc_count": 0,
+                    "parent_caption_title": None,
+                    "parent_label": "Appendix 1",
+                    "parent_tag": "app",
                     "tag": "graphic",
-                    "transcript": None,
                     "xlink_href": "image1.jpg",
+                    "xml": '<graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="image1.jpg"/>',
+                    "xref_sec_rid": None,
                 }
             ],
             "id": "app1",
@@ -70,7 +71,8 @@ class AppGroupTest(unittest.TestCase):
         """Criação do XML em memória para testes de AppGroup."""
 
         self.xml_tree = Element("article", nsmap={"xlink": XLINK_NAMESPACE})
-        self.app_group = SubElement(self.xml_tree, "app-group")
+        self.back = SubElement(self.xml_tree, "back")
+        self.app_group = SubElement(self.back, "app-group")
 
         # Criando primeiro <app> com <graphic>
         self.app1 = SubElement(self.app_group, "app", {"id": "app1"})
@@ -95,7 +97,7 @@ class AppGroupTest(unittest.TestCase):
 
     def test_data(self):
         self.maxDiff = None
-        obtained = list(XmlAppGroup(self.xml_tree).data())
+        obtained = list(XmlAppGroup(self.xml_tree).data)
         self.assertEqual(len(obtained), 2)
 
 

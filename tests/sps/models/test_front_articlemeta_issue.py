@@ -82,9 +82,13 @@ class ArticleMetaIssueTest(TestCase):
 
     def test_collection_date(self):
         expected = {
+            'day': None,
             'display': '2003',
             'is_complete': False,
+            'month': None,
             'parts': {'day': None, 'month': None, 'season': None, 'year': '2003'},
+            'publication_format': 'electronic',
+            'season': None,
             'type': 'collection',
             'year': '2003'
         }
