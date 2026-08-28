@@ -763,6 +763,16 @@ msgstr "Agregue <pub-date publication-format=\"electronic\" date-type=\"pub\"> c
 msgid "Add <pub-date publication-format=\"electronic\" date-type=\"collection\"> with <year>"
 msgstr "Agregue <pub-date publication-format=\"electronic\" date-type=\"collection\"> con <year>"
 
+#: packtools/sps/validation/dates.py
+#, python-brace-format
+msgid "<pub-date date-type=\"pub\"> ({pub_date}) must not be later than {limit}"
+msgstr "<pub-date date-type=\"pub\"> ({pub_date}) no debe ser posterior a {limit}"
+
+#: packtools/sps/validation/dates.py
+#, python-brace-format
+msgid "<pub-date date-type=\"pub\"> ({pub_date}) must not be more than {tolerance_months} months before <pub-date date-type=\"collection\"> year ({collection_year})"
+msgstr "<pub-date date-type=\"pub\"> ({pub_date}) no debe ser más de {tolerance_months} meses anterior al año de <pub-date date-type=\"collection\"> ({collection_year})"
+
 #: packtools/sps/validation/dates.py:411
 #, python-brace-format
 msgid "Set @publication-format=\"electronic\" in <pub-date date-type=\"{date_type}\">"
