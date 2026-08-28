@@ -69,11 +69,11 @@ def get_static_assets(xml_et):
     """Returns an iterable with all static assets referenced by xml_et.
     """
     paths = [
-        '//graphic[@xlink:href]',
-        '//media[@xlink:href]',
-        '//inline-graphic[@xlink:href]',
-        '//supplementary-material[@xlink:href]',
-        '//inline-supplementary-material[@xlink:href]',
+        './/graphic[@xlink:href]',
+        './/media[@xlink:href]',
+        './/inline-graphic[@xlink:href]',
+        './/supplementary-material[@xlink:href]',
+        './/inline-supplementary-material[@xlink:href]',
     ]
 
     iterators = [xml_et.iterfind(path, namespaces={'xlink': 'http://www.w3.org/1999/xlink'})
