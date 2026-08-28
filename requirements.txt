@@ -1,6 +1,6 @@
 urllib3==2.7.0
 lxml==4.9.3
-Pillow==10.1.0
+Pillow==12.3.0
 minio==7.2.20
 requests==2.34.2
 tenacity==8.5.0
