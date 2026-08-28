@@ -108,6 +108,26 @@ class ProcessXrefTailPreservationTest(unittest.TestCase):
         result = xml_utils.process_xref(node)
         self.assertEqual("a  c", "".join(result.xpath(".//text()")))
 
+    def test_addnext_no_longer_moves_tail_automatically(self):
+        # Canário: isola só o addnext() da lxml, sem passar pelo restante da
+        # lógica de process_xref(). Documenta a premissa por trás do fix
+        # acima (e da revisão em code review, PR #1283): em lxml 4.9.3,
+        # addnext() movia o .tail do elemento original para o elemento
+        # inserido como efeito colateral automático; a partir do lxml 5.x
+        # (validado também na 6.1.1, versão-alvo desta PR) isso não acontece
+        # mais — o tail permanece no elemento original. Se a lxml reverter
+        # esse comportamento no futuro, este teste é o primeiro a acusar, e
+        # o fix manual em process_xref() (e.tail = xref.tail; xref.tail =
+        # None) pode então ser reavaliado.
+        original = etree.SubElement(etree.Element("root"), "xref")
+        original.tail = " after"
+        inserted = etree.Element("MARKER")
+
+        original.addnext(inserted)
+
+        self.assertEqual(" after", original.tail)
+        self.assertIsNone(inserted.tail)
+
     def test_no_marker_tag_leaks_into_final_result(self):
         node = etree.fromstring(
             '<p>a <xref ref-type="fn">1</xref> b</p>'
