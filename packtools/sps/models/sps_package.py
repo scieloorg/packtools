@@ -694,7 +694,9 @@ class SPS_Assets:
         """
         nodes = []
         # obtém os assets da árvore inteira ou a partir de um node
-        xmltree = node or self._xml_tree
+        xmltree = self._xml_tree
+        if node is not None:
+            xmltree = node
         for node in xmltree.xpath(
                 ".//*[@xlink:href]",
                 namespaces={"xlink": "http://www.w3.org/1999/xlink"}):
@@ -818,7 +820,10 @@ class SPS_Asset:
 
     @property
     def suffix(self):
-        parent_node_id = self._parent_node_with_id.get('id') if self._parent_node_with_id else ''
+        try:
+            parent_node_id = self._parent_node_with_id.get('id')
+        except AttributeError:
+            parent_node_id = ''
 
         if self.content_type:
             alternative_id = f"{parent_node_id}-{self.content_type}"

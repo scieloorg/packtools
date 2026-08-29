@@ -1,4 +1,5 @@
 from unittest import TestCase, skip
+from unittest.mock import patch
 from packtools.sps.exceptions import SPSXMLFileError
 from packtools.sps.models import sps_package
 from packtools.sps import sps_maker
@@ -102,7 +103,9 @@ class Test_get_xml_sps_from_uri(TestCase):
         with self.assertRaises(sps_maker.exceptions.SPSXMLLinkError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
-    def test_get_sps_package_from_uri_raises_sps_load_to_xml_error(self):
+    @patch("packtools.sps.sps_maker.reqs.requests_get_content")
+    def test_get_sps_package_from_uri_raises_sps_load_to_xml_error(self, mock_requests_get_content):
+        mock_requests_get_content.return_value = "<html><body>not a valid XML document</body>"
         xml_uri = 'https://scielo.br'
 
         with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
@@ -145,7 +148,10 @@ class Test_get_xml_sps_from_path(TestCase):
 
 class Test_make_package_from_uris(TestCase):
 
-    def test_make_package_from_uris_raises_xml_download_error(self):
+    @patch("packtools.sps.sps_maker.reqs.requests_get_content")
+    def test_make_package_from_uris_raises_xml_download_error(self, mock_requests_get_content):
+        mock_requests_get_content.side_effect = sps_maker.exceptions.SPSHTTPResourceNotFoundError()
+
         xml_uri = "https://minio.scielo.br/documentstore/1414-431X/"
         "ywDM7t6mxHzCRWp7kGF9rXQ/"
         "fd89fb6a2a0f973016f2de7ee2b64b51ca573999.xml"

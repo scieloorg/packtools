@@ -48,6 +48,7 @@ with open('packtools/version.py') as fp:
 
 
 INSTALL_REQUIRES = [
+    'Babel>=2.10.0',
     'aiohttp>=3.14.3',
     'lxml>=6.1.0',
     'langcodes>=3.5.1',

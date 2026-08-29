@@ -191,12 +191,14 @@ def process_node_elements(node, article_meta, keys):
         keys (tuple): Lista de chaves para elementos a serem adicionados ao 'article-meta'.
     """
     for elem_name in keys:
-        if elements := node.get(elem_name):
-            if isinstance(elements, list):
-                for elem in elements:
-                    article_meta.append(elem)
-            else:
-                article_meta.append(elements)
+        elements = node.get(elem_name)
+        if elements is None:
+            continue
+        if isinstance(elements, list):
+            for elem in elements:
+                article_meta.append(elem)
+        else:
+            article_meta.append(elements)
 
 
 def process_counts(data, article_meta):

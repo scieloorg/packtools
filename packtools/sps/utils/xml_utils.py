@@ -128,7 +128,8 @@ def fix_namespace_prefix_w(content):
     """
     pattern = r"\bw:[a-z]{1,}=\""
     found_items = re.findall(pattern, content)
-    logger.debug("Found %i namespace prefix w", len(found_items))
+    if found_items:
+        logger.debug("Found %i namespace prefix w", len(found_items))
     for item in set(found_items):
         new_namespace = item.replace(":", "-")
         logger.debug("%s -> %s" % (item, new_namespace))

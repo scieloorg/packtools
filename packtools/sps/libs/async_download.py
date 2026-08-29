@@ -7,8 +7,6 @@ import tempfile
 from tenacity import retry, wait_exponential
 
 
-LOGGER_FORMAT = u"%(asctime)s %(levelname)-5.5s %(message)s"
-logging.basicConfig(format=LOGGER_FORMAT, level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 

@@ -169,7 +169,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 1)
         self.assertEqual(title_tags[0].text, "Abstract")
 
@@ -191,7 +191,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 1)
         self.assertEqual(title_tags[0].text, "Abstract")
 
@@ -226,7 +226,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 3)
         self.assertEqual(
             {title_tag.text for title_tag in title_tags},
@@ -261,7 +261,7 @@ class HTMLGeneratorTests(unittest.TestCase):
 
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
 
-        title_tags = html.findall('//h1[@class="articleSectionTitle"]')
+        title_tags = html.xpath('.//h1[@class="articleSectionTitle"]')
         self.assertEqual(len(title_tags), 1)
         self.assertEqual(title_tags[0].text, "Abstracts")
 
@@ -756,7 +756,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1="", graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         self.assertIsNotNone(
-            html.find('//p//img[@src="1234-5678-rctb-45-05-0110-e02.png"]')
+            html.find('.//p//img[@src="1234-5678-rctb-45-05-0110-e02.png"]')
         )
 
     def test_graphic_tiff_image_href_must_be_replaces_by_jpeg_file_extension_in_disp_formula(self):
@@ -770,11 +770,11 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         self.assertIsNotNone(
             html.find(
-                '//div[@class="formula-container"]//img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+                './/div[@class="formula-container"]//img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
             )
         )
         self.assertIsNotNone(
-            html.find('//p//img[@src="1234-5678-rctb-45-05-0110-e02.jpg"]')
+            html.find('.//p//img[@src="1234-5678-rctb-45-05-0110-e02.jpg"]')
         )
 
     def test_graphic_images_alternatives_must_prioritize_scielo_web_and_content_type_in_fig_when_thumb(self):
@@ -885,7 +885,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            './/div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -899,7 +899,7 @@ class HTMLGeneratorDispFormulaTests(unittest.TestCase):
         et = get_xml_tree_from_string(self.sample.format(graphic1=graphic1, graphic2=graphic2))
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
+            './/div[@class="modal-body"]/img[@src="1234-5678-rctb-45-05-0110-e01.jpg"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -1007,7 +1007,7 @@ class HTMLGeneratorFigTests(unittest.TestCase):
         et = self.get_xml_tree_from_string(graphic1=graphic1, graphic2=graphic2)
         html = domain.HTMLGenerator.parse(et, valid_only=False).generate('pt')
         modal_body = html.find(
-            '//div[@class="modal-body"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
+            './/div[@class="modal-body"]//img[@src="1234-5678-rctb-45-05-0110-e01.png"]'
         )
         self.assertIsNotNone(modal_body)
 
@@ -1154,7 +1154,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
           'um and establish professional profiles with a greater degree'
           ' of adaptation to the professional future. '
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
     def test_generate_html_for_es_abstract_in_subarticle(self):
@@ -1169,7 +1169,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
           'onales con un mayor grado de adaptación al futuro profesiona'
           'l.'
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
     def test_generate_html_for_pt_abstract_in_subarticle(self):
@@ -1181,7 +1181,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
           'O desenvolvimento de competências de 323 alunos foi analisad'
           'o usando um questionário '
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
     def test_generate_html_for_pt_trans_abstract(self):
@@ -1199,7 +1199,7 @@ class TestHTMLGeneratorGSAbstractLang(unittest.TestCase):
             'verificado, analisando as curvas características dos itens p'
             'ela idade e escolaridade.'
         )
-        p_texts = [p.text for p in html.findall('//p')]
+        p_texts = [p.text for p in html.xpath('.//p')]
         self.assertIn(find_text, p_texts)
 
 
@@ -1277,7 +1277,7 @@ class HTMLGenerator_TableGroupTests(unittest.TestCase):
 
     def test_table_wrap_group_thumbnail(self):
         div_thumbnail = self.html.find(
-            '//div[@id="t1"]'
+            './/div[@id="t1"]'
         )
         self.assertIsNotNone(div_thumbnail)
         div_thumbnail_divs = div_thumbnail.findall(
@@ -1337,7 +1337,7 @@ class HTMLGeneratorFigGroupTests(unittest.TestCase):
 
     def test_fig_group_thumbnail(self):
         div_thumbnail = self.html.find(
-            '//div[@id="f1"]'
+            './/div[@id="f1"]'
         )
         self.assertIsNotNone(div_thumbnail)
         div_thumbnail_divs = div_thumbnail.findall(
@@ -1454,7 +1454,7 @@ class HTMLGeneratorFigWithoutIdTests(unittest.TestCase):
         </div>
         """
         div_row_fig = self.html.find(
-            '//div[@class="row fig"]'
+            './/div[@class="row fig"]'
         )
         self.assertEqual("", div_row_fig.get("id"))
         div_row_fig_divs = div_row_fig.xpath("div")
@@ -1646,7 +1646,7 @@ class HTMLGeneratorFigWithIdTests(unittest.TestCase):
         </div>
         """
         div_row_fig = self.html.find(
-            '//div[@class="row fig"]'
+            './/div[@class="row fig"]'
         )
         self.assertEqual("f1", div_row_fig.get("id"))
         div_row_fig_divs = div_row_fig.xpath("div")
@@ -1893,7 +1893,7 @@ class HTMLGenerator_TableWrapWithIdTests(unittest.TestCase):
         </div>
         """
         div_row_table = self.html.find(
-            '//div[@class="row table"]'
+            './/div[@class="row table"]'
         )
         self.assertEqual("t1", div_row_table.get("id"))
         div_row_table_divs = div_row_table.xpath("div")

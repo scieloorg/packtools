@@ -13,22 +13,23 @@ class TestGraphic(unittest.TestCase):
 
         # Criando sub-artigo para validar extração por ArticleAndSubArticles
         self.sub_article = SubElement(self.article, "sub-article", {"id": "sub1"})
+        self.body = SubElement(self.sub_article, "body")
 
         # Adicionando <graphic> ao sub-artigo
         self.graphic1 = SubElement(
-            self.sub_article,
+            self.body,
             "graphic",
             {"id": "graphic1", "{http://www.w3.org/1999/xlink}href": "image1.png"},
         )
 
         self.graphic2 = SubElement(
-            self.sub_article,
+            self.body,
             "graphic",
             {"id": "graphic2", "{http://www.w3.org/1999/xlink}href": "image2.jpg"},
         )
 
         # Criando parágrafo com <inline-graphic>
-        paragraph = SubElement(self.sub_article, "p")
+        paragraph = SubElement(self.body, "p")
         self.inline_graphic = SubElement(
             paragraph,
             "inline-graphic",
@@ -68,7 +69,7 @@ class TestGraphic(unittest.TestCase):
     def test_xmlgraphic_generates_data(self):
         """Testa se XmlGraphic gera corretamente um iterador de dicionários."""
         xml_graphic = XmlGraphic(self.article)
-        data_list = list(xml_graphic.data())
+        data_list = list(xml_graphic.data)
         # Deve haver 3 elementos (2 <graphic> + 1 <inline-graphic>)
         self.assertEqual(len(data_list), 3)
 
@@ -90,7 +91,7 @@ class TestGraphic(unittest.TestCase):
     def test_xmlgraphic_handles_no_graphic(self):
         """Testa o comportamento quando o XML não contém gráficos."""
         xml_graphic = XmlGraphic(self.article_no_graphic)
-        data_list = list(xml_graphic.data())
+        data_list = list(xml_graphic.data)
 
         # Não há gráficos no XML, o iterador deve ser vazio
         self.assertEqual(len(data_list), 0)
