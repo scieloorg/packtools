@@ -7,6 +7,9 @@ from docx import Document
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.utils import xml_utils
+
+WML_NS = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
 
 FIXTURES_DIR = Path(__file__).resolve().parents[4] / "fixtures" / "pdf"
 
@@ -17,8 +20,23 @@ def _docx_with_layout_styles():
 
 
 class TestPipelineDocx(unittest.TestCase):
-    # TODO
-    ...
+
+    def _start_page_number(self, section):
+        pg_num_type = section._sectPr.find(f'{WML_NS}pgNumType')
+        return pg_num_type.get(f'{WML_NS}start')
+
+    def _pipeline_docx(self, xml_filename):
+        xml_tree = xml_utils.get_xml_tree(str(FIXTURES_DIR / xml_filename))
+        data = {"base_layout": str(FIXTURES_DIR / "layout.docx"), "assets_dir": str(FIXTURES_DIR)}
+        return docx_pipe.pipeline_docx(xml_tree, data)
+
+    def test_start_page_number_uses_fpage_when_present(self):
+        docx = self._pipeline_docx("a1.xml")
+        self.assertEqual(self._start_page_number(docx.sections[0]), '271')
+
+    def test_start_page_number_defaults_to_one_without_fpage(self):
+        docx = self._pipeline_docx("a4.xml")
+        self.assertEqual(self._start_page_number(docx.sections[0]), '1')
 
 
 class TestJournalTitlePipe(unittest.TestLoader):

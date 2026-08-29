@@ -90,11 +90,13 @@ def pipeline_docx(xml_tree, data):
     # setting it only on the first section makes LibreOffice promote the
     # continuous break back into a real page break. fpage (not fpage + 1)
     # is used because the PAGE field already increments naturally within
-    # the continuous flow.
+    # the continuous flow. When there's no fpage (continuous-publication
+    # articles), numbering falls back to the sheets' natural order, so the
+    # first physical page is "1", not "0" (see issue #1302).
     try:
         start_page_number = int(footer_data['fpage'])
     except ValueError:
-        start_page_number = 0
+        start_page_number = 1
     for section in docx.sections:
         docx_renderer.section.set_start_page_number(section, start_page_number)
 
@@ -385,6 +387,12 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     """
     Adds the page, volume, issue, and year information to the first page footer of the DOCX document.
 
+    Uses the same dynamic PAGE field as docx_second_footer_pipe (rather than
+    writing footer_data['fpage'] as static text) so the two footers share one
+    numbering mechanism. A static fpage would render blank when the article
+    has no fpage (continuous-publication articles), while the PAGE field
+    always reflects the actual restart value set on the section.
+
     Args:
         docx (python-docx.Document): The DOCX document object.
         footer_data (dict): The data to be added to the footer.
@@ -397,7 +405,8 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     para = footer.add_paragraph()
 
     para.style = docx.styles[paragraph_style_name]
-    para.add_run(f"{footer_data['fpage']} | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
+    docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
+    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
 
 def docx_body_pipe(docx, body_data):
     """

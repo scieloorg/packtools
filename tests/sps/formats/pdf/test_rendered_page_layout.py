@@ -56,6 +56,12 @@ class TestBodyStartsPageOneRenderedPageNumbers(unittest.TestCase):
     other, invisible to structural assertions on the docx object, since
     the .docx XML looked correct either way. Only inspecting the actual
     rendered PDF catches that.
+
+    The no-fpage expectation below was revised by #1302: #1295/#1296 had
+    landed on "page 2 shows 1" (the first physical sheet left unnumbered)
+    as a side effect of fixing the layout issue, not a deliberate choice
+    about numbering. #1302 supersedes that: sheets are numbered in their
+    natural order starting at 1, so the first physical sheet must show 1.
     """
 
     def test_body_starts_page_one_with_editorial_numbering(self):
@@ -68,9 +74,10 @@ class TestBodyStartsPageOneRenderedPageNumbers(unittest.TestCase):
             # Body content (not just front matter) must already be on page 1.
             self.assertIn("biodiversity", page1_text.lower())
 
-    def test_body_starts_page_one_without_fpage_defaults_to_one(self):
+    def test_body_starts_page_one_without_fpage_numbers_sheets_naturally(self):
         with tempfile.TemporaryDirectory() as tmp:
             page1_text, page2_text = _render_page_texts("a4.xml", Path(tmp))
 
-            # a4.xml has no fpage: page 2 must start numbering at 1.
-            self.assertIn("1 | VOL.", page2_text)
+            # a4.xml has no fpage: sheets follow their natural order (#1302).
+            self.assertIn("1 | VOL.", page1_text)
+            self.assertIn("2 | VOL.", page2_text)
