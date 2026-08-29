@@ -1,6 +1,6 @@
 import hashlib
 import logging
-from functools import lru_cache, cached_property
+from functools import cached_property
 
 
 LOGGER = logging.getLogger(__name__)
