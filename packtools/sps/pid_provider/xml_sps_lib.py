@@ -1569,7 +1569,6 @@ class ArticleMetadataMixin:
             return ""
         return " ".join(" ".join(self.xmltree.xpath(".//body//text()")).split())
 
-    @lru_cache(maxsize=10)
     def get_body_fragment(self, max_length):
         text = self.body_text
         if max_length:
