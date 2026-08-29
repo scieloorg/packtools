@@ -304,7 +304,7 @@ def docx_cite_as_pipe(
     Returns:
         None
     """
-    cite_as_part_two = f'{footer_data["volume"]}: {footer_data["fpage"]}-{footer_data["lpage"]}'
+    cite_as_part_two = f'{footer_data["volume"]}: {footer_data["location_label"]}'
 
     footer = docx_renderer.section.get_first_page_footer(docx)
     para = docx_renderer.text.get_first_paragraph(footer)
@@ -379,7 +379,7 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
 
     docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
 
-    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
+    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
 
 def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
     """
@@ -397,7 +397,7 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     para = footer.add_paragraph()
 
     para.style = docx.styles[paragraph_style_name]
-    para.add_run(f"{footer_data['fpage']} | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
+    para.add_run(f"{footer_data['fpage']} | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
 
 def docx_body_pipe(docx, body_data):
     """
@@ -479,9 +479,11 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 
     para = footer.add_paragraph()
     para.style = docx.styles['SCL Footer']
-    
-    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
-    
+
+    # No PAGE field is added here: supplementary material has its own
+    # pagination, independent of the article body, so no leading " | " either.
+    para.add_run(f"VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
+
     docx_renderer.section.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
 
     docx_renderer.text.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)

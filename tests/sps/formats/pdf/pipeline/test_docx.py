@@ -1,10 +1,19 @@
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from docx import Document
 
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
+from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf import enum as pdf_enum
+
+FIXTURES_DIR = Path(__file__).resolve().parents[4] / "fixtures" / "pdf"
+
+
+def _docx_with_layout_styles():
+    """A fresh Document carrying the named styles the footer/cite-as pipes rely on."""
+    return docx_renderer.builder.init_docx({"base_layout": str(FIXTURES_DIR / "layout.docx")})
 
 
 class TestPipelineDocx(unittest.TestCase):
@@ -58,8 +67,27 @@ class TestDocxKeyworksPipe(unittest.TestCase):
 
 
 class TestDocxCiteAsPipe(unittest.TestCase):
-    # TODO
-    ...
+
+    def test_uses_fpage_lpage_range_when_present(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '10', 'issue': '2', 'year': '2023',
+                       'fpage': 123, 'lpage': 130, 'location_label': '123-130'}
+        docx_pipe.docx_cite_as_pipe(docx, 'Author AB. ', 'Journal Title', footer_data)
+
+        footer = docx_renderer.section.get_first_page_footer(docx)
+        para = docx_renderer.text.get_first_paragraph(footer)
+        self.assertIn('10: 123-130.', para.text)
+
+    def test_uses_elocation_id_when_fpage_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '33', 'issue': '3', 'year': '2024',
+                       'fpage': '', 'lpage': '', 'location_label': 'e282794'}
+        docx_pipe.docx_cite_as_pipe(docx, 'Author AB. ', 'Journal Title', footer_data)
+
+        footer = docx_renderer.section.get_first_page_footer(docx)
+        para = docx_renderer.text.get_first_paragraph(footer)
+        self.assertIn('33: e282794.', para.text)
+        self.assertNotIn('-.', para.text)
 
 
 class TestDocxSecondHeaderPipe(unittest.TestCase):
@@ -68,13 +96,51 @@ class TestDocxSecondHeaderPipe(unittest.TestCase):
 
 
 class TestDocxSecondFooterPipe(unittest.TestCase):
-    # TODO
-    ...
+
+    def test_uses_fpage_lpage_range_when_present(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '10', 'issue': '2', 'year': '2023',
+                       'fpage': 123, 'lpage': 130, 'location_label': '123-130'}
+        docx_pipe.docx_second_footer_pipe(docx, footer_data)
+
+        footer = docx_renderer.section.get_second_footer(docx)
+        para = footer.paragraphs[0]
+        self.assertIn('VOL. 10 (2) 2023: 123-130', para.text)
+
+    def test_uses_elocation_id_when_fpage_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '33', 'issue': '3', 'year': '2024',
+                       'fpage': '', 'lpage': '', 'location_label': 'e282794'}
+        docx_pipe.docx_second_footer_pipe(docx, footer_data)
+
+        footer = docx_renderer.section.get_second_footer(docx)
+        para = footer.paragraphs[0]
+        self.assertIn('VOL. 33 (3) 2024: e282794', para.text)
+        self.assertNotIn(': -', para.text)
 
 
 class TestDocxPageVolIssueYearPipe(unittest.TestCase):
-    # TODO
-    ...
+
+    def test_uses_fpage_lpage_range_when_present(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '10', 'issue': '2', 'year': '2023',
+                       'fpage': 123, 'lpage': 130, 'location_label': '123-130'}
+        docx_pipe.docx_page_vol_issue_year_pipe(docx, footer_data)
+
+        footer = docx_renderer.section.get_first_page_footer(docx)
+        para = footer.paragraphs[-1]
+        self.assertIn('VOL. 10 (2) 2023: 123-130', para.text)
+
+    def test_uses_elocation_id_when_fpage_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '33', 'issue': '3', 'year': '2024',
+                       'fpage': '', 'lpage': '', 'location_label': 'e282794'}
+        docx_pipe.docx_page_vol_issue_year_pipe(docx, footer_data)
+
+        footer = docx_renderer.section.get_first_page_footer(docx)
+        para = footer.paragraphs[-1]
+        self.assertIn('VOL. 33 (3) 2024: e282794', para.text)
+        self.assertNotIn(': -', para.text)
 
 
 class TestDocxBodyPipe(unittest.TestCase):
@@ -93,8 +159,30 @@ class TestDocxAcknowledgmentsPipe(unittest.TestCase):
 
 
 class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
-    # TODO
-    ...
+
+    def test_footer_has_no_leading_pipe(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '53', 'issue': '4', 'year': '2023',
+                       'fpage': 271, 'lpage': 280, 'location_label': '271-280'}
+        docx_pipe.docx_supplementary_material_pipe(
+            docx, footer_data, {'title': 'Supplementary Material', 'elements': []}
+        )
+
+        footer = docx.sections[-1].footer
+        para = footer.paragraphs[-1]
+        self.assertEqual(para.text, 'VOL. 53 (4) 2023: 271-280')
+
+    def test_uses_elocation_id_when_fpage_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '33', 'issue': '3', 'year': '2024',
+                       'fpage': '', 'lpage': '', 'location_label': 'e282794'}
+        docx_pipe.docx_supplementary_material_pipe(
+            docx, footer_data, {'title': 'Supplementary Material', 'elements': []}
+        )
+
+        footer = docx.sections[-1].footer
+        para = footer.paragraphs[-1]
+        self.assertEqual(para.text, 'VOL. 33 (3) 2024: e282794')
 
 
 class TestBodyColumnConfiguration(unittest.TestCase):

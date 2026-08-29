@@ -718,7 +718,9 @@ class TestExtractFooterData(unittest.TestCase):
             'volume': '10',
             'issue': '2',
             'fpage': 123,
-            'lpage': 130
+            'lpage': 130,
+            'elocation_id': '',
+            'location_label': '123-130',
         }
         result = xml_pipe.extract_footer_data(xml)
         self.assertEqual(result, expected)
@@ -738,14 +740,44 @@ class TestExtractFooterData(unittest.TestCase):
             'volume': '',
             'issue': '',
             'fpage': '',
-            'lpage': ''
+            'lpage': '',
+            'elocation_id': '',
+            'location_label': '',
         }
         result = xml_pipe.extract_footer_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_footer_data_no_pub_date(self):
         xml = etree.fromstring('<article></article>')
-        expected = {'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': ''}
+        expected = {
+            'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': '',
+            'elocation_id': '', 'location_label': '',
+        }
+        result = xml_pipe.extract_footer_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_footer_data_uses_elocation_id_when_fpage_is_absent(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2024</year>'
+            '</pub-date>'
+            '<front>'
+            '<volume>33</volume>'
+            '<issue>3</issue>'
+            '<elocation-id>e282794</elocation-id>'
+            '</front>'
+            '</article>'
+        )
+        expected = {
+            'year': '2024',
+            'volume': '33',
+            'issue': '3',
+            'fpage': '',
+            'lpage': '',
+            'elocation_id': 'e282794',
+            'location_label': 'e282794',
+        }
         result = xml_pipe.extract_footer_data(xml)
         self.assertEqual(result, expected)
 
