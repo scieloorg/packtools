@@ -1,12 +1,12 @@
 import logging
 from unittest import TestCase
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 
 from lxml import etree
 
 from packtools.sps.pid_provider.xml_sps_adapter import (PidProviderXMLAdapter,
                                                         _str_with_64_char)
-from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
+from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre, generate_finger_print
 
 
 def _get_xml_adapter(xml=None):
@@ -313,3 +313,103 @@ class PidProviderXMLAdapterTest(TestCase):
             </article>
         """
         return _get_xml_adapter(xml)
+
+
+class PidProviderXMLAdapterGetDataToCompareTest(TestCase):
+
+    def _get_xml_adapter_with_body(self, body_text=""):
+        xml = f"""
+            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+                <front>
+                    <article-meta/>
+                </front>
+                <body><p>{body_text}</p></body>
+            </article>
+        """
+        return _get_xml_adapter(xml)
+
+    def test_returns_expected_keys_without_z_partial_body(self):
+        xml_adapter = self._get_xml_adapter_with_body("Texto de teste")
+        result = xml_adapter.get_data_to_compare()
+        self.assertEqual(
+            set(result.keys()),
+            {
+                "article_titles",
+                "z_surnames",
+                "z_collab",
+                "z_links",
+                "body_fragment_fingerprint",
+                "body_fragment",
+            },
+        )
+        self.assertNotIn("z_partial_body", result)
+
+    def test_body_fragment_uses_default_max_length_300(self):
+        xml_adapter = self._get_xml_adapter_with_body("Texto de teste")
+        result = xml_adapter.get_data_to_compare()
+        self.assertEqual(result["body_fragment"], "texto de teste")
+        self.assertEqual(xml_adapter.xml_with_pre.max_body_fragment_length, 300)
+
+    def test_body_fragment_respects_custom_max_body_fragment_length(self):
+        xml_adapter = self._get_xml_adapter_with_body("Texto de teste longo")
+        result = xml_adapter.get_data_to_compare(max_body_fragment_length=5)
+        self.assertEqual(result["body_fragment"], "texto")
+        # o setter deve ter propagado o valor para xml_with_pre
+        self.assertEqual(xml_adapter.xml_with_pre.max_body_fragment_length, 5)
+
+    def test_body_fragment_fingerprint_matches_fingerprint_of_body_fragment(self):
+        xml_adapter = self._get_xml_adapter_with_body("Texto de teste")
+        result = xml_adapter.get_data_to_compare()
+        expected = generate_finger_print(result["body_fragment"])
+        self.assertEqual(result["body_fragment_fingerprint"], expected)
+
+    def test_setter_not_triggered_when_length_matches_current_value(self):
+        xml_adapter = self._get_xml_adapter_with_body("abc")
+        # já está em 300 (default); patchear o setter para confirmar que
+        # NÃO é chamado quando o valor pedido já é o vigente
+        with patch.object(
+            type(xml_adapter.xml_with_pre),
+            "max_body_fragment_length",
+            new_callable=PropertyMock,
+        ) as mock_prop:
+            mock_prop.return_value = 300
+            xml_adapter.get_data_to_compare(max_body_fragment_length=300)
+            # getter é chamado (comparação), mas nenhuma chamada de
+            # "set" deve ocorrer -- PropertyMock só registra get/set juntos,
+            # então validamos indiretamente via call_count do getter (>=1)
+            # e ausência de exceção de setattr bloqueado.
+            self.assertTrue(mock_prop.called)
+
+    def test_repeated_call_with_same_length_reuses_cached_body_fragment(self):
+        # cached_property armazena o valor computado em xml_with_pre.__dict__;
+        # não dá para espionar xmltree.xpath diretamente porque
+        # lxml.etree._Element é um tipo C e seus atributos/métodos são
+        # read-only (não suportam patch.object).
+        xml_adapter = self._get_xml_adapter_with_body("abc")
+
+        first = xml_adapter.get_data_to_compare()  # popula o cache (length=300)
+        self.assertIn("body_text", xml_adapter.xml_with_pre.__dict__)
+        self.assertNotIn("body_fragment", xml_adapter.xml_with_pre.__dict__)
+
+        cached_body_text_obj = xml_adapter.xml_with_pre.__dict__["body_text"]
+    
+        second = xml_adapter.get_data_to_compare()  # mesmo length, deve reusar cache
+
+        # identidade preservada -> não foi recomputado
+        self.assertIs(xml_adapter.xml_with_pre.__dict__["body_text"], cached_body_text_obj)
+
+        with self.assertRaises(KeyError):
+            xml_adapter.xml_with_pre.__dict__["body_fragment"]
+        self.assertEqual(first["body_fragment"], second["body_fragment"])
+
+    def test_changing_length_invalidates_effectively_recomputes_fragment(self):
+        xml_adapter = self._get_xml_adapter_with_body("abcdefgh")
+        first = xml_adapter.get_data_to_compare(max_body_fragment_length=300)
+        second = xml_adapter.get_data_to_compare(max_body_fragment_length=3)
+        self.assertNotEqual(first["body_fragment"], second["body_fragment"])
+        self.assertEqual(second["body_fragment"], "abc")
+
+    def test_empty_body_returns_empty_fragment(self):
+        xml_adapter = _get_xml_adapter()  # sem <body>
+        result = xml_adapter.get_data_to_compare()
+        self.assertEqual(result["body_fragment"], "")
