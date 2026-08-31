@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "page": {
+    "page_width_pt": 595.275591,
+    "page_height_pt": 841.889764,
+    "orientation": "portrait",
+    "top_margin_pt": 99.212598,
+    "left_margin_pt": 56.692913,
+    "right_margin_pt": 56.692913,
+    "bottom_margin_pt": 56.692913,
+    "header_distance_pt": 28.346457,
+    "footer_distance_pt": 28.346457,
+    "gutter_pt": 0,
+    "different_first_page_header_footer": true,
+    "body_start_type": "continuous",
+    "default_column_count": 2,
+    "column_spacing_pt": 15.0
+  }
+}
