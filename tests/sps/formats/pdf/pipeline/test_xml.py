@@ -334,6 +334,7 @@ class TestExtractBodyData(unittest.TestCase):
                         'column_widths': [50],
                         'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Header'}]],
                         'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data'}]],
+                        'foot': [],
                     }
                 ],
                 'figures': [],
@@ -406,6 +407,7 @@ class TestExtractBodyData(unittest.TestCase):
                         'column_widths': [50],
                         'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Header'}]],
                         'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data'}]],
+                        'foot': [],
                     }
                 ],
                 'figures': [],
@@ -1068,6 +1070,7 @@ class TestExtractTableData(unittest.TestCase):
                            {'colspan': 1, 'rowspan': 1, 'text': '25'}],
                           [{'colspan': 1, 'rowspan': 1, 'text': 'Jane'},
                            {'colspan': 1, 'rowspan': 1, 'text': '30'}]],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1095,6 +1098,7 @@ class TestExtractTableData(unittest.TestCase):
             'column_widths': [50],
             'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Col1'}]],
             'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data1'}]],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1120,6 +1124,7 @@ class TestExtractTableData(unittest.TestCase):
             'column_widths': [],
             'header_spans': [],
             'row_spans': [],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1141,6 +1146,7 @@ class TestExtractTableData(unittest.TestCase):
             'column_widths': [],
             'header_spans': [],
             'row_spans': [],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1173,9 +1179,36 @@ class TestExtractTableData(unittest.TestCase):
                                {'colspan': 1, 'rowspan': 1, 'text': 'SubCol2'}]],
             'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Val1'},
                            {'colspan': 1, 'rowspan': 1, 'text': 'Val2'}]],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
+
+    def test_extract_table_data_foot_with_fn_and_attrib(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn id="TFN1"><p>Source: Authors.</p></fn>
+                    <fn id="TFN2"><p>* p &lt; 0.05.</p></fn>
+                    <attrib>Adapted from Smith (2020).</attrib>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result['foot'],
+            ['Source: Authors.', '* p < 0.05.', 'Adapted from Smith (2020).'],
+        )
+
+    def test_extract_table_data_no_foot_defaults_to_empty_list(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result['foot'], [])
 
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):

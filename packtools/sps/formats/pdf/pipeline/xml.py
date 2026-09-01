@@ -600,12 +600,15 @@ def extract_table_data(table_wrap):
             - 'rows': A list of lists, where each inner list represents the text content of the table data cells.
             - 'layout': A string indicating the table layout ('single-column-layout' or 'double-column-layout').
             - 'column_widths': A list of calculated column widths based on content.
+            - 'foot': A list of footnote/attribution strings from <table-wrap-foot>, if present.
     """
     table_label = table_wrap.find('.//label')
     label_text = table_label.text if table_label is not None else ""
 
     table_title = table_wrap.find('.//title')
     title_text = table_title.text if table_title is not None else ""
+
+    foot_notes = _extract_table_foot(table_wrap)
 
     headers = []
     rows = []
@@ -641,6 +644,7 @@ def extract_table_data(table_wrap):
         'column_widths': column_widths,
         'header_spans': header_spans,
         'row_spans': row_spans,
+        'foot': foot_notes,
     }
 
 def determine_table_layout(table_wrap):
@@ -894,6 +898,33 @@ def _calculate_max_columns(table_section, cell_tag):
         max_cols = max(max_cols, current_cols)
     
     return max_cols
+
+def _extract_table_foot(table_wrap):
+    """
+    Extracts footnote/attribution text from a table's <table-wrap-foot>, if present.
+
+    Args:
+        table_wrap (ElementTree): The XML table-wrap element to extract from.
+
+    Returns:
+        list: One string per <fn> or <attrib> child found, in document order.
+    """
+    notes = []
+    foot = table_wrap.find('.//table-wrap-foot')
+    if foot is None:
+        return notes
+
+    for fn in foot.findall('fn'):
+        text = ' '.join(' '.join(fn.itertext()).split()).strip()
+        if text:
+            notes.append(text)
+
+    for attrib in foot.findall('attrib'):
+        text = ' '.join(' '.join(attrib.itertext()).split()).strip()
+        if text:
+            notes.append(text)
+
+    return notes
 
 def _calculate_column_widths(headers, rows, min_width=50, max_width=200):
     """
