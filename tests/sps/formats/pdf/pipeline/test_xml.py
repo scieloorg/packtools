@@ -1146,6 +1146,110 @@ class TestExtractTableData(unittest.TestCase):
         self.assertEqual(expected, result)
 
 
+class TestExtractBodyDataTableDedup(unittest.TestCase):
+    """
+    Regression tests for a table-wrap inside a nested <sec> being collected
+    once, by its closest section ancestor, at its natural position. It was
+    previously collected by every ancestor section too (findall('.//sec')
+    yields each nested <sec> as its own entry, and each searches all
+    table-wrap descendants), duplicating the table and hoisting one copy of
+    it into a block ahead of the subsection's own text.
+    """
+
+    def test_table_in_nested_subsection_is_not_duplicated(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<sec>'
+            '<title>Child</title>'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        all_tables = [t for sec in result for t in sec['tables']]
+        self.assertEqual(len(all_tables), 1)
+
+    def test_table_in_nested_subsection_stays_at_its_natural_position(self):
+        # Not just deduplicated: the surviving copy must belong to the Child
+        # section (its actual position in the text), not get hoisted up to
+        # Parent (a table-id-keyed dedup that kept "whichever copy is seen
+        # first" would have kept the wrong one, since findall('.//sec') visits
+        # Parent before Child).
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<sec>'
+            '<title>Child</title>'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        parent_sec = next(s for s in result if s['title'] == 'Parent')
+        child_sec = next(s for s in result if s['title'] == 'Child')
+        self.assertEqual(len(parent_sec['tables']), 0)
+        self.assertEqual(len(child_sec['tables']), 1)
+
+    def test_tables_without_id_still_avoid_duplication_and_hoisting(self):
+        # The fix doesn't rely on @id at all (unlike the figure dedup it was
+        # modeled after): it's based on each table-wrap's closest <sec>
+        # ancestor, so this must work the same with or without an id.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<sec>'
+            '<title>Child</title>'
+            '<table-wrap>'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        all_tables = [t for sec in result for t in sec['tables']]
+        self.assertEqual(len(all_tables), 1)
+        parent_sec = next(s for s in result if s['title'] == 'Parent')
+        self.assertEqual(len(parent_sec['tables']), 0)
+
+    def test_table_directly_in_parent_is_not_skipped(self):
+        # A table that's a direct child of Parent (not inside Child) must
+        # still be collected by Parent, the fix must not over-correct into
+        # skipping every table above the deepest section.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<table-wrap id="t1"><label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>'
+            '<sec>'
+            '<title>Child</title>'
+            '<table-wrap id="t2"><label>Table 2</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>'
+            '</sec>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        parent_sec = next(s for s in result if s['title'] == 'Parent')
+        child_sec = next(s for s in result if s['title'] == 'Child')
+        self.assertEqual([t['label'] for t in parent_sec['tables']], ['Table 1'])
+        self.assertEqual([t['label'] for t in child_sec['tables']], ['Table 2'])
+
+
 class TestExtractTransAbstractData(unittest.TestCase):
 
     def test_extract_trans_abstract_data_basic(self):
