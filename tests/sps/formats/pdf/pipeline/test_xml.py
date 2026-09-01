@@ -1304,6 +1304,20 @@ class TestExtractTableData(unittest.TestCase):
             pdf_enum.DOUBLE_COLUMN_PAGE_LABEL,
         )
 
+    def test_extract_table_data_override_layout_wins_over_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(
+            table_wrap, override_layout=pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+        )
+        self.assertEqual(result['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
+    def test_extract_table_data_invalid_override_falls_back_to_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap, override_layout='not-a-real-layout')
+        self.assertEqual(result['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):
     """
@@ -1407,6 +1421,23 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
         child_sec = next(s for s in result if s['title'] == 'Child')
         self.assertEqual([t['label'] for t in parent_sec['tables']], ['Table 1'])
         self.assertEqual([t['label'] for t in child_sec['tables']], ['Table 2'])
+
+    def test_table_layout_overrides_reach_extract_table_data(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(
+            xml, table_layout_overrides={'t1': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}
+        )
+        self.assertEqual(result[0]['tables'][0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
 
 
 class TestExtractTransAbstractData(unittest.TestCase):
