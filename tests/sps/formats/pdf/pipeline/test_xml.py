@@ -3,6 +3,7 @@ import unittest
 from lxml import etree
 
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+from packtools.sps.formats.pdf import enum as pdf_enum
 
 
 class TestExtractAbstractData(unittest.TestCase):
@@ -1284,6 +1285,24 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(result['foot'], [])
+
+    def test_determine_table_layout_single_long_cell_forces_single_column(self):
+        long_text = "x" * 500
+        xml_str = f"<table-wrap><table><tbody><tr><td>{long_text}</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        self.assertEqual(
+            xml_pipe.determine_table_layout(table_wrap),
+            pdf_enum.SINGLE_COLUMN_PAGE_LABEL,
+        )
+
+    def test_determine_table_layout_moderately_long_cell_stays_double_column(self):
+        moderate_text = "x" * 150
+        xml_str = f"<table-wrap><table><tbody><tr><td>{moderate_text}</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        self.assertEqual(
+            xml_pipe.determine_table_layout(table_wrap),
+            pdf_enum.DOUBLE_COLUMN_PAGE_LABEL,
+        )
 
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):

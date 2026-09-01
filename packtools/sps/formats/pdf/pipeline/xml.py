@@ -649,9 +649,14 @@ def extract_table_data(table_wrap):
         'foot': foot_notes,
     }
 
+_PATHOLOGICAL_CELL_LENGTH = 400
+
 def determine_table_layout(table_wrap):
     """
-    Determines the layout of a table based on the number of columns it contains, considering merged cells.
+    Determines the layout of a table based on the number of columns it contains,
+    considering merged cells, with a guard against a single excessively long cell
+    (which the column-count heuristic alone can't catch: a table can have few
+    columns and still need full width).
 
     Args:
         table_wrap (ElementTree): The XML table-wrap element to analyze.
@@ -663,18 +668,21 @@ def determine_table_layout(table_wrap):
     if table is not None:
         # Check both thead and tbody for maximum columns
         max_columns = 0
-        
+
         thead = table.find('.//thead')
         if thead is not None:
             max_columns = max(max_columns, _calculate_max_columns(thead, 'th'))
-        
+
         tbody = table.find('.//tbody')
         if tbody is not None:
             max_columns = max(max_columns, _calculate_max_columns(tbody, 'td'))
-        
+
         if max_columns > 4:
             return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-    
+
+        if _max_cell_text_length(table) > _PATHOLOGICAL_CELL_LENGTH:
+            return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+
     return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
 
 def get_table_column_info(headers, rows):
@@ -900,6 +908,14 @@ def _calculate_max_columns(table_section, cell_tag):
         max_cols = max(max_cols, current_cols)
     
     return max_cols
+
+def _max_cell_text_length(table):
+    """Returns the character length of the longest single cell's text in the table."""
+    max_len = 0
+    for cell in table.xpath('.//td | .//th'):
+        cell_len = len(''.join(cell.itertext()).strip())
+        max_len = max(max_len, cell_len)
+    return max_len
 
 def _extract_table_foot(table_wrap):
     """
