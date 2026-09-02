@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from docx import Document
+from docx.enum.style import WD_STYLE_TYPE
 
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
 from packtools.sps.formats.pdf import enum as pdf_enum
@@ -53,8 +54,28 @@ class TestDocxAbstractPipe(unittest.TestCase):
 
 
 class TestDocxKeyworksPipe(unittest.TestCase):
-    # TODO
-    ...
+    """
+    Regression tests for issue #1322: the Keywords/Palavras-chave paragraph
+    had no space-after of its own, so the section title immediately
+    following it (space-before=0) collapsed onto it with almost no gap.
+    """
+
+    def setUp(self):
+        self.docx = Document()
+        self.docx.styles.add_style('SCL Paragraph Keywords', WD_STYLE_TYPE.PARAGRAPH)
+        self.docx.styles.add_style('SCL Paragraph Keywords Header Char', WD_STYLE_TYPE.CHARACTER)
+        self.docx.styles.add_style('SCL Paragraph Keywords Char', WD_STYLE_TYPE.CHARACTER)
+
+    def test_paragraph_has_space_after(self):
+        docx_pipe.docx_keyworks_pipe(self.docx, 'Keywords:', 'one, two, three')
+        para = self.docx.paragraphs[-1]
+        self.assertGreater(para.paragraph_format.space_after.pt, 0)
+
+    def test_title_and_content_runs(self):
+        docx_pipe.docx_keyworks_pipe(self.docx, 'Keywords:', 'one, two, three')
+        para = self.docx.paragraphs[-1]
+        self.assertEqual(para.runs[0].text, 'Keywords: ')
+        self.assertEqual(para.runs[1].text, 'one, two, three')
 
 
 class TestDocxCiteAsPipe(unittest.TestCase):
