@@ -864,6 +864,40 @@ class TestExtractKeywordsData(unittest.TestCase):
         result = xml_pipe.extract_keywords_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_keywords_data_keyword_with_inline_markup(self):
+        """
+        Regression test for issue #1321: a <kwd> containing inline markup
+        (e.g. <italic>) used to be truncated at kwd.text, dropping the
+        italic text and everything after it within that keyword.
+        """
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords</title>'
+            '<kwd>maize (<italic>Zea mays</italic> L.)</kwd>'
+            '<kwd>growth stimulation</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': 'Keywords',
+            'keywords': 'maize (Zea mays L.), growth stimulation'
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_title_with_inline_markup(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords<italic>*</italic></title>'
+            '<kwd>Keyword1</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result['title'], 'Keywords*')
+
 
 class TestExtractReferencesData(unittest.TestCase):
 
@@ -1242,6 +1276,42 @@ class TestExtractTransAbstractData(unittest.TestCase):
             namespaces={'xml': 'http://custom.namespace'}
         )
         self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_paragraph_with_inline_markup(self):
+        """
+        Regression test for issue #1321: a <p> containing inline markup
+        (e.g. <italic>) used to be truncated at p.text, dropping the italic
+        text and everything after it in that paragraph.
+        """
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo</title>'
+            '<p>Efeito do milho (<italic>Zea mays</italic> L.) na produtividade.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'pt',
+                'title': 'Resumo',
+                'content': 'Efeito do milho (Zea mays L.) na produtividade.'
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_title_with_inline_markup(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo<italic>*</italic></title>'
+            '<p>Texto.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result[0]['title'], 'Resumo*')
 
 
 class TestExtractFigureData(unittest.TestCase):

@@ -213,14 +213,14 @@ def extract_trans_abstract_data(xml_tree, namespaces={'xml': 'http://www.w3.org/
 
         node_title = node.find('title')
         if node_title is not None:
-            item['title'] = node_title.text or ''
+            item['title'] = ''.join(node_title.itertext()).strip()
 
         item['lang'] = node.attrib.get(lang_attrib_name)
 
         abstract = []
         for p in node.findall('p'):
             if p is not None:
-                abstract.append(p.text or '')
+                abstract.append(''.join(p.itertext()).strip())
         item['content'] = ' '.join(abstract)
 
         data.append(item)
@@ -248,9 +248,11 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
     if kwd_group is not None:
         node_title = kwd_group.find('title')
         if node_title is not None:
-            data['title'] = node_title.text
+            data['title'] = ''.join(node_title.itertext()).strip()
 
-        data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
+        data['keywords'] = ', '.join(
+            ''.join(kwd.itertext()).strip() for kwd in kwd_group.findall('kwd')
+        )
 
     return data
 
