@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from docx import Document
+from docx.enum.style import WD_STYLE_TYPE
 
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
 from packtools.sps.formats.pdf import enum as pdf_enum
@@ -12,9 +13,57 @@ class TestPipelineDocx(unittest.TestCase):
     ...
 
 
-class TestJournalTitlePipe(unittest.TestLoader):
-    # TODO
-    ...
+class TestFormatJournalTitleTwoLines(unittest.TestCase):
+    """
+    Regression tests for issue #1301: journal titles with more than 2 words
+    used to get one word per line (unbounded), pushing the rest of the page-1
+    header down. The first word stays on its own line and every remaining
+    word is joined onto a single second line, capping the masthead at 2 lines
+    regardless of how many words the title has.
+    """
+
+    def test_single_word_title_stays_on_one_line(self):
+        self.assertEqual(docx_pipe._format_journal_title_two_lines('Biology'), 'Biology')
+
+    def test_two_word_title_keeps_one_word_per_line(self):
+        self.assertEqual(
+            docx_pipe._format_journal_title_two_lines('Acta Amazonica'),
+            'Acta\nAmazonica',
+        )
+
+    def test_four_word_title_is_capped_at_two_lines(self):
+        self.assertEqual(
+            docx_pipe._format_journal_title_two_lines('Brazilian Journal of Biology'),
+            'Brazilian\nJournal of Biology',
+        )
+
+    def test_five_word_title_is_capped_at_two_lines(self):
+        self.assertEqual(
+            docx_pipe._format_journal_title_two_lines('Urbe. Revista Brasileira de Gestão Urbana'),
+            'Urbe.\nRevista Brasileira de Gestão Urbana',
+        )
+
+    def test_empty_title_returns_empty_string(self):
+        self.assertEqual(docx_pipe._format_journal_title_two_lines(''), '')
+
+
+class TestJournalTitlePipe(unittest.TestCase):
+
+    def setUp(self):
+        self.docx = Document()
+        self.docx.styles.add_style('SCL Journal Title Char', WD_STYLE_TYPE.CHARACTER)
+
+    def test_two_word_title_keeps_one_word_per_line(self):
+        para = docx_pipe.docx_journal_title_pipe(self.docx, 'Acta Amazonica')
+        self.assertEqual(para.runs[0].text, 'Acta\nAmazonica')
+
+    def test_multi_word_title_is_capped_at_two_lines(self):
+        para = docx_pipe.docx_journal_title_pipe(self.docx, 'Brazilian Journal of Biology')
+        self.assertEqual(para.runs[0].text, 'Brazilian\nJournal of Biology')
+
+    def test_run_uses_the_given_style(self):
+        para = docx_pipe.docx_journal_title_pipe(self.docx, 'Acta Amazonica')
+        self.assertEqual(para.runs[0].style.name, 'SCL Journal Title Char')
 
 
 class TestDocxDoiPipe(unittest.TestCase):
@@ -63,8 +112,31 @@ class TestDocxCiteAsPipe(unittest.TestCase):
 
 
 class TestDocxSecondHeaderPipe(unittest.TestCase):
-    # TODO
-    ...
+
+    def setUp(self):
+        self.docx = Document()
+        self.docx.styles.add_style('SCL Header Paragraph', WD_STYLE_TYPE.PARAGRAPH)
+        self.docx.styles.add_style('SCL Header Paragraph Char', WD_STYLE_TYPE.CHARACTER)
+        self.docx.styles.add_style('SCL Journal Title Char', WD_STYLE_TYPE.CHARACTER)
+
+    def _second_header_paragraph(self):
+        header = docx_pipe.docx_renderer.section.get_default_header(self.docx)
+        return header.paragraphs[-1]
+
+    def test_two_word_title_keeps_one_word_per_line(self):
+        docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
+        para = self._second_header_paragraph()
+        self.assertEqual(para.runs[0].text, 'Acta\nAmazonica')
+
+    def test_multi_word_title_is_capped_at_two_lines(self):
+        docx_pipe.docx_second_header_pipe(self.docx, 'Brazilian Journal of Biology', 'Some Article Title')
+        para = self._second_header_paragraph()
+        self.assertEqual(para.runs[0].text, 'Brazilian\nJournal of Biology')
+
+    def test_article_title_is_appended_after_a_tab(self):
+        docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
+        para = self._second_header_paragraph()
+        self.assertEqual(para.runs[1].text, '\tSome Article Title')
 
 
 class TestDocxSecondFooterPipe(unittest.TestCase):
