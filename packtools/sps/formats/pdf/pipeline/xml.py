@@ -907,20 +907,15 @@ def _extract_table_foot(table_wrap):
         table_wrap (ElementTree): The XML table-wrap element to extract from.
 
     Returns:
-        list: One string per <fn> or <attrib> child found, in document order.
+        list: One string per <p>, <fn> or <attrib> child found, in document order.
     """
     notes = []
     foot = table_wrap.find('.//table-wrap-foot')
     if foot is None:
         return notes
 
-    for fn in foot.findall('fn'):
-        text = ' '.join(' '.join(fn.itertext()).split()).strip()
-        if text:
-            notes.append(text)
-
-    for attrib in foot.findall('attrib'):
-        text = ' '.join(' '.join(attrib.itertext()).split()).strip()
+    for node in foot.xpath('./p | ./fn | ./attrib | ./fn-group/fn'):
+        text = ' '.join(' '.join(node.itertext()).split()).strip()
         if text:
             notes.append(text)
 

@@ -1204,6 +1204,47 @@ class TestExtractTableData(unittest.TestCase):
             ['Source: Authors.', '* p < 0.05.', 'Adapted from Smith (2020).'],
         )
 
+    def test_extract_table_data_foot_with_direct_p_elements(self):
+        # Regression: table-wrap-foot can hold <p> children directly, not
+        # only wrapped in <fn> or <attrib> (e.g. Table 2 of a2.xml fixture).
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <p>Legenda: Outros (BR): 87 titulos.</p>
+                    <p>Fonte: Dados da pesquisa (Florianopolis, 2022).</p>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result['foot'],
+            ['Legenda: Outros (BR): 87 titulos.', 'Fonte: Dados da pesquisa (Florianopolis, 2022).'],
+        )
+
+    def test_extract_table_data_foot_preserves_mixed_document_order(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <p>Legenda solta.</p>
+                    <fn id="TFN1"><p>Nota de rodape.</p></fn>
+                    <attrib>Fonte: Autores.</attrib>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result['foot'],
+            ['Legenda solta.', 'Nota de rodape.', 'Fonte: Autores.'],
+        )
+
     def test_extract_table_data_no_foot_defaults_to_empty_list(self):
         xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
         table_wrap = etree.fromstring(xml_str)
