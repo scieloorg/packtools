@@ -372,8 +372,10 @@ def extract_body_data(xml_tree):
             if para_text:
                 sec['paragraphs'].append(para_text)
 
-        # Tables within the section
         for table_wrap in document_section.findall('.//table-wrap'):
+            closest_sec = table_wrap.xpath('ancestor::sec[1]')
+            if closest_sec and closest_sec[0] is not document_section:
+                continue
             sec['tables'].append(extract_table_data(table_wrap))
 
         # Figures within the section (deduplicated across the body)

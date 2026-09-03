@@ -1,5 +1,6 @@
 import os
 
+from PIL import Image
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm
 
@@ -66,12 +67,6 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
         except Exception:
             pass
 
-    try:
-        from PIL import Image
-    except Exception:
-        # If Pillow is unavailable at runtime, fallback conservatively
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-
     # Reuses _compute_single_column_width so this decision honors the same
     # formula as the rest of the layout code, instead of duplicating (and
     # risking drifting from) it here.
@@ -90,8 +85,7 @@ def decide_figure_layout(docx, figure_data, page_attributes=pdf_enum.PAGE_ATTRIB
         except (TypeError, ValueError):
             pass
 
-    # width in inches then to Cm
-    width_in_cm = (px_w / max(1.0, dpi)) * 2.54
+    width_in_cm = _natural_width_cm(px_w, dpi) / Cm(1)
 
     # single_col_width comes back as a raw EMU number, not a Cm object
     # (python-docx's Length has no operator overloads that preserve units
@@ -108,11 +102,6 @@ def probe_image_dpi(docx, figure_data):
     Resolve a figure's image and return its (pixel_width, dpi), or None if
     the image can't be opened.
     """
-    try:
-        from PIL import Image
-    except Exception:
-        return None
-
     context = _get_docx_context(docx)
     href = figure_data.get('href') if isinstance(figure_data, dict) else None
     img_path = _resolve_image_path(href, context)
@@ -216,6 +205,10 @@ def _resolve_image_path(href, context):
 
     return img_path
 
+def _natural_width_cm(px_w, dpi):
+    """Compute an image's natural width in Cm from its pixel width and DPI."""
+    return Cm((px_w / max(1.0, dpi)) * 2.54)
+
 def _natural_width_capped(img_path, ceiling_width):
     """
     Compute the image's natural width from its DPI metadata, capped at
@@ -224,12 +217,8 @@ def _natural_width_capped(img_path, ceiling_width):
     if not (img_path and os.path.exists(img_path)):
         return ceiling_width
     try:
-        from PIL import Image
-
         with Image.open(img_path) as im:
-            px_w = im.width
-            dpi = _infer_image_dpi(im)
-            natural_width = Cm((px_w / max(1.0, dpi)) * 2.54)
+            natural_width = _natural_width_cm(im.width, _infer_image_dpi(im))
         return natural_width if natural_width < ceiling_width else ceiling_width
     except Exception:
         return ceiling_width
