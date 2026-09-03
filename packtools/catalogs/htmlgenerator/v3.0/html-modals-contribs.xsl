@@ -8,12 +8,19 @@
     <xsl:template match="article-meta | front-stub" mode="modal-contrib">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
         <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">
-                
+
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                             <xsl:apply-templates select="contrib-group" mode="about-the-contrib-group-button-text"/>
+                            <xsl:choose>
+                                <xsl:when test="contrib-group">
+                                    <xsl:apply-templates select="contrib-group" mode="about-the-contrib-group-button-text"/>
+                                </xsl:when>
+                                <xsl:when test="../@article-type='translation'">
+                                    <xsl:apply-templates select="../../front/article-meta/contrib-group | ../../front-stub/contrib-group" mode="about-the-contrib-group-button-text"/>
+                                </xsl:when>
+                            </xsl:choose>
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
                             <xsl:attribute name="aria-label">
@@ -25,7 +32,15 @@
                     </div>
                     <xsl:call-template name="modal-author-css"/>
                     <div class="modal-body">
-                        <xsl:apply-templates select="contrib-group/contrib" mode="modal-contrib"></xsl:apply-templates>
+                        <xsl:choose>
+                            <xsl:when test="contrib-group">
+                                <xsl:apply-templates select="contrib-group/contrib" mode="modal-contrib"/>
+                            </xsl:when>
+                            <xsl:when test="../@article-type='translation'">
+                                <!-- sem contrib-group própria: usa a do front/front-stub do artigo pai, mesmo comportamento do article/front -->
+                                <xsl:apply-templates select="../../front/article-meta/contrib-group/contrib | ../../front-stub/contrib-group/contrib" mode="modal-contrib"/>
+                            </xsl:when>
+                        </xsl:choose>
                         <xsl:apply-templates select=".//author-notes" mode="modal-contrib"></xsl:apply-templates>
                     </div>
                 </div>
@@ -76,7 +91,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            SCIMAGO INSTITUTIONS RANKINGS
+                            SCImago Institutions Rankings
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
                             <xsl:attribute name="aria-label">
