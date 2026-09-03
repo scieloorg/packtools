@@ -131,20 +131,28 @@
     <xsl:template match="/" mode="css">
         <!--link rel="stylesheet" href="https://ds.scielo.org/css/bootstrap.css"/>
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
-        <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css"/>
-        <link rel="stylesheet" href="{$CSS_PATH}/article.css"/>
-        <style>
+        <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css?v=1.1.32"/>
+        <link rel="stylesheet" href="{$CSS_PATH}/article.css?v=1.1.32"/>
+        <!--
+        <style type="text/css">
         .modal-dialog-scrollable .modal-body {
             overflow-y:auto;
             scrollbar-gutter:stable;
         }
+        
         </style>
+        <xsl:apply-templates select="." mode="modal-contrib-group-css"/>
+        -->
     </xsl:template>
 
     <xsl:template match="/" mode="js">
+        <!--
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="https://ds.scielo.org/js/bootstrap.bundle.min.js"></script>
         <script src="https://ds.scielo.org/js/scielo/scielo-ds-min.js"></script>
+        -->
+        <script src="https://www.scielo.br/static/js/scielo-bundle-min.js"></script>
+        <script src="https://www.scielo.br/static/js/scielo-article-min.js"></script>
 
         <xsl:if test=".//tex-math or .//math or .//mml:math">
             <script>
