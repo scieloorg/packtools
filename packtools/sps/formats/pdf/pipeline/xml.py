@@ -257,10 +257,10 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
 def extract_footer_data(xmltree):
     """
     Extracts footer data from the given XML tree.
-    
+
     Args:
         xmltree (ElementTree): The XML tree to extract the footer data from.
-    
+
     Returns:
         dict: A dictionary containing the following keys:
             - 'year': The year value from the pub-date element.
@@ -269,21 +269,25 @@ def extract_footer_data(xmltree):
             - 'issue': The issue value from the front element.
             - 'fpage': The first page value from the front element, converted to an integer.
             - 'lpage': The last page value from the front element, converted to an integer.
+            - 'elocation_id': The elocation-id value from the front element.
+            - 'location_label': '{fpage}-{lpage}' when fpage is present, otherwise
+              elocation_id, otherwise an empty string. Continuous-publication
+              articles carry elocation-id instead of fpage/lpage.
     """
-    data = {'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': ''}
+    data = {'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': '', 'elocation_id': ''}
 
     pub_date_section = xmltree.find(".//pub-date[@date-type='collection'][@publication-format='electronic']")
     if pub_date_section is not None:
         node_year = pub_date_section.find('.//year')
         if node_year is not None:
             data['year'] = node_year.text
-   
+
         node_front = pub_date_section.getparent()
         if node_front is not None:
             node_fpage = node_front.find('.//fpage')
             if node_fpage is not None:
                 data['fpage'] = int(node_fpage.text)
-    
+
             node_lpage = node_front.find('.//lpage')
             if node_lpage is not None:
                 data['lpage'] = int(node_lpage.text)
@@ -295,6 +299,17 @@ def extract_footer_data(xmltree):
             node_issue = node_front.find('.//issue')
             if node_issue is not None:
                 data['issue'] = node_issue.text
+
+            node_elocation_id = node_front.find('.//elocation-id')
+            if node_elocation_id is not None:
+                data['elocation_id'] = node_elocation_id.text
+
+    if data['fpage']:
+        data['location_label'] = f"{data['fpage']}-{data['lpage']}"
+    elif data['elocation_id']:
+        data['location_label'] = data['elocation_id']
+    else:
+        data['location_label'] = ''
 
     return data
 
