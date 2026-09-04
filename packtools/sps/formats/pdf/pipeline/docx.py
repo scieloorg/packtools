@@ -1,3 +1,5 @@
+from docx.shared import Pt
+
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -281,6 +283,11 @@ def docx_keyworks_pipe(
     """
     para = docx.add_paragraph()
     para.style = docx.styles[keywords_paragraph_style_name]
+    # SCL Paragraph Keywords has no space-after of its own (issue #1322), so a
+    # section title immediately following it (before=0) would otherwise sit
+    # right on top of it. Pt(5.65) matches SCL Paragraph's own space-after
+    # (113 twentieths of a point), keeping the same rhythm as body text.
+    para.paragraph_format.space_after = Pt(5.65)
 
     r1 = para.add_run(f'{keywords_title} ')
     r1.style = docx.styles[keywords_header_character_style_name]
