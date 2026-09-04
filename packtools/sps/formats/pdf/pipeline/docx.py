@@ -391,7 +391,7 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
 
     docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
 
-    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
+    para.add_run(f" | {_format_vol_issue_year(footer_data)}")
 
 def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
     """
@@ -416,7 +416,7 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
 
     para.style = docx.styles[paragraph_style_name]
     docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
-    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
+    para.add_run(f" | {_format_vol_issue_year(footer_data)}")
 
 def docx_body_pipe(docx, body_data):
     """
@@ -501,7 +501,7 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 
     # No PAGE field is added here: supplementary material has its own
     # pagination, independent of the article body, so no leading " | " either.
-    para.add_run(f"VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['location_label']}")
+    para.add_run(_format_vol_issue_year(footer_data))
 
     docx_renderer.section.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
 
@@ -517,6 +517,20 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # -----------------
 # Private helpers
 # -----------------
+
+def _format_vol_issue_year(footer_data):
+    """
+    Format 'VOL. {volume} ({issue}) {year}: {location}', dropping the VOL.
+    segment or the issue parentheses when that value is missing from the
+    XML front matter (e.g. ahead-of-print articles carry no issue).
+    """
+    parts = []
+    if footer_data['volume']:
+        parts.append(f"VOL. {footer_data['volume']}")
+    if footer_data['issue']:
+        parts.append(f"({footer_data['issue']})")
+    parts.append(f"{footer_data['year']}: {footer_data['location_label']}")
+    return ' '.join(parts)
 
 def _format_journal_title_two_lines(journal_title_text):
     """

@@ -228,6 +228,17 @@ class TestDocxSecondFooterPipe(unittest.TestCase):
         self.assertIn('VOL. 33 (3) 2024: e282794', para.text)
         self.assertNotIn(': -', para.text)
 
+    def test_omits_issue_parentheses_when_issue_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026',
+                       'fpage': '', 'lpage': '', 'location_label': 'e301043'}
+        docx_pipe.docx_second_footer_pipe(docx, footer_data)
+
+        footer = docx_renderer.section.get_second_footer(docx)
+        para = footer.paragraphs[0]
+        self.assertIn('VOL. 86 2026: e301043', para.text)
+        self.assertNotIn('()', para.text)
+
 
 class TestDocxPageVolIssueYearPipe(unittest.TestCase):
 
@@ -251,6 +262,17 @@ class TestDocxPageVolIssueYearPipe(unittest.TestCase):
         para = footer.paragraphs[-1]
         self.assertIn('VOL. 33 (3) 2024: e282794', para.text)
         self.assertNotIn(': -', para.text)
+
+    def test_omits_issue_parentheses_when_issue_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026',
+                       'fpage': '', 'lpage': '', 'location_label': 'e301043'}
+        docx_pipe.docx_page_vol_issue_year_pipe(docx, footer_data)
+
+        footer = docx_renderer.section.get_first_page_footer(docx)
+        para = footer.paragraphs[-1]
+        self.assertIn('VOL. 86 2026: e301043', para.text)
+        self.assertNotIn('()', para.text)
 
 
 class TestDocxBodyPipe(unittest.TestCase):
@@ -293,6 +315,33 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         footer = docx.sections[-1].footer
         para = footer.paragraphs[-1]
         self.assertEqual(para.text, 'VOL. 33 (3) 2024: e282794')
+
+    def test_omits_issue_parentheses_when_issue_is_absent(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026',
+                       'fpage': '', 'lpage': '', 'location_label': 'e301043'}
+        docx_pipe.docx_supplementary_material_pipe(
+            docx, footer_data, {'title': 'Supplementary Material', 'elements': []}
+        )
+
+        footer = docx.sections[-1].footer
+        para = footer.paragraphs[-1]
+        self.assertEqual(para.text, 'VOL. 86 2026: e301043')
+
+
+class TestFormatVolIssueYear(unittest.TestCase):
+
+    def test_keeps_both_when_present(self):
+        footer_data = {'volume': '10', 'issue': '2', 'year': '2023', 'location_label': '123-130'}
+        self.assertEqual(docx_pipe._format_vol_issue_year(footer_data), 'VOL. 10 (2) 2023: 123-130')
+
+    def test_omits_issue_parentheses_when_issue_is_absent(self):
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026', 'location_label': 'e301043'}
+        self.assertEqual(docx_pipe._format_vol_issue_year(footer_data), 'VOL. 86 2026: e301043')
+
+    def test_omits_vol_label_when_volume_is_absent(self):
+        footer_data = {'volume': '', 'issue': '67', 'year': '2023', 'location_label': 'e236720'}
+        self.assertEqual(docx_pipe._format_vol_issue_year(footer_data), '(67) 2023: e236720')
 
 
 class TestBodyColumnConfiguration(unittest.TestCase):
