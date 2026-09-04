@@ -112,6 +112,7 @@ def extract_contrib_data(xml_tree):
     contrib_group = xml_tree.find('.//contrib-group')
     if contrib_group is not None:
         aff_mapping = {}
+        referenced_aff_ids = set()
 
         for aff in xml_tree.findall('.//aff'):
             aff_id = aff.get('id')
@@ -140,12 +141,30 @@ def extract_contrib_data(xml_tree):
                                 full_name += label
                     full_name += corresp_mark
                     authors_names.append(full_name)
-        
-        for aff in xml_tree.findall('.//aff'):
+
+            for xref in contrib.findall('.//xref[@ref-type="aff"]'):
+                rid = xref.get('rid')
+                if rid:
+                    referenced_aff_ids.add(rid)
+
+        # Some SciELO packages carry duplicate/orphaned <aff> elements (seen
+        # in 7/26 of the real test corpus) that aren't referenced by any
+        # contributor's xref - e.g. a second, unused copy of the same
+        # affiliations under ids like aff1e/aff0100/aff1s, or (in one case)
+        # a full second set aff13-aff24 duplicating aff1-aff12. The id
+        # suffix convention isn't consistent enough to filter on, but none
+        # of these duplicates are ever cited, so restrict the printed list
+        # to affiliations actually referenced. Falls back to every <aff> if
+        # none are referenced at all (defensive; not seen in practice).
+        affs_to_print = xml_tree.findall('.//aff')
+        if referenced_aff_ids:
+            affs_to_print = [aff for aff in affs_to_print if aff.get('id') in referenced_aff_ids]
+
+        for aff in affs_to_print:
             label = aff.find('label').text if aff.find('label') is not None else ''
             institution = aff.find('institution[@content-type="original"]')
             institution_name = institution.text if institution is not None else ''
-            
+
             if institution_name:
                 aff_info = f"{label}[^] {institution_name}"
                 affiliations.append(aff_info)
