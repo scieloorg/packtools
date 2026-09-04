@@ -117,7 +117,7 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
     first_page_header = docx_renderer.section.get_first_page_header(docx)
     para = docx_renderer.text.get_first_paragraph(first_page_header)
 
-    left_run = para.add_run(journal_title_text.replace(' ', '\n'))
+    left_run = para.add_run(_format_journal_title_two_lines(journal_title_text))
     left_run.style = docx.styles[style_name]
 
     return para
@@ -356,7 +356,7 @@ def docx_second_header_pipe(
     para = header.add_paragraph()
     para.style = docx.styles[paragraph_header_style_name]
 
-    r1 = para.add_run(journal_title.replace(' ', '\n'))
+    r1 = para.add_run(_format_journal_title_two_lines(journal_title))
     r1.style = docx.styles[paragraph_title_style_name]
 
     r2 = para.add_run(f'\t{article_title}')
@@ -507,6 +507,18 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # -----------------
 # Private helpers
 # -----------------
+
+def _format_journal_title_two_lines(journal_title_text):
+    """
+    Break a journal title into at most two lines for the masthead: the first
+    word on its own line, and every remaining word joined onto the second
+    line. A one-word title stays on a single line.
+    """
+    words = journal_title_text.split(' ')
+    if len(words) <= 1:
+        return journal_title_text
+    return f"{words[0]}\n{' '.join(words[1:])}"
+
 
 def _body_column_count():
     """Number of columns configured for the body, from PAGE_ATTRIBUTES."""
