@@ -417,6 +417,42 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
 
+    def test_paragraph_citations_have_no_stray_space_around_parentheses(self):
+        # Regression: a naive `.xpath('.//text()...')` + `' '.join(...)`
+        # inserted a space between every text-node fragment regardless of
+        # adjacency in the source, turning "(<xref>...</xref>; <xref>...
+        # </xref>)" into "( ... ; ... )".
+        xml = etree.fromstring(
+            '<article><sec><title>Introduction</title>'
+            '<p>Pressure is increasing '
+            '(<xref ref-type="bibr" rid="B1">Lang and Barling, 2012</xref>'
+            '; <xref ref-type="bibr" rid="B2">Ripple et al., 2019</xref>) '
+            'worldwide.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(
+            result[0]['paragraphs'],
+            ['Pressure is increasing (Lang and Barling, 2012; Ripple et al., 2019) worldwide.'],
+        )
+
+    def test_embedded_fig_tail_whitespace_is_collapsed_not_left_raw(self):
+        # A skipped <fig>'s tail can carry the source's pretty-printing
+        # indentation (a newline + spaces); it must collapse to one space
+        # rather than leak into the rendered paragraph.
+        xml = etree.fromstring(
+            '<article><sec><title>Results</title>'
+            '<p>See the figure below\n'
+            '<fig id="f1"><label>Figure 1</label></fig>\n            '
+            'for details.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(
+            result[0]['paragraphs'],
+            ['See the figure below for details.'],
+        )
+
 
 class TestExtractCategory(unittest.TestCase):
 
