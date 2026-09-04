@@ -58,6 +58,8 @@ def add_table(docx, table_data, header_style_name='SCL Table Heading', page_attr
 		wrap_distance_twips = int(table_data.get('wrap_distance_twips', 0))
 		_make_table_full_width_floating(table, wrap_distance_twips=wrap_distance_twips)
 
+	_add_table_foot_paragraphs(docx, table_data)
+
 
 # -----------------
 # Private helpers: cell styling
@@ -183,6 +185,17 @@ def _add_caption_paragraph(docx, table_data, header_style_name):
 		pass
 	
 	return p
+
+def _add_table_foot_paragraphs(docx, table_data):
+	"""Add one paragraph per <table-wrap-foot> note below the table, if any."""
+	notes = table_data.get('foot') or []
+	for i, note in enumerate(notes):
+		p = docx.add_paragraph()
+		p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+		p.paragraph_format.space_before = Pt(6) if i == 0 else Pt(0)
+		run = p.add_run(note)
+		run.italic = True
+		run.font.size = Pt(7)
 
 def _extract_table_data(table_data):
 	"""Extract relevant data from the table_data dictionary."""
