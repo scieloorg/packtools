@@ -259,8 +259,19 @@ class TestDocxBodyPipe(unittest.TestCase):
 
 
 class TestDocxReferencesPipe(unittest.TestCase):
-    # TODO
-    ...
+    """
+    Regression: SCL Paragraph Reference uses the same font size as body
+    text and has no line_spacing of its own, so a reference wrapping to
+    multiple lines rendered with the same loose spacing as a body
+    paragraph. Line spacing is now set explicitly on each reference
+    paragraph.
+    """
+
+    def test_reference_has_single_line_spacing(self):
+        docx = _docx_with_layout_styles()
+        docx_pipe.docx_references_pipe(docx, references=['Author A. Title B. Journal C. 2020.'])
+        para = docx.paragraphs[-1]
+        self.assertEqual(para.paragraph_format.line_spacing, 1.0)
 
 
 class TestDocxAcknowledgmentsPipe(unittest.TestCase):

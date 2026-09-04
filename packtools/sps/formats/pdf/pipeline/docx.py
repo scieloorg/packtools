@@ -459,6 +459,11 @@ def docx_references_pipe(
     for reference in references:
         paragraph = docx.add_paragraph(reference)
         paragraph.style = docx.styles[paragraph_style_name]
+        # SCL Paragraph Reference has no line_spacing of its own and uses
+        # the same font size as body text, so a reference that wraps to
+        # multiple lines rendered with the same loose spacing as a body
+        # paragraph, with no visual distinction between entries.
+        paragraph.paragraph_format.line_spacing = 1.0
 
 def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragraphs, paragraph_section_style_name='SCL Section Title'):
     """

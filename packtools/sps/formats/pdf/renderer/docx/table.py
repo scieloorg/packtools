@@ -177,13 +177,19 @@ def _add_caption_paragraph(docx, table_data, header_style_name):
 	if table_data.get('title'):
 		r = p.add_run(table_data['title'])
 		r.bold = False
-	
+
+	# Single line spacing regardless of whether the named style resolves:
+	# SCL Table Heading has no line_spacing of its own, so a multi-line
+	# caption would otherwise fall back to the same loose spacing as body
+	# text (only the smaller caption font made it look tighter).
+	p.paragraph_format.line_spacing = 1.0
+
 	try:
 		p.style = docx.styles[header_style_name]
 		p.paragraph_format.keep_with_next = True
 	except Exception:
 		pass
-	
+
 	return p
 
 def _add_table_foot_paragraphs(docx, table_data):
