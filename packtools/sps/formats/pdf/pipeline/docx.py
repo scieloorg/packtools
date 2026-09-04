@@ -1,9 +1,19 @@
-from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Cm, Pt
 
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
+
+# Share of the first-page header's width given to the journal title column
+# (the rest goes to the DOI). Skewed well past an even 50/50: a DOI URL is
+# short and fairly constant in length (max ~55 chars across the real test
+# corpus), while the journal title uses a much larger masthead font and
+# genuinely needs the room - an even split pushed some real journal titles
+# (e.g. "Urbe. Revista Brasileira de Gestão Urbana") from 2 to 3 lines for
+# no benefit to the DOI, which fits comfortably either way.
+_JOURNAL_TITLE_DOI_SPLIT = 0.65
 
 
 def pipeline_docx(xml_tree, data):
@@ -109,18 +119,28 @@ def pipeline_docx(xml_tree, data):
 
 def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Title Char'):
     """
-    Adds the journal title text to the first page header of the DOCX document, with each word on a new line.
-    
+    Adds the journal title text to the first page header of the DOCX document,
+    capped at two lines.
+
+    Written into the left cell of a borderless 2-column table shared with
+    the DOI (see docx_doi_pipe): giving the DOI its own column, rather than
+    tab-appending it after this text in the same paragraph, means a long
+    second line here never leaves the DOI without room to reach the right
+    margin on that line.
+
     Args:
         docx (python-docx.Document): The DOCX document object.
         journal_title_text (str): The text of the journal title to be added.
         style_name (str, optional): The name of the style to apply to the journal title text. Defaults to 'SCL Journal Title Char'.
-    
+
     Returns:
         python-docx.Paragraph: The paragraph object containing the journal title text.
     """
     first_page_header = docx_renderer.section.get_first_page_header(docx)
-    para = docx_renderer.text.get_first_paragraph(first_page_header)
+    journal_cell, _doi_cell = _add_two_column_header_table(
+        first_page_header, left_ratio=_JOURNAL_TITLE_DOI_SPLIT
+    )
+    para = journal_cell.paragraphs[0]
 
     left_run = para.add_run(_format_journal_title_two_lines(journal_title_text))
     left_run.style = docx.styles[style_name]
@@ -129,14 +149,23 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
 
 def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragraph Char'):
     """
-    Adds the DOI (Digital Object Identifier) code to the first page header of the DOCX document, with the DOI URL formatted as a tab-indented string.
-    
+    Adds the DOI (Digital Object Identifier) code to the first page header of the DOCX document.
+
+    Written into the right cell of the borderless 2-column table docx_journal_title_pipe
+    creates (or, if that hasn't run yet, a fresh one of its own), right-aligned within
+    that cell. Previously the DOI was tab-appended after the journal title in one shared
+    paragraph; a tab stop only sets where a run *starts*, not where it wraps, so a long
+    second line of the journal title (see _format_journal_title_two_lines) left no room
+    on that line for the DOI to reach the right margin, forcing it onto a line of its own
+    instead of sitting flush right. A separate column has its own width regardless of how
+    much text is in the journal title's cell.
+
     Args:
         docx (python-docx.Document): The DOCX document object.
         doi_code (str): The DOI code to be added.
-        paragraph (python-docx.Paragraph, optional): The paragraph object to add the DOI URL to. If not provided, the first paragraph in the first page header will be used.
+        paragraph (python-docx.Paragraph, optional): The paragraph object to add the DOI URL to. If not provided, the DOI cell of the first page header's title table is used (creating that table if docx_journal_title_pipe hasn't run yet).
         style_name (str, optional): The name of the style to apply to the DOI URL. Defaults to 'SCL Header Paragraph Char'.
-    
+
     Returns:
         None
     """
@@ -146,9 +175,16 @@ def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragra
         para = paragraph
     else:
         first_page_header = docx_renderer.section.get_first_page_header(docx)
-        para = docx_renderer.text.get_first_paragraph(first_page_header)
+        if first_page_header.tables:
+            para = first_page_header.tables[-1].rows[0].cells[1].paragraphs[0]
+        else:
+            _journal_cell, doi_cell = _add_two_column_header_table(
+                first_page_header, left_ratio=_JOURNAL_TITLE_DOI_SPLIT
+            )
+            para = doi_cell.paragraphs[0]
+        para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
-    r = para.add_run(f'\t{doi_url}')
+    r = para.add_run(doi_url)
     r.style = docx.styles[style_name]
 
 def docx_article_type_and_category_pipe(docx, category, article_type='Original Article', style_name='SCL Article Category'):
@@ -352,6 +388,14 @@ def docx_second_header_pipe(
     the previous section, and the second section needs a continuous break
     to let body content start on the same page as the front matter.
 
+    Rendered as a borderless 2-column table rather than tab-separated runs
+    in one paragraph: a tab stop only positions where a run *starts*, it
+    doesn't constrain where a long run *wraps* (a wrapped line returns to
+    the paragraph's own left margin, not back to the tab position). A long
+    article title would otherwise overflow past the journal title's column
+    instead of wrapping under it. Each column gets half of the content
+    width; the article title is right-aligned within its own column.
+
     Args:
         docx (python-docx.Document): The DOCX document object.
         journal_title (str): The title of the journal to be added.
@@ -363,13 +407,17 @@ def docx_second_header_pipe(
         None
     """
     header = docx_renderer.section.get_default_header(docx)
-    para = header.add_paragraph()
-    para.style = docx.styles[paragraph_header_style_name]
+    journal_cell, title_cell = _add_two_column_header_table(header)
 
-    r1 = para.add_run(_format_journal_title_two_lines(journal_title))
+    journal_para = journal_cell.paragraphs[0]
+    journal_para.style = docx.styles[paragraph_header_style_name]
+    r1 = journal_para.add_run(_format_journal_title_two_lines(journal_title))
     r1.style = docx.styles[paragraph_title_style_name]
 
-    r2 = para.add_run(f'\t{article_title}')
+    title_para = title_cell.paragraphs[0]
+    title_para.style = docx.styles[paragraph_header_style_name]
+    title_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    r2 = title_para.add_run(article_title)
     r2.style = docx.styles[character_header_style_name]
 
 def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
@@ -528,6 +576,42 @@ def _format_journal_title_two_lines(journal_title_text):
     if len(words) <= 1:
         return journal_title_text
     return f"{words[0]}\n{' '.join(words[1:])}"
+
+
+def _content_width():
+    """Content width (page width minus left/right margins), from PAGE_ATTRIBUTES."""
+    attrs = pdf_enum.PAGE_ATTRIBUTES
+    page_width = attrs.get('page_width', Cm(21.0))
+    left_margin = attrs.get('left_margin', Cm(2.0))
+    right_margin = attrs.get('right_margin', Cm(2.0))
+    return page_width - left_margin - right_margin
+
+
+def _add_two_column_header_table(container, left_ratio=0.5):
+    """
+    Add a borderless 1x2 table to a header (or footer) container, its two
+    columns splitting the content width by left_ratio (right column gets
+    the remainder). No style is assigned, so it keeps python-docx's
+    default 'Normal Table' style, which has no borders.
+
+    Returns:
+        tuple: (left_cell, right_cell)
+    """
+    content_width = int(_content_width())
+    left_width = int(content_width * left_ratio)
+    right_width = content_width - left_width
+
+    table = container.add_table(rows=1, cols=2, width=content_width)
+    table.autofit = False
+    table.allow_autofit = False
+
+    left_cell, right_cell = table.rows[0].cells
+    for column, width in zip(table.columns, (left_width, right_width)):
+        column.width = width
+    for cell, width in ((left_cell, left_width), (right_cell, right_width)):
+        cell.width = width
+
+    return left_cell, right_cell
 
 
 def _body_column_count():
