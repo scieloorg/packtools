@@ -899,6 +899,40 @@ class TestExtractKeywordsData(unittest.TestCase):
         result = xml_pipe.extract_keywords_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_keywords_data_keyword_with_inline_markup(self):
+        """
+        Regression test for issue #1321: a <kwd> containing inline markup
+        (e.g. <italic>) used to be truncated at kwd.text, dropping the
+        italic text and everything after it within that keyword.
+        """
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords</title>'
+            '<kwd>maize (<italic>Zea mays</italic> L.)</kwd>'
+            '<kwd>growth stimulation</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': 'Keywords',
+            'keywords': 'maize (Zea mays L.), growth stimulation'
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_title_with_inline_markup(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords<italic>*</italic></title>'
+            '<kwd>Keyword1</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result['title'], 'Keywords*')
+
 
 class TestExtractReferencesData(unittest.TestCase):
 
@@ -1270,6 +1304,20 @@ class TestExtractTableData(unittest.TestCase):
             pdf_enum.DOUBLE_COLUMN_PAGE_LABEL,
         )
 
+    def test_extract_table_data_override_layout_wins_over_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(
+            table_wrap, override_layout=pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+        )
+        self.assertEqual(result['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
+    def test_extract_table_data_invalid_override_falls_back_to_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap, override_layout='not-a-real-layout')
+        self.assertEqual(result['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):
     """
@@ -1374,6 +1422,23 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
         self.assertEqual([t['label'] for t in parent_sec['tables']], ['Table 1'])
         self.assertEqual([t['label'] for t in child_sec['tables']], ['Table 2'])
 
+    def test_table_layout_overrides_reach_extract_table_data(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(
+            xml, table_layout_overrides={'t1': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}
+        )
+        self.assertEqual(result[0]['tables'][0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
 
 class TestExtractTransAbstractData(unittest.TestCase):
 
@@ -1471,6 +1536,42 @@ class TestExtractTransAbstractData(unittest.TestCase):
             namespaces={'xml': 'http://custom.namespace'}
         )
         self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_paragraph_with_inline_markup(self):
+        """
+        Regression test for issue #1321: a <p> containing inline markup
+        (e.g. <italic>) used to be truncated at p.text, dropping the italic
+        text and everything after it in that paragraph.
+        """
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo</title>'
+            '<p>Efeito do milho (<italic>Zea mays</italic> L.) na produtividade.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'pt',
+                'title': 'Resumo',
+                'content': 'Efeito do milho (Zea mays L.) na produtividade.'
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_title_with_inline_markup(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo<italic>*</italic></title>'
+            '<p>Texto.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result[0]['title'], 'Resumo*')
 
 
 class TestExtractFigureData(unittest.TestCase):

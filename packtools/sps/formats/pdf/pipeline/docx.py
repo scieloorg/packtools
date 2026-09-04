@@ -1,3 +1,5 @@
+from docx.shared import Pt
+
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -10,7 +12,10 @@ def pipeline_docx(xml_tree, data):
 
     Args:
         xml_tree: The XML tree containing the article data.
-        data: Additional data for the DOCX generation.
+        data: Additional data for the DOCX generation. Recognizes an optional
+            'table_layout_overrides' key: a dict mapping a table-wrap @id to a
+            forced 'single-column-layout'/'double-column-layout', bypassing the
+            automatic layout heuristic for that specific table.
 
     Returns:
         A DOCX Document object.
@@ -63,7 +68,7 @@ def pipeline_docx(xml_tree, data):
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
-    body_data = xml_pipe.extract_body_data(xml_tree)
+    body_data = xml_pipe.extract_body_data(xml_tree, table_layout_overrides=data.get('table_layout_overrides'))
     docx_body_pipe(docx, body_data)
     
     # Acknowledgments
@@ -117,7 +122,7 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
     first_page_header = docx_renderer.section.get_first_page_header(docx)
     para = docx_renderer.text.get_first_paragraph(first_page_header)
 
-    left_run = para.add_run(journal_title_text.replace(' ', '\n'))
+    left_run = para.add_run(_format_journal_title_two_lines(journal_title_text))
     left_run.style = docx.styles[style_name]
 
     return para
@@ -281,6 +286,11 @@ def docx_keyworks_pipe(
     """
     para = docx.add_paragraph()
     para.style = docx.styles[keywords_paragraph_style_name]
+    # SCL Paragraph Keywords has no space-after of its own (issue #1322), so a
+    # section title immediately following it (before=0) would otherwise sit
+    # right on top of it. Pt(5.65) matches SCL Paragraph's own space-after
+    # (113 twentieths of a point), keeping the same rhythm as body text.
+    para.paragraph_format.space_after = Pt(5.65)
 
     r1 = para.add_run(f'{keywords_title} ')
     r1.style = docx.styles[keywords_header_character_style_name]
@@ -356,7 +366,7 @@ def docx_second_header_pipe(
     para = header.add_paragraph()
     para.style = docx.styles[paragraph_header_style_name]
 
-    r1 = para.add_run(journal_title.replace(' ', '\n'))
+    r1 = para.add_run(_format_journal_title_two_lines(journal_title))
     r1.style = docx.styles[paragraph_title_style_name]
 
     r2 = para.add_run(f'\t{article_title}')
@@ -507,6 +517,18 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 # -----------------
 # Private helpers
 # -----------------
+
+def _format_journal_title_two_lines(journal_title_text):
+    """
+    Break a journal title into at most two lines for the masthead: the first
+    word on its own line, and every remaining word joined onto the second
+    line. A one-word title stays on a single line.
+    """
+    words = journal_title_text.split(' ')
+    if len(words) <= 1:
+        return journal_title_text
+    return f"{words[0]}\n{' '.join(words[1:])}"
+
 
 def _body_column_count():
     """Number of columns configured for the body, from PAGE_ATTRIBUTES."""

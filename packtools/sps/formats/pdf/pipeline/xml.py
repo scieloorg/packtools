@@ -213,14 +213,14 @@ def extract_trans_abstract_data(xml_tree, namespaces={'xml': 'http://www.w3.org/
 
         node_title = node.find('title')
         if node_title is not None:
-            item['title'] = node_title.text or ''
+            item['title'] = ''.join(node_title.itertext()).strip()
 
         item['lang'] = node.attrib.get(lang_attrib_name)
 
         abstract = []
         for p in node.findall('p'):
             if p is not None:
-                abstract.append(p.text or '')
+                abstract.append(''.join(p.itertext()).strip())
         item['content'] = ' '.join(abstract)
 
         data.append(item)
@@ -248,9 +248,11 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
     if kwd_group is not None:
         node_title = kwd_group.find('title')
         if node_title is not None:
-            data['title'] = node_title.text
+            data['title'] = ''.join(node_title.itertext()).strip()
 
-        data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
+        data['keywords'] = ', '.join(
+            ''.join(kwd.itertext()).strip() for kwd in kwd_group.findall('kwd')
+        )
 
     return data
 
@@ -334,13 +336,16 @@ def extract_cite_as_part_one(xml_tree, return_node=False):
             else:
                 return part_one.text
 
-def extract_body_data(xml_tree):
+def extract_body_data(xml_tree, table_layout_overrides=None):
     """
     Extracts the body data from an XML tree, including section titles, paragraphs, and tables.
-    
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the body data from.
-    
+        table_layout_overrides (dict, optional): Maps a table-wrap @id to a forced
+            layout ('single-column-layout' or 'double-column-layout'), bypassing
+            `determine_table_layout`'s heuristic for that specific table.
+
     Returns:
         list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
             - 'level': The nesting level of the section.
@@ -376,7 +381,9 @@ def extract_body_data(xml_tree):
             closest_sec = table_wrap.xpath('ancestor::sec[1]')
             if closest_sec and closest_sec[0] is not document_section:
                 continue
-            sec['tables'].append(extract_table_data(table_wrap))
+            table_id = table_wrap.get('id') or table_wrap.get('xml:id')
+            override_layout = (table_layout_overrides or {}).get(table_id)
+            sec['tables'].append(extract_table_data(table_wrap, override_layout=override_layout))
 
         # Figures within the section (deduplicated across the body)
         for fig in document_section.findall('.//fig'):
@@ -585,13 +592,16 @@ def extract_supplementary_data(xml_tree):
                     })
     return data
 
-def extract_table_data(table_wrap):
+def extract_table_data(table_wrap, override_layout=None):
     """
     Extracts table data from an XML table-wrap element, handling merged cells.
-    
+
     Args:
         table_wrap (ElementTree): The XML table-wrap element to extract data from.
-    
+        override_layout (str, optional): Forces 'layout' to this value instead of
+            running `determine_table_layout`'s heuristic. Must be one of
+            pdf_enum.SINGLE_COLUMN_PAGE_LABEL/DOUBLE_COLUMN_PAGE_LABEL, otherwise ignored.
+
     Returns:
         dict: A dictionary containing the following keys:
             - 'label': The text content of the table label element, or an empty string if not found.
@@ -615,7 +625,7 @@ def extract_table_data(table_wrap):
     header_spans = []
     row_spans = []
     table = table_wrap.find('.//table')
-    layout = determine_table_layout(table_wrap)
+    layout = determine_table_layout(table_wrap, override=override_layout)
 
     if table is not None:
         thead = table.find('.//thead')
@@ -649,19 +659,25 @@ def extract_table_data(table_wrap):
 
 _PATHOLOGICAL_CELL_LENGTH = 400
 
-def determine_table_layout(table_wrap):
+def determine_table_layout(table_wrap, override=None):
     """
     Determines the layout of a table based on the number of columns it contains,
-    considering merged cells, with a guard against a single excessively long cell
-    (which the column-count heuristic alone can't catch: a table can have few
-    columns and still need full width).
+    considering merged cells, with an escape hatch for an explicit override and a
+    guard against a single excessively long cell (which the column-count heuristic
+    alone can't catch: a table can have few columns and still need full width).
 
     Args:
         table_wrap (ElementTree): The XML table-wrap element to analyze.
+        override (str, optional): Forces this layout instead of running the heuristic.
+            Must be one of pdf_enum.SINGLE_COLUMN_PAGE_LABEL/DOUBLE_COLUMN_PAGE_LABEL,
+            otherwise ignored.
 
     Returns:
         str: A string indicating the table layout. Possible values are 'single-column-layout' and 'double-column-layout'.
     """
+    if override in (pdf_enum.SINGLE_COLUMN_PAGE_LABEL, pdf_enum.DOUBLE_COLUMN_PAGE_LABEL):
+        return override
+
     table = table_wrap.find('.//table')
     if table is not None:
         # Check both thead and tbody for maximum columns
