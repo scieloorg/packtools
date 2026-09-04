@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -92,10 +93,74 @@ class TestJournalTitlePipe(unittest.TestCase):
         para = docx_pipe.docx_journal_title_pipe(self.docx, 'Acta Amazonica')
         self.assertEqual(para.runs[0].style.name, 'SCL Journal Title Char')
 
+    def test_paragraph_lives_in_the_left_cell_of_a_header_table(self):
+        returned_para = docx_pipe.docx_journal_title_pipe(self.docx, 'Acta Amazonica')
+        header = docx_renderer.section.get_first_page_header(self.docx)
+        table = header.tables[-1]
+        cell_para = table.rows[0].cells[0].paragraphs[0]
+        # python-docx builds a fresh Paragraph wrapper on each access, so
+        # compare the underlying XML element (identity) rather than the
+        # wrapper objects themselves.
+        self.assertIs(returned_para._p, cell_para._p)
+
+    def test_left_column_gets_the_configured_share_of_content_width(self):
+        docx_pipe.docx_journal_title_pipe(self.docx, 'Acta Amazonica')
+        header = docx_renderer.section.get_first_page_header(self.docx)
+        table = header.tables[-1]
+        content_width = int(docx_pipe._content_width())
+        expected_left = int(content_width * docx_pipe._JOURNAL_TITLE_DOI_SPLIT)
+        # Column widths round-trip through python-docx's internal Length
+        # representation with a little rounding noise.
+        self.assertAlmostEqual(table.columns[0].width, expected_left, delta=500)
+
 
 class TestDocxDoiPipe(unittest.TestCase):
-    # TODO
-    ...
+    """
+    Regression: the DOI used to be tab-appended after the journal title in
+    the same paragraph, relying on a tab stop to reach the right margin. A
+    tab stop only sets where a run *starts*, not where it wraps - when the
+    journal title's own second line (see _format_journal_title_two_lines)
+    was already long, there was no room left on that line for the DOI, and
+    it wrapped onto a line of its own instead of landing flush right. The
+    DOI now gets its own column in a 2-column header table, right-aligned
+    within it, independent of how much text is in the journal title's cell.
+    """
+
+    def setUp(self):
+        self.docx = Document()
+        self.docx.styles.add_style('SCL Journal Title Char', WD_STYLE_TYPE.CHARACTER)
+        self.docx.styles.add_style('SCL Header Paragraph Char', WD_STYLE_TYPE.CHARACTER)
+
+    def _doi_cell_paragraph(self):
+        header = docx_renderer.section.get_first_page_header(self.docx)
+        return header.tables[-1].rows[0].cells[1].paragraphs[0]
+
+    def test_doi_run_has_no_leading_tab(self):
+        docx_pipe.docx_doi_pipe(self.docx, '10.1590/example')
+        para = self._doi_cell_paragraph()
+        self.assertEqual(para.runs[-1].text, 'http://dx.doi.org/10.1590/example')
+
+    def test_doi_paragraph_is_right_aligned(self):
+        docx_pipe.docx_doi_pipe(self.docx, '10.1590/example')
+        para = self._doi_cell_paragraph()
+        self.assertEqual(para.alignment, WD_ALIGN_PARAGRAPH.RIGHT)
+
+    def test_reuses_the_table_journal_title_pipe_already_created(self):
+        docx_pipe.docx_journal_title_pipe(self.docx, 'Urbe. Revista Brasileira de Gestão Urbana')
+        docx_pipe.docx_doi_pipe(self.docx, '10.1590/example')
+        header = docx_renderer.section.get_first_page_header(self.docx)
+        self.assertEqual(len(header.tables), 1)
+        journal_para = header.tables[0].rows[0].cells[0].paragraphs[0]
+        self.assertEqual(journal_para.runs[0].text, 'Urbe.\nRevista Brasileira de Gestão Urbana')
+        doi_para = header.tables[0].rows[0].cells[1].paragraphs[0]
+        self.assertEqual(doi_para.runs[-1].text, 'http://dx.doi.org/10.1590/example')
+
+    def test_works_standalone_without_journal_title_pipe(self):
+        # docx_doi_pipe creates its own table when none exists yet, rather
+        # than assuming docx_journal_title_pipe always runs first.
+        docx_pipe.docx_doi_pipe(self.docx, '10.1590/example')
+        header = docx_renderer.section.get_first_page_header(self.docx)
+        self.assertEqual(len(header.tables), 1)
 
 
 class TestDocxArticleTypeAndCategoryPipe(unittest.TestCase):
@@ -178,6 +243,15 @@ class TestDocxCiteAsPipe(unittest.TestCase):
 
 
 class TestDocxSecondHeaderPipe(unittest.TestCase):
+    """
+    Regression: the running header used to be a single paragraph with the
+    article title appended after a tab character. A tab stop only
+    positions where a run starts, not where it wraps, so a long article
+    title overflowed past the journal title instead of wrapping under
+    itself. It's now a borderless 2-column table, each column getting half
+    of the content width, with the article title right-aligned in its own
+    column - independently bounded wrapping.
+    """
 
     def setUp(self):
         self.docx = Document()
@@ -185,24 +259,43 @@ class TestDocxSecondHeaderPipe(unittest.TestCase):
         self.docx.styles.add_style('SCL Header Paragraph Char', WD_STYLE_TYPE.CHARACTER)
         self.docx.styles.add_style('SCL Journal Title Char', WD_STYLE_TYPE.CHARACTER)
 
-    def _second_header_paragraph(self):
+    def _second_header_table(self):
         header = docx_pipe.docx_renderer.section.get_default_header(self.docx)
-        return header.paragraphs[-1]
+        return header.tables[-1]
+
+    def _journal_paragraph(self):
+        return self._second_header_table().rows[0].cells[0].paragraphs[0]
+
+    def _title_paragraph(self):
+        return self._second_header_table().rows[0].cells[1].paragraphs[0]
 
     def test_two_word_title_keeps_one_word_per_line(self):
         docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
-        para = self._second_header_paragraph()
-        self.assertEqual(para.runs[0].text, 'Acta\nAmazonica')
+        self.assertEqual(self._journal_paragraph().runs[0].text, 'Acta\nAmazonica')
 
     def test_multi_word_title_is_capped_at_two_lines(self):
         docx_pipe.docx_second_header_pipe(self.docx, 'Brazilian Journal of Biology', 'Some Article Title')
-        para = self._second_header_paragraph()
-        self.assertEqual(para.runs[0].text, 'Brazilian\nJournal of Biology')
+        self.assertEqual(self._journal_paragraph().runs[0].text, 'Brazilian\nJournal of Biology')
 
-    def test_article_title_is_appended_after_a_tab(self):
+    def test_article_title_is_in_its_own_cell(self):
         docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
-        para = self._second_header_paragraph()
-        self.assertEqual(para.runs[1].text, '\tSome Article Title')
+        self.assertEqual(self._title_paragraph().runs[0].text, 'Some Article Title')
+
+    def test_article_title_is_right_aligned(self):
+        docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
+        self.assertEqual(self._title_paragraph().alignment, WD_ALIGN_PARAGRAPH.RIGHT)
+
+    def test_columns_split_content_width_evenly(self):
+        docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
+        table = self._second_header_table()
+        self.assertEqual(table.columns[0].width, table.columns[1].width)
+
+    def test_table_keeps_the_borderless_default_style(self):
+        # No style is assigned explicitly, so it stays 'Normal Table' -
+        # the borderless default any new python-docx table gets.
+        docx_pipe.docx_second_header_pipe(self.docx, 'Acta Amazonica', 'Some Article Title')
+        table = self._second_header_table()
+        self.assertEqual(table.style.name, 'Normal Table')
 
 
 class TestDocxSecondFooterPipe(unittest.TestCase):
@@ -293,6 +386,34 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         footer = docx.sections[-1].footer
         para = footer.paragraphs[-1]
         self.assertEqual(para.text, 'VOL. 33 (3) 2024: e282794')
+
+
+class TestAddTwoColumnHeaderTable(unittest.TestCase):
+
+    def test_default_split_is_even(self):
+        docx = Document()
+        header = docx_renderer.section.get_first_page_header(docx)
+        left_cell, right_cell = docx_pipe._add_two_column_header_table(header)
+        table = header.tables[-1]
+        self.assertEqual(table.columns[0].width, table.columns[1].width)
+
+    def test_custom_ratio_splits_unevenly(self):
+        docx = Document()
+        header = docx_renderer.section.get_first_page_header(docx)
+        docx_pipe._add_two_column_header_table(header, left_ratio=0.65)
+        table = header.tables[-1]
+        content_width = int(docx_pipe._content_width())
+        self.assertAlmostEqual(table.columns[0].width, int(content_width * 0.65), delta=500)
+        self.assertAlmostEqual(
+            table.columns[1].width, content_width - int(content_width * 0.65), delta=500
+        )
+
+    def test_table_keeps_the_borderless_default_style(self):
+        docx = Document()
+        header = docx_renderer.section.get_first_page_header(docx)
+        docx_pipe._add_two_column_header_table(header)
+        table = header.tables[-1]
+        self.assertEqual(table.style.name, 'Normal Table')
 
 
 class TestBodyColumnConfiguration(unittest.TestCase):
