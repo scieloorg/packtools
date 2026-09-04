@@ -1,0 +1,2597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article
+  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="publisher-id">hoehnea</journal-id>
+			<journal-title-group>
+				<journal-title>Hoehnea</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Hoehnea</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0073-2877</issn>
+			<issn pub-type="epub">2236-8906</issn>
+			<publisher>
+				<publisher-name>Instituto de Pesquisas Ambientais</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/2236-8906-111/2020</article-id>
+            <article-id pub-id-type="other">00208</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Artigo</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title>Prospecção química, atividade antioxidante, anticolinesterásica e antifúngica de extratos etanólicos de espécies de <italic>Senna</italic> Mill. (Fabaceae)</article-title>
+				<trans-title-group xml:lang="en">
+					<trans-title>Chemical prospecting and antioxidant, anticholinesterase and antifungal activity of ethanol extracts from <italic>Senna</italic> Mill. species. (Fabaceae)</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-7388-1844</contrib-id>
+					<name>
+						<surname>Neves</surname>
+						<given-names>Andréa Maria</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"><sup>1</sup></xref>
+					<xref ref-type="corresp" rid="c1"><sup>4</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-2766-3790</contrib-id>
+					<name>
+						<surname>Morais</surname>
+						<given-names>Selene Maia de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"><sup>1</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0001-5527-164X</contrib-id>
+					<name>
+						<surname>Santos</surname>
+						<given-names>Hélcio Silva dos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2"><sup>2</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0003-2503-9772</contrib-id>
+					<name>
+						<surname>Ferreira</surname>
+						<given-names>Marcílio Matos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3"><sup>3</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-2035-0425</contrib-id>
+					<name>
+						<surname>Cruz</surname>
+						<given-names>Ricardo Carneiro Vera</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3"><sup>3</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-5222-4378</contrib-id>
+					<name>
+						<surname>Souza</surname>
+						<given-names>Elnatan Bezerra de</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3"><sup>3</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-4384-5738</contrib-id>
+					<name>
+						<surname>Andrade</surname>
+						<given-names>Lúcia Betânia da Silva</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3"><sup>3</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-8865-5954</contrib-id>
+					<name>
+						<surname>Fontenelle</surname>
+						<given-names>Raquel Oliveira dos Santos</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3"><sup>3</sup></xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>1</label>
+				<institution content-type="original"> Universidade Estadual do Ceará, Centro de Ciências e Tecnologia, Programa de Pós-graduação em Biotecnologia, Avenida Doutor Silas Muguba, 1700, Itaperi, 60740-000 Fortaleza, CE, Brasil</institution>
+				<institution content-type="orgname">Universidade Estadual do Ceará</institution>
+				<institution content-type="orgdiv1">Centro de Ciências e Tecnologia</institution>
+				<institution content-type="orgdiv2">Programa de Pós-graduação em Biotecnologia</institution>
+				<addr-line>
+					<postal-code>60740-000</postal-code>
+					<city>Fortaleza</city>
+					<state>CE</state>
+				</addr-line>
+				<country country="BR">Brasil</country>
+			</aff>
+			<aff id="aff2">
+				<label>2</label>
+				<institution content-type="original"> Universidade Estadual Vale do Acaraú, Centro de Ciências Exatas e Tecnologia, Curso de Química, Avenida da Universidade, 850, Betânia, 62040-370 Sobral, CE, Brasil</institution>
+				<institution content-type="orgname">Universidade Estadual Vale do Acaraú</institution>
+				<institution content-type="orgdiv1">Centro de Ciências Exatas e Tecnologia</institution>
+				<institution content-type="orgdiv2">Curso de Química</institution>
+				<addr-line>
+					<postal-code>62040-370</postal-code>
+					<city>Sobral</city>
+					<state>CE</state>
+				</addr-line>
+				<country country="BR">Brasil</country>
+			</aff>
+			<aff id="aff3">
+				<label>3</label>
+				<institution content-type="original"> Universidade Estadual Vale do Acaraú, Centro de Ciências Agrárias e Biológicas, Curso de Ciências Biológicas, Avenida da Universidade, 850, Betânia, 62040-370 Sobral, CE, Brasil</institution>
+				<institution content-type="orgname">Universidade Estadual Vale do Acaraú</institution>
+				<institution content-type="orgdiv1">Centro de Ciências Agrárias e Biológicas</institution>
+				<institution content-type="orgdiv2">Curso de Ciências Biológicas</institution>
+				<addr-line>
+					<postal-code>62040-370</postal-code>
+					<city>Sobral</city>
+					<state>CE</state>
+				</addr-line>
+				<country country="BR">Brasil</country>
+			</aff>
+			<author-notes>
+				<corresp id="c1">
+					<label><sup>4</sup></label> Autor para correspondência: <email>andreamarianeves@gmail.com</email>
+				</corresp>
+				<fn fn-type="edited-by" id="fn1">
+					<label>Editora Associada:</label>
+					<p> Catarina Carvalho Nievola</p>
+				</fn>
+				<fn fn-type="con" id="fn2">
+					<label>Contribuição dos autores</label>
+					<p><bold>Andréa Maria Neves:</bold> Contribuição substancial em todas as etapas da pesquisa e para a confecção do manuscrito. <bold>Selene Maia de Morais:</bold> Contribuição na realização do teste de acetilcolinesterase; Contribuição na revisão crítica do manuscrito, agregando conteúdo intelectual. <bold>Hélcio Silva dos Santos:</bold> Contribuição na preparação dos extratos; Contribuição na revisão crítica do manuscrito, agregando conteúdo intelectual. <bold>Marcílio Matos Ferreira:</bold> Contribuição para a coleta das espécies e preparação dos extratos. <bold>Ricardo Carneiro Vera Cruz:</bold> Contribuição na realização dos testes fitoquímicos e quantificação de fenóis totais. <bold>Elnatan Bezerra de Souza:</bold> Contribuição na coleta e identificação das espécies; Contribuição na revisão crítica do manuscrito, agregando conteúdo intelectual. <bold>Lúcia Betânia da Silva Andrade:</bold> Contribuição na realização da atividade antioxidante, para a interpretação dos dados, e para revisão crítica, agregando conteúdo intelectual. <bold>Raquel Oliveira dos Santos Fontenelle:</bold> Contribuição nos testes antifúngicos e para revisão crítica, agregando conteúdo intelectual. </p>
+				</fn>
+				<fn fn-type="conflict" id="fn3">
+					<label>Conflitos de interesse</label>
+					<p> Os autores declaram não haver conflitos de interesse a informar.</p>
+				</fn>
+			</author-notes>
+			<pub-date date-type="pub" publication-format="electronic">
+				<day>21</day>
+				<month>02</month>
+				<year>2022</year>
+			</pub-date>
+			<pub-date date-type="collection" publication-format="electronic">
+				<year>2022</year>
+			</pub-date>
+			<volume>49</volume>
+			<elocation-id>e1112020</elocation-id>
+			<history>
+				<date date-type="received">
+					<day>14</day>
+					<month>10</month>
+					<year>2020</year>
+				</date>
+				<date date-type="accepted">
+					<day>03</day>
+					<month>12</month>
+					<year>2021</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+					<license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons</license-p>
+				</license>
+			</permissions>
+			<abstract>
+				<title>RESUMO</title>
+				<p>O objetivo deste trabalho foi avaliar o perfil químico, teor de fenóis totais e as atividades antioxidante, antiacetilcolinesterásica e antifúngica dos extratos etanólicos das folhas (EEF) e do caule (EEC) de cinco espécies de <italic>Senna</italic>, bem como avaliar a correlação entre o conteúdo de fenóis totais com a atividade sequestradora do radical livre DPPH e com a inibição da enzima acetilcolinesterase AChEI. No teste fitoquímico, evidenciou-se a presença de metabólitos secundários em todos os extratos. Os EEF e EEC de <italic>Senna trachypus</italic>, destacaram-se por apresentar os maiores valores de fenóis totais. Os EEF e EEC de <italic>S. trachypus</italic> mostraram a melhor ação sobre a enzima acetilcolinesterase. Todas as espécies apresentaram atividade antioxidante, em especial o EEF de <italic>S. trachypus</italic>. Foi observado correlação forte para as variáveis fenóis totais e atividade antioxidante (r = -0,71), muito forte para fenóis totais e antiacetilcolinesterase (r = -0,84) e atividade moderada para atividade antioxidante e antiacetilcolinesterase (0,43). Apenas os extratos de <italic>S. trachypus</italic> apresentaram atividade contra todos os dermatófitos, quando comparado às demais espécies. A espécie <italic>S. trachypus</italic> foi considerada a planta mais promissora para estudos subsequentes, a fim de encontrar compostos com ações farmacológicas. </p>
+			</abstract>
+			<trans-abstract xml:lang="en">
+				<title>ABSTRACT</title>
+				<p>The objective of this work was to evaluate the chemical profile, total phenol content and the antioxidant, antiacetylcholinesterase and antifungal activities of ethanol extracts from leaves (EEF) and stem (EEC) of five species of <italic>Senna</italic>, as well as to evaluate the correlation between the content of total phenols with the DPPH free radical scavenging activity and with the inhibition of the acetylcholinesterase AChEI enzyme. The phytochemical test showed the presence of secondary metabolites in all extracts. The EEF and EEC of <italic>Senna trachypus</italic>, stood out for presenting the highest values of total phenols. <italic>S. trachypus</italic> EEF and EEC showed the best action on the acetylcholinesterase enzyme. All species showed antioxidant activity, especially the EEF from <italic>S. trachypus</italic>. A strong correlation was observed for the variables total phenols and antioxidant activity (r = -0.71), very strong for total phenols and anti-acetylcholinesterase (r = -0.84) and moderate activity for antioxidant and anti-acetylcholinesterase activity (r = 0.43). Only <italic>S. trachypus</italic> extracts showed activity against all dermatophytes, when compared to the other species. The species <italic>S. trachypus</italic> was considered the most promising plant for further studies, in order to find compounds with pharmacological actions.</p>
+			</trans-abstract>
+			<kwd-group xml:lang="pt">
+				<title>Palavras-chave:</title>
+				<kwd>acetilcolinesterase</kwd>
+				<kwd>dermatófitos</kwd>
+				<kwd>fitoquímica</kwd>
+				<kwd>produtos naturais</kwd>
+				<kwd>radicais livres</kwd>
+			</kwd-group>
+			<kwd-group xml:lang="en">
+				<title>Keywords:</title>
+				<kwd>acetylcholinesterase</kwd>
+				<kwd>dermatophytes</kwd>
+				<kwd>phytochemistry</kwd>
+				<kwd>natural products</kwd>
+				<kwd>free radicals</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group award-type="contract">
+					<funding-source>FUNCAP</funding-source>
+					<award-id>PBI3-0139-00252.01.00/18</award-id>
+					<award-id>BP4-0172-00170.01.00/20</award-id>
+				</award-group>
+			</funding-group>
+			<counts>
+				<fig-count count="3"/>
+				<table-count count="4"/>
+				<equation-count count="0"/>
+				<ref-count count="56"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introdução</title>
+			<p><italic>Senna</italic> Mill. é um gênero monofilético com distribuição pantropical e ampla variedade morfológica (<xref ref-type="bibr" rid="B41">Pellerin <italic>et al</italic>. 2019</xref>). Possuindo aproximadamente 300 espécies, das quais 200 nas Américas, este gênero é o segundo maior da família Fabaceae (<xref ref-type="bibr" rid="B43">Queiroz 2009</xref>, <xref ref-type="bibr" rid="B22">Kim <italic>et al</italic>. 2018</xref>, <xref ref-type="bibr" rid="B53">Souza &amp; Silva 2016</xref>). O gênero é representado no Brasil por 79 espécies, onde 29 são endêmicas, sendo a região Nordeste a que apresenta a maior riqueza de espécies com 53 registros (<xref ref-type="bibr" rid="B7">BFG 2018</xref>). </p>
+			<p>Trata-se de um gênero muito expressivo na flora do semiárido, alcançando destaque no Domínio Fitogeográfico da Caatinga, onde são catalogadas 42 espécies (<xref ref-type="bibr" rid="B50">Souza &amp; Bortoluzzi 2015</xref>). As espécies de <italic>Senna</italic> são geralmente arbustos ou arvoretas, raramente ervas ou subarbustos anuais. Entre as suas características diagnósticas estão os nectários extraflorais convexos, interfoliolares, flores vistosas, com pétalas amarelo-brilhantes, anteras amarelas, rígidas, com deiscência abrindo por poros ou fendas, ausência de bractéolas no pedicelo, frutos deiscentes plano-compressos ou indeiscentes e cilíndricos (<xref ref-type="bibr" rid="B43">Queiroz 2009</xref>).</p>
+			<p>As espécies de <italic>Senna</italic> têm diversas aplicações medicinais e são eficazes no tratamento para uma série de doenças, como malária, micose, dengue, eczema, hepatite e dermatite, sendo também indicadas como anti-hipertensivo, vermífugo, laxante, abortivo e antitussígeno (<xref ref-type="bibr" rid="B28">Macedo <italic>et al.</italic> 2016</xref>, <xref ref-type="bibr" rid="B8">Bieski <italic>et al</italic>. 2015</xref>, <xref ref-type="bibr" rid="B21">Kabir <italic>et al.</italic> 2014</xref>). Além de suas aplicações farmacológicas, estudos têm revelado que espécies pertencentes a este gênero possuem, em sua composição, uma vasta diversidade de princípios bioativos que estão associadas a diferentes atividades biológicas. Neste sentido, podemos citar como exemplo as atividades antioxidantes, antitumoral, antibacterianas, antifúngicas e anti-inflamatórias (<xref ref-type="bibr" rid="B34">Neves <italic>et al.</italic> 2017</xref>).</p>
+			<p>As plantas são fontes alternativas promissoras de substâncias de interesse biológico e farmacológico, já que podem produzir, a partir de seu metabolismo secundário, uma enorme diversidade de substâncias, dentre estas, os compostos fenólicos. Alguns estudos têm revelado que os compostos fenólicos são responsáveis por várias atividades biológicas, incluindo atividade antifúngica. Esta atividade pode ser direta nos micro-organismos, ou sobre outros fatores necessários para a expressão da virulência ou patogenicidade (<xref ref-type="bibr" rid="B45">Rodrigues <italic>et al</italic>. 2019</xref>).</p>
+			<p>Os compostos fenólicos estão entre os metabólitos secundários mais estudados, notadamente por possuírem grande potencial para atividades antioxidantes, atuando na redução do risco de algumas doenças agudas e crônicas relacionadas ao estado redox do corpo humano, ocasionadas pelos radicais livres. Estas moléculas apresentam uma alta capacidade reativa, sendo consideradas perigosas para os organismos vivos, causando doenças prejudiciais, incluindo doenças neurodegenerativas, como o mal de Alzheimer (DA). Atualmente, uma das teorias mais aceitas na abordagem padrão no tratamento sintomático dessa demência é a “hipótese colinérgica”. Portanto, os inibidores da enzima acetilcolinesterase (AChEI) preservam os níveis de acetilcolina, melhorando a eficiência da transmissão colinérgica (<xref ref-type="bibr" rid="B4">Bardakci <italic>et al</italic>. 2019</xref>, <xref ref-type="bibr" rid="B27">Lim <italic>et al</italic>. 2019</xref>; <xref ref-type="bibr" rid="B35">Neagu <italic>et al</italic>. 2016</xref>).</p>
+			<p>Por este motivo, a utilização de dietas ricas ou enriquecidas com antioxidantes podem prevenir, ou pelo menos amenizar, a deterioração orgânica por um excessivo estresse oxidativo. Além disso, o crescimento sobre a investigação científica envolvendo os efeitos antioxidantes de extratos brutos, frações purificadas, ou mesmo de compostos isolados, onde estão classificados os compostos fenólicos, são demonstrados em muitos estudos (<xref ref-type="bibr" rid="B42">Penido <italic>et al.</italic> 2017</xref>, <xref ref-type="bibr" rid="B30">Morais <italic>et al.</italic> 2013</xref>).</p>
+			<p>Desta forma, investigar a atividade antifúngica e anticolinesterásica de extratos de espécies de <italic>Senna</italic>, analisando o seu potencial antioxidante, o seu teor de fenóis totais e o seu perfil fitoquímico, são maneiras de promover tanto o conhecimento acerca dessas espécies, como também potencializar o descobrimento de novos fitofármacos para o combate de inúmeras enfermidades. Assim, este trabalho avaliou o perfil fitoquímico, o teor de fenóis totais e as atividades antioxidante, anticolinesterásica e antifúngica dos extratos etanólicos de <italic>S. alata</italic> (L.) Roxb., <italic>S. obtusifolia</italic> (L.) H.S.Irwin &amp; Barneby, <italic>S. occidentalis</italic> (L.) Link, <italic>S. siamea</italic> (Lam.) H.S.Irwin &amp; Barneby e <italic>S. trachypus</italic> (Benth.) H.S.Irwin &amp; Barneby, e a correlação entre o teor de fenóis totais e as atividades antioxidante e anticolinesterásica. </p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Materiais e métodos</title>
+			<p>Material vegetal e preparação dos extratos - Foram selecionadas para este estudo cinco espécies de <italic>Senna</italic>, sendo uma exótica naturalizada e quatro nativas, das quais uma é endêmica do Brasil, ocorrendo no Cerrado e na Caatinga (<xref ref-type="bibr" rid="B7">BFG 2018</xref>) (<xref ref-type="table" rid="t1">Tabela 1</xref>). As folhas e caules de <italic>Senna</italic> spp. foram coletados em diferentes locais da região Noroeste do Ceará. A identificação botânica das espécies foi realizada no Herbário Francisco José de Abreu Matos da Universidade Estadual Vale do Acaraú (HUVA), pelo professor Dr. Elnatan Bezerra de Souza. Para o preparo dos extratos, 200g das folhas e caule secos de cada espécie de um mesmo indivíduo foram triturados e imersos durante 10 dias em 500 mL de etanol e, na sequência o extrato foi filtrado e concentrado em um evaporador rotativo a (60°C) durante 2 h. Após este processo, foi mantido em banho-maria (40°C) até a eliminação total do solvente, obtendo-se o extrato etanólico das folhas (EEF) e extrato etanólico do caule (EEC) (<xref ref-type="bibr" rid="B29">Matos 2009</xref>).</p>
+			<p>
+				<table-wrap id="t1">
+					<label>Tabela 1.</label>
+					<caption>
+						<title>Identificação das espécies de <italic>Senna</italic> Mill. (Fabaceae) coletadas em diferentes locais da região noroeste do Estado do Ceará. <sup>*</sup>Exótica, <sup>**</sup>Endêmica do Brasil. Fonte: Herbário Francisco José de Abreu Matos (HUVA).</title>
+					</caption>
+					<table>
+						<colgroup>
+							<col/>
+							<col/>
+							<col/>
+							<col/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="left">Espécies</th>
+								<th align="left">Nome popular</th>
+								<th align="center">Local de coleta</th>
+								<th align="center">No. HUVA</th>
+							</tr>
+                        </thead>
+                        <tbody>
+							<tr>
+								<td align="left"><italic>S. alata</italic> (L.) Roxb.</td>
+								<td align="left">fedegoso-gigante</td>
+								<td align="center">Sobral</td>
+								<td align="center">21547</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. obtusifolia</italic> (L.) H.S.Irwin &amp; Barneby</td>
+								<td align="left">fedegoso-brando</td>
+								<td align="center">Graça</td>
+								<td align="center">21775</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. occidentalis</italic> (L.) Link</td>
+								<td align="left">café-negro</td>
+								<td align="center">Graça</td>
+								<td align="center">21774</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. siamea</italic> (Lam.) H.S.Irwin &amp; Barneby<sup>*</sup></td>
+								<td align="left">cássia-de-sião</td>
+								<td align="center">Sobral</td>
+								<td align="center">21578</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. trachypus</italic> (Benth.) H.S.Irwin &amp; Barneby<sup>**</sup></td>
+								<td align="left">pau-de-besouro</td>
+								<td align="center">Graça</td>
+								<td align="center">21776</td>
+							</tr>
+						</tbody>
+					</table>
+                    <table-wrap-foot>
+                        <fn id="TFN1">
+                            <p><xref ref-type="table" rid="t1">Table 1</xref>Identification of <italic>Senna Senna</italic> Mill. (Fabaceae) species collected in different locations in northwestern Ceará State. <sup>*</sup> Exotic, <sup>**</sup> Endemic to Brazil. Source: Herbário Francisco José de Abreu Matos (HUVA).</p>
+                        </fn>
+                    </table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Triagem fitoquímica - Os extratos etanólicos foram submetidos a triagem fitoquímica, tomando como referência a metodologia descrita por <xref ref-type="bibr" rid="B29">Matos (2009</xref>). Através deste ensaio preliminar, foi possível verificar as principais classes de metabólitos secundários por meio de reações químicas que resultaram no aparecimento de coloração e/ou precipitado, característico para cada classe de substância. Os ensaios foram conduzidos para as seguintes classes de substâncias: fenóis, taninos, flavonoides, saponinas, esteroides, triterpenoides e alcaloides. Todos os testes foram realizados em triplicata procedimentais. </p>
+			<p>Determinação do teor de fenóis totais - O teor de fenóis totais nos extratos etanólicos foi determinado pelo método espectrofotométrico de Folin-Ciocateau, utilizando ácido gálico como padrão de referência (<xref ref-type="bibr" rid="B23">Kim <italic>et al.</italic> 2006</xref>). Em cada tubo adicionou-se 0,2 mL de cada extrato nas concentrações (0,62; 0,31 e 0,15 mg mL<sup>-1</sup>) com 1 mL do reagente Folin-Ciocalteau agitado por 2 minutos e adicionado 0,8 mL de carbonato de sódio (Na<sub>2</sub>CO<sub>3</sub>) 7,5% (m/v). Para o tubo controle foi utilizado 1 mL do reagente Folin- Ciocalteau com 0,8 mL de Na<sub>2</sub>CO<sub>3</sub> e 0,2 mL de etanol, em triplicata. Os tubos foram deixados em banho-maria a 37 ̊C por 30 minutos na ausência de luz. Logo em seguida, foi realizado a leitura dos tubos em comprimento de onda de 765 nm. O teor de fenóis foi calculado e expresso em mg de equivalente de ácido gálico por grama de extrato (EAG.g<sup>-1</sup>), com base numa curva padrão preparada com ácido gálico. Todos os testes foram realizados em triplicata.</p>
+			<p>Atividade antioxidante - A atividade antioxidante dos extratos foi determinada pelo método de redução do radical 2,2’-difenil-1-picril-hidrazil (DPPH), segundo a metodologia modificada por <xref ref-type="bibr" rid="B9">Brand-Williams <italic>et al.</italic> (1995</xref>), <xref ref-type="bibr" rid="B48">Sanchez-Moreno <italic>et al</italic>. (1998</xref>). Foram preparadas soluções etanólicas das amostras nas concentrações de 5,0; 2,5; 1,25; 0,62; 0,31 e 0,15 mg mL<sup>-1</sup>. Foram utilizados 100 µL dos extratos com 2,4 mL de DPPH (0,04 mg mL<sup>-1</sup>). Para o tubo controle foram utilizados 100 µL de etanol com 2,4 mL de DPPH em triplicata. O meio reacional ficou por 30 minutos na ausência da luz, e posteriormente foi realizada a leitura em comprimento de onda 515 nm. A atividade sequestradora do radical DPPH pelos extratos nas diferentes concentrações foi calculada pela expressão do índice de varredura em porcentagem (IV%): IV% = (Abs <sub>DPPH</sub> - Abs <sub>Amostra</sub> / Abs <sub>DPPH</sub>) x 100. A concentração efetiva para inibir 50% do radical livre DPPH (CE<sub>50</sub>) foi obtida com auxílio do Software Excel 2019, onde, a partir dos valores das concentrações finais da amostra e o índice de varredura (IV%), foram originados gráficos de dispersão cujas equações das retas foram utilizadas para se obter os valores da média e desvio padrão. Para fins de comparação, foi construída uma curva de calibração com diferentes porcentagens do flavonoide quercetina, que apresenta elevada atividade antioxidante em radical livre DPPH.</p>
+			<p>Avaliação da atividade anticolinesterásica <italic>in vitro</italic> - O ensaio para verificação da inibição da enzima acetilcolinesterase (AChE) dos extratos foi realizado de acordo com a metodologia descrita por <xref ref-type="bibr" rid="B14">Ellman <italic>et al.</italic> (1961</xref>). Em placas estéreis de 96 poços, foram adicionados 25 µL de iodeto de acetiltiocolina (15 mM), 125 µL de 5,5’-ditiobis-[2-nitrobenzóico] na solução Tris/HCL (50 nM, pH 8, com 0,1 M de NaCL e 0,02 M de MgCL<sub>2</sub> .6H<sub>2</sub>O. (3 mM, DTNB ou reagente de Ellman)), 50 µL da solução Tris/HCL (50 nM, pH 8, com 0,1% de albumina sérica bovina (BSA) e 25 µL dos extratos de <italic>Senna</italic> spp. na concentraçao de 0,2 mg.mL<sup>-1</sup> em tampão Tris/HCL (50 mM, pH 8) de 0,2 mg.mL<sup>-1</sup> (<xref ref-type="bibr" rid="B44">Rhee <italic>et al.</italic> 2001</xref>, <xref ref-type="bibr" rid="B54">Trevisan <italic>et al.</italic> 2003</xref>). </p>
+			<p>A absorbância foi aferida a 405 nm durante 30 segundos. Em seguida, foram adicionados 25 µL da enzima acetilcolinesterase (0,25 U.mL<sup>-1</sup>) e a absorbância foi aferida por minuto até o total de 25 minutos de incubação da enzima. Como padrão negativo foram utilizadas todas as soluções, excetuando-se a amostra. O padrão utilizado como controle positivo foi a fisostigmina (0,22 mg.mL<sup>-1</sup>.) e todas as amostras foram analisadas em triplicata. A atividade anticolinesterásica dos extratos vegetais foi determinada de acordo com os valores de CI<sub>50</sub> (Concentração inibitória capaz de inibir 50% da enzima acetilcolinesterase) como: alta potência (CI<sub>50</sub> &lt; 20 μg. mL<sup>-1</sup>); potência moderada (20 &lt; CI<sub>50</sub> &lt; 200 μg.mL<sup>-1</sup>) e baixa potência (200 &lt; CI<sub>50</sub> &lt; 1000 μg.mL<sup>-1</sup>) (<xref ref-type="bibr" rid="B46">Santos <italic>et al</italic>. 2018</xref>).</p>
+			<p>Ensaio antifúngico <italic>in vitro</italic> - No ensaio para verificação da concentração inibitória mínima (CIM) dos EE das espécies de <italic>Senna</italic>, foram utilizadas cepas de <italic>Trichophyton rubrum</italic> obtidas a partir da micoteca da Universidade Federal de Pernambuco e do Centro Especializado de Micologia Médica (CEMM) da Universidade Federal do Ceará<italic>.</italic> Para este ensaio foi utilizado o método de microdiluição em caldo<italic>,</italic> de acordo com a metodologia descrita por (<xref ref-type="bibr" rid="B33">Neves <italic>et al.</italic> 2019</xref>) com as normas do protocolo <xref ref-type="bibr" rid="B12">Clinical Laboratory Standards Insitute do documento M38-A (CLSI M38-A2, 2008</xref>)<italic>.</italic> Em placas de 96 poços estéreis, foram adicionados 100 µL de meio RPMI em todos os poços e 10 mg mL<sup>-1</sup> dos extratos de <italic>Senna</italic> spp. foi acrescentado a todos os poços da primeira coluna e, em sequência foram efetuadas as diluições seriadas. Finalmente, 100 µL do inóculo foi adicionado aos poços da placa. Como controle foi utilizado o Cetoconazol (Sigma, Chemical Co., USA). Para as análises de susceptibilidade, os extratos etanólicos foram testados em concentrações variando de 0,002 a 2,5 mg mL<sup>-1</sup>. As placas foram cobertas com parafilme e incubadas a 37 °C e a leitura visual foi realizada após cinco dias para <italic>T. rubrum</italic>. Procedimento realizado em duplicata. A CIM é definida como a menor concentração do extrato capaz de inibir 100% do crescimento fúngico visível (<xref ref-type="bibr" rid="B16">Fontenelle <italic>et al.</italic> 2007</xref>). A concentração fungicida mínima (CFM) foi determinada por subcultura de 100 μL da solução de poços sem turbidez no meio Ágar Dextrose de Batata, a 28 °C. (<xref ref-type="bibr" rid="B15">Fontenelle <italic>et al.</italic> 2008</xref>).</p>
+			<p>Análise estatística - Todas as determinações foram realizadas em triplicata e todos os resultados foram apresentados como média ± desvio-padrão (DP). Foram realizadas análises de variância (ANOVA) com duas repetições e o Teste Tukey, ao nível de significância de 5%, usando programa Graph Pad Prism<sup>®</sup> v5.01 (GraphPadSoftware, San Diego, CA, E.U.A.). As diferenças entre as médias foram consideradas significativas quando o valor obtido para &quot;<italic>p</italic>&quot; foi menor que 0,05 (<italic>p</italic> &lt; 0,05). </p>
+			<p>Para análises da correlação entre os dados, foi utilizado o coeficiente de correlação de Pearson no software Microsoft Excel 2019, a qual mede o grau da correlação linear entre duas variáveis quantitativas. A intensidade dessa correlação é dada pelo “r”, que é um índice adimensional com valores situados entre -1,0 e 1,0. Quando o valor de r estiver entre 0,00-0,19 a correlação é muito fraca; entre 0,20-0,39 é fraca; 0,40-0,59 é uma correlação moderada; entre 0,60-0,79 é forte e finalmente entre 0,80-1,0 diz-se que é uma correlação muito forte (<xref ref-type="bibr" rid="B32">Mukaka 2012</xref>).</p>
+		</sec>
+		<sec sec-type="results|discussion">
+			<title>Resultados e discussão<xref ref-type="table" rid="t3">Tabela 3</xref></title>
+			<p>Os fito-constituintes ou fitoquímicos são compostos químicos que desempenham importantes funções nas plantas. A triagem fitoquímica em materiais vegetais é geralmente o ponto de partida para o isolamento e purificação de compostos naturais com bioatividade (<xref ref-type="bibr" rid="B39">Omoregie &amp; Oikeh 2015</xref>). A triagem fitoquímica preliminar revelou a presença de fenóis, taninos, flavonoides e esteroides para todos os extratos estudados (<xref ref-type="table" rid="t2">Tabela 2</xref>). Entretanto, a presença de saponinas foi constatada apenas no EEF e EEC de <italic>S. alata</italic> e no EEF de <italic>S. trachypus</italic>. Já os alcaloides foram encontrados exclusivamente no EEF de <italic>S. alata</italic> e nenhuma das espécies apresentou triterpenoides. </p>
+			<p>
+				<table-wrap id="t2">
+					<label>Tablela 2</label>
+					<caption>
+						<title>Triagem fitoquímica do EEF e do EEC de espécies de <italic>Senna</italic> Mill. (Fabaceae)<italic>.</italic> Presente: + Ausente: - EEF: Extrato etanólico da folha. EEC: Extrato etanólico do caule.</title>
+					</caption>
+					<table>
+						<colgroup>
+							<col span="11"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="center" colspan="11">Espécies </th>
+							</tr>
+							<tr>
+								<th align="left">Metabólitos</th>
+								<th align="left" colspan="2"><italic>S. alata</italic></th>
+								<th align="left" colspan="2"><italic>S. obtusifolia</italic></th>
+								<th align="left" colspan="2"><italic>S. occidentalis</italic></th>
+								<th align="left" colspan="2"><italic>S. siamea</italic></th>
+								<th align="left" colspan="2"><italic>S. trachypus</italic></th>
+							</tr>
+							<tr>
+								<th align="left">Extratos</th>
+								<th align="left">EEF</th>
+								<th align="left">EEC</th>
+								<th align="left">EEF</th>
+								<th align="left">EEC</th>
+								<th align="left">EEF</th>
+								<th align="left">EEC</th>
+								<th align="left">EEF</th>
+								<th align="left">EEC</th>
+								<th align="left">EEF</th>
+								<th align="left">EEC</th>
+							</tr>
+                        </thead>
+                        <tbody>
+							<tr>
+								<td align="left">Flavonoides</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+							</tr>
+							<tr>
+								<td align="left">Fenóis</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+							</tr>
+							<tr>
+								<td align="left">Saponinas</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">+</td>
+								<td align="left">-</td>
+							</tr>
+							<tr>
+								<td align="left">Taninos</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+							</tr>
+							<tr>
+								<td align="left">Esteroides</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+								<td align="left">+</td>
+							</tr>
+							<tr>
+								<td align="left">Alcaloides</td>
+								<td align="left">+</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+							</tr>
+							<tr>
+								<td align="left">Triterpenoides</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+								<td align="left">-</td>
+							</tr>
+						</tbody>
+					</table>
+                    <table-wrap-foot>
+                        <fn id="TFN2">
+                            <p><xref ref-type="table" rid="t2">Table 2</xref>. Phytochemical screening of EEF and EEC of <italic>Senna</italic> Mill. (Fabaceae) species. Present: + Absent: - EEF: Ethanol extract of the leaf. EEC: Ethanol extract from the stem.</p>
+                        </fn>
+                    </table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Os metabólitos detectados nas espécies estudadas são consistentes com os metabólitos descritos na literatura para o gênero <italic>Senna</italic>, conhecido por apresentar flavonoides, alcaloides, taninos, esteroides e saponinas em sua composição (<xref ref-type="bibr" rid="B38">Onyegeme-Okerenta <italic>et al.</italic> 2017</xref>, <xref ref-type="bibr" rid="B19">Ishaku <italic>et al.</italic> 2016</xref>, <xref ref-type="bibr" rid="B49">Silva <italic>et al.</italic> 2014</xref>, <xref ref-type="bibr" rid="B51">Sudi <italic>et al</italic>. 2011</xref>, <xref ref-type="bibr" rid="B10">Bukar <italic>et al.</italic> 2009</xref>). É possível perceber que na análise de prospecção química dos extratos houve uma variação de metabólitos secundários. Este fato pode estar atribuído a vários fatores, entre eles estão as diferentes condições ambientais, tais como clima, radiação solar, nutrição mineral, sazonalidade, ritmo circadiano, temperatura, disponibilidade hídrica, e também os tipos de solvente e a metodologia empregada no processo de extração, que podem interferir consideravelmente no conteúdo de praticamente todas as classes de metabólitos secundários (<xref ref-type="bibr" rid="B18">Gomes <italic>et al</italic>. 2016</xref>, <xref ref-type="bibr" rid="B6">Bezerra <italic>et al.</italic> 2013</xref>, <xref ref-type="bibr" rid="B17">Gobbo-Neto &amp; Lopes 2007</xref>).</p>
+            <p>Os teores de fenóis totais apresentaram diferenças significativas entre os extratos etanólicos das diferentes partes e espécies vegetais estudadas (<xref ref-type="table" rid="t3">Tabela 3</xref>). O conteúdo de fenóis totais para os EEF variou de 32,60 ± 0,53 a 184,8 ± 5,09 EAG/g, enquanto que para o EEC foram de 30,03± 1,00 a 191,3 ± 0,47 EAG/g. Os maiores níveis de fenóis totais foram detectados na espécie <italic>S. trachypus</italic>. Os dados da literatura sobre o conteúdo de compostos fenólicos obtidos a partir do extrato aquoso, etanólico e acetona da raiz de <italic>S. alata</italic>, apresentaram uma concentração de fenóis de 46,3, 78,21 e 21,42 mg EAG/g, respectivamente, e de flavonoides de 26,17, 39,29 e 9,65 mg de equivalente de quercetina por grama de extrato (EQ/g), respectivamente (<xref ref-type="bibr" rid="B20">Ita &amp; Ndukwe 2017</xref>). Já o extrato etanólico preparado a partir das folhas de <italic>S. obtusifolia</italic> por <xref ref-type="bibr" rid="B1">Ali <italic>et al</italic>. (2019</xref>), apresentou um teor de fenóis e de flavonoides de 14,39 mg/g e 2,85 mg/g, respectivamente, demonstrando possuir teor de compostos fenólicos inferior ao das mostras de <italic>S. obtusifolia</italic> encontradas no presente estudo. Além disso, o conteúdo de polifenóis encontrado no extrato etanólico e nas frações obtidas a partir das folhas de <italic>S. occidentalis</italic> por <xref ref-type="bibr" rid="B56">Yakubu <italic>et al.</italic> (2018</xref>) variou de 139 mg/mL a 206 mg/mL e de flavonoides de 104 a 142 mg/mL. Já para os extratos preparados a partir das folhas e casca do caule de <italic>S. siamea</italic> revelaram um teor de fenóis totais de 10,21 ± 0,25 g/g e 24,77 ± 0,15 g/g, respectivamente. Por outro lado, o teor de flavonoides foi de 0,08 ± 0,01 g/g para as folhagens, e de 0,04 ± 0,01 g/g para a casca do caule (<xref ref-type="bibr" rid="B25">Kwada &amp; Tella 2009</xref>). Para os extratos etanólicos das folhas e raízes de <italic>S. trachypus</italic> o teor de fenóis totais encontrado foi de 322,09 ± 2,83 EAG/g e de 1277,34 ± 79,54 EAG/g, respectivamente (<xref ref-type="bibr" rid="B49">Silva <italic>et al.</italic> 2014</xref>).<italic>Senna</italic>.</p>
+            <p>
+				<table-wrap id="t3">
+					<label>Table 3.</label>
+					<caption>
+						<title>Teor de fenóis totais, atividade antioxidante e inibição da enzima acetilcolinesterase de espécies de Senna Mill. (Fabaceae).</title>
+					</caption>
+					<table>
+						<colgroup>
+							<col/>
+							<col span="2"/>
+							<col span="2"/>
+							<col span="2"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="left" rowspan="2">Espécies</th>
+								<th align="center" colspan="2">Fenois<sup>1</sup> mg EAG.g<sup>-1</sup> de extrato </th>
+								<th align="center" colspan="2">DPPH<sup>2</sup> CE<sub>50</sub> (μg.mL<sup>-1</sup>)</th>
+								<th align="center" colspan="2"> AChEI<sup>3</sup> CI<sub>50</sub> (μg.mL<sup>-1</sup>)</th>
+							</tr>
+							<tr>
+								<th align="center">Média</th>
+								<th align="center">Despad</th>
+								<th align="center">Média</th>
+								<th align="center">Despad</th>
+								<th align="center">Média</th>
+								<th align="center">Despad</th>
+							</tr>
+                        </thead>
+                        <tbody>
+							<tr>
+								<td align="left"><italic>S. alata</italic> (Folhas)</td>
+								<td align="center">53,76 <sup>f</sup></td>
+								<td align="center">± 0,74</td>
+								<td align="center">3,70 <sup>e</sup></td>
+								<td align="center">± 0,04</td>
+								<td align="center">49,42 <sup>f</sup></td>
+								<td align="center">± 0,02</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. alata</italic> (Caule)</td>
+								<td align="center">43,44 <sup>g</sup></td>
+								<td align="center">± 0,21</td>
+								<td align="center">5,41 <sup>c</sup></td>
+								<td align="center">± 0,06</td>
+								<td align="center">53,25 <sup>d</sup></td>
+								<td align="center">± 0,02</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. obtusifolia</italic> (Folhas)</td>
+								<td align="center">76,32 <sup>e</sup></td>
+								<td align="center">± 0,41</td>
+								<td align="center">4,24 <sup>d</sup></td>
+								<td align="center">± 0,06</td>
+								<td align="center">50,37 <sup>e</sup></td>
+								<td align="center">± 0,32</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. obtusifolia</italic> (Caule)</td>
+								<td align="center">86,20 <sup>d</sup></td>
+								<td align="center">± 0,99</td>
+								<td align="center">3,00 <sup>g</sup></td>
+								<td align="center">± 0,05</td>
+								<td align="center">56,90 <sup>c</sup></td>
+								<td align="center">± 0,02</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. occidentalis</italic> (Folhas)</td>
+								<td align="center">32,60 <sup>h</sup></td>
+								<td align="center">± 0,53</td>
+								<td align="center">8,20 <sup>b</sup></td>
+								<td align="center">± 0,07</td>
+								<td align="center">58,76 <sup>b</sup></td>
+								<td align="center">± 0,78</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. occidentalis</italic> (Caule)</td>
+								<td align="center">30,03 <sup>h</sup></td>
+								<td align="center">± 1,00</td>
+								<td align="center">11,19 <sup>a</sup></td>
+								<td align="center">± 0,15</td>
+								<td align="center">57,26 <sup>c</sup></td>
+								<td align="center">± 0,02</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. siamea</italic> (Folhas)</td>
+								<td align="center">51,73 <sup>f</sup></td>
+								<td align="center">± 0,85</td>
+								<td align="center">3,34 <sup>f</sup></td>
+								<td align="center">± 0,05</td>
+								<td align="center">59,77 <sup>a</sup></td>
+								<td align="center">± 0,26</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. siamea</italic> (Caule)</td>
+								<td align="center">111,7 <sup>c</sup></td>
+								<td align="center">± 3,43</td>
+								<td align="center">0,83 <sup>i</sup></td>
+								<td align="center">± 0,01</td>
+								<td align="center">59,52 <sup>ab</sup></td>
+								<td align="center">± 0,15</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. trachypus</italic> (Folhas)</td>
+								<td align="center">184,80 <sup>b</sup></td>
+								<td align="center">± 5,09</td>
+								<td align="center">0,63 <sup>k</sup></td>
+								<td align="center">± 0,01</td>
+								<td align="center">32,40 <sup>g</sup></td>
+								<td align="center">± 0,12</td>
+							</tr>
+							<tr>
+								<td align="left"><italic>S. trachypus</italic> (Caule)</td>
+								<td align="center">191,3 <sup>a</sup></td>
+								<td align="center">± 0,47</td>
+								<td align="center">2,52 <sup>h</sup></td>
+								<td align="center">± 0,03</td>
+								<td align="center">31,44 <sup>h</sup></td>
+								<td align="center">± 0,14</td>
+							</tr>
+							<tr>
+								<td align="left">Quercetina</td>
+								<td align="center">-</td>
+								<td align="center">-</td>
+								<td align="center">1,03 <sup>i</sup></td>
+								<td align="center">± 0,00</td>
+								<td align="center">-</td>
+								<td align="center">-</td>
+							</tr>
+							<tr>
+								<td align="left">Fisiostigmina</td>
+								<td align="center">-</td>
+								<td align="center">-</td>
+								<td align="center">-</td>
+								<td align="center">-</td>
+								<td align="center">1,15 <sup>i</sup></td>
+								<td align="center">± 0,00</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+                        <fn id="TFN3">
+                            <p>Total phenol content, antioxidant activity and acetylcholinesterase enzyme inhibition of <italic>Senna</italic> Mill. (Fabaceae) species. </p>
+                        </fn>
+						<fn id="TFN4">
+							<p>Todas as análises foram realizadas em triplicada e os resultados foram expressos como média ± desvio padrão. As diferenças entre os valores foram examinadas usando análise de variância (ANOVA) e os resultados foram comparados usando o teste de Tukey com 95% nível de confiança. Letras diferentes denotam diferença estatística entre os valores de cada coluna (p &lt; 0,05). <sup>1</sup>Miligrama equivalente ao Ácido Gálico por grama de extrato; <sup>2</sup>Concentração efetiva para inibir 50% do radical livre DPPH (2,2 -difenil-1-picril-hidrazil); <sup>3</sup>Concentração inibitória capaz de inibir 50% da acetilcolinesterase. (-) Testes não realizados.</p>
+						</fn>
+						<fn id="TFN5">
+							<p>All analyzes were performed in triplicate and the results were expressed as mean ± standard deviation. The differences between the values ​​were examined using analysis of variance (ANOVA) and the results were compared using the Tukey test at 95% confidence level. Different letters denote statistical difference between the values ​​of each column (p &lt;0.05). <sup>1</sup> milligram Equivalent to Gallic Acid per gram of extract; <sup>2</sup>Effective concentration to inhibit 50% of the free radical DPPH (2,2 - diphenyl - 1 - picryl - hydrazil); <sup>3</sup>Inhibitory concentration capable of inhibiting 50% of acetylcholinesterase. (-) Tests not performed.</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Os resultados da atividade antioxidante dos extratos de <italic>Senna</italic> spp. mostraram que os valores de CE<sub>50</sub> para o EEF variaram de 0,63 ± 0,01 a 8,20 ± 0,07 µg/mL, sendo o EEF de <italic>S. trachypus</italic> o que apresentou menor CE<sub>50</sub> com atividade antirradicalar superior ao da quercetina e, portanto, maior potencial antioxidante (<xref ref-type="bibr" rid="B55">Villano <italic>et al</italic>. 2007</xref>). Já para o EEC os valores de CE<sub>50</sub> variaram de 0,83 ± 0,01 a 11,19 ± 0,15 µg/mL (<xref ref-type="table" rid="t3">Tabela 3</xref>). Foi observado que o EEC de <italic>S. siamea</italic> apresentou capacidade antirradicalar próximo à quercetina. Semelhantes aos nossos resultados, estudos anteriores revelaram que as espécies de <italic>S. alata, S. obtusifolia, S. occidentalis, S. siamea</italic> e <italic>S. trachypus</italic>, apresentaram potencial antioxidante e que esta atividade está atribuída à presença de compostos fenólicos (<xref ref-type="bibr" rid="B11">Coelho <italic>et al.</italic> 2017</xref>, <xref ref-type="bibr" rid="B20">Ita &amp; Ndukwe 2017</xref>, <xref ref-type="bibr" rid="B5">Barnaby <italic>et al.</italic> 2016</xref>, <xref ref-type="bibr" rid="B37">Odeja <italic>et al.</italic> 2015</xref>, <xref ref-type="bibr" rid="B49">Silva <italic>et al.</italic> 2014</xref>). </p>
+			<p>Os resultados obtidos na análise de inibição da enzima acetilcolinesterase foram comparados ao do alcaloide fisostigmina que foi o primeiro inibidor descoberto. Os experimentos de inibição da enzima acetilcolinesterase <italic>in vitro</italic> para as espécies de <italic>Senna</italic> produziram apenas resultados com potência moderada (<xref ref-type="table" rid="t3">Tabela 3</xref>). Relatos confirmam a atividade antiacetilcolinesterásica de vários taninos isolados do fruto <italic>Terminalia chebula</italic> Retz.<italic>,</italic> (Combretaceae) que exibiram um efeito de inibição contra a enzima acetilcolinesterase <italic>in vitro</italic> (<xref ref-type="bibr" rid="B22">Kim <italic>et al.</italic> 2018</xref>). Outros compostos, como saponinas, alcaloides e compostos fenólicos, também são relatados na literatura como inibidores da enzima acetilcolinesterase (<xref ref-type="bibr" rid="B40">Paiva <italic>et al</italic>. 2021</xref>, <xref ref-type="bibr" rid="B24">Kozachok <italic>et al</italic>. 2020</xref>, <xref ref-type="bibr" rid="B2">Adedayo <italic>et al</italic>. 2015</xref>). Estas classes de compostos foram detectadas na triagem fitoquímica, embora provavelmente as concentrações nos extratos eram muito baixas para dar resultados satisfatórios no ensaio. Os extratos foliares e do caule de <italic>S. trachypus</italic> apresentaram os valores mais satisfatórios de inibição da enzima acetilcolinesterase, indicando que o isolamento de metabólitos pode levar a potenciais agentes antiacetilcolinesterásicos. Na literatura, não foram encontrados estudos do potencial anticolinesterásico paras as espécies de <italic>Senna</italic> referenciadas, sendo este o primeiro relato de estudo de atividade de inibição para esta enzima. </p>
+			<p>Para os extratos de <italic>Senna</italic> spp., foi observada forte correlação negativa entre os valores de fenóis totais e CE<sub>50</sub> (r = - 0,71), mostrando que quanto maior os teores de fenóis totais, menor a CE<sub>50</sub> e, consequentemente, maior o potencial antioxidante, uma vez que a CE<sub>50</sub> está inversamente relacionada à capacidade antioxidante de um composto (<xref ref-type="bibr" rid="B55">Villano <italic>et al</italic>. 2007</xref>). Dentre os extratos analisados podemos observar na figura 1 o EEF de <italic>S. trachypus.</italic></p>
+			<p>
+				<fig>
+					<label>Figura 1.</label>
+					<caption>
+						<title>Correlação entre o teor de fenóis totais e CE50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf1.jpg"/>
+                    <attrib><xref ref-type="fig" rid="f1">Figure 1</xref>. Correlation between total phenol content and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+				</fig>
+			</p>
+			<p>Na correlação da atividade de inibição da enzima acetilcolinesterase, representada pelo CI<sub>50</sub> com teor de fenóis totais, observou-se uma correlação muito forte (r = -0,84) entre estas duas variáveis, evidenciando que ambas são inversamente proporcionais entre si, ou seja, à medida que o teor de fenóis totais aumenta o valor de CI<sub>50</sub> diminui, como pode ser observado para o EEF de <italic>S. occidentalis</italic> (<xref ref-type="fig" rid="f2">Figura 2</xref>). Isso demonstra que os compostos fenólicos podem ser determinantes nessa atividade, de modo que alguns estudos evidenciaram que flavonoides e outros compostos fenólicos possuem atividade anticolinesterásica (<xref ref-type="bibr" rid="B3">Amessis-Ouchemoukh <italic>et al</italic>. 2014</xref>). </p>
+			<p>
+				<fig id="f2">
+					<label>Figura 2.</label>
+					<caption>
+						<title>Correlação entre o teor de fenóis totais e CI50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf2.jpg"/>
+                    <attrib><xref ref-type="fig" rid="f2">Figure 2</xref>. Correlation between total phenol content and IC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+				</fig>
+			</p>
+			<p>Houve uma correlação moderada (r = 0,43) entre a CI<sub>50</sub> e a CE<sub>50</sub>. Analisando a <xref ref-type="fig" rid="f3">figura 3</xref>, é possível perceber que o EEF e EEC de <italic>S. alata</italic> e EEF de <italic>S. obtusifolia</italic> se destacam no gráfico<italic>,</italic> o que sugere uma grande capacidade dos antioxidantes, como os compostos fenólicos, presentes nos extratos analisados, de atuarem não só através da inibição da acetilcolinesterase (AChEI) mas também por mecanismos de redução de radicais livres.</p>
+			<p>
+				<fig id="f3">
+					<label>Figura 3.</label>
+					<caption>
+						<title>Correlação entre CI50 e a CE50 de espécies de <italic>Senna</italic> Mill. (Fabaceae). Símbolos cheios: folhas. Símbolos vazados: caule.</title>
+					</caption>
+					<graphic xlink:href="2236-8906-hoehnea-49-e1112020-gf3.jpg"/>
+                    <attrib><xref ref-type="fig" rid="f3">Figure 3</xref>. Correlation between IC50 and EC50 of Senna Mill species. (Fabaceae). Symbols filled: leaves. Hollow symbols: stem.</attrib>
+				</fig>
+			</p>
+			<p>Os extratos etanólicos das folhas e caule de <italic>S. alata, S. obtusifolia, S. occidentalis</italic> e <italic>S. siamea,</italic> apresentaram efeito inibitório contra algumas cepas de <italic>T. rubrum</italic>. A maioria dos extratos foram eficazes em diferentes concentrações, com CIM que variaram de 0,07 mg/mL à 2,5 mg/mL e CFM de 0,15 a 5,0 mg/mL contra a grande maioria das cepas fúngicas testadas. Dentre os extratos testados, os de <italic>S. trachypus</italic> foram eficazes contra todas as cepas de <italic>T. rubrum</italic> com CIM que variaram de 0,31 a 0,62 mg/mL e o CFM de 0,62 a 1,25 mg/mL, para ambos os extratos (<xref ref-type="table" rid="t4">Tabela 4</xref>). A presença de compostos fitoquímicos tem sido associada às atividades antimicrobianas da maioria dos materiais vegetais. Algumas classes de metabólitos foram identificadas nesse estudo e podem ser associadas à atividade antimicrobiana (<xref ref-type="bibr" rid="B47">Santos <italic>et al.</italic> 2018</xref>, <xref ref-type="bibr" rid="B37">Odeja <italic>et al.</italic> 2015</xref>). </p>
+			<p>
+				<table-wrap id="t4">
+					<label>Tabela 4. </label>
+					<caption>
+						<title>Concentração Inibitória Mínima (CIM) e Concentração Fungicida Mínima (CFM) de extratos etanólicos (EEs) de espécies de <italic>Senna</italic> Mill. (Fabaceae) frente às espécies de <italic>Trichophyton rubrum</italic>. LABIMIC: Laboratório de Microbiologia; EEF: Extrato etanólico da folha; EEC: Extrato etanólico do caule; NI: Não inibiu.</title>
+					</caption>
+					<table>
+						<colgroup>
+							<col/>
+							<col/>
+							<col span="2"/>
+							<col span="2"/>
+							<col span="2"/>
+							<col span="2"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th align="left" rowspan="4">Espécies</th>
+								<th align="center" rowspan="4">Extrato</th>
+								<th align="center" colspan="2"><italic>T. rubrum</italic></th>
+								<th align="center" colspan="2"><italic>T. rubrum</italic></th>
+								<th align="center" colspan="2"><italic>T. rubrum</italic></th>
+								<th align="center" colspan="2"><italic>T. rubrum</italic></th>
+							</tr>
+							<tr>
+								<th align="center" colspan="2">LABIMIC 5906 </th>
+								<th align="center" colspan="2">LABIMIC 6213 </th>
+								<th align="center" colspan="2">LABIMIC 6205 </th>
+								<th align="center" colspan="2">LABIMIC 6753 </th>
+							</tr>
+							<tr>
+								<th align="center">CIM</th>
+								<th align="center">CFM </th>
+								<th align="center">CIM </th>
+								<th align="center">CFM</th>
+								<th align="center">CIM</th>
+								<th align="center">CFM</th>
+								<th align="center">CIM</th>
+								<th align="center">CFM</th>
+							</tr>
+							<tr>
+								<th align="center" colspan="2">(mg/mL) </th>
+								<th align="center" colspan="2">(mg/mL) </th>
+								<th align="center" colspan="2">(mg/mL) </th>
+								<th align="center" colspan="2">(mg/mL) </th>
+							</tr>
+                        </thead>
+                        <tbody>
+							<tr>
+								<td align="left" rowspan="2"><italic>S. alata</italic></td>
+								<td align="center">EEF</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">2,5</td>
+								<td align="center">5,0</td>
+							</tr>
+							<tr>
+								<td align="center">EEC</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+								<td align="center">2,5</td>
+								<td align="center">5,0</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+							</tr>
+							<tr>
+								<td align="left" rowspan="2"><italic>S. obtusifolia</italic></td>
+								<td align="center">EEF</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">2,5</td>
+								<td align="center">5,0</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">0,62</td>
+								<td align="center">1,25</td>
+							</tr>
+							<tr>
+								<td align="center">EEC</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">1,25</td>
+								<td align="center">2,5</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">0,62</td>
+								<td align="center">1,25</td>
+							</tr>
+							<tr>
+								<td align="left" rowspan="2"><italic>S. occidentalis</italic></td>
+								<td align="center">EEF</td>
+								<td align="center">0,07</td>
+								<td align="center">0,15</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+							</tr>
+							<tr>
+								<td align="center">EEC</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+							</tr>
+							<tr>
+								<td align="left" rowspan="2"><italic>S. siamea</italic></td>
+								<td align="center">EEF</td>
+								<td align="center">0,62</td>
+								<td align="center">1,25</td>
+								<td align="center">1,25</td>
+								<td align="center">2,5</td>
+								<td align="center">0,62</td>
+								<td align="center">1,25</td>
+								<td align="center">1,25</td>
+								<td align="center">2,5</td>
+							</tr>
+							<tr>
+								<td align="center">EEC</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">2,5</td>
+								<td align="center">5,0</td>
+								<td align="center">NI</td>
+								<td align="center">-</td>
+								<td align="center">2,5</td>
+								<td align="center">5,0</td>
+							</tr>
+							<tr>
+								<td align="left" rowspan="2"><italic>S. trachypus</italic></td>
+								<td align="center">EEF</td>
+								<td align="center">0,62</td>
+								<td align="center">1,25</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+							</tr>
+							<tr>
+								<td align="center">EEC</td>
+								<td align="center">0,62</td>
+								<td align="center">1,25</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+								<td align="center">0,31</td>
+								<td align="center">0,62</td>
+							</tr>
+							<tr>
+								<td align="left">Cetoconazol</td>
+								<td align="center"> </td>
+								<td align="center">2,0</td>
+								<td align="center"> </td>
+								<td align="center">1,0</td>
+								<td align="center"> </td>
+								<td align="center">1,0</td>
+								<td align="center"> </td>
+								<td align="center">0,5</td>
+								<td align="center"> </td>
+							</tr>
+						</tbody>
+					</table>
+                    <table-wrap-foot>
+                        <fn id="TFN6">
+                            <p><xref ref-type="table" rid="t4">Table 4</xref>.  Minimum Inhibitory Concentration (MIC) and Minimum Fungicidal Concentration (MFC) of ethanolic extracts (EEs) from <italic>Senna</italic> Mill. LABIMIC: Microbiology Laboratory; EEF: Ethanol extract of the leaf; EEC: Ethanol extract from the stem; NI: It didn't inhibit. (Fabaceae) species compared to <italic>Trichophyton rubrum</italic> species.</p>
+                        </fn>
+                    </table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Estudos anteriores realizados com o extrato etanólico da casca do caule de <italic>S. alata</italic> contra fungos dermatofíticos, entre eles espécies de <italic>Trychophyton,</italic> revelou um CIM de 5,0 mg/mL para todos os dermatófitos testados (<xref ref-type="bibr" rid="B52">Sule <italic>et al.</italic> 2011</xref>). A capacidade antifúngica de extratos de diferentes polaridades preparados a partir das folhas de <italic>S. obtusifolia</italic> apresentaram um CIM que variou de 500 a 2000 µg/mL contra diferentes espécies de fungos filamentosos (<xref ref-type="bibr" rid="B13">Doughari <italic>et al.</italic> 2008</xref>). Os resultados obtidos de extratos foliares de polaridades diferentes de <italic>S. occidentalis</italic> revelaram que o extrato metanólico mostrou maior atividade antifúngica entre os demais extratos testados, em uma concentração inibitória mínima de 25 mg/mL (<xref ref-type="bibr" rid="B37">Odeja <italic>et al.</italic> 2015</xref>). Testes utilizando extratos preparados com solventes de diferentes polaridades a partir das folhas de <italic>S. siamea</italic> apresentaram CIM que variaram de 0,032 a 0,128 mg/mL contra o fungo <italic>Cryptococcus gattii</italic> (<xref ref-type="bibr" rid="B36">Nnadi <italic>et al.</italic> 2019</xref>). Na literatura, não foram encontrados estudos do potencial antifúngico para a espécie de <italic>S. trachypus</italic>, sendo este o primeiro registro de atividade antifúngica para a referida espécie. </p>
+			<p>Pesquisas têm revelado que o potencial antifúngico de extratos vegetais está intimamente relacionado, entre outros fatores, com as suas variações quantitativas de compostos fenólicos, dentre eles os flavonoides. Nosso estudo confirmou que as espécies estudadas possuem propriedades antifúngicas, e que seus efeitos sobre os dermatófitos fundamentam-se em seus teores de compostos fenólicos encontrados, e os demais outros metabólitos secundários aqui não estudados. Os efeitos antifúngicos atribuídos aos compostos fenólicos podem resultar na ruptura da membrana celular, ou ainda, inibir a divisão celular e o desenvolvimento das hifas por meio de genes específicos, além de interferir nas vias metabólicas e/ou induzir a apoptose por perturbar a homeostase redox (<xref ref-type="bibr" rid="B26">Lagrouh <italic>et al.</italic> 2017</xref>, <xref ref-type="bibr" rid="B31">Mohamed <italic>et al.</italic> 2017</xref>).</p>
+			<p>Foram detectados, nos EEF e EEC das espécies de <italic>Senna</italic>, a presença de metabólitos secundários, alto teor de fenóis totais e capacidade antioxidante para todas as espécies, em especial <italic>S. trachypus</italic>. Para a atividade anticolinesterase apenas a espécie de <italic>S. trachypus</italic> manifestou uma melhor ação inibitória. Nas condições experimentais utilizadas, evidenciou-se atividade antifúngica das espécies frente a maioria dos dermatófitos testados, em especial os extratos de <italic>S. trachypus</italic>. Foi observada também correlação forte, muito forte e moderada entre as variáveis fenóis totais e atividade antioxidante, fenóis totais e antiacetilcolinesterase e atividade antioxidante e antiacetilcolinesterase, respectivamente<italic>.</italic> Os resultados apontam que <italic>S. trachypus</italic>, espécie endêmica da Caatinga, é a mais promissora entre todas as plantas estudadas, representando uma fonte potencial para a obtenção de compostos químicos úteis para estudos clínicos e farmacológicos, visando o desenvolvimento de novos agentes farmacológicos naturais. </p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>Agradecimentos</title>
+			<p>Os autores agradecem a Universidade Estadual do Ceará (UECE) e a Universidade Estadual Vale do Acaraú (UVA) pelo apoio técnico, e a Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (FUNCAP) pelo apoio financeiro concedido (processos PBI3-0139-00252.01.00/18; BP4-0172-00170.01.00/20). </p>
+		</ack>
+		<ref-list>
+			<title>Literatura citada</title>
+			<ref id="B1">
+				<mixed-citation>Ali, I., Yisa, J. &amp; Jacob, J.O. 2019. Corrosion inhibitory potential of ethanol extract of <italic>Senna obtusifolia</italic> on Mild Steel in 5M HCl. Journal of Chemical Society of Nigeria 44: 187-198. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ali</surname>
+							<given-names>I.</given-names>
+						</name>
+						<name>
+							<surname>Yisa</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Jacob</surname>
+							<given-names>J.O.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>Corrosion inhibitory potential of ethanol extract of Senna obtusifolia on Mild Steel in 5M HCl.</article-title>
+					<source>Journal of Chemical Society of Nigeria</source>
+					<volume>44</volume>
+					<fpage>187</fpage>
+					<lpage>198</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B2">
+				<mixed-citation>Adedayo, B.C., Oboh, G., Oyeleye, S.I., Ejakpovi, I.I., Boligon, A.A., &amp; Athayde, M.L. 2015. Blanching alters the phenolic constituents and <italic>in vitro</italic> antioxidant and anticholinesterases properties of fireweed (<italic>Crassocephalum crepidioides</italic>). Journal of Taibah University Medical Sciences 10: 419-426.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Adedayo</surname>
+							<given-names>B.C.</given-names>
+						</name>
+						<name>
+							<surname>Oboh</surname>
+							<given-names>G.</given-names>
+						</name>
+						<name>
+							<surname>Oyeleye</surname>
+							<given-names>S.I.</given-names>
+						</name>
+						<name>
+							<surname>Ejakpovi</surname>
+							<given-names>I.I.</given-names>
+						</name>
+						<name>
+							<surname>Boligon</surname>
+							<given-names>A.A.</given-names>
+						</name>
+						<name>
+							<surname>Athayde</surname>
+							<given-names>M.L.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Blanching alters the phenolic constituents and in vitro antioxidant and anticholinesterases properties of fireweed (Crassocephalum crepidioides)</article-title>
+					<source>Journal of Taibah University Medical Sciences</source>
+					<volume>10</volume>
+					<fpage>419</fpage>
+					<lpage>426</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B3">
+				<mixed-citation>Amessis-Ouchemoukh, N., Madani, K., Falé, P.L., Serralheiro, M.L., Araújo, M.E.M. 2014. Antioxidant capacity and phenolic contents of some Mediterranean medicinal plants and their potential role in the inhibition of cyclooxygenase-1 and acetylcholinesterase activities. Industrial Crops and Products, 53: 6-15.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Amessis-Ouchemoukh</surname>
+							<given-names>N.</given-names>
+						</name>
+						<name>
+							<surname>Madani</surname>
+							<given-names>K.</given-names>
+						</name>
+						<name>
+							<surname>Falé</surname>
+							<given-names>P.L.</given-names>
+						</name>
+						<name>
+							<surname>Serralheiro</surname>
+							<given-names>M.L.</given-names>
+						</name>
+						<name>
+							<surname>Araújo</surname>
+							<given-names>M.E.M.</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Antioxidant capacity and phenolic contents of some Mediterranean medicinal plants and their potential role in the inhibition of cyclooxygenase-1 and acetylcholinesterase activities.</article-title>
+					<source>Industrial Crops and Products</source>
+					<volume>53</volume>
+					<fpage>6</fpage>
+					<lpage>15</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B4">
+				<mixed-citation>Bardakci, H., CeleP, E., Gözet, T., Kan, Y. &amp; Kirmizibekmez, H. 2019. Phytochemical characterization and antioxidant activities of the fruit extracts of several <italic>Crataegus taxa</italic>. South African Journal of Botany 124: 5-13. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bardakci</surname>
+							<given-names>H.</given-names>
+						</name>
+						<name>
+							<surname>CeleP</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Gözet</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>Kan</surname>
+							<given-names>Y.</given-names>
+						</name>
+						<name>
+							<surname>Kirmizibekmez</surname>
+							<given-names>H.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>Phytochemical characterization and antioxidant activities of the fruit extracts of several Crataegus taxa.</article-title>
+					<source>South African Journal of Botany</source>
+					<volume>124</volume>
+					<fpage>5</fpage>
+					<lpage>13</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B5">
+				<mixed-citation>Barnaby, A.G., Reid, R. &amp; Warren, D. 2016. Antioxidant activity, total phenolics and fatty acid profile of <italic>Delonix regia</italic>, <italic>Cassia fistula</italic>, <italic>Spathodea campanulata</italic>, <italic>Senna siamea</italic> and <italic>Tibouchina granulosa</italic>. J Anal Pharm Res 3: 00056.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Barnaby</surname>
+							<given-names>A.G.</given-names>
+						</name>
+						<name>
+							<surname>Reid</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>Warren</surname>
+							<given-names>D.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Antioxidant activity, total phenolics and fatty acid profile of Delonix regia, Cassia fistula, Spathodea campanulata, Senna siamea and Tibouchina granulosa</article-title>
+					<source>J Anal Pharm Res</source>
+					<volume>3</volume>
+					<elocation-id>00056</elocation-id>
+				</element-citation>
+			</ref>
+			<ref id="B6">
+				<mixed-citation>Bezerra, A.S., Nörnberg, J.L., Lima, F.O., Rosa, M.B.D. &amp; Carvalho, L.M.D. 2013. Parâmetros climáticos e variação de compostos fenólicos em cevada. Ciência Rural 9: 1546-1552.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bezerra</surname>
+							<given-names>A.S.</given-names>
+						</name>
+						<name>
+							<surname>Nörnberg</surname>
+							<given-names>J.L.</given-names>
+						</name>
+						<name>
+							<surname>Lima</surname>
+							<given-names>F.O.</given-names>
+						</name>
+						<name>
+							<surname>Rosa</surname>
+							<given-names>M.B.D.</given-names>
+						</name>
+						<name>
+							<surname>Carvalho</surname>
+							<given-names>L.M.D.</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<article-title>Parâmetros climáticos e variação de compostos fenólicos em cevada</article-title>
+					<source>Ciência Rural</source>
+					<volume>9</volume>
+					<fpage>1546</fpage>
+					<lpage>1552</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B7">
+				<mixed-citation>BFG. 2018. Brazilian Flora 2020: Innovation and collaboration to meet Target 1 of the Global Strategy for Plant Conservation (GSPC). Rodriguésia 1513-1527. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<collab>BFG</collab>
+					</person-group><bold>.</bold><year>2018</year>
+					<article-title>Brazilian Flora 2020: Innovation and collaboration to meet Target 1 of the Global Strategy for Plant Conservation (GSPC)</article-title>
+					<source>Rodriguésia</source>
+					<fpage>1513</fpage>
+					<lpage>1527</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B8">
+				<mixed-citation>Bieski, I.G.C., Leonti, M., Arnason, J.T., Ferrier, J., Rapinski, M., Violante, I.M.P., Balogun,S.O., Pereira, J.F.C.A., Figueiredo, R.D.C.F., Lopes, C.R.A.S., Silva, D.R.D., Pacini, A., Albuquerque, U.P. &amp; Martins, D.T.D.O. 2015. Ethnobotanical study of medicinal plants by population of valley of Juruena region, legal amazon, Mato Grosso, Brazil. Journal of Ethnopharmacology 173: 383-423.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bieski</surname>
+							<given-names>I.G.C.</given-names>
+						</name>
+						<name>
+							<surname>Leonti</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Arnason</surname>
+							<given-names>J.T.</given-names>
+						</name>
+						<name>
+							<surname>Ferrier</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Rapinski</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Violante</surname>
+							<given-names>I.M.P.</given-names>
+						</name>
+						<name>
+							<surname>Balogun</surname>
+							<given-names>S.O.</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>J.F.C.A.</given-names>
+						</name>
+						<name>
+							<surname>Figueiredo</surname>
+							<given-names>R.D.C.F.</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>C.R.A.S.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>D.R.D.</given-names>
+						</name>
+						<name>
+							<surname>Pacini</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>Albuquerque</surname>
+							<given-names>U.P.</given-names>
+						</name>
+						<name>
+							<surname>Martins</surname>
+							<given-names>D.T.D.O.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Ethnobotanical study of medicinal plants by population of valley of Juruena region, legal amazon, Mato Grosso, Brazil.</article-title>
+					<source>Journal of Ethnopharmacology</source>
+					<volume>173</volume>
+					<fpage>383</fpage>
+					<lpage>423</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B9">
+				<mixed-citation>Brand-Williams, W., Cuvelier, M.E. &amp; Berset, C.L.W.T. 1995. Use of a free radical method to evaluate antioxidant activity. <italic>LWT</italic>-Food Science and Technology 1: 25-30.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Brand-Williams</surname>
+							<given-names>W.</given-names>
+						</name>
+						<name>
+							<surname>Cuvelier</surname>
+							<given-names>M.E.</given-names>
+						</name>
+						<name>
+							<surname>Berset</surname>
+							<given-names>C.L.W.T.</given-names>
+						</name>
+					</person-group>
+					<year>1995</year>
+					<article-title>Use of a free radical method to evaluate antioxidant activity</article-title>
+					<source>LWT-Food Science and Technology</source>
+					<volume>1</volume>
+					<fpage>25</fpage>
+					<lpage>30</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<mixed-citation>Bukar, A., Mukhtar, M. &amp; HASSAN, A. 2009. Phytochemical screening and antibacterial activity of leaf extracts of <italic>Senna siamea</italic> (Lam) on <italic>Pseudomonas aeruginosa</italic>. Bayero Journal of Pure and Applied Sciences 1: 139-142. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bukar</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>Mukhtar</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>HASSAN</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<article-title>Phytochemical screening and antibacterial activity of leaf extracts of Senna siamea (Lam) on Pseudomonas aeruginosa</article-title>
+					<source>Bayero Journal of Pure and Applied Sciences</source>
+					<volume>1</volume>
+					<fpage>139</fpage>
+					<lpage>142</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<mixed-citation>Coelho, E.M.P., Barbosa, M.C., Mito, M.S., Mantovanelli, G.C., Oliveira, R.S., &amp; Ishii-Iwamoto, E.L. 2017. The activity of the antioxidant defense system of the weed species <italic>Senna obtusifolia</italic> L. and its resistance to allelochemical stress. Journal of Chemical Ecology 7: 725-738.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Coelho</surname>
+							<given-names>E.M.P.</given-names>
+						</name>
+						<name>
+							<surname>Barbosa</surname>
+							<given-names>M.C.</given-names>
+						</name>
+						<name>
+							<surname>Mito</surname>
+							<given-names>M.S.</given-names>
+						</name>
+						<name>
+							<surname>Mantovanelli</surname>
+							<given-names>G.C.</given-names>
+						</name>
+						<name>
+							<surname>Oliveira</surname>
+							<given-names>R.S.</given-names>
+						</name>
+						<name>
+							<surname>Ishii-Iwamoto</surname>
+							<given-names>E.L.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>The activity of the antioxidant defense system of the weed species Senna obtusifolia L. and its resistance to allelochemical stress</article-title>
+					<source>Journal of Chemical Ecology</source>
+					<volume>7</volume>
+					<fpage>725</fpage>
+					<lpage>738</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<mixed-citation>Clinical and Laboratory Standards Institute. 2008. Reference Method for Broth Dilution Antifungal Susceptibility Testing of Filamentous Fungi (Approved Standard Document M38. CLSI), vol. M38-A2, Second ed. Clinical and Laboratory Standards Institute, Wayne, PA.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<collab>Clinical and Laboratory Standards Institute</collab>
+					</person-group>
+                    <year>2008</year>
+					<source>Reference Method for Broth Dilution Antifungal Susceptibility Testing of Filamentous Fungi (Approved Standard Document M38. CLSI), vol. M38-A2, Second ed</source>
+					<publisher-name>Clinical and Laboratory Standards Institute</publisher-name>
+					<publisher-loc>Wayne, PA</publisher-loc>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<mixed-citation>Doughari, J.H., El-mahmood, A.M. &amp; Tyoyina, I. 2008. Antimicrobial activity of leaf extracts of <italic>Senna obtusifolia</italic> (L). African Journal of Pharmacy and Pharmacology 2: 7-13.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Doughari</surname>
+							<given-names>J.H.</given-names>
+						</name>
+						<name>
+							<surname>El-mahmood</surname>
+							<given-names>A.M.</given-names>
+						</name>
+						<name>
+							<surname>Tyoyina</surname>
+							<given-names>I.</given-names>
+						</name>
+					</person-group>
+					<year>2008</year>
+					<article-title>Antimicrobial activity of leaf extracts of Senna obtusifolia (L)</article-title>
+					<source>African Journal of Pharmacy and Pharmacology</source>
+					<volume>2</volume>
+					<fpage>7</fpage>
+					<lpage>13</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<mixed-citation>Ellman, G.L., Courtney, K.D., Andres Jr, V. &amp; Featherstone, R.M. 1961. A new and rapid colorimetric determination of acetylcholinesterase activity. Biochemical Pharmacology: 7: 88-95.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ellman</surname>
+							<given-names>G.L.</given-names>
+						</name>
+						<name>
+							<surname>Courtney</surname>
+							<given-names>K.D.</given-names>
+						</name>
+						<name>
+							<surname>Andres</surname>
+							<given-names>V.</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Featherstone</surname>
+							<given-names>R.M.</given-names>
+						</name>
+					</person-group>
+					<year>1961</year>
+					<article-title>A new and rapid colorimetric determination of acetylcholinesterase activity.</article-title>
+					<source>Biochemical Pharmacology</source>
+					<volume>7</volume>
+					<fpage>88</fpage>
+					<lpage>95</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<mixed-citation>Fontenelle, R.O.S., Morais, S.M., Brito, E.H.S., Brilhante, R.S.N., Cordeiro, R.A., Nascimento, N.R.F., Kerntopf, M.R., Sidrim, J.J.C. &amp; Rocha, M.F.G. 2008. Antifungal activity of essential oils of <italic>Croton</italic> species from the Brazilian caatinga biome. Journal of Applied Microbiology 104: 1383-1390.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Fontenelle</surname>
+							<given-names>R.O.S.</given-names>
+						</name>
+						<name>
+							<surname>Morais</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>Brito</surname>
+							<given-names>E.H.S.</given-names>
+						</name>
+						<name>
+							<surname>Brilhante</surname>
+							<given-names>R.S.N.</given-names>
+						</name>
+						<name>
+							<surname>Cordeiro</surname>
+							<given-names>R.A.</given-names>
+						</name>
+						<name>
+							<surname>Nascimento</surname>
+							<given-names>N.R.F.</given-names>
+						</name>
+						<name>
+							<surname>Kerntopf</surname>
+							<given-names>M.R.</given-names>
+						</name>
+						<name>
+							<surname>Sidrim</surname>
+							<given-names>J.J.C.</given-names>
+						</name>
+						<name>
+							<surname>Rocha</surname>
+							<given-names>M.F.G.</given-names>
+						</name>
+					</person-group>
+					<year>2008</year>
+					<article-title>Antifungal activity of essential oils of Croton species from the Brazilian caatinga biome</article-title>
+					<source>Journal of Applied Microbiology</source>
+					<volume>104</volume>
+					<fpage>1383</fpage>
+					<lpage>1390</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<mixed-citation>Fontenelle, R.O.S., Morais, S.M., Brito, E.H.S., Kerntopf, M.R., Brilhante, R.S.N., Cordeiro, R.A., Tomé, A.R., Queiroz, M.G.R., Nascimento, N.R.F. &amp; Sidrim, J.J.C. 2007. Chemical composition, toxicological aspects and antifungal activity of essential oil from <italic>Lippia sidoides</italic> Cham. Journal of Antimicrobial Chemotherapy 59: 934-940. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Fontenelle</surname>
+							<given-names>R.O.S.</given-names>
+						</name>
+						<name>
+							<surname>Morais</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>Brito</surname>
+							<given-names>E.H.S.</given-names>
+						</name>
+						<name>
+							<surname>Kerntopf</surname>
+							<given-names>M.R.</given-names>
+						</name>
+						<name>
+							<surname>Brilhante</surname>
+							<given-names>R.S.N.</given-names>
+						</name>
+						<name>
+							<surname>Cordeiro</surname>
+							<given-names>R.A.</given-names>
+						</name>
+						<name>
+							<surname>Tomé</surname>
+							<given-names>A.R.</given-names>
+						</name>
+						<name>
+							<surname>Queiroz</surname>
+							<given-names>M.G.R.</given-names>
+						</name>
+						<name>
+							<surname>Nascimento</surname>
+							<given-names>N.R.F.</given-names>
+						</name>
+						<name>
+							<surname>Sidrim</surname>
+							<given-names>J.J.C.</given-names>
+						</name>
+					</person-group>
+					<year>2007</year><bold>.</bold><article-title>Chemical composition, toxicological aspects and antifungal activity of essential oil from Lippia sidoides Cham</article-title>
+					<source>Journal of Antimicrobial Chemotherapy</source>
+					<volume>59</volume>
+					<fpage>934</fpage>
+					<lpage>940</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<mixed-citation>Gobbo-Neto, L. &amp; Lopes, N.P. 2007. Plantas medicinais: Fatores de influência no conteúdo de metabólitos secundários. Química Nova 30: 374-381.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gobbo-Neto</surname>
+							<given-names>L.</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>N.P</given-names>
+						</name>
+					</person-group>
+					<year>2007</year>
+					<article-title>Plantas medicinais: Fatores de influência no conteúdo de metabólitos secundários</article-title>
+					<source>Química Nova</source>
+					<volume>30</volume>
+					<fpage>374</fpage>
+					<lpage>381</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<mixed-citation>Gomes, E.M.C., Pena, R.D.C.M. &amp; da Silva, S.S.S.M. 2016. Composição fitoquímica e ação fungicida de extratos brutos de <italic>Cinnamomum zeylanicum</italic> sobre <italic>Quambalaria eucalypti</italic>. Biota Amazônia. 6: 54-58.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gomes</surname>
+							<given-names>E.M.C.</given-names>
+						</name>
+						<name>
+							<surname>Pena</surname>
+							<given-names>R.D.C.M.</given-names>
+						</name>
+						<name>
+							<surname>da Silva</surname>
+							<given-names>S.S.S.M.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Composição fitoquímica e ação fungicida de extratos brutos de Cinnamomum zeylanicum sobre Quambalaria eucalypti</article-title>
+					<source>Biota Amazônia</source>
+					<volume>6</volume>
+					<fpage>54</fpage>
+					<lpage>58</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<mixed-citation>Ishaku, G.A., Arabo, A.A., Bassey, E.E., Uwem, A.A.U.M. &amp; Godwin, E.U. 2016. Physicochemical characterization and antibacterial activity of <italic>Senna occidentalis</italic> Linn. Journal of Chemistryand Chemical Sciences 6: 9-18. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ishaku</surname>
+							<given-names>G.A.</given-names>
+						</name>
+						<name>
+							<surname>Arabo</surname>
+							<given-names>A.A.</given-names>
+						</name>
+						<name>
+							<surname>Bassey</surname>
+							<given-names>E.E.</given-names>
+						</name>
+						<name>
+							<surname>Uwem</surname>
+							<given-names>A.A.U.M.</given-names>
+						</name>
+						<name>
+							<surname>Godwin</surname>
+							<given-names>E.U.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Physicochemical characterization and antibacterial activity of Senna occidentalis Linn</article-title>
+					<source>Journal of Chemistryand Chemical Sciences</source>
+					<volume>6</volume>
+					<fpage>9</fpage>
+					<lpage>18</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<mixed-citation>Ita, B.N., &amp; Ndukwe, G.I. Antioxidant activity of <italic>Senna alata</italic> root extracts. 2017. J Nat Prod Resour 3: 94-96. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ita</surname>
+							<given-names>B.N.</given-names>
+						</name>
+						<name>
+							<surname>Ndukwe</surname>
+							<given-names>G.I.</given-names>
+						</name>
+					</person-group>
+					<article-title>Antioxidant activity of Senna alata root extracts</article-title>
+					<year>2017</year>
+					<source>J Nat Prod Resour</source>
+					<volume>3</volume>
+					<fpage>94</fpage>
+					<lpage>96</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<mixed-citation>Kabir, M.H., Hasan, N., Rahman, M.M., Rahman, M.A., Khan, J.A., Hoque, N.T., Bhuiyan, M.R.Q., Mou, S.M.; Jahan, R. &amp; Rahmatullah, M. 2014. A survey of medicinal plants used by the Deb barma clan of the Tripura tribe of Moulvibazar district, Bangladesh. Journal of Ethnobiology and Ethnomedicine 10: 1-19.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kabir</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>Jahan</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>Rahmatullah</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>A survey of medicinal plants used by the Deb barma clan of the Tripura tribe of Moulvibazar district, Bangladesh</article-title>
+					<source>Journal of Ethnobiology and Ethnomedicine</source>
+					<volume>10</volume>
+					<fpage>1</fpage>
+					<lpage>19</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<mixed-citation>Kim, M.S., Lee, D.Y., Sung, S.H. &amp; Jeon, W.K. 2018. Anti-cholinesterase activities of hydrolysable tannins and polyhydroxytriterpenoid derivatives from <italic>Terminalia chebula</italic> Retz. fruit. Fruit Rec Nat Prod 12: 284-289.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kim</surname>
+							<given-names>M.S.</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>D.Y.</given-names>
+						</name>
+						<name>
+							<surname>Sung</surname>
+							<given-names>S.H.</given-names>
+						</name>
+						<name>
+							<surname>Jeon</surname>
+							<given-names>W.K.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Anti-cholinesterase activities of hydrolysable tannins and polyhydroxytriterpenoid derivatives from Terminalia chebula Retz. fruit</article-title>
+					<source>Fruit Rec Nat Prod</source>
+					<volume>12</volume>
+					<fpage>284</fpage>
+					<lpage>289</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<mixed-citation>Kim, K.H., Tsao, R., Yang, R. &amp; Cui, S.W. 2006. Phenolic acid profiles and antioxidant activities of wheat bran extracts and the effect of hydrolysis conditions. Food Chemistry 95: 466-473.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kim</surname>
+							<given-names>K.H.</given-names>
+						</name>
+						<name>
+							<surname>Tsao</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>Yang</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>Cui</surname>
+							<given-names>S.W.</given-names>
+						</name>
+					</person-group>
+					<year>2006</year>
+					<article-title>Phenolic acid profiles and antioxidant activities of wheat bran extracts and the effect of hydrolysis conditions</article-title>
+					<source>Food Chemistry</source>
+					<volume>95</volume>
+					<fpage>466</fpage>
+					<lpage>473</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<mixed-citation>Kozachok, S., Pecio, Ł., Orhan, I.E., Deniz, F.S.S., Marchyshyn, S., &amp; Oleszek, W. 2020. Reinvestigation of <italic>Herniaria glabra</italic> L. saponins and their biological activity. Phytochemistry 169: 112162.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kozachok</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>Pecio</surname>
+							<given-names>Ł.</given-names>
+						</name>
+						<name>
+							<surname>Orhan</surname>
+							<given-names>I.E.</given-names>
+						</name>
+						<name>
+							<surname>Deniz</surname>
+							<given-names>F.S.S.</given-names>
+						</name>
+						<name>
+							<surname>Marchyshyn</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>Oleszek</surname>
+							<given-names>W.</given-names>
+						</name>
+					</person-group>
+					<year>2020</year>
+					<article-title>Reinvestigation of Herniaria glabra L. saponins and their biological activity.</article-title>
+					<source>Phytochemistry</source>
+					<volume>169</volume>
+					<elocation-id>112162</elocation-id>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<mixed-citation>Kwada, A.D. &amp; Tella, I.O. 2009. Determination of infochemicals and the phytochemical screening of the foliage and stem-bark of <italic>Senna siamea</italic> (lam.) in Yola, Adamawa State. Journal of Medicinal Plants Research 3: 630-640.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kwada</surname>
+							<given-names>A.D.</given-names>
+						</name>
+						<name>
+							<surname>Tella</surname>
+							<given-names>I.O.</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<article-title>Determination of infochemicals and the phytochemical screening of the foliage and stem-bark of Senna siamea (lam.) in Yola, Adamawa State</article-title>
+					<source>Journal of Medicinal Plants Research</source>
+					<volume>3</volume>
+					<fpage>630</fpage>
+					<lpage>640</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<mixed-citation>Lagrouh, F., Dakka, N. &amp; Bakri, Y. 2017.The antifungal activity of Moroccan plants and the mechanism of action of secondary metabolites from plants. Journal de Mycologie Medicale 27: 303-311.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lagrouh</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>Dakka</surname>
+							<given-names>N.</given-names>
+						</name>
+						<name>
+							<surname>Bakri</surname>
+							<given-names>Y.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>The antifungal activity of Moroccan plants and the mechanism of action of secondary metabolites from plants</article-title>
+					<source>Journal de Mycologie Medicale</source>
+					<volume>27</volume>
+					<fpage>303</fpage>
+					<lpage>311</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<mixed-citation>Lim, S., Choi, A.H., Kwon, M., Joung, E.J., Shin, T., Lee, S.G., Kim, NG. &amp; Kim, H. R. 2019. Evaluation of antioxidant activities of various solvent extract from <italic>Sargassum serratifolium</italic> and its major antioxidant components. Food Chemistry 278: 178-184.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lim</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>Choi</surname>
+							<given-names>A.H.</given-names>
+						</name>
+						<name>
+							<surname>Kwon</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Joung</surname>
+							<given-names>E.J.</given-names>
+						</name>
+						<name>
+							<surname>Shin</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>S.G.</given-names>
+						</name>
+						<name>
+							<surname>Kim</surname>
+							<given-names>NG.</given-names>
+						</name>
+						<name>
+							<surname>Kim</surname>
+							<given-names>H. R.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>Evaluation of antioxidant activities of various solvent extract from Sargassum serratifolium and its major antioxidant components</article-title>
+					<source>Food Chemistry</source>
+					<volume>278</volume>
+					<fpage>178</fpage>
+					<lpage>184</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<mixed-citation>Macedo, E.M., Alan, J.G., &amp; Silva, M.G.V. 2016. Quimiodiversidade e propriedades biofarmacológicas de espécies de Senna nativas do Nordeste do Brasil. Revista Virtual de Química 8: 169-195.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Macedo</surname>
+							<given-names>E.M.</given-names>
+						</name>
+						<name>
+							<surname>Alan</surname>
+							<given-names>J.G.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>M.G.V.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Quimiodiversidade e propriedades biofarmacológicas de espécies de Senna nativas do Nordeste do Brasil</article-title>
+					<source>Revista Virtual de Química</source>
+					<volume>8</volume>
+					<fpage>169</fpage>
+					<lpage>195</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<mixed-citation>Matos, F.J.A. 2009. Introdução à Fitoquímica Experimental. 3 ed. Fortaleza: UFC. 150p.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Matos</surname>
+							<given-names>F.J.A.</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<source>Introdução à Fitoquímica Experimental</source>
+					<edition>3 </edition>
+					<publisher-loc>Fortaleza</publisher-loc>
+					<publisher-name>UFC</publisher-name>
+					<size units="pages">150</size>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<mixed-citation>Morais, S.M., Lima, K.S.B., Siqueira, S.M.C., Cavalcanti, E.S.B., Souza, M.S.T., Menezes, J.E.S.A., Trevisan, M.T.S. 2013. Correlação entre as atividades antiradical, antiacetilcolinesterase e teor de fenóis totais de extratos de plantas medicinais de farmácias vivas. Revista Brasileira de Plantas Medicinais 15: 575-582. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Morais</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>Lima</surname>
+							<given-names>K.S.B.</given-names>
+						</name>
+						<name>
+							<surname>Siqueira</surname>
+							<given-names>S.M.C.</given-names>
+						</name>
+						<name>
+							<surname>Cavalcanti</surname>
+							<given-names>E.S.B.</given-names>
+						</name>
+						<name>
+							<surname>Souza</surname>
+							<given-names>M.S.T.</given-names>
+						</name>
+						<name>
+							<surname>Menezes</surname>
+							<given-names>J.E.S.A.</given-names>
+						</name>
+						<name>
+							<surname>Trevisan</surname>
+							<given-names>M.T.S.</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<article-title>Correlação entre as atividades antiradical, antiacetilcolinesterase e teor de fenóis totais de extratos de plantas medicinais de farmácias vivas</article-title>
+					<source>Revista Brasileira de Plantas Medicinais</source>
+					<volume>15</volume>
+					<fpage>575</fpage>
+					<lpage>582</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<mixed-citation>Mohamed, M.S., Saleh, A.M., Abdel-Farid, I.B. &amp; El-Naggar, S.A. 2017. Growth, hydrolases and ultrastructure of <italic>Fusarium oxysporum</italic> as affected by phenolic rich extracts from several xerophytic plants. Pesticide Biochemistry and Physiology 141: 57-64. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mohamed</surname>
+							<given-names>M.S.</given-names>
+						</name>
+						<name>
+							<surname>Saleh</surname>
+							<given-names>A.M.</given-names>
+						</name>
+						<name>
+							<surname>Abdel-Farid</surname>
+							<given-names>I.B.</given-names>
+						</name>
+						<name>
+							<surname>El-Naggar</surname>
+							<given-names>S.A.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>Growth, hydrolases and ultrastructure of Fusarium oxysporum as affected by phenolic rich extracts from several xerophytic plants</article-title>
+					<source>Pesticide Biochemistry and Physiology</source>
+					<volume>141</volume>
+					<fpage>57</fpage>
+					<lpage>64</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<mixed-citation>Mukaka, M.M. 2012. Statistics corner: A guide to appropriate use of correlation coefficient in medical research. Malawi Med J. 24:69-71.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mukaka</surname>
+							<given-names>M.M.</given-names>
+						</name>
+					</person-group>
+					<year>2012</year>
+					<article-title>Statistics corner: A guide to appropriate use of correlation coefficient in medical research</article-title>
+					<source>Malawi Med J.</source>
+					<volume>24</volume>
+					<fpage>69</fpage>
+					<lpage>71</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<mixed-citation>Neves, A.M., Silva, H.S., Souza, E.B., Fontenelle, R.O.S., Silva, A.C.S., Morais, S.M. 2019. Perfil fitoquímico e avaliação da atividade antifúngica da fração hexânica de <italic>Mitracarpus baturitensis</italic> (Rubiaceae). Essentia 20: 96-101. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Neves</surname>
+							<given-names>A.M.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>H.S.</given-names>
+						</name>
+						<name>
+							<surname>Souza</surname>
+							<given-names>E.B.</given-names>
+						</name>
+						<name>
+							<surname>Fontenelle</surname>
+							<given-names>R.O.S.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>A.C.S.</given-names>
+						</name>
+						<name>
+							<surname>Morais</surname>
+							<given-names>S.M.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>Perfil fitoquímico e avaliação da atividade antifúngica da fração hexânica de Mitracarpus baturitensis (Rubiaceae)</article-title>
+					<source>Essentia</source>
+					<volume>20</volume>
+					<fpage>96</fpage>
+					<lpage>101</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<mixed-citation>Neves, A.M., Costa, O.S., Coutinho, M.G.S., Souza, E.B., Santos, H.S., Silva, M.G.V. &amp; Fontenelle, R.O.S. 2017. Caracterização química e o potencial antimicrobiano de espécies do gênero <italic>Senna</italic> Mill (Fabaceae). Rev. Virtual Quim 9: 2506-2538.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Neves</surname>
+							<given-names>A.M.</given-names>
+						</name>
+						<name>
+							<surname>Costa</surname>
+							<given-names>O.S.</given-names>
+						</name>
+						<name>
+							<surname>Coutinho</surname>
+							<given-names>M.G.S.</given-names>
+						</name>
+						<name>
+							<surname>Souza</surname>
+							<given-names>E.B.</given-names>
+						</name>
+						<name>
+							<surname>Santos</surname>
+							<given-names>H.S.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>M.G.V.</given-names>
+						</name>
+						<name>
+							<surname>Fontenelle</surname>
+							<given-names>R.O.S.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>Caracterização química e o potencial antimicrobiano de espécies do gênero Senna Mill (Fabaceae). Rev</article-title>
+					<source>Virtual Quim</source>
+					<volume>9</volume>
+					<fpage>2506</fpage>
+					<lpage>2538</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B35">
+				<mixed-citation>Neagu, E., Radu, G.L., Albu, C., &amp; Paun, G. 2016. Antioxidant activity, acetylcholinesterase and tyrosinase inhibitory potential of <italic>Pulmonaria officinalis</italic> and <italic>Centarium umbellatum</italic> extracts. Saudi Journal of Biological Sciences, 3: 578-585.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Neagu</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>Radu</surname>
+							<given-names>G.L.</given-names>
+						</name>
+						<name>
+							<surname>Albu</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>Paun</surname>
+							<given-names>G.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Antioxidant activity, acetylcholinesterase and tyrosinase inhibitory potential of Pulmonaria officinalis and Centarium umbellatum extracts</article-title>
+					<source>Saudi Journal of Biological Sciences</source>
+					<volume>3</volume>
+					<fpage>578</fpage>
+					<lpage>585</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B36">
+				<mixed-citation>Nnadi, N.E., Anukam, N.C., Ayika, P.D., Rotdung, K., Gokum, S.S., Ayanbimpe, G.M., Nvau, J. &amp; Enweani, I. 2019. The <italic>in Vitro</italic> antifungal activity of some Nigeria medicinal plants against <italic>Cryptococcus gattii</italic>. IOSR Journal of Pharmacy 9: 16-24. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Nnadi</surname>
+							<given-names>N.E.</given-names>
+						</name>
+						<name>
+							<surname>Anukam</surname>
+							<given-names>N.C.</given-names>
+						</name>
+						<name>
+							<surname>Ayika</surname>
+							<given-names>P.D.</given-names>
+						</name>
+						<name>
+							<surname>Rotdung</surname>
+							<given-names>K.</given-names>
+						</name>
+						<name>
+							<surname>Gokum</surname>
+							<given-names>S.S.</given-names>
+						</name>
+						<name>
+							<surname>Ayanbimpe</surname>
+							<given-names>G.M.</given-names>
+						</name>
+						<name>
+							<surname>Nvau</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Enweani</surname>
+							<given-names>I.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>The in Vitro antifungal activity of some Nigeria medicinal plants against Cryptococcus gattii</article-title>
+					<source>IOSR Journal of Pharmacy</source>
+					<volume>9</volume>
+					<fpage>16</fpage>
+					<lpage>24</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B37">
+				<mixed-citation>Odeja, O., Obi, G., Ogwuche, C.E., Elemike, E.E. &amp; Oderinlo, Y. 2015. Phytochemical Screening, Antioxidant and Antimicrobial activities of <italic>Senna occidentalis</italic> (L.) leaves Extract. Clinical Phytoscience 1: 1-6.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Odeja</surname>
+							<given-names>O.</given-names>
+						</name>
+						<name>
+							<surname>Obi</surname>
+							<given-names>G.</given-names>
+						</name>
+						<name>
+							<surname>Ogwuche</surname>
+							<given-names>C.E.</given-names>
+						</name>
+						<name>
+							<surname>Elemike</surname>
+							<given-names>E.E.</given-names>
+						</name>
+						<name>
+							<surname>Oderinlo</surname>
+							<given-names>Y.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Phytochemical Screening, Antioxidant and Antimicrobial activities of Senna occidentalis (L.) leaves Extract</article-title>
+					<source>Clinical Phytoscience</source>
+					<volume>1</volume>
+					<fpage>1</fpage>
+					<lpage>6</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B38">
+				<mixed-citation>Onyegeme-Okerenta, B.M., Nwosu, T. &amp; Wegwu, M.O. 2017. Proximate and phytochemical composition of leaf extract of <italic>Senna alata</italic> (L) Roxb. Journal of Pharmacognosy and Phytochemistry 6: 320-326.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Onyegeme-Okerenta</surname>
+							<given-names>B.M.</given-names>
+						</name>
+						<name>
+							<surname>Nwosu</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>Wegwu</surname>
+							<given-names>M.O.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>Proximate and phytochemical composition of leaf extract of Senna alata (L) Roxb</article-title>
+					<source>Journal of Pharmacognosy and Phytochemistry</source>
+					<volume>6</volume>
+					<fpage>320</fpage>
+					<lpage>326</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B39">
+				<mixed-citation>Omoregie, E.S. &amp; Oikeh, E.I. 2015. Comparative studies on the phytochemical composition, phenolic content and antioxidant activities of methanol leaf extracts of <italic>Spondias mombin</italic> and <italic>Polyathia longifolia</italic>. Jordan Journal of Biological Sciences 147: 1-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Omoregie</surname>
+							<given-names>E.S.</given-names>
+						</name>
+						<name>
+							<surname>Oikeh</surname>
+							<given-names>E.I.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Comparative studies on the phytochemical composition, phenolic content and antioxidant activities of methanol leaf extracts of Spondias mombin and Polyathia longifolia</article-title>
+					<source>Jordan Journal of Biological Sciences</source>
+					<volume>147</volume>
+					<fpage>1</fpage>
+					<lpage>5</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B40">
+				<mixed-citation>Paiva, J.R., Queiroz, S.A.S., Pereira, R.D.C.A., Ribeiro, P.R.V., Alves, F.E.G., Silva, L.M.A., Zocolo, G.J., Brito, E.S., Alves, D.R., Morais, S.M., Tavares, J., Pinto, F.C.L., Andrade, G.M., Pessoa, O.D.L., &amp; Canuto, K.M. 2021. Chemical composition and anticholinesterase activity of cultivated bulbs from <italic>Hippeastrum elegans</italic>, a potential tropical source of bioactive alkaloids. Phytochemistry Letters 43: 27-34.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Paiva</surname>
+							<given-names>J.R.</given-names>
+						</name>
+						<name>
+							<surname>Queiroz</surname>
+							<given-names>S.A.S.</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>R.D.C.A.</given-names>
+						</name>
+						<name>
+							<surname>Ribeiro</surname>
+							<given-names>P.R.V.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>F.E.G.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>L.M.A.</given-names>
+						</name>
+						<name>
+							<surname>Zocolo</surname>
+							<given-names>G.J.</given-names>
+						</name>
+						<name>
+							<surname>Brito</surname>
+							<given-names>E.S.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>D.R.</given-names>
+						</name>
+						<name>
+							<surname>Morais</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>Tavares</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>Pinto</surname>
+							<given-names>F.C.L.</given-names>
+						</name>
+						<name>
+							<surname>Andrade</surname>
+							<given-names>G.M.</given-names>
+						</name>
+						<name>
+							<surname>Pessoa</surname>
+							<given-names>O.D.L.</given-names>
+						</name>
+						<name>
+							<surname>Canuto</surname>
+							<given-names>K.M.</given-names>
+						</name>
+					</person-group>
+					<year>2021</year>
+					<article-title>Chemical composition and anticholinesterase activity of cultivated bulbs from Hippeastrum elegans, a potential tropical source of bioactive alkaloids</article-title>
+					<source>Phytochemistry Letters</source>
+					<volume>43</volume>
+					<fpage>27</fpage>
+					<lpage>34</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B41">
+				<mixed-citation>Pellerin, R.J., Waminal, N.E. &amp; Kim, H.H. 2019. FISH mapping of rDNA and telomeric repeats in 10 <italic>Senna</italic> species. Horticulture, Environment, and Biotechnology 60: 253-260.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pellerin</surname>
+							<given-names>R.J.</given-names>
+						</name>
+						<name>
+							<surname>Waminal</surname>
+							<given-names>N.E.</given-names>
+						</name>
+						<name>
+							<surname>Kim</surname>
+							<given-names>H.H.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>FISH mapping of rDNA and telomeric repeats in 10 Senna species</article-title>
+					<source>Horticulture, Environment, and Biotechnology</source>
+					<volume>60</volume>
+					<fpage>253</fpage>
+					<lpage>260</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B42">
+				<mixed-citation>Penido, A.B., De Morais, S.M., Ribeiro, A.B., Alves, D.R., Rodrigues, A.L.M., dos Santos, L.H. &amp; de Menezes, J.E.S.A. 2017. Medicinal plants from northeastern Brazil against Alzheimer’s disease. Evidence-Based Complementary and Alternative Medicine 2017: 1-7. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Penido</surname>
+							<given-names>A.B.</given-names>
+						</name>
+						<name>
+							<surname>De Morais</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>Ribeiro</surname>
+							<given-names>A.B.</given-names>
+						</name>
+						<name>
+							<surname>Alves</surname>
+							<given-names>D.R.</given-names>
+						</name>
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>A.L.M.</given-names>
+						</name>
+						<name>
+							<surname>dos Santos</surname>
+							<given-names>L.H.</given-names>
+						</name>
+						<name>
+							<surname>de Menezes</surname>
+							<given-names>J.E.S.A.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>Medicinal plants from northeastern Brazil against Alzheimer’s disease</article-title>
+					<source>Evidence-Based Complementary and Alternative Medicine</source>
+					<volume>2017</volume>
+					<fpage>1</fpage>
+					<lpage>7</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B43">
+				<mixed-citation>Queiroz, L.P. 2009. Leguminosas da Caatinga. Universidade Estadual de Feira de Santana, Feira de Santana, 467 p.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Queiroz</surname>
+							<given-names>L.P.</given-names>
+						</name>
+					</person-group>
+					<year>2009</year>
+					<source>Leguminosas da Caatinga</source>
+					<publisher-name>Universidade Estadual de Feira de Santana</publisher-name>
+					<publisher-loc>Feira de Santana</publisher-loc>
+					<size units="pages">467</size>
+				</element-citation>
+			</ref>
+			<ref id="B44">
+				<mixed-citation>Rhee, I.K., van de Meent, M., Ingkaninan, K. &amp; Verpoorte, R. 2001. Screening for acetylcholinesterase inhibitors from Amaryllidaceae using silica gel thin-layer chromatography in combination with bioactivity staining. Journal of Chromatography A 915: 217-223.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Rhee</surname>
+							<given-names>I.K.</given-names>
+						</name>
+						<name>
+							<surname>van de Meent</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>Ingkaninan</surname>
+							<given-names>K.</given-names>
+						</name>
+						<name>
+							<surname>Verpoorte</surname>
+							<given-names>R.</given-names>
+						</name>
+					</person-group>
+					<year>2001</year>
+					<article-title>Screening for acetylcholinesterase inhibitors from Amaryllidaceae using silica gel thin-layer chromatography in combination with bioactivity staining</article-title>
+					<source>Journal of Chromatography A</source>
+					<volume>915</volume>
+					<fpage>217</fpage>
+					<lpage>223</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B45">
+				<mixed-citation>Rodrigues, F.C., Dos Santos, A.T.L., Machado, A.J.T., Bezerra, C.F., de Freitas, T.S., Coutinho, H.D.M., Morais-Braga, M.F.B., Bezerra, J.W.A., Duarte, A.E., Kamdem, J.P., Boligon, A.A., Campos, M.M.A., Barros, L.M. 2019. Chemical composition and anti-<italic>Candida</italic> potencial of the extracts of <italic>Tarenaya spinosa</italic> (Jacq.) Raf.(Cleomaceae). Comparative immunology, microbiology and infectious diseases 64: 14-19.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Rodrigues</surname>
+							<given-names>F.C.</given-names>
+						</name>
+						<name>
+							<surname>Dos Santos</surname>
+							<given-names>A.T.L.</given-names>
+						</name>
+						<name>
+							<surname>Machado</surname>
+							<given-names>A.J.T.</given-names>
+						</name>
+						<name>
+							<surname>Bezerra</surname>
+							<given-names>C.F.</given-names>
+						</name>
+						<name>
+							<surname>de Freitas</surname>
+							<given-names>T.S.</given-names>
+						</name>
+						<name>
+							<surname>Coutinho</surname>
+							<given-names>H.D.M.</given-names>
+						</name>
+						<name>
+							<surname>Morais-Braga</surname>
+							<given-names>M.F.B.</given-names>
+						</name>
+						<name>
+							<surname>Bezerra</surname>
+							<given-names>J.W.A.</given-names>
+						</name>
+						<name>
+							<surname>Duarte</surname>
+							<given-names>A.E.</given-names>
+						</name>
+						<name>
+							<surname>Kamdem</surname>
+							<given-names>J.P.</given-names>
+						</name>
+						<name>
+							<surname>Boligon</surname>
+							<given-names>A.A.</given-names>
+						</name>
+						<name>
+							<surname>Campos</surname>
+							<given-names>M.M.A.</given-names>
+						</name>
+						<name>
+							<surname>Barros</surname>
+							<given-names>L.M.</given-names>
+						</name>
+					</person-group>
+					<year>2019</year>
+					<article-title>Chemical composition and anti-Candida potencial of the extracts of Tarenaya spinosa (Jacq.) Raf.(Cleomaceae)</article-title>
+					<source>Comparative immunology, microbiology and infectious diseases</source>
+					<volume>64</volume>
+					<fpage>14</fpage>
+					<lpage>19</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B46">
+				<mixed-citation>Santos, G.H.F., Amaral, A. &amp; Da Silva, E.B. 2018. Antibacterial activity of irradiated extracts of <italic>Anacardium occidentale</italic> L. on multiresistant strains of <italic>Staphylococcus aureus</italic>. Applied Radiation and Isotopes 140: 327-332.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Santos</surname>
+							<given-names>G.H.F.</given-names>
+						</name>
+						<name>
+							<surname>Amaral</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>Da Silva</surname>
+							<given-names>E.B.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Antibacterial activity of irradiated extracts of Anacardium occidentale L. on multiresistant strains of Staphylococcus aureus</article-title>
+					<source>Applied Radiation and Isotopes</source>
+					<volume>140</volume>
+					<fpage>327</fpage>
+					<lpage>332</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B47">
+				<mixed-citation>Santos, T.C.D., Gomes, T.M., Pinto, B.A.S., Camara, A.L. &amp; Paes, A.M.D.A. 2018. Naturally occurring acetylcholinesterase inhibitors and their potential use for Alzheimer's disease therapy. Frontiers in Pharmacology 9: 1192.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Santos</surname>
+							<given-names>T.C.D.</given-names>
+						</name>
+						<name>
+							<surname>Gomes</surname>
+							<given-names>T.M.</given-names>
+						</name>
+						<name>
+							<surname>Pinto</surname>
+							<given-names>B.A.S.</given-names>
+						</name>
+						<name>
+							<surname>Camara</surname>
+							<given-names>A.L.</given-names>
+						</name>
+						<name>
+							<surname>Paes</surname>
+							<given-names>A.M.D.A.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Naturally occurring acetylcholinesterase inhibitors and their potential use for Alzheimer's disease therapy</article-title>
+					<source>Frontiers in Pharmacology</source>
+					<volume>9</volume>
+					<elocation-id>1192</elocation-id>
+				</element-citation>
+			</ref>
+			<ref id="B48">
+				<mixed-citation>Sánchez‐Moreno, C., Larrauri, J.A. &amp; Saura‐Calixto, F. 1998. A procedure to measure the antiradical efficiency of polyphenols. Journal of the Science of Food and Agriculture 76: 270-276.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sánchez‐Moreno</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>Larrauri</surname>
+							<given-names>J.A.</given-names>
+						</name>
+						<name>
+							<surname>Saura‐Calixto</surname>
+							<given-names>F.</given-names>
+						</name>
+					</person-group>
+					<year>1998</year>
+					<article-title>A procedure to measure the antiradical efficiency of polyphenols</article-title>
+					<source>Journal of the Science of Food and Agriculture</source>
+					<volume>76</volume>
+					<fpage>270</fpage>
+					<lpage>276</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B49">
+				<mixed-citation>Silva, G.A., Monteiro, J.A., Ferreira, E.B., Fernandes, M.I.B., Pessoa, C.; Sampaio, C.G. &amp; Silva, M.G.V. 2014. Total phenolic content, antioxidant and anticancer activities of four species of <italic>Senna</italic> Mill. From northeast Brazil. Int. J. Pharm. Pharm. Sci 6: 199-202.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Silva</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>Sampaio</surname>
+							<given-names>C.G.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>M.G.V.</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Total phenolic content, antioxidant and anticancer activities of four species of Senna Mill</article-title>
+					<comment>From northeast Brazil</comment><bold>.</bold><source>Int. J. Pharm. Pharm. Sci</source>
+					<volume>6</volume>
+					<fpage>199</fpage>
+					<lpage>202</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B50">
+				<mixed-citation>Souza, V.C.; Bortoluzzi, R.L.C. 2015. <italic>Senna</italic> in Lista de Espécies da Flora do Brasil. Jardim Botânico do Rio de Janeiro. </mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Souza</surname>
+							<given-names>V.C.</given-names>
+						</name>
+						<name>
+							<surname>Bortoluzzi</surname>
+							<given-names>R.L.C.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<source>Senna in Lista de Espécies da Flora do Brasil</source>
+					<publisher-name>Jardim Botânico do Rio de Janeiro</publisher-name>
+				</element-citation>
+			</ref>
+			<ref id="B51">
+				<mixed-citation>Sudi, I.Y., Ksgbiya, D.M., Muluh, E.K. &amp; Clement, A. 2011. Nutritional and phytochemical screening of <italic>Senna obtusifolia</italic> indigenous to Mubi, Nigeria. Advances in Applied Science Research 2: 432-437.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sudi</surname>
+							<given-names>I.Y.</given-names>
+						</name>
+						<name>
+							<surname>Ksgbiya</surname>
+							<given-names>D.M.</given-names>
+						</name>
+						<name>
+							<surname>Muluh</surname>
+							<given-names>E.K.</given-names>
+						</name>
+						<name>
+							<surname>Clement</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>2011</year>
+					<article-title>Nutritional and phytochemical screening of Senna obtusifolia indigenous to Mubi, Nigeria</article-title>
+					<source>Advances in Applied Science Research</source>
+					<volume>2</volume>
+					<fpage>432</fpage>
+					<lpage>437</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B52">
+				<mixed-citation>Sule, W.F., Okonko, I.O., Omo-Ogun, S., Nwanze, J.C., Ojezele, M.O., Ojezele, O.J., Alli, J.A., Soyemi, E.T. &amp; Olaonipekun, T.O. 2011. Phytochemical properties and <italic>in-vitro</italic> antifungal activity of <italic>Senna alata</italic> Linn. crude stem bark extract. Journal of Medicinal Plants Research, 5: 176-183.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sule</surname>
+							<given-names>W.F.</given-names>
+						</name>
+						<name>
+							<surname>Okonko</surname>
+							<given-names>I.O.</given-names>
+						</name>
+						<name>
+							<surname>Omo-Ogun</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>Nwanze</surname>
+							<given-names>J.C.</given-names>
+						</name>
+						<name>
+							<surname>Ojezele</surname>
+							<given-names>M.O.</given-names>
+						</name>
+						<name>
+							<surname>Ojezele</surname>
+							<given-names>O.J.</given-names>
+						</name>
+						<name>
+							<surname>Alli</surname>
+							<given-names>J.A.</given-names>
+						</name>
+						<name>
+							<surname>Soyemi</surname>
+							<given-names>E.T.</given-names>
+						</name>
+						<name>
+							<surname>Olaonipekun</surname>
+							<given-names>T.O.</given-names>
+						</name>
+					</person-group>
+					<year>2011</year>
+					<article-title>Phytochemical properties and in-vitro antifungal activity of Senna alata Linn. crude stem bark extract</article-title>
+					<source>Journal of Medicinal Plants Research</source>
+					<volume>5</volume>
+					<fpage>176</fpage>
+					<lpage>183</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B53">
+				<mixed-citation>Souza, A.O. &amp; Silva, M.J. 2016. <italic>Senna</italic> (Leguminosae, Caesalpinioideae) na Floresta Nacional de Silvânia, Goiás, Brasil. Rodriguésia 67: 773-784. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Souza</surname>
+							<given-names>A.O.</given-names>
+						</name>
+						<name>
+							<surname>Silva</surname>
+							<given-names>M.J.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Senna (Leguminosae, Caesalpinioideae) na Floresta Nacional de Silvânia, Goiás, Brasil</article-title>
+					<source>Rodriguésia</source>
+					<volume>67</volume>
+					<fpage>773</fpage>
+					<lpage>784</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B54">
+				<mixed-citation>Trevisan, M.T.S., Macedo, F.V.V., Meent, M.V.D., Rhee, I.K. &amp; Verpoorte, R. 2003. Seleção de plantas com atividade anticolinesterase para tratamento da doença de Alzheimer. Química Nova 26: 301-304.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Trevisan</surname>
+							<given-names>M.T.S.</given-names>
+						</name>
+						<name>
+							<surname>Macedo</surname>
+							<given-names>F.V.V.</given-names>
+						</name>
+						<name>
+							<surname>Meent</surname>
+							<given-names>M.V.D.</given-names>
+						</name>
+						<name>
+							<surname>Rhee</surname>
+							<given-names>I.K.</given-names>
+						</name>
+						<name>
+							<surname>Verpoorte</surname>
+							<given-names>R.</given-names>
+						</name>
+					</person-group>
+					<year>2003</year>
+					<article-title>Seleção de plantas com atividade anticolinesterase para tratamento da doença de Alzheimer</article-title>
+					<source>Química Nova</source>
+					<volume>26</volume>
+					<fpage>301</fpage>
+					<lpage>304</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B55">
+				<mixed-citation>Villano, D., Fernandez-Pachón, M.S., Moya, M.L., Troncoso, A.M. &amp; García-Parrilla, M.C. 2007. Radical scavenging ability of polyphenolic compounds towards DPPH free radical. Talanta, 71: 230-235. </mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Villano</surname>
+							<given-names>D.</given-names>
+						</name>
+						<name>
+							<surname>Fernandez-Pachón</surname>
+							<given-names>M.S.</given-names>
+						</name>
+						<name>
+							<surname>Moya</surname>
+							<given-names>M.L.</given-names>
+						</name>
+						<name>
+							<surname>Troncoso</surname>
+							<given-names>A.M.</given-names>
+						</name>
+						<name>
+							<surname>García-Parrilla</surname>
+							<given-names>M.C.</given-names>
+						</name>
+					</person-group>
+					<year>2007</year>
+					<article-title>Radical scavenging ability of polyphenolic compounds towards DPPH free radical</article-title>
+					<source>Talanta</source>
+					<volume>71</volume>
+					<fpage>230</fpage>
+					<lpage>235</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B56">
+				<mixed-citation>Yakubu, O.E., Otitoju, O., Imarenezor, E.P.K., Tatah, S.V. &amp; Habibu, B. 2018. Fractionation and determination of antioxidant activities, of the Leaves of <italic>Senna Occidentalis</italic> ethanol extract. Pharmacology, 6: 26-30.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yakubu</surname>
+							<given-names>O.E.</given-names>
+						</name>
+						<name>
+							<surname>Otitoju</surname>
+							<given-names>O.</given-names>
+						</name>
+						<name>
+							<surname>Imarenezor</surname>
+							<given-names>E.P.K.</given-names>
+						</name>
+						<name>
+							<surname>Tatah</surname>
+							<given-names>S.V.</given-names>
+						</name>
+						<name>
+							<surname>Habibu</surname>
+							<given-names>B.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Fractionation and determination of antioxidant activities, of the Leaves of Senna Occidentalis ethanol extract</article-title>
+					<source>Pharmacology</source>
+					<volume>6</volume>
+					<fpage>26</fpage>
+					<lpage>30</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+	</back>
+</article>
