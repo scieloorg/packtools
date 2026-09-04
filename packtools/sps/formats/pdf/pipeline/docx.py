@@ -12,7 +12,10 @@ def pipeline_docx(xml_tree, data):
 
     Args:
         xml_tree: The XML tree containing the article data.
-        data: Additional data for the DOCX generation.
+        data: Additional data for the DOCX generation. Recognizes an optional
+            'table_layout_overrides' key: a dict mapping a table-wrap @id to a
+            forced 'single-column-layout'/'double-column-layout', bypassing the
+            automatic layout heuristic for that specific table.
 
     Returns:
         A DOCX Document object.
@@ -65,7 +68,7 @@ def pipeline_docx(xml_tree, data):
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
-    body_data = xml_pipe.extract_body_data(xml_tree)
+    body_data = xml_pipe.extract_body_data(xml_tree, table_layout_overrides=data.get('table_layout_overrides'))
     docx_body_pipe(docx, body_data)
     
     # Acknowledgments

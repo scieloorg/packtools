@@ -3,6 +3,7 @@ import unittest
 from lxml import etree
 
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+from packtools.sps.formats.pdf import enum as pdf_enum
 
 
 class TestExtractAbstractData(unittest.TestCase):
@@ -1285,6 +1286,38 @@ class TestExtractTableData(unittest.TestCase):
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(result['foot'], [])
 
+    def test_determine_table_layout_single_long_cell_forces_single_column(self):
+        long_text = "x" * 500
+        xml_str = f"<table-wrap><table><tbody><tr><td>{long_text}</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        self.assertEqual(
+            xml_pipe.determine_table_layout(table_wrap),
+            pdf_enum.SINGLE_COLUMN_PAGE_LABEL,
+        )
+
+    def test_determine_table_layout_moderately_long_cell_stays_double_column(self):
+        moderate_text = "x" * 150
+        xml_str = f"<table-wrap><table><tbody><tr><td>{moderate_text}</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        self.assertEqual(
+            xml_pipe.determine_table_layout(table_wrap),
+            pdf_enum.DOUBLE_COLUMN_PAGE_LABEL,
+        )
+
+    def test_extract_table_data_override_layout_wins_over_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(
+            table_wrap, override_layout=pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+        )
+        self.assertEqual(result['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
+    def test_extract_table_data_invalid_override_falls_back_to_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap, override_layout='not-a-real-layout')
+        self.assertEqual(result['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):
     """
@@ -1388,6 +1421,23 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
         child_sec = next(s for s in result if s['title'] == 'Child')
         self.assertEqual([t['label'] for t in parent_sec['tables']], ['Table 1'])
         self.assertEqual([t['label'] for t in child_sec['tables']], ['Table 2'])
+
+    def test_table_layout_overrides_reach_extract_table_data(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(
+            xml, table_layout_overrides={'t1': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}
+        )
+        self.assertEqual(result[0]['tables'][0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
 
 
 class TestExtractTransAbstractData(unittest.TestCase):
