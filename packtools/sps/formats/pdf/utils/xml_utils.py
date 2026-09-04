@@ -1,20 +1,32 @@
-def get_text_from_node(node):
+import re
+
+
+def get_text_from_node(node, skip_tags=None):
     """
-    Extracts text from an XML node, including its children.
+    Extracts text from an XML node, including its children, preserving the
+    adjacency of the source (no space is inserted between fragments unless
+    one was already there as literal text or a tail).
 
     Args:
         node (ElementTree): The XML node to extract text from.
+        skip_tags (set, optional): Child tag names to drop entirely from the
+            output; only their `.tail` (the text that follows them in the
+            source) is kept. Used to flatten a paragraph to readable text
+            while excluding embedded elements such as <fig>/<table-wrap>.
 
     Returns:
         str: The text extracted from the given node.
     """
+    skip_tags = skip_tags or set()
     texts_els = []
 
     if node.text:
         texts_els.append(node.text)
 
     for child in node:
-        if child.tag == 'xref':
+        if child.tag in skip_tags:
+            pass
+        elif child.tag == 'xref':
             xref_text = child.text if child.text else ''
             for subchild in child:
                 if subchild.tag in ('italic', 'bold'):
@@ -26,9 +38,9 @@ def get_text_from_node(node):
             if child.text:
                 texts_els.append(child.text)
             for subchild in child:
-                texts_els.append(get_text_from_node(subchild))
+                texts_els.append(get_text_from_node(subchild, skip_tags=skip_tags))
         else:
-            texts_els.append(get_text_from_node(child))
+            texts_els.append(get_text_from_node(child, skip_tags=skip_tags))
 
         if child.tail:
             texts_els.append(child.tail)
@@ -113,14 +125,14 @@ def _add_period(text):
 
 def _remove_double_spaces(text):
     """
-    Removes double spaces from the given text.
+    Collapses any run of whitespace (including tabs and newlines left over
+    from pretty-printed XML, e.g. the indentation tail of a skipped
+    <fig>/<table-wrap>) into a single space.
 
     Args:
-        text (str): The text to remove double spaces from.
+        text (str): The text to normalize.
 
     Returns:
-        str: The text with double spaces removed.
+        str: The text with whitespace runs collapsed to single spaces.
     """
-    while '  ' in text:
-        text = text.replace('  ', ' ')
-    return text
+    return re.sub(r'\s+', ' ', text)

@@ -365,15 +365,14 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
         if sec['title'] is not None:
             sec['title'] = ''.join(sec['title'].itertext()).strip()
 
-        # Collect textual paragraphs but exclude figure/table elements
+        # Collect textual paragraphs but exclude figure/table elements. Uses
+        # get_text_from_node (tail-preserving) rather than a bare
+        # `.xpath('.//text()...')` + `' '.join(...)`, which inserted an
+        # artificial space between every text-node fragment regardless of
+        # whether the source had one there (e.g. "(<xref>...</xref>)" came
+        # out as "( ... )", and "<xref/>; <xref/>" as "... ; ...").
         for para in document_section.findall('p'):
-            try:
-                # Get text nodes that are not inside fig or table-wrap
-                texts = para.xpath('.//text()[not(ancestor::fig) and not(ancestor::table-wrap)]')
-                para_text = ' '.join(' '.join(texts).split()).strip()
-            except Exception:
-                # Fallback to generic text extraction
-                para_text = xml_utils.get_text_from_node(para)
+            para_text = xml_utils.get_text_from_node(para, skip_tags={'fig', 'table-wrap'}).strip()
             if para_text:
                 sec['paragraphs'].append(para_text)
 

@@ -55,6 +55,38 @@ class TestGetTextFromNode(unittest.TestCase):
         result = xml_utils.get_text_from_node(xmltree)
         self.assertEqual(expected, result)
 
+    def test_get_text_from_node_preserves_parenthesis_adjacency(self):
+        # No space should be inserted between "(" and the xref text, or
+        # between the xref text and ")", when none exists in the source.
+        xmltree = etree.fromstring(
+            '<p>seen (<xref ref-type="bibr">Author, 2020</xref>; '
+            '<xref ref-type="bibr">Other, 2021</xref>) here</p>'
+        )
+        expected = 'seen (Author, 2020; Other, 2021) here'
+        result = xml_utils.get_text_from_node(xmltree)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_node_skip_tags_drops_content_but_keeps_tail(self):
+        xmltree = etree.fromstring(
+            '<p>Before <fig id="f1"><label>Figure 1</label></fig> after</p>'
+        )
+        result = xml_utils.get_text_from_node(xmltree, skip_tags={'fig'})
+        self.assertEqual('Before after', result)
+
+    def test_get_text_from_node_skip_tags_collapses_tail_whitespace(self):
+        xmltree = etree.fromstring(
+            '<p>Before\n<table-wrap id="t1"><label>Table 1</label></table-wrap>\n   after</p>'
+        )
+        result = xml_utils.get_text_from_node(xmltree, skip_tags={'table-wrap'})
+        self.assertEqual('Before after', result)
+
+    def test_get_text_from_node_without_skip_tags_keeps_fig_content(self):
+        xmltree = etree.fromstring(
+            '<p>Before <fig id="f1"><label>Figure 1</label></fig> after</p>'
+        )
+        result = xml_utils.get_text_from_node(xmltree)
+        self.assertEqual('Before Figure 1 after', result)
+
 
 class TestGetTextFromMixedCitationNode(unittest.TestCase):
 
