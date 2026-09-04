@@ -45,8 +45,18 @@ def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree):
 
 
 def get_journal_title(xml_tree):
-    journal_title = journal_meta.Title(xml_tree)
+    """
+    JournalTitle deve ser a abreviação do periódico registrada no PubMed
+    (journal-id[@journal-id-type="nlm-ta"]), presente apenas quando o
+    periódico é indexado no PubMed. Cai para a abreviação genérica da
+    SciELO quando nlm-ta está ausente, já que JournalTitle é obrigatório
+    na DTD do PubMed.
+    """
+    nlm_ta = journal_meta.JournalID(xml_tree).nlm_ta
+    if nlm_ta:
+        return nlm_ta
 
+    journal_title = journal_meta.Title(xml_tree)
     return journal_title.abbreviated_journal_title
 
 
