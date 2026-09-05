@@ -22,22 +22,46 @@ class XMLAbstracts:
         self.tags_to_remove_with_content = tags_to_remove_with_content
         self.tags_to_convert_to_html = tags_to_convert_to_html
 
-    def get_abstracts(self, abstract_type=None):
-        if abstract_type:
-            xpath = f'.//abstract[@abstract-type="{abstract_type}"] | .//trans-abstract[@abstract-type="{abstract_type}"]'
-        else:
-            xpath = ".//abstract[not(@abstract-type)] | .//trans-abstract[not(@abstract-type)]"
+    def _build_abstract(self, node, lang):
+        abstract = Abstract(
+            node,
+            lang,
+            tags_to_keep=self.tags_to_keep,
+            tags_to_keep_with_content=self.tags_to_keep_with_content,
+            tags_to_remove_with_content=self.tags_to_remove_with_content,
+            tags_to_convert_to_html=self.tags_to_convert_to_html,
+        )
+        return abstract.data
 
-        for node in self.xmltree.xpath(xpath):
-            abstract = Abstract(
-                node,
-                node.get("{http://www.w3.org/XML/1998/namespace}lang") or self.lang,
-                tags_to_keep=self.tags_to_keep,
-                tags_to_keep_with_content=self.tags_to_keep_with_content,
-                tags_to_remove_with_content=self.tags_to_remove_with_content,
-                tags_to_convert_to_html=self.tags_to_convert_to_html,
+    def get_abstracts(self, abstract_type=None):
+        type_filter = f'[@abstract-type="{abstract_type}"]' if abstract_type else "[not(@abstract-type)]"
+
+        # Abstracts do artigo principal: exclui qualquer coisa dentro de
+        # sub-article (traduções), para nunca misturar os dois casos.
+        main_xpath = (
+            f".//abstract{type_filter}[not(ancestor::sub-article)] | "
+            f".//trans-abstract{type_filter}[not(ancestor::sub-article)]"
+        )
+        for node in self.xmltree.xpath(main_xpath):
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or self.lang
+            yield self._build_abstract(node, lang)
+
+        # Abstracts de sub-article: o lang vem do próprio nó, com fallback
+        # para o xml:lang do sub-article que o contém. Nunca cai para o
+        # lang do artigo principal, já que um sub-article representa outro
+        # idioma.
+        sub_xpath = (
+            f".//sub-article//abstract{type_filter} | "
+            f".//sub-article//trans-abstract{type_filter}"
+        )
+        for node in self.xmltree.xpath(sub_xpath):
+            sub_article = node.xpath("ancestor::sub-article[1]")
+            sub_lang = (
+                sub_article[0].get("{http://www.w3.org/XML/1998/namespace}lang")
+                if sub_article else None
             )
-            yield abstract.data
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or sub_lang
+            yield self._build_abstract(node, lang)
 
     @property
     def standard_abstracts(self):
