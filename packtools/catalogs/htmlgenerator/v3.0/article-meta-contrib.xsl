@@ -22,7 +22,7 @@
             <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalTutors{$id}">
-                <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
+                <xsl:apply-templates select="." mode="contrib-group-title"/>
             </a>
         </xsl:if>
     </xsl:template>
