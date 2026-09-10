@@ -154,22 +154,6 @@
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      padding: 2rem 1rem;
-      color: #212529;
-      background: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, sans-serif;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    .component-demo {
-      width: min(100%, 70rem);
-      margin-inline: auto;
-    }
-
     .scielo__contribGroup {
       margin-top: 1.25rem;
       text-align: center;
@@ -188,12 +172,13 @@
       display: inline;
     }
 
+    /* A vírgula entre autores já é inserida via .author-separator no markup.
     .author-list > li:not(:last-child)::after,
-    /* .author-list__hidden > li:not(:last-child)::after {
+    .author-list__hidden > li:not(:last-child)::after {
       content: ",";
       margin-right: 0.25rem;
       color: #212529;
-    }*/
+    } */
 
     .author-link {
       display: inline-flex;
@@ -292,13 +277,8 @@
     </xsl:template>
 
     <xsl:template match="/" mode="js">
-        <!--
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://ds.scielo.org/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ds.scielo.org/js/scielo/scielo-ds-min.js"></script>
-        -->
-        <script src="https://www.scielo.br/static/js/scielo-bundle-min.js"></script>
-        <script src="https://www.scielo.br/static/js/scielo-article-min.js"></script>
+        <script src="{$JS_PATH}/scielo-bundle-min.js"></script>
+        <script src="{$JS_PATH}/scielo-article-min.js"></script>
 
         <xsl:if test=".//tex-math or .//math or .//mml:math">
             <script>
