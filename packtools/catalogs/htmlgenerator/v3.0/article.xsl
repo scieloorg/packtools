@@ -133,16 +133,162 @@
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
         <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css?v=1.1.32"/>
         <link rel="stylesheet" href="{$CSS_PATH}/article.css?v=1.1.32"/>
-        <!--
-        <style type="text/css">
-        .modal-dialog-scrollable .modal-body {
-            overflow-y:auto;
-            scrollbar-gutter:stable;
-        }
-        
-        </style>
         <xsl:apply-templates select="." mode="modal-contrib-group-css"/>
-        -->
+    </xsl:template>
+
+    <xsl:template match="*" mode="modal-contrib-group-css">
+        <style>
+        <![CDATA[
+     :root {
+      --author-link: #0056b3;
+      --author-link-hover: #003f82;
+      --author-button-bg: #6c757d;
+      --author-button-border: #6c757d;
+      --author-button-hover: #5c636a;
+      --author-focus: rgba(13, 110, 253, 0.32);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      color: #212529;
+      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .component-demo {
+      width: min(100%, 70rem);
+      margin-inline: auto;
+    }
+
+    .scielo__contribGroup {
+      margin-top: 1.25rem;
+      text-align: center;
+    }
+
+    .author-list,
+    .author-list__hidden {
+      display: inline;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .author-list > li,
+    .author-list__hidden > li {
+      display: inline;
+    }
+
+    .author-list > li:not(:last-child)::after,
+    /* .author-list__hidden > li:not(:last-child)::after {
+      content: ",";
+      margin-right: 0.25rem;
+      color: #212529;
+    }*/
+
+    .author-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--author-link);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .author-link:hover {
+      color: var(--author-link-hover);
+      text-decoration: underline;
+    }
+
+    .author-link:focus-visible,
+    .authors-collapse summary:focus-visible {
+      outline: 0.2rem solid var(--author-focus);
+      outline-offset: 0.15rem;
+      border-radius: 0.2rem;
+    }
+
+    .author-corresponding-icon {
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+      fill: currentColor;
+      vertical-align: -0.125em;
+    }
+
+    /* O details participa da mesma linha dos autores. */
+    .authors-collapse {
+      display: inline;
+    }
+
+    /* Remove o contêiner visual da lista interna. Os autores continuam
+       participando do fluxo de texto e quebram linha naturalmente. */
+    .authors-collapse[open] .author-list__hidden {
+      display: contents;
+    }
+
+    .authors-collapse summary {
+      display: inline-block;
+      margin: 0 0.25rem 0 0;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--author-button-border);
+      border-radius: 0.25rem;
+      color: #fff;
+      background: var(--author-button-bg);
+      font: inherit;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      vertical-align: baseline;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+    }
+
+    .authors-collapse summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .authors-collapse summary::marker {
+      content: "";
+    }
+
+    .authors-collapse summary:hover {
+      background: var(--author-button-hover);
+      border-color: var(--author-button-hover);
+    }
+
+    .authors-collapse__close {
+      display: none;
+    }
+
+    .authors-collapse[open] .authors-collapse__open {
+      display: none;
+    }
+
+    .authors-collapse[open] .authors-collapse__close {
+      display: inline;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+      }
+    }
+        ]]>
+        </style>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
