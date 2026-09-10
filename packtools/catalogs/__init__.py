@@ -52,6 +52,9 @@ default_catalog = {
             'htmlgenerator/static/scielo-article-standalone.css'),
         'HTML_GEN_DEFAULT_JS_PATH': os.path.join(_CWD,
             'htmlgenerator/static/scielo-article-standalone-min.js'),
+        # xslt 3.0 loads a pair of JS bundles from a directory (unlike the
+        # single-file default above, used by xslt 2.0), so it needs its own default.
+        'HTML_GEN_DEFAULT_JS_PATH_V3': 'https://www.scielo.br/static/js',
 
         # As a general rule, only the latest 2 versions are supported simultaneously.
         'CURRENTLY_SUPPORTED_VERSIONS': os.environ.get(
