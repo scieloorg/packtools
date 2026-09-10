@@ -13,10 +13,21 @@
                 <xsl:otherwise><xsl:value-of select="contrib[1]/@contrib-type"/></xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="count"><xsl:value-of select="count(contrib[@contrib-type=$type])"/></xsl:variable>
-        <xsl:apply-templates select="." mode="interface">
-            <xsl:with-param name="text">About the <xsl:value-of select="$type"/><xsl:if test="number($count)&gt;1">s</xsl:if></xsl:with-param>
-        </xsl:apply-templates>
+        <xsl:variable name="plural"><xsl:if test="number(count(contrib[@contrib-type=$type]))&gt;1">s</xsl:if></xsl:variable>
+        <xsl:choose>
+            <!--
+                Chaves fechadas para os tipos de contrib mais comuns, para que o catálogo
+                consiga traduzi-las. Para um contrib-type fora dessa lista, mantém-se o
+                texto dinâmico (sempre em inglês, pois não há como catalogar um vocabulário
+                aberto).
+            -->
+            <xsl:when test="$type='author' or $type='reviewer'">
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">about-the-<xsl:value-of select="$type"/><xsl:value-of select="$plural"/></xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>About the <xsl:value-of select="$type"/><xsl:value-of select="$plural"/></xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="article | sub-article" mode="contrib-group">
