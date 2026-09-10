@@ -36,7 +36,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="article | sub-article" mode="contrib-group">
+    <xsl:template match="article | sub-article | response" mode="contrib-group">
         <div>
             <xsl:attribute name="class">contribGroup</xsl:attribute>
             <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
