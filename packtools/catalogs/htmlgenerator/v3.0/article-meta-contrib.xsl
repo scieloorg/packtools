@@ -184,7 +184,12 @@
                                 </xsl:apply-templates>
                             </span>
                         </summary>
-                        <ul class="author-list__hidden" aria-label="Autores intermediários">
+                        <ul class="author-list__hidden">
+                            <xsl:attribute name="aria-label">
+                                <xsl:apply-templates select="." mode="interface">
+                                    <xsl:with-param name="text">Autores intermediários</xsl:with-param>
+                                </xsl:apply-templates>
+                            </xsl:attribute>
                             <xsl:for-each select="$contrib_names[position()&gt;2 and position()&lt;$total_contrib_names]">
                                 <xsl:apply-templates select="." mode="contrib-list-item">
                                     <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
@@ -239,7 +244,12 @@
                         </xsl:apply-templates>
                     </span>
                 </summary>
-                <ul class="author-list__hidden" aria-label="Autores intermediários">
+                <ul class="author-list__hidden">
+                    <xsl:attribute name="aria-label">
+                        <xsl:apply-templates select="." mode="interface">
+                            <xsl:with-param name="text">Autores intermediários</xsl:with-param>
+                        </xsl:apply-templates>
+                    </xsl:attribute>
                     <xsl:apply-templates select="contrib" mode="contrib-list-item">
                         <xsl:with-param name="id"><xsl:value-of select="@content-type"/><xsl:value-of select="$id"/></xsl:with-param>
                         <xsl:with-param name="sep">,</xsl:with-param>
