@@ -383,13 +383,12 @@
             target="_blank" 
             rel="noopener noreferrer" 
             class="btn btn-secondary orcid-button" 
-            href="https://orcid.org/{.}" 
-            aria-label="Access contributor profile {.}. Opens in new tab. External resource."
+            href="https://orcid.org/{.}"
             >
             <xsl:attribute name="aria-label">
                 <xsl:apply-templates select="." mode="interface">
                     <xsl:with-param name="text">Access contributor profile</xsl:with-param>
-                </xsl:apply-templates><xsl:value-of select="."/>.
+                </xsl:apply-templates><xsl:text>&#160;</xsl:text><xsl:value-of select="."/>.
                 <xsl:text>&#160;</xsl:text>
                 <xsl:apply-templates select="." mode="interface">
                     <xsl:with-param name="text">Opens in new tab. External resource.</xsl:with-param>
