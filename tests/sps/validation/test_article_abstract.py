@@ -772,6 +772,85 @@ class MultipleAbstractsTest(TestCase):
             self.assertEqual(validation["response"], "OK")
 
 
+class SubArticleAbstractLangTest(TestCase):
+    """
+    Regression tests for packtools#1329: a sub-article's translated
+    <abstract> (which usually has no xml:lang of its own — the language
+    lives on the parent <sub-article xml:lang="..."> element) must be
+    reported with its own language, never the main article's language.
+    """
+
+    def test_sub_article_abstract_without_own_lang_uses_sub_article_lang(self):
+        """Sub-article abstract without xml:lang must use the sub-article's own lang, not the main article's."""
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract>
+                            <title>Abstract</title>
+                            <p>Main abstract text.</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <front-stub>
+                        <abstract>
+                            <title>Resumo</title>
+                            <p>Texto do resumo.</p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+
+        abstracts = {a["lang"]: a for a in XMLAbstracts(xmltree).standard_abstracts}
+
+        self.assertEqual(abstracts["en"]["text"], "Main abstract text.")
+        self.assertEqual(abstracts["pt"]["text"], "Texto do resumo.")
+
+    def test_multiple_sub_articles_each_keep_own_lang(self):
+        """Reuses the shared fixture with an en main article plus pt/es sub-article translations."""
+        xmltree = ET.parse("tests/samples/article-abstract-en-sub-articles-pt-es.xml")
+
+        abstracts = list(XMLAbstracts(xmltree).standard_abstracts)
+
+        self.assertEqual({a["lang"] for a in abstracts}, {"en", "pt", "es"})
+        self.assertEqual(len(abstracts), 3)
+
+    def test_validation_pipeline_does_not_break_with_sub_article_abstracts(self):
+        """XMLAbstractsValidation (the production entry point) must keep working with sub-article abstracts present."""
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract>
+                            <title>Abstract</title>
+                            <p>Main abstract text.</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <front-stub>
+                        <abstract>
+                            <title>Resumo</title>
+                            <p>Texto do resumo.</p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+
+        validator = XMLAbstractsValidation(xmltree)
+        obtained = list(validator.validate())
+
+        self.assertTrue(obtained)
+
+
 class TransAbstractValidationTest(TestCase):
     """
     Tests for translated abstracts (<trans-abstract>).

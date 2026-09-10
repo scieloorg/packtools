@@ -109,11 +109,14 @@ def extract_contrib_data(xml_tree):
     affiliations = []
     corresponding_author = ''
 
-    contrib_group = xml_tree.find('.//contrib-group')
+    article_meta = xml_tree.find('./front/article-meta')
+    metadata_scope = article_meta if article_meta is not None else xml_tree
+    contrib_group = metadata_scope.find('.//contrib-group')
     if contrib_group is not None:
         aff_mapping = {}
+        affs = metadata_scope.findall('.//aff')
 
-        for aff in xml_tree.findall('.//aff'):
+        for aff in affs:
             aff_id = aff.get('id')
             label = aff.find('label').text if aff.find('label') is not None else ''
             institution = aff.find('institution[@content-type="original"]')
@@ -140,12 +143,12 @@ def extract_contrib_data(xml_tree):
                                 full_name += label
                     full_name += corresp_mark
                     authors_names.append(full_name)
-        
-        for aff in xml_tree.findall('.//aff'):
+
+        for aff in affs:
             label = aff.find('label').text if aff.find('label') is not None else ''
             institution = aff.find('institution[@content-type="original"]')
             institution_name = institution.text if institution is not None else ''
-            
+
             if institution_name:
                 aff_info = f"{label}[^] {institution_name}"
                 affiliations.append(aff_info)
@@ -164,14 +167,20 @@ def extract_contrib_data(xml_tree):
 def extract_abstract_data(xml_tree):
     """
     Extracts the title and content of the abstract from the given XML tree.
-    
+
+    Handles both a plain abstract (<p> direct children of <abstract>) and a
+    structured one (subsections wrapped in <sec>, e.g. Introduction/Methods/
+    Results, each with its own <title> and <p>) - see _extract_abstract_paragraphs.
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the abstract from.
-    
+
     Returns:
         dict: A dictionary containing the following keys:
             - 'title': The text content of the abstract title element, or an empty string if not found.
-            - 'content': The text content of the abstract paragraphs, concatenated into a single string.
+            - 'content': The text content of the abstract paragraphs (and, for a
+              structured abstract, each subsection's title), concatenated into a
+              single string.
     """
     data = {'title': '', 'content': ''}
 
@@ -182,22 +191,22 @@ def extract_abstract_data(xml_tree):
         if node_title is not None:
             data['title'] = ''.join(node_title.itertext()).strip()
 
-        abstract = []
-        for p in node_abstract.findall('p'):
-            if p is not None:
-                abstract.append(''.join(p.itertext()).strip())
-        data['content'] = ' '.join(abstract)
+        data['content'] = ' '.join(_extract_abstract_paragraphs(node_abstract))
 
     return data
 
 def extract_trans_abstract_data(xml_tree, namespaces={'xml': 'http://www.w3.org/XML/1998/namespace'}):
     """
     Extracts the title and content of translated abstracts from the given XML tree.
-    
+
+    Handles both a plain and a structured trans-abstract (subsections wrapped
+    in <sec>) the same way extract_abstract_data does - see
+    _extract_abstract_paragraphs.
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the translated abstracts from.
         namespaces (dict, optional): A dictionary of XML namespaces to use in the XPath expressions.
-    
+
     Returns:
         list: A list of dictionaries, where each dictionary contains the following keys:
             - 'lang': The language of the translated abstract.
@@ -213,15 +222,11 @@ def extract_trans_abstract_data(xml_tree, namespaces={'xml': 'http://www.w3.org/
 
         node_title = node.find('title')
         if node_title is not None:
-            item['title'] = node_title.text or ''
+            item['title'] = ''.join(node_title.itertext()).strip()
 
         item['lang'] = node.attrib.get(lang_attrib_name)
 
-        abstract = []
-        for p in node.findall('p'):
-            if p is not None:
-                abstract.append(p.text or '')
-        item['content'] = ' '.join(abstract)
+        item['content'] = ' '.join(_extract_abstract_paragraphs(node))
 
         data.append(item)
     
@@ -248,9 +253,11 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
     if kwd_group is not None:
         node_title = kwd_group.find('title')
         if node_title is not None:
-            data['title'] = node_title.text
+            data['title'] = ''.join(node_title.itertext()).strip()
 
-        data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
+        data['keywords'] = ', '.join(
+            ''.join(kwd.itertext()).strip() for kwd in kwd_group.findall('kwd')
+        )
 
     return data
 
@@ -334,13 +341,21 @@ def extract_cite_as_part_one(xml_tree, return_node=False):
             else:
                 return part_one.text
 
-def extract_body_data(xml_tree):
+def extract_body_data(xml_tree, table_layout_overrides=None):
     """
     Extracts the body data from an XML tree, including section titles, paragraphs, and tables.
-    
+
+    Excludes any <sec> nested inside <abstract> or <trans-abstract> - those
+    are structured-abstract subsections handled by extract_abstract_data /
+    extract_trans_abstract_data, and would otherwise be picked up twice by
+    a plain './/sec' search.
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the body data from.
-    
+        table_layout_overrides (dict, optional): Maps a table-wrap @id to a forced
+            layout ('single-column-layout' or 'double-column-layout'), bypassing
+            `determine_table_layout`'s heuristic for that specific table.
+
     Returns:
         list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
             - 'level': The nesting level of the section.
@@ -352,7 +367,10 @@ def extract_body_data(xml_tree):
     data = []
     seen_fig_keys = set()
 
-    for document_section in xml_tree.findall('.//sec'):
+    body_sections = xml_tree.xpath(
+        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)]'
+    )
+    for document_section in body_sections:
         sec = {'paragraphs': [], 'tables': [], 'figures': []}
         sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
         sec['title'] = document_section.find('title')
@@ -360,15 +378,14 @@ def extract_body_data(xml_tree):
         if sec['title'] is not None:
             sec['title'] = ''.join(sec['title'].itertext()).strip()
 
-        # Collect textual paragraphs but exclude figure/table elements
+        # Collect textual paragraphs but exclude figure/table elements. Uses
+        # get_text_from_node (tail-preserving) rather than a bare
+        # `.xpath('.//text()...')` + `' '.join(...)`, which inserted an
+        # artificial space between every text-node fragment regardless of
+        # whether the source had one there (e.g. "(<xref>...</xref>)" came
+        # out as "( ... )", and "<xref/>; <xref/>" as "... ; ...").
         for para in document_section.findall('p'):
-            try:
-                # Get text nodes that are not inside fig or table-wrap
-                texts = para.xpath('.//text()[not(ancestor::fig) and not(ancestor::table-wrap)]')
-                para_text = ' '.join(' '.join(texts).split()).strip()
-            except Exception:
-                # Fallback to generic text extraction
-                para_text = xml_utils.get_text_from_node(para)
+            para_text = xml_utils.get_text_from_node(para, skip_tags={'fig', 'table-wrap'}).strip()
             if para_text:
                 sec['paragraphs'].append(para_text)
 
@@ -376,7 +393,9 @@ def extract_body_data(xml_tree):
             closest_sec = table_wrap.xpath('ancestor::sec[1]')
             if closest_sec and closest_sec[0] is not document_section:
                 continue
-            sec['tables'].append(extract_table_data(table_wrap))
+            table_id = table_wrap.get('id') or table_wrap.get('xml:id')
+            override_layout = (table_layout_overrides or {}).get(table_id)
+            sec['tables'].append(extract_table_data(table_wrap, override_layout=override_layout))
 
         # Figures within the section (deduplicated across the body)
         for fig in document_section.findall('.//fig'):
@@ -585,13 +604,16 @@ def extract_supplementary_data(xml_tree):
                     })
     return data
 
-def extract_table_data(table_wrap):
+def extract_table_data(table_wrap, override_layout=None):
     """
     Extracts table data from an XML table-wrap element, handling merged cells.
-    
+
     Args:
         table_wrap (ElementTree): The XML table-wrap element to extract data from.
-    
+        override_layout (str, optional): Forces 'layout' to this value instead of
+            running `determine_table_layout`'s heuristic. Must be one of
+            pdf_enum.SINGLE_COLUMN_PAGE_LABEL/DOUBLE_COLUMN_PAGE_LABEL, otherwise ignored.
+
     Returns:
         dict: A dictionary containing the following keys:
             - 'label': The text content of the table label element, or an empty string if not found.
@@ -600,6 +622,7 @@ def extract_table_data(table_wrap):
             - 'rows': A list of lists, where each inner list represents the text content of the table data cells.
             - 'layout': A string indicating the table layout ('single-column-layout' or 'double-column-layout').
             - 'column_widths': A list of calculated column widths based on content.
+            - 'foot': A list of footnote/attribution strings from <table-wrap-foot>, if present.
     """
     table_label = table_wrap.find('.//label')
     label_text = table_label.text if table_label is not None else ""
@@ -607,12 +630,14 @@ def extract_table_data(table_wrap):
     table_title = table_wrap.find('.//title')
     title_text = table_title.text if table_title is not None else ""
 
+    foot_notes = _extract_table_foot(table_wrap)
+
     headers = []
     rows = []
     header_spans = []
     row_spans = []
     table = table_wrap.find('.//table')
-    layout = determine_table_layout(table_wrap)
+    layout = determine_table_layout(table_wrap, override=override_layout)
 
     if table is not None:
         thead = table.find('.//thead')
@@ -641,34 +666,49 @@ def extract_table_data(table_wrap):
         'column_widths': column_widths,
         'header_spans': header_spans,
         'row_spans': row_spans,
+        'foot': foot_notes,
     }
 
-def determine_table_layout(table_wrap):
+_PATHOLOGICAL_CELL_LENGTH = 400
+
+def determine_table_layout(table_wrap, override=None):
     """
-    Determines the layout of a table based on the number of columns it contains, considering merged cells.
+    Determines the layout of a table based on the number of columns it contains,
+    considering merged cells, with an escape hatch for an explicit override and a
+    guard against a single excessively long cell (which the column-count heuristic
+    alone can't catch: a table can have few columns and still need full width).
 
     Args:
         table_wrap (ElementTree): The XML table-wrap element to analyze.
+        override (str, optional): Forces this layout instead of running the heuristic.
+            Must be one of pdf_enum.SINGLE_COLUMN_PAGE_LABEL/DOUBLE_COLUMN_PAGE_LABEL,
+            otherwise ignored.
 
     Returns:
         str: A string indicating the table layout. Possible values are 'single-column-layout' and 'double-column-layout'.
     """
+    if override in (pdf_enum.SINGLE_COLUMN_PAGE_LABEL, pdf_enum.DOUBLE_COLUMN_PAGE_LABEL):
+        return override
+
     table = table_wrap.find('.//table')
     if table is not None:
         # Check both thead and tbody for maximum columns
         max_columns = 0
-        
+
         thead = table.find('.//thead')
         if thead is not None:
             max_columns = max(max_columns, _calculate_max_columns(thead, 'th'))
-        
+
         tbody = table.find('.//tbody')
         if tbody is not None:
             max_columns = max(max_columns, _calculate_max_columns(tbody, 'td'))
-        
+
         if max_columns > 4:
             return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-    
+
+        if _max_cell_text_length(table) > _PATHOLOGICAL_CELL_LENGTH:
+            return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+
     return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
 
 def get_table_column_info(headers, rows):
@@ -768,6 +808,43 @@ def get_table_column_info(headers, rows):
 # -----------------
 # Private helpers
 # -----------------
+
+def _extract_abstract_paragraphs(node):
+    """
+    Collects an abstract's readable text as a list of strings, one per
+    <p> found at any depth. A structured abstract wraps each subsection
+    in its own <sec> (e.g. <sec><title>Methods:</title><p>...</p></sec>),
+    so a plain `node.findall('p')` (direct children only) misses every
+    paragraph and returns an empty abstract. Recursing into <sec> finds
+    them, and including each <sec>'s own <title> in the flattened output
+    preserves the abstract's structure instead of silently merging
+    distinct subsections together. Some XMLs already carry a trailing
+    colon in the title (e.g. "Methods:"), others don't (e.g. "Methods");
+    a colon is appended only when the title lacks its own closing
+    punctuation, so it never gets duplicated.
+
+    Args:
+        node (ElementTree): The <abstract> or <trans-abstract> element
+            (or a <sec> within one, for the recursive call).
+
+    Returns:
+        list: Text fragments in document order - <sec> titles and <p> content.
+    """
+    parts = []
+    for child in node:
+        if child.tag == 'p':
+            parts.append(''.join(child.itertext()).strip())
+        elif child.tag == 'sec':
+            sec_title = child.find('title')
+            if sec_title is not None:
+                title_text = ''.join(sec_title.itertext()).strip()
+                if title_text:
+                    if title_text[-1] not in ':.!?;':
+                        title_text = f'{title_text}:'
+                    parts.append(title_text)
+            parts.extend(_extract_abstract_paragraphs(child))
+    return parts
+
 
 def _extract_table_rows_with_merged_cells(table_section, cell_tag):
     """
@@ -894,6 +971,36 @@ def _calculate_max_columns(table_section, cell_tag):
         max_cols = max(max_cols, current_cols)
     
     return max_cols
+
+def _max_cell_text_length(table):
+    """Returns the character length of the longest single cell's text in the table."""
+    max_len = 0
+    for cell in table.xpath('.//td | .//th'):
+        cell_len = len(''.join(cell.itertext()).strip())
+        max_len = max(max_len, cell_len)
+    return max_len
+
+def _extract_table_foot(table_wrap):
+    """
+    Extracts footnote/attribution text from a table's <table-wrap-foot>, if present.
+
+    Args:
+        table_wrap (ElementTree): The XML table-wrap element to extract from.
+
+    Returns:
+        list: One string per <p>, <fn> or <attrib> child found, in document order.
+    """
+    notes = []
+    foot = table_wrap.find('.//table-wrap-foot')
+    if foot is None:
+        return notes
+
+    for node in foot.xpath('./p | ./fn | ./attrib | ./fn-group/fn'):
+        text = ' '.join(' '.join(node.itertext()).split()).strip()
+        if text:
+            notes.append(text)
+
+    return notes
 
 def _calculate_column_widths(headers, rows, min_width=50, max_width=200):
     """

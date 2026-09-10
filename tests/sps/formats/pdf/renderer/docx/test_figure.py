@@ -7,12 +7,37 @@ from docx.shared import Cm
 from PIL import Image
 
 from packtools.sps.formats.pdf.renderer.docx.figure import (
+    _add_caption,
     _infer_image_dpi,
     _natural_width_capped,
     add_figure,
     decide_figure_layout,
 )
 from packtools.sps.formats.pdf import enum as pdf_enum
+
+
+class TestAddCaption(unittest.TestCase):
+    """
+    Regression: the caption paragraph's own style (SCL Table Heading) has no
+    line_spacing, so it fell back to the same loose spacing as body text -
+    only the smaller caption font size made it look somewhat tighter. Line
+    spacing is now set explicitly, independent of whether the named style
+    resolves.
+    """
+
+    def test_caption_has_single_line_spacing(self):
+        docx = Document()
+        docx.add_paragraph()
+        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'SCL Table Heading')
+        p = docx.paragraphs[-1]
+        self.assertEqual(p.paragraph_format.line_spacing, 1.0)
+
+    def test_line_spacing_set_even_when_named_style_is_missing(self):
+        docx = Document()
+        docx.add_paragraph()
+        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'Does Not Exist')
+        p = docx.paragraphs[-1]
+        self.assertEqual(p.paragraph_format.line_spacing, 1.0)
 
 
 class TestDecideFigureLayoutUnits(unittest.TestCase):

@@ -1,40 +1,40 @@
-def get_text_from_node(node):
+import re
+
+
+def get_text_from_node(node, skip_tags=None):
     """
-    Extracts text from an XML node, including its children.
+    Extracts text from an XML node, including its children, preserving the
+    adjacency of the source (no space is inserted between fragments unless
+    one was already there as literal text or a tail).
 
     Args:
         node (ElementTree): The XML node to extract text from.
+        skip_tags (set, optional): Child tag names to drop entirely from the
+            output; only their `.tail` (the text that follows them in the
+            source) is kept. Used to flatten a paragraph to readable text
+            while excluding embedded elements such as <fig>/<table-wrap>.
 
     Returns:
         str: The text extracted from the given node.
     """
+    skip_tags = skip_tags or set()
     texts_els = []
 
     if node.text:
         texts_els.append(node.text)
 
     for child in node:
-        if child.tag == 'xref':
-            xref_text = child.text if child.text else ''
-            for subchild in child:
-                if subchild.tag in ('italic', 'bold'):
-                    xref_text += (subchild.text if subchild.text else '')
-                    if subchild.tail:
-                        xref_text += (subchild.tail if subchild.tail else '')
-            texts_els.append(xref_text)
-        elif child.tag in ('italic', 'bold'):
-            if child.text:
-                texts_els.append(child.text)
-            for subchild in child:
-                texts_els.append(get_text_from_node(subchild))
+        if child.tag in skip_tags:
+            pass
         else:
-            texts_els.append(get_text_from_node(child))
+            texts_els.append(get_text_from_node(child, skip_tags=skip_tags))
 
         if child.tail:
             texts_els.append(child.tail)
 
     text = ''.join(texts_els)
     text = _remove_double_spaces(text)
+    text = _normalize_punctuation_spacing(text)
     return text
 
 def get_node_level(element, root):
@@ -113,14 +113,36 @@ def _add_period(text):
 
 def _remove_double_spaces(text):
     """
-    Removes double spaces from the given text.
+    Collapses any run of whitespace (including tabs and newlines left over
+    from pretty-printed XML, e.g. the indentation tail of a skipped
+    <fig>/<table-wrap>) into a single space.
 
     Args:
-        text (str): The text to remove double spaces from.
+        text (str): The text to normalize.
 
     Returns:
-        str: The text with double spaces removed.
+        str: The text with whitespace runs collapsed to single spaces.
     """
-    while '  ' in text:
-        text = text.replace('  ', ' ')
+    return re.sub(r'\s+', ' ', text)
+
+def _normalize_punctuation_spacing(text):
+    """
+    Removes whitespace that ends up glued to the inside of parentheses and
+    brackets, or before a comma/semicolon, when the source XML has a space
+    directly before/after an inline element such as <xref> (e.g. "( <xref>
+    Fig. 1</xref> )") — a common defect that survives adjacency-preserving
+    extraction because the space is literal text, not an artifact of it.
+
+    Args:
+        text (str): The text to normalize.
+
+    Returns:
+        str: The text with punctuation spacing normalized.
+    """
+    text = re.sub(r'\(\s+', '(', text)
+    text = re.sub(r'\s+\)', ')', text)
+    text = re.sub(r'\[\s+', '[', text)
+    text = re.sub(r'\s+\]', ']', text)
+    text = re.sub(r'\s+;', ';', text)
+    text = re.sub(r'\s+,', ',', text)
     return text

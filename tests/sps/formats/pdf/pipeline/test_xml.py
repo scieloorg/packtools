@@ -3,6 +3,7 @@ import unittest
 from lxml import etree
 
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+from packtools.sps.formats.pdf import enum as pdf_enum
 
 
 class TestExtractAbstractData(unittest.TestCase):
@@ -79,6 +80,58 @@ class TestExtractAbstractData(unittest.TestCase):
             'title': 'Abstract Title',
             'content': 'First paragraph. Second paragraph.'
         }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_structured_with_sections(self):
+        # Regression for issue #1332: a structured abstract wraps
+        # each subsection in its own <sec>, so a plain findall('p') (direct
+        # children only) found nothing and returned an empty content.
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<title>Abstract</title>'
+            '<sec><title>Introduction:</title><p>Some introduction text.</p></sec>'
+            '<sec><title>Methods:</title><p>Some methods text.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {
+            'title': 'Abstract',
+            'content': 'Introduction: Some introduction text. Methods: Some methods text.',
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_structured_section_title_without_punctuation(self):
+        # Some XMLs don't carry a trailing colon in the <sec><title>, unlike
+        # the "Methods:" style above - a colon must be added so the title
+        # doesn't run into the paragraph text (e.g. "Objetivodescrever...").
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<sec><title>Objetivo</title><p>Descrever o metodo.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {'title': '', 'content': 'Objetivo: Descrever o metodo.'}
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_structured_section_without_title(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<sec><p>Untitled section text.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {'title': '', 'content': 'Untitled section text.'}
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_mixed_direct_and_sectioned_paragraphs(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<p>Lead paragraph.</p>'
+            '<sec><title>Conclusion:</title><p>Final remarks.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {'title': '', 'content': 'Lead paragraph. Conclusion: Final remarks.'}
         result = xml_pipe.extract_abstract_data(xml)
         self.assertEqual(result, expected)
 
@@ -302,6 +355,36 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_body_data_excludes_abstract_and_trans_abstract_sections(self):
+        # Regression: a structured abstract/trans-abstract wraps each
+        # subsection in its own <sec> (see extract_abstract_data), which a
+        # plain './/sec' search would also pick up as a body section,
+        # duplicating the same content in both the abstract and the body.
+        xml = etree.fromstring(
+            '<article>'
+            '<abstract>'
+            '<sec><title>Background:</title><p>Abstract text.</p></sec>'
+            '</abstract>'
+            '<trans-abstract>'
+            '<sec><title>Contexto:</title><p>Texto do resumo.</p></sec>'
+            '</trans-abstract>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 2,
+                'title': 'Introduction',
+                'paragraphs': ['Body text.'],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
     def test_extract_body_data_with_tables(self):
         xml = etree.fromstring(
             '<article>'
@@ -334,6 +417,7 @@ class TestExtractBodyData(unittest.TestCase):
                         'column_widths': [50],
                         'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Header'}]],
                         'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data'}]],
+                        'foot': [],
                     }
                 ],
                 'figures': [],
@@ -406,6 +490,7 @@ class TestExtractBodyData(unittest.TestCase):
                         'column_widths': [50],
                         'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Header'}]],
                         'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data'}]],
+                        'foot': [],
                     }
                 ],
                 'figures': [],
@@ -413,6 +498,42 @@ class TestExtractBodyData(unittest.TestCase):
         ]
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
+
+    def test_paragraph_citations_have_no_stray_space_around_parentheses(self):
+        # Regression: a naive `.xpath('.//text()...')` + `' '.join(...)`
+        # inserted a space between every text-node fragment regardless of
+        # adjacency in the source, turning "(<xref>...</xref>; <xref>...
+        # </xref>)" into "( ... ; ... )".
+        xml = etree.fromstring(
+            '<article><sec><title>Introduction</title>'
+            '<p>Pressure is increasing '
+            '(<xref ref-type="bibr" rid="B1">Lang and Barling, 2012</xref>'
+            '; <xref ref-type="bibr" rid="B2">Ripple et al., 2019</xref>) '
+            'worldwide.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(
+            result[0]['paragraphs'],
+            ['Pressure is increasing (Lang and Barling, 2012; Ripple et al., 2019) worldwide.'],
+        )
+
+    def test_embedded_fig_tail_whitespace_is_collapsed_not_left_raw(self):
+        # A skipped <fig>'s tail can carry the source's pretty-printing
+        # indentation (a newline + spaces); it must collapse to one space
+        # rather than leak into the rendered paragraph.
+        xml = etree.fromstring(
+            '<article><sec><title>Results</title>'
+            '<p>See the figure below\n'
+            '<fig id="f1"><label>Figure 1</label></fig>\n            '
+            'for details.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(
+            result[0]['paragraphs'],
+            ['See the figure below for details.'],
+        )
 
 
 class TestExtractCategory(unittest.TestCase):
@@ -640,6 +761,121 @@ class TestExtractContribData(unittest.TestCase):
         result = xml_pipe.extract_contrib_data(xml)
         self.assertEqual(result['authors_names'], ['John Smith[^]'])
         self.assertEqual(result['affiliations'], ['[^] University X'])
+
+    def test_subarticle_affiliation_is_not_printed(self):
+        # Regression: translated affiliations in a sub-article must not be
+        # included in the affiliation list of the main article.
+        xml = etree.fromstring("""
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib>
+                                <name>
+                                    <surname>Smith</surname>
+                                    <given-names>John</given-names>
+                                </name>
+                                <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                        </contrib-group>
+                        <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="original">University A</institution>
+                        </aff>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation">
+                    <front-stub>
+                        <contrib-group>
+                            <contrib>
+                                <name>
+                                    <surname>Smith</surname>
+                                    <given-names>John</given-names>
+                                </name>
+                                <xref ref-type="aff" rid="aff1e"/>
+                            </contrib>
+                        </contrib-group>
+                        <aff id="aff1e">
+                            <label>I</label>
+                            <institution content-type="original">Universidade A</institution>
+                        </aff>
+                    </front-stub>
+                </sub-article>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['affiliations'], ['I[^] University A'])
+
+    def test_main_article_affiliations_are_kept_regardless_of_id_pattern(self):
+        xml = etree.fromstring("""
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib>
+                                <name>
+                                    <surname>Smith</surname>
+                                    <given-names>John</given-names>
+                                </name>
+                                <xref ref-type="aff" rid="aff01"/>
+                            </contrib>
+                            <contrib>
+                                <name>
+                                    <surname>Doe</surname>
+                                    <given-names>Jane</given-names>
+                                </name>
+                                <xref ref-type="aff" rid="aff0100"/>
+                            </contrib>
+                        </contrib-group>
+                        <aff id="aff01">
+                            <label>1</label>
+                            <institution content-type="original">University A</institution>
+                        </aff>
+                        <aff id="aff0100">
+                            <label>2</label>
+                            <institution content-type="original">University B</institution>
+                        </aff>
+                    </article-meta>
+                </front>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(
+            result['affiliations'],
+            ['1[^] University A', '2[^] University B'],
+        )
+
+    def test_main_article_affiliation_without_xref_is_printed(self):
+        xml = etree.fromstring("""
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib>
+                                <name>
+                                    <surname>Smith</surname>
+                                    <given-names>John</given-names>
+                                </name>
+                            </contrib>
+                        </contrib-group>
+                        <aff id="aff1">
+                            <label>1</label>
+                            <institution content-type="original">University A</institution>
+                        </aff>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation">
+                    <front-stub>
+                        <aff id="aff1e">
+                            <label>1</label>
+                            <institution content-type="original">Universidade A</institution>
+                        </aff>
+                    </front-stub>
+                </sub-article>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['affiliations'], ['1[^] University A'])
 
 
 class TestExtractDOI(unittest.TestCase):
@@ -896,6 +1132,40 @@ class TestExtractKeywordsData(unittest.TestCase):
         result = xml_pipe.extract_keywords_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_keywords_data_keyword_with_inline_markup(self):
+        """
+        Regression test for issue #1321: a <kwd> containing inline markup
+        (e.g. <italic>) used to be truncated at kwd.text, dropping the
+        italic text and everything after it within that keyword.
+        """
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords</title>'
+            '<kwd>maize (<italic>Zea mays</italic> L.)</kwd>'
+            '<kwd>growth stimulation</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': 'Keywords',
+            'keywords': 'maize (Zea mays L.), growth stimulation'
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_title_with_inline_markup(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords<italic>*</italic></title>'
+            '<kwd>Keyword1</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result['title'], 'Keywords*')
+
 
 class TestExtractReferencesData(unittest.TestCase):
 
@@ -1068,6 +1338,7 @@ class TestExtractTableData(unittest.TestCase):
                            {'colspan': 1, 'rowspan': 1, 'text': '25'}],
                           [{'colspan': 1, 'rowspan': 1, 'text': 'Jane'},
                            {'colspan': 1, 'rowspan': 1, 'text': '30'}]],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1095,6 +1366,7 @@ class TestExtractTableData(unittest.TestCase):
             'column_widths': [50],
             'header_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Col1'}]],
             'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Data1'}]],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1120,6 +1392,7 @@ class TestExtractTableData(unittest.TestCase):
             'column_widths': [],
             'header_spans': [],
             'row_spans': [],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1141,6 +1414,7 @@ class TestExtractTableData(unittest.TestCase):
             'column_widths': [],
             'header_spans': [],
             'row_spans': [],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
@@ -1173,9 +1447,109 @@ class TestExtractTableData(unittest.TestCase):
                                {'colspan': 1, 'rowspan': 1, 'text': 'SubCol2'}]],
             'row_spans': [[{'colspan': 1, 'rowspan': 1, 'text': 'Val1'},
                            {'colspan': 1, 'rowspan': 1, 'text': 'Val2'}]],
+            'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(expected, result)
+
+    def test_extract_table_data_foot_with_fn_and_attrib(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn id="TFN1"><p>Source: Authors.</p></fn>
+                    <fn id="TFN2"><p>* p &lt; 0.05.</p></fn>
+                    <attrib>Adapted from Smith (2020).</attrib>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result['foot'],
+            ['Source: Authors.', '* p < 0.05.', 'Adapted from Smith (2020).'],
+        )
+
+    def test_extract_table_data_foot_with_direct_p_elements(self):
+        # Regression: table-wrap-foot can hold <p> children directly, not
+        # only wrapped in <fn> or <attrib> (e.g. Table 2 of a2.xml fixture).
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <p>Legenda: Outros (BR): 87 titulos.</p>
+                    <p>Fonte: Dados da pesquisa (Florianopolis, 2022).</p>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result['foot'],
+            ['Legenda: Outros (BR): 87 titulos.', 'Fonte: Dados da pesquisa (Florianopolis, 2022).'],
+        )
+
+    def test_extract_table_data_foot_preserves_mixed_document_order(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <p>Legenda solta.</p>
+                    <fn id="TFN1"><p>Nota de rodape.</p></fn>
+                    <attrib>Fonte: Autores.</attrib>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result['foot'],
+            ['Legenda solta.', 'Nota de rodape.', 'Fonte: Autores.'],
+        )
+
+    def test_extract_table_data_no_foot_defaults_to_empty_list(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result['foot'], [])
+
+    def test_determine_table_layout_single_long_cell_forces_single_column(self):
+        long_text = "x" * 500
+        xml_str = f"<table-wrap><table><tbody><tr><td>{long_text}</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        self.assertEqual(
+            xml_pipe.determine_table_layout(table_wrap),
+            pdf_enum.SINGLE_COLUMN_PAGE_LABEL,
+        )
+
+    def test_determine_table_layout_moderately_long_cell_stays_double_column(self):
+        moderate_text = "x" * 150
+        xml_str = f"<table-wrap><table><tbody><tr><td>{moderate_text}</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        self.assertEqual(
+            xml_pipe.determine_table_layout(table_wrap),
+            pdf_enum.DOUBLE_COLUMN_PAGE_LABEL,
+        )
+
+    def test_extract_table_data_override_layout_wins_over_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(
+            table_wrap, override_layout=pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+        )
+        self.assertEqual(result['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
+    def test_extract_table_data_invalid_override_falls_back_to_heuristic(self):
+        xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap, override_layout='not-a-real-layout')
+        self.assertEqual(result['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
 
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):
@@ -1281,6 +1655,23 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
         self.assertEqual([t['label'] for t in parent_sec['tables']], ['Table 1'])
         self.assertEqual([t['label'] for t in child_sec['tables']], ['Table 2'])
 
+    def test_table_layout_overrides_reach_extract_table_data(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Parent</title>'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(
+            xml, table_layout_overrides={'t1': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}
+        )
+        self.assertEqual(result[0]['tables'][0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
 
 class TestExtractTransAbstractData(unittest.TestCase):
 
@@ -1377,6 +1768,66 @@ class TestExtractTransAbstractData(unittest.TestCase):
             xml,
             namespaces={'xml': 'http://custom.namespace'}
         )
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_paragraph_with_inline_markup(self):
+        """
+        Regression test for issue #1321: a <p> containing inline markup
+        (e.g. <italic>) used to be truncated at p.text, dropping the italic
+        text and everything after it in that paragraph.
+        """
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo</title>'
+            '<p>Efeito do milho (<italic>Zea mays</italic> L.) na produtividade.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'pt',
+                'title': 'Resumo',
+                'content': 'Efeito do milho (Zea mays L.) na produtividade.'
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_title_with_inline_markup(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo<italic>*</italic></title>'
+            '<p>Texto.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result[0]['title'], 'Resumo*')
+
+    def test_extract_trans_abstract_data_structured_with_sections(self):
+        # Regression for issue #1332: same bug as extract_abstract_data,
+        # a structured trans-abstract's <p> nested in <sec> was invisible
+        # to a plain findall('p'), so the translated abstract's content
+        # came out empty (e.g. a10.xml's RESUMO in the real test corpus).
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo</title>'
+            '<sec><title>Contexto:</title><p>Texto de contexto.</p></sec>'
+            '<sec><title>Métodos:</title><p>Texto de métodos.</p></sec>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'pt',
+                'title': 'Resumo',
+                'content': 'Contexto: Texto de contexto. Métodos: Texto de métodos.',
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
         self.assertEqual(result, expected)
 
 
