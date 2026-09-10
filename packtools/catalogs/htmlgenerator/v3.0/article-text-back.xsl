@@ -5,6 +5,15 @@
 
     <xsl:include href="../v2.0/article-text-back.xsl"/>
 
+    <xsl:template match="author-notes/*" mode="back-section">
+        <xsl:apply-templates select="@id" mode="add_span_id"/>
+        <div>
+            <xsl:apply-templates select="." mode="back-section-menu"/>
+            <xsl:apply-templates select="." mode="back-section-h"/>
+            <xsl:apply-templates select="." mode="back-section-content"/>
+        </div>
+    </xsl:template>
+
     <xsl:template match="*" mode="back-section-h">
         <xsl:if test="title or label">
             <h2 class="h5">
