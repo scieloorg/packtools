@@ -618,4 +618,112 @@
         <name lang="pt">Navegação do artigo</name>
         <name lang="es">Navegación del artículo</name>
     </term>
+    <term>
+        <name>Lista de autores</name>
+        <name lang="en">Author list</name>
+        <name lang="pt">Lista de autores</name>
+        <name lang="es">Lista de autores</name>
+    </term>
+    <term>
+        <name>autores</name>
+        <name lang="en">authors</name>
+        <name lang="pt">autores</name>
+        <name lang="es">autores</name>
+    </term>
+    <term>
+        <name>ocultar autores</name>
+        <name lang="en">hide authors</name>
+        <name lang="pt">ocultar autores</name>
+        <name lang="es">ocultar autores</name>
+    </term>
+    <term>
+        <name>Autores intermediários</name>
+        <name lang="en">Intermediate authors</name>
+        <name lang="pt">Autores intermediários</name>
+        <name lang="es">Autores intermedios</name>
+    </term>
+    <term>
+        <name>group members</name>
+        <name lang="en">group members</name>
+        <name lang="pt">integrantes do grupo</name>
+        <name lang="es">integrantes del grupo</name>
+    </term>
+    <term>
+        <name>ocultar collab list</name>
+        <name lang="en">hide group list</name>
+        <name lang="pt">ocultar lista do grupo</name>
+        <name lang="es">ocultar lista del grupo</name>
+    </term>
+    <term>
+        <name>Abrir detalhes de </name>
+        <name lang="en">Open details for </name>
+        <name lang="pt">Abrir detalhes de </name>
+        <name lang="es">Abrir detalles de </name>
+    </term>
+    <term>
+        <name>Opens in new tab. External resource.</name>
+        <name lang="en">Opens in new tab. External resource.</name>
+        <name lang="pt">Abre em nova aba. Recurso externo.</name>
+        <name lang="es">Abre en nueva pestaña. Recurso externo.</name>
+    </term>
+    <term>
+        <name>author-notes-fn-con</name>
+        <name lang="en">Author contributions</name>
+        <name lang="pt">Contribuições dos autores</name>
+        <name lang="es">Contribuciones de los autores</name>
+    </term>
+    <term>
+        <name>author-notes-fn-conflict</name>
+        <name lang="en">Conflicts of interest</name>
+        <name lang="pt">Conflitos de interesse</name>
+        <name lang="es">Conflictos de interés</name>
+    </term>
+    <term>
+        <name>author-notes-fn-corresp</name>
+        <name lang="en">Correspondence</name>
+        <name lang="pt">Correspondência</name>
+        <name lang="es">Correspondencia</name>
+    </term>
+    <term>
+        <name>author-notes-fn-current-aff</name>
+        <name lang="en">Current affiliation</name>
+        <name lang="pt">Afiliação atual</name>
+        <name lang="es">Afiliación actual</name>
+    </term>
+    <term>
+        <name>author-notes-fn-data-availability</name>
+        <name lang="en">Data availability statement</name>
+        <name lang="pt">Declaração de disponibilidade de dados</name>
+        <name lang="es">Declaración de disponibilidad de datos</name>
+    </term>
+    <term>
+        <name>author-notes-fn-edited-by</name>
+        <name lang="en">Edited by</name>
+        <name lang="pt">Editado por</name>
+        <name lang="es">Editado por</name>
+    </term>
+    <term>
+        <name>author-notes-fn-financial-disclosure</name>
+        <name lang="en">Funding</name>
+        <name lang="pt">Financiamento</name>
+        <name lang="es">Financiamiento</name>
+    </term>
+    <term>
+        <name>author-notes-fn-other</name>
+        <name lang="en">Other information</name>
+        <name lang="pt">Outras informações</name>
+        <name lang="es">Otra información</name>
+    </term>
+    <term>
+        <name>author-notes-fn-supplementary-material</name>
+        <name lang="en">Supplementary material</name>
+        <name lang="pt">Material suplementar</name>
+        <name lang="es">Material suplementario</name>
+    </term>
+    <term>
+        <name>author-notes-fn-supported-by</name>
+        <name lang="en">Supported by</name>
+        <name lang="pt">Apoiado por</name>
+        <name lang="es">Apoyado por</name>
+    </term>
 </labels>
