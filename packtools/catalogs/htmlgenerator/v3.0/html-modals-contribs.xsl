@@ -76,7 +76,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            SCIMAGO INSTITUTIONS RANKINGS
+                            SCImago Institutions Rankings
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
                             <xsl:attribute name="aria-label">

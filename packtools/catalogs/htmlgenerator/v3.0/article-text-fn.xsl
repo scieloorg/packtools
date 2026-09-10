@@ -32,7 +32,7 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="fn[@fn-type='edited-by'] | fn[ @fn-type='data-availability']" mode="back-section-h">
+    <xsl:template match="fn| fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-h">
         <!--
             Apresenta o título da seção no texto completo
         -->
@@ -40,10 +40,35 @@
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
             <h2 class="h5">
                 <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
+                    <xsl:with-param name="text">author-notes-fn-<xsl:value-of select="@fn-type"/></xsl:with-param>
                 </xsl:apply-templates>
             </h2>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="author-notes" mode="author-notes-as-sections">
+        <!-- apresenta todas as notas de autores -->
+        <xsl:apply-templates select="fn" mode="back-section"/>
+    </xsl:template>
+
+    <xsl:template match="fn" mode="back-section-menu">
+        <xsl:variable name="name" select="@fn-type"/>
+        <!--
+        Evita que no menu apareça o mesmo título mais de uma vez 
+        -->
+        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
+            <xsl:attribute name="class">articleSection</xsl:attribute>
+            <xsl:attribute name="data-anchor">
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">author-notes-fn-<xsl:value-of select="@fn-type"/></xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="fn" mode="back-section-content">
+        <xsl:apply-templates select="label|p" mode="div-fn-list-item"/>
     </xsl:template>
 
 </xsl:stylesheet>

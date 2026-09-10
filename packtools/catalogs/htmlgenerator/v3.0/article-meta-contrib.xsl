@@ -6,10 +6,21 @@
     <xsl:include href="../v2.0/article-meta-contrib.xsl"/>
 
     <xsl:template match="article | sub-article" mode="contrib-group">
+        <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
         <div>
             <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
             <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
+            <xsl:apply-templates select="front | front-stub" mode="scimago-button">
+                <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+            </xsl:apply-templates>
         </div>
+    </xsl:template>
+
+    <xsl:template match="front | front-stub" mode="contrib-group">
+        <xsl:variable name="AUTHOR_LIST_LABEL"><xsl:apply-templates select="." mode="interface">
+            <xsl:with-param name="text">Author list</xsl:with-param>
+        </xsl:apply-templates></xsl:variable>
+        <ul aria-label="{$AUTHOR_LIST_LABEL}" class="author-list" id="authorList"></ul>
     </xsl:template>
 
     <xsl:template match="contrib-group" mode="about-the-contrib-group-button">
@@ -27,7 +38,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="front | front-stub" mode="scimago-button">
+    <xsl:template match="article-meta | front | front-stub" mode="scimago-button">
         <xsl:param name="id"/>
         <!--
             Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
@@ -35,7 +46,7 @@
         <xsl:if test=".//aff">
             <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
                 data-bs-toggle="modal"
-                data-bs-target="#ModalScimago{$id}">SCIMAGO INSTITUTIONS RANKINGS</a>
+                data-bs-target="#ModalScimago{$id}">SCImago Institutions Rankings</a>
         </xsl:if>
     </xsl:template>
 
