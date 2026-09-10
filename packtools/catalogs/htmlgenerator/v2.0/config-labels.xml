@@ -726,4 +726,40 @@
         <name lang="pt">Apoiado por</name>
         <name lang="es">Apoyado por</name>
     </term>
+    <term>
+        <name>Close</name>
+        <name lang="en">Close</name>
+        <name lang="pt">Fechar</name>
+        <name lang="es">Cerrar</name>
+    </term>
+    <term>
+        <name>Access contributor profile</name>
+        <name lang="en">Access contributor profile</name>
+        <name lang="pt">Acessar perfil do contribuidor</name>
+        <name lang="es">Acceder al perfil del colaborador</name>
+    </term>
+    <term>
+        <name>about-the-author</name>
+        <name lang="en">About the author</name>
+        <name lang="pt">Sobre o autor</name>
+        <name lang="es">Sobre el autor</name>
+    </term>
+    <term>
+        <name>about-the-authors</name>
+        <name lang="en">About the authors</name>
+        <name lang="pt">Sobre os autores</name>
+        <name lang="es">Sobre los autores</name>
+    </term>
+    <term>
+        <name>about-the-reviewer</name>
+        <name lang="en">About the reviewer</name>
+        <name lang="pt">Sobre o revisor</name>
+        <name lang="es">Sobre el revisor</name>
+    </term>
+    <term>
+        <name>about-the-reviewers</name>
+        <name lang="en">About the reviewers</name>
+        <name lang="pt">Sobre os revisores</name>
+        <name lang="es">Sobre los revisores</name>
+    </term>
 </labels>
