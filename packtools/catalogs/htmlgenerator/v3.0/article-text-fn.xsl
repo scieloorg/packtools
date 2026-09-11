@@ -41,7 +41,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="fn | author-notes/*" mode="back-section-title">
+    <xsl:template match="fn | corresp" mode="back-section-title">
         <xsl:choose>
             <xsl:when test="label">
                 <xsl:apply-templates select="label"/>
@@ -64,10 +64,19 @@
 
     <xsl:template match="author-notes" mode="author-notes-as-sections">
         <!-- apresenta todas as notas de autores -->
+        <hr/>
         <xsl:apply-templates select="*" mode="back-section"/>
+        <hr/>
     </xsl:template>
 
-    <xsl:template match="fn | corresp" mode="back-section-menu">
+    <xsl:template match="corresp" mode="back-section-menu">
+        <xsl:attribute name="class">articleSection</xsl:attribute>
+        <xsl:attribute name="data-anchor">
+            <xsl:apply-templates select="." mode="back-section-title"/>
+        </xsl:attribute>
+    </xsl:template>
+
+    <xsl:template match="fn" mode="back-section-menu">
         <xsl:variable name="name" select="@fn-type"/>
         <!--
         Evita que no menu apareça o mesmo título mais de uma vez 
