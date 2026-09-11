@@ -85,4 +85,24 @@
         <xsl:apply-templates select="*[name()!='label']" mode="div-fn-list-item"/>
     </xsl:template>
 
+    <xsl:template match="corresp" mode="back-section-content" priority="1">
+        <!--
+            corresp tem conteúdo misto (texto solto com o nome/endereço do autor
+            de correspondência, intercalado com elementos como postal-code e email);
+            por isso não pode usar o template genérico de author-notes/*, que
+            seleciona apenas elementos filhos e descarta os nós de texto.
+        -->
+        <div>
+            <xsl:apply-templates select="node()[not(self::label)]" mode="corresp-content"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="text()" mode="corresp-content">
+        <xsl:value-of select="."/>
+    </xsl:template>
+
+    <xsl:template match="corresp/*" mode="corresp-content">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+
 </xsl:stylesheet>
