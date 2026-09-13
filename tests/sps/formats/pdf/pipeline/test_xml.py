@@ -390,6 +390,76 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
+        # Regression for issue #1347: <disp-formula> is often a direct
+        # sibling of <p>, not nested inside one - a plain findall('p') never
+        # visits it, so the formula silently vanished from the output. No
+        # MathML->OMML conversion yet (see #1347's phased plan), just
+        # flattened text, but present beats missing.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<mml:math><mml:mi>Y</mml:mi><mml:mo>=</mml:mo><mml:mn>1</mml:mn></mml:math>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('See the formula below.'),
+                    _plain_para('Y=1'),
+                    _plain_para('Where Y is the result.'),
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_graphic_disp_formula_as_figure(self):
+        # Regression for issue #1347: a <disp-formula> rendered as an image
+        # (<graphic>, no MathML) has no text for get_text_from_node to
+        # flatten, so it was silently dropped even after the fix for the
+        # MathML/text case above. extract_figure_data reads the same
+        # label/caption/graphic shape <fig> has, so the formula is rendered
+        # as a figure instead of vanishing.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<graphic xlink:href="e01.tif" xmlns:xlink="http://www.w3.org/1999/xlink"/>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('See the formula below.'),
+                    _plain_para('Where Y is the result.'),
+                ],
+                'tables': [],
+                'figures': [
+                    {'label': '', 'caption': '', 'href': 'e01.tif', 'alt': ''},
+                ],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
     def test_extract_body_data_with_tables(self):
         xml = etree.fromstring(
             '<article>'
@@ -564,6 +634,98 @@ class TestExtractBodyData(unittest.TestCase):
                 {'type': 'text', 'text': ' numbers.', 'italic': False, 'bold': False, 'superscript': False, 'subscript': False},
             ]],
         )
+
+    def test_extract_body_data_falls_back_to_body_when_no_sec_exists(self):
+        # Regression for issue #1351: a <body> with <p> as direct children
+        # and no <sec> at all (valid JATS pattern for unsectioned short
+        # communications/brief reports) used to disappear entirely, since
+        # the section search only ever looked for <sec>.
+        xml = etree.fromstring(
+            '<article><body>'
+            '<p>Paragraph 1</p>'
+            '<p>Paragraph 2</p>'
+            '</body></article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': None,
+                'paragraphs': [_plain_para('Paragraph 1'), _plain_para('Paragraph 2')],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_falls_back_to_body_with_table_and_figure(self):
+        xml = etree.fromstring(
+            '<article><body>'
+            '<p>Intro paragraph.</p>'
+            '<p>Figure 1<fig id="f1"><label>Figure 1</label></fig></p>'
+            '<p>Table 1'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<title>Sample Table</title>'
+            '<table>'
+            '<thead><tr><th>Header</th></tr></thead>'
+            '<tbody><tr><td>Data</td></tr></tbody>'
+            '</table>'
+            '</table-wrap>'
+            '</p>'
+            '</body></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertIsNone(result[0]['title'])
+        self.assertEqual(len(result[0]['tables']), 1)
+        self.assertEqual(len(result[0]['figures']), 1)
+
+    def test_extract_body_data_does_not_fall_back_when_sec_exists(self):
+        # Regression: the fallback must not kick in for a normally
+        # sectioned article, even one with just a single <sec>.
+        xml = etree.fromstring(
+            '<article><body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body></article>'
+        )
+        expected = [
+            {
+                'level': 2,
+                'title': 'Introduction',
+                'paragraphs': [_plain_para('Body text.')],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_falls_back_even_when_an_unrelated_sec_exists_outside_body(self):
+        # Regression for issue #1351, reproduced against the real corpus
+        # sample a8.xml: <body> has no <sec> of its own, but a <sec
+        # sec-type="data-availability"> lives under <back>. A naive
+        # "any <sec> found anywhere -> skip the fallback" check would
+        # wrongly treat body as already covered by that unrelated sec and
+        # keep discarding body's own content.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<p>Body paragraph.</p>'
+            '</body>'
+            '<back>'
+            '<sec sec-type="data-availability">'
+            '<label>Data availability</label>'
+            '<p>Data statement.</p>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]['title'], None)
+        self.assertEqual(result[0]['paragraphs'], [_plain_para('Body paragraph.')])
+        self.assertEqual(result[1]['paragraphs'], [_plain_para('Data statement.')])
 
 
 class TestExtractCategory(unittest.TestCase):

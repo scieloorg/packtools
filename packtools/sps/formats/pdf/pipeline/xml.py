@@ -350,6 +350,13 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     extract_trans_abstract_data, and would otherwise be picked up twice by
     a plain './/sec' search.
 
+    Falls back to treating <body> itself as an extra, untitled section when
+    <body> has no <sec> of its own (valid JATS pattern for unsectioned
+    short communications/brief reports) - otherwise its content would be
+    silently dropped even though an unrelated <sec> elsewhere in the
+    document (e.g. a data-availability statement under <back>) keeps the
+    section search from returning empty.
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the body data from.
         table_layout_overrides (dict, optional): Maps a table-wrap @id to a forced
@@ -360,9 +367,18 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
         list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
             - 'level': The nesting level of the section.
             - 'title': The title of the section, if present.
-            - 'paragraphs': A list of paragraphs, each a list of style-tagged text segments (see xml_utils.get_segments_from_node) preserving inline <italic>/<bold>/<sup>/<sub> markup, excluding paragraphs that contain table/figure references or wrappers.
+            - 'paragraphs': A list of paragraphs, each a list of style-tagged
+              text segments (see xml_utils.get_segments_from_node) preserving
+              inline <italic>/<bold>/<sup>/<sub> markup. Also includes any
+              <disp-formula> found as a direct sibling of a <p>, since a
+              structured formula isn't always wrapped in one - as a single
+              plain-text segment (no MathML->OMML conversion yet, see issue
+              #1347's phased plan). Excludes paragraphs that contain
+              table/figure references or wrappers.
             - 'tables': A list of dictionaries representing the tables in the section, as returned by the `extract_table_data` function.
-            - 'figures': A list of dictionaries representing figures in the section, as returned by the `extract_figure_data` function.
+            - 'figures': A list of dictionaries representing figures in the section, as returned by the `extract_figure_data` function
+              (also includes any <disp-formula> that is a graphic rather than
+              MathML/text, since there's nothing to flatten into a paragraph).
     """
     data = []
     seen_fig_keys = set()
@@ -370,6 +386,10 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     body_sections = xml_tree.xpath(
         './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)]'
     )
+    body = xml_tree.find('.//body')
+    if body is not None and body.find('.//sec') is None:
+        body_sections = [body] + body_sections
+
     for document_section in body_sections:
         sec = {'paragraphs': [], 'tables': [], 'figures': []}
         sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
@@ -384,8 +404,39 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
         # artificial space between every text-node fragment regardless of
         # whether the source had one there (e.g. "(<xref>...</xref>)" came
         # out as "( ... )", and "<xref/>; <xref/>" as "... ; ...").
-        for para in document_section.findall('p'):
-            para_segments = xml_utils.get_segments_from_node(para, skip_tags={'fig', 'table-wrap'})
+        #
+        # <disp-formula> isn't always nested inside a <p> - it's often a
+        # direct sibling of one - so a plain `findall('p')` silently drops
+        # it. Walking direct children instead of just `<p>` catches that
+        # case too. This still only flattens the formula's text (no
+        # MathML->OMML conversion yet, see issue #1347's phased plan), but
+        # flattened-and-present beats silently missing.
+        for child in document_section:
+            if child.tag == 'p':
+                para_segments = xml_utils.get_segments_from_node(child, skip_tags={'fig', 'table-wrap'})
+            elif child.tag == 'disp-formula':
+                para_text = xml_utils.get_text_from_node(child).strip()
+                if not para_text and child.find('graphic') is not None:
+                    # A formula rendered as an image (no MathML, no flattenable
+                    # text) has nothing for get_text_from_node to return - it
+                    # was silently dropped entirely. extract_figure_data reads
+                    # the same label/caption/graphic shape <fig> has, so a
+                    # <disp-formula> with a <graphic> can reuse it as-is and
+                    # render like any other figure instead of vanishing.
+                    formula_fig = extract_figure_data(child)
+                    formula_key = child.get('id') or formula_fig.get('href') or ''
+                    if not formula_key or formula_key not in seen_fig_keys:
+                        sec['figures'].append(formula_fig)
+                        if formula_key:
+                            seen_fig_keys.add(formula_key)
+                    continue
+                # No inline style tags occur in a MathML/plain-text formula
+                # body, so this yields the same flattened text as
+                # get_text_from_node, just wrapped as the single-segment
+                # list _render_paragraphs now expects for every paragraph.
+                para_segments = xml_utils.get_segments_from_node(child) if para_text else []
+            else:
+                continue
             if para_segments:
                 sec['paragraphs'].append(para_segments)
 
