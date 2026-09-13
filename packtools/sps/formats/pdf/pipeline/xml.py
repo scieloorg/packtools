@@ -350,6 +350,13 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     extract_trans_abstract_data, and would otherwise be picked up twice by
     a plain './/sec' search.
 
+    Falls back to treating <body> itself as an extra, untitled section when
+    <body> has no <sec> of its own (valid JATS pattern for unsectioned
+    short communications/brief reports) - otherwise its content would be
+    silently dropped even though an unrelated <sec> elsewhere in the
+    document (e.g. a data-availability statement under <back>) keeps the
+    section search from returning empty.
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the body data from.
         table_layout_overrides (dict, optional): Maps a table-wrap @id to a forced
@@ -376,6 +383,10 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     body_sections = xml_tree.xpath(
         './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)]'
     )
+    body = xml_tree.find('.//body')
+    if body is not None and body.find('.//sec') is None:
+        body_sections = [body] + body_sections
+
     for document_section in body_sections:
         sec = {'paragraphs': [], 'tables': [], 'figures': []}
         sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
