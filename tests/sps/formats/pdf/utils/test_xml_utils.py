@@ -114,6 +114,100 @@ class TestGetTextFromNode(unittest.TestCase):
         )
 
 
+def _seg(text, italic=False, bold=False, superscript=False, subscript=False):
+    return {
+        'type': 'text',
+        'text': text,
+        'italic': italic,
+        'bold': bold,
+        'superscript': superscript,
+        'subscript': subscript,
+    }
+
+
+class TestGetSegmentsFromNode(unittest.TestCase):
+    """
+    Regression/coverage for get_segments_from_node (item 04 of the
+    pdf_generator backlog): unlike get_text_from_node, inline
+    <italic>/<bold>/<sup>/<sub> markup must be preserved as style flags
+    on each segment instead of being flattened away.
+    """
+
+    def test_plain_text_is_a_single_unstyled_segment(self):
+        xmltree = etree.fromstring('<p>Plain text only.</p>')
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [_seg('Plain text only.')])
+
+    def test_italic_segment_gets_its_own_run(self):
+        xmltree = etree.fromstring('<p>A <italic>Genus species</italic> name.</p>')
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [
+            _seg('A '),
+            _seg('Genus species', italic=True),
+            _seg(' name.'),
+        ])
+
+    def test_bold_sup_sub_segments(self):
+        xmltree = etree.fromstring('<p><bold>Bold</bold> and <sup>sup</sup> and <sub>sub</sub>.</p>')
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [
+            _seg('Bold', bold=True),
+            _seg(' and '),
+            _seg('sup', superscript=True),
+            _seg(' and '),
+            _seg('sub', subscript=True),
+            _seg('.'),
+        ])
+
+    def test_nested_styles_combine_regardless_of_order(self):
+        xmltree = etree.fromstring(
+            '<p>A <sup><italic>one</italic></sup> and <italic><sup>two</sup></italic> case.</p>'
+        )
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [
+            _seg('A '),
+            _seg('one', italic=True, superscript=True),
+            _seg(' and '),
+            _seg('two', italic=True, superscript=True),
+            _seg(' case.'),
+        ])
+
+    def test_adjacent_unstyled_fragments_merge_into_one_segment(self):
+        # <xref> carries no style of its own, so its text and tail merge
+        # with the surrounding plain text into a single segment rather
+        # than fragmenting the run needlessly.
+        xmltree = etree.fromstring(
+            '<p>Start <xref ref-type="bibr">Text</xref> end.</p>'
+        )
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [_seg('Start Text end.')])
+
+    def test_punctuation_spacing_normalized_like_get_text_from_node(self):
+        xmltree = etree.fromstring(
+            '<p>seen (<xref ref-type="bibr">Author, 2020</xref>; '
+            '<xref ref-type="bibr">Other, 2021</xref>) here</p>'
+        )
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [_seg('seen (Author, 2020; Other, 2021) here')])
+
+    def test_skip_tags_drops_content_but_keeps_tail(self):
+        xmltree = etree.fromstring(
+            '<p>Before <fig id="f1"><label>Figure 1</label></fig> after</p>'
+        )
+        result = xml_utils.get_segments_from_node(xmltree, skip_tags={'fig'})
+        self.assertEqual(result, [_seg('Before after')])
+
+    def test_leading_and_trailing_whitespace_stripped(self):
+        xmltree = etree.fromstring('<p>  padded text  </p>')
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [_seg('padded text')])
+
+    def test_empty_node_returns_no_segments(self):
+        xmltree = etree.fromstring('<p><italic></italic></p>')
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [])
+
+
 class TestGetTextFromMixedCitationNode(unittest.TestCase):
 
     def test_get_text_from_mixed_citation_node_with_simple_text(self):
