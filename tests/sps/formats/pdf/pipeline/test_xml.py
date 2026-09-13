@@ -689,13 +689,15 @@ class TestBuildFullCitation(unittest.TestCase):
         self.assertNotIn('()', result)
 
     def test_omits_volume_when_absent(self):
-        # Continuous-publication articles carry no <volume> - same
-        # omission rule as _format_cite_as_part_two, applied here too.
+        # Continuous-publication articles carry no <volume>. citeproc-py's
+        # own CSL rules join year and location with ";" rather than ":"
+        # once there's no volume/issue to put a colon after - a style-engine
+        # decision now, not a hand-picked separator.
         xml = self._article(given_names=('Bárbara Passos da Silva',))
         footer_data = {'year': '2023', 'volume': '', 'issue': '',
                         'location_label': 'e236720'}
         result = xml_pipe.build_full_citation(xml, footer_data)
-        self.assertIn('2023:e236720.', result)
+        self.assertIn('2023;e236720.', result)
 
     def test_initials_exclude_lowercase_particles(self):
         xml = self._article(given_names=('Bárbara Passos da Silva',))

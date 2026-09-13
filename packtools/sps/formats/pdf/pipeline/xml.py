@@ -1,7 +1,13 @@
 import re
+from pathlib import Path
+
+from citeproc import Citation, CitationItem, CitationStylesBibliography, CitationStylesStyle, formatter
+from citeproc.source.json import CiteProcJSON
 
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.utils import xml_utils
+
+_CITATION_STYLES_DIR = Path(__file__).parent.parent / "citation_styles"
 
 # Anchor phrases (pt/en) that mark a footnote as the "how to cite this
 # article" note, replacing a bare `'cit' in signal.lower()` check (#1349
@@ -386,14 +392,6 @@ def extract_cite_as_part_one(xml_tree, return_node=False):
             text = _CITE_AS_LEADING_PHRASE_RE.sub('', text, count=1)
         return text
 
-# Only 'vancouver' exists today. Kept as a plain function parameter/dict
-# dispatch (instead of hardcoding the format inline) so a future per-journal
-# JSON config can plug in a different style by name without changing
-# build_full_citation's contract - the same not-wired-yet-to-config pattern
-# as layout_config.load_page_attributes.
-CITATION_STYLE_VANCOUVER = 'vancouver'
-_MAX_CITATION_AUTHORS_BEFORE_ET_AL = 6
-
 
 def _extract_citation_authors(xml_tree):
     """
@@ -439,28 +437,36 @@ def _extract_citation_authors(xml_tree):
     return authors
 
 
-def _sentence(text):
-    """Appends a period unless text already ends with terminal punctuation."""
-    return text if text.endswith(('.', '!', '?')) else f'{text}.'
-
-
-def _format_vancouver_citation(xml_tree, footer_data):
+def _build_csl_reference(xml_tree, footer_data):
     """
-    Builds a Vancouver-style citation: "Surname IN, Surname IN. Article
-    title. Journal abbrev. Year;Volume(Issue):location. https://doi.org/...".
-    Missing pieces (issue, DOI...) are simply omitted rather than leaving a
-    stray separator; returns '' when there are no authors to start from.
+    Builds a CSL-JSON reference dict (see
+    https://docs.citationstyles.org/en/stable/specification.html#appendix-iv-variables)
+    from the article's own metadata, for handing to citeproc-py.
+
+    Authors are passed as CSL "literal" names (`_extract_citation_authors`'s
+    "Surname IN" strings, already correct - lowercase particles like
+    "da"/"de"/"dos" excluded from initials) rather than letting citeproc-py
+    parse family/given names itself, since CSL's own name-parsing doesn't
+    know Portuguese naming particles. citeproc-py still applies the style's
+    own et-al truncation/ordering/punctuation rules on top of these,
+    literal-or-not.
+
+    Returns:
+        dict, or None when there are no authors to build a reference from.
     """
     authors = _extract_citation_authors(xml_tree)
     if not authors:
-        return ''
-    if len(authors) > _MAX_CITATION_AUTHORS_BEFORE_ET_AL:
-        authors = authors[:_MAX_CITATION_AUTHORS_BEFORE_ET_AL] + ['et al']
-    segments = [f"{', '.join(authors)}."]
+        return None
+
+    reference = {
+        'id': 'cite-as',
+        'type': 'article-journal',
+        'author': [{'literal': author} for author in authors],
+    }
 
     title = extract_article_title(xml_tree)
     if title:
-        segments.append(_sentence(title))
+        reference['title'] = title
 
     abbrev_journal = xml_tree.find('.//abbrev-journal-title')
     journal = (
@@ -469,21 +475,23 @@ def _format_vancouver_citation(xml_tree, footer_data):
         else extract_journal_title(xml_tree)
     )
     if journal:
-        segments.append(_sentence(journal))
+        reference['container-title'] = journal
 
     year = footer_data.get('year') or ''
-    volume = footer_data.get('volume') or ''
-    issue = footer_data.get('issue') or ''
-    location = footer_data.get('location_label') or ''
+    if year:
+        reference['issued'] = {'date-parts': [[year]]}
 
-    vol_issue = f'{volume}({issue})' if volume and issue else volume
-    date_and_location = year
-    if vol_issue:
-        date_and_location = f'{date_and_location};{vol_issue}' if date_and_location else vol_issue
+    volume = footer_data.get('volume') or ''
+    if volume:
+        reference['volume'] = volume
+
+    issue = footer_data.get('issue') or ''
+    if issue:
+        reference['issue'] = issue
+
+    location = footer_data.get('location_label') or ''
     if location:
-        date_and_location = f'{date_and_location}:{location}' if date_and_location else location
-    if date_and_location:
-        segments.append(_sentence(date_and_location))
+        reference['page'] = location
 
     # Not extract_doi(): that function raises AttributeError on a missing
     # DOI by design (see test_extract_doi_missing_doi) - a DOI is just
@@ -491,13 +499,44 @@ def _format_vancouver_citation(xml_tree, footer_data):
     doi_node = xml_tree.find('.//article-id[@pub-id-type="doi"]')
     doi = doi_node.text if doi_node is not None else None
     if doi:
-        segments.append(f'https://doi.org/{doi}')
+        reference['DOI'] = doi
 
-    return ' '.join(segments)
+    return reference
 
 
-_CITATION_STYLE_FORMATTERS = {
-    CITATION_STYLE_VANCOUVER: _format_vancouver_citation,
+def _format_via_citeproc(xml_tree, footer_data, csl_filename):
+    """
+    Renders a full citation for `xml_tree`/`footer_data` through citeproc-py
+    using the named CSL style file (packaged under
+    packtools/sps/formats/pdf/citation_styles/). Returns '' when there are
+    no authors to build a reference from.
+    """
+    reference = _build_csl_reference(xml_tree, footer_data)
+    if reference is None:
+        return ''
+
+    source = CiteProcJSON([reference])
+    style = CitationStylesStyle(str(_CITATION_STYLES_DIR / csl_filename), validate=False)
+    bibliography = CitationStylesBibliography(style, source, formatter.plain)
+    citation = Citation([CitationItem(reference['id'])])
+    bibliography.register(citation)
+    bibliography.cite(citation, lambda missing_id: None)
+
+    entries = list(bibliography.bibliography())
+    return str(entries[0]) if entries else ''
+
+
+# Only 'vancouver' exists today, backed by a packtools-adapted variant of
+# the CSL "nlm-name-year" style (citation_styles/scielo_nlm_name_year.csl -
+# see that file for what was changed and why). Kept as a plain function
+# parameter/dict dispatch (instead of hardcoding the style name inline) so
+# a future per-journal JSON config can plug in a different CSL file by name
+# without changing build_full_citation's contract - the same
+# not-wired-yet-to-config pattern as layout_config.load_page_attributes.
+CITATION_STYLE_VANCOUVER = 'vancouver'
+
+_CITATION_STYLE_CSL_FILES = {
+    CITATION_STYLE_VANCOUVER: 'scielo_nlm_name_year.csl',
 }
 
 
@@ -505,14 +544,15 @@ def build_full_citation(xml_tree, footer_data, style=CITATION_STYLE_VANCOUVER):
     """
     Builds a complete "how to cite this article" citation from the
     article's own metadata (authors, title, journal, volume/issue/location,
-    DOI), for use as a fallback when `extract_cite_as_part_one` finds no
-    explicit editorial note (see issue #1349's review: some articles simply
-    don't carry one).
+    DOI) via citeproc-py, for use as a fallback when
+    `extract_cite_as_part_one` finds no explicit editorial note (see issue
+    #1349's review: some articles simply don't carry one).
 
     `style` selects the citation format. Only CITATION_STYLE_VANCOUVER
     exists today; it's a plain parameter (not read from a config file) so a
-    future per-journal JSON config can choose it by name later without
-    changing this function's contract - not wired to the CLI/API yet.
+    future per-journal JSON config can choose a different CSL style by name
+    later without changing this function's contract - not wired to the
+    CLI/API yet.
 
     Args:
         xml_tree (ElementTree): The XML tree to build the citation from.
@@ -523,10 +563,10 @@ def build_full_citation(xml_tree, footer_data, style=CITATION_STYLE_VANCOUVER):
         str: The complete citation, or '' when the style is unknown or the
         article has no authors to build one from.
     """
-    formatter = _CITATION_STYLE_FORMATTERS.get(style)
-    if formatter is None:
+    csl_filename = _CITATION_STYLE_CSL_FILES.get(style)
+    if csl_filename is None:
         return ''
-    return formatter(xml_tree, footer_data)
+    return _format_via_citeproc(xml_tree, footer_data, csl_filename)
 
 def extract_body_data(xml_tree, table_layout_overrides=None):
     """
