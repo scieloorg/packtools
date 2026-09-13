@@ -460,6 +460,172 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_body_data_includes_labeled_graphic_disp_formula_as_figure(self):
+        # Regression for issue #1365 (review on PR #1348): a <graphic>
+        # formula with a <label> (e.g. "(1)") still has to be treated as a
+        # figure - get_text_from_node returns the label text, which isn't
+        # empty, so a check that only looked at "no flattenable text" missed
+        # this case and dropped the <graphic>, keeping just the bare label
+        # as a paragraph.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<label>(1)</label>'
+            '<graphic xlink:href="e01.tif" xmlns:xlink="http://www.w3.org/1999/xlink"/>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('See the formula below.'),
+                    _plain_para('Where Y is the result.'),
+                ],
+                'tables': [],
+                'figures': [
+                    {'label': '(1)', 'caption': '', 'href': 'e01.tif', 'alt': ''},
+                ],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_bullet_list_items(self):
+        # Regression for issue #1365: <list> isn't 'p' or 'disp-formula', so
+        # a plain child-tag check silently dropped it and every <list-item>
+        # inside - reproduced against a5.xml's Treatment Series lists.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>The treatments included:</p>'
+            '<list list-type="bullet">'
+            '<list-item><p>T1 - Control</p></list-item>'
+            '<list-item><p>T2 - Treated</p></list-item>'
+            '</list>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('The treatments included:'),
+                    [
+                        {'type': 'text', 'text': '• ', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                        {'type': 'text', 'text': 'T1 - Control', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                    ],
+                    [
+                        {'type': 'text', 'text': '• ', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                        {'type': 'text', 'text': 'T2 - Treated', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                    ],
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_ordered_list_items_with_numbering(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<list list-type="order">'
+            '<list-item><p>First step</p></list-item>'
+            '<list-item><p>Second step</p></list-item>'
+            '<list-item><p>Third step</p></list-item>'
+            '</list>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        markers = [para[0]['text'] for para in result[0]['paragraphs']]
+        self.assertEqual(markers, ['1. ', '2. ', '3. '])
+
+    def test_extract_body_data_simple_list_has_no_marker(self):
+        # list-type="simple" is used when the items already carry their own
+        # numbering some other way - a5.xml's Equations 3-10, each numbered
+        # by its own <disp-formula><label>, not by the list.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<list list-type="simple">'
+            '<list-item><p>Total biomass:'
+            '<disp-formula id="e03">'
+            '<mml:math><mml:mi>Y</mml:mi><mml:mo>=</mml:mo><mml:mn>1</mml:mn></mml:math>'
+            '<label>(3)</label>'
+            '</disp-formula>'
+            '</p></list-item>'
+            '</list>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('Total biomass:Y=1(3)'),
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_list_nested_inside_p(self):
+        # Regression for issue #1365, reproduced against the real corpus
+        # sample a28.xml: <list> can also occur as a child of <p> rather
+        # than as its own sibling. get_segments_from_node has no special
+        # handling for <list>, so leaving it unhandled would silently
+        # flatten it to nothing - same content loss as a <list> direct
+        # sibling of <p>, just one level deeper.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>The following propositions were formulated:</p>'
+            '<p>'
+            '<list list-type="simple">'
+            '<list-item><p>Proposition P1: text one.</p></list-item>'
+            '<list-item><p>Proposition P2: text two.</p></list-item>'
+            '</list>'
+            '</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('The following propositions were formulated:'),
+                    _plain_para('Proposition P1: text one.'),
+                    _plain_para('Proposition P2: text two.'),
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
     def test_extract_body_data_with_tables(self):
         xml = etree.fromstring(
             '<article>'
