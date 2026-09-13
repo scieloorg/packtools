@@ -385,6 +385,76 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
+        # Regression for issue #1347: <disp-formula> is often a direct
+        # sibling of <p>, not nested inside one - a plain findall('p') never
+        # visits it, so the formula silently vanished from the output. No
+        # MathML->OMML conversion yet (see #1347's phased plan), just
+        # flattened text, but present beats missing.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<mml:math><mml:mi>Y</mml:mi><mml:mo>=</mml:mo><mml:mn>1</mml:mn></mml:math>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    'See the formula below.',
+                    'Y=1',
+                    'Where Y is the result.',
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_graphic_disp_formula_as_figure(self):
+        # Regression for issue #1347: a <disp-formula> rendered as an image
+        # (<graphic>, no MathML) has no text for get_text_from_node to
+        # flatten, so it was silently dropped even after the fix for the
+        # MathML/text case above. extract_figure_data reads the same
+        # label/caption/graphic shape <fig> has, so the formula is rendered
+        # as a figure instead of vanishing.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<graphic xlink:href="e01.tif" xmlns:xlink="http://www.w3.org/1999/xlink"/>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    'See the formula below.',
+                    'Where Y is the result.',
+                ],
+                'tables': [],
+                'figures': [
+                    {'label': '', 'caption': '', 'href': 'e01.tif', 'alt': ''},
+                ],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
     def test_extract_body_data_with_tables(self):
         xml = etree.fromstring(
             '<article>'
