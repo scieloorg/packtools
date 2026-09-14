@@ -1533,7 +1533,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_no_label_no_title(self):
         xml_str = """
@@ -1561,7 +1561,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_empty_table(self):
         xml_str = """
@@ -1587,7 +1587,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_no_table(self):
         xml_str = """
@@ -1609,7 +1609,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_multiple_header_rows(self):
         xml_str = """
@@ -1642,7 +1642,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_foot_with_fn_and_attrib(self):
         xml_str = """
@@ -1660,7 +1660,7 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(
-            result['foot'],
+            result[0]['foot'],
             ['Source: Authors.', '* p < 0.05.', 'Adapted from Smith (2020).'],
         )
 
@@ -1681,7 +1681,7 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(
-            result['foot'],
+            result[0]['foot'],
             ['Legenda: Outros (BR): 87 titulos.', 'Fonte: Dados da pesquisa (Florianopolis, 2022).'],
         )
 
@@ -1701,7 +1701,7 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(
-            result['foot'],
+            result[0]['foot'],
             ['Legenda solta.', 'Nota de rodape.', 'Fonte: Autores.'],
         )
 
@@ -1709,7 +1709,7 @@ class TestExtractTableData(unittest.TestCase):
         xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(result['foot'], [])
+        self.assertEqual(result[0]['foot'], [])
 
     def test_determine_table_layout_single_long_cell_forces_single_column(self):
         long_text = "x" * 500
@@ -1735,13 +1735,125 @@ class TestExtractTableData(unittest.TestCase):
         result = xml_pipe.extract_table_data(
             table_wrap, override_layout=pdf_enum.SINGLE_COLUMN_PAGE_LABEL
         )
-        self.assertEqual(result['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+        self.assertEqual(result[0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
 
     def test_extract_table_data_invalid_override_falls_back_to_heuristic(self):
         xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap, override_layout='not-a-real-layout')
-        self.assertEqual(result['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+        self.assertEqual(result[0]['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+
+
+class TestExtractTableDataMultipleTables(unittest.TestCase):
+    """
+    Regression tests for issue #1368: a <table-wrap> can hold more than one
+    <table> (real corpus pattern - side-by-side "Program A"/"Program B"
+    panels sharing one caption). table_wrap.find('.//table') used to grab
+    only the first, silently dropping every table past it. extract_table_data
+    now returns one dict per <table>, the shared label/title only on the
+    first and any <table-wrap-foot> notes only on the last.
+    """
+
+    def _two_table_xml(self):
+        return """
+            <table-wrap>
+                <label>Table 1</label>
+                <title>Two programs</title>
+                <table>
+                    <thead><tr><th>Program A</th></tr></thead>
+                    <tbody><tr><td>A1</td></tr></tbody>
+                </table>
+                <table>
+                    <thead><tr><th>Program B</th></tr></thead>
+                    <tbody><tr><td>B1</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <p>Shared note.</p>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+
+    def test_returns_one_dict_per_table(self):
+        table_wrap = etree.fromstring(self._two_table_xml())
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]['rows'], [['A1']])
+        self.assertEqual(result[1]['rows'], [['B1']])
+
+    def test_caption_only_on_first_table(self):
+        table_wrap = etree.fromstring(self._two_table_xml())
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result[0]['label'], 'Table 1')
+        self.assertEqual(result[0]['title'], 'Two programs')
+        self.assertEqual(result[1]['label'], '')
+        self.assertEqual(result[1]['title'], '')
+
+    def test_foot_only_on_last_table(self):
+        table_wrap = etree.fromstring(self._two_table_xml())
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result[0]['foot'], [])
+        self.assertEqual(result[1]['foot'], ['Shared note.'])
+
+    def test_layout_considers_every_table_not_just_the_first(self):
+        # First table has 1 narrow column; second has 5, past the
+        # single-column-layout threshold. The wrap-level layout decision
+        # must reflect the widest table, not just the first.
+        xml_str = """
+            <table-wrap>
+                <table><tbody><tr><td>A</td></tr></tbody></table>
+                <table><tbody><tr>
+                    <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                </tr></tbody></table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result[0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+        self.assertEqual(result[1]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
+
+class TestExtractTableDataBareRows(unittest.TestCase):
+    """
+    Regression tests for issue #1368: a <table> can have <tr> as direct
+    children with no <thead>/<tbody> wrapper at all (valid JATS/NLM shape -
+    real corpus example: a structured radiology-report table). Both were
+    previously required for any content to be read, so the whole table body
+    was silently dropped.
+    """
+
+    def test_bare_tr_rows_are_read_as_body(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tr><td>PULMOES:</td><td>Sem alteracoes.</td></tr>
+                    <tr><td>BACO:</td><td>Sem alteracoes.</td></tr>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['headers'], [])
+        self.assertEqual(
+            result[0]['rows'],
+            [['PULMOES:', 'Sem alteracoes.'], ['BACO:', 'Sem alteracoes.']],
+        )
+
+    def test_bare_tr_accepts_th_cells_without_a_thead_wrapper(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tr><th>Predictor</th><th>Value</th></tr>
+                    <tr><td>Age</td><td>37</td></tr>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result[0]['rows'],
+            [['Predictor', 'Value'], ['Age', '37']],
+        )
 
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):
