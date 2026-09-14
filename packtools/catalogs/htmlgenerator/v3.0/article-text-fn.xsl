@@ -16,32 +16,10 @@
     </xsl:template>
 
     <xsl:template match="fn/label" mode="div-fn-list-item">
-        <span class="xref big"><xsl:apply-templates select="*|text()"/></span>
+        <div><span class="xref big"><xsl:apply-templates select="*|text()"/></span></div>
     </xsl:template>
 
-    <xsl:template match="fn-group | fn" mode="back-section-content">
-        <div class="row">
-            <div class="col">
-                <ul class="refList articleFootnotes">
-                    <xsl:apply-templates select="*[name()!='label']" mode="div-fn-list-item"/>
-                </ul>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="fn | corresp | fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-h">
-        <!--
-            Apresenta o título da seção no texto completo
-        -->
-        <xsl:variable name="name" select="@fn-type"/>
-        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
-            <h2 class="h5">
-                <xsl:apply-templates select="." mode="back-section-title"/>
-            </h2>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="fn | corresp" mode="back-section-title">
+    <xsl:template match="*" mode="back-section-title">
         <xsl:choose>
             <xsl:when test="label">
                 <xsl:apply-templates select="label"/>
@@ -54,64 +32,93 @@
                     <xsl:with-param name="text">author-notes-fn-<xsl:value-of select="@fn-type"/></xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="@sec-type">
                 <xsl:apply-templates select="." mode="text-labels">
-                    <xsl:with-param name="text"><xsl:value-of select="name()"/></xsl:with-param>
+                    <xsl:with-param name="text"><xsl:value-of select="@sec-type"/></xsl:with-param>
                 </xsl:apply-templates>
-            </xsl:otherwise>
+            </xsl:when>
+            <xsl:when test="name()='corresp'">
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">corresp</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <xsl:template match="author-notes" mode="author-notes-as-sections">
         <!-- apresenta todas as notas de autores -->
-        <hr/>
         <xsl:apply-templates select="*" mode="back-section"/>
-        <hr/>
     </xsl:template>
 
-    <xsl:template match="corresp" mode="back-section-menu">
-        <xsl:attribute name="class">articleSection</xsl:attribute>
-        <xsl:attribute name="data-anchor">
+    <xsl:template match="back/fn | body/fn | back/fn-group" mode="back-section-content">
+        <xsl:choose>
+            <xsl:when test="@fn-type">
+                <xsl:apply-templates select="." mode="back-section"/>
+            </xsl:when>
+            <xsl:when test="fn[@fn-type]">
+                <xsl:apply-templates select="*" mode="back-section"/>
+            </xsl:when>
+            <xsl:when test="fn">
+                <div class="ref-list">
+                    <ul class="refList footnote">
+                        <xsl:apply-templates select="fn" mode="div-fn-list-item"/>
+                    </ul>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <div class="ref-list">
+                    <ul class="refList footnote">
+                        <xsl:apply-templates select="." mode="div-fn-list-item"/>
+                    </ul>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type] | author-notes/*" mode="back-section-content">
+        <xsl:apply-templates select="*[name()!='label']|text()"/>
+    </xsl:template>
+
+    <xsl:template match="* | fn[@fn-type or label]" mode="back-section-h">
+        <h2 class="h5">
             <xsl:apply-templates select="." mode="back-section-title"/>
-        </xsl:attribute>
+        </h2>
     </xsl:template>
 
-    <xsl:template match="fn" mode="back-section-menu">
-        <xsl:variable name="name" select="@fn-type"/>
-        <!--
-        Evita que no menu apareça o mesmo título mais de uma vez 
-        -->
-        <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
+    <xsl:template match="fn-group[not(label) and not(@fn-type)]" mode="back-section-menu">
+        <!-- inibe a apresentação de opção do menu em branco -->
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='other']" mode="back-section-menu">
+        <!-- inibe a apresentação de opção do menu 'other' -->
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='other']" mode="back-section-h">
+        <!-- inibe a apresentação do título 'other' -->
+    </xsl:template>
+
+    <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-menu">
+        <!-- força a sobrescrita de v2.0 -->
+        <xsl:variable name="name"><xsl:value-of select="@fn-type"/><xsl:value-of select="@sec-type"/></xsl:variable>
+        <xsl:variable name="previous_name"><xsl:if test="preceding-sibling::node()"><xsl:value-of select="preceding-sibling::*[1]/@fn-type"/></xsl:if></xsl:variable>
+        
+        <xsl:variable name="title"><xsl:apply-templates select="." mode="back-section-title"/></xsl:variable>
+        
+        <!-- cria menu somente para o primeiro ref-list (há casos de série de ref-list) -->       
+        <xsl:if test="$name='' or $previous_name!=$name and $name!='other'">
             <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
             <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
-                <xsl:apply-templates select="." mode="back-section-title"/>
+                <xsl:choose>
+                    <xsl:when test="contains($title, ':')">
+                        <xsl:value-of select="substring($title, 1, string-length($title)-1)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$title"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:attribute>
         </xsl:if>
     </xsl:template>
-
-    <xsl:template match="author-notes/*" mode="back-section-content">
-        <xsl:apply-templates select="*[name()!='label']" mode="div-fn-list-item"/>
-    </xsl:template>
-
-    <xsl:template match="corresp" mode="back-section-content" priority="1">
-        <!--
-            corresp tem conteúdo misto (texto solto com o nome/endereço do autor
-            de correspondência, intercalado com elementos como postal-code e email);
-            por isso não pode usar o template genérico de author-notes/*, que
-            seleciona apenas elementos filhos e descarta os nós de texto.
-        -->
-        <div>
-            <xsl:apply-templates select="node()[not(self::label)]" mode="corresp-content"/>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="text()" mode="corresp-content">
-        <xsl:value-of select="."/>
-    </xsl:template>
-
-    <xsl:template match="corresp/*" mode="corresp-content">
-        <xsl:apply-templates select="."/>
-    </xsl:template>
-
 </xsl:stylesheet>
