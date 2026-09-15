@@ -34,11 +34,20 @@ def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
     w:vertAlign element, so setting one after the other (even to None)
     overwrites/clears whichever was set first - assigning both
     unconditionally on every run would silently drop superscript.
+
+    A segment of type 'formula' (issue #1352, Phase 1 of #1347's plan)
+    carries a ready-made OMML element (`seg['omml']`, from
+    pipeline.tex.mathml_to_omml) instead of text/style flags - appended
+    directly into the paragraph's raw XML rather than as a run, since
+    python-docx's high-level API has no concept of a formula.
     """
     para = docx.add_paragraph()
     para.style = docx.styles[style_name]
 
     for seg in segments:
+        if seg.get('type') == 'formula':
+            para._p.append(seg['omml'])
+            continue
         run = para.add_run(seg.get('text', ''))
         run.bold = seg.get('bold') or None
         run.italic = seg.get('italic') or None

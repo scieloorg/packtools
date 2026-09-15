@@ -6,6 +6,7 @@ from citeproc import Citation, CitationItem, CitationStylesBibliography, Citatio
 from citeproc.source.json import CiteProcJSON
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.pipeline import tex
 from packtools.sps.formats.pdf.utils import xml_utils
 
 _CITATION_STYLES_DIR = Path(__file__).parent.parent / "citation_styles"
@@ -633,6 +634,77 @@ def _plain_text_segment(text):
     return {'type': 'text', 'text': text, 'italic': False, 'bold': False, 'superscript': False, 'subscript': False}
 
 
+def _disp_formula_segments(disp_formula):
+    """
+    Converts a <disp-formula>'s own MathML to a single 'formula' segment
+    (issue #1352, Phase 1 of #1347's plan) plus a trailing plain-text
+    segment for its own <label> (e.g. "(3)"), if present - appended after
+    the formula rather than right-aligned/tab-stopped, a simple default
+    left for a future refinement rather than this phase's scope.
+
+    Args:
+        disp_formula (ElementTree): The <disp-formula> element.
+
+    Returns:
+        list[dict], or None when there's no MathML descendant or
+        tex.mathml_to_omml couldn't convert it (unsupported construct) -
+        callers should fall back to the existing flattened-text paragraph
+        in that case, never drop the formula silently.
+    """
+    math_node = disp_formula.find('.//{http://www.w3.org/1998/Math/MathML}math')
+    if math_node is None:
+        return None
+    omml_element = tex.mathml_to_omml(math_node)
+    if omml_element is None:
+        return None
+
+    segments = [{'type': 'formula', 'omml': omml_element}]
+    label = disp_formula.find('label')
+    if label is not None:
+        label_text = ''.join(label.itertext()).strip()
+        if label_text:
+            segments.append(_plain_text_segment(f' {label_text}'))
+    return segments
+
+
+def _paragraph_with_trailing_formula(p_node):
+    """
+    Handles <p>leading text:<disp-formula>...</disp-formula></p> - a block
+    formula with a simple leading text label in the same paragraph (issue
+    #1352 Phase 1: confirmed against real corpus data, e.g. a5.xml's
+    "Total plant biomass:<disp-formula>", that this is the common real
+    shape, not the "no text in the same paragraph" scope read literally
+    from the issue's own text).
+
+    Deliberately narrow - a <p> with more than one <disp-formula>, or with
+    any content after the (single) formula, is Phase 2 territory (formula
+    genuinely mixed mid-sentence with running text); this function returns
+    None for those so the caller falls back to the existing flatten.
+
+    Args:
+        p_node (ElementTree): The <p> element.
+
+    Returns:
+        list[dict], or None when `p_node` doesn't match this specific shape.
+    """
+    formulas = p_node.findall('disp-formula')
+    if len(formulas) != 1:
+        return None
+    formula = formulas[0]
+    siblings = list(p_node)
+    if siblings[-1] is not formula:
+        return None
+    if (formula.tail or '').strip():
+        return None
+
+    formula_segments = _disp_formula_segments(formula)
+    if formula_segments is None:
+        return None
+
+    leading_segments = xml_utils.get_segments_from_node(p_node, skip_tags={'disp-formula'})
+    return leading_segments + formula_segments
+
+
 def _extract_list_paragraphs(list_node):
     """
     Extracts a <list>'s <list-item>s as paragraph entries (issue #1365):
@@ -643,12 +715,16 @@ def _extract_list_paragraphs(list_node):
     other way, e.g. each <disp-formula>'s own <label>) or an unrecognized
     list-type.
 
-    A nested <disp-formula> with MathML already comes through correctly via
-    get_segments_from_node's ordinary text/tail recursion - only a
-    graphic-only (image) formula nested this deep would still be silently
-    dropped, same as a bare <disp-formula><graphic> would if it had no
-    flattenable text, just two levels down; not seen in the test corpus, so
-    left unhandled rather than adding speculative code for it.
+    A <disp-formula> ending a <list-item>'s <p> (e.g. a5.xml's Equations
+    3-10, each "Total plant biomass:<disp-formula>...") gets a real OMML
+    conversion via _paragraph_with_trailing_formula (issue #1352, Phase 1
+    of #1347's plan) instead of the ambiguous flattened text that
+    get_segments_from_node's ordinary MathML recursion would otherwise
+    produce. Only a graphic-only (image) formula nested this deep would
+    still be silently dropped, same as a bare <disp-formula><graphic>
+    would if it had no flattenable text, just two levels down; not seen in
+    the test corpus, so left unhandled rather than adding speculative code
+    for it.
 
     Args:
         list_node (ElementTree): The <list> element.
@@ -661,7 +737,9 @@ def _extract_list_paragraphs(list_node):
     for index, item in enumerate(list_node.findall('list-item'), start=1):
         marker = _list_item_marker(list_type, index)
         for item_p in item.findall('p'):
-            item_segments = xml_utils.get_segments_from_node(item_p, skip_tags={'fig', 'table-wrap'})
+            item_segments = _paragraph_with_trailing_formula(item_p)
+            if item_segments is None:
+                item_segments = xml_utils.get_segments_from_node(item_p, skip_tags={'fig', 'table-wrap'})
             if not item_segments:
                 continue
             if marker:
@@ -750,6 +828,18 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
         # flattened-and-present beats silently missing.
         for child in document_section:
             if child.tag == 'p':
+                # <p>leading text:<disp-formula>...</disp-formula></p> - a
+                # block formula with a simple leading text label in the
+                # same paragraph (issue #1352 Phase 1: real corpus data,
+                # e.g. a5.xml's "Total plant biomass:<disp-formula>",
+                # shows this is the common shape, not the formula-only
+                # paragraph the issue's text alone suggested). Handled
+                # before the generic flatten below so the formula gets a
+                # real OMML segment instead of ambiguous flattened text.
+                formula_paragraph_segments = _paragraph_with_trailing_formula(child)
+                if formula_paragraph_segments is not None:
+                    sec['paragraphs'].append(formula_paragraph_segments)
+                    continue
                 # <list> can also occur as a child of <p> rather than as its
                 # own sibling (issue #1365, seen in a28.xml: the JATS source
                 # wraps a <list> of research propositions in a <p> with no
@@ -789,10 +879,19 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
                         if formula_key:
                             seen_fig_keys.add(formula_key)
                     continue
-                # No inline style tags occur in a MathML/plain-text formula
-                # body, so this yields the same flattened text as
-                # get_text_from_node, just wrapped as the single-segment
-                # list _render_paragraphs now expects for every paragraph.
+                if has_math:
+                    formula_segments = _disp_formula_segments(child)
+                    if formula_segments is not None:
+                        sec['paragraphs'].append(formula_segments)
+                        continue
+                # Fallback (no MathML, or issue #1352's conversion failed/
+                # unsupported construct - mathml_to_omml returns None
+                # rather than raising, see its docstring): no inline style
+                # tags occur in a MathML/plain-text formula body, so this
+                # yields the same flattened text as get_text_from_node,
+                # just wrapped as the single-segment list _render_paragraphs
+                # now expects for every paragraph. Ambiguous, but present
+                # beats silently dropped (issue #1347 Phase 0 baseline).
                 para_text = xml_utils.get_text_from_node(child).strip()
                 para_segments = xml_utils.get_segments_from_node(child) if para_text else []
             elif child.tag == 'list':
