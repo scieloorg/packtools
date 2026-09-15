@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
+from pathlib import Path
 
 from docx import Document
 from docx.shared import Cm, Pt
 from PIL import Image
 
+from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.renderer.docx.figure import (
     _add_caption,
     _infer_image_dpi,
@@ -15,56 +17,42 @@ from packtools.sps.formats.pdf.renderer.docx.figure import (
 )
 from packtools.sps.formats.pdf import enum as pdf_enum
 
+FIXTURES_DIR = Path(__file__).resolve().parents[5] / "fixtures" / "pdf"
+
+
+def _docx_with_layout_styles():
+    """A fresh Document carrying the named styles from the real layout.docx template."""
+    return docx_renderer.builder.init_docx({"base_layout": str(FIXTURES_DIR / "layout.docx")})
+
 
 class TestAddCaption(unittest.TestCase):
     """
-    Regression: the caption paragraph's own style (SCL Table Heading) has no
-    line_spacing, so it fell back to the same loose spacing as body text -
-    only the smaller caption font size made it look somewhat tighter. Line
-    spacing is now set explicitly, independent of whether the named style
-    resolves.
+    Regression for issue #1346: the caption paragraph's own style (formerly
+    the shared SCL Table Heading) had no line_spacing/space_after of its
+    own, so a multi-line caption fell back to loose body-text spacing and a
+    section title immediately following a figure sat right on top of the
+    caption. Fixed via a dedicated 'SCL Figure Caption' style (layout.docx,
+    based on Table Heading) carrying both natively, per reviewer request on
+    PR #1358 - not via direct paragraph_format overrides in Python, so the
+    spacing lives in the stylesheet and is customizable per journal layout.
     """
 
-    def test_caption_has_single_line_spacing(self):
-        docx = Document()
+    def test_caption_uses_dedicated_style(self):
+        docx = _docx_with_layout_styles()
         docx.add_paragraph()
-        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'SCL Table Heading')
+        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'SCL Figure Caption')
         p = docx.paragraphs[-1]
-        self.assertEqual(p.paragraph_format.line_spacing, 1.0)
+        self.assertEqual(p.style.name, 'SCL Figure Caption')
 
-    def test_line_spacing_set_even_when_named_style_is_missing(self):
-        docx = Document()
-        docx.add_paragraph()
-        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'Does Not Exist')
-        p = docx.paragraphs[-1]
-        self.assertEqual(p.paragraph_format.line_spacing, 1.0)
+    def test_dedicated_style_has_single_line_spacing(self):
+        docx = _docx_with_layout_styles()
+        style = docx.styles['SCL Figure Caption']
+        self.assertEqual(style.paragraph_format.line_spacing, 1.0)
 
-
-class TestAddCaptionSpaceAfter(unittest.TestCase):
-    """
-    Regression for issue #1346: the caption paragraph's own style (SCL
-    Table Heading) has no space_after, so a section title immediately
-    following a figure (space_before=0 for a top-level section) sat right
-    on top of the caption, with visibly less breathing room than other
-    transitions in the document (e.g. body paragraph -> section title,
-    which gets 5.65pt from the paragraph's own space_after). space_after
-    is now set explicitly on the caption, same fix already applied to
-    docx_keywords_pipe for issue #1322.
-    """
-
-    def test_caption_has_space_after_matching_body_paragraph(self):
-        docx = Document()
-        docx.add_paragraph()
-        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'SCL Table Heading')
-        p = docx.paragraphs[-1]
-        self.assertEqual(p.paragraph_format.space_after, Pt(5.65))
-
-    def test_space_after_set_even_when_named_style_is_missing(self):
-        docx = Document()
-        docx.add_paragraph()
-        _add_caption(docx, {'label': 'Figure 1', 'caption': 'A caption'}, 'Does Not Exist')
-        p = docx.paragraphs[-1]
-        self.assertEqual(p.paragraph_format.space_after, Pt(5.65))
+    def test_dedicated_style_has_space_after_matching_body_paragraph(self):
+        docx = _docx_with_layout_styles()
+        style = docx.styles['SCL Figure Caption']
+        self.assertEqual(style.paragraph_format.space_after, Pt(5.65))
 
 
 class TestDecideFigureLayoutUnits(unittest.TestCase):

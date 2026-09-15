@@ -2,14 +2,14 @@ import os
 
 from PIL import Image
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.shared import Cm, Pt
+from docx.shared import Cm
 
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.utils.request_utils import download_remote_asset
 from packtools.sps.formats.pdf.utils.file_utils import resolve_asset_path
 
 
-def add_figure(docx, figure_data, header_style_name='SCL Table Heading', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
+def add_figure(docx, figure_data, header_style_name='SCL Figure Caption', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
     """
     Insert a figure with caption into the document. Scales image to fit page content width.
 
@@ -297,18 +297,6 @@ def _add_caption(docx, figure_data, header_style_name):
     if figure_data.get('caption'):
         r_cap = p.add_run(figure_data['caption'])
         r_cap.bold = False
-
-    # Single line spacing regardless of whether the named style resolves:
-    # SCL Table Heading has no line_spacing of its own, so a multi-line
-    # caption would otherwise fall back to the same loose spacing as body
-    # text (only the smaller caption font made it look tighter).
-    p.paragraph_format.line_spacing = 1.0
-    # SCL Table Heading also has no space_after of its own (issue #1346),
-    # so a section title immediately following a figure caption (whose
-    # own space_before is 0 for a top-level "SCL Section Title") sits
-    # right on top of it. Pt(5.65) matches SCL Paragraph's own space-after,
-    # same fix already applied to docx_keywords_pipe for issue #1322.
-    p.paragraph_format.space_after = Pt(5.65)
 
     try:
         p.style = docx.styles[header_style_name]
