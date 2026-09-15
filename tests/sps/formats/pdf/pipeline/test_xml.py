@@ -1184,6 +1184,76 @@ class TestBuildFullCitation(unittest.TestCase):
         result = xml_pipe.build_full_citation(xml, footer_data, style='abnt')
         self.assertEqual(result, '')
 
+    def test_excludes_non_author_contrib_from_citation(self):
+        # Regression for #1350 review: a translator (or other non-author
+        # contrib-type) in the same <contrib-group> as the authors must not
+        # be treated as an author in the built citation.
+        xml = etree.fromstring(
+            '<article><front><article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author"><name>'
+            '<surname>Cholodenko</surname><given-names>Alan</given-names>'
+            '</name></contrib>'
+            '<contrib contrib-type="translator"><name>'
+            '<surname>Sousa</surname><given-names>Adriano</given-names>'
+            '</name></contrib>'
+            '</contrib-group>'
+            '<article-title>Example Article Title</article-title>'
+            '</article-meta></front>'
+            '<journal-meta><abbrev-journal-title>Ex. J.</abbrev-journal-title></journal-meta>'
+            '</article>'
+        )
+        footer_data = {'year': '2024', 'volume': '', 'issue': '', 'location_label': ''}
+        result = xml_pipe.build_full_citation(xml, footer_data)
+        self.assertTrue(result.startswith('Cholodenko A.'))
+        self.assertNotIn('Sousa', result)
+
+    def test_includes_contrib_with_no_contrib_type_attribute(self):
+        # Backward compatibility: a <contrib> with no contrib-type at all
+        # (JATS allows omitting it) is still treated as an author.
+        xml = etree.fromstring(
+            '<article><front><article-meta>'
+            '<contrib-group><contrib><name>'
+            '<surname>Surname</surname><given-names>Ana</given-names>'
+            '</name></contrib></contrib-group>'
+            '<article-title>Example Article Title</article-title>'
+            '</article-meta></front>'
+            '<journal-meta><abbrev-journal-title>Ex. J.</abbrev-journal-title></journal-meta>'
+            '</article>'
+        )
+        footer_data = {'year': '2024', 'volume': '', 'issue': '', 'location_label': ''}
+        result = xml_pipe.build_full_citation(xml, footer_data)
+        self.assertTrue(result.startswith('Surname A.'))
+
+
+class TestBuildCslReferenceType(unittest.TestCase):
+    """
+    Regression for #1350 review: the CSL item type was hardcoded as
+    'article-journal' inside _build_csl_reference - csl_type is now a
+    parameter (default unchanged) so a future caller can build a citation
+    for a non-research-article type.
+    """
+
+    def _article(self):
+        return etree.fromstring(
+            '<article><front><article-meta>'
+            '<contrib-group><contrib contrib-type="author"><name>'
+            '<surname>Surname</surname><given-names>Ana</given-names>'
+            '</name></contrib></contrib-group>'
+            '<article-title>Example Article Title</article-title>'
+            '</article-meta></front>'
+            '<journal-meta><abbrev-journal-title>Ex. J.</abbrev-journal-title></journal-meta>'
+            '</article>'
+        )
+
+    def test_defaults_to_article_journal(self):
+        reference = xml_pipe._build_csl_reference(self._article(), {})
+        self.assertEqual(reference['type'], 'article-journal')
+
+    def test_accepts_custom_csl_type(self):
+        reference = xml_pipe._build_csl_reference(self._article(), {}, csl_type='editorial')
+        self.assertEqual(reference['type'], 'editorial')
+
 
 class TestExtractContribData(unittest.TestCase):
 

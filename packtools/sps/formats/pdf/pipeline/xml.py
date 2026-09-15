@@ -406,9 +406,16 @@ def _extract_citation_authors(xml_tree):
     Args:
         xml_tree (ElementTree): The XML tree to extract authors from.
 
+    Only `<contrib>` elements with `@contrib-type="author"` (or no
+    `contrib-type` attribute at all, treated as author for backward
+    compatibility) are included - a translator, editor, or other non-author
+    contributor in the same `<contrib-group>` must not end up in the
+    citation's author list (#1350 review: reproduced with
+    tests/fixtures/htmlgenerator/translator/dqR6y8bPFVVQnxnFHY66ZZK.xml).
+
     Returns:
         list: Author strings in document order; empty if there's no
-        <contrib-group> or no <contrib> has both <surname> and text.
+        <contrib-group> or no author <contrib> has both <surname> and text.
     """
     article_meta = xml_tree.find('./front/article-meta')
     metadata_scope = article_meta if article_meta is not None else xml_tree
@@ -418,6 +425,8 @@ def _extract_citation_authors(xml_tree):
 
     authors = []
     for contrib in contrib_group.findall('.//contrib'):
+        if contrib.get('contrib-type', 'author') != 'author':
+            continue
         name = contrib.find('name')
         if name is None:
             continue
@@ -440,7 +449,7 @@ def _extract_citation_authors(xml_tree):
     return authors
 
 
-def _build_csl_reference(xml_tree, footer_data):
+def _build_csl_reference(xml_tree, footer_data, csl_type='article-journal'):
     """
     Builds a CSL-JSON reference dict (see
     https://docs.citationstyles.org/en/stable/specification.html#appendix-iv-variables)
@@ -454,6 +463,12 @@ def _build_csl_reference(xml_tree, footer_data):
     own et-al truncation/ordering/punctuation rules on top of these,
     literal-or-not.
 
+    `csl_type` (#1350 review: non-blocking, flagged for future
+    parametrization) is the CSL item type - 'article-journal' covers a
+    regular research article; a caller can pass e.g. 'editorial' or
+    'personal_communication' for other article types once packtools
+    distinguishes them, without changing this function's other behavior.
+
     Returns:
         dict, or None when there are no authors to build a reference from.
     """
@@ -463,7 +478,7 @@ def _build_csl_reference(xml_tree, footer_data):
 
     reference = {
         'id': 'cite-as',
-        'type': 'article-journal',
+        'type': csl_type,
         'author': [{'literal': author} for author in authors],
     }
 
@@ -507,14 +522,14 @@ def _build_csl_reference(xml_tree, footer_data):
     return reference
 
 
-def _format_via_citeproc(xml_tree, footer_data, csl_filename):
+def _format_via_citeproc(xml_tree, footer_data, csl_filename, csl_type='article-journal'):
     """
     Renders a full citation for `xml_tree`/`footer_data` through citeproc-py
     using the named CSL style file (packaged under
     packtools/sps/formats/pdf/citation_styles/). Returns '' when there are
     no authors to build a reference from.
     """
-    reference = _build_csl_reference(xml_tree, footer_data)
+    reference = _build_csl_reference(xml_tree, footer_data, csl_type)
     if reference is None:
         return ''
 
@@ -543,7 +558,7 @@ _CITATION_STYLE_CSL_FILES = {
 }
 
 
-def build_full_citation(xml_tree, footer_data, style=CITATION_STYLE_VANCOUVER):
+def build_full_citation(xml_tree, footer_data, style=CITATION_STYLE_VANCOUVER, csl_type='article-journal'):
     """
     Builds a complete "how to cite this article" citation from the
     article's own metadata (authors, title, journal, volume/issue/location,
@@ -557,10 +572,16 @@ def build_full_citation(xml_tree, footer_data, style=CITATION_STYLE_VANCOUVER):
     later without changing this function's contract - not wired to the
     CLI/API yet.
 
+    `csl_type` selects the CSL item type (#1350 review: non-blocking).
+    Defaults to 'article-journal'; a caller can pass a different CSL type
+    for editorial/communication/letter articles once packtools
+    distinguishes them from regular research articles.
+
     Args:
         xml_tree (ElementTree): The XML tree to build the citation from.
         footer_data (dict): Output of `extract_footer_data` (year/volume/issue/location_label).
         style (str, optional): Citation format identifier. Defaults to CITATION_STYLE_VANCOUVER.
+        csl_type (str, optional): CSL item type. Defaults to 'article-journal'.
 
     Returns:
         str: The complete citation, or '' when the style is unknown or the
@@ -569,7 +590,7 @@ def build_full_citation(xml_tree, footer_data, style=CITATION_STYLE_VANCOUVER):
     csl_filename = _CITATION_STYLE_CSL_FILES.get(style)
     if csl_filename is None:
         return ''
-    return _format_via_citeproc(xml_tree, footer_data, csl_filename)
+    return _format_via_citeproc(xml_tree, footer_data, csl_filename, csl_type)
 
 
 def _int_to_roman(number):
