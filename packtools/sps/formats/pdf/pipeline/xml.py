@@ -1,3 +1,5 @@
+import string
+
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.utils import xml_utils
 
@@ -341,6 +343,85 @@ def extract_cite_as_part_one(xml_tree, return_node=False):
             else:
                 return part_one.text
 
+
+def _int_to_roman(number):
+    """Converts a positive int to a lowercase roman numeral string."""
+    values = (1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    symbols = ('m', 'cm', 'd', 'cd', 'c', 'xc', 'l', 'xl', 'x', 'ix', 'v', 'iv', 'i')
+    result = []
+    for value, symbol in zip(values, symbols):
+        count, number = divmod(number, value)
+        result.append(symbol * count)
+    return ''.join(result)
+
+
+def _list_item_marker(list_type, index):
+    """
+    Returns the text marker (e.g. "1. ", "a. ") for a <list-item> at
+    position `index` (1-based) of a <list list-type="...">, or '' for a
+    list-type with no visual marker ("simple", the type used when a list's
+    own items already carry their numbering some other way, e.g. a
+    <disp-formula>'s own <label> - see issue #1365/a5.xml) or an
+    unrecognized/absent list-type.
+    """
+    if list_type == 'bullet':
+        return '• '
+    if list_type in ('order', 'arabic'):
+        return f'{index}. '
+    if list_type == 'roman-lower':
+        return f'{_int_to_roman(index)}. '
+    if list_type == 'roman-upper':
+        return f'{_int_to_roman(index).upper()}. '
+    if list_type == 'alpha-lower':
+        return f'{string.ascii_lowercase[(index - 1) % 26]}. '
+    if list_type == 'alpha-upper':
+        return f'{string.ascii_uppercase[(index - 1) % 26]}. '
+    return ''
+
+
+def _plain_text_segment(text):
+    """An unstyled text segment, in the shape get_segments_from_node returns."""
+    return {'type': 'text', 'text': text, 'italic': False, 'bold': False, 'superscript': False, 'subscript': False}
+
+
+def _extract_list_paragraphs(list_node):
+    """
+    Extracts a <list>'s <list-item>s as paragraph entries (issue #1365):
+    one per item, each the same list-of-segments shape as any other
+    paragraph, with a bullet/number/letter marker (see _list_item_marker)
+    prepended as its own leading segment - or no marker for list-type
+    "simple" (used when the items already carry their own numbering some
+    other way, e.g. each <disp-formula>'s own <label>) or an unrecognized
+    list-type.
+
+    A nested <disp-formula> with MathML already comes through correctly via
+    get_segments_from_node's ordinary text/tail recursion - only a
+    graphic-only (image) formula nested this deep would still be silently
+    dropped, same as a bare <disp-formula><graphic> would if it had no
+    flattenable text, just two levels down; not seen in the test corpus, so
+    left unhandled rather than adding speculative code for it.
+
+    Args:
+        list_node (ElementTree): The <list> element.
+
+    Returns:
+        list[list[dict]]: One entry per non-empty <list-item> paragraph.
+    """
+    list_type = list_node.get('list-type', '')
+    paragraphs = []
+    for index, item in enumerate(list_node.findall('list-item'), start=1):
+        marker = _list_item_marker(list_type, index)
+        for item_p in item.findall('p'):
+            item_segments = xml_utils.get_segments_from_node(item_p, skip_tags={'fig', 'table-wrap'})
+            if not item_segments:
+                continue
+            if marker:
+                item_segments = [_plain_text_segment(marker)] + item_segments
+                marker = ''
+            paragraphs.append(item_segments)
+    return paragraphs
+
+
 def extract_body_data(xml_tree, table_layout_overrides=None):
     """
     Extracts the body data from an XML tree, including section titles, paragraphs, and tables.
@@ -373,12 +454,19 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
               <disp-formula> found as a direct sibling of a <p>, since a
               structured formula isn't always wrapped in one - as a single
               plain-text segment (no MathML->OMML conversion yet, see issue
-              #1347's phased plan). Excludes paragraphs that contain
-              table/figure references or wrappers.
+              #1347's phased plan). Also includes each <list-item> of a
+              direct-child <list>, one per item, with a bullet/number/letter
+              marker prepended as its own leading segment (see
+              _list_item_marker; nothing prepended for list-type "simple" or
+              unrecognized). Excludes paragraphs that contain table/figure
+              references or wrappers.
             - 'tables': A list of dictionaries representing the tables in the section, as returned by the `extract_table_data` function.
             - 'figures': A list of dictionaries representing figures in the section, as returned by the `extract_figure_data` function
               (also includes any <disp-formula> that is a graphic rather than
-              MathML/text, since there's nothing to flatten into a paragraph).
+              MathML/text - whether a direct sibling of a <p> or, since a
+              <label> would otherwise make it look like flattenable text,
+              carrying its own <label> - since there's nothing to flatten
+              into a paragraph).
     """
     data = []
     seen_fig_keys = set()
@@ -413,16 +501,38 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
         # flattened-and-present beats silently missing.
         for child in document_section:
             if child.tag == 'p':
-                para_segments = xml_utils.get_segments_from_node(child, skip_tags={'fig', 'table-wrap'})
+                # <list> can also occur as a child of <p> rather than as its
+                # own sibling (issue #1365, seen in a28.xml: the JATS source
+                # wraps a <list> of research propositions in a <p> with no
+                # other content). skip_tags drops it from the flattened text
+                # the same way it already does for <fig>/<table-wrap> -
+                # get_segments_from_node has no special handling for <list>,
+                # so leaving it in would silently flatten it to nothing -
+                # and its items are extracted separately right after.
+                nested_lists = child.findall('list')
+                skip_tags = {'fig', 'table-wrap', 'list'} if nested_lists else {'fig', 'table-wrap'}
+                para_segments = xml_utils.get_segments_from_node(child, skip_tags=skip_tags)
+                if para_segments:
+                    sec['paragraphs'].append(para_segments)
+                for nested_list in nested_lists:
+                    sec['paragraphs'].extend(_extract_list_paragraphs(nested_list))
+                continue
             elif child.tag == 'disp-formula':
-                para_text = xml_utils.get_text_from_node(child).strip()
-                if not para_text and child.find('graphic') is not None:
-                    # A formula rendered as an image (no MathML, no flattenable
-                    # text) has nothing for get_text_from_node to return - it
-                    # was silently dropped entirely. extract_figure_data reads
-                    # the same label/caption/graphic shape <fig> has, so a
-                    # <disp-formula> with a <graphic> can reuse it as-is and
-                    # render like any other figure instead of vanishing.
+                # A formula rendered as an image (<graphic>, no MathML) has to
+                # be identified by shape, not by "no flattenable text": a
+                # <label> sibling of <graphic> (e.g. "(1)") makes
+                # get_text_from_node return non-empty even though the
+                # <graphic> itself has nothing to flatten, so checking
+                # `not para_text` alone let a labeled graphic formula fall
+                # through and drop its <graphic> as a bare label paragraph
+                # (issue #1365).
+                has_graphic = child.find('.//graphic') is not None
+                has_math = bool(child.xpath('.//*[local-name()="math"]'))
+                if has_graphic and not has_math:
+                    # extract_figure_data reads the same label/caption/graphic
+                    # shape <fig> has, so a <disp-formula> with a <graphic>
+                    # can reuse it as-is and render like any other figure
+                    # instead of vanishing.
                     formula_fig = extract_figure_data(child)
                     formula_key = child.get('id') or formula_fig.get('href') or ''
                     if not formula_key or formula_key not in seen_fig_keys:
@@ -434,7 +544,16 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
                 # body, so this yields the same flattened text as
                 # get_text_from_node, just wrapped as the single-segment
                 # list _render_paragraphs now expects for every paragraph.
+                para_text = xml_utils.get_text_from_node(child).strip()
                 para_segments = xml_utils.get_segments_from_node(child) if para_text else []
+            elif child.tag == 'list':
+                # A <list> as a direct sibling of <p> - not visited at all
+                # otherwise, falling to the `else: continue` below and
+                # dropping the whole list (issue #1365; a5.xml loses both
+                # its plain bullet lists and the Equations 3-10, which live
+                # one level deeper inside <list-item><p><disp-formula>).
+                sec['paragraphs'].extend(_extract_list_paragraphs(child))
+                continue
             else:
                 continue
             if para_segments:
