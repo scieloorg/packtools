@@ -36,7 +36,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="article | sub-article" mode="contrib-group">
+    <xsl:template match="article | sub-article | response" mode="contrib-group">
         <div>
             <xsl:attribute name="class">contribGroup</xsl:attribute>
             <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
@@ -79,7 +79,7 @@
         <xsl:if test="contrib/*[name()!='name' and name()!='collab']">
             <a href="" class="outlineFadeLink" data-toggle="modal"
                 data-target="#ModalTutors{$id}">
-                <xsl:apply-templates select="." mode="about-the-contrib-group-button-text"/>
+                <xsl:apply-templates select="." mode="contrib-group-title"/>
             </a>
         </xsl:if>
     </xsl:template>
@@ -97,7 +97,7 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="about-the-contrib-group-button-text">
+    <xsl:template match="article-meta/contrib-group | front/contrib-group | front-stub/contrib-group" mode="contrib-group-title">
         <xsl:variable name="type">
             <xsl:choose>
                 <xsl:when test="../../@article-type='reviewer-report'">reviewer</xsl:when>

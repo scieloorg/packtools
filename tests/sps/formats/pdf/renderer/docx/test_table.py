@@ -3,7 +3,12 @@ import unittest
 from docx import Document
 from docx.shared import Cm
 
-from packtools.sps.formats.pdf.renderer.docx.table import _compute_table_width, _add_caption_paragraph, add_table
+from packtools.sps.formats.pdf.renderer.docx.table import (
+    _compute_table_width,
+    _add_caption_paragraph,
+    _determine_num_cols,
+    add_table,
+)
 from packtools.sps.formats.pdf import enum as pdf_enum
 
 
@@ -105,6 +110,81 @@ class TestAddTableFoot(unittest.TestCase):
         add_table(docx, self._table_data([]))
         body_text = [p.text for p in docx.paragraphs]
         self.assertNotIn('Source: Authors.', body_text)
+
+
+class TestDetermineNumColsHeaderBodyMismatch(unittest.TestCase):
+    """
+    Regression for issue #1371: thead and tbody get their column count
+    computed independently (each section's own _calculate_max_columns), so
+    a real table whose header genuinely has fewer columns than its body -
+    with no colspan explaining the gap - used to size the DOCX table to
+    the header's (smaller) column count. _apply_body_spans then indexed
+    past the end of each row's cells for the extra body columns, crashing
+    with IndexError. _determine_num_cols must take the max across both.
+    """
+
+    def _span_row(self, n):
+        return [{'colspan': 1, 'rowspan': 1, 'text': f'c{i}'} for i in range(n)]
+
+    def test_body_wider_than_header_uses_body_width(self):
+        header_spans = [self._span_row(2)]
+        row_spans = [self._span_row(3)]
+        num_cols = _determine_num_cols([], [], header_spans, row_spans)
+        self.assertEqual(num_cols, 3)
+
+    def test_header_wider_than_body_uses_header_width(self):
+        header_spans = [self._span_row(4)]
+        row_spans = [self._span_row(2)]
+        num_cols = _determine_num_cols([], [], header_spans, row_spans)
+        self.assertEqual(num_cols, 4)
+
+    def test_no_spans_falls_back_to_widest_of_headers_and_rows(self):
+        headers = [['H1', 'H2']]
+        rows = [['A', 'B', 'C']]
+        num_cols = _determine_num_cols(headers, rows, [], [])
+        self.assertEqual(num_cols, 3)
+
+
+class TestAddTableHeaderBodyColumnMismatch(unittest.TestCase):
+    """
+    End-to-end regression for issue #1371, using the real shape
+    extract_table_data returns: a 2-column thead and a 3-column tbody
+    (no colspan on either), as seen in real corpus data (a structured
+    report-style table). add_table must not raise, and the resulting DOCX
+    table must have enough columns for every body cell.
+    """
+
+    def _table_data(self):
+        return {
+            'label': 'Table 1',
+            'title': 'Header/body column count mismatch',
+            'headers': [['', 'H1']],
+            'rows': [['row-label', 'A', 'B']],
+            'layout': pdf_enum.DOUBLE_COLUMN_PAGE_LABEL,
+            'column_widths': [],
+            'header_spans': [[
+                {'colspan': 1, 'rowspan': 1, 'text': ''},
+                {'colspan': 1, 'rowspan': 1, 'text': 'H1'},
+            ]],
+            'row_spans': [[
+                {'colspan': 1, 'rowspan': 1, 'text': 'row-label'},
+                {'colspan': 1, 'rowspan': 1, 'text': 'A'},
+                {'colspan': 1, 'rowspan': 1, 'text': 'B'},
+            ]],
+            'foot': [],
+        }
+
+    def test_does_not_raise(self):
+        docx = Document()
+        add_table(docx, self._table_data())
+        self.assertEqual(len(docx.tables), 1)
+
+    def test_table_has_enough_columns_for_body(self):
+        docx = Document()
+        add_table(docx, self._table_data())
+        table = docx.tables[0]
+        self.assertEqual(len(table.columns), 3)
+        self.assertEqual(table.rows[-1].cells[2].text, 'B')
 
 
 if __name__ == "__main__":

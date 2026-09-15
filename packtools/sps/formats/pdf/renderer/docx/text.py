@@ -17,6 +17,38 @@ def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', elemen
     para.style = docx.styles[style_name]
     return para
 
+def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
+    """
+    Add a paragraph built from style-tagged text segments (see
+    xml_utils.get_segments_from_node), emitting one run per segment with
+    the matching bold/italic/superscript/subscript formatting.
+
+    A flag set to False is applied as None rather than False: python-docx
+    treats an explicit False as forcing the property off even if the
+    paragraph's own style already turns it on, while None lets the run
+    inherit from the style - the same behavior a plain, unstyled run has
+    today.
+
+    superscript/subscript are mutually exclusive on purpose, not just as
+    a style choice: python-docx backs both with the same OOXML
+    w:vertAlign element, so setting one after the other (even to None)
+    overwrites/clears whichever was set first - assigning both
+    unconditionally on every run would silently drop superscript.
+    """
+    para = docx.add_paragraph()
+    para.style = docx.styles[style_name]
+
+    for seg in segments:
+        run = para.add_run(seg.get('text', ''))
+        run.bold = seg.get('bold') or None
+        run.italic = seg.get('italic') or None
+        if seg.get('superscript'):
+            run.font.superscript = True
+        elif seg.get('subscript'):
+            run.font.subscript = True
+
+    return para
+
 def add_authors_names_paragraph_with_formatting_sup(docx, authors_names, paragraph_style_name, character_style_name, sup_mark="[^]"):
     """Add a paragraph with authors' names, handling superscript markers for affiliations."""
     para = docx.add_paragraph()

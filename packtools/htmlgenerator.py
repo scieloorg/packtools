@@ -36,6 +36,10 @@ def get_htmlgenerator(
     if xslt == "3.0":
         if bootstrap_css and article_css and os.path.isfile(css):
             css = os.path.dirname(css)
+        if not js or os.path.isfile(js):
+            # o default de --js (v2.0) e um arquivo unico; a v3.0 espera um
+            # diretorio com os bundles scielo-bundle-min.js e scielo-article-min.js
+            js = catalogs.HTML_GEN_DEFAULT_JS_PATH_V3
         if not design_system_static_img_path:
             design_system_static_img_path = (
                 os.path.join(

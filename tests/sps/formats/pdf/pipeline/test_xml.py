@@ -83,6 +83,58 @@ class TestExtractAbstractData(unittest.TestCase):
         result = xml_pipe.extract_abstract_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_abstract_data_structured_with_sections(self):
+        # Regression for issue #1332: a structured abstract wraps
+        # each subsection in its own <sec>, so a plain findall('p') (direct
+        # children only) found nothing and returned an empty content.
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<title>Abstract</title>'
+            '<sec><title>Introduction:</title><p>Some introduction text.</p></sec>'
+            '<sec><title>Methods:</title><p>Some methods text.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {
+            'title': 'Abstract',
+            'content': 'Introduction: Some introduction text. Methods: Some methods text.',
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_structured_section_title_without_punctuation(self):
+        # Some XMLs don't carry a trailing colon in the <sec><title>, unlike
+        # the "Methods:" style above - a colon must be added so the title
+        # doesn't run into the paragraph text (e.g. "Objetivodescrever...").
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<sec><title>Objetivo</title><p>Descrever o metodo.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {'title': '', 'content': 'Objetivo: Descrever o metodo.'}
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_structured_section_without_title(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<sec><p>Untitled section text.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {'title': '', 'content': 'Untitled section text.'}
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_mixed_direct_and_sectioned_paragraphs(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<p>Lead paragraph.</p>'
+            '<sec><title>Conclusion:</title><p>Final remarks.</p></sec>'
+            '</abstract></article>'
+        )
+        expected = {'title': '', 'content': 'Lead paragraph. Conclusion: Final remarks.'}
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
 
 class TestExtractAcknowledgmentData(unittest.TestCase):
 
@@ -279,6 +331,11 @@ class TestExtractArticleType(unittest.TestCase):
         self.assertEqual(result, '')
 
 
+def _plain_para(text):
+    """A single-segment, unstyled paragraph, as extract_body_data now returns it."""
+    return [{'type': 'text', 'text': text, 'italic': False, 'bold': False, 'superscript': False, 'subscript': False}]
+
+
 class TestExtractBodyData(unittest.TestCase):
 
     def test_extract_body_data_basic(self):
@@ -295,7 +352,273 @@ class TestExtractBodyData(unittest.TestCase):
             {
                 'level': 1,
                 'title': 'Section 1',
-                'paragraphs': ['Paragraph 1', 'Paragraph 2'],
+                'paragraphs': [_plain_para('Paragraph 1'), _plain_para('Paragraph 2')],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_excludes_abstract_and_trans_abstract_sections(self):
+        # Regression: a structured abstract/trans-abstract wraps each
+        # subsection in its own <sec> (see extract_abstract_data), which a
+        # plain './/sec' search would also pick up as a body section,
+        # duplicating the same content in both the abstract and the body.
+        xml = etree.fromstring(
+            '<article>'
+            '<abstract>'
+            '<sec><title>Background:</title><p>Abstract text.</p></sec>'
+            '</abstract>'
+            '<trans-abstract>'
+            '<sec><title>Contexto:</title><p>Texto do resumo.</p></sec>'
+            '</trans-abstract>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 2,
+                'title': 'Introduction',
+                'paragraphs': [_plain_para('Body text.')],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
+        # Regression for issue #1347: <disp-formula> is often a direct
+        # sibling of <p>, not nested inside one - a plain findall('p') never
+        # visits it, so the formula silently vanished from the output. No
+        # MathML->OMML conversion yet (see #1347's phased plan), just
+        # flattened text, but present beats missing.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<mml:math><mml:mi>Y</mml:mi><mml:mo>=</mml:mo><mml:mn>1</mml:mn></mml:math>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('See the formula below.'),
+                    _plain_para('Y=1'),
+                    _plain_para('Where Y is the result.'),
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_graphic_disp_formula_as_figure(self):
+        # Regression for issue #1347: a <disp-formula> rendered as an image
+        # (<graphic>, no MathML) has no text for get_text_from_node to
+        # flatten, so it was silently dropped even after the fix for the
+        # MathML/text case above. extract_figure_data reads the same
+        # label/caption/graphic shape <fig> has, so the formula is rendered
+        # as a figure instead of vanishing.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<graphic xlink:href="e01.tif" xmlns:xlink="http://www.w3.org/1999/xlink"/>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('See the formula below.'),
+                    _plain_para('Where Y is the result.'),
+                ],
+                'tables': [],
+                'figures': [
+                    {'label': '', 'caption': '', 'href': 'e01.tif', 'alt': ''},
+                ],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_labeled_graphic_disp_formula_as_figure(self):
+        # Regression for issue #1365 (review on PR #1348): a <graphic>
+        # formula with a <label> (e.g. "(1)") still has to be treated as a
+        # figure - get_text_from_node returns the label text, which isn't
+        # empty, so a check that only looked at "no flattenable text" missed
+        # this case and dropped the <graphic>, keeping just the bare label
+        # as a paragraph.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>See the formula below.</p>'
+            '<disp-formula id="e01">'
+            '<label>(1)</label>'
+            '<graphic xlink:href="e01.tif" xmlns:xlink="http://www.w3.org/1999/xlink"/>'
+            '</disp-formula>'
+            '<p>Where Y is the result.</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('See the formula below.'),
+                    _plain_para('Where Y is the result.'),
+                ],
+                'tables': [],
+                'figures': [
+                    {'label': '(1)', 'caption': '', 'href': 'e01.tif', 'alt': ''},
+                ],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_bullet_list_items(self):
+        # Regression for issue #1365: <list> isn't 'p' or 'disp-formula', so
+        # a plain child-tag check silently dropped it and every <list-item>
+        # inside - reproduced against a5.xml's Treatment Series lists.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>The treatments included:</p>'
+            '<list list-type="bullet">'
+            '<list-item><p>T1 - Control</p></list-item>'
+            '<list-item><p>T2 - Treated</p></list-item>'
+            '</list>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('The treatments included:'),
+                    [
+                        {'type': 'text', 'text': '• ', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                        {'type': 'text', 'text': 'T1 - Control', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                    ],
+                    [
+                        {'type': 'text', 'text': '• ', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                        {'type': 'text', 'text': 'T2 - Treated', 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False},
+                    ],
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_ordered_list_items_with_numbering(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<list list-type="order">'
+            '<list-item><p>First step</p></list-item>'
+            '<list-item><p>Second step</p></list-item>'
+            '<list-item><p>Third step</p></list-item>'
+            '</list>'
+            '</sec>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        markers = [para[0]['text'] for para in result[0]['paragraphs']]
+        self.assertEqual(markers, ['1. ', '2. ', '3. '])
+
+    def test_extract_body_data_simple_list_has_no_marker(self):
+        # list-type="simple" is used when the items already carry their own
+        # numbering some other way - a5.xml's Equations 3-10, each numbered
+        # by its own <disp-formula><label>, not by the list.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<list list-type="simple">'
+            '<list-item><p>Total biomass:'
+            '<disp-formula id="e03">'
+            '<mml:math><mml:mi>Y</mml:mi><mml:mo>=</mml:mo><mml:mn>1</mml:mn></mml:math>'
+            '<label>(3)</label>'
+            '</disp-formula>'
+            '</p></list-item>'
+            '</list>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('Total biomass:Y=1(3)'),
+                ],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_includes_list_nested_inside_p(self):
+        # Regression for issue #1365, reproduced against the real corpus
+        # sample a28.xml: <list> can also occur as a child of <p> rather
+        # than as its own sibling. get_segments_from_node has no special
+        # handling for <list>, so leaving it unhandled would silently
+        # flatten it to nothing - same content loss as a <list> direct
+        # sibling of <p>, just one level deeper.
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>The following propositions were formulated:</p>'
+            '<p>'
+            '<list list-type="simple">'
+            '<list-item><p>Proposition P1: text one.</p></list-item>'
+            '<list-item><p>Proposition P2: text two.</p></list-item>'
+            '</list>'
+            '</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [
+                    _plain_para('The following propositions were formulated:'),
+                    _plain_para('Proposition P1: text one.'),
+                    _plain_para('Proposition P2: text two.'),
+                ],
                 'tables': [],
                 'figures': [],
             }
@@ -324,7 +647,7 @@ class TestExtractBodyData(unittest.TestCase):
             {
                 'level': 1,
                 'title': 'Section 1',
-                'paragraphs': ['Paragraph 1'],
+                'paragraphs': [_plain_para('Paragraph 1')],
                 'tables': [
                     {
                         'label': 'Table 1',
@@ -361,14 +684,14 @@ class TestExtractBodyData(unittest.TestCase):
             {
                 'level': 1,
                 'title': 'Section 1',
-                'paragraphs': ['Paragraph 1'],
+                'paragraphs': [_plain_para('Paragraph 1')],
                 'tables': [],
                 'figures': [],
             },
             {
                 'level': 2,
                 'title': 'Subsection 1.1',
-                'paragraphs': ['Paragraph 1.1'],
+                'paragraphs': [_plain_para('Paragraph 1.1')],
                 'tables': [],
                 'figures': [],
             }
@@ -397,7 +720,7 @@ class TestExtractBodyData(unittest.TestCase):
             {
                 'level': 1,
                 'title': 'Section 1',
-                'paragraphs': ['Paragraph with Table 1'],
+                'paragraphs': [_plain_para('Paragraph with Table 1')],
                 'tables': [
                     {
                         'label': 'Table 1',
@@ -433,7 +756,7 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(
             result[0]['paragraphs'],
-            ['Pressure is increasing (Lang and Barling, 2012; Ripple et al., 2019) worldwide.'],
+            [_plain_para('Pressure is increasing (Lang and Barling, 2012; Ripple et al., 2019) worldwide.')],
         )
 
     def test_embedded_fig_tail_whitespace_is_collapsed_not_left_raw(self):
@@ -450,8 +773,125 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(
             result[0]['paragraphs'],
-            ['See the figure below for details.'],
+            [_plain_para('See the figure below for details.')],
         )
+
+    def test_extract_body_data_preserves_inline_formatting(self):
+        # Item 04 of the pdf_generator backlog: <italic>/<bold>/<sup>/<sub>
+        # inside a body paragraph used to be flattened to plain text by
+        # get_text_from_node. extract_body_data now keeps them as
+        # style-tagged segments instead of a single string.
+        xml = etree.fromstring(
+            '<article><sec><title>Results</title>'
+            '<p>The species <italic>Genus species</italic> was observed'
+            '<sup>1</sup> in <bold>high</bold> numbers.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(
+            result[0]['paragraphs'],
+            [[
+                {'type': 'text', 'text': 'The species ', 'italic': False, 'bold': False, 'superscript': False, 'subscript': False},
+                {'type': 'text', 'text': 'Genus species', 'italic': True, 'bold': False, 'superscript': False, 'subscript': False},
+                {'type': 'text', 'text': ' was observed', 'italic': False, 'bold': False, 'superscript': False, 'subscript': False},
+                {'type': 'text', 'text': '1', 'italic': False, 'bold': False, 'superscript': True, 'subscript': False},
+                {'type': 'text', 'text': ' in ', 'italic': False, 'bold': False, 'superscript': False, 'subscript': False},
+                {'type': 'text', 'text': 'high', 'italic': False, 'bold': True, 'superscript': False, 'subscript': False},
+                {'type': 'text', 'text': ' numbers.', 'italic': False, 'bold': False, 'superscript': False, 'subscript': False},
+            ]],
+        )
+
+    def test_extract_body_data_falls_back_to_body_when_no_sec_exists(self):
+        # Regression for issue #1351: a <body> with <p> as direct children
+        # and no <sec> at all (valid JATS pattern for unsectioned short
+        # communications/brief reports) used to disappear entirely, since
+        # the section search only ever looked for <sec>.
+        xml = etree.fromstring(
+            '<article><body>'
+            '<p>Paragraph 1</p>'
+            '<p>Paragraph 2</p>'
+            '</body></article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': None,
+                'paragraphs': [_plain_para('Paragraph 1'), _plain_para('Paragraph 2')],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_falls_back_to_body_with_table_and_figure(self):
+        xml = etree.fromstring(
+            '<article><body>'
+            '<p>Intro paragraph.</p>'
+            '<p>Figure 1<fig id="f1"><label>Figure 1</label></fig></p>'
+            '<p>Table 1'
+            '<table-wrap id="t1">'
+            '<label>Table 1</label>'
+            '<title>Sample Table</title>'
+            '<table>'
+            '<thead><tr><th>Header</th></tr></thead>'
+            '<tbody><tr><td>Data</td></tr></tbody>'
+            '</table>'
+            '</table-wrap>'
+            '</p>'
+            '</body></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertIsNone(result[0]['title'])
+        self.assertEqual(len(result[0]['tables']), 1)
+        self.assertEqual(len(result[0]['figures']), 1)
+
+    def test_extract_body_data_does_not_fall_back_when_sec_exists(self):
+        # Regression: the fallback must not kick in for a normally
+        # sectioned article, even one with just a single <sec>.
+        xml = etree.fromstring(
+            '<article><body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body></article>'
+        )
+        expected = [
+            {
+                'level': 2,
+                'title': 'Introduction',
+                'paragraphs': [_plain_para('Body text.')],
+                'tables': [],
+                'figures': [],
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_falls_back_even_when_an_unrelated_sec_exists_outside_body(self):
+        # Regression for issue #1351, reproduced against the real corpus
+        # sample a8.xml: <body> has no <sec> of its own, but a <sec
+        # sec-type="data-availability"> lives under <back>. A naive
+        # "any <sec> found anywhere -> skip the fallback" check would
+        # wrongly treat body as already covered by that unrelated sec and
+        # keep discarding body's own content.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<p>Body paragraph.</p>'
+            '</body>'
+            '<back>'
+            '<sec sec-type="data-availability">'
+            '<label>Data availability</label>'
+            '<p>Data statement.</p>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]['title'], None)
+        self.assertEqual(result[0]['paragraphs'], [_plain_para('Body paragraph.')])
+        self.assertEqual(result[1]['paragraphs'], [_plain_para('Data statement.')])
 
 
 class TestExtractCategory(unittest.TestCase):
@@ -1439,7 +1879,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_no_label_no_title(self):
         xml_str = """
@@ -1467,7 +1907,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_empty_table(self):
         xml_str = """
@@ -1493,7 +1933,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_no_table(self):
         xml_str = """
@@ -1515,7 +1955,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_multiple_header_rows(self):
         xml_str = """
@@ -1548,7 +1988,7 @@ class TestExtractTableData(unittest.TestCase):
             'foot': [],
         }
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(expected, result)
+        self.assertEqual([expected], result)
 
     def test_extract_table_data_foot_with_fn_and_attrib(self):
         xml_str = """
@@ -1566,7 +2006,7 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(
-            result['foot'],
+            result[0]['foot'],
             ['Source: Authors.', '* p < 0.05.', 'Adapted from Smith (2020).'],
         )
 
@@ -1587,7 +2027,7 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(
-            result['foot'],
+            result[0]['foot'],
             ['Legenda: Outros (BR): 87 titulos.', 'Fonte: Dados da pesquisa (Florianopolis, 2022).'],
         )
 
@@ -1607,7 +2047,7 @@ class TestExtractTableData(unittest.TestCase):
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
         self.assertEqual(
-            result['foot'],
+            result[0]['foot'],
             ['Legenda solta.', 'Nota de rodape.', 'Fonte: Autores.'],
         )
 
@@ -1615,7 +2055,7 @@ class TestExtractTableData(unittest.TestCase):
         xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap)
-        self.assertEqual(result['foot'], [])
+        self.assertEqual(result[0]['foot'], [])
 
     def test_determine_table_layout_single_long_cell_forces_single_column(self):
         long_text = "x" * 500
@@ -1641,13 +2081,125 @@ class TestExtractTableData(unittest.TestCase):
         result = xml_pipe.extract_table_data(
             table_wrap, override_layout=pdf_enum.SINGLE_COLUMN_PAGE_LABEL
         )
-        self.assertEqual(result['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+        self.assertEqual(result[0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
 
     def test_extract_table_data_invalid_override_falls_back_to_heuristic(self):
         xml_str = "<table-wrap><table><tbody><tr><td>Data</td></tr></tbody></table></table-wrap>"
         table_wrap = etree.fromstring(xml_str)
         result = xml_pipe.extract_table_data(table_wrap, override_layout='not-a-real-layout')
-        self.assertEqual(result['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+        self.assertEqual(result[0]['layout'], pdf_enum.DOUBLE_COLUMN_PAGE_LABEL)
+
+
+class TestExtractTableDataMultipleTables(unittest.TestCase):
+    """
+    Regression tests for issue #1368: a <table-wrap> can hold more than one
+    <table> (real corpus pattern - side-by-side "Program A"/"Program B"
+    panels sharing one caption). table_wrap.find('.//table') used to grab
+    only the first, silently dropping every table past it. extract_table_data
+    now returns one dict per <table>, the shared label/title only on the
+    first and any <table-wrap-foot> notes only on the last.
+    """
+
+    def _two_table_xml(self):
+        return """
+            <table-wrap>
+                <label>Table 1</label>
+                <title>Two programs</title>
+                <table>
+                    <thead><tr><th>Program A</th></tr></thead>
+                    <tbody><tr><td>A1</td></tr></tbody>
+                </table>
+                <table>
+                    <thead><tr><th>Program B</th></tr></thead>
+                    <tbody><tr><td>B1</td></tr></tbody>
+                </table>
+                <table-wrap-foot>
+                    <p>Shared note.</p>
+                </table-wrap-foot>
+            </table-wrap>
+        """
+
+    def test_returns_one_dict_per_table(self):
+        table_wrap = etree.fromstring(self._two_table_xml())
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]['rows'], [['A1']])
+        self.assertEqual(result[1]['rows'], [['B1']])
+
+    def test_caption_only_on_first_table(self):
+        table_wrap = etree.fromstring(self._two_table_xml())
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result[0]['label'], 'Table 1')
+        self.assertEqual(result[0]['title'], 'Two programs')
+        self.assertEqual(result[1]['label'], '')
+        self.assertEqual(result[1]['title'], '')
+
+    def test_foot_only_on_last_table(self):
+        table_wrap = etree.fromstring(self._two_table_xml())
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result[0]['foot'], [])
+        self.assertEqual(result[1]['foot'], ['Shared note.'])
+
+    def test_layout_considers_every_table_not_just_the_first(self):
+        # First table has 1 narrow column; second has 5, past the
+        # single-column-layout threshold. The wrap-level layout decision
+        # must reflect the widest table, not just the first.
+        xml_str = """
+            <table-wrap>
+                <table><tbody><tr><td>A</td></tr></tbody></table>
+                <table><tbody><tr>
+                    <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                </tr></tbody></table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(result[0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+        self.assertEqual(result[1]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+
+
+class TestExtractTableDataBareRows(unittest.TestCase):
+    """
+    Regression tests for issue #1368: a <table> can have <tr> as direct
+    children with no <thead>/<tbody> wrapper at all (valid JATS/NLM shape -
+    real corpus example: a structured radiology-report table). Both were
+    previously required for any content to be read, so the whole table body
+    was silently dropped.
+    """
+
+    def test_bare_tr_rows_are_read_as_body(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tr><td>PULMOES:</td><td>Sem alteracoes.</td></tr>
+                    <tr><td>BACO:</td><td>Sem alteracoes.</td></tr>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['headers'], [])
+        self.assertEqual(
+            result[0]['rows'],
+            [['PULMOES:', 'Sem alteracoes.'], ['BACO:', 'Sem alteracoes.']],
+        )
+
+    def test_bare_tr_accepts_th_cells_without_a_thead_wrapper(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <tr><th>Predictor</th><th>Value</th></tr>
+                    <tr><td>Age</td><td>37</td></tr>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(
+            result[0]['rows'],
+            [['Predictor', 'Value'], ['Age', '37']],
+        )
 
 
 class TestExtractBodyDataTableDedup(unittest.TestCase):
@@ -1903,6 +2455,30 @@ class TestExtractTransAbstractData(unittest.TestCase):
         )
         result = xml_pipe.extract_trans_abstract_data(xml)
         self.assertEqual(result[0]['title'], 'Resumo*')
+
+    def test_extract_trans_abstract_data_structured_with_sections(self):
+        # Regression for issue #1332: same bug as extract_abstract_data,
+        # a structured trans-abstract's <p> nested in <sec> was invisible
+        # to a plain findall('p'), so the translated abstract's content
+        # came out empty (e.g. a10.xml's RESUMO in the real test corpus).
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo</title>'
+            '<sec><title>Contexto:</title><p>Texto de contexto.</p></sec>'
+            '<sec><title>Métodos:</title><p>Texto de métodos.</p></sec>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'pt',
+                'title': 'Resumo',
+                'content': 'Contexto: Texto de contexto. Métodos: Texto de métodos.',
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
 
 
 class TestExtractFigureData(unittest.TestCase):

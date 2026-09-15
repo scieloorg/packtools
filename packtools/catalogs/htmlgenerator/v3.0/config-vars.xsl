@@ -24,6 +24,7 @@
 
     <xsl:param name="output_style"/>
     <xsl:param name="crossmark_policy_page" />
+    <xsl:param name="max_displayed_authors" />
 
     <xsl:variable name="CROSSMARK_POLICY_PAGE"><xsl:value-of select="$crossmark_policy_page"/></xsl:variable>
 
@@ -62,6 +63,8 @@
     <xsl:variable name="BOOTSTRAP_CSS_PATH"><xsl:value-of select="$bootstrap_css_path"/></xsl:variable>
 
     <xsl:variable name="JS_PATH"><xsl:value-of select="$js_path"/></xsl:variable>
+
+    <xsl:variable name="MAX_DISPLAYED_AUTHORS"><xsl:value-of select="$max_displayed_authors"/><xsl:if test="not($max_displayed_authors) or $max_displayed_authors = ''">25</xsl:if></xsl:variable>
 
     <xsl:template name="img_src_attribute">
         <xsl:param name="basename"/>

@@ -5,15 +5,15 @@
 
     <xsl:include href="../v2.0/html-modals-contribs.xsl"/>
 
-    <xsl:template match="article-meta | front-stub" mode="modal-contrib">
+    <xsl:template match="article-meta | front-stub" mode="modal-contrib-group">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
         <div class="modal fade ModalDefault ModalTutors" id="ModalTutors{$id}" tabindex="-1" role="dialog" aria-hidden="true">
-                
+
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                             <xsl:apply-templates select="contrib-group" mode="about-the-contrib-group-button-text"/>
+                            <xsl:apply-templates select="." mode="contrib-group-title"/>
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
                             <xsl:attribute name="aria-label">
@@ -25,12 +25,35 @@
                     </div>
                     <xsl:call-template name="modal-author-css"/>
                     <div class="modal-body">
-                        <xsl:apply-templates select="contrib-group/contrib" mode="modal-contrib"></xsl:apply-templates>
+                        <xsl:apply-templates select="." mode="contrib-group-body"/>
                         <xsl:apply-templates select=".//author-notes" mode="modal-contrib"></xsl:apply-templates>
                     </div>
                 </div>
             </div>
         </div>
+    </xsl:template>
+
+    <xsl:template match="article-meta | front-stub" mode="contrib-group-title">
+        <xsl:choose>
+            <xsl:when test="contrib-group">
+                <xsl:apply-templates select="contrib-group" mode="contrib-group-title"/>
+            </xsl:when>
+            <xsl:when test="../@article-type='translation'">
+                <xsl:apply-templates select="../../front/article-meta | ../../front-stub" mode="contrib-group-title"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="article-meta | front-stub" mode="contrib-group-body">
+        <xsl:choose>
+            <xsl:when test="contrib-group">
+                <xsl:apply-templates select="contrib-group/contrib" mode="modal-contrib"/>
+            </xsl:when>
+            <xsl:when test="../@article-type='translation'">
+                <!-- sem contrib-group própria: usa a do front/front-stub do artigo pai, mesmo comportamento do article/front -->
+                <xsl:apply-templates select="../../front/article-meta/contrib-group/contrib | ../../front-stub/contrib-group/contrib" mode="modal-contrib"/>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="modal-author-css">
@@ -68,6 +91,28 @@
         </style>
     </xsl:template>
 
+    <xsl:template match="article-meta | front-stub" mode="modal-contrib-group">
+        <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="contrib-group">
+                <xsl:apply-templates select="contrib-group" mode="modal-contrib-group">
+                    <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="../@article-type='translation'">
+                <xsl:apply-templates select="../../front/article-meta | ../../front-stub" mode="modal-contrib-group"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+ 
+    <xsl:template match="contrib-group" mode="modal-contrib-group">
+        <xsl:param name="id"/>
+        <xsl:apply-templates select="contrib" mode="modal-contrib">
+            <xsl:with-param name="id"><xsl:value-of select="@content-type"/><xsl:value-of select="$id"/></xsl:with-param>
+            <xsl:with-param name="title"><xsl:apply-templates select="." mode="contrib-group-title"/></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+ 
     <xsl:template match="article-meta | front-stub" mode="modal-scimago">
         <xsl:variable name="id"><xsl:apply-templates select="." mode="modal-id"></xsl:apply-templates></xsl:variable>
         <div class="modal fade ModalDefault ModalTutors" id="ModalScimago{$id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -76,7 +121,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            SCIMAGO INSTITUTIONS RANKINGS
+                            SCImago Institutions Rankings
                         </h5>
                         <button class="btn-close" data-bs-dismiss="modal">
                             <xsl:attribute name="aria-label">
@@ -121,8 +166,8 @@
 
     <xsl:template match="contrib/xref" mode="modal-contrib">
         <xsl:variable name="rid" select="@rid"/>
-            <xsl:apply-templates select="$article//aff[@id=$rid]" mode="modal-contrib"/>
-        <xsl:apply-templates select="$article//fn[@id=$rid]" mode="xref"/>
+        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="modal-contrib"/>
+        <xsl:apply-templates select="$article//*[@id=$rid]" mode="modal-contrib"/>
     </xsl:template>
     
     <xsl:template match="role" mode="modal-contrib">
@@ -266,5 +311,133 @@
                 <strong><span class="material-icons-outlined">email</span> </strong><xsl:apply-templates select="."/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="contrib" mode="modal-contrib">
+        <xsl:param name="id"/>
+        <xsl:param name="notes"/>
+        <xsl:param name="title"/>
+        <xsl:variable name="position" select="position()"/>        
+        <xsl:variable name="id_position"><xsl:value-of select="$id"/>-<xsl:value-of select="$position"/></xsl:variable>
+
+        <div class="modal fade ModalDefault ModalTutors" id="authorModal-{$id_position}" tabindex="-1" role="dialog"
+       aria-labelledby="authorModalLabel-{$id_position}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="h4 modal-title" id="authorModalLabel-{$id_position}">
+                            <xsl:value-of select="$title"/>
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                            <xsl:attribute name="aria-label">
+                                <xsl:apply-templates select="." mode="interface">
+                                    <xsl:with-param name="text">Close</xsl:with-param>
+                                </xsl:apply-templates>
+                            </xsl:attribute>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <xsl:apply-templates select="." mode="modal-contrib-body"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="contrib" mode="modal-contrib-body">
+        <!--
+            ((contrib-id)*, (anonymous | collab | collab-alternatives | name | name-alternatives | string-name)*, (degrees)*, (address | aff | aff-alternatives | author-comment | bio | email | ext-link | on-behalf-of | role | uri | xref)*)
+        -->
+        <div class="author-card">
+            <div class="author-grid-row">
+                <span class="material-icons-outlined" aria-hidden="true">person</span>
+                <div class="author-name">
+                    <span class="author-name-text">
+                        <xsl:apply-templates select="anonymous|name|collab|on-behalf-of"/>
+                    </span>
+                </div>
+            </div>
+            <xsl:apply-templates select="." mode="modal-contrib-body-role"/>
+            <xsl:apply-templates select="." mode="modal-contrib-body-aff"/>
+            <xsl:apply-templates select="." mode="modal-contrib-body-contrib-id"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="contrib" mode="modal-contrib-body-contrib-id">
+        <xsl:apply-templates select="contrib-id" mode="modal-contrib-body-contrib-id"/>
+    </xsl:template>
+
+    <xsl:template match="contrib-id" mode="modal-contrib-body-contrib-id">
+        <xsl:variable name="id_type" select="@contrib-id-type"/>
+        <div class="{$id_type}-button-wrap ms-4">
+            <xsl:value-of select="."/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="contrib-id[@contrib-id-type='orcid']" mode="modal-contrib-body-contrib-id">
+        <div class="orcid-button-wrap ms-4">
+            <a 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn-secondary orcid-button" 
+            href="https://orcid.org/{.}"
+            >
+            <xsl:attribute name="aria-label">
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">Access contributor profile</xsl:with-param>
+                </xsl:apply-templates><xsl:text>&#160;</xsl:text><xsl:value-of select="."/>.
+                <xsl:text>&#160;</xsl:text>
+                <xsl:apply-templates select="." mode="interface">
+                    <xsl:with-param name="text">Opens in new tab. External resource.</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:attribute>
+            <xsl:value-of select="."/>
+            </a>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="contrib" mode="modal-contrib-body-role">
+        <xsl:if test="role">
+            <div class="author-roles author-subrow mb-2">
+                <xsl:apply-templates select="role" mode="modal-contrib-body-role"/>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="role" mode="modal-contrib-body-role">
+        <xsl:choose>
+            <xsl:when test="position()=1"></xsl:when>
+            <xsl:otherwise> · </xsl:otherwise>
+        </xsl:choose><xsl:value-of select="."/>
+    </xsl:template>
+
+    <xsl:template match="contrib" mode="modal-contrib-body-aff">
+        <xsl:if test="xref[@ref-type='aff']">
+            <div class="author-grid-row author-subrow mb-2">
+                <span class="material-icons-outlined" aria-hidden="true">school</span>
+                <div class="author-institution">
+                    <xsl:apply-templates select="xref[@ref-type='aff']" mode="modal-contrib-body-aff"/>
+                </div>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="xref[@ref-type='aff']" mode="modal-contrib-body-aff">
+        <xsl:variable name="rid" select="@rid"/>
+        <xsl:apply-templates select="$article//aff[@id=$rid]" mode="modal-contrib-body-aff"/>
+    </xsl:template>
+
+    <xsl:template match="aff" mode="modal-contrib-body-aff">
+        <xsl:value-of select="institution[@content-type='original']"/>
+        <xsl:if test="not(institution[@content-type='original'])">
+            <xsl:apply-templates select="." mode="modal-contrib-body-aff-built"/>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="aff" mode="modal-contrib-body-aff-built">
+        <xsl:apply-templates select="institution | addr-line | city | state | country" mode="display"/>
     </xsl:template>
 </xsl:stylesheet>

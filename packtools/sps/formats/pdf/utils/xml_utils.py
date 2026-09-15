@@ -37,6 +37,100 @@ def get_text_from_node(node, skip_tags=None):
     text = _normalize_punctuation_spacing(text)
     return text
 
+_INLINE_STYLE_TAGS = {
+    'italic': 'italic',
+    'bold': 'bold',
+    'sup': 'superscript',
+    'sub': 'subscript',
+}
+
+
+def get_segments_from_node(node, skip_tags=None):
+    """
+    Extracts text from an XML node as a list of style-tagged segments
+    instead of a single flattened string, so inline markup
+    (<italic>/<bold>/<sup>/<sub>) can be rendered with the matching run
+    formatting instead of being discarded.
+
+    Preserves the same adjacency-preserving traversal as
+    get_text_from_node (including skip_tags), then merges adjacent
+    fragments that ended up with the same combination of active styles
+    before normalizing whitespace/punctuation per merged segment - doing
+    it per merged run rather than per raw fragment matters because a
+    stray space next to a paren/bracket/comma (e.g. "( <xref>...</xref>
+    )") always lands in the same text fragment as that punctuation, not
+    split across a style boundary.
+
+    Args:
+        node (ElementTree): The XML node to extract segments from.
+        skip_tags (set, optional): Child tag names to drop entirely from
+            the output; only their `.tail` is kept. Same semantics as
+            get_text_from_node.
+
+    Returns:
+        list[dict]: Segments in document order, each
+            {'type': 'text', 'text': str, 'italic': bool, 'bold': bool,
+            'superscript': bool, 'subscript': bool}. Empty after
+            whitespace normalization/leading-trailing strip are dropped.
+    """
+    skip_tags = skip_tags or set()
+    raw_segments = []
+    _collect_style_segments(node, skip_tags, frozenset(), raw_segments)
+
+    segments = []
+    for text, styles in _merge_adjacent_segments(raw_segments):
+        text = _remove_double_spaces(text)
+        text = _normalize_punctuation_spacing(text)
+        if text:
+            segments.append(_build_text_segment(text, styles))
+
+    if segments:
+        segments[0]['text'] = segments[0]['text'].lstrip()
+        segments[-1]['text'] = segments[-1]['text'].rstrip()
+        segments = [seg for seg in segments if seg['text']]
+
+    return segments
+
+
+def _collect_style_segments(node, skip_tags, active_styles, raw_segments):
+    """Recursively walk node, appending (text, active_styles) fragments to raw_segments."""
+    if node.text:
+        raw_segments.append((node.text, active_styles))
+
+    for child in node:
+        if child.tag in skip_tags:
+            pass
+        elif child.tag in _INLINE_STYLE_TAGS:
+            child_styles = active_styles | {_INLINE_STYLE_TAGS[child.tag]}
+            _collect_style_segments(child, skip_tags, child_styles, raw_segments)
+        else:
+            _collect_style_segments(child, skip_tags, active_styles, raw_segments)
+
+        if child.tail:
+            raw_segments.append((child.tail, active_styles))
+
+
+def _merge_adjacent_segments(raw_segments):
+    """Concatenate consecutive (text, styles) fragments that share the same styles."""
+    merged = []
+    for text, styles in raw_segments:
+        if merged and merged[-1][1] == styles:
+            merged[-1] = (merged[-1][0] + text, styles)
+        else:
+            merged.append((text, styles))
+    return merged
+
+
+def _build_text_segment(text, styles):
+    return {
+        'type': 'text',
+        'text': text,
+        'italic': 'italic' in styles,
+        'bold': 'bold' in styles,
+        'superscript': 'superscript' in styles,
+        'subscript': 'subscript' in styles,
+    }
+
 def get_node_level(element, root):
     """
     Determines the level or depth of an XML element within the document tree.
