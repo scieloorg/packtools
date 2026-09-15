@@ -391,11 +391,11 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(result, expected)
 
     def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
-        # Regression for issue #1347: <disp-formula> is often a direct
+        # Regression for issue #1347/#1352: <disp-formula> is often a direct
         # sibling of <p>, not nested inside one - a plain findall('p') never
-        # visits it, so the formula silently vanished from the output. No
-        # MathML->OMML conversion yet (see #1347's phased plan), just
-        # flattened text, but present beats missing.
+        # visits it, so the formula silently vanished from the output.
+        # Since Phase 1 (#1352), a formula with MathML gets a real OMML
+        # conversion (a single 'formula' segment) instead of flattened text.
         xml = etree.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
             '<sec>'
@@ -408,21 +408,21 @@ class TestExtractBodyData(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        expected = [
-            {
-                'level': 1,
-                'title': 'Section 1',
-                'paragraphs': [
-                    _plain_para('See the formula below.'),
-                    _plain_para('Y=1'),
-                    _plain_para('Where Y is the result.'),
-                ],
-                'tables': [],
-                'figures': [],
-            }
-        ]
         result = xml_pipe.extract_body_data(xml)
-        self.assertEqual(result, expected)
+        paragraphs = result[0]['paragraphs']
+        self.assertEqual(paragraphs[0], _plain_para('See the formula below.'))
+        self.assertEqual(paragraphs[2], _plain_para('Where Y is the result.'))
+        self.assertEqual(len(paragraphs[1]), 1)
+        formula_segment = paragraphs[1][0]
+        self.assertEqual(formula_segment['type'], 'formula')
+        self.assertEqual(etree.QName(formula_segment['omml']).localname, 'oMath')
+        omml_text = ''.join(formula_segment['omml'].itertext())
+        self.assertIn('Y', omml_text)
+        self.assertIn('1', omml_text)
+        self.assertEqual(result[0]['level'], 1)
+        self.assertEqual(result[0]['title'], 'Section 1')
+        self.assertEqual(result[0]['tables'], [])
+        self.assertEqual(result[0]['figures'], [])
 
     def test_extract_body_data_includes_graphic_disp_formula_as_figure(self):
         # Regression for issue #1347: a <disp-formula> rendered as an image
@@ -559,7 +559,10 @@ class TestExtractBodyData(unittest.TestCase):
     def test_extract_body_data_simple_list_has_no_marker(self):
         # list-type="simple" is used when the items already carry their own
         # numbering some other way - a5.xml's Equations 3-10, each numbered
-        # by its own <disp-formula><label>, not by the list.
+        # by its own <disp-formula><label>, not by the list. Since Phase 1
+        # (#1352), the trailing <disp-formula> in the <p> gets a real OMML
+        # conversion plus its own <label> as a trailing text segment,
+        # instead of everything flattened into one text blob.
         xml = etree.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
             '<sec>'
@@ -575,19 +578,14 @@ class TestExtractBodyData(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        expected = [
-            {
-                'level': 1,
-                'title': 'Section 1',
-                'paragraphs': [
-                    _plain_para('Total biomass:Y=1(3)'),
-                ],
-                'tables': [],
-                'figures': [],
-            }
-        ]
         result = xml_pipe.extract_body_data(xml)
-        self.assertEqual(result, expected)
+        paragraphs = result[0]['paragraphs']
+        self.assertEqual(len(paragraphs), 1)
+        segments = paragraphs[0]
+        self.assertEqual(segments[0], _plain_para('Total biomass:')[0])
+        self.assertEqual(segments[1]['type'], 'formula')
+        self.assertEqual(etree.QName(segments[1]['omml']).localname, 'oMath')
+        self.assertEqual(segments[2], _plain_para(' (3)')[0])
 
     def test_extract_body_data_includes_list_nested_inside_p(self):
         # Regression for issue #1365, reproduced against the real corpus
