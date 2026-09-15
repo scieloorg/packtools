@@ -5,23 +5,29 @@
 
     <xsl:include href="../v2.0/article-text-back.xsl"/>
 
-    <xsl:template match="author-notes/*" mode="back-section">
-        <xsl:apply-templates select="@id" mode="add_span_id"/>
-        <div>
-            <xsl:apply-templates select="." mode="back-section-menu"/>
-            <xsl:apply-templates select="." mode="back-section-h"/>
-            <xsl:apply-templates select="." mode="back-section-content"/>
-        </div>
+    <xsl:template match="*" mode="back-section-menu">
+        <xsl:variable name="title"><xsl:apply-templates select="." mode="back-section-title"/></xsl:variable>
+        
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
+        <xsl:if test="$title!=''">
+            <xsl:attribute name="class">articleSection</xsl:attribute>
+            <xsl:attribute name="data-anchor">
+                <xsl:choose>
+                    <xsl:when test="contains($title, ':')">
+                        <xsl:value-of select="substring($title, 1, string-length($title)-1)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$title"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="*" mode="back-section-h">
-        <xsl:if test="title or label">
-            <h2 class="h5">
-                <xsl:apply-templates select="label"/>
-                <xsl:if test="label and title">&#160;</xsl:if>
-                <xsl:apply-templates select="title"/>
-            </h2>
-        </xsl:if>
+        <h2 class="h5">
+            <xsl:apply-templates select="." mode="back-section-title"/>
+        </h2>
     </xsl:template>
 
 </xsl:stylesheet>
