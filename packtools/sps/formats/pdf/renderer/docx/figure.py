@@ -9,7 +9,7 @@ from packtools.sps.formats.pdf.utils.request_utils import download_remote_asset
 from packtools.sps.formats.pdf.utils.file_utils import resolve_asset_path
 
 
-def add_figure(docx, figure_data, header_style_name='SCL Table Heading', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
+def add_figure(docx, figure_data, header_style_name='SCL Figure Caption', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
     """
     Insert a figure with caption into the document. Scales image to fit page content width.
 
@@ -294,12 +294,6 @@ def _add_caption(docx, figure_data, header_style_name):
     if figure_data.get('caption'):
         r_cap = p.add_run(figure_data['caption'])
         r_cap.bold = False
-
-    # Single line spacing regardless of whether the named style resolves:
-    # SCL Table Heading has no line_spacing of its own, so a multi-line
-    # caption would otherwise fall back to the same loose spacing as body
-    # text (only the smaller caption font made it look tighter).
-    p.paragraph_format.line_spacing = 1.0
 
     try:
         p.style = docx.styles[header_style_name]
