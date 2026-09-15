@@ -59,6 +59,7 @@ INSTALL_REQUIRES = [
     'openpyxl>=3.1.5',
     'python-docx>=1.2.0',
     'tenacity>=8.5.0',
+    'mathml2omml>=0.0.2',
 ]
 
 
