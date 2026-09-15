@@ -667,6 +667,18 @@
         <name lang="es">Abre en nueva pestaña. Recurso externo.</name>
     </term>
     <term>
+        <name>author-notes-fn-abbr</name>
+        <name lang="en">Abbreviations</name>
+        <name lang="pt">Abreviaturas</name>
+        <name lang="es">Abreviaturas</name>
+    </term>
+    <term>
+        <name>author-notes-fn-coi-statement</name>
+        <name lang="en">Conflict of interest</name>
+        <name lang="pt">Conflito de interesse</name>
+        <name lang="es">Conflicto de interés</name>
+    </term>
+    <term>
         <name>author-notes-fn-con</name>
         <name lang="en">Author contributions</name>
         <name lang="pt">Contribuições dos autores</name>
@@ -697,10 +709,22 @@
         <name lang="es">Declaración de disponibilidad de datos</name>
     </term>
     <term>
+        <name>author-notes-fn-deceased</name>
+        <name lang="en">Deceased</name>
+        <name lang="pt">Falecido</name>
+        <name lang="es">Fallecido</name>
+    </term>
+    <term>
         <name>author-notes-fn-edited-by</name>
         <name lang="en">Edited by</name>
         <name lang="pt">Editado por</name>
         <name lang="es">Editado por</name>
+    </term>
+    <term>
+        <name>author-notes-fn-equal</name>
+        <name lang="en">Equal contribution</name>
+        <name lang="pt">Contribuição igualitária</name>
+        <name lang="es">Contribución igualitaria</name>
     </term>
     <term>
         <name>author-notes-fn-financial-disclosure</name>
@@ -709,10 +733,46 @@
         <name lang="es">Financiamiento</name>
     </term>
     <term>
+        <name>author-notes-fn-on-leave</name>
+        <name lang="en">On leave</name>
+        <name lang="pt">Em licença</name>
+        <name lang="es">De licencia</name>
+    </term>
+    <term>
         <name>author-notes-fn-other</name>
         <name lang="en">Other information</name>
         <name lang="pt">Outras informações</name>
         <name lang="es">Otra información</name>
+    </term>
+    <term>
+        <name>author-notes-fn-participating-researchers</name>
+        <name lang="en">Participating researchers</name>
+        <name lang="pt">Pesquisadores participantes</name>
+        <name lang="es">Investigadores participantes</name>
+    </term>
+    <term>
+        <name>author-notes-fn-present-address</name>
+        <name lang="en">Present address</name>
+        <name lang="pt">Endereço atual</name>
+        <name lang="es">Dirección actual</name>
+    </term>
+    <term>
+        <name>author-notes-fn-presented-by</name>
+        <name lang="en">Presented by</name>
+        <name lang="pt">Apresentado por</name>
+        <name lang="es">Presentado por</name>
+    </term>
+    <term>
+        <name>author-notes-fn-previously-at</name>
+        <name lang="en">Previous affiliation</name>
+        <name lang="pt">Afiliação anterior</name>
+        <name lang="es">Afiliación anterior</name>
+    </term>
+    <term>
+        <name>author-notes-fn-study-group-members</name>
+        <name lang="en">Study group members</name>
+        <name lang="pt">Membros do grupo de estudo</name>
+        <name lang="es">Miembros del grupo de estudio</name>
     </term>
     <term>
         <name>author-notes-fn-supplementary-material</name>

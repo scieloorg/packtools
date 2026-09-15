@@ -213,18 +213,29 @@ def _extract_table_data(table_data):
 	return headers, rows, header_spans, row_spans
 
 def _determine_num_cols(headers, rows, header_spans, row_spans):
-	"""Determine the number of columns in the table based on headers, rows, and spans."""
-	if header_spans:
-		return max((len(r) for r in header_spans), default=0)
+	"""Determine the number of columns in the table based on headers, rows, and spans.
 
-	if row_spans:
-		return max((len(r) for r in row_spans), default=0)
+	Takes the max across header and body, not just whichever of
+	header_spans/row_spans happens to be checked first: thead and tbody
+	get their column count computed independently (each section's own
+	_calculate_max_columns), so a table whose header genuinely has fewer
+	columns than its body (no colspan explaining the gap - happens in
+	real corpus data, e.g. a structured-report style table) would
+	otherwise size the DOCX table to the smaller of the two, and
+	_apply_body_spans/_merge_horizontally would then index past the end
+	of each row's cells for the extra body columns (issue #1371).
+	"""
+	span_candidates = [
+		max((len(r) for r in spans), default=0)
+		for spans in (header_spans, row_spans)
+		if spans
+	]
+	if span_candidates:
+		return max(span_candidates)
 
-	if headers:
-		return max(len(r) for r in headers)
-
-	if rows:
-		return max(len(r) for r in rows)
+	data_candidates = [max(len(r) for r in data) for data in (headers, rows) if data]
+	if data_candidates:
+		return max(data_candidates)
 
 	return 0
 

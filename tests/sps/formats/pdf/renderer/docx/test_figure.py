@@ -2,6 +2,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from docx import Document
 from docx.shared import Cm, Pt
@@ -12,6 +13,7 @@ from packtools.sps.formats.pdf.renderer.docx.figure import (
     _add_caption,
     _infer_image_dpi,
     _natural_width_capped,
+    _resolve_image_path,
     add_figure,
     decide_figure_layout,
 )
@@ -23,6 +25,48 @@ FIXTURES_DIR = Path(__file__).resolve().parents[5] / "fixtures" / "pdf"
 def _docx_with_layout_styles():
     """A fresh Document carrying the named styles from the real layout.docx template."""
     return docx_renderer.builder.init_docx({"base_layout": str(FIXTURES_DIR / "layout.docx")})
+
+
+class TestResolveImagePath(unittest.TestCase):
+    """
+    Regression: the condition was inverted - resolve_asset_path (which
+    joins assets_dir + href for a local relative path) was only called
+    when href was empty, a case it always resolves to None anyway. When
+    href was actually present (the normal case), it was used unchanged,
+    so a relative local path never got joined with assets_dir and never
+    resolved to a real, existing file.
+    """
+
+    def setUp(self):
+        self.tmpdir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmpdir.cleanup)
+
+    def test_relative_local_path_resolves_against_assets_dir(self):
+        img_path = os.path.join(self.tmpdir.name, 'fig1.png')
+        with open(img_path, 'wb') as f:
+            f.write(b'fake')
+
+        result = _resolve_image_path('fig1.png', {'assets_dir': self.tmpdir.name})
+        self.assertEqual(result, img_path)
+
+    def test_empty_href_returns_none(self):
+        result = _resolve_image_path('', {'assets_dir': self.tmpdir.name})
+        self.assertIsNone(result)
+
+    def test_absolute_local_path_returned_unchanged(self):
+        img_path = os.path.join(self.tmpdir.name, 'fig1.png')
+        with open(img_path, 'wb') as f:
+            f.write(b'fake')
+
+        result = _resolve_image_path(img_path, {'assets_dir': '/some/other/dir'})
+        self.assertEqual(result, img_path)
+
+    @patch('packtools.sps.formats.pdf.renderer.docx.figure.download_remote_asset')
+    def test_remote_url_is_downloaded(self, mock_download):
+        mock_download.return_value = '/cache/fig1.png'
+        result = _resolve_image_path('https://example.org/fig1.png', {})
+        mock_download.assert_called_once_with('https://example.org/fig1.png', {})
+        self.assertEqual(result, '/cache/fig1.png')
 
 
 class TestAddCaption(unittest.TestCase):

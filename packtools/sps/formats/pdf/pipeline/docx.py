@@ -728,9 +728,9 @@ def _render_section_title(docx, title, style_name, level):
 
 
 def _render_paragraphs(docx, paragraphs):
-    """Render a list of paragraphs with the default formatting for body text."""
+    """Render a list of paragraphs (each a list of style-tagged segments) with the default formatting for body text."""
     for para in paragraphs:
-        docx_renderer.text.add_paragraph_with_formatting(docx, para)
+        docx_renderer.text.add_paragraph_with_segments(docx, para)
 
 
 def _add_single_column_section(docx):

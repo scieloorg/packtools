@@ -383,8 +383,85 @@ class TestDocxPageVolIssueYearPipe(unittest.TestCase):
 
 
 class TestDocxBodyPipe(unittest.TestCase):
-    # TODO
-    ...
+    """
+    Item 04 of the pdf_generator backlog: a body paragraph is now a list
+    of style-tagged segments (see xml_utils.get_segments_from_node)
+    instead of a single string, and each segment must become its own
+    run with matching bold/italic/superscript/subscript formatting.
+    """
+
+    def _segment(self, text, **flags):
+        seg = {'type': 'text', 'text': text, 'italic': False, 'bold': False, 'superscript': False, 'subscript': False}
+        seg.update(flags)
+        return seg
+
+    def test_paragraph_emits_one_run_per_segment_with_matching_style(self):
+        docx = _docx_with_layout_styles()
+        body_data = [{
+            'level': 2,
+            'title': None,
+            'paragraphs': [[
+                self._segment('A '),
+                self._segment('Genus species', italic=True),
+                self._segment(' seen'),
+                self._segment('1', superscript=True),
+                self._segment('.'),
+            ]],
+            'tables': [],
+            'figures': [],
+        }]
+        docx_pipe.docx_body_pipe(docx, body_data)
+
+        para = docx.paragraphs[-1]
+        self.assertEqual([r.text for r in para.runs], ['A ', 'Genus species', ' seen', '1', '.'])
+        self.assertIsNone(para.runs[0].italic)
+        self.assertTrue(para.runs[1].italic)
+        self.assertIsNone(para.runs[2].italic)
+        self.assertTrue(para.runs[3].font.superscript)
+        self.assertIsNone(para.runs[4].font.superscript)
+
+    def test_superscript_and_subscript_segments_in_the_same_paragraph(self):
+        # Regression: python-docx backs superscript/subscript with the
+        # same OOXML w:vertAlign element, so unconditionally assigning
+        # both on every run (even the falsy one, as None) clears
+        # whichever was set first instead of leaving it alone.
+        docx = _docx_with_layout_styles()
+        body_data = [{
+            'level': 2,
+            'title': None,
+            'paragraphs': [[
+                self._segment('1', superscript=True),
+                self._segment(' and '),
+                self._segment('2', subscript=True),
+            ]],
+            'tables': [],
+            'figures': [],
+        }]
+        docx_pipe.docx_body_pipe(docx, body_data)
+
+        runs = docx.paragraphs[-1].runs
+        self.assertTrue(runs[0].font.superscript)
+        self.assertTrue(runs[2].font.subscript)
+
+    def test_unstyled_segment_does_not_force_run_bold_false(self):
+        # An explicit False on run.bold overrides the style's own default
+        # instead of inheriting it; a segment with no style must leave
+        # the run's bold/italic/superscript/subscript unset (None).
+        docx = _docx_with_layout_styles()
+        body_data = [{
+            'level': 2,
+            'title': None,
+            'paragraphs': [[self._segment('Plain text.')]],
+            'tables': [],
+            'figures': [],
+        }]
+        docx_pipe.docx_body_pipe(docx, body_data)
+
+        run = docx.paragraphs[-1].runs[0]
+        self.assertIsNone(run.bold)
+        self.assertIsNone(run.italic)
+        self.assertIsNone(run.font.superscript)
+        self.assertIsNone(run.font.subscript)
 
 
 class TestDocxReferencesPipe(unittest.TestCase):
