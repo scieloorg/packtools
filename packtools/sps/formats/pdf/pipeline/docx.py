@@ -100,10 +100,10 @@ def pipeline_docx(xml_tree, data):
     references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
     docx_references_pipe(docx, references_data['title'], references)
 
-    # Supplementary material
-    supplementary_data = supplementary_material.extract_data(xml_tree)
-    if supplementary_data['elements']:
-        docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
+    # Appendix/Annex (<app-group>) and Supplementary material (<supplementary-material>)
+    # are distinct SPS 1.10 concepts - each gets its own section/title.
+    for section_data in supplementary_material.extract_data(xml_tree):
+        docx_supplementary_material_pipe(docx, footer_data, section_data)
 
     # Setting up sections
     docx_renderer.section.docx_setup_sections(docx)
