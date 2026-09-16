@@ -6,7 +6,7 @@ from citeproc import Citation, CitationItem, CitationStylesBibliography, Citatio
 from citeproc.source.json import CiteProcJSON
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.pipeline import tex
+from packtools.sps.formats.pdf.pipeline import formula
 from packtools.sps.formats.pdf.utils import xml_utils
 
 _CITATION_STYLES_DIR = Path(__file__).parent.parent / "citation_styles"
@@ -647,14 +647,14 @@ def _disp_formula_segments(disp_formula):
 
     Returns:
         list[dict], or None when there's no MathML descendant or
-        tex.mathml_to_omml couldn't convert it (unsupported construct) -
+        formula.mathml_to_omml couldn't convert it (unsupported construct) -
         callers should fall back to the existing flattened-text paragraph
         in that case, never drop the formula silently.
     """
     math_node = disp_formula.find('.//{http://www.w3.org/1998/Math/MathML}math')
     if math_node is None:
         return None
-    omml_element = tex.mathml_to_omml(math_node)
+    omml_element = formula.mathml_to_omml(math_node)
     if omml_element is None:
         return None
 

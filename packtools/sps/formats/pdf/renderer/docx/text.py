@@ -18,42 +18,23 @@ def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', elemen
     return para
 
 def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
-    """
-    Add a paragraph built from style-tagged text segments (see
-    xml_utils.get_segments_from_node), emitting one run per segment with
-    the matching bold/italic/superscript/subscript formatting.
-
-    A flag set to False is applied as None rather than False: python-docx
-    treats an explicit False as forcing the property off even if the
-    paragraph's own style already turns it on, while None lets the run
-    inherit from the style - the same behavior a plain, unstyled run has
-    today.
-
-    superscript/subscript are mutually exclusive on purpose, not just as
-    a style choice: python-docx backs both with the same OOXML
-    w:vertAlign element, so setting one after the other (even to None)
-    overwrites/clears whichever was set first - assigning both
-    unconditionally on every run would silently drop superscript.
-
-    A segment of type 'formula' (issue #1352, Phase 1 of #1347's plan)
-    carries a ready-made OMML element (`seg['omml']`, from
-    pipeline.tex.mathml_to_omml) instead of text/style flags - appended
-    directly into the paragraph's raw XML rather than as a run, since
-    python-docx's high-level API has no concept of a formula.
-    """
+    """Adiciona um parágrafo a partir de segmentos com estilo (ver xml_utils.get_segments_from_node)."""
     para = docx.add_paragraph()
     para.style = docx.styles[style_name]
 
     for seg in segments:
         if seg.get('type') == 'formula':
+            # python-docx não representa fórmula; insere o OMML como XML bruto
             para._p.append(seg['omml'])
             continue
         run = para.add_run(seg.get('text', ''))
+        # False vira None: herda do estilo, em vez de forçar a propriedade desligada
         run.bold = seg.get('bold') or None
         run.italic = seg.get('italic') or None
         if seg.get('superscript'):
             run.font.superscript = True
         elif seg.get('subscript'):
+            # mutuamente exclusivos: mesmo atributo OOXML (w:vertAlign)
             run.font.subscript = True
 
     return para

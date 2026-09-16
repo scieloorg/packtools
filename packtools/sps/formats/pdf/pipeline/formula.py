@@ -38,7 +38,10 @@ def normalize_empty_base_superscripts(math_element):
     # while root.iter() is still walking the live tree makes it skip every
     # other match (confirmed empirically: only alternating occurrences got
     # fixed when this iterated and mutated in the same pass).
-    candidate_msups = [el for el in root.iter() if etree.QName(el).localname == 'msup']
+    candidate_msups = [
+        el for el in root.iter()
+        if isinstance(el.tag, str) and etree.QName(el).localname == 'msup'
+    ]
     for msup in candidate_msups:
         children = list(msup)
         if len(children) != 2:
@@ -65,6 +68,22 @@ def _strip_namespace(element):
     return stripped
 
 
+def _normalize_plain_style_runs(omml_element):
+    """LibreOffice não quebra linha entre linhas de m:m/m:eqArr quando o
+    último run de uma linha tem `<m:sty m:val="p"/>`; troca por `<m:nor/>`
+    (mesmo significado - texto normal, sem itálico) em todo o documento.
+    """
+    rpr_tag = f'{{{_OMML_NS}}}rPr'
+    sty_tag = f'{{{_OMML_NS}}}sty'
+    val_attr = f'{{{_OMML_NS}}}val'
+    for rpr in omml_element.iter(rpr_tag):
+        sty = rpr.find(sty_tag)
+        if sty is not None and sty.get(val_attr) == 'p':
+            rpr.remove(sty)
+            etree.SubElement(rpr, f'{{{_OMML_NS}}}nor')
+    return omml_element
+
+
 def mathml_to_omml(math_element):
     """
     Converts a `<mml:math>` node to an OMML `<m:oMath>` element ready to be
@@ -85,17 +104,17 @@ def mathml_to_omml(math_element):
         the exception, so one malformed formula doesn't abort the whole
         article's generation (same principle as issue #1371's fix).
     """
-    normalized = normalize_empty_base_superscripts(math_element)
-    stripped = _strip_namespace(normalized)
-    mathml_str = etree.tostring(stripped, encoding='unicode')
-
     try:
+        normalized = normalize_empty_base_superscripts(math_element)
+        stripped = _strip_namespace(normalized)
+        mathml_str = etree.tostring(stripped, encoding='unicode', with_tail=False)
         omml_str = mathml2omml.convert(mathml_str)
     except Exception:
         return None
 
     omml_str = omml_str.replace('<m:oMath>', f'<m:oMath xmlns:m="{_OMML_NS}">', 1)
     try:
-        return etree.fromstring(omml_str.encode('utf-8'))
+        omml = etree.fromstring(omml_str.encode('utf-8'))
     except etree.XMLSyntaxError:
         return None
+    return _normalize_plain_style_runs(omml)

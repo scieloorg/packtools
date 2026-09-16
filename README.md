@@ -51,6 +51,18 @@ or
 pip install -r requirements.txt && pip install -r optional-requirements.txt
 ```
 
+## Formula rendering in generated PDFs
+
+Articles with math formulas (`<disp-formula>`) need the `libreoffice-math`
+system package for the formulas to render in the final PDF:
+
+```bash
+$ sudo apt install libreoffice-math
+```
+
+Without it, formulas still convert to OMML in the DOCX, but LibreOffice
+fails to render them when producing the PDF.
+
 ## Tests
 
 To run tests execute:
