@@ -18,18 +18,13 @@ def _docx_with_layout_styles():
 def _omml_element():
     return etree.fromstring(
         f'<m:oMath xmlns:m="{_OMML_NS}">'
-        '<m:r><m:t>x</m:t></m:r>'
+        '<m:r><m:rPr/><m:t>x</m:t></m:r>'
         '</m:oMath>'
     )
 
 
 class TestAddParagraphWithSegmentsFormula(unittest.TestCase):
-    """
-    Regression for issue #1352 (Phase 1 of #1347's plan): a 'formula'
-    segment carries a ready-made OMML element instead of text/style flags,
-    and must be appended into the paragraph's raw XML rather than as a
-    text run - python-docx's high-level API has no concept of a formula.
-    """
+    """Segmento 'formula' carrega um OMML pronto e é inserido como XML bruto no parágrafo, não como run."""
 
     def test_formula_segment_is_appended_as_raw_xml_not_a_run(self):
         docx = _docx_with_layout_styles()
@@ -40,6 +35,22 @@ class TestAddParagraphWithSegmentsFormula(unittest.TestCase):
 
         self.assertEqual(len(para.runs), 0)
         self.assertIn(omml, list(para._p))
+
+    def test_formula_segment_gets_paragraph_font_size_and_family(self):
+        docx = _docx_with_layout_styles()
+        omml = _omml_element()
+        segments = [{'type': 'formula', 'omml': omml}]
+
+        add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph')
+
+        w_ns = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
+        run = omml.find(f'{{{_OMML_NS}}}r')
+        w_rpr = run.find(f'{{{w_ns}}}rPr')
+        self.assertIsNotNone(w_rpr)
+        sz = w_rpr.find(f'{{{w_ns}}}sz')
+        self.assertIsNotNone(sz)
+        rfonts = w_rpr.find(f'{{{w_ns}}}rFonts')
+        self.assertEqual(rfonts.get(f'{{{w_ns}}}ascii'), 'Noto Serif')
 
     def test_text_segments_before_and_after_formula_still_render_as_runs(self):
         docx = _docx_with_layout_styles()

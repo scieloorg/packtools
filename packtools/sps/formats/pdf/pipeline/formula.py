@@ -4,6 +4,7 @@ import mathml2omml
 from lxml import etree
 
 _OMML_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/math'
+_W_NS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
 
 
 def normalize_empty_base_superscripts(math_element):
@@ -61,6 +62,44 @@ def _normalize_plain_style_runs(omml_element):
         if sty is not None and sty.get(val_attr) == 'p':
             rpr.remove(sty)
             etree.SubElement(rpr, f'{{{_OMML_NS}}}nor')
+    return omml_element
+
+
+def match_paragraph_font(omml_element, size_pt, font_name):
+    """Define w:sz/w:szCs/w:rFonts em cada run do OMML.
+
+    Zona de matemática não herda tamanho nem fonte do parágrafo: sem isso,
+    renderiza maior (tamanho padrão da zona de fórmula) e com um fallback
+    de fonte de matemática mais largo que o corpo do texto (ex.: Cambria
+    Math, ausente no sistema, cai para Latin Modern Math) - a combinação
+    estoura a largura da coluna mesmo depois de corrigir só o tamanho.
+
+    Args:
+        omml_element (lxml.etree._Element): The `<m:oMath>` node, mutated in place.
+        size_pt (float): Target font size in points (e.g. `paragraph.style.font.size.pt`).
+        font_name (str): Target font family (e.g. `paragraph.style.font.name`).
+
+    Returns:
+        lxml.etree._Element: The same `omml_element`, for chaining.
+    """
+    half_points = str(int(round(size_pt * 2)))
+    r_tag = f'{{{_OMML_NS}}}r'
+    rpr_tag = f'{{{_OMML_NS}}}rPr'
+    w_val_attr = f'{{{_W_NS}}}val'
+    for run in omml_element.iter(r_tag):
+        # CT_R (OOXML §22.1.2.85): m:rPr? seguido de w:rPr? - w:rPr é irmão
+        # de m:rPr dentro de m:r, não filho dele; aninhado dentro de m:rPr
+        # o LibreOffice ignora silenciosamente (tamanho/fonte não aplicam).
+        w_rpr = etree.Element(f'{{{_W_NS}}}rPr', nsmap={'w': _W_NS})
+        etree.SubElement(w_rpr, f'{{{_W_NS}}}sz').set(w_val_attr, half_points)
+        etree.SubElement(w_rpr, f'{{{_W_NS}}}szCs').set(w_val_attr, half_points)
+        rfonts = etree.SubElement(w_rpr, f'{{{_W_NS}}}rFonts')
+        for attr in ('ascii', 'hAnsi', 'cs', 'eastAsia'):
+            rfonts.set(f'{{{_W_NS}}}{attr}', font_name)
+
+        m_rpr = run.find(rpr_tag)
+        insert_at = list(run).index(m_rpr) + 1 if m_rpr is not None else 0
+        run.insert(insert_at, w_rpr)
     return omml_element
 
 

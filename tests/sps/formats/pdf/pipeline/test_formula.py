@@ -168,3 +168,30 @@ class TestNormalizePlainStyleRuns(unittest.TestCase):
         result = formula._normalize_plain_style_runs(omml)
         result_str = etree.tostring(result, encoding='unicode')
         self.assertIn('m:val="i"', result_str)
+
+
+class TestMatchParagraphFont(unittest.TestCase):
+
+    def test_sets_size_and_font_on_every_run(self):
+        math = _mathml('<mi>Y</mi><mo>=</mo><mn>1</mn>')
+        omml = formula.mathml_to_omml(math)
+        formula.match_paragraph_font(omml, 8.0, 'Noto Serif')
+
+        w_ns = formula._W_NS
+        runs = omml.findall(f'.//{{{formula._OMML_NS}}}r')
+        self.assertGreater(len(runs), 0)
+        for run in runs:
+            # w:rPr é irmão de m:rPr dentro de m:r (schema CT_R), não filho dele
+            w_rpr = run.find(f'{{{w_ns}}}rPr')
+            self.assertIsNotNone(w_rpr)
+            sz = w_rpr.find(f'{{{w_ns}}}sz')
+            self.assertEqual(sz.get(f'{{{w_ns}}}val'), '16')
+            rfonts = w_rpr.find(f'{{{w_ns}}}rFonts')
+            self.assertEqual(rfonts.get(f'{{{w_ns}}}ascii'), 'Noto Serif')
+
+    def test_rounds_half_point_size(self):
+        omml = etree.fromstring(f'<m:oMath xmlns:m="{formula._OMML_NS}"><m:r><m:rPr/><m:t>x</m:t></m:r></m:oMath>')
+        formula.match_paragraph_font(omml, 8.3, 'Arial')
+        w_ns = formula._W_NS
+        sz = omml.find(f'.//{{{w_ns}}}sz')
+        self.assertEqual(sz.get(f'{{{w_ns}}}val'), '17')

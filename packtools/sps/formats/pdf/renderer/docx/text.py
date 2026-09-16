@@ -1,6 +1,8 @@
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
+from packtools.sps.formats.pdf.pipeline import formula
+
 
 def add_heading_with_formatting(docx, text, style_name, level):
     """Add a heading with the specified style and level to the document."""
@@ -24,6 +26,11 @@ def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
 
     for seg in segments:
         if seg.get('type') == 'formula':
+            # zona de matemática não herda tamanho nem fonte do parágrafo
+            font_size = para.style.font.size
+            font_name = para.style.font.name
+            if font_size is not None and font_name is not None:
+                formula.match_paragraph_font(seg['omml'], font_size.pt, font_name)
             # python-docx não representa fórmula; insere o OMML como XML bruto
             para._p.append(seg['omml'])
             continue
