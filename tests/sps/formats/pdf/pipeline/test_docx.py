@@ -606,6 +606,25 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         para = footer.paragraphs[-1]
         self.assertEqual(para.text, 'VOL. 86 2026: e301043')
 
+    def test_renders_supplementary_item_as_paragraph(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026',
+                       'fpage': '', 'lpage': '', 'location_label': 'e301043'}
+        supplementary_data = {
+            'title': 'Supplementary Material',
+            'elements': [{
+                'type': 'supplementary_item',
+                'label': 'Supplementary Material',
+                'filename': 'a-suppl1.mp4',
+                'mimetype': 'video',
+                'mime_subtype': 'mp4',
+            }],
+        }
+        docx_pipe.docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
+
+        para = docx.paragraphs[-1]
+        self.assertEqual(para.text, 'Supplementary Material: a-suppl1.mp4 (video/mp4)')
+
 
 class TestFormatVolIssueYear(unittest.TestCase):
 

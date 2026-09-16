@@ -5,6 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
@@ -99,10 +100,10 @@ def pipeline_docx(xml_tree, data):
     references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
     docx_references_pipe(docx, references_data['title'], references)
 
-    # Supplementary material
-    supplementary_data = xml_pipe.extract_supplementary_data(xml_tree)
-    if supplementary_data['elements']:
-        docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
+    # Appendix/Annex (<app-group>) and Supplementary material (<supplementary-material>)
+    # are distinct SPS 1.10 concepts - each gets its own section/title.
+    for section_data in supplementary_material.extract_data(xml_tree):
+        docx_supplementary_material_pipe(docx, footer_data, section_data)
 
     # Setting up sections
     docx_renderer.section.docx_setup_sections(docx)
@@ -604,6 +605,10 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
             docx_renderer.table.add_table(docx, element['content'])
         elif element['type'] == 'text':
             docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
+        elif element['type'] == 'supplementary_item':
+            docx_renderer.text.add_paragraph_with_formatting(
+                docx, supplementary_material.format_item(element)
+            )
 
 
 # -----------------
