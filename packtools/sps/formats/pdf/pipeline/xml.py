@@ -635,12 +635,7 @@ def _plain_text_segment(text):
 
 
 def _disp_formula_segments(disp_formula):
-    """
-    Converts a <disp-formula>'s own MathML to a single 'formula' segment
-    (issue #1352, Phase 1 of #1347's plan) plus a trailing plain-text
-    segment for its own <label> (e.g. "(3)"), if present - appended after
-    the formula rather than right-aligned/tab-stopped, a simple default
-    left for a future refinement rather than this phase's scope.
+    """Converte o MathML de um <disp-formula> em um segmento 'formula', mais um segmento de texto para o <label>, se houver.
 
     Args:
         disp_formula (ElementTree): The <disp-formula> element.
@@ -668,18 +663,10 @@ def _disp_formula_segments(disp_formula):
 
 
 def _paragraph_with_trailing_formula(p_node):
-    """
-    Handles <p>leading text:<disp-formula>...</disp-formula></p> - a block
-    formula with a simple leading text label in the same paragraph (issue
-    #1352 Phase 1: confirmed against real corpus data, e.g. a5.xml's
-    "Total plant biomass:<disp-formula>", that this is the common real
-    shape, not the "no text in the same paragraph" scope read literally
-    from the issue's own text).
+    """Trata <p>texto:<disp-formula>...</disp-formula></p>: fórmula em bloco com texto simples antes, no mesmo parágrafo.
 
-    Deliberately narrow - a <p> with more than one <disp-formula>, or with
-    any content after the (single) formula, is Phase 2 territory (formula
-    genuinely mixed mid-sentence with running text); this function returns
-    None for those so the caller falls back to the existing flatten.
+    Escopo restrito: um <p> com mais de um <disp-formula>, ou com
+    conteúdo depois da fórmula, retorna None (o chamador cai no fallback).
 
     Args:
         p_node (ElementTree): The <p> element.
@@ -715,16 +702,11 @@ def _extract_list_paragraphs(list_node):
     other way, e.g. each <disp-formula>'s own <label>) or an unrecognized
     list-type.
 
-    A <disp-formula> ending a <list-item>'s <p> (e.g. a5.xml's Equations
-    3-10, each "Total plant biomass:<disp-formula>...") gets a real OMML
-    conversion via _paragraph_with_trailing_formula (issue #1352, Phase 1
-    of #1347's plan) instead of the ambiguous flattened text that
-    get_segments_from_node's ordinary MathML recursion would otherwise
-    produce. Only a graphic-only (image) formula nested this deep would
-    still be silently dropped, same as a bare <disp-formula><graphic>
-    would if it had no flattenable text, just two levels down; not seen in
-    the test corpus, so left unhandled rather than adding speculative code
-    for it.
+    Um <disp-formula> ao final do <p> de um <list-item> recebe conversão
+    OMML real via _paragraph_with_trailing_formula, em vez do texto
+    achatado ambíguo que a recursão comum de get_segments_from_node
+    produziria. Uma fórmula só-imagem (sem MathML) aninhada nesse nível
+    ainda é descartada silenciosamente (não vista no corpus de testes).
 
     Args:
         list_node (ElementTree): The <list> element.
@@ -828,14 +810,8 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
         # flattened-and-present beats silently missing.
         for child in document_section:
             if child.tag == 'p':
-                # <p>leading text:<disp-formula>...</disp-formula></p> - a
-                # block formula with a simple leading text label in the
-                # same paragraph (issue #1352 Phase 1: real corpus data,
-                # e.g. a5.xml's "Total plant biomass:<disp-formula>",
-                # shows this is the common shape, not the formula-only
-                # paragraph the issue's text alone suggested). Handled
-                # before the generic flatten below so the formula gets a
-                # real OMML segment instead of ambiguous flattened text.
+                # <p>texto:<disp-formula>...</disp-formula></p>: tratado antes do
+                # achatamento genérico, para gerar um segmento OMML real
                 formula_paragraph_segments = _paragraph_with_trailing_formula(child)
                 if formula_paragraph_segments is not None:
                     sec['paragraphs'].append(formula_paragraph_segments)
@@ -884,14 +860,8 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
                     if formula_segments is not None:
                         sec['paragraphs'].append(formula_segments)
                         continue
-                # Fallback (no MathML, or issue #1352's conversion failed/
-                # unsupported construct - mathml_to_omml returns None
-                # rather than raising, see its docstring): no inline style
-                # tags occur in a MathML/plain-text formula body, so this
-                # yields the same flattened text as get_text_from_node,
-                # just wrapped as the single-segment list _render_paragraphs
-                # now expects for every paragraph. Ambiguous, but present
-                # beats silently dropped (issue #1347 Phase 0 baseline).
+                # fallback: sem MathML ou conversao falhou - texto achatado,
+                # ambiguo mas presente e melhor que descartado silenciosamente
                 para_text = xml_utils.get_text_from_node(child).strip()
                 para_segments = xml_utils.get_segments_from_node(child) if para_text else []
             elif child.tag == 'list':
