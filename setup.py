@@ -60,6 +60,7 @@ INSTALL_REQUIRES = [
     'python-docx>=1.2.0',
     'tenacity>=8.5.0',
     'citeproc-py>=0.11.1',
+    'mathml2omml>=0.0.2',
 ]
 
 
