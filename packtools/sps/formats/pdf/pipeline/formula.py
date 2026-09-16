@@ -66,13 +66,7 @@ def _normalize_plain_style_runs(omml_element):
 
 
 def match_paragraph_font(omml_element, size_pt, font_name):
-    """Define w:sz/w:szCs/w:rFonts em cada run do OMML.
-
-    Zona de matemática não herda tamanho nem fonte do parágrafo: sem isso,
-    renderiza maior (tamanho padrão da zona de fórmula) e com um fallback
-    de fonte de matemática mais largo que o corpo do texto (ex.: Cambria
-    Math, ausente no sistema, cai para Latin Modern Math) - a combinação
-    estoura a largura da coluna mesmo depois de corrigir só o tamanho.
+    """Define w:sz/w:szCs/w:rFonts em cada run do OMML, a partir do estilo do parágrafo.
 
     Args:
         omml_element (lxml.etree._Element): The `<m:oMath>` node, mutated in place.
@@ -87,9 +81,7 @@ def match_paragraph_font(omml_element, size_pt, font_name):
     rpr_tag = f'{{{_OMML_NS}}}rPr'
     w_val_attr = f'{{{_W_NS}}}val'
     for run in omml_element.iter(r_tag):
-        # CT_R (OOXML §22.1.2.85): m:rPr? seguido de w:rPr? - w:rPr é irmão
-        # de m:rPr dentro de m:r, não filho dele; aninhado dentro de m:rPr
-        # o LibreOffice ignora silenciosamente (tamanho/fonte não aplicam).
+        # w:rPr é irmão de m:rPr dentro de m:r (schema CT_R), não filho dele
         w_rpr = etree.Element(f'{{{_W_NS}}}rPr', nsmap={'w': _W_NS})
         etree.SubElement(w_rpr, f'{{{_W_NS}}}sz').set(w_val_attr, half_points)
         etree.SubElement(w_rpr, f'{{{_W_NS}}}szCs').set(w_val_attr, half_points)
