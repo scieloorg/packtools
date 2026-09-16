@@ -626,25 +626,6 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         self.assertEqual(para.text, 'Supplementary Material: a-suppl1.mp4 (video/mp4)')
 
 
-class TestFormatSupplementaryItem(unittest.TestCase):
-
-    def test_label_filename_and_media_type(self):
-        element = {'label': 'Suppl. 1', 'filename': 'a.pdf', 'mimetype': 'application', 'mime_subtype': 'pdf'}
-        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Suppl. 1: a.pdf (application/pdf)')
-
-    def test_missing_label_falls_back_to_default(self):
-        element = {'label': '', 'filename': 'a.pdf', 'mimetype': '', 'mime_subtype': ''}
-        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Supplementary Material: a.pdf')
-
-    def test_missing_filename_shows_only_label(self):
-        element = {'label': 'Suppl. 1', 'filename': '', 'mimetype': '', 'mime_subtype': ''}
-        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Suppl. 1')
-
-    def test_missing_everything_uses_default_label_only(self):
-        element = {'label': '', 'filename': '', 'mimetype': '', 'mime_subtype': ''}
-        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Supplementary Material')
-
-
 class TestFormatVolIssueYear(unittest.TestCase):
 
     def test_keeps_both_when_present(self):

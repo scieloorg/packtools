@@ -5,6 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
@@ -100,7 +101,7 @@ def pipeline_docx(xml_tree, data):
     docx_references_pipe(docx, references_data['title'], references)
 
     # Supplementary material
-    supplementary_data = xml_pipe.extract_supplementary_data(xml_tree)
+    supplementary_data = supplementary_material.extract_data(xml_tree)
     if supplementary_data['elements']:
         docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
 
@@ -606,23 +607,13 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
             docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
         elif element['type'] == 'supplementary_item':
             docx_renderer.text.add_paragraph_with_formatting(
-                docx, _format_supplementary_item(element)
+                docx, supplementary_material.format_item(element)
             )
 
 
 # -----------------
 # Private helpers
 # -----------------
-
-def _format_supplementary_item(element):
-    """Monta 'Rótulo: arquivo (tipo/subtipo)' a partir de um item extraído de <supplementary-material>, sem partes ausentes."""
-    text = element['label'] or 'Supplementary Material'
-    if element['filename']:
-        mimetype, mime_subtype = element['mimetype'], element['mime_subtype']
-        media_type = f"{mimetype}/{mime_subtype}" if mimetype and mime_subtype else (mimetype or mime_subtype)
-        suffix = f" ({media_type})" if media_type else ''
-        text = f"{text}: {element['filename']}{suffix}"
-    return text
 
 def _format_vol_issue_year(footer_data):
     """

@@ -721,7 +721,8 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     seen_fig_keys = set()
 
     body_sections = xml_tree.xpath(
-        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)]'
+        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)'
+        ' and not(@sec-type="supplementary-material")]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:
@@ -992,60 +993,6 @@ def extract_references_data(xml_tree):
     if ref_list is not None:
         for ref in ref_list.findall('.//mixed-citation'):
             data['references'].append(ref)
-
-    return data
-
-def extract_supplementary_data(xml_tree):
-    """
-    Extracts supplementary data from an XML tree.
-
-    Args:
-        xml_tree (ElementTree): The XML tree to extract the supplementary data from.
-
-    Returns:
-        dict: A dictionary containing the supplementary data, with the following keys:
-            - 'title': The title of the supplementary section, if present.
-            - 'paragraphs': A list of the text content of each paragraph in the supplementary section.
-    """
-    data = {'title': 'Supplementary Material', 'elements': []}
-
-    app_groups = xml_tree.findall('.//app-group')
-    if app_groups:
-        for app_group in app_groups:
-            for element in app_group:
-                if element.text:
-                    data['elements'].append({'content': element.text, 'type': 'text'})
-
-                for table_wrap in element.findall('.//table-wrap'):
-                    for table_data in extract_table_data(table_wrap):
-                        data['elements'].append({
-                            'type': 'table',
-                            'content': table_data
-                        })
-
-    for supplementary_material in xml_tree.findall('.//supplementary-material'):
-        label = supplementary_material.find('label')
-        label_text = ''.join(label.itertext()).strip() if label is not None else ''
-        media = supplementary_material.find('.//media')
-        href = ''
-        mimetype = ''
-        mime_subtype = ''
-        if media is not None:
-            href = (
-                media.get('{http://www.w3.org/1999/xlink}href')
-                or media.get('xlink:href')
-                or media.get('href')
-                or ''
-            )
-            mimetype = media.get('mimetype') or ''
-            mime_subtype = media.get('mime-subtype') or ''
-        data['elements'].append({
-            'type': 'supplementary_item',
-            'label': label_text,
-            'filename': href,
-            'mimetype': mimetype,
-            'mime_subtype': mime_subtype,
-        })
 
     return data
 
