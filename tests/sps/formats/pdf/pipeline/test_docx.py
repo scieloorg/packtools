@@ -606,6 +606,44 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         para = footer.paragraphs[-1]
         self.assertEqual(para.text, 'VOL. 86 2026: e301043')
 
+    def test_renders_supplementary_item_as_paragraph(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026',
+                       'fpage': '', 'lpage': '', 'location_label': 'e301043'}
+        supplementary_data = {
+            'title': 'Supplementary Material',
+            'elements': [{
+                'type': 'supplementary_item',
+                'label': 'Supplementary Material',
+                'filename': 'a-suppl1.mp4',
+                'mimetype': 'video',
+                'mime_subtype': 'mp4',
+            }],
+        }
+        docx_pipe.docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
+
+        para = docx.paragraphs[-1]
+        self.assertEqual(para.text, 'Supplementary Material: a-suppl1.mp4 (video/mp4)')
+
+
+class TestFormatSupplementaryItem(unittest.TestCase):
+
+    def test_label_filename_and_media_type(self):
+        element = {'label': 'Suppl. 1', 'filename': 'a.pdf', 'mimetype': 'application', 'mime_subtype': 'pdf'}
+        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Suppl. 1: a.pdf (application/pdf)')
+
+    def test_missing_label_falls_back_to_default(self):
+        element = {'label': '', 'filename': 'a.pdf', 'mimetype': '', 'mime_subtype': ''}
+        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Supplementary Material: a.pdf')
+
+    def test_missing_filename_shows_only_label(self):
+        element = {'label': 'Suppl. 1', 'filename': '', 'mimetype': '', 'mime_subtype': ''}
+        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Suppl. 1')
+
+    def test_missing_everything_uses_default_label_only(self):
+        element = {'label': '', 'filename': '', 'mimetype': '', 'mime_subtype': ''}
+        self.assertEqual(docx_pipe._format_supplementary_item(element), 'Supplementary Material')
+
 
 class TestFormatVolIssueYear(unittest.TestCase):
 

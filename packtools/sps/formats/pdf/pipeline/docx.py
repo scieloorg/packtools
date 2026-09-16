@@ -604,11 +604,25 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
             docx_renderer.table.add_table(docx, element['content'])
         elif element['type'] == 'text':
             docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
+        elif element['type'] == 'supplementary_item':
+            docx_renderer.text.add_paragraph_with_formatting(
+                docx, _format_supplementary_item(element)
+            )
 
 
 # -----------------
 # Private helpers
 # -----------------
+
+def _format_supplementary_item(element):
+    """Monta 'Rótulo: arquivo (tipo/subtipo)' a partir de um item extraído de <supplementary-material>, sem partes ausentes."""
+    text = element['label'] or 'Supplementary Material'
+    if element['filename']:
+        mimetype, mime_subtype = element['mimetype'], element['mime_subtype']
+        media_type = f"{mimetype}/{mime_subtype}" if mimetype and mime_subtype else (mimetype or mime_subtype)
+        suffix = f" ({media_type})" if media_type else ''
+        text = f"{text}: {element['filename']}{suffix}"
+    return text
 
 def _format_vol_issue_year(footer_data):
     """

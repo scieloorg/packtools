@@ -1913,6 +1913,70 @@ class TestExtractSupplementaryData(unittest.TestCase):
         self.assertEqual('table', result['elements'][1]['type'])
         self.assertEqual('text', result['elements'][2]['type'])
 
+    def test_supplementary_material_with_label_and_media_in_sec(self):
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<body><sec><supplementary-material id="suppl1">'
+            '<label>Supplementary Material</label>'
+            '<media mime-subtype="mp4" mimetype="video" xlink:href="a-suppl1.mp4"/>'
+            '</supplementary-material></sec></body>'
+            '</root>'
+        )
+        result = xml_pipe.extract_supplementary_data(xml)
+        self.assertEqual([{
+            'type': 'supplementary_item',
+            'label': 'Supplementary Material',
+            'filename': 'a-suppl1.mp4',
+            'mimetype': 'video',
+            'mime_subtype': 'mp4',
+        }], result['elements'])
+
+    def test_supplementary_material_in_back(self):
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<back><supplementary-material id="suppl1">'
+            '<label>Suppl. 1</label>'
+            '<media mime-subtype="pdf" mimetype="application" xlink:href="suppl1.pdf"/>'
+            '</supplementary-material></back>'
+            '</root>'
+        )
+        result = xml_pipe.extract_supplementary_data(xml)
+        self.assertEqual(1, len(result['elements']))
+        self.assertEqual('suppl1.pdf', result['elements'][0]['filename'])
+
+    def test_multiple_supplementary_material_items(self):
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<back>'
+            '<supplementary-material id="suppl1">'
+            '<label>Suppl. 1</label>'
+            '<media mime-subtype="pdf" mimetype="application" xlink:href="a.pdf"/>'
+            '</supplementary-material>'
+            '<supplementary-material id="suppl2">'
+            '<label>Suppl. 2</label>'
+            '<media mime-subtype="xlsx" mimetype="application" xlink:href="b.xlsx"/>'
+            '</supplementary-material>'
+            '</back>'
+            '</root>'
+        )
+        result = xml_pipe.extract_supplementary_data(xml)
+        self.assertEqual(2, len(result['elements']))
+        self.assertEqual('a.pdf', result['elements'][0]['filename'])
+        self.assertEqual('b.xlsx', result['elements'][1]['filename'])
+
+    def test_supplementary_material_without_label_or_media(self):
+        xml = etree.fromstring(
+            '<root><back><supplementary-material id="suppl1"/></back></root>'
+        )
+        result = xml_pipe.extract_supplementary_data(xml)
+        self.assertEqual([{
+            'type': 'supplementary_item',
+            'label': '',
+            'filename': '',
+            'mimetype': '',
+            'mime_subtype': '',
+        }], result['elements'])
+
 
 class TestExtractTableData(unittest.TestCase):
 

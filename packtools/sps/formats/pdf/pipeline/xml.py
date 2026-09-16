@@ -1022,6 +1022,31 @@ def extract_supplementary_data(xml_tree):
                             'type': 'table',
                             'content': table_data
                         })
+
+    for supplementary_material in xml_tree.findall('.//supplementary-material'):
+        label = supplementary_material.find('label')
+        label_text = ''.join(label.itertext()).strip() if label is not None else ''
+        media = supplementary_material.find('.//media')
+        href = ''
+        mimetype = ''
+        mime_subtype = ''
+        if media is not None:
+            href = (
+                media.get('{http://www.w3.org/1999/xlink}href')
+                or media.get('xlink:href')
+                or media.get('href')
+                or ''
+            )
+            mimetype = media.get('mimetype') or ''
+            mime_subtype = media.get('mime-subtype') or ''
+        data['elements'].append({
+            'type': 'supplementary_item',
+            'label': label_text,
+            'filename': href,
+            'mimetype': mimetype,
+            'mime_subtype': mime_subtype,
+        })
+
     return data
 
 def extract_table_data(table_wrap, override_layout=None):
