@@ -43,7 +43,7 @@ def extract_data(xml_tree):
 
 
 def format_item(element):
-    """Monta 'Rótulo (Legenda): arquivo (tipo/subtipo)' a partir de um item extraído de <supplementary-material>, sem partes ausentes."""
+    """Monta 'Rótulo (Legenda): arquivo (tipo/subtipo). Descrição' a partir de um item extraído de <supplementary-material>, sem partes ausentes."""
     text = element['label'] or _DEFAULT_SUPPLEMENTARY_MATERIAL_TITLE
     if element.get('caption'):
         text = f"{text} ({element['caption']})"
@@ -52,6 +52,8 @@ def format_item(element):
         media_type = f"{mimetype}/{mime_subtype}" if mimetype and mime_subtype else (mimetype or mime_subtype)
         suffix = f" ({media_type})" if media_type else ''
         text = f"{text}: {element['filename']}{suffix}"
+    if element.get('description'):
+        text = f"{text}. {element['description']}"
     return text
 
 
@@ -103,6 +105,7 @@ def _extract_supplementary_material_elements(xml_tree):
         href = ''
         mimetype = ''
         mime_subtype = ''
+        description = ''
         if asset is not None:
             href = (
                 asset.get('{http://www.w3.org/1999/xlink}href')
@@ -113,6 +116,15 @@ def _extract_supplementary_material_elements(xml_tree):
             if media is not None:
                 mimetype = media.get('mimetype') or ''
                 mime_subtype = media.get('mime-subtype') or ''
+            # SPS 1.10: <long-desc> (descricao detalhada) e <alt-text> (breve,
+            # ate 120 caracteres) sao alternativas de acessibilidade em
+            # <media>/<graphic>; prefere a mais completa quando ambas existem.
+            long_desc = asset.find('long-desc')
+            alt_text = asset.find('alt-text')
+            if long_desc is not None and (long_desc.text or '').strip():
+                description = long_desc.text.strip()
+            elif alt_text is not None and (alt_text.text or '').strip():
+                description = alt_text.text.strip()
         elements.append({
             'type': 'supplementary_item',
             'label': label_text,
@@ -120,5 +132,6 @@ def _extract_supplementary_material_elements(xml_tree):
             'filename': href,
             'mimetype': mimetype,
             'mime_subtype': mime_subtype,
+            'description': description,
         })
     return elements

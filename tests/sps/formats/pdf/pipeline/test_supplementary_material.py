@@ -107,6 +107,7 @@ class TestExtractData(unittest.TestCase):
                 'filename': 'a-suppl1.mp4',
                 'mimetype': 'video',
                 'mime_subtype': 'mp4',
+                'description': '',
             }],
         }], result)
 
@@ -158,6 +159,7 @@ class TestExtractData(unittest.TestCase):
                 'filename': '',
                 'mimetype': '',
                 'mime_subtype': '',
+                'description': '',
             }],
         }], result)
 
@@ -180,7 +182,53 @@ class TestExtractData(unittest.TestCase):
             'filename': 'a-suppl2-gf3.jpg',
             'mimetype': '',
             'mime_subtype': '',
+            'description': '',
         }], result[0]['elements'])
+
+    def test_supplementary_material_extracts_long_desc_from_media(self):
+        # SPS 1.10: <long-desc> e a descricao detalhada de acessibilidade,
+        # filha do proprio <media>/<graphic>
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<back><supplementary-material id="suppl1">'
+            '<label>Suppl. 1</label>'
+            '<media mime-subtype="mp4" mimetype="video" xlink:href="a.mp4">'
+            '<long-desc>Descricao detalhada do video.</long-desc>'
+            '</media>'
+            '</supplementary-material></back>'
+            '</root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual('Descricao detalhada do video.', result[0]['elements'][0]['description'])
+
+    def test_supplementary_material_falls_back_to_alt_text_without_long_desc(self):
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<back><supplementary-material id="suppl2">'
+            '<label>Suppl. 2</label>'
+            '<graphic xlink:href="gf3.jpg">'
+            '<alt-text>Breve descricao da figura.</alt-text>'
+            '</graphic>'
+            '</supplementary-material></back>'
+            '</root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual('Breve descricao da figura.', result[0]['elements'][0]['description'])
+
+    def test_supplementary_material_prefers_long_desc_over_alt_text(self):
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<back><supplementary-material id="suppl1">'
+            '<label>Suppl. 1</label>'
+            '<media mime-subtype="mp4" mimetype="video" xlink:href="a.mp4">'
+            '<alt-text>Breve.</alt-text>'
+            '<long-desc>Detalhada.</long-desc>'
+            '</media>'
+            '</supplementary-material></back>'
+            '</root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual('Detalhada.', result[0]['elements'][0]['description'])
 
     def test_supplementary_material_prefers_media_over_graphic_when_both_present(self):
         xml = etree.fromstring(
@@ -237,3 +285,13 @@ class TestFormatItem(unittest.TestCase):
     def test_includes_caption_when_present(self):
         element = {'label': 'Suppl. 2', 'caption': 'Figure 1', 'filename': 'gf3.jpg', 'mimetype': '', 'mime_subtype': ''}
         self.assertEqual(supplementary_material.format_item(element), 'Suppl. 2 (Figure 1): gf3.jpg')
+
+    def test_includes_description_when_present(self):
+        element = {
+            'label': 'Suppl. 1', 'filename': 'a.mp4', 'mimetype': 'video', 'mime_subtype': 'mp4',
+            'description': 'Descricao detalhada do video.',
+        }
+        self.assertEqual(
+            supplementary_material.format_item(element),
+            'Suppl. 1: a.mp4 (video/mp4). Descricao detalhada do video.',
+        )
