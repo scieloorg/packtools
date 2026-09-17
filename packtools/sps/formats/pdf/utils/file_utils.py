@@ -9,6 +9,75 @@ class DirectoryRemovalError(Exception):
     ...
 
 
+# LibreOffice ignora w:sz/w:rFonts de zonas de matemática OOXML e usa seu
+# próprio BaseSize (padrão 12pt), estourando a coluna quando o corpo do
+# artigo (estilo "SCL Paragraph") usa um tamanho menor. Ver issue #1385.
+_FORMULA_BASE_SIZE_PT = 8
+_BASE_SIZE_ITEM_XML = (
+    '<item oor:path="/org.openoffice.Office.Math/StandardFormat">'
+    '<prop oor:name="BaseSize" oor:op="fuse"><value>{size}</value></prop>'
+    '</item>'
+)
+
+
+def _seed_profile_dir():
+    return os.path.join(tempfile.gettempdir(), "packtools_lo_profile_seed")
+
+
+def _patch_base_size(registry_path, size):
+    with open(registry_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    marker = f'<value>{size}</value></prop></item>'
+    if '"BaseSize"' in content and marker in content:
+        return
+
+    item = _BASE_SIZE_ITEM_XML.format(size=size)
+    content = content.replace("</oor:items>", item + "</oor:items>")
+    with open(registry_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
+def _ensure_seed_profile(binary):
+    """
+    Returns a cached LibreOffice user profile with Math BaseSize patched to
+    _FORMULA_BASE_SIZE_PT, bootstrapping it on first use.
+    """
+    profile_dir = _seed_profile_dir()
+    registry_path = os.path.join(profile_dir, "user", "registrymodifications.xcu")
+
+    if not os.path.exists(registry_path):
+        staging_dir = tempfile.mkdtemp(prefix="packtools_lo_profile_seed_staging_")
+        subprocess.run([
+            binary, "--headless", "--terminate_after_init",
+            f"-env:UserInstallation=file://{staging_dir}",
+        ], check=True)
+        try:
+            os.rename(staging_dir, profile_dir)
+        except OSError:
+            # perfil já criado por uma chamada concorrente; descarta o nosso
+            shutil.rmtree(staging_dir, ignore_errors=True)
+
+    _patch_base_size(registry_path, _FORMULA_BASE_SIZE_PT)
+    return profile_dir
+
+
+def _profile_env_arg(binary):
+    """
+    Best-effort: returns (env_arg, profile_dir_to_clean_up) for a private,
+    per-call copy of the BaseSize-patched profile, or (None, None) if
+    anything goes wrong (missing binary support, permissions, mocked
+    subprocess in tests, etc.) so callers can fall back to plain conversion.
+    """
+    try:
+        seed_profile = _ensure_seed_profile(binary)
+        call_profile_dir = tempfile.mkdtemp(prefix="packtools_lo_profile_")
+        shutil.copytree(seed_profile, call_profile_dir, dirs_exist_ok=True)
+        return f"-env:UserInstallation=file://{call_profile_dir}", call_profile_dir
+    except OSError:
+        return None, None
+
+
 def convert_docx_to_pdf(docx_path, libreoffice_binary=None):
     """
     Converts a DOCX file to PDF format using LibreOffice in headless mode.
@@ -36,15 +105,17 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None):
     if output_dir != ".":
         os.makedirs(output_dir, exist_ok=True)
 
-    subprocess.run([
-        binary,
-        '--headless',
-        '--convert-to',
-        'pdf',
-        docx_path,
-        '--outdir',
-        output_dir
-    ], check=True)
+    env_arg, call_profile_dir = _profile_env_arg(binary)
+    command = [binary]
+    if env_arg:
+        command.append(env_arg)
+    command += ['--headless', '--convert-to', 'pdf', docx_path, '--outdir', output_dir]
+
+    try:
+        subprocess.run(command, check=True)
+    finally:
+        if call_profile_dir:
+            shutil.rmtree(call_profile_dir, ignore_errors=True)
 
     base_name = os.path.basename(docx_path)
     f_name, f_ext = os.path.splitext(base_name)
