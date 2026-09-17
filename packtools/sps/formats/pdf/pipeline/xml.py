@@ -634,6 +634,33 @@ def _plain_text_segment(text):
     return {'type': 'text', 'text': text, 'italic': False, 'bold': False, 'superscript': False, 'subscript': False}
 
 
+_INLINE_FORMULA_TAGS = {'inline-formula'}
+
+
+def _inline_formula_segment(inline_formula):
+    """Converte o MathML de um <inline-formula> (fórmula no meio de texto corrido) em um segmento 'formula'.
+
+    Ao contrário de <disp-formula>, não carrega <label> próprio (fase 2 de
+    #1347, issue #1353).
+
+    Args:
+        inline_formula (ElementTree): The <inline-formula> element.
+
+    Returns:
+        dict, or None when there's no MathML descendant or
+        formula.mathml_to_omml couldn't convert it (unsupported construct) -
+        the caller (xml_utils.get_segments_from_node) falls back to
+        flattening it as plain text, same as any unrecognized tag.
+    """
+    math_node = inline_formula.find('.//{http://www.w3.org/1998/Math/MathML}math')
+    if math_node is None:
+        return None
+    omml_element = formula.mathml_to_omml(math_node)
+    if omml_element is None:
+        return None
+    return {'type': 'formula', 'omml': omml_element}
+
+
 def _disp_formula_segments(disp_formula):
     """Converte o MathML de um <disp-formula> em um segmento 'formula', mais um segmento de texto para o <label>, se houver.
 
@@ -688,7 +715,10 @@ def _paragraph_with_trailing_formula(p_node):
     if formula_segments is None:
         return None
 
-    leading_segments = xml_utils.get_segments_from_node(p_node, skip_tags={'disp-formula'})
+    leading_segments = xml_utils.get_segments_from_node(
+        p_node, skip_tags={'disp-formula'},
+        formula_tags=_INLINE_FORMULA_TAGS, formula_converter=_inline_formula_segment,
+    )
     return leading_segments + formula_segments
 
 
@@ -721,7 +751,10 @@ def _extract_list_paragraphs(list_node):
         for item_p in item.findall('p'):
             item_segments = _paragraph_with_trailing_formula(item_p)
             if item_segments is None:
-                item_segments = xml_utils.get_segments_from_node(item_p, skip_tags={'fig', 'table-wrap'})
+                item_segments = xml_utils.get_segments_from_node(
+                    item_p, skip_tags={'fig', 'table-wrap'},
+                    formula_tags=_INLINE_FORMULA_TAGS, formula_converter=_inline_formula_segment,
+                )
             if not item_segments:
                 continue
             if marker:
@@ -759,7 +792,10 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
             - 'title': The title of the section, if present.
             - 'paragraphs': A list of paragraphs, each a list of style-tagged
               text segments (see xml_utils.get_segments_from_node) preserving
-              inline <italic>/<bold>/<sup>/<sub> markup. Also includes any
+              inline <italic>/<bold>/<sup>/<sub> markup, and converting any
+              <inline-formula> found in running text to a real OMML formula
+              segment (issue #1353, fase 2 de #1347) instead of flattening
+              its MathML to ambiguous text. Also includes any
               <disp-formula> found as a direct sibling of a <p>, since a
               structured formula isn't always wrapped in one - as a single
               plain-text segment (no MathML->OMML conversion yet, see issue
@@ -826,7 +862,10 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
                 # and its items are extracted separately right after.
                 nested_lists = child.findall('list')
                 skip_tags = {'fig', 'table-wrap', 'list'} if nested_lists else {'fig', 'table-wrap'}
-                para_segments = xml_utils.get_segments_from_node(child, skip_tags=skip_tags)
+                para_segments = xml_utils.get_segments_from_node(
+                    child, skip_tags=skip_tags,
+                    formula_tags=_INLINE_FORMULA_TAGS, formula_converter=_inline_formula_segment,
+                )
                 if para_segments:
                     sec['paragraphs'].append(para_segments)
                 for nested_list in nested_lists:
