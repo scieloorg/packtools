@@ -13,6 +13,7 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_pub_date_pipe,
     xml_pubmed_article_title_pipe,
     xml_pubmed_first_page_pipe,
+    xml_pubmed_last_page_pipe,
     xml_pubmed_elocation_pipe,
     xml_pubmed_language_pipe,
     xml_pubmed_author_list,
@@ -25,6 +26,12 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_citations,
     xml_pubmed_abstract,
     xml_pubmed_other_abstract,
+    pipeline_pubmed,
+    pipeline_pubmed_set,
+    build_pubmed_article,
+    build_article_set_xml,
+    PUBMED_DOCTYPE,
+    MissingRequiredElementError,
 )
 
 
@@ -394,6 +401,48 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_pub_date_pipe_falls_back_to_collection_date(self):
+        # date-type="pub"/pub-type="epub" is absent; the only pub-date is
+        # pub-type="epub-ppub" (date-type="collection"), common in older
+        # SciELO articles -- article_date alone misses this, so get_date
+        # must fall back to collection_date instead of treating it as
+        # "no date at all".
+        expected = (
+            '<Article>'
+            '<Journal>'
+            '<PubDate PubStatus="epublish">'
+            '<Year>2014</Year>'
+            '<Month>04</Month>'
+            '</PubDate>'
+            '</Journal>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article>'
+            '<Journal/>'
+            '</Article>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date pub-type="epub-ppub">'
+            '<month>04</month>'
+            '<year>2014</year>'
+            '</pub-date>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
     def test_xml_pubmed_pub_date_pipe_without_day(self):
         expected = (
             '<Article>'
@@ -506,11 +555,6 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_pub_date_pipe_without_date(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
         xml_pubmed = ET.fromstring(
             '<Article>'
             '<Journal/>'
@@ -527,11 +571,8 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        with self.assertRaises(MissingRequiredElementError):
+            xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
 
     def test_xml_pubmed_article_title_pipe(self):
         expected = (
@@ -703,6 +744,89 @@ class PipelinePubmed(unittest.TestCase):
         )
 
         xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_first_page_pipe_prefers_real_fpage_over_elocation_id(self):
+        # Articles with traditional pagination (//fpage) must not lose it --
+        # elocation-id is only a fallback for continuous-publication articles
+        # that have no fpage at all.
+        expected = (
+            '<Article>'
+            '<FirstPage LZero="save">227</FirstPage>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<fpage>227</fpage>'
+            '<elocation-id>e2022440</elocation-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_last_page_pipe(self):
+        expected = (
+            '<Article>'
+            '<LastPage>232</LastPage>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<fpage>227</fpage>'
+            '<lpage>232</lpage>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_last_page_pipe(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_last_page_pipe_without_last_page(self):
+        expected = (
+            '<Article/>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_last_page_pipe(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -1592,6 +1716,63 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_citations_creates_reference_list_when_ref_list_has_no_title(self):
+        # ref-list/title is optional in JATS. xml_pubmed_title_reference_list
+        # only creates <ReferenceList> when a title is present, so
+        # xml_pubmed_citations must create it itself when there are
+        # references but no title -- it used to crash with AttributeError
+        # ('NoneType' object has no attribute 'append') in this case.
+        expected = (
+            '<Article>'
+            '<ReferenceList>'
+            '<Reference>'
+            '<Citation>Some citation text.</Citation>'
+            '</Reference>'
+            '</ReferenceList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<back>'
+            '<ref-list>'
+            '<ref id="B1">'
+            '<mixed-citation>Some citation text.</mixed-citation>'
+            '</ref>'
+            '</ref-list>'
+            '</back>'
+            '</article>'
+        )
+
+        xml_pubmed_citations(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_citations_without_refs_does_not_create_reference_list(self):
+        expected = '<Article/>'
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<back></back>'
+            '</article>'
+        )
+
+        xml_pubmed_citations(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
     def test_xml_pubmed_abstract_without_sections(self):
         self.maxDiff = None
         expected = (
@@ -1827,6 +2008,100 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_pipeline_pubmed_wraps_article_in_article_set_with_doctype(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
+            '</article>'
+        )
+
+        obtained = pipeline_pubmed(xml_tree, pretty_print=False)
+
+        self.assertTrue(obtained.startswith("<?xml version='1.0' encoding='utf-8'?>\n"))
+        self.assertIn(PUBMED_DOCTYPE, obtained)
+        self.assertIn('<ArticleSet><Article>', obtained)
+        self.assertTrue(obtained.rstrip().endswith('</Article></ArticleSet>'))
+        self.assertEqual(obtained.count('<Article>'), 1)
+
+    def test_pipeline_pubmed_set_wraps_multiple_articles_in_single_article_set(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
+            '</article>'
+        )
+
+        obtained = pipeline_pubmed_set([xml_tree, xml_tree], pretty_print=False)
+
+        self.assertIn(PUBMED_DOCTYPE, obtained)
+        self.assertEqual(obtained.count('<ArticleSet>'), 1)
+        self.assertEqual(obtained.count('<Article>'), 2)
+        self.assertEqual(obtained.count('</Article>'), 2)
+
+    def test_pipeline_pubmed_set_raises_when_any_article_has_no_pub_date(self):
+        xml_tree_with_date = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
+            '</article>'
+        )
+        xml_tree_without_date = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta></article-meta></front>'
+            '</article>'
+        )
+
+        with self.assertRaises(MissingRequiredElementError):
+            pipeline_pubmed_set([xml_tree_with_date, xml_tree_without_date])
+
+    def test_build_pubmed_article_raises_when_no_pub_date_is_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta></article-meta></front>'
+            '</article>'
+        )
+
+        with self.assertRaises(MissingRequiredElementError):
+            build_pubmed_article(xml_tree)
+
+    def test_build_article_set_xml_wraps_pre_built_articles(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front><article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day><month>01</month><year>2023</year>'
+            '</pub-date>'
+            '</article-meta></front>'
+            '</article>'
+        )
+        article = build_pubmed_article(xml_tree)
+
+        obtained = build_article_set_xml([article], pretty_print=False)
+
+        self.assertIn(PUBMED_DOCTYPE, obtained)
+        self.assertEqual(obtained.count('<Article>'), 1)
 
 
 if __name__ == '__main__':
