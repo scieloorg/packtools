@@ -67,3 +67,57 @@ class TestAddParagraphWithSegmentsFormula(unittest.TestCase):
 
         self.assertEqual([r.text for r in para.runs], ['Total biomass:', ' (3)'])
         self.assertIn(omml, list(para._p))
+
+
+class TestAddParagraphWithSegmentsFormulaStyle(unittest.TestCase):
+    """
+    Um parágrafo justificado (estilo padrão "SCL Paragraph") com pouco texto
+    antes de uma fórmula em bloco esparrama o rótulo pela largura da coluna
+    (ex.: "Total     plant     biomass:"). Parágrafos com fórmula passam a
+    usar o estilo "SCL Formula" (alinhado à esquerda), ver issue #1385.
+    """
+
+    def test_paragraph_with_formula_uses_formula_style(self):
+        docx = _docx_with_layout_styles()
+        segments = [
+            {'type': 'text', 'text': 'Total plant biomass:', 'italic': False, 'bold': False,
+             'superscript': False, 'subscript': False},
+            {'type': 'formula', 'omml': _omml_element()},
+        ]
+
+        para = add_paragraph_with_segments(docx, segments)
+
+        self.assertEqual(para.style.name, 'SCL Formula')
+
+    def test_paragraph_without_formula_keeps_default_style(self):
+        docx = _docx_with_layout_styles()
+        segments = [
+            {'type': 'text', 'text': 'Plain paragraph.', 'italic': False, 'bold': False,
+             'superscript': False, 'subscript': False},
+        ]
+
+        para = add_paragraph_with_segments(docx, segments)
+
+        self.assertEqual(para.style.name, 'SCL Paragraph')
+
+    def test_explicit_non_default_style_is_not_overridden(self):
+        docx = _docx_with_layout_styles()
+        segments = [{'type': 'formula', 'omml': _omml_element()}]
+
+        para = add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph Reference')
+
+        self.assertEqual(para.style.name, 'SCL Paragraph Reference')
+
+    def test_falls_back_to_requested_style_when_formula_style_missing_from_template(self):
+        """Older templates without "SCL Formula" keep the previous (justified) behavior."""
+        from docx import Document
+        from docx.enum.style import WD_STYLE_TYPE
+
+        docx = Document()
+        docx.styles.add_style('SCL Paragraph', WD_STYLE_TYPE.PARAGRAPH)
+        segments = [{'type': 'formula', 'omml': _omml_element()}]
+
+        para = add_paragraph_with_segments(docx, segments)
+
+        self.assertNotIn('SCL Formula', docx.styles)
+        self.assertEqual(para.style.name, 'SCL Paragraph')

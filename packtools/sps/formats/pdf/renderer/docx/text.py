@@ -3,6 +3,8 @@ from docx.oxml.ns import qn
 
 from packtools.sps.formats.pdf.pipeline import formula
 
+FORMULA_PARAGRAPH_STYLE = 'SCL Formula'
+
 
 def add_heading_with_formatting(docx, text, style_name, level):
     """Add a heading with the specified style and level to the document."""
@@ -21,6 +23,11 @@ def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', elemen
 
 def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
     """Adiciona um parágrafo a partir de segmentos com estilo (ver xml_utils.get_segments_from_node)."""
+    # par. justificado + fórmula estoura a linha de rótulo com espaçamento esticado; fórmula usa estilo à esquerda
+    if (style_name == 'SCL Paragraph' and FORMULA_PARAGRAPH_STYLE in docx.styles
+            and any(seg.get('type') == 'formula' for seg in segments)):
+        style_name = FORMULA_PARAGRAPH_STYLE
+
     para = docx.add_paragraph()
     para.style = docx.styles[style_name]
 
