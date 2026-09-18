@@ -891,6 +891,60 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(result[0]['paragraphs'], [_plain_para('Body paragraph.')])
         self.assertEqual(result[1]['paragraphs'], [_plain_para('Data statement.')])
 
+    def test_extract_body_data_excludes_sub_article_sections(self):
+        # Regression for issue #1372, reproduced against the real corpus
+        # sample regepe/2965-1506-regepe-15-e2659.xml: a <sub-article> (a
+        # full translation of the article) has its own <sec> tree, which an
+        # unscoped './/sec' search picked up and duplicated the entire
+        # article's body in a second language.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introdução</title><p>Texto em português.</p></sec>'
+            '</body>'
+            '<sub-article article-type="translation" xml:lang="en">'
+            '<body>'
+            '<sec><title>Introduction</title><p>English text.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Introdução')
+
+    def test_extract_body_data_excludes_app_group_sections(self):
+        # Regression for issue #1372, reproduced against the real corpus
+        # sample a37.xml: an appendix (<back><app-group><app>) has its own
+        # subsections ("Zone 1"/"Zone 2"/"Zone 3"), each with its own
+        # tables. An unscoped './/sec' search picked these up as if they
+        # were ordinary body sections, with no indication they come from an
+        # appendix, and their tables were also rendered a second time by
+        # extract_supplementary_data (which already handles <app-group>
+        # under its own "Supplementary Material" heading).
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<app-group>'
+            '<app>'
+            '<sec><title>Zone 1</title>'
+            '<table-wrap id="t1"><label>Table A1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</app>'
+            '</app-group>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Results')
+        self.assertEqual(sum(len(s['tables']) for s in result), 0)
+
 
 class TestExtractCategory(unittest.TestCase):
 
