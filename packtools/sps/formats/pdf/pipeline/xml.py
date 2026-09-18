@@ -740,6 +740,20 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     extract_trans_abstract_data, and would otherwise be picked up twice by
     a plain './/sec' search.
 
+    Also excludes <sec> nested inside <sub-article> (a translation/version
+    of the article - its own <sec> tree would otherwise duplicate the whole
+    body in another language) and inside <app-group> (an appendix - handled
+    separately by extract_supplementary_data, which already renders its
+    content under its own "Supplementary Material" heading; leaving it in
+    here too rendered the same tables twice) (issue #1372). Deliberately
+    narrow: a <back><sec> that's neither of those (e.g. a bare
+    sec-type="data-availability" statement, ~68% of a real 593-article
+    corpus) is left as-is, matching the pre-existing, already-documented
+    behavior from issue #1351 rather than the issue's own literal
+    body-only wording - a full <body>-only scope would silently drop that
+    content instead, since nothing else in the pipeline extracts a bare
+    <back><sec>.
+
     Falls back to treating <body> itself as an extra, untitled section when
     <body> has no <sec> of its own (valid JATS pattern for unsectioned
     short communications/brief reports) - otherwise its content would be
@@ -781,7 +795,8 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     seen_fig_keys = set()
 
     body_sections = xml_tree.xpath(
-        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)]'
+        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract) '
+        'and not(ancestor::sub-article) and not(ancestor::app-group)]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:
