@@ -942,7 +942,6 @@ class PackageNamingMixin:
         for issn in self.available_issns:
             try:
                 variations.add(self.build_sps_pkg_name(issn=issn))
-                variations.add(self.build_sps_pkg_name_with_incomplete_order(issn=issn))
             except ValueError:
                 pass
 
