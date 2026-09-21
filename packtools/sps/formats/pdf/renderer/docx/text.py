@@ -22,11 +22,20 @@ def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', elemen
     return para
 
 def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
-    """Adiciona um parágrafo a partir de segmentos com estilo (ver xml_utils.get_segments_from_node)."""
-    # par. justificado + fórmula estoura a linha de rótulo com espaçamento esticado; fórmula usa estilo à esquerda
-    if (style_name == 'SCL Paragraph' and FORMULA_PARAGRAPH_STYLE in docx.styles
-            and any(seg.get('type') == 'formula' for seg in segments)):
-        style_name = FORMULA_PARAGRAPH_STYLE
+    """Adiciona um parágrafo a partir de segmentos com estilo (ver xml_utils.get_segments_from_node).
+
+    Fórmula em bloco (segmento com 'display') vai em parágrafo próprio, no estilo
+    "SCL Formula", separada do texto que a antecede. Fórmula inline fica no
+    parágrafo do texto. Retorna o último parágrafo criado.
+    """
+    if style_name == 'SCL Paragraph' and FORMULA_PARAGRAPH_STYLE in docx.styles:
+        display_at = next((i for i, seg in enumerate(segments) if seg.get('display')), None)
+        if display_at is not None:
+            leading = segments[:display_at]
+            if any(seg.get('type') == 'formula' or (seg.get('text') or '').strip() for seg in leading):
+                add_paragraph_with_segments(docx, leading, style_name)
+            segments = segments[display_at:]
+            style_name = FORMULA_PARAGRAPH_STYLE
 
     para = docx.add_paragraph()
     para.style = docx.styles[style_name]
