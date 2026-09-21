@@ -2157,18 +2157,13 @@ class TestPkgNameVariations(XMLWithPreTestMixin, TestCase):
         variations = xml_with_pre.pkg_name_variations
         self.assertIsInstance(variations, set)
 
-    def test_pkg_name_variations_includes_incomplete_order_variation(self):
-        # quando o order do XML não está zero-padded (formato incorreto),
-        # pkg_name_variations deve conter tanto a variação com o order
-        # normalizado (00007) quanto a variação com o valor bruto (7), para
-        # que buscas por pacotes legados gerados com sufixo incorreto ainda
-        # encontrem o registro.
+    def test_pkg_name_variations_excludes_incomplete_order_variation(self):
         xml_with_pre = self._make_xml(
             issn_epub="1234-5678", acron="abc", vol="10", num="2", order="7",
         )
         variations = xml_with_pre.pkg_name_variations
         self.assertIn("1234-5678-abc-10-02-00007", variations)
-        self.assertIn("1234-5678-abc-10-02-7", variations)
+        self.assertNotIn("1234-5678-abc-10-02-7", variations)
 
 
 # ==============================================================================
