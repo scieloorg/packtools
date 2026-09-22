@@ -13,26 +13,58 @@ def extract_data(xml_tree):
     comportam <supplementary-material>"), so each gets its own section
     with its own title, instead of a single title shared between both.
 
+    An <app-group> with more than one <app> gets one section per <app>
+    when at least one of them has its own <title>/<label> - a single
+    shared title would mislabel every app after the first (e.g. three
+    annexes "A"/"B"/"C" all rendered as "Appendix"). When none of the
+    group's <app> has a title/label to tell them apart, they stay merged
+    under one section, as before (issue #1375 review).
+
     Args:
         xml_tree (ElementTree): The XML tree to extract the data from.
 
     Returns:
-        list[dict]: Zero, one or two section dicts (app-group section,
-        supplementary-material section - only for the ones with content),
-        each with the keys:
+        list[dict]: Section dicts (one per split <app>, one for the
+        remaining/merged app-groups, one for supplementary material -
+        only for the ones with content), each with the keys:
             - 'title': The section title.
             - 'elements': A list of dicts, one per extracted element.
     """
     sections = []
 
-    app_group_elements = _extract_app_group_elements(xml_tree)
-    if app_group_elements:
-        sections.append({
-            'title': _app_group_title(xml_tree),
-            'elements': app_group_elements,
-        })
+    app_groups = xml_tree.findall('.//app-group')
+    split_groups = [
+        app_group for app_group in app_groups
+        if len(app_group.findall('app')) > 1
+        and any(_app_own_title(app) for app in app_group.findall('app'))
+    ]
+    other_groups = [app_group for app_group in app_groups if app_group not in split_groups]
 
-    supplementary_material_elements = _extract_supplementary_material_elements(xml_tree)
+    for app_group in split_groups:
+        for index, app in enumerate(app_group.findall('app'), start=1):
+            elements = _extract_single_app_elements(app)
+            if elements:
+                sections.append({'title': _app_title(app, index), 'elements': elements})
+
+    other_elements = _extract_app_group_elements(other_groups)
+    if other_elements:
+        title = _app_group_title(other_groups)
+        # Nenhum app-group tem <title> proprio: se ha exatamente um <app> ao
+        # todo (o caso mais comum), cai para app/title -> app/label antes do
+        # padrao em ingles (issue #1375 review, ex. tests/fixtures/pdf/a1.xml,
+        # <app><label>SUPPLEMENTARY MATERIAL</label></app> sem <title>). Com
+        # mais de um <app> sem titulo de grupo, mantem o padrao: usar o
+        # titulo de um so app atribuiria erroneamente um nome unico aos
+        # demais, mesmo problema que a divisao por app acima evita.
+        if title == _DEFAULT_APP_GROUP_TITLE:
+            other_apps = [app for app_group in other_groups for app in app_group.findall('app')]
+            if len(other_apps) == 1:
+                title = _app_own_title(other_apps[0]) or title
+        sections.append({'title': title, 'elements': other_elements})
+
+    supplementary_material_elements = (
+        _extract_supplementary_sec_notes(xml_tree) + _extract_supplementary_material_elements(xml_tree)
+    )
     if supplementary_material_elements:
         sections.append({
             'title': _DEFAULT_SUPPLEMENTARY_MATERIAL_TITLE,
@@ -61,20 +93,20 @@ def format_item(element):
 # Private helpers
 # -----------------
 
-def _app_group_title(xml_tree):
-    """SPS 1.10: <app-group><title> é opcional e a terminologia (Apêndice/Anexo/etc.) varia por periódico - só cai no padrão em inglês quando ausente."""
-    app_group = xml_tree.find('.//app-group')
-    title = app_group.find('title') if app_group is not None else None
-    if title is not None:
-        title_text = ''.join(title.itertext()).strip()
-        if title_text:
-            return title_text
+def _app_group_title(app_groups):
+    """SPS 1.10: <app-group><title> é opcional e a terminologia (Apêndice/Anexo/etc.) varia por periódico - usa o primeiro título não vazio entre os grupos informados, ou o padrão em inglês."""
+    for app_group in app_groups:
+        title = app_group.find('title')
+        if title is not None:
+            title_text = ''.join(title.itertext()).strip()
+            if title_text:
+                return title_text
     return _DEFAULT_APP_GROUP_TITLE
 
 
-def _extract_app_group_elements(xml_tree):
+def _extract_app_group_elements(app_groups):
     elements = []
-    for app_group in xml_tree.findall('.//app-group'):
+    for app_group in app_groups:
         for element in app_group:
             if element.text:
                 elements.append({'content': element.text, 'type': 'text'})
@@ -85,6 +117,59 @@ def _extract_app_group_elements(xml_tree):
                         'type': 'table',
                         'content': table_data
                     })
+    return elements
+
+
+def _app_own_title(app):
+    """Texto de <app>/<title> ou <app>/<label>, o que vier primeiro e não vazio - vazio quando o <app> não tem nenhum dos dois."""
+    for tag in ('title', 'label'):
+        node = app.find(tag)
+        if node is not None:
+            text = ''.join(node.itertext()).strip()
+            if text:
+                return text
+    return ''
+
+
+def _app_title(app, index):
+    """Título de um <app> num app-group com mais de um <app>, cada um com sua própria seção: app/title -> app/label -> padrão numerado (issue #1375 review)."""
+    return _app_own_title(app) or f'{_DEFAULT_APP_GROUP_TITLE} {index}'
+
+
+def _extract_single_app_elements(app):
+    """
+    Extrai texto solto e tabelas de um único <app>, usado quando o
+    app-group tem mais de um <app> e cada um vira sua própria seção.
+    Mesma limitação de _extract_app_group_elements: só lê o texto
+    imediatamente após a tag <app>, não o que está dentro de <p>
+    (issue #1375, follow-up).
+    """
+    elements = []
+    if app.text:
+        elements.append({'content': app.text, 'type': 'text'})
+    for table_wrap in app.findall('.//table-wrap'):
+        for table_data in extract_table_data(table_wrap):
+            elements.append({'type': 'table', 'content': table_data})
+    return elements
+
+
+def _extract_supplementary_sec_notes(xml_tree):
+    """
+    Extrai o <title> (via caller) e os <p> diretos da <sec> de material
+    suplementar - a frase de disponibilidade/DOI que a exclusão dessa
+    <sec> do corpo (extract_body_data) removia sem recapturar em lugar
+    nenhum (issue #1375 review). Pula o <p> que só envolve um
+    <supplementary-material> sem outro texto ao redor - seu conteúdo já
+    vira um item em _extract_supplementary_material_elements.
+    """
+    elements = []
+    for sec in xml_tree.xpath('.//sec[.//supplementary-material and not(sec)]'):
+        for p in sec.findall('p'):
+            if p.find('.//supplementary-material') is not None:
+                continue
+            text = ''.join(p.itertext()).strip()
+            if text:
+                elements.append({'content': text, 'type': 'text'})
     return elements
 
 

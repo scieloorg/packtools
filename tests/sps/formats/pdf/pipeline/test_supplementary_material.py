@@ -244,6 +244,130 @@ class TestExtractData(unittest.TestCase):
         self.assertEqual('video.mp4', result[0]['elements'][0]['filename'])
         self.assertEqual('video', result[0]['elements'][0]['mimetype'])
 
+    def test_supplementary_material_sec_direct_paragraphs_are_recovered(self):
+        # Regression, PR #1384 review: extract_body_data excludes the whole
+        # <sec sec-type="supplementary-material">, but its direct <p>
+        # (e.g. the availability/DOI sentence) was never recaptured anywhere
+        # else - reproduced against the real corpus sample
+        # jped/v102n4/0021-7557-jped-102-04-101548.xml.
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<body><sec sec-type="supplementary-material">'
+            '<title>Supplementary materials</title>'
+            '<p>Supplementary material associated with this article can be found online.</p>'
+            '<supplementary-material id="suppl1"><label>Suppl. 1</label>'
+            '<media mime-subtype="pdf" mimetype="application" xlink:href="a.pdf"/>'
+            '</supplementary-material>'
+            '</sec></body>'
+            '</root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        elements = result[-1]['elements']
+        self.assertEqual(elements[0], {
+            'content': 'Supplementary material associated with this article can be found online.',
+            'type': 'text',
+        })
+        self.assertEqual(elements[1]['type'], 'supplementary_item')
+
+    def test_supplementary_material_sec_paragraph_that_only_wraps_the_item_is_not_duplicated(self):
+        # A <p> whose only child is the <supplementary-material> itself (a
+        # real corpus shape, e.g. bn/v26n1/1676-0611-bn-26-1-e20251852.xml)
+        # has no text of its own to recover - the item is already captured
+        # as a 'supplementary_item' element, recapturing the wrapping <p>
+        # would duplicate it as an empty/near-empty 'text' element.
+        xml = etree.fromstring(
+            '<root xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<body><sec sec-type="supplementary-material">'
+            '<title>Supplementary Material</title>'
+            '<p><supplementary-material id="suppl1"><label>Suppl. 1</label>'
+            '<media mime-subtype="pdf" mimetype="application" xlink:href="a.pdf"/>'
+            '</supplementary-material></p>'
+            '</sec></body>'
+            '</root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        elements = result[-1]['elements']
+        self.assertEqual(len(elements), 1)
+        self.assertEqual(elements[0]['type'], 'supplementary_item')
+
+    def test_single_app_falls_back_to_its_own_label_without_group_title(self):
+        # Regression, PR #1384 review: _app_group_title only looked at
+        # <app-group><title>, but most real articles have the title on the
+        # single <app> instead - reproduced against
+        # tests/fixtures/pdf/a1.xml, <app><label>SUPPLEMENTARY MATERIAL
+        # </label></app> with no <app-group><title>.
+        xml = etree.fromstring(
+            '<root><app-group>'
+            '<app><label>SUPPLEMENTARY MATERIAL</label>'
+            '<table-wrap><label>Table 1</label></table-wrap>'
+            '</app>'
+            '</app-group></root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual('SUPPLEMENTARY MATERIAL', result[0]['title'])
+
+    def test_single_app_falls_back_to_default_without_title_or_label(self):
+        xml = etree.fromstring(
+            '<root><app-group>'
+            '<app><table-wrap><label>Table 1</label></table-wrap></app>'
+            '</app-group></root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual('Appendix', result[0]['title'])
+
+    def test_multiple_apps_with_titles_get_one_section_each(self):
+        # Regression, PR #1384 review: an <app-group> with more than one
+        # <app>, each with its own <title>, was rendered as a single
+        # "Appendix" section - reproduced against the real corpus sample
+        # ecos/v35n3/1657-4206-ecos-35-03-e294345.xml (3 <app>, "Anexo A/B/C").
+        xml = etree.fromstring(
+            '<root><app-group>'
+            '<app><title>Anexo A</title><table-wrap><label>Table A</label></table-wrap></app>'
+            '<app><title>Anexo B</title><table-wrap><label>Table B</label></table-wrap></app>'
+            '</app-group></root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual(['Anexo A', 'Anexo B'], [s['title'] for s in result])
+        self.assertEqual(1, len(result[0]['elements']))
+        self.assertEqual(1, len(result[1]['elements']))
+
+    def test_multiple_apps_without_any_title_stay_merged(self):
+        # When no <app> in a multi-app group has a title/label to tell them
+        # apart, splitting would invent a numbered title with no basis in
+        # the source (e.g. dilemas/v19n2/2178-2792-dilemas-19-02-e65794.xml,
+        # a real corpus sample with 2 untitled <app>) - stays merged under
+        # one shared/default title, as before.
+        xml = etree.fromstring(
+            '<root><app-group>'
+            '<app><table-wrap><label>Table A</label></table-wrap></app>'
+            '<app><table-wrap><label>Table B</label></table-wrap></app>'
+            '</app-group></root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual(1, len(result))
+        self.assertEqual('Appendix', result[0]['title'])
+        self.assertEqual(2, len(result[0]['elements']))
+
+    def test_multiple_apps_use_label_when_title_is_missing(self):
+        xml = etree.fromstring(
+            '<root><app-group>'
+            '<app><label>Anexo 1</label><table-wrap><label>Table A</label></table-wrap></app>'
+            '<app><title>Anexo 2</title><table-wrap><label>Table B</label></table-wrap></app>'
+            '</app-group></root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual(['Anexo 1', 'Anexo 2'], [s['title'] for s in result])
+
+    def test_multiple_apps_falls_back_to_numbered_default_for_the_untitled_one(self):
+        xml = etree.fromstring(
+            '<root><app-group>'
+            '<app><title>Anexo 1</title><table-wrap><label>Table A</label></table-wrap></app>'
+            '<app><table-wrap><label>Table B</label></table-wrap></app>'
+            '</app-group></root>'
+        )
+        result = supplementary_material.extract_data(xml)
+        self.assertEqual(['Anexo 1', 'Appendix 2'], [s['title'] for s in result])
+
     def test_app_group_and_supplementary_material_are_separate_sections(self):
         # Regression: as duas tags nao aparecem sob o mesmo titulo -
         # SPS 1.10 e explicita que "<app-group> e <app> nao comportam
