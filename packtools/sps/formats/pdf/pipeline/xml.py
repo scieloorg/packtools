@@ -637,6 +637,9 @@ def _plain_text_segment(text):
 def _disp_formula_segments(disp_formula):
     """Converte o MathML de um <disp-formula> em um segmento 'formula', mais um segmento de texto para o <label>, se houver.
 
+    O segmento de fórmula leva 'display': True (fórmula em bloco); o renderer
+    usa essa marca para separá-la do texto e distingui-la de fórmula inline.
+
     Args:
         disp_formula (ElementTree): The <disp-formula> element.
 
@@ -653,7 +656,7 @@ def _disp_formula_segments(disp_formula):
     if omml_element is None:
         return None
 
-    segments = [{'type': 'formula', 'omml': omml_element}]
+    segments = [{'type': 'formula', 'omml': omml_element, 'display': True}]
     label = disp_formula.find('label')
     if label is not None:
         label_text = ''.join(label.itertext()).strip()

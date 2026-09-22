@@ -415,6 +415,7 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(len(paragraphs[1]), 1)
         formula_segment = paragraphs[1][0]
         self.assertEqual(formula_segment['type'], 'formula')
+        self.assertTrue(formula_segment['display'])
         self.assertEqual(etree.QName(formula_segment['omml']).localname, 'oMath')
         omml_text = ''.join(formula_segment['omml'].itertext())
         self.assertIn('Y', omml_text)
@@ -584,6 +585,7 @@ class TestExtractBodyData(unittest.TestCase):
         segments = paragraphs[0]
         self.assertEqual(segments[0], _plain_para('Total biomass:')[0])
         self.assertEqual(segments[1]['type'], 'formula')
+        self.assertTrue(segments[1]['display'])
         self.assertEqual(etree.QName(segments[1]['omml']).localname, 'oMath')
         self.assertEqual(segments[2], _plain_para(' (3)')[0])
 
