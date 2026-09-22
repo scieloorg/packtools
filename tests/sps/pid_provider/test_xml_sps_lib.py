@@ -1110,6 +1110,29 @@ class TestXMLWithPreSettersAndIDs(XMLWithPreTestMixin, TestCase):
         with self.assertRaises(ValueError):
             xml_with_pre.order = "123456"  # Mais que 5 caracteres
 
+    def test_order_getter_zero_pads_raw_xml_value(self):
+        # <article-id pub-id-type="other"> lido diretamente do XML (sem
+        # passar pelo setter) pode não estar preenchido com zeros à
+        # esquerda; `order` deve normalizar para 5 dígitos.
+        xml_with_pre = self._make_xml(vol="10", num="2", order="7")
+        self.assertEqual(xml_with_pre.order, "00007")
+
+    def test_order_getter_returns_none_when_absent(self):
+        # sem <article-id pub-id-type="other">, `article_ids.other` é None;
+        # `order` deve retornar None em vez de lançar TypeError.
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        self.assertIsNone(xml_with_pre.order)
+
+    def test_incorrect_order_returns_raw_value_without_padding(self):
+        # `incorrect_order` preserva o valor bruto do XML, sem normalização,
+        # usado para gerar variações de nome compatíveis com pacotes antigos.
+        xml_with_pre = self._make_xml(vol="10", num="2", order="7")
+        self.assertEqual(xml_with_pre.incorrect_order, "7")
+
+    def test_incorrect_order_returns_none_when_absent(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        self.assertIsNone(xml_with_pre.incorrect_order)
+
     def test_v2_v3_aop_pid_setters_and_update_ids(self):
         xml_with_pre = self._make_xml(vol="10", num="2")
         
@@ -1464,6 +1487,48 @@ class TestBuildSpsPkgName(XMLWithPreTestMixin, TestCase):
         )
         with self.assertRaises(ValueError):
             xml_with_pre.build_sps_pkg_name()
+
+    def test_build_sps_pkg_name_with_incomplete_order_uses_raw_order(self):
+        # ao contrário de build_sps_pkg_name (que usa `order`, zero-padded),
+        # build_sps_pkg_name_with_incomplete_order usa `incorrect_order`, o
+        # valor bruto do XML, sem normalização.
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678", acron="abc", vol="10", num="2", order="7"
+        )
+        self.assertEqual(
+            xml_with_pre.build_sps_pkg_name_with_incomplete_order(),
+            "1234-5678-abc-10-02-7",
+        )
+        self.assertEqual(
+            xml_with_pre.build_sps_pkg_name(), "1234-5678-abc-10-02-00007"
+        )
+
+    def test_build_sps_pkg_name_with_incomplete_order_elocation_takes_precedence(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678", acron="abc", vol="10", num="2",
+            elocation="e100", order="7",
+        )
+        self.assertEqual(
+            xml_with_pre.build_sps_pkg_name_with_incomplete_order(),
+            "1234-5678-abc-10-02-e100",
+        )
+
+    def test_build_sps_pkg_name_with_incomplete_order_falls_back_to_submitted_filename(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678", acron="abc", vol="10", num="2"
+        )
+        xml_with_pre.submitted_filename = "MeuArquivo.xml"
+        self.assertEqual(
+            xml_with_pre.build_sps_pkg_name_with_incomplete_order(),
+            "1234-5678-abc-10-02-meuarquivo",
+        )
+
+    def test_build_sps_pkg_name_with_incomplete_order_missing_suffix_raises_value_error(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678", acron="abc", vol="10", num="2"
+        )
+        with self.assertRaises(ValueError):
+            xml_with_pre.build_sps_pkg_name_with_incomplete_order()
 
 """
 Testes complementares para packtools.sps.pid_provider.xml_sps_lib.XMLWithPre
@@ -2091,6 +2156,14 @@ class TestPkgNameVariations(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         variations = xml_with_pre.pkg_name_variations
         self.assertIsInstance(variations, set)
+
+    def test_pkg_name_variations_excludes_incomplete_order_variation(self):
+        xml_with_pre = self._make_xml(
+            issn_epub="1234-5678", acron="abc", vol="10", num="2", order="7",
+        )
+        variations = xml_with_pre.pkg_name_variations
+        self.assertIn("1234-5678-abc-10-02-00007", variations)
+        self.assertNotIn("1234-5678-abc-10-02-7", variations)
 
 
 # ==============================================================================

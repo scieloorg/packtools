@@ -821,6 +821,8 @@ class PackageNamingMixin:
                 val = self.elocation_id
             elif strategy == "order":
                 val = getattr(self, "order", None)
+            elif strategy == "incorrect_order":
+                val = getattr(self, "incorrect_order", None)
             elif strategy == "fpage":
                 val = self.get_fpage_suffix()
             elif strategy == "page":
@@ -899,6 +901,14 @@ class PackageNamingMixin:
         prefix = self.get_sps_prefix(issn=issn)
         suffix = self.get_pkg_suffix(
             strategies=["elocation_id", "order", "submitted_filename"]
+        )
+        return sanitize_sps_name(self.build_pkg_name(suffix=suffix, prefix=prefix, lang=lang))
+
+    def build_sps_pkg_name_with_incomplete_order(self, lang: str = None, issn: str = None) -> str:
+        """Gera o nome do pacote no padrão SPS utilizando a busca de sufixo padrão."""
+        prefix = self.get_sps_prefix(issn=issn)
+        suffix = self.get_pkg_suffix(
+            strategies=["elocation_id", "incorrect_order", "submitted_filename"]
         )
         return sanitize_sps_name(self.build_pkg_name(suffix=suffix, prefix=prefix, lang=lang))
 
@@ -1130,8 +1140,18 @@ class IdentifiersMixin:
         node.text = value
 
     @property
-    def order(self):
+    def incorrect_order(self):
         return self.article_ids.other
+
+    @property
+    def order(self):
+        value = self.article_ids.other
+        if value is None:
+            return None
+        try:
+            return str(int(value)).zfill(5)
+        except (TypeError, ValueError):
+            return value
 
     @order.setter
     def order(self, value):
