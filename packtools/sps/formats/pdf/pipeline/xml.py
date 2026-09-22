@@ -740,13 +740,16 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     extract_trans_abstract_data, and would otherwise be picked up twice by
     a plain './/sec' search.
 
-    Also excludes <sec> nested inside <sub-article> (a translation/version
-    of the article - its own <sec> tree would otherwise duplicate the whole
-    body in another language) and inside <app-group> (an appendix - handled
-    separately by extract_supplementary_data, which already renders its
-    content under its own "Supplementary Material" heading; leaving it in
-    here too rendered the same tables twice) (issue #1372). Deliberately
-    narrow: a <back><sec> that's neither of those (e.g. a bare
+    Also excludes <sec> nested inside a translation <sub-article>
+    (article-type="translation" - its own <sec> tree would otherwise
+    duplicate the whole body in another language) and inside <app-group>
+    (an appendix - handled separately by extract_supplementary_data, which
+    already renders its content under its own "Supplementary Material"
+    heading; leaving it in here too rendered the same tables twice) (issue
+    #1372). A non-translation <sub-article> (e.g. article-type
+    "reviewer-report" or "reply") is left untouched - its <sec> is real,
+    published body content, not a duplicate. Deliberately narrow: a
+    <back><sec> that's neither of those (e.g. a bare
     sec-type="data-availability" statement, ~68% of a real 593-article
     corpus) is left as-is, matching the pre-existing, already-documented
     behavior from issue #1351 rather than the issue's own literal
@@ -796,7 +799,8 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
 
     body_sections = xml_tree.xpath(
         './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract) '
-        'and not(ancestor::sub-article) and not(ancestor::app-group)]'
+        'and not(ancestor::sub-article[@article-type="translation"]) '
+        'and not(ancestor::app-group)]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:

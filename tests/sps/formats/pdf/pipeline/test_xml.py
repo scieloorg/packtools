@@ -913,6 +913,33 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]['title'], 'Introdução')
 
+    def test_extract_body_data_includes_reviewer_report_and_reply_sections(self):
+        # Regression for issue #1372's review: not(ancestor::sub-article)
+        # was too broad and also dropped <sub-article article-type=
+        # "reviewer-report"/"reply">, which are real, published body
+        # content, not a duplicate like a translation. Reproduced against
+        # the real corpus sample mioc/v121/1678-8060-mioc-121-e250154.xml.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<sub-article article-type="reviewer-report" xml:lang="en">'
+            '<body>'
+            '<sec><title>Reviewer #1</title><p>Comments.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '<sub-article article-type="reply" xml:lang="en">'
+            '<body>'
+            '<sec><title>Authors\' response</title><p>Reply text.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 3)
+        self.assertEqual([s['title'] for s in result], ['Results', 'Reviewer #1', "Authors' response"])
+
     def test_extract_body_data_excludes_app_group_sections(self):
         # Regression for issue #1372, reproduced against the real corpus
         # sample a37.xml: an appendix (<back><app-group><app>) has its own
