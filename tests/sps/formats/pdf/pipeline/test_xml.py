@@ -425,6 +425,74 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(result[0]['tables'], [])
         self.assertEqual(result[0]['figures'], [])
 
+    def test_extract_body_data_converts_inline_formula_mixed_with_running_text(self):
+        # Fase 2 de #1347 (issue #1353): <inline-formula> no meio de uma
+        # frase vira um segmento 'formula' real (OMML), em vez de ser
+        # achatada em texto ambíguo pela recursão padrão de
+        # get_segments_from_node.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<p>where <inline-formula id="e1"><mml:math><mml:mi>sigma</mml:mi></mml:math>'
+            '</inline-formula> is the dispersion coefficient.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        self.assertEqual(len(segments), 3)
+        self.assertEqual(segments[0], {
+            'type': 'text', 'text': 'where ', 'italic': False, 'bold': False,
+            'superscript': False, 'subscript': False,
+        })
+        self.assertEqual(segments[1]['type'], 'formula')
+        self.assertEqual(etree.QName(segments[1]['omml']).localname, 'oMath')
+        self.assertEqual(segments[2], {
+            'type': 'text', 'text': ' is the dispersion coefficient.', 'italic': False, 'bold': False,
+            'superscript': False, 'subscript': False,
+        })
+
+    def test_extract_body_data_converts_multiple_inline_formulas_in_same_paragraph(self):
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<p>If <inline-formula id="e1"><mml:math><mml:mi>x</mml:mi></mml:math></inline-formula>'
+            ' and <inline-formula id="e2"><mml:math><mml:mi>y</mml:mi></mml:math></inline-formula>'
+            ' hold.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        formula_segments = [seg for seg in segments if seg['type'] == 'formula']
+        self.assertEqual(len(formula_segments), 2)
+        self.assertEqual([seg['type'] for seg in segments], ['text', 'formula', 'text', 'formula', 'text'])
+
+    def test_extract_body_data_falls_back_to_flattened_text_when_inline_formula_has_no_mathml(self):
+        # Sem <mml:math> descendente, _inline_formula_segment retorna None e
+        # o texto cai no achatamento de sempre - nunca descartado.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<p>where <inline-formula id="e1">x</inline-formula> is undefined.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        self.assertEqual(segments, _plain_para('where x is undefined.'))
+
+    def test_extract_body_data_converts_inline_formula_inside_list_item(self):
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<list list-type="bullet">'
+            '<list-item><p>where <inline-formula id="e1"><mml:math><mml:mi>x</mml:mi></mml:math>'
+            '</inline-formula> is the mean.</p></list-item>'
+            '</list>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        self.assertEqual([seg['type'] for seg in segments], ['text', 'text', 'formula', 'text'])
+
     def test_extract_body_data_includes_graphic_disp_formula_as_figure(self):
         # Regression for issue #1347: a <disp-formula> rendered as an image
         # (<graphic>, no MathML) has no text for get_text_from_node to

@@ -208,6 +208,85 @@ class TestGetSegmentsFromNode(unittest.TestCase):
         self.assertEqual(result, [])
 
 
+def _formula_seg(marker):
+    """A fake formula segment for tests - shape is opaque to xml_utils, only 'type' matters."""
+    return {'type': 'formula', 'marker': marker}
+
+
+class TestGetSegmentsFromNodeFormulaTags(unittest.TestCase):
+    """
+    Regression/coverage for inline-formula support added for Fase 2 of
+    #1347 (issue #1353): a formula_tags element is converted via
+    formula_converter into an opaque segment inserted in place, instead of
+    being recursed into and flattened as ambiguous text.
+    """
+
+    def test_formula_tag_in_the_middle_of_text_becomes_its_own_segment(self):
+        xmltree = etree.fromstring(
+            '<p>where <inline-formula id="e1">IGNORED</inline-formula> is the mean.</p>'
+        )
+        result = xml_utils.get_segments_from_node(
+            xmltree, formula_tags={'inline-formula'},
+            formula_converter=lambda el: _formula_seg(el.get('id')),
+        )
+        self.assertEqual(result, [
+            _seg('where '),
+            _formula_seg('e1'),
+            _seg(' is the mean.'),
+        ])
+
+    def test_multiple_formula_tags_are_not_merged_with_each_other_or_with_text(self):
+        xmltree = etree.fromstring(
+            '<p>If <inline-formula id="e1">A</inline-formula> and '
+            '<inline-formula id="e2">B</inline-formula> hold.</p>'
+        )
+        result = xml_utils.get_segments_from_node(
+            xmltree, formula_tags={'inline-formula'},
+            formula_converter=lambda el: _formula_seg(el.get('id')),
+        )
+        self.assertEqual(result, [
+            _seg('If '),
+            _formula_seg('e1'),
+            _seg(' and '),
+            _formula_seg('e2'),
+            _seg(' hold.'),
+        ])
+
+    def test_formula_converter_returning_none_falls_back_to_flattened_text(self):
+        xmltree = etree.fromstring(
+            '<p>where <inline-formula id="e1"><bad/></inline-formula> is undefined.</p>'
+        )
+        result = xml_utils.get_segments_from_node(
+            xmltree, formula_tags={'inline-formula'}, formula_converter=lambda el: None,
+        )
+        self.assertEqual(result, [_seg('where is undefined.')])
+
+    def test_formula_tag_without_converter_falls_back_to_flattened_text(self):
+        xmltree = etree.fromstring('<p>where <inline-formula>x</inline-formula> is x.</p>')
+        result = xml_utils.get_segments_from_node(xmltree, formula_tags={'inline-formula'})
+        self.assertEqual(result, [_seg('where x is x.')])
+
+    def test_formula_segment_at_start_and_end_of_node_does_not_get_stripped_or_dropped(self):
+        xmltree = etree.fromstring(
+            '<p><inline-formula id="e1">A</inline-formula> in the middle '
+            '<inline-formula id="e2">B</inline-formula></p>'
+        )
+        result = xml_utils.get_segments_from_node(
+            xmltree, formula_tags={'inline-formula'},
+            formula_converter=lambda el: _formula_seg(el.get('id')),
+        )
+        self.assertEqual(result, [
+            _formula_seg('e1'),
+            _seg(' in the middle '),
+            _formula_seg('e2'),
+        ])
+
+    def test_no_formula_tags_keeps_default_flattening_behavior(self):
+        xmltree = etree.fromstring('<p>where <inline-formula>x</inline-formula> is x.</p>')
+        result = xml_utils.get_segments_from_node(xmltree)
+        self.assertEqual(result, [_seg('where x is x.')])
+
+
 class TestGetTextFromMixedCitationNode(unittest.TestCase):
 
     def test_get_text_from_mixed_citation_node_with_simple_text(self):
