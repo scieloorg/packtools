@@ -1013,12 +1013,9 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_publication_type(self):
-        # TODO
-        # Originalmente, espera-se que o valor da tag <PublicationType> seja Journal Article
-        # Nos arquivos de exemplo há somente a referencia a Research Article, o qual foi utilizado
         expected = (
             '<Article>'
-            '<PublicationType>Research Article</PublicationType>'
+            '<PublicationType>Journal Article</PublicationType>'
             '</Article>'
         )
         xml_pubmed = ET.fromstring(
@@ -1028,6 +1025,91 @@ class PipelinePubmed(unittest.TestCase):
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '</article>'
+        )
+
+        xml_pubmed_publication_type(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_publication_type_maps_case_report(self):
+        expected = (
+            '<Article>'
+            '<PublicationType>Case Reports</PublicationType>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="case-report" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '</article>'
+        )
+
+        xml_pubmed_publication_type(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_publication_type_maps_retraction_and_partial_retraction(self):
+        for article_type in ("retraction", "partial-retraction"):
+            with self.subTest(article_type=article_type):
+                xml_pubmed = ET.fromstring('<Article/>')
+                xml_tree = ET.fromstring(
+                    '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                    'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                    f'article-type="{article_type}" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+                    '</article>'
+                )
+
+                xml_pubmed_publication_type(xml_pubmed, xml_tree)
+
+                obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+                self.assertEqual(
+                    obtained,
+                    '<Article><PublicationType>Retraction Notice</PublicationType></Article>',
+                )
+
+    def test_xml_pubmed_publication_type_maps_expression_of_concern(self):
+        expected = (
+            '<Article>'
+            '<PublicationType>Expression of Concern</PublicationType>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="expression-of-concern" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '</article>'
+        )
+
+        xml_pubmed_publication_type(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_publication_type_omits_article_type_without_mapping(self):
+        # "obituary" has no unambiguous PubMed PublicationType equivalent;
+        # PublicationType is optional in the DTD, so it's omitted rather
+        # than defaulted to a possibly-wrong value (see issue #1240).
+        expected = '<Article/>'
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="obituary" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
             '</article>'
         )
 
