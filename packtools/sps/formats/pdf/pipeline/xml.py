@@ -680,6 +680,18 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     extract_trans_abstract_data, and would otherwise be picked up twice by
     a plain './/sec' search.
 
+    Also excludes a <sec> that IS the supplementary-material section -
+    identified structurally as a <sec> with a <supplementary-material>
+    descendant and no <sec> of its own (not by @sec-type, which varies
+    across the corpus: "supplementary-material", "materials|supplementary-
+    material", "supplementary" or absent entirely) - handled separately by
+    supplementary_material.extract_data, which already renders it under its
+    own heading; leaving it in here too would duplicate the content. The
+    "no <sec> of its own" guard matters: a real body section (e.g.
+    "Discussion") that merely references supplementary material somewhere
+    inside one of its own subsections is not a supplementary-material
+    section and must stay in the body (issue #1375 review).
+
     Falls back to treating <body> itself as an extra, untitled section when
     <body> has no <sec> of its own (valid JATS pattern for unsectioned
     short communications/brief reports) - otherwise its content would be
@@ -722,7 +734,7 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
 
     body_sections = xml_tree.xpath(
         './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)'
-        ' and not(@sec-type="supplementary-material")]'
+        ' and not(.//supplementary-material and not(sec))]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:

@@ -411,6 +411,58 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(1, len(result))
         self.assertEqual('Introduction', result[0]['title'])
 
+    def test_extract_body_data_excludes_supplementary_material_section_without_sec_type(self):
+        # Regression, PR #1384 review: matching by @sec-type="supplementary-
+        # material" missed real corpus articles whose <sec> has no @sec-type
+        # at all (e.g. jped/v102n1), or a different value (e.g. "supplementary",
+        # jbchs/v37nspe1). The exclusion is now structural: a <sec> with a
+        # <supplementary-material> descendant and no <sec> of its own, not by
+        # its @sec-type string.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<sec><title>Supplementary materials</title>'
+            '<supplementary-material id="suppl1"><label>Suppl. 1</label></supplementary-material>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(1, len(result))
+        self.assertEqual('Introduction', result[0]['title'])
+
+    def test_extract_body_data_keeps_real_section_that_merely_references_supplementary_material(self):
+        # Regression, PR #1384 review: the structural exclusion above must
+        # not swallow a real body section (e.g. "Discussion") that has its
+        # own subsections, one of them a dedicated leaf "Supplementary
+        # Data" sub-section - reproduced against the real corpus sample
+        # abb/v40/1677-941X-abb-40-e20250182.xml, where <supplementary-
+        # material> sits inside its own <sec>, a sibling of "Floristic
+        # composition" and the other real subsections, all nested inside
+        # <sec sec-type="discussion">. The "no <sec> of its own" guard
+        # excludes only the dedicated leaf subsection, not its ancestor
+        # or its siblings.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec sec-type="discussion"><title>Discussion</title>'
+            '<sec><title>Floristic composition</title><p>Real content.</p></sec>'
+            '<sec><title>Supplementary Data</title>'
+            '<supplementary-material id="suppl1"><label>Table S1</label></supplementary-material>'
+            '</sec>'
+            '</sec>'
+            '</body>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        titles = [s['title'] for s in result]
+        self.assertIn('Discussion', titles)
+        self.assertIn('Floristic composition', titles)
+        self.assertNotIn('Supplementary Data', titles)
+
     def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
         # Regression for issue #1347: <disp-formula> is often a direct
         # sibling of <p>, not nested inside one - a plain findall('p') never
