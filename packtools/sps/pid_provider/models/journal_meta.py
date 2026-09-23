@@ -13,6 +13,7 @@
     </publisher>
 </journal-meta>
 """
+from lxml import etree
 
 
 class ISSN:
@@ -42,6 +43,20 @@ class Acronym:
     @property
     def text(self):
         return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="publisher-id"]')
+
+    @property
+    def journal_acron(self):
+        return self.text
+
+    @journal_acron.setter
+    def journal_acron(self, value):
+        journal_meta = self.xmltree.find(".//journal-meta")
+        node = journal_meta.find('./journal-id[@journal-id-type="publisher-id"]')
+        if node is None:
+            node = etree.SubElement(journal_meta, "journal-id")
+            node.set("journal-id-type", "publisher-id")
+            journal_meta.insert(0, node)
+        node.text = value
 
 class Title:
     def __init__(self, xmltree):

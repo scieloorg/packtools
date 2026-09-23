@@ -1287,9 +1287,13 @@ class ArticleMetadataMixin:
     # --------------------------------------------------------------------------
     # Periódico & Seções
     # --------------------------------------------------------------------------
-    @cached_property
+    @property
     def journal_acron(self):
-        return Acronym(self.xmltree).text
+        return Acronym(self.xmltree).journal_acron
+
+    @journal_acron.setter
+    def journal_acron(self, value):
+        Acronym(self.xmltree).journal_acron = value
 
     @cached_property
     def journal_title(self):
