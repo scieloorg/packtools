@@ -634,8 +634,38 @@ def _plain_text_segment(text):
     return {'type': 'text', 'text': text, 'italic': False, 'bold': False, 'superscript': False, 'subscript': False}
 
 
+_INLINE_FORMULA_TAGS = {'inline-formula'}
+
+
+def _inline_formula_segment(inline_formula):
+    """Converte o MathML de um <inline-formula> (fórmula no meio de texto corrido) em um segmento 'formula'.
+
+    Ao contrário de <disp-formula>, não carrega <label> próprio (fase 2 de
+    #1347, issue #1353).
+
+    Args:
+        inline_formula (ElementTree): The <inline-formula> element.
+
+    Returns:
+        dict, or None when there's no MathML descendant or
+        formula.mathml_to_omml couldn't convert it (unsupported construct) -
+        the caller (xml_utils.get_segments_from_node) falls back to
+        flattening it as plain text, same as any unrecognized tag.
+    """
+    math_node = inline_formula.find('.//{http://www.w3.org/1998/Math/MathML}math')
+    if math_node is None:
+        return None
+    omml_element = formula.mathml_to_omml(math_node)
+    if omml_element is None:
+        return None
+    return {'type': 'formula', 'omml': omml_element}
+
+
 def _disp_formula_segments(disp_formula):
     """Converte o MathML de um <disp-formula> em um segmento 'formula', mais um segmento de texto para o <label>, se houver.
+
+    O segmento de fórmula leva 'display': True (fórmula em bloco); o renderer
+    usa essa marca para separá-la do texto e distingui-la de fórmula inline.
 
     Args:
         disp_formula (ElementTree): The <disp-formula> element.
@@ -653,7 +683,7 @@ def _disp_formula_segments(disp_formula):
     if omml_element is None:
         return None
 
-    segments = [{'type': 'formula', 'omml': omml_element}]
+    segments = [{'type': 'formula', 'omml': omml_element, 'display': True}]
     label = disp_formula.find('label')
     if label is not None:
         label_text = ''.join(label.itertext()).strip()
@@ -688,7 +718,10 @@ def _paragraph_with_trailing_formula(p_node):
     if formula_segments is None:
         return None
 
-    leading_segments = xml_utils.get_segments_from_node(p_node, skip_tags={'disp-formula'})
+    leading_segments = xml_utils.get_segments_from_node(
+        p_node, skip_tags={'disp-formula'},
+        formula_tags=_INLINE_FORMULA_TAGS, formula_converter=_inline_formula_segment,
+    )
     return leading_segments + formula_segments
 
 
@@ -721,7 +754,10 @@ def _extract_list_paragraphs(list_node):
         for item_p in item.findall('p'):
             item_segments = _paragraph_with_trailing_formula(item_p)
             if item_segments is None:
-                item_segments = xml_utils.get_segments_from_node(item_p, skip_tags={'fig', 'table-wrap'})
+                item_segments = xml_utils.get_segments_from_node(
+                    item_p, skip_tags={'fig', 'table-wrap'},
+                    formula_tags=_INLINE_FORMULA_TAGS, formula_converter=_inline_formula_segment,
+                )
             if not item_segments:
                 continue
             if marker:
@@ -740,13 +776,27 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     extract_trans_abstract_data, and would otherwise be picked up twice by
     a plain './/sec' search.
 
+    Also excludes a <sec> that IS the supplementary-material section -
+    identified structurally as a <sec> with a <supplementary-material>
+    descendant and no <sec> of its own (not by @sec-type, which varies
+    across the corpus: "supplementary-material", "materials|supplementary-
+    material", "supplementary" or absent entirely) - handled separately by
+    supplementary_material.extract_data, which already renders it under its
+    own heading; leaving it in here too would duplicate the content. The
+    "no <sec> of its own" guard matters: a real body section (e.g.
+    "Discussion") that merely references supplementary material somewhere
+    inside one of its own subsections is not a supplementary-material
+    section and must stay in the body (issue #1375 review).
+
+    Also excludes <sec> nested inside <app-group> (an appendix section):
+    supplementary_material.extract_data renders each <app> with its own
+    <sec> as subsections, so keeping them here too would render the same
+    title, paragraphs and tables twice (issue #1372).
+
     Also excludes <sec> nested inside a translation <sub-article>
     (article-type="translation" - its own <sec> tree would otherwise
-    duplicate the whole body in another language) and inside <app-group>
-    (an appendix - handled separately by extract_supplementary_data, which
-    already renders its content under its own "Supplementary Material"
-    heading; leaving it in here too rendered the same tables twice) (issue
-    #1372). A non-translation <sub-article> (e.g. article-type
+    duplicate the whole body in another language) (issue #1372). A
+    non-translation <sub-article> (e.g. article-type
     "reviewer-report" or "reply") is left untouched - its <sec> is real,
     published body content, not a duplicate. Deliberately narrow: a
     <back><sec> that's neither of those (e.g. a bare
@@ -776,7 +826,10 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
             - 'title': The title of the section, if present.
             - 'paragraphs': A list of paragraphs, each a list of style-tagged
               text segments (see xml_utils.get_segments_from_node) preserving
-              inline <italic>/<bold>/<sup>/<sub> markup. Also includes any
+              inline <italic>/<bold>/<sup>/<sub> markup, and converting any
+              <inline-formula> found in running text to a real OMML formula
+              segment (issue #1353, fase 2 de #1347) instead of flattening
+              its MathML to ambiguous text. Also includes any
               <disp-formula> found as a direct sibling of a <p>, since a
               structured formula isn't always wrapped in one - as a single
               plain-text segment (no MathML->OMML conversion yet, see issue
@@ -798,135 +851,149 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     seen_fig_keys = set()
 
     body_sections = xml_tree.xpath(
-        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract) '
-        'and not(ancestor::sub-article[@article-type="translation"]) '
-        'and not(ancestor::app-group)]'
+        './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)'
+        ' and not(.//supplementary-material and not(sec)) and not(ancestor::app-group)'
+        ' and not(ancestor::sub-article[@article-type="translation"])]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:
         body_sections = [body] + body_sections
 
     for document_section in body_sections:
-        sec = {'paragraphs': [], 'tables': [], 'figures': []}
-        sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
-        sec['title'] = document_section.find('title')
+        data.append(extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout_overrides))
 
-        if sec['title'] is not None:
-            sec['title'] = ''.join(sec['title'].itertext()).strip()
+    return data
 
-        # Collect textual paragraphs but exclude figure/table elements. Uses
-        # get_text_from_node (tail-preserving) rather than a bare
-        # `.xpath('.//text()...')` + `' '.join(...)`, which inserted an
-        # artificial space between every text-node fragment regardless of
-        # whether the source had one there (e.g. "(<xref>...</xref>)" came
-        # out as "( ... )", and "<xref/>; <xref/>" as "... ; ...").
-        #
-        # <disp-formula> isn't always nested inside a <p> - it's often a
-        # direct sibling of one - so a plain `findall('p')` silently drops
-        # it. Walking direct children instead of just `<p>` catches that
-        # case too. This still only flattens the formula's text (no
-        # MathML->OMML conversion yet, see issue #1347's phased plan), but
-        # flattened-and-present beats silently missing.
-        for child in document_section:
-            if child.tag == 'p':
-                # <p>texto:<disp-formula>...</disp-formula></p>: tratado antes do
-                # achatamento genérico, para gerar um segmento OMML real
-                formula_paragraph_segments = _paragraph_with_trailing_formula(child)
-                if formula_paragraph_segments is not None:
-                    sec['paragraphs'].append(formula_paragraph_segments)
-                    continue
-                # <list> can also occur as a child of <p> rather than as its
-                # own sibling (issue #1365, seen in a28.xml: the JATS source
-                # wraps a <list> of research propositions in a <p> with no
-                # other content). skip_tags drops it from the flattened text
-                # the same way it already does for <fig>/<table-wrap> -
-                # get_segments_from_node has no special handling for <list>,
-                # so leaving it in would silently flatten it to nothing -
-                # and its items are extracted separately right after.
-                nested_lists = child.findall('list')
-                skip_tags = {'fig', 'table-wrap', 'list'} if nested_lists else {'fig', 'table-wrap'}
-                para_segments = xml_utils.get_segments_from_node(child, skip_tags=skip_tags)
-                if para_segments:
-                    sec['paragraphs'].append(para_segments)
-                for nested_list in nested_lists:
-                    sec['paragraphs'].extend(_extract_list_paragraphs(nested_list))
+
+def extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout_overrides=None, level=None):
+    """
+    Extrai título, parágrafos, tabelas e figuras de um único nó de seção
+    (<sec>, <body> sem <sec> ou <app>), no formato descrito em
+    extract_body_data. seen_fig_keys é compartilhado entre as seções de
+    um mesmo bloco para não repetir figuras; level, quando informado,
+    substitui a profundidade do nó na árvore.
+    """
+    sec = {'paragraphs': [], 'tables': [], 'figures': []}
+    sec['level'] = level if level is not None else xml_utils.get_node_level(document_section, xml_tree)
+    sec['title'] = document_section.find('title')
+
+    if sec['title'] is not None:
+        sec['title'] = ''.join(sec['title'].itertext()).strip()
+
+    # Collect textual paragraphs but exclude figure/table elements. Uses
+    # get_text_from_node (tail-preserving) rather than a bare
+    # `.xpath('.//text()...')` + `' '.join(...)`, which inserted an
+    # artificial space between every text-node fragment regardless of
+    # whether the source had one there (e.g. "(<xref>...</xref>)" came
+    # out as "( ... )", and "<xref/>; <xref/>" as "... ; ...").
+    #
+    # <disp-formula> isn't always nested inside a <p> - it's often a
+    # direct sibling of one - so a plain `findall('p')` silently drops
+    # it. Walking direct children instead of just `<p>` catches that
+    # case too. This still only flattens the formula's text (no
+    # MathML->OMML conversion yet, see issue #1347's phased plan), but
+    # flattened-and-present beats silently missing.
+    for child in document_section:
+        if child.tag == 'p':
+            # <p>texto:<disp-formula>...</disp-formula></p>: tratado antes do
+            # achatamento genérico, para gerar um segmento OMML real
+            formula_paragraph_segments = _paragraph_with_trailing_formula(child)
+            if formula_paragraph_segments is not None:
+                sec['paragraphs'].append(formula_paragraph_segments)
                 continue
-            elif child.tag == 'disp-formula':
-                # A formula rendered as an image (<graphic>, no MathML) has to
-                # be identified by shape, not by "no flattenable text": a
-                # <label> sibling of <graphic> (e.g. "(1)") makes
-                # get_text_from_node return non-empty even though the
-                # <graphic> itself has nothing to flatten, so checking
-                # `not para_text` alone let a labeled graphic formula fall
-                # through and drop its <graphic> as a bare label paragraph
-                # (issue #1365).
-                has_graphic = child.find('.//graphic') is not None
-                has_math = bool(child.xpath('.//*[local-name()="math"]'))
-                if has_graphic and not has_math:
-                    # extract_figure_data reads the same label/caption/graphic
-                    # shape <fig> has, so a <disp-formula> with a <graphic>
-                    # can reuse it as-is and render like any other figure
-                    # instead of vanishing.
-                    formula_fig = extract_figure_data(child)
-                    formula_key = child.get('id') or formula_fig.get('href') or ''
-                    if not formula_key or formula_key not in seen_fig_keys:
-                        sec['figures'].append(formula_fig)
-                        if formula_key:
-                            seen_fig_keys.add(formula_key)
-                    continue
-                if has_math:
-                    formula_segments = _disp_formula_segments(child)
-                    if formula_segments is not None:
-                        sec['paragraphs'].append(formula_segments)
-                        continue
-                # fallback: sem MathML ou conversao falhou - texto achatado,
-                # ambiguo mas presente e melhor que descartado silenciosamente
-                para_text = xml_utils.get_text_from_node(child).strip()
-                para_segments = xml_utils.get_segments_from_node(child) if para_text else []
-            elif child.tag == 'list':
-                # A <list> as a direct sibling of <p> - not visited at all
-                # otherwise, falling to the `else: continue` below and
-                # dropping the whole list (issue #1365; a5.xml loses both
-                # its plain bullet lists and the Equations 3-10, which live
-                # one level deeper inside <list-item><p><disp-formula>).
-                sec['paragraphs'].extend(_extract_list_paragraphs(child))
-                continue
-            else:
-                continue
+            # <list> can also occur as a child of <p> rather than as its
+            # own sibling (issue #1365, seen in a28.xml: the JATS source
+            # wraps a <list> of research propositions in a <p> with no
+            # other content). skip_tags drops it from the flattened text
+            # the same way it already does for <fig>/<table-wrap> -
+            # get_segments_from_node has no special handling for <list>,
+            # so leaving it in would silently flatten it to nothing -
+            # and its items are extracted separately right after.
+            nested_lists = child.findall('list')
+            skip_tags = {'fig', 'table-wrap', 'list'} if nested_lists else {'fig', 'table-wrap'}
+            para_segments = xml_utils.get_segments_from_node(
+                child, skip_tags=skip_tags,
+                formula_tags=_INLINE_FORMULA_TAGS, formula_converter=_inline_formula_segment,
+            )
             if para_segments:
                 sec['paragraphs'].append(para_segments)
-
-        for table_wrap in document_section.findall('.//table-wrap'):
-            closest_sec = table_wrap.xpath('ancestor::sec[1]')
-            if closest_sec and closest_sec[0] is not document_section:
+            for nested_list in nested_lists:
+                sec['paragraphs'].extend(_extract_list_paragraphs(nested_list))
+            continue
+        elif child.tag == 'disp-formula':
+            # A formula rendered as an image (<graphic>, no MathML) has to
+            # be identified by shape, not by "no flattenable text": a
+            # <label> sibling of <graphic> (e.g. "(1)") makes
+            # get_text_from_node return non-empty even though the
+            # <graphic> itself has nothing to flatten, so checking
+            # `not para_text` alone let a labeled graphic formula fall
+            # through and drop its <graphic> as a bare label paragraph
+            # (issue #1365).
+            has_graphic = child.find('.//graphic') is not None
+            has_math = bool(child.xpath('.//*[local-name()="math"]'))
+            if has_graphic and not has_math:
+                # extract_figure_data reads the same label/caption/graphic
+                # shape <fig> has, so a <disp-formula> with a <graphic>
+                # can reuse it as-is and render like any other figure
+                # instead of vanishing.
+                formula_fig = extract_figure_data(child)
+                formula_key = child.get('id') or formula_fig.get('href') or ''
+                if not formula_key or formula_key not in seen_fig_keys:
+                    sec['figures'].append(formula_fig)
+                    if formula_key:
+                        seen_fig_keys.add(formula_key)
                 continue
-            table_id = table_wrap.get('id') or table_wrap.get('xml:id')
-            override_layout = (table_layout_overrides or {}).get(table_id)
-            sec['tables'].extend(extract_table_data(table_wrap, override_layout=override_layout))
+            if has_math:
+                formula_segments = _disp_formula_segments(child)
+                if formula_segments is not None:
+                    sec['paragraphs'].append(formula_segments)
+                    continue
+            # fallback: sem MathML ou conversao falhou - texto achatado,
+            # ambiguo mas presente e melhor que descartado silenciosamente
+            para_text = xml_utils.get_text_from_node(child).strip()
+            para_segments = xml_utils.get_segments_from_node(child) if para_text else []
+        elif child.tag == 'list':
+            # A <list> as a direct sibling of <p> - not visited at all
+            # otherwise, falling to the `else: continue` below and
+            # dropping the whole list (issue #1365; a5.xml loses both
+            # its plain bullet lists and the Equations 3-10, which live
+            # one level deeper inside <list-item><p><disp-formula>).
+            sec['paragraphs'].extend(_extract_list_paragraphs(child))
+            continue
+        else:
+            continue
+        if para_segments:
+            sec['paragraphs'].append(para_segments)
 
-        # Figures within the section (deduplicated across the body)
-        for fig in document_section.findall('.//fig'):
-            # Build a deduplication key: prefer @id; fallback to first href found
-            fig_id = fig.get('id') or fig.get('xml:id')
-            href = None
-            g = fig.find('.//graphic')
-            if g is not None:
-                href = (
-                    g.get('{http://www.w3.org/1999/xlink}href')
-                    or g.get('xlink:href')
-                    or g.get('href')
-                )
-            key = fig_id or (href or '')
-            if key and key in seen_fig_keys:
-                continue
-            fig_data = extract_figure_data(fig)
-            sec['figures'].append(fig_data)
-            if key:
-                seen_fig_keys.add(key)
+    for table_wrap in document_section.findall('.//table-wrap'):
+        closest_sec = table_wrap.xpath('ancestor::sec[1]')
+        if closest_sec and closest_sec[0] is not document_section:
+            continue
+        table_id = table_wrap.get('id') or table_wrap.get('xml:id')
+        override_layout = (table_layout_overrides or {}).get(table_id)
+        sec['tables'].extend(extract_table_data(table_wrap, override_layout=override_layout))
 
-        data.append(sec)
-    
-    return data
+    # Figures within the section (deduplicated across the body)
+    for fig in document_section.findall('.//fig'):
+        # Build a deduplication key: prefer @id; fallback to first href found
+        fig_id = fig.get('id') or fig.get('xml:id')
+        href = None
+        g = fig.find('.//graphic')
+        if g is not None:
+            href = (
+                g.get('{http://www.w3.org/1999/xlink}href')
+                or g.get('xlink:href')
+                or g.get('href')
+            )
+        key = fig_id or (href or '')
+        if key and key in seen_fig_keys:
+            continue
+        fig_data = extract_figure_data(fig)
+        sec['figures'].append(fig_data)
+        if key:
+            seen_fig_keys.add(key)
+
+    return sec
 
 def extract_figure_data(fig_node):
     """
@@ -1081,35 +1148,6 @@ def extract_references_data(xml_tree):
         for ref in ref_list.findall('.//mixed-citation'):
             data['references'].append(ref)
 
-    return data
-
-def extract_supplementary_data(xml_tree):
-    """
-    Extracts supplementary data from an XML tree.
-
-    Args:
-        xml_tree (ElementTree): The XML tree to extract the supplementary data from.
-
-    Returns:
-        dict: A dictionary containing the supplementary data, with the following keys:
-            - 'title': The title of the supplementary section, if present.
-            - 'paragraphs': A list of the text content of each paragraph in the supplementary section.
-    """
-    data = {'title': 'Supplementary Material', 'elements': []}
-
-    app_groups = xml_tree.findall('.//app-group')
-    if app_groups:
-        for app_group in app_groups:
-            for element in app_group:
-                if element.text:
-                    data['elements'].append({'content': element.text, 'type': 'text'})
-
-                for table_wrap in element.findall('.//table-wrap'):
-                    for table_data in extract_table_data(table_wrap):
-                        data['elements'].append({
-                            'type': 'table',
-                            'content': table_data
-                        })
     return data
 
 def extract_table_data(table_wrap, override_layout=None):

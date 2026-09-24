@@ -5,8 +5,10 @@ from unittest.mock import patch
 from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from lxml import etree
 
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
+from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.utils import xml_utils
@@ -574,9 +576,7 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         docx = _docx_with_layout_styles()
         footer_data = {'volume': '53', 'issue': '4', 'year': '2023',
                        'fpage': 271, 'lpage': 280, 'location_label': '271-280'}
-        docx_pipe.docx_supplementary_material_pipe(
-            docx, footer_data, {'title': 'Supplementary Material', 'elements': []}
-        )
+        docx_pipe.docx_supplementary_material_pipe(docx, footer_data, [_supplementary_section()])
 
         footer = docx.sections[-1].footer
         para = footer.paragraphs[-1]
@@ -586,9 +586,7 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         docx = _docx_with_layout_styles()
         footer_data = {'volume': '33', 'issue': '3', 'year': '2024',
                        'fpage': '', 'lpage': '', 'location_label': 'e282794'}
-        docx_pipe.docx_supplementary_material_pipe(
-            docx, footer_data, {'title': 'Supplementary Material', 'elements': []}
-        )
+        docx_pipe.docx_supplementary_material_pipe(docx, footer_data, [_supplementary_section()])
 
         footer = docx.sections[-1].footer
         para = footer.paragraphs[-1]
@@ -598,13 +596,48 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         docx = _docx_with_layout_styles()
         footer_data = {'volume': '86', 'issue': '', 'year': '2026',
                        'fpage': '', 'lpage': '', 'location_label': 'e301043'}
-        docx_pipe.docx_supplementary_material_pipe(
-            docx, footer_data, {'title': 'Supplementary Material', 'elements': []}
-        )
+        docx_pipe.docx_supplementary_material_pipe(docx, footer_data, [_supplementary_section()])
 
         footer = docx.sections[-1].footer
         para = footer.paragraphs[-1]
         self.assertEqual(para.text, 'VOL. 86 2026: e301043')
+
+    def test_renders_headings_paragraphs_and_tables(self):
+        docx = _docx_with_layout_styles()
+        footer_data = {'volume': '86', 'issue': '', 'year': '2026',
+                       'fpage': '', 'lpage': '', 'location_label': 'e301043'}
+        table = xml_pipe.extract_table_data(etree.fromstring(
+            '<table-wrap><label>Table 1</label><table><thead><tr><th>a</th><th>b</th></tr></thead>'
+            '<tbody><tr><td>1</td><td>2</td></tr></tbody></table></table-wrap>'
+        ))[0]
+        sections = [
+            _supplementary_section('Annex 1', 2, ['Texto do anexo']),
+            dict(_supplementary_section('Zone 1', 3), tables=[table]),
+            _supplementary_section('Supplementary Material', 2, ['Suppl. 1: a.pdf (application/pdf)']),
+        ]
+        docx_pipe.docx_supplementary_material_pipe(docx, footer_data, sections)
+
+        texts = [para.text for para in docx.paragraphs]
+        self.assertEqual(
+            ['Annex 1', 'Texto do anexo', 'Zone 1', 'Supplementary Material', 'Suppl. 1: a.pdf (application/pdf)'],
+            [text for text in texts if text and not text.startswith('Table')],
+        )
+        self.assertEqual(1, len(docx.tables))
+        self.assertEqual(
+            ['SCL Section Title', 'SCL Subsection Title'],
+            [para.style.name for para in docx.paragraphs if para.text in ('Annex 1', 'Zone 1')],
+        )
+
+
+def _supplementary_section(title='Supplementary Material', level=2, texts=()):
+    return {
+        'title': title,
+        'level': level,
+        'paragraphs': [[{'type': 'text', 'text': text, 'italic': False, 'bold': False,
+                         'superscript': False, 'subscript': False}] for text in texts],
+        'tables': [],
+        'figures': [],
+    }
 
 
 class TestFormatVolIssueYear(unittest.TestCase):

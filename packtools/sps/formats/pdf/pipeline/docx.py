@@ -5,6 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
@@ -99,10 +100,11 @@ def pipeline_docx(xml_tree, data):
     references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
     docx_references_pipe(docx, references_data['title'], references)
 
-    # Supplementary material
-    supplementary_data = xml_pipe.extract_supplementary_data(xml_tree)
-    if supplementary_data['elements']:
-        docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
+    # Appendix/Annex (<app-group>) and Supplementary material (<supplementary-material>)
+    # are distinct SPS 1.10 concepts - each gets its own heading.
+    supplementary_sections = supplementary_material.extract_data(xml_tree)
+    if supplementary_sections:
+        docx_supplementary_material_pipe(docx, footer_data, supplementary_sections)
 
     # Setting up sections
     docx_renderer.section.docx_setup_sections(docx)
@@ -570,15 +572,17 @@ def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragr
     for text in acknowledgement_paragraphs:
         docx_renderer.text.add_paragraph_with_formatting(docx, text)
 
-def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, section_style_name='SCL Section Title'):
+def docx_supplementary_material_pipe(docx, footer_data, supplementary_sections):
     """
-    Adds the supplementary material section to the DOCX document.
+    Adds the appendix and supplementary material sections to the DOCX document,
+    after a page break, in a single-column layout with its own footer.
 
     Args:
         docx (python-docx.Document): The DOCX document object.
         footer_data (dict): The data to be added to the footer.
-        supplementary_data (dict): The data to be added to the supplementary material section.
-        section_style_name (str, optional): The name of the style to apply to the supplementary material section title. Defaults to 'SCL Section Title'.
+        supplementary_sections (list): Sections as returned by
+            supplementary_material.extract_data, each with the keys of a
+            body section ('title', 'level', 'paragraphs', 'tables', 'figures').
 
     Returns:
         None
@@ -597,13 +601,15 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
 
     docx_renderer.section.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
 
-    docx_renderer.text.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)
-
-    for element in supplementary_data['elements']:
-        if element['type'] == 'table':
-            docx_renderer.table.add_table(docx, element['content'])
-        elif element['type'] == 'text':
-            docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
+    for section_data in supplementary_sections:
+        level = section_data['level']
+        _render_section_title(docx, section_data['title'], docx_renderer.style.level_to_style(level), level)
+        _render_paragraphs(docx, section_data['paragraphs'])
+        # secao de coluna unica: tabela e figura usam a largura toda, sem trocar de secao
+        for table in section_data['tables']:
+            docx_renderer.table.add_table(docx, {**table, 'layout': pdf_enum.SINGLE_COLUMN_PAGE_LABEL})
+        for fig in section_data['figures']:
+            docx_renderer.figure.add_figure(docx, {**fig, 'layout': pdf_enum.SINGLE_COLUMN_PAGE_LABEL})
 
 
 # -----------------

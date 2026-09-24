@@ -390,6 +390,107 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
 
+    def test_extract_body_data_excludes_supplementary_material_section(self):
+        # Regression: <sec sec-type="supplementary-material"> (SPS 1.10) e
+        # tratada por supplementary_material.extract_data/docx_supplementary_material_pipe -
+        # sem essa exclusao, o titulo aparecia duplicado (uma vez aqui, vazio,
+        # e outra na secao dedicada com o conteudo real).
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<sec sec-type="supplementary-material"><title>Supplementary Material</title>'
+            '<supplementary-material id="suppl1"><label>Suppl. 1</label></supplementary-material>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(1, len(result))
+        self.assertEqual('Introduction', result[0]['title'])
+
+    def test_extract_body_data_excludes_supplementary_material_section_without_sec_type(self):
+        # Regression, PR #1384 review: matching by @sec-type="supplementary-
+        # material" missed real corpus articles whose <sec> has no @sec-type
+        # at all (e.g. jped/v102n1), or a different value (e.g. "supplementary",
+        # jbchs/v37nspe1). The exclusion is now structural: a <sec> with a
+        # <supplementary-material> descendant and no <sec> of its own, not by
+        # its @sec-type string.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<sec><title>Supplementary materials</title>'
+            '<supplementary-material id="suppl1"><label>Suppl. 1</label></supplementary-material>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(1, len(result))
+        self.assertEqual('Introduction', result[0]['title'])
+
+    def test_extract_body_data_keeps_real_section_that_merely_references_supplementary_material(self):
+        # Regression, PR #1384 review: the structural exclusion above must
+        # not swallow a real body section (e.g. "Discussion") that has its
+        # own subsections, one of them a dedicated leaf "Supplementary
+        # Data" sub-section - reproduced against the real corpus sample
+        # abb/v40/1677-941X-abb-40-e20250182.xml, where <supplementary-
+        # material> sits inside its own <sec>, a sibling of "Floristic
+        # composition" and the other real subsections, all nested inside
+        # <sec sec-type="discussion">. The "no <sec> of its own" guard
+        # excludes only the dedicated leaf subsection, not its ancestor
+        # or its siblings.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec sec-type="discussion"><title>Discussion</title>'
+            '<sec><title>Floristic composition</title><p>Real content.</p></sec>'
+            '<sec><title>Supplementary Data</title>'
+            '<supplementary-material id="suppl1"><label>Table S1</label></supplementary-material>'
+            '</sec>'
+            '</sec>'
+            '</body>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        titles = [s['title'] for s in result]
+        self.assertIn('Discussion', titles)
+        self.assertIn('Floristic composition', titles)
+        self.assertNotIn('Supplementary Data', titles)
+
+    def test_extract_body_data_excludes_app_group_sections(self):
+        # Regression for issue #1372, real corpus sample
+        # bjrs/v14n1/2319-0612-bjrs-v14n1-09-e3014.xml (a37.xml): the
+        # appendix subsections "Zone 1/2/3" leaked into the body, and are
+        # now rendered by supplementary_material.extract_data instead.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<app-group>'
+            '<app>'
+            '<sec><title>Zone 1</title>'
+            '<table-wrap id="t1"><label>Table A1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</app>'
+            '</app-group>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Results')
+        self.assertEqual(sum(len(s['tables']) for s in result), 0)
+
     def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
         # Regression for issue #1347/#1352: <disp-formula> is often a direct
         # sibling of <p>, not nested inside one - a plain findall('p') never
@@ -415,6 +516,7 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(len(paragraphs[1]), 1)
         formula_segment = paragraphs[1][0]
         self.assertEqual(formula_segment['type'], 'formula')
+        self.assertTrue(formula_segment['display'])
         self.assertEqual(etree.QName(formula_segment['omml']).localname, 'oMath')
         omml_text = ''.join(formula_segment['omml'].itertext())
         self.assertIn('Y', omml_text)
@@ -423,6 +525,74 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(result[0]['title'], 'Section 1')
         self.assertEqual(result[0]['tables'], [])
         self.assertEqual(result[0]['figures'], [])
+
+    def test_extract_body_data_converts_inline_formula_mixed_with_running_text(self):
+        # Fase 2 de #1347 (issue #1353): <inline-formula> no meio de uma
+        # frase vira um segmento 'formula' real (OMML), em vez de ser
+        # achatada em texto ambíguo pela recursão padrão de
+        # get_segments_from_node.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<p>where <inline-formula id="e1"><mml:math><mml:mi>sigma</mml:mi></mml:math>'
+            '</inline-formula> is the dispersion coefficient.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        self.assertEqual(len(segments), 3)
+        self.assertEqual(segments[0], {
+            'type': 'text', 'text': 'where ', 'italic': False, 'bold': False,
+            'superscript': False, 'subscript': False,
+        })
+        self.assertEqual(segments[1]['type'], 'formula')
+        self.assertEqual(etree.QName(segments[1]['omml']).localname, 'oMath')
+        self.assertEqual(segments[2], {
+            'type': 'text', 'text': ' is the dispersion coefficient.', 'italic': False, 'bold': False,
+            'superscript': False, 'subscript': False,
+        })
+
+    def test_extract_body_data_converts_multiple_inline_formulas_in_same_paragraph(self):
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<p>If <inline-formula id="e1"><mml:math><mml:mi>x</mml:mi></mml:math></inline-formula>'
+            ' and <inline-formula id="e2"><mml:math><mml:mi>y</mml:mi></mml:math></inline-formula>'
+            ' hold.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        formula_segments = [seg for seg in segments if seg['type'] == 'formula']
+        self.assertEqual(len(formula_segments), 2)
+        self.assertEqual([seg['type'] for seg in segments], ['text', 'formula', 'text', 'formula', 'text'])
+
+    def test_extract_body_data_falls_back_to_flattened_text_when_inline_formula_has_no_mathml(self):
+        # Sem <mml:math> descendente, _inline_formula_segment retorna None e
+        # o texto cai no achatamento de sempre - nunca descartado.
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<p>where <inline-formula id="e1">x</inline-formula> is undefined.</p>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        self.assertEqual(segments, _plain_para('where x is undefined.'))
+
+    def test_extract_body_data_converts_inline_formula_inside_list_item(self):
+        xml = etree.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<sec><title>Section 1</title>'
+            '<list list-type="bullet">'
+            '<list-item><p>where <inline-formula id="e1"><mml:math><mml:mi>x</mml:mi></mml:math>'
+            '</inline-formula> is the mean.</p></list-item>'
+            '</list>'
+            '</sec></article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        segments = result[0]['paragraphs'][0]
+        self.assertEqual([seg['type'] for seg in segments], ['text', 'text', 'formula', 'text'])
 
     def test_extract_body_data_includes_graphic_disp_formula_as_figure(self):
         # Regression for issue #1347: a <disp-formula> rendered as an image
@@ -584,6 +754,7 @@ class TestExtractBodyData(unittest.TestCase):
         segments = paragraphs[0]
         self.assertEqual(segments[0], _plain_para('Total biomass:')[0])
         self.assertEqual(segments[1]['type'], 'formula')
+        self.assertTrue(segments[1]['display'])
         self.assertEqual(etree.QName(segments[1]['omml']).localname, 'oMath')
         self.assertEqual(segments[2], _plain_para(' (3)')[0])
 
@@ -939,41 +1110,6 @@ class TestExtractBodyData(unittest.TestCase):
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(len(result), 3)
         self.assertEqual([s['title'] for s in result], ['Results', 'Reviewer #1', "Authors' response"])
-
-    def test_extract_body_data_excludes_app_group_sections(self):
-        # Regression for issue #1372, reproduced against the real corpus
-        # sample a37.xml: an appendix (<back><app-group><app>) has its own
-        # subsections ("Zone 1"/"Zone 2"/"Zone 3"), each with its own
-        # tables. An unscoped './/sec' search picked these up as if they
-        # were ordinary body sections, with no indication they come from an
-        # appendix, and their tables were also rendered a second time by
-        # extract_supplementary_data (which already handles <app-group>
-        # under its own "Supplementary Material" heading).
-        xml = etree.fromstring(
-            '<article>'
-            '<body>'
-            '<sec><title>Results</title><p>Body text.</p></sec>'
-            '</body>'
-            '<back>'
-            '<app-group>'
-            '<app>'
-            '<sec><title>Zone 1</title>'
-            '<table-wrap id="t1"><label>Table A1</label>'
-            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
-            '</table-wrap>'
-            '</sec>'
-            '</app>'
-            '</app-group>'
-            '</back>'
-            '</article>'
-        )
-        result = xml_pipe.extract_body_data(xml)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]['title'], 'Results')
-        self.assertEqual(sum(len(s['tables']) for s in result), 0)
-
-
-class TestExtractCategory(unittest.TestCase):
 
     def setUp(self):
         self.xml_with_category = etree.fromstring("""
@@ -1920,77 +2056,6 @@ class TestExtractReferencesData(unittest.TestCase):
         xmltree = etree.fromstring(xml_content)
         result = xml_pipe.extract_references_data(xmltree)
         self.assertEqual(0, len(result['references']))
-
-
-class TestExtractSupplementaryData(unittest.TestCase):
-
-    def test_empty_xml_tree(self):
-        xml = etree.fromstring("<root></root>")
-        result = xml_pipe.extract_supplementary_data(xml)
-        expected = {'title': 'Supplementary Material', 'elements': []}
-        self.assertEqual(expected, result)
-
-    def test_single_app_group_with_text(self):
-        xml = etree.fromstring(
-            "<root><app-group><app>Sample text content</app></app-group></root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        expected = {
-            'title': 'Supplementary Material',
-            'elements': [{'content': 'Sample text content', 'type': 'text'}]
-        }
-        self.assertEqual(expected, result)
-
-    def test_multiple_app_groups(self):
-        xml = etree.fromstring(
-            "<root>"
-            "<app-group><app>Text 1</app></app-group>"
-            "<app-group><app>Text 2</app></app-group>"
-            "</root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        expected = {
-            'title': 'Supplementary Material',
-            'elements': [
-                {'content': 'Text 1', 'type': 'text'},
-                {'content': 'Text 2', 'type': 'text'}
-            ]
-        }
-        self.assertEqual(expected, result)
-
-    def test_app_group_with_table(self):
-        xml = etree.fromstring(
-            "<root>"
-            "<app-group>"
-            "<app>"
-            "<table-wrap>"
-            "<label>Table 1</label>"
-            "<caption><title>Sample Table</title></caption>"
-            "</table-wrap>"
-            "</app>"
-            "</app-group>"
-            "</root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        self.assertEqual('Supplementary Material', result['title'])
-        self.assertEqual(1, len(result['elements']))
-        self.assertEqual('table', result['elements'][0]['type'])
-
-    def test_mixed_content_app_group(self):
-        xml = etree.fromstring(
-            "<root>"
-            "<app-group>"
-            "<app>Text content</app>"
-            "<app><table-wrap><label>Table 1</label></table-wrap></app>"
-            "<app>More text</app>"
-            "</app-group>"
-            "</root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        self.assertEqual(3, len(result['elements']))
-        self.assertEqual('text', result['elements'][0]['type'])
-        self.assertEqual('table', result['elements'][1]['type'])
-        self.assertEqual('text', result['elements'][2]['type'])
 
 
 class TestExtractTableData(unittest.TestCase):

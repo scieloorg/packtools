@@ -67,3 +67,108 @@ class TestAddParagraphWithSegmentsFormula(unittest.TestCase):
 
         self.assertEqual([r.text for r in para.runs], ['Total biomass:', ' (3)'])
         self.assertIn(omml, list(para._p))
+
+
+def _text_segment(text):
+    return {'type': 'text', 'text': text, 'italic': False, 'bold': False,
+            'superscript': False, 'subscript': False}
+
+
+def _formula_segment(display=False):
+    segment = {'type': 'formula', 'omml': _omml_element()}
+    if display:
+        segment['display'] = True
+    return segment
+
+
+class TestAddParagraphWithSegmentsFormulaStyle(unittest.TestCase):
+    """
+    Fórmula em bloco fica em parágrafo próprio, no estilo "SCL Formula" (à
+    esquerda, sem recuo de primeira linha), separada do texto que a antecede;
+    fórmula inline continua no parágrafo do texto. Ver issue #1385.
+    """
+
+    def test_display_formula_alone_uses_formula_style(self):
+        docx = _docx_with_layout_styles()
+        n_before = len(docx.paragraphs)
+
+        para = add_paragraph_with_segments(docx, [_formula_segment(display=True)])
+
+        self.assertEqual(len(docx.paragraphs) - n_before, 1)
+        self.assertEqual(para.style.name, 'SCL Formula')
+
+    def test_text_before_display_formula_goes_to_its_own_paragraph(self):
+        docx = _docx_with_layout_styles()
+        n_before = len(docx.paragraphs)
+        segments = [_text_segment('Total plant biomass:'), _formula_segment(display=True), _text_segment(' (3)')]
+
+        para = add_paragraph_with_segments(docx, segments)
+
+        added = docx.paragraphs[n_before:]
+        self.assertEqual(len(added), 2)
+        self.assertEqual(added[0].style.name, 'SCL Paragraph')
+        self.assertEqual(added[0].text, 'Total plant biomass:')
+        self.assertEqual(added[1].style.name, 'SCL Formula')
+        self.assertEqual(added[1].text, ' (3)')
+        self.assertIs(para._p, added[1]._p)
+
+    def test_blank_text_before_display_formula_does_not_create_empty_paragraph(self):
+        docx = _docx_with_layout_styles()
+        n_before = len(docx.paragraphs)
+
+        add_paragraph_with_segments(docx, [_text_segment('  '), _formula_segment(display=True)])
+
+        self.assertEqual(len(docx.paragraphs) - n_before, 1)
+
+    def test_inline_formula_before_display_formula_is_kept(self):
+        docx = _docx_with_layout_styles()
+        n_before = len(docx.paragraphs)
+        inline = _formula_segment()
+
+        add_paragraph_with_segments(docx, [inline, _formula_segment(display=True)])
+
+        added = docx.paragraphs[n_before:]
+        self.assertEqual(len(added), 2)
+        self.assertIn(inline['omml'], list(added[0]._p))
+
+    def test_inline_formula_keeps_text_paragraph_and_default_style(self):
+        docx = _docx_with_layout_styles()
+        n_before = len(docx.paragraphs)
+        segments = [_text_segment('Where '), _formula_segment(), _text_segment(' is the mean value.')]
+
+        para = add_paragraph_with_segments(docx, segments)
+
+        self.assertEqual(len(docx.paragraphs) - n_before, 1)
+        self.assertEqual(para.style.name, 'SCL Paragraph')
+
+    def test_paragraph_without_formula_keeps_default_style(self):
+        docx = _docx_with_layout_styles()
+
+        para = add_paragraph_with_segments(docx, [_text_segment('Plain paragraph.')])
+
+        self.assertEqual(para.style.name, 'SCL Paragraph')
+
+    def test_explicit_non_default_style_is_not_overridden(self):
+        docx = _docx_with_layout_styles()
+        n_before = len(docx.paragraphs)
+
+        para = add_paragraph_with_segments(
+            docx, [_text_segment('x'), _formula_segment(display=True)], style_name='SCL Paragraph Reference'
+        )
+
+        self.assertEqual(len(docx.paragraphs) - n_before, 1)
+        self.assertEqual(para.style.name, 'SCL Paragraph Reference')
+
+    def test_falls_back_to_requested_style_when_formula_style_missing_from_template(self):
+        """Older templates without "SCL Formula" keep the previous (single, justified) paragraph."""
+        from docx import Document
+        from docx.enum.style import WD_STYLE_TYPE
+
+        docx = Document()
+        docx.styles.add_style('SCL Paragraph', WD_STYLE_TYPE.PARAGRAPH)
+
+        para = add_paragraph_with_segments(docx, [_text_segment('x'), _formula_segment(display=True)])
+
+        self.assertNotIn('SCL Formula', docx.styles)
+        self.assertEqual(len(docx.paragraphs), 1)
+        self.assertEqual(para.style.name, 'SCL Paragraph')
