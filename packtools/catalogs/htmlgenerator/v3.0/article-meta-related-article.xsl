@@ -17,7 +17,7 @@
                         <xsl:apply-templates select=".//sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']//related-article[@related-article-type!='preprint']" mode="article-meta-related-article-box-item"/>
                     </div>
                 </xsl:when>
-                <xsl:when test=".//front//related-article">
+                <xsl:when test=".//front//related-article or .//body//related-article or .//back//related-article">
                     <!-- article -->
                     <div class="panel article-correction-title">
                         <xsl:apply-templates select="front | body | back" mode="article-meta-related-article-box-item"/>
