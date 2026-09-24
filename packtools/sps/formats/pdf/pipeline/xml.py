@@ -788,6 +788,11 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     inside one of its own subsections is not a supplementary-material
     section and must stay in the body (issue #1375 review).
 
+    Also excludes <sec> nested inside <app-group> (an appendix section):
+    supplementary_material.extract_data renders each <app> with its own
+    <sec> as subsections, so keeping them here too would render the same
+    title, paragraphs and tables twice (issue #1372).
+
     Falls back to treating <body> itself as an extra, untitled section when
     <body> has no <sec> of its own (valid JATS pattern for unsectioned
     short communications/brief reports) - otherwise its content would be
@@ -833,7 +838,7 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
 
     body_sections = xml_tree.xpath(
         './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)'
-        ' and not(.//supplementary-material and not(sec))]'
+        ' and not(.//supplementary-material and not(sec)) and not(ancestor::app-group)]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:

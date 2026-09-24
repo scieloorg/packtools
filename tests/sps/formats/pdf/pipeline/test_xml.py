@@ -463,6 +463,34 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertIn('Floristic composition', titles)
         self.assertNotIn('Supplementary Data', titles)
 
+    def test_extract_body_data_excludes_app_group_sections(self):
+        # Regression for issue #1372, real corpus sample
+        # bjrs/v14n1/2319-0612-bjrs-v14n1-09-e3014.xml (a37.xml): the
+        # appendix subsections "Zone 1/2/3" leaked into the body, and are
+        # now rendered by supplementary_material.extract_data instead.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<app-group>'
+            '<app>'
+            '<sec><title>Zone 1</title>'
+            '<table-wrap id="t1"><label>Table A1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</app>'
+            '</app-group>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Results')
+        self.assertEqual(sum(len(s['tables']) for s in result), 0)
+
     def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
         # Regression for issue #1347/#1352: <disp-formula> is often a direct
         # sibling of <p>, not nested inside one - a plain findall('p') never
