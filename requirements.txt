@@ -15,6 +15,7 @@ ipdb==0.13.13
 langdetect~=1.0.9
 python-docx==1.2.0
 citeproc-py==0.11.1
+mathml2omml==0.0.2
 openpyxl==3.1.5
 beautifulsoup4==4.15.0
 soupsieve >= 2.8.4

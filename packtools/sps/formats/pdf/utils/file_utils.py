@@ -1,19 +1,88 @@
 import os
+import pathlib
 import shutil
 import subprocess
 import tempfile
 import zipfile
+
+from docx.oxml.ns import nsmap
+from lxml import etree
 
 
 class DirectoryRemovalError(Exception):
     ...
 
 
+# LibreOffice ignora w:sz/w:rFonts de zonas de matemática OOXML e usa seu
+# próprio BaseSize (padrão 12pt), estourando a coluna quando o corpo do
+# artigo usa um tamanho menor. O tamanho vem do estilo do corpo do próprio
+# DOCX convertido. Ver issue #1385.
+_BODY_STYLE_NAME = "SCL Paragraph"
+_MATH_CONFIG_XML = (
+    '<?xml version="1.0" encoding="UTF-8"?>'
+    '<oor:items xmlns:oor="http://openoffice.org/2001/registry"'
+    ' xmlns:xs="http://www.w3.org/2001/XMLSchema"'
+    ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+    '<item oor:path="/org.openoffice.Office.Math/StandardFormat">'
+    '<prop oor:name="BaseSize" oor:op="fuse"><value>{size}</value></prop>'
+    '</item></oor:items>'
+)
+
+
+def _body_font_size_pt(docx_path):
+    """
+    Returns the font size, in whole points, of the body text style
+    (_BODY_STYLE_NAME) of a DOCX, or None when it can't be read.
+    """
+    try:
+        with zipfile.ZipFile(docx_path) as zf:
+            styles_xml = zf.read("word/styles.xml")
+        root = etree.fromstring(styles_xml, etree.XMLParser(resolve_entities=False, no_network=True))
+    except (OSError, KeyError, zipfile.BadZipFile, etree.XMLSyntaxError):
+        return None
+
+    half_points = root.xpath(
+        "string(//w:style[w:name/@w:val=$name]/w:rPr/w:sz/@w:val)",
+        namespaces={"w": nsmap["w"]}, name=_BODY_STYLE_NAME,
+    )
+    try:
+        return round(int(half_points) / 2) or None
+    except ValueError:
+        return None
+
+
+def _create_math_profile(size_pt):
+    """
+    Creates a private LibreOffice user profile whose only setting is the Math
+    BaseSize, and returns its directory. LibreOffice fills in the rest on start.
+    """
+    profile_dir = tempfile.mkdtemp(prefix="packtools_lo_profile_")
+    try:
+        user_dir = os.path.join(profile_dir, "user")
+        os.makedirs(user_dir)
+        with open(os.path.join(user_dir, "registrymodifications.xcu"), "w", encoding="utf-8") as f:
+            f.write(_MATH_CONFIG_XML.format(size=size_pt))
+    except OSError:
+        shutil.rmtree(profile_dir, ignore_errors=True)
+        raise
+    return profile_dir
+
+
+def _run_conversion(binary, docx_path, output_dir, profile_dir=None):
+    command = [binary]
+    if profile_dir:
+        command.append(f"-env:UserInstallation={pathlib.Path(profile_dir).as_uri()}")
+    command += ["--headless", "--convert-to", "pdf", docx_path, "--outdir", output_dir]
+    subprocess.run(command, check=True)
+
+
 def convert_docx_to_pdf(docx_path, libreoffice_binary=None):
     """
     Converts a DOCX file to PDF format using LibreOffice in headless mode.
     The function runs a subprocess to call LibreOffice, specifying the input DOCX file
-    and the output directory for the generated PDF file.
+    and the output directory for the generated PDF file. Formulas are sized to the
+    body text by running LibreOffice with a private profile; if that conversion
+    fails, it is retried with the default profile.
     Args:
         docx_path (str): The path to the DOCX file to be converted.
         libreoffice_binary (str): The path to the LibreOffice binary. If not provided,
@@ -36,15 +105,24 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None):
     if output_dir != ".":
         os.makedirs(output_dir, exist_ok=True)
 
-    subprocess.run([
-        binary,
-        '--headless',
-        '--convert-to',
-        'pdf',
-        docx_path,
-        '--outdir',
-        output_dir
-    ], check=True)
+    profile_dir = None
+    base_size = _body_font_size_pt(docx_path)
+    if base_size:
+        try:
+            profile_dir = _create_math_profile(base_size)
+        except OSError:
+            profile_dir = None
+
+    try:
+        try:
+            _run_conversion(binary, docx_path, output_dir, profile_dir)
+        except subprocess.CalledProcessError:
+            if not profile_dir:
+                raise
+            _run_conversion(binary, docx_path, output_dir)
+    finally:
+        if profile_dir:
+            shutil.rmtree(profile_dir, ignore_errors=True)
 
     base_name = os.path.basename(docx_path)
     f_name, f_ext = os.path.splitext(base_name)

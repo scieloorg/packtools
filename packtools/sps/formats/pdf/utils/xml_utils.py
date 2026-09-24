@@ -45,7 +45,7 @@ _INLINE_STYLE_TAGS = {
 }
 
 
-def get_segments_from_node(node, skip_tags=None):
+def get_segments_from_node(node, skip_tags=None, formula_tags=None, formula_converter=None):
     """
     Extracts text from an XML node as a list of style-tagged segments
     instead of a single flattened string, so inline markup
@@ -66,55 +66,85 @@ def get_segments_from_node(node, skip_tags=None):
         skip_tags (set, optional): Child tag names to drop entirely from
             the output; only their `.tail` is kept. Same semantics as
             get_text_from_node.
+        formula_tags (set, optional): Child tag names (e.g.
+            {'inline-formula'}) to convert via formula_converter instead of
+            being recursed into as plain text. Kept generic here (this
+            module has no MathML/OMML knowledge) - the caller supplies the
+            actual conversion.
+        formula_converter (callable, optional): Called with a formula_tags
+            element, must return a segment dict (any shape, inserted as-is,
+            never merged with adjacent text) or None when the element
+            couldn't be converted - in which case it falls back to the
+            usual text-flattening traversal, same as an unrecognized tag.
 
     Returns:
-        list[dict]: Segments in document order, each
+        list[dict]: Segments in document order. Text segments are
             {'type': 'text', 'text': str, 'italic': bool, 'bold': bool,
-            'superscript': bool, 'subscript': bool}. Empty after
-            whitespace normalization/leading-trailing strip are dropped.
+            'superscript': bool, 'subscript': bool}; empty ones (after
+            whitespace normalization/leading-trailing strip) are dropped.
+            A formula_tags element that converted successfully contributes
+            whatever segment dict formula_converter returned instead.
     """
     skip_tags = skip_tags or set()
+    formula_tags = formula_tags or set()
     raw_segments = []
-    _collect_style_segments(node, skip_tags, frozenset(), raw_segments)
+    _collect_style_segments(node, skip_tags, formula_tags, formula_converter, frozenset(), raw_segments)
 
     segments = []
-    for text, styles in _merge_adjacent_segments(raw_segments):
+    for item in _merge_adjacent_segments(raw_segments):
+        if isinstance(item, dict):
+            segments.append(item)
+            continue
+        text, styles = item
         text = _remove_double_spaces(text)
         text = _normalize_punctuation_spacing(text)
         if text:
             segments.append(_build_text_segment(text, styles))
 
     if segments:
-        segments[0]['text'] = segments[0]['text'].lstrip()
-        segments[-1]['text'] = segments[-1]['text'].rstrip()
-        segments = [seg for seg in segments if seg['text']]
+        if segments[0]['type'] == 'text':
+            segments[0]['text'] = segments[0]['text'].lstrip()
+        if segments[-1]['type'] == 'text':
+            segments[-1]['text'] = segments[-1]['text'].rstrip()
+        segments = [seg for seg in segments if seg['type'] != 'text' or seg['text']]
 
     return segments
 
 
-def _collect_style_segments(node, skip_tags, active_styles, raw_segments):
-    """Recursively walk node, appending (text, active_styles) fragments to raw_segments."""
+def _collect_style_segments(node, skip_tags, formula_tags, formula_converter, active_styles, raw_segments):
+    """Recursively walk node, appending (text, active_styles) fragments (or formula segment dicts) to raw_segments."""
     if node.text:
         raw_segments.append((node.text, active_styles))
 
     for child in node:
         if child.tag in skip_tags:
             pass
+        elif child.tag in formula_tags:
+            formula_segment = formula_converter(child) if formula_converter else None
+            if formula_segment is not None:
+                raw_segments.append(formula_segment)
+            else:
+                # conversão indisponível/falhou: cai no achatamento de texto de sempre
+                _collect_style_segments(child, skip_tags, formula_tags, formula_converter, active_styles, raw_segments)
         elif child.tag in _INLINE_STYLE_TAGS:
             child_styles = active_styles | {_INLINE_STYLE_TAGS[child.tag]}
-            _collect_style_segments(child, skip_tags, child_styles, raw_segments)
+            _collect_style_segments(child, skip_tags, formula_tags, formula_converter, child_styles, raw_segments)
         else:
-            _collect_style_segments(child, skip_tags, active_styles, raw_segments)
+            _collect_style_segments(child, skip_tags, formula_tags, formula_converter, active_styles, raw_segments)
 
         if child.tail:
             raw_segments.append((child.tail, active_styles))
 
 
 def _merge_adjacent_segments(raw_segments):
-    """Concatenate consecutive (text, styles) fragments that share the same styles."""
+    """Concatenate consecutive (text, styles) fragments that share the same styles; a formula segment (dict) is an opaque boundary, never merged."""
     merged = []
-    for text, styles in raw_segments:
-        if merged and merged[-1][1] == styles:
+    for item in raw_segments:
+        if isinstance(item, dict):
+            merged.append(item)
+            continue
+        text, styles = item
+        if merged and not isinstance(merged[-1], dict) and merged[-1][1] == styles:
             merged[-1] = (merged[-1][0] + text, styles)
         else:
             merged.append((text, styles))
