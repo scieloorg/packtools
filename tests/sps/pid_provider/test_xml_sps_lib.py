@@ -2593,31 +2593,31 @@ class TestCollection(XMLWithPreTestMixin, TestCase):
 
     def test_getter_returns_none_without_collection_custom_meta(self):
         xml_with_pre = self._make_xml_with_custom_meta(
-            "<custom-meta-group><custom-meta>"
+            '<custom-meta-group specific-use="platform-migration" assigning-authority="scielo"><custom-meta>'
             "<meta-name>other</meta-name><meta-value>xyz</meta-value>"
             "</custom-meta></custom-meta-group>"
         )
         self.assertIsNone(xml_with_pre.collection)
 
-    def test_getter_returns_collection_identified_by_meta_name(self):
+    def test_getter_returns_collection_from_platform_migration_group(self):
         xml_with_pre = self._make_xml_with_custom_meta(
-            "<custom-meta-group><custom-meta>"
+            '<custom-meta-group specific-use="platform-migration" assigning-authority="scielo"><custom-meta>'
             "<meta-name>collection</meta-name><meta-value>scl</meta-value>"
             "</custom-meta></custom-meta-group>"
         )
         self.assertEqual(xml_with_pre.collection, "scl")
 
-    def test_getter_returns_collection_identified_by_specific_use(self):
+    def test_getter_returns_none_when_group_is_not_platform_migration(self):
         xml_with_pre = self._make_xml_with_custom_meta(
-            '<custom-meta-group><custom-meta specific-use="collection" assigning-authority="scielo">'
-            "<meta-name>Coleção</meta-name><meta-value>scl</meta-value>"
+            "<custom-meta-group><custom-meta>"
+            "<meta-name>collection</meta-name><meta-value>scl</meta-value>"
             "</custom-meta></custom-meta-group>"
         )
-        self.assertEqual(xml_with_pre.collection, "scl")
+        self.assertIsNone(xml_with_pre.collection)
 
     def test_getter_ignores_other_custom_metas(self):
         xml_with_pre = self._make_xml_with_custom_meta(
-            "<custom-meta-group>"
+            '<custom-meta-group specific-use="platform-migration" assigning-authority="scielo">'
             "<custom-meta><meta-name>other</meta-name><meta-value>xyz</meta-value></custom-meta>"
             "<custom-meta><meta-name>collection</meta-name><meta-value>scl</meta-value></custom-meta>"
             "</custom-meta-group>"
@@ -2640,9 +2640,10 @@ class TestCollection(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.collection = "scl"
 
+        group = xml_with_pre.xmltree.find(".//front/article-meta/custom-meta-group")
+        self.assertEqual(group.get("specific-use"), "platform-migration")
+        self.assertEqual(group.get("assigning-authority"), "scielo")
         custom_meta = self._collection_custom_metas(xml_with_pre)[0]
-        self.assertEqual(custom_meta.get("specific-use"), "collection")
-        self.assertEqual(custom_meta.get("assigning-authority"), "scielo")
         self.assertEqual(custom_meta.findtext("meta-name"), "collection")
         self.assertEqual(custom_meta.findtext("meta-value"), "scl")
 
@@ -2657,13 +2658,15 @@ class TestCollection(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.collection, "scl")
         groups = xml_with_pre.xmltree.xpath(".//front/article-meta/custom-meta-group")
         self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].get("specific-use"), "platform-migration")
+        self.assertEqual(groups[0].get("assigning-authority"), "scielo")
         other = groups[0].xpath("custom-meta[meta-name='other']")
         self.assertEqual(len(other), 1)
         self.assertEqual(other[0].findtext("meta-value"), "xyz")
 
     def test_setter_updates_existing_collection_without_duplicating(self):
         xml_with_pre = self._make_xml_with_custom_meta(
-            "<custom-meta-group><custom-meta>"
+            '<custom-meta-group specific-use="platform-migration" assigning-authority="scielo"><custom-meta>'
             "<meta-name>collection</meta-name><meta-value>scl</meta-value>"
             "</custom-meta></custom-meta-group>"
         )
