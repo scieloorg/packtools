@@ -315,6 +315,38 @@ class PidProviderXMLAdapterTest(TestCase):
         return _get_xml_adapter(xml)
 
 
+class PidProviderXMLAdapterCollectionAcronTest(TestCase):
+    def test_collection_acron_is_none_when_absent(self):
+        xml_adapter = _get_xml_adapter()
+        self.assertIsNone(xml_adapter.collection_acron)
+
+    def test_collection_acron_reads_from_xml(self):
+        xml_adapter = _get_xml_adapter(
+            """
+            <article>
+                <front>
+                    <article-meta>
+                        <custom-meta-group specific-use="platform-migration" assigning-authority="scielo">
+                            <custom-meta>
+                                <meta-name>collection</meta-name>
+                                <meta-value>scl</meta-value>
+                            </custom-meta>
+                        </custom-meta-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+        self.assertEqual("scl", xml_adapter.collection_acron)
+
+    def test_collection_acron_setter_updates_xml_with_pre(self):
+        xml_adapter = _get_xml_adapter()
+        xml_adapter.collection_acron = "SCL"
+        self.assertEqual("scl", xml_adapter.collection_acron)
+        self.assertEqual("scl", xml_adapter.xml_with_pre.collection)
+        self.assertEqual("scl", xml_adapter.xml_with_pre.data["collection_acron"])
+
+
 class PidProviderXMLAdapterGetDataToCompareTest(TestCase):
 
     def _get_xml_adapter_with_body(self, body_text=""):
