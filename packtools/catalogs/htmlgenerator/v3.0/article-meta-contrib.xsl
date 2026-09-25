@@ -30,9 +30,17 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="article | sub-article" mode="contrib-group">
+    <xsl:template match="response | sub-article[@article-type!='translation']" mode="attribute-class-contribGroup">
+        <xsl:attribute name="class">scielo__contribGroup scielo__contribGroup--response</xsl:attribute>
+    </xsl:template>
+
+    <xsl:template match="article | sub-article[@article-type='translation']" mode="attribute-class-contribGroup">
+        <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
+    </xsl:template>
+
+    <xsl:template match="article | sub-article | response" mode="contrib-group">
         <div>
-            <xsl:attribute name="class">scielo__contribGroup</xsl:attribute>
+            <xsl:apply-templates select="." mode="attribute-class-contribGroup"/>
             <xsl:variable name="id"><xsl:value-of select="@id"/></xsl:variable>
             <ul class="author-list" id="authorList-{$id}">
                 <xsl:attribute name="aria-label">
@@ -43,6 +51,9 @@
                 <xsl:apply-templates select="front | front-stub" mode="contrib-group"/>
             </ul>
         </div>
+        <xsl:apply-templates select="front | front-stub" mode="scimago-button">
+            <xsl:with-param name="id"><xsl:value-of select="@id"/></xsl:with-param>
+        </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="contrib-group" mode="about-the-contrib-group-button">
@@ -66,9 +77,14 @@
             Adiciona o botão 'SCIMAGO INSTITUTIONS RANKINGS'
         -->
         <xsl:if test=".//aff">
+
+        <div class="text-center">
+            <!-- Botão do SCImago -->
             <a href="" class="btn btn-secondary btn-sm outlineFadeLink"
                 data-bs-toggle="modal"
                 data-bs-target="#ModalScimago{$id}">SCIMAGO INSTITUTIONS RANKINGS</a>
+        </div>
+            
         </xsl:if>
     </xsl:template>
 
@@ -146,10 +162,6 @@
             <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
         </xsl:apply-templates>
 
-        <xsl:apply-templates select="." mode="scimago-button">
-            <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
-        </xsl:apply-templates>
-
         <!-- -->
         <xsl:if test="not(.//contrib-group) and ../@article-type='translation'">
             <xsl:apply-templates select="../..//front" mode="contrib-group"/>
@@ -220,13 +232,13 @@
 
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$total_contrib_names!=$total_contribs">
+        <!--xsl:if test="$total_contrib_names!=$total_contribs">
             <xsl:apply-templates select="contrib[@id]" mode="contrib-list-item">
                 <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
                 <xsl:with-param name="index"><xsl:value-of select="$total_contribs"/></xsl:with-param>
                 <xsl:with-param name="sep"></xsl:with-param>
             </xsl:apply-templates>
-        </xsl:if>
+        </xsl:if-->
     </xsl:template>
 
     <xsl:template match="contrib-group[@content-type='collab-list']" mode="contrib-group">
@@ -239,14 +251,22 @@
             <xsl:value-of select="count(contrib)"/>
         </xsl:variable>
 
-        <li>    
+        <li class="d-block w-100">
             <details class="authors-collapse">
-                <summary>
+                <summary class="btn btn-secondary btn-sm ms-0 outlineFadeLink">
+                    <xsl:attribute name="aria-label">
+                        <xsl:apply-templates select="..//contrib[@id]"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates select="..//contrib[@id]"/>:
                     <span class="authors-collapse__open">
+                        <xsl:apply-templates select="." mode="interface">
+                            <xsl:with-param name="text">Show</xsl:with-param>
+                        </xsl:apply-templates>
+                        <xsl:text>&#160;</xsl:text>
                         <xsl:value-of select="count(contrib)"/>
                         <xsl:text>&#160;</xsl:text>
                         <xsl:apply-templates select="." mode="interface">
-                            <xsl:with-param name="text">group members</xsl:with-param>
+                            <xsl:with-param name="text">members</xsl:with-param>
                         </xsl:apply-templates>
                     </span>
                     <span class="authors-collapse__close">
@@ -257,10 +277,9 @@
                 </summary>
                 <ul class="author-list__hidden">
                     <xsl:attribute name="aria-label">
-                        <xsl:apply-templates select="." mode="interface">
-                            <xsl:with-param name="text">Autores intermediários</xsl:with-param>
-                        </xsl:apply-templates>
+                        <xsl:apply-templates select="..//contrib[@id]"/>
                     </xsl:attribute>
+                    <strong><xsl:apply-templates select="..//contrib[@id]"/>:</strong>
                     <xsl:apply-templates select="contrib" mode="contrib-list-item">
                         <xsl:with-param name="id"><xsl:value-of select="@content-type"/><xsl:value-of select="$id"/></xsl:with-param>
                         <xsl:with-param name="sep">,</xsl:with-param>
@@ -291,7 +310,7 @@
             <xsl:apply-templates select="xref[@ref-type='corresp']|xref[@ref-type='aff']" mode="email-icon"/>
             <button
                 type="button"
-                class="btn-link px-0 author-name-trigger"
+                class="btn-link px-0"
                 data-bs-toggle="modal"
                 data-author-index="{$position - 1}"
                 data-bs-target="#authorModal-{$id}-{$position}"
