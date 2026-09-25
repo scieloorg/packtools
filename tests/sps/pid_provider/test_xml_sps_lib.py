@@ -1584,6 +1584,7 @@ class TestDictProperties(XMLWithPreTestMixin, TestCase):
                 "sps_pkg_name",
                 "pid_v3",
                 "pid_v2",
+                "collection_acron",
                 "aop_pid",
                 "filename",
                 "files",
@@ -1598,6 +1599,7 @@ class TestDictProperties(XMLWithPreTestMixin, TestCase):
         self.assertEqual(data["sps_pkg_name"], "1234-5678-abc-10-02-e12345")
         self.assertIsNone(data["pid_v3"])
         self.assertIsNone(data["pid_v2"])
+        self.assertIsNone(data["collection_acron"])
         self.assertIsNone(data["aop_pid"])
         self.assertIsNone(data["filename"])
         self.assertIsNone(data["files"])
@@ -1611,6 +1613,11 @@ class TestDictProperties(XMLWithPreTestMixin, TestCase):
                 "1234-5678-abc-10-02-e12345",
             ],
         )
+
+    def test_data_collection_acron_follows_collection(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.collection = "SCL"
+        self.assertEqual(xml_with_pre.data["collection_acron"], "scl")
 
     def test_data_no_longer_contains_submitted_filename_or_xml_name(self):
         # Esses campos migraram para input_files_dict; garantir que não
