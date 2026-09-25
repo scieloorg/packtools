@@ -2557,6 +2557,149 @@ class TestReadableData(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.readable_data["body_fragment"], xml_with_pre.body_fragment)
 
 
+
+class TestCollection(XMLWithPreTestMixin, TestCase):
+    """Testes para o getter e o setter de XMLWithPre.collection."""
+
+    def _make_xml_with_custom_meta(self, custom_meta_group=""):
+        xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">abc</journal-id>
+      <issn pub-type="epub">1234-5678</issn>
+    </journal-meta>
+    <article-meta>
+      <volume>10</volume>
+      <issue>2</issue>
+      {custom_meta_group}
+    </article-meta>
+  </front>
+</article>"""
+        for item in XMLWithPre.create(xml_content=xml_content):
+            return item
+
+    def _collection_custom_metas(self, xml_with_pre):
+        return xml_with_pre.xmltree.xpath(
+            ".//front/article-meta/custom-meta-group/custom-meta[meta-name='collection']"
+        )
+
+    # --------------------------------------------------------------------------
+    # getter
+    # --------------------------------------------------------------------------
+    def test_getter_returns_none_without_custom_meta_group(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertIsNone(xml_with_pre.collection)
+
+    def test_getter_returns_none_without_collection_custom_meta(self):
+        xml_with_pre = self._make_xml_with_custom_meta(
+            "<custom-meta-group><custom-meta>"
+            "<meta-name>other</meta-name><meta-value>xyz</meta-value>"
+            "</custom-meta></custom-meta-group>"
+        )
+        self.assertIsNone(xml_with_pre.collection)
+
+    def test_getter_returns_collection_identified_by_meta_name(self):
+        xml_with_pre = self._make_xml_with_custom_meta(
+            "<custom-meta-group><custom-meta>"
+            "<meta-name>collection</meta-name><meta-value>scl</meta-value>"
+            "</custom-meta></custom-meta-group>"
+        )
+        self.assertEqual(xml_with_pre.collection, "scl")
+
+    def test_getter_returns_collection_identified_by_specific_use(self):
+        xml_with_pre = self._make_xml_with_custom_meta(
+            '<custom-meta-group><custom-meta specific-use="collection" assigning-authority="scielo">'
+            "<meta-name>Coleção</meta-name><meta-value>scl</meta-value>"
+            "</custom-meta></custom-meta-group>"
+        )
+        self.assertEqual(xml_with_pre.collection, "scl")
+
+    def test_getter_ignores_other_custom_metas(self):
+        xml_with_pre = self._make_xml_with_custom_meta(
+            "<custom-meta-group>"
+            "<custom-meta><meta-name>other</meta-name><meta-value>xyz</meta-value></custom-meta>"
+            "<custom-meta><meta-name>collection</meta-name><meta-value>scl</meta-value></custom-meta>"
+            "</custom-meta-group>"
+        )
+        self.assertEqual(xml_with_pre.collection, "scl")
+
+    # --------------------------------------------------------------------------
+    # setter
+    # --------------------------------------------------------------------------
+    def test_setter_creates_custom_meta_group_when_absent(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.collection = "scl"
+
+        self.assertEqual(xml_with_pre.collection, "scl")
+        groups = xml_with_pre.xmltree.xpath(".//front/article-meta/custom-meta-group")
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(len(self._collection_custom_metas(xml_with_pre)), 1)
+
+    def test_setter_adds_expected_structure(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.collection = "scl"
+
+        custom_meta = self._collection_custom_metas(xml_with_pre)[0]
+        self.assertEqual(custom_meta.get("specific-use"), "collection")
+        self.assertEqual(custom_meta.get("assigning-authority"), "scielo")
+        self.assertEqual(custom_meta.findtext("meta-name"), "collection")
+        self.assertEqual(custom_meta.findtext("meta-value"), "scl")
+
+    def test_setter_reuses_existing_custom_meta_group_and_keeps_other_custom_metas(self):
+        xml_with_pre = self._make_xml_with_custom_meta(
+            "<custom-meta-group><custom-meta>"
+            "<meta-name>other</meta-name><meta-value>xyz</meta-value>"
+            "</custom-meta></custom-meta-group>"
+        )
+        xml_with_pre.collection = "scl"
+
+        self.assertEqual(xml_with_pre.collection, "scl")
+        groups = xml_with_pre.xmltree.xpath(".//front/article-meta/custom-meta-group")
+        self.assertEqual(len(groups), 1)
+        other = groups[0].xpath("custom-meta[meta-name='other']")
+        self.assertEqual(len(other), 1)
+        self.assertEqual(other[0].findtext("meta-value"), "xyz")
+
+    def test_setter_updates_existing_collection_without_duplicating(self):
+        xml_with_pre = self._make_xml_with_custom_meta(
+            "<custom-meta-group><custom-meta>"
+            "<meta-name>collection</meta-name><meta-value>scl</meta-value>"
+            "</custom-meta></custom-meta-group>"
+        )
+        xml_with_pre.collection = "arg"
+
+        self.assertEqual(xml_with_pre.collection, "arg")
+        self.assertEqual(len(self._collection_custom_metas(xml_with_pre)), 1)
+
+    def test_setter_called_twice_does_not_duplicate(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.collection = "scl"
+        xml_with_pre.collection = "arg"
+
+        self.assertEqual(xml_with_pre.collection, "arg")
+        self.assertEqual(len(self._collection_custom_metas(xml_with_pre)), 1)
+
+    def test_setter_normalizes_value(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.collection = "  SCL "
+        self.assertEqual(xml_with_pre.collection, "scl")
+
+    def test_setter_value_is_serialized(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.collection = "scl"
+        self.assertIn("<meta-value>scl</meta-value>", xml_with_pre.tostring())
+
+    def test_setter_invalid_value_raises_value_error(self):
+        for value in (None, "", "   "):
+            with self.subTest(value=value):
+                xml_with_pre = self._make_base_xml()
+                with self.assertRaises(ValueError):
+                    xml_with_pre.collection = value
+                self.assertIsNone(xml_with_pre.collection)
+                self.assertEqual(len(self._collection_custom_metas(xml_with_pre)), 0)
+
+
 if __name__ == "__main__":
     import unittest
     unittest.main()
