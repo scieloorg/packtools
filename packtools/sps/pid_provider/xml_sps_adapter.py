@@ -108,6 +108,15 @@ class PidProviderXMLAdapter:
         self.xml_with_pre.v2 = value
 
     @property
+    def collection_acron(self):
+        # NÃO pode ter cache pois tem setter
+        return self.xml_with_pre.collection
+
+    @collection_acron.setter
+    def collection_acron(self, value):
+        self.xml_with_pre.collection = value
+
+    @property
     def v3(self):
         # NÃO pode ter cache pois tem setter
         return self.xml_with_pre.v3
