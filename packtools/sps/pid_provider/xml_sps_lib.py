@@ -1841,6 +1841,7 @@ class XMLWithPre(
             sps_pkg_name=self.sps_pkg_name,
             pid_v3=self.v3,
             pid_v2=self.v2,
+            collection_acron=self.collection,
             aop_pid=self.aop_pid,
             filename=self.filename,
             files=self.files,
