@@ -3,7 +3,6 @@ import logging
 import os
 import re
 import traceback
-from functools import lru_cache
 from datetime import date
 from functools import cached_property
 from gettext import gettext as _
@@ -38,13 +37,16 @@ LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 
 # Coleção de origem do XML, informada em article-meta (JATS custom-meta):
 # <custom-meta-group>
-#   <custom-meta specific-use="collection" assigning-authority="scielo">
+#   <custom-meta specific-use="platform-migration" assigning-authority="scielo">
 #     <meta-name>collection</meta-name>
 #     <meta-value>scl</meta-value>
 #   </custom-meta>
 # </custom-meta-group>
 COLLECTION_META_NAME = "collection"
 COLLECTION_META_ASSIGNING_AUTHORITY = "scielo"
+COLLECTION_CUSTOM_META_XPATH = (
+    f".//front/article-meta/custom-meta-group[@specific-use='platform-migration']/custom-meta[meta-name='{COLLECTION_META_NAME}']"
+)
 
 
 class XMLWithPreMissingISSNError(Exception): ...
@@ -1295,34 +1297,25 @@ class ArticleMetadataMixin:
         self._max_body_fragment_length = value
 
     @property
-    def _collection_custom_meta(self):
-        """
-        Retorna o custom-meta da coleção de origem, identificado por
-        meta-name="collection" ou @specific-use="collection"
-        """
-        for node in self.xmltree.xpath(
-            ".//front/article-meta/custom-meta-group/custom-meta"
-            f"[meta-name='{COLLECTION_META_NAME}' or @specific-use='{COLLECTION_META_NAME}']"
-        ):
-            return node
-
-    @property
     def collection(self):
         """
         Retorna o acrônimo da coleção de origem do XML, contido em
-        article-meta/custom-meta-group/custom-meta/meta-value, identificado por
-        meta-name="collection" ou @specific-use="collection"
+        article-meta/custom-meta-group[@specific-use="platform-migration"]/custom-meta/meta-value,
+        identificado por meta-name="collection"
         """
-        custom_meta = self._collection_custom_meta
-        if custom_meta is not None:
-            return custom_meta.findtext("meta-value")
+        try:
+            return self.xmltree.xpath(COLLECTION_CUSTOM_META_XPATH)[0].findtext("meta-value")
+        except Exception:
+            return None
 
     @collection.setter
     def collection(self, value):
         """
         Adiciona ou atualiza a coleção de origem em
-        article-meta/custom-meta-group/custom-meta, sem alterar os demais
-        custom-meta e sem duplicar o da coleção
+        article-meta/custom-meta-group/custom-meta, com
+        custom-meta-group specific-use="platform-migration" e
+        assigning-authority="scielo", sem alterar os demais custom-meta e sem
+        duplicar o da coleção
         """
         acron = _normalize_acron(value)
         if not acron:
@@ -1330,23 +1323,26 @@ class ArticleMetadataMixin:
                 f"can't set attribute XMLWithPre.collection. Expected a collection acronym. Got: {value}"
             )
 
-        custom_meta = self._collection_custom_meta
-        if custom_meta is None:
-            article_meta = self.xmltree.find(".//front/article-meta")
+        try:
+            custom_meta = self.xmltree.xpath(COLLECTION_CUSTOM_META_XPATH)[0]
+        except Exception:
+            custom_meta = None
+
+        if custom_meta is not None:
+            custom_meta.find("meta-value").text = acron
+        else:
+            article_meta = self.xmltree.find(".//article-meta")
             group = article_meta.find("custom-meta-group")
             if group is None:
                 group = etree.SubElement(article_meta, "custom-meta-group")
+            group.set("specific-use", "platform-migration")
+            group.set("assigning-authority", COLLECTION_META_ASSIGNING_AUTHORITY)
+
             custom_meta = etree.SubElement(group, "custom-meta")
-            etree.SubElement(custom_meta, "meta-name").text = COLLECTION_META_NAME
-            etree.SubElement(custom_meta, "meta-value")
-
-        custom_meta.set("specific-use", COLLECTION_META_NAME)
-        custom_meta.set("assigning-authority", COLLECTION_META_ASSIGNING_AUTHORITY)
-
-        meta_value = custom_meta.find("meta-value")
-        if meta_value is None:
-            meta_value = etree.SubElement(custom_meta, "meta-value")
-        meta_value.text = acron
+            custom_meta_name = etree.SubElement(custom_meta, "meta-name")
+            custom_meta_value = etree.SubElement(custom_meta, "meta-value")
+            custom_meta_name.text = "collection"
+            custom_meta_value.text = acron
 
     # --------------------------------------------------------------------------
     # Periódico & Seções
