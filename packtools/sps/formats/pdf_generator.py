@@ -37,6 +37,28 @@ def main():
         action="store",
         dest="libreoffice_binary",
     )
+    parser.add_argument(
+        "--logo",
+        action="store",
+        help="Path to the journal logo (PNG or SVG) for the first page header.",
+    )
+    parser.add_argument(
+        "--logo-fallback",
+        action="store",
+        help="PNG shown by readers without SVG support (only with an SVG --logo).",
+    )
+    parser.add_argument(
+        "--logo-position",
+        choices=("left", "right", "full_width"),
+        default="left",
+    )
+    parser.add_argument("--logo-max-width-mm", type=float)
+    parser.add_argument("--logo-max-height-mm", type=float)
+    parser.add_argument(
+        "--logo-no-title",
+        action="store_true",
+        help="Hide the journal title text next to the logo.",
+    )
     arguments = parser.parse_args()
 
     xml_dir = os.path.dirname(os.path.abspath(arguments.path_to_read))
@@ -44,6 +66,15 @@ def main():
         'base_layout': arguments.layout,
         'assets_dir': xml_dir,
     }
+    if arguments.logo:
+        data['journal_logo'] = {
+            'path': arguments.logo,
+            'position': arguments.logo_position,
+            'max_width_mm': arguments.logo_max_width_mm,
+            'max_height_mm': arguments.logo_max_height_mm,
+            'show_title': not arguments.logo_no_title,
+            'fallback_path': arguments.logo_fallback,
+        }
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
     document = docx.pipeline_docx(xml_tree, data)
