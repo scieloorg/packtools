@@ -37,6 +37,12 @@ def main():
         action="store",
         dest="libreoffice_binary",
     )
+    parser.add_argument(
+        "--libreoffice-timeout",
+        type=float,
+        default=file_utils.DEFAULT_CONVERSION_TIMEOUT,
+        help="Maximum seconds for the DOCX to PDF conversion (default: %(default)s).",
+    )
     arguments = parser.parse_args()
 
     xml_dir = os.path.dirname(os.path.abspath(arguments.path_to_read))
@@ -61,7 +67,7 @@ def main():
     document.save(docx_path)
     print(f'DOCX generated at {docx_path}')
     
-    file_utils.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary)
+    file_utils.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary, arguments.libreoffice_timeout)
     print(f'PDF generated at {pdf_path}')
 
 if __name__ == "__main__":
