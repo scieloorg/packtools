@@ -337,6 +337,31 @@ class TestGetTextFromMixedCitationNode(unittest.TestCase):
         result = xml_utils.get_text_from_mixed_citation_node(xml)
         self.assertEqual(expected, result)
 
+    def test_get_text_from_mixed_citation_node_keeps_link_nested_in_comment(self):
+        # ocr/v74s1/2675-2824-ocr-74-s1-e26016 (#1376): a URL dentro de <comment> sumia
+        xml = etree.fromstring(
+            '<mixed-citation xmlns:xlink="http://www.w3.org/1999/xlink">'
+            'METOCEAN. 2017. iSPHERE. Nova Scotia, Dartmouth. Available from:\n'
+            '  <comment>Available from:\n'
+            '    <ext-link ext-link-type="uri" xlink:href="https://metocean.com/wp-content/uploads/2017/09/iSPHERE-3.pdf">'
+            'https://metocean.com/wp-content/uploads/2017/09/iSPHERE-3.pdf</ext-link>\n'
+            '  </comment>. Access date: 2025 Mar. 27.</mixed-citation>'
+        )
+        expected = (
+            'METOCEAN. 2017. iSPHERE. Nova Scotia, Dartmouth. Available from: Available from: '
+            'https://metocean.com/wp-content/uploads/2017/09/iSPHERE-3.pdf . Access date: 2025 Mar. 27.'
+        )
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_keeps_nested_text_and_tail(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Author. <italic>Title <sup>2</sup> part</italic>. City</mixed-citation>'
+        )
+        expected = 'Author. Title 2 part. City.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
 
 class TestGetNodeLevel(unittest.TestCase):
 

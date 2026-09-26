@@ -206,11 +206,13 @@ def get_text_from_mixed_citation_node(node):
         ref_text += node.text
     
     for elem in node:
+        # Texto do filho inteiro: um <ext-link> dentro de <comment> se perdia com elem.text.
+        elem_text = ''.join(elem.itertext())
         if elem.tag in set(['italic', 'bold',]):
-            ref_text += f"{elem.text if elem.text else ''}"
+            ref_text += elem_text
         else:
-            if elem.text:
-                ref_text += f" {elem.text}"
+            if elem_text:
+                ref_text += f" {elem_text}"
         
         if elem.tail:
             ref_text += f"{elem.tail}"
