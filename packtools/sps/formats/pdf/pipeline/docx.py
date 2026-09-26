@@ -1,3 +1,6 @@
+import logging
+
+from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
@@ -5,6 +8,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.layout import logo as logo_layout
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
@@ -18,6 +22,11 @@ from packtools.sps.formats.pdf.utils import xml_utils
 # no benefit to the DOI, which fits comfortably either way.
 _JOURNAL_TITLE_DOI_SPLIT = 0.65
 
+# Espaço entre o logo e o título na mesma linha do cabeçalho.
+_LOGO_GAP = Cm(0.4)
+
+logger = logging.getLogger(__name__)
+
 
 def pipeline_docx(xml_tree, data):
     """
@@ -28,7 +37,10 @@ def pipeline_docx(xml_tree, data):
         data: Additional data for the DOCX generation. Recognizes an optional
             'table_layout_overrides' key: a dict mapping a table-wrap @id to a
             forced 'single-column-layout'/'double-column-layout', bypassing the
-            automatic layout heuristic for that specific table.
+            automatic layout heuristic for that specific table. Also recognizes
+            an optional 'journal_logo' key (a PNG path, or a dict with 'path',
+            'position', 'max_width_mm', 'max_height_mm' and 'show_title'); see
+            docx_journal_logo_pipe.
 
     Returns:
         A DOCX Document object.
@@ -37,10 +49,11 @@ def pipeline_docx(xml_tree, data):
 
     # First page header
     journal_title = xml_pipe.extract_journal_title(xml_tree)
-    docx_journal_title_pipe(docx, journal_title)
-
     doi = xml_pipe.extract_doi(xml_tree)
-    docx_doi_pipe(docx, doi)
+    logo_spec = logo_layout.normalize_logo_spec(data.get('journal_logo'))
+    if not (logo_spec and docx_journal_logo_pipe(docx, logo_spec, journal_title, doi)):
+        docx_journal_title_pipe(docx, journal_title)
+        docx_doi_pipe(docx, doi)
 
     # First page content
     article_type = xml_pipe.extract_article_type(xml_tree)
@@ -198,6 +211,112 @@ def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragra
     para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     r = para.add_run(doi_url)
     r.style = docx.styles[style_name]
+
+def docx_journal_logo_pipe(
+        docx,
+        logo_spec,
+        journal_title_text,
+        doi_code,
+        title_style_name='SCL Journal Title Char',
+        doi_style_name='SCL Header Paragraph Char',
+):
+    """
+    Builds the first page header with the journal logo (PNG or SVG), replacing
+    docx_journal_title_pipe + docx_doi_pipe.
+
+    Layouts by logo_spec.position:
+        left:       [logo | title | DOI]   ([logo | DOI] without title)
+        right:      [title / DOI | logo]   ([DOI | logo] without title)
+        full_width: banner across the content width, then [title | DOI]
+                    (or only the DOI, right-aligned, without title)
+
+    The logo is sized from logo_spec's box, keeping its aspect ratio; the
+    file's own DPI metadata is ignored. An SVG logo is embedded as vector
+    (svgBlip) over a PNG fallback: logo_spec.fallback_path if it is a valid
+    PNG, otherwise a transparent PNG with the same aspect ratio. Converting
+    the svgBlip to vector requires LibreOffice 24.2 or later. A PNG logo below
+    MIN_PNG_DPI at its printed size only logs a warning.
+
+    Returns:
+        bool: True if the header was built; False, leaving the document
+        untouched, if the logo file is missing or not a PNG/SVG, so the caller
+        falls back to the text-only header.
+    """
+    try:
+        kind, px_w, px_h = docx_renderer.logo.read_logo_size(logo_spec.path)
+    except ValueError as exc:
+        logger.warning('%s; usando o título em texto', exc)
+        return False
+    fallback_path = None
+    if kind == 'svg' and logo_spec.fallback_path:
+        try:
+            docx_renderer.logo.read_png_size(logo_spec.fallback_path)
+            fallback_path = logo_spec.fallback_path
+        except ValueError as exc:
+            logger.warning('%s; usando PNG de reserva transparente', exc)
+
+    content_width = int(_content_width())
+    max_w, max_h = logo_layout.box_emu(logo_spec, content_width)
+    logo_w, logo_h = logo_layout.fit_logo_emu(px_w, px_h, max_w, max_h)
+    if kind == 'png':
+        dpi = logo_layout.effective_dpi(px_w, logo_w)
+        if dpi < logo_layout.MIN_PNG_DPI:
+            logger.warning(
+                'logo PNG com %.0f dpi no tamanho impresso (mínimo recomendado %d): %s',
+                dpi, logo_layout.MIN_PNG_DPI, logo_spec.path,
+            )
+    doi_width = content_width - int(content_width * _JOURNAL_TITLE_DOI_SPLIT)
+    logo_col = logo_w + int(_LOGO_GAP)
+
+    header = docx_renderer.section.get_first_page_header(docx)
+    title_style = docx.styles[title_style_name]
+    doi_style = docx.styles[doi_style_name]
+    show_title = logo_spec.show_title
+
+    def add_title(para):
+        para.add_run(_format_journal_title_two_lines(journal_title_text)).style = title_style
+
+    def add_doi(para, alignment):
+        para.alignment = alignment
+        para.add_run(f"http://dx.doi.org/{doi_code}").style = doi_style
+
+    def add_logo(para, alignment):
+        para.alignment = alignment
+        docx_renderer.logo.add_logo_run(
+            para, logo_spec.path, logo_w, logo_h, kind=kind, fallback_path=fallback_path
+        )
+
+    if logo_spec.position == 'full_width':
+        banner = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
+        add_logo(banner, WD_ALIGN_PARAGRAPH.CENTER)
+        if show_title:
+            title_cell, doi_cell = _add_header_table(header, [content_width - doi_width, doi_width])
+            add_title(title_cell.paragraphs[0])
+            add_doi(doi_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.RIGHT)
+        else:
+            add_doi(header.add_paragraph(), WD_ALIGN_PARAGRAPH.RIGHT)
+        return True
+
+    if logo_spec.position == 'left':
+        if show_title:
+            logo_cell, title_cell, doi_cell = _add_header_table(
+                header, [logo_col, content_width - logo_col - doi_width, doi_width]
+            )
+            add_title(title_cell.paragraphs[0])
+        else:
+            logo_cell, doi_cell = _add_header_table(header, [content_width - doi_width, doi_width])
+        add_logo(logo_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.LEFT)
+        add_doi(doi_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.RIGHT)
+        return True
+
+    text_cell, logo_cell = _add_header_table(header, [content_width - logo_col, logo_col])
+    if show_title:
+        add_title(text_cell.paragraphs[0])
+        add_doi(text_cell.add_paragraph(), WD_ALIGN_PARAGRAPH.LEFT)
+    else:
+        add_doi(text_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.LEFT)
+    add_logo(logo_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.RIGHT)
+    return True
 
 def docx_article_type_and_category_pipe(docx, category, article_type='Original Article', style_name='SCL Article Category'):
     """
@@ -669,20 +788,30 @@ def _add_two_column_header_table(container, left_ratio=0.5):
     content_width = int(_content_width())
     left_width = int(content_width * left_ratio)
     right_width = content_width - left_width
+    return _add_header_table(container, [left_width, right_width], v_center=False)
 
-    table = container.add_table(rows=1, cols=2, width=content_width)
+
+def _add_header_table(container, widths, v_center=True):
+    """
+    Add a borderless 1xN table with the given column widths (EMU) to a
+    header/footer container. Returns the row's cells.
+    """
+    widths = [int(w) for w in widths]
+    table = container.add_table(rows=1, cols=len(widths), width=sum(widths))
     table.autofit = False
     table.allow_autofit = False
     _remove_leading_empty_placeholder_paragraph(table)
     _zero_table_cell_margins(table)
 
-    left_cell, right_cell = table.rows[0].cells
-    for column, width in zip(table.columns, (left_width, right_width)):
+    cells = table.rows[0].cells
+    for column, width in zip(table.columns, widths):
         column.width = width
-    for cell, width in ((left_cell, left_width), (right_cell, right_width)):
+    for cell, width in zip(cells, widths):
         cell.width = width
+        if v_center:
+            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
-    return left_cell, right_cell
+    return tuple(cells)
 
 
 def _remove_leading_empty_placeholder_paragraph(table):
