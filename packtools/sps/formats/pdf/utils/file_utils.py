@@ -1,6 +1,7 @@
 import os
 import pathlib
 import shutil
+import signal
 import subprocess
 import tempfile
 import zipfile
@@ -11,6 +12,15 @@ from lxml import etree
 
 class DirectoryRemovalError(Exception):
     ...
+
+
+class ConversionTimeoutError(RuntimeError):
+    ...
+
+
+# Uma conversão normal leva poucos segundos; o limite evita travar para
+# sempre quando o LibreOffice entra em laço. Ver issue #1377.
+DEFAULT_CONVERSION_TIMEOUT = 120
 
 
 # LibreOffice ignora w:sz/w:rFonts de zonas de matemática OOXML e usa seu
@@ -68,27 +78,65 @@ def _create_math_profile(size_pt):
     return profile_dir
 
 
-def _run_conversion(binary, docx_path, output_dir, profile_dir=None):
+def _run_command(command, timeout=None):
+    """
+    Runs command like subprocess.run(check=True), but on timeout (or any
+    interruption, such as Ctrl+C) kills its whole process group before
+    re-raising.
+    """
+    # Grupo próprio: o oosplash lança o soffice.bin, e matar só o primeiro deixa o segundo órfão.
+    process = subprocess.Popen(command, start_new_session=True)
+    try:
+        returncode = process.wait(timeout=timeout)
+    except BaseException:
+        # Fora do grupo do terminal, o Ctrl+C não chega mais ao LibreOffice.
+        _kill_process_group(process)
+        raise
+    if returncode:
+        raise subprocess.CalledProcessError(returncode, command)
+
+
+def _kill_process_group(process):
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except (AttributeError, ProcessLookupError):
+        # AttributeError: sem os.killpg (Windows)
+        process.kill()
+    process.wait()
+
+
+def _remove_lock_file(output_dir, f_name):
+    # A trava deixada pelo LibreOffice morto faz a próxima conversão sair sem gerar PDF.
+    lock_path = os.path.join(output_dir, f".~lock.{f_name}.pdf#")
+    if os.path.exists(lock_path):
+        os.remove(lock_path)
+
+
+def _run_conversion(binary, docx_path, output_dir, profile_dir=None, timeout=None):
     command = [binary]
     if profile_dir:
         command.append(f"-env:UserInstallation={pathlib.Path(profile_dir).as_uri()}")
     command += ["--headless", "--convert-to", "pdf", docx_path, "--outdir", output_dir]
-    subprocess.run(command, check=True)
+    _run_command(command, timeout=timeout)
 
 
-def convert_docx_to_pdf(docx_path, libreoffice_binary=None):
+def convert_docx_to_pdf(docx_path, libreoffice_binary=None, timeout=DEFAULT_CONVERSION_TIMEOUT):
     """
     Converts a DOCX file to PDF format using LibreOffice in headless mode.
     The function runs a subprocess to call LibreOffice, specifying the input DOCX file
     and the output directory for the generated PDF file. Formulas are sized to the
     body text by running LibreOffice with a private profile; if that conversion
-    fails, it is retried with the default profile.
+    fails, it is retried with the default profile. A conversion that exceeds the
+    timeout is not retried. On timeout or interruption, LibreOffice is killed and
+    its lock file removed.
     Args:
         docx_path (str): The path to the DOCX file to be converted.
         libreoffice_binary (str): The path to the LibreOffice binary. If not provided,
             it is autodetected on PATH (tries "libreoffice", then "soffice").
+        timeout (float): Maximum seconds for each LibreOffice run; None waits forever.
     Raises:
         FileNotFoundError: If no LibreOffice binary is found.
+        ConversionTimeoutError: If LibreOffice does not finish within timeout.
         RuntimeError: If the PDF file was not created successfully.
     Returns:
         str: The path to the generated PDF file.
@@ -113,20 +161,28 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None):
         except OSError:
             profile_dir = None
 
-    try:
-        try:
-            _run_conversion(binary, docx_path, output_dir, profile_dir)
-        except subprocess.CalledProcessError:
-            if not profile_dir:
-                raise
-            _run_conversion(binary, docx_path, output_dir)
-    finally:
-        if profile_dir:
-            shutil.rmtree(profile_dir, ignore_errors=True)
-
     base_name = os.path.basename(docx_path)
     f_name, f_ext = os.path.splitext(base_name)
     pdf_path = os.path.join(output_dir, f"{f_name}.pdf")
+
+    try:
+        try:
+            _run_conversion(binary, docx_path, output_dir, profile_dir, timeout)
+        except subprocess.CalledProcessError:
+            if not profile_dir:
+                raise
+            _run_conversion(binary, docx_path, output_dir, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        _remove_lock_file(output_dir, f_name)
+        raise ConversionTimeoutError(
+            f"LibreOffice did not finish converting {docx_path} within {timeout} seconds"
+        ) from None
+    except BaseException:
+        _remove_lock_file(output_dir, f_name)
+        raise
+    finally:
+        if profile_dir:
+            shutil.rmtree(profile_dir, ignore_errors=True)
 
     if not os.path.exists(pdf_path):
         raise RuntimeError(f"PDF file was not created: {pdf_path}")
