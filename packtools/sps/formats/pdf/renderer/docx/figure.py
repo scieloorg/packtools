@@ -242,6 +242,9 @@ def _try_insert_picture(docx, img_path, content_width, page_attributes):
 
         _scale_picture_to_fit(picture, content_width, page_attributes)
         pic_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        # Sem dist*, o LibreOffice aplica 0,32 cm à esquerda e descentraliza a figura.
+        for side in ('distT', 'distB', 'distL', 'distR'):
+            picture._inline.set(side, '0')
         
         return True
     except Exception:
