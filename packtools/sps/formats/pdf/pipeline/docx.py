@@ -559,7 +559,7 @@ def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragr
     Args:
         docx (python-docx.Document): The DOCX document object.
         acknowledgment_title (str): The title of the acknowledgments section.
-        acknowledgement_paragraphs (list): The list of paragraphs to be added to the acknowledgments section.
+        acknowledgement_paragraphs (list): The paragraphs of the acknowledgments section, each a list of style-tagged segments.
         paragraph_section_style_name (str, optional): The name of the style to apply to the acknowledgments section title. Defaults to 'SCL Section Title'.
 
     Returns:
@@ -567,8 +567,8 @@ def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragr
     """
     docx_renderer.text.add_heading_with_formatting(docx, acknowledgment_title, paragraph_section_style_name, 2)
 
-    for text in acknowledgement_paragraphs:
-        docx_renderer.text.add_paragraph_with_formatting(docx, text)
+    for segments in acknowledgement_paragraphs:
+        docx_renderer.text.add_paragraph_with_segments(docx, segments)
 
 def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, section_style_name='SCL Section Title'):
     """
