@@ -1070,7 +1070,9 @@ def extract_acknowledgment_data(xml_tree):
     Returns:
         dict: A dictionary containing the acknowledgment data, with the following keys:
             - 'title': The title of the acknowledgment section, if present.
-            - 'paragraphs': A list of the text content of each paragraph in the acknowledgment section.
+            - 'paragraphs': One list of style-tagged segments (see
+              xml_utils.get_segments_from_node) per paragraph, so text after
+              inline markup is kept and the markup itself is preserved.
     """
     data = {'paragraphs': [], 'title': ''}
 
@@ -1078,10 +1080,10 @@ def extract_acknowledgment_data(xml_tree):
     if ack is not None:
         title = ack.find('title')
         if title is not None:
-            data['title'] = title.text
+            data['title'] = xml_utils.get_text_from_node(title)
     
         for paragraph in ack.findall('.//p'):
-            data['paragraphs'].append(paragraph.text)
+            data['paragraphs'].append(xml_utils.get_segments_from_node(paragraph))
 
     return data
 
