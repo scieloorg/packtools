@@ -2563,6 +2563,36 @@ class TestReadableData(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_base_xml()
         self.assertEqual(xml_with_pre.readable_data["body_fragment"], xml_with_pre.body_fragment)
 
+class TestJournalAcronSetter(XMLWithPreTestMixin, TestCase):
+    def test_leitura_apos_atribuicao_com_acronimo_existente(self):
+        xml_with_pre = self._make_xml(acron="abc")
+        self.assertEqual(xml_with_pre.journal_acron, "abc")
+
+        xml_with_pre.journal_acron = "xyz"
+
+        self.assertEqual(xml_with_pre.journal_acron, "xyz")
+        self.assertEqual(
+            len(xml_with_pre.xmltree.findall(
+                './/journal-id[@journal-id-type="publisher-id"]'
+            )),
+            1,
+        )
+
+    def test_leitura_apos_atribuicao_sem_publisher_id(self):
+        from lxml import etree
+
+        xmltree = etree.fromstring(
+            "<article><front><journal-meta>"
+            '<journal-id journal-id-type="nlm-ta">Rev</journal-id>'
+            "</journal-meta></front></article>"
+        )
+        xml_with_pre = XMLWithPre("", xmltree)
+        self.assertIsNone(xml_with_pre.journal_acron)
+
+        xml_with_pre.journal_acron = "xyz"
+
+        self.assertEqual(xml_with_pre.journal_acron, "xyz")
+
 
 
 class TestCollection(XMLWithPreTestMixin, TestCase):
