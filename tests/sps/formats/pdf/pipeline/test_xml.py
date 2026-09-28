@@ -1101,8 +1101,54 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(result[0]['paragraphs'], [_plain_para('Body paragraph.')])
         self.assertEqual(result[1]['paragraphs'], [_plain_para('Data statement.')])
 
+    def test_extract_body_data_excludes_sub_article_sections(self):
+        # Regression for issue #1372, reproduced against the real corpus
+        # sample regepe/2965-1506-regepe-15-e2659.xml: a <sub-article> (a
+        # full translation of the article) has its own <sec> tree, which an
+        # unscoped './/sec' search picked up and duplicated the entire
+        # article's body in a second language.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introdução</title><p>Texto em português.</p></sec>'
+            '</body>'
+            '<sub-article article-type="translation" xml:lang="en">'
+            '<body>'
+            '<sec><title>Introduction</title><p>English text.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Introdução')
 
-class TestExtractCategory(unittest.TestCase):
+    def test_extract_body_data_includes_reviewer_report_and_reply_sections(self):
+        # Regression for issue #1372's review: not(ancestor::sub-article)
+        # was too broad and also dropped <sub-article article-type=
+        # "reviewer-report"/"reply">, which are real, published body
+        # content, not a duplicate like a translation. Reproduced against
+        # the real corpus sample mioc/v121/1678-8060-mioc-121-e250154.xml.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<sub-article article-type="reviewer-report" xml:lang="en">'
+            '<body>'
+            '<sec><title>Reviewer #1</title><p>Comments.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '<sub-article article-type="reply" xml:lang="en">'
+            '<body>'
+            '<sec><title>Authors\' response</title><p>Reply text.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 3)
+        self.assertEqual([s['title'] for s in result], ['Results', 'Reviewer #1', "Authors' response"])
 
     def setUp(self):
         self.xml_with_category = etree.fromstring("""

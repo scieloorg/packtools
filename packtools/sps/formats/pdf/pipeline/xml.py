@@ -793,6 +793,20 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
     <sec> as subsections, so keeping them here too would render the same
     title, paragraphs and tables twice (issue #1372).
 
+    Also excludes <sec> nested inside a translation <sub-article>
+    (article-type="translation" - its own <sec> tree would otherwise
+    duplicate the whole body in another language) (issue #1372). A
+    non-translation <sub-article> (e.g. article-type
+    "reviewer-report" or "reply") is left untouched - its <sec> is real,
+    published body content, not a duplicate. Deliberately narrow: a
+    <back><sec> that's neither of those (e.g. a bare
+    sec-type="data-availability" statement, ~68% of a real 593-article
+    corpus) is left as-is, matching the pre-existing, already-documented
+    behavior from issue #1351 rather than the issue's own literal
+    body-only wording - a full <body>-only scope would silently drop that
+    content instead, since nothing else in the pipeline extracts a bare
+    <back><sec>.
+
     Falls back to treating <body> itself as an extra, untitled section when
     <body> has no <sec> of its own (valid JATS pattern for unsectioned
     short communications/brief reports) - otherwise its content would be
@@ -838,7 +852,8 @@ def extract_body_data(xml_tree, table_layout_overrides=None):
 
     body_sections = xml_tree.xpath(
         './/sec[not(ancestor::abstract) and not(ancestor::trans-abstract)'
-        ' and not(.//supplementary-material and not(sec)) and not(ancestor::app-group)]'
+        ' and not(.//supplementary-material and not(sec)) and not(ancestor::app-group)'
+        ' and not(ancestor::sub-article[@article-type="translation"])]'
     )
     body = xml_tree.find('.//body')
     if body is not None and body.find('.//sec') is None:
