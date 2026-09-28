@@ -234,6 +234,18 @@ class TestAddFigureInsertedWidth(unittest.TestCase):
         python_docx_default_width = int(Cm((200 / 72) * 2.54))
         self.assertNotEqual(inserted_width, python_docx_default_width)
 
+    def test_inserted_picture_has_zero_wrap_distance(self):
+        # sem dist*, o LibreOffice desloca a figura 0,32 cm para a direita (#1395)
+        img_path = os.path.join(self.tmpdir.name, "fig.png")
+        Image.new("RGB", (200, 100), color="white").save(img_path, format="PNG")
+
+        docx = Document()
+        add_figure(docx, {"href": img_path, "label": "Figure 1", "caption": "test"})
+
+        inline = docx.inline_shapes[0]._inline
+        for side in ("distT", "distB", "distL", "distR"):
+            self.assertEqual(inline.get(side), "0")
+
 
 if __name__ == "__main__":
     unittest.main()

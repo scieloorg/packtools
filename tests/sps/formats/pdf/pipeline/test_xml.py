@@ -172,11 +172,12 @@ class TestExtractAcknowledgmentData(unittest.TestCase):
             </article>
             """
         )
-        expected = {
-            "paragraphs": ["First acknowledgment paragraph", "Second acknowledgment paragraph"], "title": '',
-        }
         result = xml_pipe.extract_acknowledgment_data(xml_tree)
-        self.assertEqual(expected, result)
+        self.assertEqual(result["title"], '')
+        self.assertEqual(
+            _paragraph_texts(result),
+            ["First acknowledgment paragraph", "Second acknowledgment paragraph"],
+        )
 
     def test_extract_acknowledgment_data_complete(self):
         xml_tree = etree.fromstring(
@@ -191,16 +192,16 @@ class TestExtractAcknowledgmentData(unittest.TestCase):
             </article>
             """
         )
-        expected = {
-            "title": "Acknowledgements Section",
-            "paragraphs": [
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(result["title"], "Acknowledgements Section")
+        self.assertEqual(
+            _paragraph_texts(result),
+            [
                 "Thank you to all contributors",
                 "Special thanks to funding agencies",
-                "Additional acknowledgments"
-            ]
-        }
-        result = xml_pipe.extract_acknowledgment_data(xml_tree)
-        self.assertEqual(expected, result)
+                "Additional acknowledgments",
+            ],
+        )
 
     def test_extract_acknowledgment_data_nested_paragraphs(self):
         xml_tree = etree.fromstring(
@@ -216,12 +217,50 @@ class TestExtractAcknowledgmentData(unittest.TestCase):
             </article>
             """
         )
-        expected = {
-            "title": "Acknowledgments",
-            "paragraphs": ["Nested paragraph 1", "Nested paragraph 2"]
-        }
         result = xml_pipe.extract_acknowledgment_data(xml_tree)
-        self.assertEqual(expected, result)
+        self.assertEqual(result["title"], "Acknowledgments")
+        self.assertEqual(_paragraph_texts(result), ["Nested paragraph 1", "Nested paragraph 2"])
+
+    def test_extract_acknowledgment_data_keeps_text_after_inline_markup(self):
+        # sant/v16n2/2238-3875-sant-16-02-e250090 (#1374): o texto era cortado no 1o <italic>
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <ack>
+                    <p>aos pareceristas ad hoc da <italic>Sociologia &amp; Antropologia</italic>, pela avaliação cuidadosa; ao comitê editorial da <italic>Sociologia &amp; Antropologia</italic>, pela acolhida do manuscrito.</p>
+                </ack>
+            </article>
+            """
+        )
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(
+            _paragraph_texts(result),
+            [
+                "aos pareceristas ad hoc da Sociologia & Antropologia, pela avaliação cuidadosa; "
+                "ao comitê editorial da Sociologia & Antropologia, pela acolhida do manuscrito."
+            ],
+        )
+        italic = [seg["text"] for seg in result["paragraphs"][0] if seg["italic"]]
+        self.assertEqual(italic, ["Sociologia & Antropologia", "Sociologia & Antropologia"])
+
+    def test_extract_acknowledgment_data_paragraph_starting_with_markup(self):
+        # antes, paragraph.text era None quando o <p> começava por um elemento
+        xml_tree = etree.fromstring(
+            "<article><ack><p><bold>CNPq</bold> e CAPES.</p></ack></article>"
+        )
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(_paragraph_texts(result), ["CNPq e CAPES."])
+
+    def test_extract_acknowledgment_data_title_with_markup(self):
+        xml_tree = etree.fromstring(
+            "<article><ack><title>Agradecimentos à <italic>FAPESP</italic> e ao CNPq</title></ack></article>"
+        )
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(result["title"], "Agradecimentos à FAPESP e ao CNPq")
+
+
+def _paragraph_texts(ack_data):
+    return ["".join(seg["text"] for seg in segments) for segments in ack_data["paragraphs"]]
 
 
 class TestExtractArticleMainLanguage(unittest.TestCase):
@@ -389,6 +428,107 @@ class TestExtractBodyData(unittest.TestCase):
         ]
         result = xml_pipe.extract_body_data(xml)
         self.assertEqual(result, expected)
+
+    def test_extract_body_data_excludes_supplementary_material_section(self):
+        # Regression: <sec sec-type="supplementary-material"> (SPS 1.10) e
+        # tratada por supplementary_material.extract_data/docx_supplementary_material_pipe -
+        # sem essa exclusao, o titulo aparecia duplicado (uma vez aqui, vazio,
+        # e outra na secao dedicada com o conteudo real).
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<sec sec-type="supplementary-material"><title>Supplementary Material</title>'
+            '<supplementary-material id="suppl1"><label>Suppl. 1</label></supplementary-material>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(1, len(result))
+        self.assertEqual('Introduction', result[0]['title'])
+
+    def test_extract_body_data_excludes_supplementary_material_section_without_sec_type(self):
+        # Regression, PR #1384 review: matching by @sec-type="supplementary-
+        # material" missed real corpus articles whose <sec> has no @sec-type
+        # at all (e.g. jped/v102n1), or a different value (e.g. "supplementary",
+        # jbchs/v37nspe1). The exclusion is now structural: a <sec> with a
+        # <supplementary-material> descendant and no <sec> of its own, not by
+        # its @sec-type string.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introduction</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<sec><title>Supplementary materials</title>'
+            '<supplementary-material id="suppl1"><label>Suppl. 1</label></supplementary-material>'
+            '</sec>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(1, len(result))
+        self.assertEqual('Introduction', result[0]['title'])
+
+    def test_extract_body_data_keeps_real_section_that_merely_references_supplementary_material(self):
+        # Regression, PR #1384 review: the structural exclusion above must
+        # not swallow a real body section (e.g. "Discussion") that has its
+        # own subsections, one of them a dedicated leaf "Supplementary
+        # Data" sub-section - reproduced against the real corpus sample
+        # abb/v40/1677-941X-abb-40-e20250182.xml, where <supplementary-
+        # material> sits inside its own <sec>, a sibling of "Floristic
+        # composition" and the other real subsections, all nested inside
+        # <sec sec-type="discussion">. The "no <sec> of its own" guard
+        # excludes only the dedicated leaf subsection, not its ancestor
+        # or its siblings.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec sec-type="discussion"><title>Discussion</title>'
+            '<sec><title>Floristic composition</title><p>Real content.</p></sec>'
+            '<sec><title>Supplementary Data</title>'
+            '<supplementary-material id="suppl1"><label>Table S1</label></supplementary-material>'
+            '</sec>'
+            '</sec>'
+            '</body>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        titles = [s['title'] for s in result]
+        self.assertIn('Discussion', titles)
+        self.assertIn('Floristic composition', titles)
+        self.assertNotIn('Supplementary Data', titles)
+
+    def test_extract_body_data_excludes_app_group_sections(self):
+        # Regression for issue #1372, real corpus sample
+        # bjrs/v14n1/2319-0612-bjrs-v14n1-09-e3014.xml (a37.xml): the
+        # appendix subsections "Zone 1/2/3" leaked into the body, and are
+        # now rendered by supplementary_material.extract_data instead.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<back>'
+            '<app-group>'
+            '<app>'
+            '<sec><title>Zone 1</title>'
+            '<table-wrap id="t1"><label>Table A1</label>'
+            '<table><tbody><tr><td>Data</td></tr></tbody></table>'
+            '</table-wrap>'
+            '</sec>'
+            '</app>'
+            '</app-group>'
+            '</back>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Results')
+        self.assertEqual(sum(len(s['tables']) for s in result), 0)
 
     def test_extract_body_data_includes_disp_formula_as_sibling_of_p(self):
         # Regression for issue #1347/#1352: <disp-formula> is often a direct
@@ -961,8 +1101,54 @@ class TestExtractBodyData(unittest.TestCase):
         self.assertEqual(result[0]['paragraphs'], [_plain_para('Body paragraph.')])
         self.assertEqual(result[1]['paragraphs'], [_plain_para('Data statement.')])
 
+    def test_extract_body_data_excludes_sub_article_sections(self):
+        # Regression for issue #1372, reproduced against the real corpus
+        # sample regepe/2965-1506-regepe-15-e2659.xml: a <sub-article> (a
+        # full translation of the article) has its own <sec> tree, which an
+        # unscoped './/sec' search picked up and duplicated the entire
+        # article's body in a second language.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Introdução</title><p>Texto em português.</p></sec>'
+            '</body>'
+            '<sub-article article-type="translation" xml:lang="en">'
+            '<body>'
+            '<sec><title>Introduction</title><p>English text.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['title'], 'Introdução')
 
-class TestExtractCategory(unittest.TestCase):
+    def test_extract_body_data_includes_reviewer_report_and_reply_sections(self):
+        # Regression for issue #1372's review: not(ancestor::sub-article)
+        # was too broad and also dropped <sub-article article-type=
+        # "reviewer-report"/"reply">, which are real, published body
+        # content, not a duplicate like a translation. Reproduced against
+        # the real corpus sample mioc/v121/1678-8060-mioc-121-e250154.xml.
+        xml = etree.fromstring(
+            '<article>'
+            '<body>'
+            '<sec><title>Results</title><p>Body text.</p></sec>'
+            '</body>'
+            '<sub-article article-type="reviewer-report" xml:lang="en">'
+            '<body>'
+            '<sec><title>Reviewer #1</title><p>Comments.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '<sub-article article-type="reply" xml:lang="en">'
+            '<body>'
+            '<sec><title>Authors\' response</title><p>Reply text.</p></sec>'
+            '</body>'
+            '</sub-article>'
+            '</article>'
+        )
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(len(result), 3)
+        self.assertEqual([s['title'] for s in result], ['Results', 'Reviewer #1', "Authors' response"])
 
     def setUp(self):
         self.xml_with_category = etree.fromstring("""
@@ -1909,77 +2095,6 @@ class TestExtractReferencesData(unittest.TestCase):
         xmltree = etree.fromstring(xml_content)
         result = xml_pipe.extract_references_data(xmltree)
         self.assertEqual(0, len(result['references']))
-
-
-class TestExtractSupplementaryData(unittest.TestCase):
-
-    def test_empty_xml_tree(self):
-        xml = etree.fromstring("<root></root>")
-        result = xml_pipe.extract_supplementary_data(xml)
-        expected = {'title': 'Supplementary Material', 'elements': []}
-        self.assertEqual(expected, result)
-
-    def test_single_app_group_with_text(self):
-        xml = etree.fromstring(
-            "<root><app-group><app>Sample text content</app></app-group></root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        expected = {
-            'title': 'Supplementary Material',
-            'elements': [{'content': 'Sample text content', 'type': 'text'}]
-        }
-        self.assertEqual(expected, result)
-
-    def test_multiple_app_groups(self):
-        xml = etree.fromstring(
-            "<root>"
-            "<app-group><app>Text 1</app></app-group>"
-            "<app-group><app>Text 2</app></app-group>"
-            "</root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        expected = {
-            'title': 'Supplementary Material',
-            'elements': [
-                {'content': 'Text 1', 'type': 'text'},
-                {'content': 'Text 2', 'type': 'text'}
-            ]
-        }
-        self.assertEqual(expected, result)
-
-    def test_app_group_with_table(self):
-        xml = etree.fromstring(
-            "<root>"
-            "<app-group>"
-            "<app>"
-            "<table-wrap>"
-            "<label>Table 1</label>"
-            "<caption><title>Sample Table</title></caption>"
-            "</table-wrap>"
-            "</app>"
-            "</app-group>"
-            "</root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        self.assertEqual('Supplementary Material', result['title'])
-        self.assertEqual(1, len(result['elements']))
-        self.assertEqual('table', result['elements'][0]['type'])
-
-    def test_mixed_content_app_group(self):
-        xml = etree.fromstring(
-            "<root>"
-            "<app-group>"
-            "<app>Text content</app>"
-            "<app><table-wrap><label>Table 1</label></table-wrap></app>"
-            "<app>More text</app>"
-            "</app-group>"
-            "</root>"
-        )
-        result = xml_pipe.extract_supplementary_data(xml)
-        self.assertEqual(3, len(result['elements']))
-        self.assertEqual('text', result['elements'][0]['type'])
-        self.assertEqual('table', result['elements'][1]['type'])
-        self.assertEqual('text', result['elements'][2]['type'])
 
 
 class TestExtractTableData(unittest.TestCase):
