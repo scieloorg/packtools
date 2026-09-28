@@ -779,5 +779,27 @@ class TestBodyColumnConfiguration(unittest.TestCase):
         self.assertEqual(len(docx.sections), sections_before + 2)
 
 
+class TestDocxAcknowledgmentsPipe(unittest.TestCase):
+
+    def test_renders_whole_paragraph_with_inline_italic(self):
+        # #1374: texto depois do <italic> era perdido
+        from lxml import etree
+        from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+
+        xml_tree = etree.fromstring(
+            "<article><ack><title>Agradecimentos</title>"
+            "<p>ao comitê editorial da <italic>Sociologia &amp; Antropologia</italic>, pela acolhida.</p>"
+            "</ack></article>"
+        )
+        ack = xml_pipe.extract_acknowledgment_data(xml_tree)
+        docx = _docx_with_layout_styles()
+
+        docx_pipe.docx_acknowledgments_pipe(docx, ack["title"], ack["paragraphs"])
+
+        para = docx.paragraphs[-1]
+        self.assertEqual(para.text, "ao comitê editorial da Sociologia & Antropologia, pela acolhida.")
+        self.assertEqual([r.text for r in para.runs if r.italic], ["Sociologia & Antropologia"])
+
+
 if __name__ == "__main__":
     unittest.main()
