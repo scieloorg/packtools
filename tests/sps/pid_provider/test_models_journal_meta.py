@@ -16,9 +16,9 @@ class TestAcronymJournalAcronSetter(unittest.TestCase):
         )
         acronym = Acronym(xmltree)
 
-        acronym.journal_acron = "newacron"
+        acronym.text = "newacron"
 
-        self.assertEqual(acronym.journal_acron, "newacron")
+        self.assertEqual(acronym.text, "newacron")
         self.assertEqual(acronym.text, "newacron")
         self.assertEqual(
             xmltree.findtext(
@@ -33,13 +33,13 @@ class TestAcronymJournalAcronSetter(unittest.TestCase):
         )
         acronym = Acronym(xmltree)
 
-        self.assertIsNone(acronym.journal_acron)
+        self.assertIsNone(acronym.text)
 
-        acronym.journal_acron = "brandnew"
+        acronym.text = "brandnew"
 
         node = xmltree.find(
             './/journal-meta/journal-id[@journal-id-type="publisher-id"]'
         )
         self.assertIsNotNone(node)
         self.assertEqual(node.text, "brandnew")
-        self.assertEqual(acronym.journal_acron, "brandnew")
+        self.assertEqual(acronym.text, "brandnew")
