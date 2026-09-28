@@ -233,11 +233,14 @@ def docx_journal_logo_pipe(
                     (or only the DOI, right-aligned, without title)
 
     The logo is sized from logo_spec's box, keeping its aspect ratio; the
-    file's own DPI metadata is ignored. An SVG logo is embedded as vector
-    (svgBlip) over a PNG fallback: logo_spec.fallback_path if it is a valid
-    PNG, otherwise a transparent PNG with the same aspect ratio. Converting
-    the svgBlip to vector requires LibreOffice 24.2 or later. A PNG logo below
-    MIN_PNG_DPI at its printed size only logs a warning.
+    file's own DPI metadata is ignored. With the title shown, a left or right
+    logo is narrowed so the title is never narrower than beside the default
+    40 mm left logo: a wide logo on the left keeps a larger box only without
+    the title (show_title=False) or as full_width. An SVG logo is embedded as
+    vector (svgBlip) over a PNG fallback: logo_spec.fallback_path if it is a
+    valid PNG, otherwise a transparent PNG with the same aspect ratio.
+    Converting the svgBlip to vector requires LibreOffice 24.2 or later. A PNG
+    logo below MIN_PNG_DPI at its printed size only logs a warning.
 
     Returns:
         bool: True if the header was built; False, leaving the document
@@ -258,8 +261,16 @@ def docx_journal_logo_pipe(
             logger.warning('%s; usando PNG de reserva transparente', exc)
 
     content_width = int(_content_width())
+    doi_width = content_width - int(content_width * _JOURNAL_TITLE_DOI_SPLIT)
     max_w, max_h = logo_layout.box_emu(logo_spec, content_width)
     logo_w, logo_h = logo_layout.fit_logo_emu(px_w, px_h, max_w, max_h)
+    width_limit = logo_layout.max_logo_width_emu(logo_spec, content_width, doi_width, int(_LOGO_GAP))
+    if logo_w > width_limit:
+        logo_w, logo_h = logo_layout.fit_logo_emu(px_w, px_h, width_limit, max_h)
+        logger.warning(
+            'logo reduzido para %.1f mm de largura para caber no cabeçalho: %s',
+            logo_w / logo_layout.EMU_PER_MM, logo_spec.path,
+        )
     if kind == 'png':
         dpi = logo_layout.effective_dpi(px_w, logo_w)
         if dpi < logo_layout.MIN_PNG_DPI:
@@ -267,7 +278,6 @@ def docx_journal_logo_pipe(
                 'logo PNG com %.0f dpi no tamanho impresso (mínimo recomendado %d): %s',
                 dpi, logo_layout.MIN_PNG_DPI, logo_spec.path,
             )
-    doi_width = content_width - int(content_width * _JOURNAL_TITLE_DOI_SPLIT)
     logo_col = logo_w + int(_LOGO_GAP)
 
     header = docx_renderer.section.get_first_page_header(docx)

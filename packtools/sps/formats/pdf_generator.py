@@ -1,6 +1,7 @@
 import argparse
 import os
 
+from packtools.sps.formats.pdf.layout import logo as logo_layout
 from packtools.sps.formats.pdf.pipeline import docx  
 from packtools.sps.formats.pdf.utils import file_utils
 from packtools.sps.utils import xml_utils
@@ -52,7 +53,14 @@ def main():
         choices=("left", "right", "full_width"),
         default="left",
     )
-    parser.add_argument("--logo-max-width-mm", type=float)
+    parser.add_argument(
+        "--logo-max-width-mm",
+        type=float,
+        help=(
+            "Maximum logo width. With the title shown, a left logo stays at most "
+            "40 mm wide; use --logo-no-title or full_width for a wider logo."
+        ),
+    )
     parser.add_argument("--logo-max-height-mm", type=float)
     parser.add_argument(
         "--logo-no-title",
@@ -75,6 +83,10 @@ def main():
             'show_title': not arguments.logo_no_title,
             'fallback_path': arguments.logo_fallback,
         }
+        try:
+            logo_layout.normalize_logo_spec(data['journal_logo'])
+        except ValueError as exc:
+            parser.error(str(exc))
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
     document = docx.pipeline_docx(xml_tree, data)

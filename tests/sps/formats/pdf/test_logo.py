@@ -13,6 +13,7 @@ from packtools.sps.utils import xml_utils
 
 FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "pdf"
 EMU_PER_MM = 36000
+EMU_PER_TWIP = 635
 
 
 def _docx_with_layout_styles():
@@ -36,6 +37,8 @@ class _WithImages(unittest.TestCase):
         Image.new("RGB", (300, 400), (14, 100, 112)).save(cls.png_tall)
         cls.png_banner = str(tmp / "banner.png")
         Image.new("RGB", (2100, 300), (14, 100, 112)).save(cls.png_banner)
+        cls.png_panoramic = str(tmp / "panoramic.png")
+        Image.new("RGB", (4000, 300), (14, 100, 112)).save(cls.png_panoramic)
         cls.png_low_res = str(tmp / "low.png")
         Image.new("RGB", (150, 60), (14, 100, 112)).save(cls.png_low_res)
         cls.jpg = str(tmp / "logo.jpg")
@@ -90,6 +93,44 @@ class TestNormalizeLogoSpec(unittest.TestCase):
     def test_invalid_position_raises(self):
         with self.assertRaises(ValueError):
             logo_layout.normalize_logo_spec({'path': 'a.png', 'position': 'top'})
+
+
+    def test_box_values_must_be_finite_and_positive(self):
+        for key in ('max_width_mm', 'max_height_mm'):
+            for value in (0, -5, float('nan'), float('inf'), 'abc'):
+                with self.subTest(key=key, value=value):
+                    with self.assertRaises(ValueError):
+                        logo_layout.normalize_logo_spec({'path': 'x.png', key: value})
+
+    def test_numeric_string_box_value_is_accepted(self):
+        spec = logo_layout.normalize_logo_spec({'path': 'x.png', 'max_width_mm': '25'})
+        self.assertEqual(spec.max_width_mm, 25.0)
+
+
+class TestMaxLogoWidth(unittest.TestCase):
+
+    content = 170 * EMU_PER_MM
+    doi = 59 * EMU_PER_MM
+    gap = 4 * EMU_PER_MM
+
+    def _limit(self, **spec):
+        spec = logo_layout.normalize_logo_spec({'path': 'x.png', **spec})
+        return logo_layout.max_logo_width_emu(spec, self.content, self.doi, self.gap)
+
+    def test_left_with_title_is_limited_to_default_logo_width(self):
+        self.assertEqual(self._limit(position='left'), 40 * EMU_PER_MM)
+
+    def test_left_without_title_keeps_doi_width(self):
+        self.assertEqual(self._limit(position='left', show_title=False), (170 - 59 - 4) * EMU_PER_MM)
+
+    def test_right_with_title_keeps_default_title_width(self):
+        self.assertEqual(self._limit(position='right'), (170 - 4 - (170 - 59 - 4 - 40)) * EMU_PER_MM)
+
+    def test_right_without_title_keeps_doi_width(self):
+        self.assertEqual(self._limit(position='right', show_title=False), (170 - 4 - 59) * EMU_PER_MM)
+
+    def test_full_width_uses_content_width(self):
+        self.assertEqual(self._limit(position='full_width'), self.content)
 
 
 class TestFitLogo(unittest.TestCase):
@@ -212,6 +253,49 @@ class TestDocxJournalLogoPipe(_WithImages):
 
     def test_enough_resolution_png_does_not_warn(self):
         # 500 px em 40 mm = 317 dpi
+        with self.assertNoLogs(docx_pipe.logger, level='WARNING'):
+            self._build(path=self.png_wide)
+
+    def _min_title_width(self):
+        content = _content_width()
+        doi = content - int(content * docx_pipe._JOURNAL_TITLE_DOI_SPLIT)
+        return logo_layout.min_title_width_emu(content, doi, int(docx_pipe._LOGO_GAP))
+
+    def _column_widths(self, header):
+        return [cell.width for cell in header.tables[0].rows[0].cells]
+
+    def assertFitsContentWidth(self, widths):
+        self.assertLessEqual(sum(widths), _content_width() + EMU_PER_TWIP * len(widths))
+
+    def test_wide_logo_on_the_left_keeps_title_column(self):
+        with self.assertLogs(docx_pipe.logger, level='WARNING') as logs:
+            _, ok, header = self._build(path=self.png_panoramic, max_width_mm=170)
+        self.assertTrue(ok)
+        logo_col, title_col, doi_col = self._column_widths(header)
+        self.assertGreaterEqual(title_col, self._min_title_width() - EMU_PER_TWIP)
+        self.assertGreater(doi_col, 0)
+        self.assertFitsContentWidth([logo_col, title_col, doi_col])
+        self.assertIn('logo reduzido', logs.output[0])
+
+    def test_wide_logo_on_the_right_keeps_title_column(self):
+        with self.assertLogs(docx_pipe.logger, level='WARNING'):
+            _, ok, header = self._build(path=self.png_panoramic, max_width_mm=170, position='right')
+        self.assertTrue(ok)
+        text_col, logo_col = self._column_widths(header)
+        self.assertGreaterEqual(text_col, self._min_title_width() - EMU_PER_TWIP)
+        self.assertFitsContentWidth([text_col, logo_col])
+
+    def test_wide_logo_on_the_right_without_title_keeps_doi_column(self):
+        with self.assertLogs(docx_pipe.logger, level='WARNING'):
+            _, ok, header = self._build(
+                path=self.png_panoramic, max_width_mm=170, position='right', show_title=False
+            )
+        self.assertTrue(ok)
+        text_col, logo_col = self._column_widths(header)
+        self.assertGreater(text_col, 0)
+        self.assertFitsContentWidth([text_col, logo_col])
+
+    def test_default_logo_is_not_reduced(self):
         with self.assertNoLogs(docx_pipe.logger, level='WARNING'):
             self._build(path=self.png_wide)
 

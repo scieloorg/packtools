@@ -1,11 +1,11 @@
 """Decisões de tamanho e posição do logo do periódico (sem python-docx)."""
 
+import math
 from dataclasses import dataclass
 
 POSITIONS = ('left', 'right', 'full_width')
 
-# Caixa padrão por posição, a partir da mediana dos logos em PDFs publicados.
-# None na largura da faixa = largura do texto.
+# (largura, altura) por posição; None na largura = largura do texto.
 DEFAULT_BOX_MM = {
     'left': (40.0, 20.0),
     'right': (40.0, 20.0),
@@ -45,16 +45,27 @@ def normalize_logo_spec(raw):
     if position not in POSITIONS:
         raise ValueError(f"posição de logo inválida: {position!r} (use {', '.join(POSITIONS)})")
     default_w, default_h = DEFAULT_BOX_MM[position]
-    max_w = raw.get('max_width_mm')
-    max_h = raw.get('max_height_mm')
     return LogoSpec(
         path=path,
         position=position,
-        max_width_mm=float(max_w) if max_w is not None else default_w,
-        max_height_mm=float(max_h) if max_h is not None else default_h,
+        max_width_mm=_positive_mm(raw, 'max_width_mm', default_w),
+        max_height_mm=_positive_mm(raw, 'max_height_mm', default_h),
         show_title=bool(raw.get('show_title', True)),
         fallback_path=raw.get('fallback_path') or None,
     )
+
+
+def _positive_mm(raw, key, default):
+    value = raw.get(key)
+    if value is None:
+        return default
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        number = math.nan
+    if not math.isfinite(number) or number <= 0:
+        raise ValueError(f"{key} inválido: {value!r} (use um número maior que zero)")
+    return number
 
 
 def box_emu(spec, content_width_emu):
@@ -63,6 +74,22 @@ def box_emu(spec, content_width_emu):
     max_w = min(max_w, int(content_width_emu))
     max_h = int(spec.max_height_mm * EMU_PER_MM)
     return max_w, max_h
+
+
+def min_title_width_emu(content_width_emu, doi_width_emu, gap_emu):
+    """Largura do título ao lado do logo à esquerda na caixa padrão."""
+    default_logo_width = int(DEFAULT_BOX_MM['left'][0] * EMU_PER_MM)
+    return int(content_width_emu - doi_width_emu - gap_emu - default_logo_width)
+
+
+def max_logo_width_emu(spec, content_width_emu, doi_width_emu, gap_emu):
+    """Maior largura de logo que deixa espaço para o DOI e, com título, para min_title_width_emu."""
+    if spec.position == 'full_width':
+        return int(content_width_emu)
+    title_width = min_title_width_emu(content_width_emu, doi_width_emu, gap_emu) if spec.show_title else 0
+    if spec.position == 'left':
+        return int(content_width_emu - doi_width_emu - gap_emu - title_width)
+    return int(content_width_emu - gap_emu - max(title_width, doi_width_emu))
 
 
 def fit_logo_emu(px_width, px_height, max_width_emu, max_height_emu):
