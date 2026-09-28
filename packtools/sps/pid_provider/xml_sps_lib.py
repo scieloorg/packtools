@@ -1289,11 +1289,11 @@ class ArticleMetadataMixin:
     # --------------------------------------------------------------------------
     @property
     def journal_acron(self):
-        return Acronym(self.xmltree).journal_acron
+        return Acronym(self.xmltree).text
 
     @journal_acron.setter
     def journal_acron(self, value):
-        Acronym(self.xmltree).journal_acron = value
+        Acronym(self.xmltree).text = value
 
     @cached_property
     def journal_title(self):
