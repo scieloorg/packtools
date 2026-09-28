@@ -338,7 +338,6 @@ class TestGetTextFromMixedCitationNode(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_get_text_from_mixed_citation_node_keeps_link_nested_in_comment(self):
-        # ocr/v74s1/2675-2824-ocr-74-s1-e26016 (#1376): a URL dentro de <comment> sumia
         xml = etree.fromstring(
             '<mixed-citation xmlns:xlink="http://www.w3.org/1999/xlink">'
             'METOCEAN. 2017. iSPHERE. Nova Scotia, Dartmouth. Available from:\n'
@@ -359,6 +358,38 @@ class TestGetTextFromMixedCitationNode(unittest.TestCase):
             '<mixed-citation>Author. <italic>Title <sup>2</sup> part</italic>. City</mixed-citation>'
         )
         expected = 'Author. Title 2 part. City.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_link_in_comment_between_parentheses(self):
+        xml = etree.fromstring(
+            '<mixed-citation xmlns:xlink="http://www.w3.org/1999/xlink">'
+            'Pavoine, S. 2018. adiv: Analysis of Diversity. R package version 1.2. (<comment> ('
+            '<ext-link ext-link-type="uri" xlink:href="https://CRAN.R-project.org/package=adiv">'
+            'https://CRAN.R-project.org/package=adiv</ext-link> </comment>). Accessed on July 2022.'
+            '</mixed-citation>'
+        )
+        expected = (
+            'Pavoine, S. 2018. adiv: Analysis of Diversity. R package version 1.2. '
+            '(https://CRAN.R-project.org/package=adiv). Accessed on July 2022.'
+        )
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_link_between_brackets(self):
+        xml = etree.fromstring(
+            '<mixed-citation xmlns:xlink="http://www.w3.org/1999/xlink">'
+            'Quim. Nova 2006, 29, 338. [<ext-link ext-link-type="uri" '
+            'xlink:href="https://doi.org/10.1590/S0100-40422006000200028">Link</ext-link>]'
+            '</mixed-citation>'
+        )
+        expected = 'Quim. Nova 2006, 29, 338. [Link].'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_keeps_balanced_nested_parentheses(self):
+        xml = etree.fromstring('<mixed-citation>Title ((A) and (B)). City</mixed-citation>')
+        expected = 'Title ((A) and (B)). City.'
         result = xml_utils.get_text_from_mixed_citation_node(xml)
         self.assertEqual(expected, result)
 

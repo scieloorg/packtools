@@ -206,7 +206,6 @@ def get_text_from_mixed_citation_node(node):
         ref_text += node.text
     
     for elem in node:
-        # Texto do filho inteiro: um <ext-link> dentro de <comment> se perdia com elem.text.
         elem_text = ''.join(elem.itertext())
         if elem.tag in set(['italic', 'bold',]):
             ref_text += elem_text
@@ -218,10 +217,19 @@ def get_text_from_mixed_citation_node(node):
             ref_text += f"{elem.tail}"
     
     ref_text = _remove_double_spaces(ref_text)
+    ref_text = _normalize_punctuation_spacing(ref_text)
+    ref_text = _remove_unmatched_open_parentheses(ref_text)
     ref_text = ref_text.strip()
     ref_text = _add_period(ref_text)
 
     return ref_text
+
+def _remove_unmatched_open_parentheses(text):
+    """Remove o "(" repetido em "((" quando sobra "(" sem ")" correspondente."""
+    extra = text.count('(') - text.count(')')
+    if extra <= 0:
+        return text
+    return re.sub(r'\((?=\()', '', text, count=extra)
 
 def _add_period(text):
     """
