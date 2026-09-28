@@ -37,19 +37,30 @@ class ISSN:
  
 
 class Acronym:
+    XPATH = './/journal-meta//journal-id[@journal-id-type="publisher-id"]'
+
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
     @property
     def text(self):
-        return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="publisher-id"]')
+        return self.xmltree.findtext(self.XPATH)
 
     @text.setter
     def text(self, value):
-        journal_meta = self.xmltree.find(".//journal-meta")
-        node = journal_meta.find('./journal-id[@journal-id-type="publisher-id"]')
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(
+                f"Acronym.text requires a non-empty string, got {value!r}"
+            )
+        value = value.strip()
+        node = self.xmltree.find(self.XPATH)
         if node is None:
-            node = etree.SubElement(journal_meta, "journal-id")
+            journal_meta = self.xmltree.find(".//journal-meta")
+            if journal_meta is None:
+                raise ValueError(
+                    "Unable to set journal acronym: XML has no journal-meta"
+                )
+            node = etree.Element("journal-id")
             node.set("journal-id-type", "publisher-id")
             journal_meta.insert(0, node)
         node.text = value
