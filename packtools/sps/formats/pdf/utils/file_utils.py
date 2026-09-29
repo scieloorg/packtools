@@ -105,13 +105,6 @@ def _kill_process_group(process):
     process.wait()
 
 
-def _remove_lock_file(output_dir, f_name):
-    # A trava deixada pelo LibreOffice morto faz a próxima conversão sair sem gerar PDF.
-    lock_path = os.path.join(output_dir, f".~lock.{f_name}.pdf#")
-    if os.path.exists(lock_path):
-        os.remove(lock_path)
-
-
 def _run_conversion(binary, docx_path, output_dir, profile_dir=None, timeout=None):
     command = [binary]
     if profile_dir:
@@ -127,8 +120,10 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None, timeout=DEFAULT_CONV
     and the output directory for the generated PDF file. Formulas are sized to the
     body text by running LibreOffice with a private profile; if that conversion
     fails, it is retried with the default profile. A conversion that exceeds the
-    timeout is not retried. On timeout or interruption, LibreOffice is killed and
-    its lock file removed.
+    timeout is not retried. Each conversion runs on a copy of the DOCX in its own
+    temporary directory, so lock files and partial output left by a killed
+    LibreOffice never touch the destination; the PDF is moved next to the DOCX
+    only after a successful conversion.
     Args:
         docx_path (str): The path to the DOCX file to be converted.
         libreoffice_binary (str): The path to the LibreOffice binary. If not provided,
@@ -153,39 +148,44 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None, timeout=DEFAULT_CONV
     if output_dir != ".":
         os.makedirs(output_dir, exist_ok=True)
 
-    profile_dir = None
-    base_size = _body_font_size_pt(docx_path)
-    if base_size:
-        try:
-            profile_dir = _create_math_profile(base_size)
-        except OSError:
-            profile_dir = None
-
     base_name = os.path.basename(docx_path)
     f_name, f_ext = os.path.splitext(base_name)
     pdf_path = os.path.join(output_dir, f"{f_name}.pdf")
 
+    # Diretório exclusivo por execução: travas e arquivos parciais deixados por
+    # um LibreOffice morto não alcançam outra conversão com o mesmo nome.
+    work_dir = tempfile.mkdtemp(prefix="packtools_lo_convert_")
+    profile_dir = None
     try:
+        base_size = _body_font_size_pt(docx_path)
+        if base_size:
+            try:
+                profile_dir = _create_math_profile(base_size)
+            except OSError:
+                profile_dir = None
+
+        work_docx_path = os.path.join(work_dir, base_name)
+        shutil.copyfile(docx_path, work_docx_path)
         try:
-            _run_conversion(binary, docx_path, output_dir, profile_dir, timeout)
-        except subprocess.CalledProcessError:
-            if not profile_dir:
-                raise
-            _run_conversion(binary, docx_path, output_dir, timeout=timeout)
-    except subprocess.TimeoutExpired:
-        _remove_lock_file(output_dir, f_name)
-        raise ConversionTimeoutError(
-            f"LibreOffice did not finish converting {docx_path} within {timeout} seconds"
-        ) from None
-    except BaseException:
-        _remove_lock_file(output_dir, f_name)
-        raise
+            try:
+                _run_conversion(binary, work_docx_path, work_dir, profile_dir, timeout)
+            except subprocess.CalledProcessError:
+                if not profile_dir:
+                    raise
+                _run_conversion(binary, work_docx_path, work_dir, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            raise ConversionTimeoutError(
+                f"LibreOffice did not finish converting {docx_path} within {timeout} seconds"
+            ) from None
+
+        work_pdf_path = os.path.join(work_dir, f"{f_name}.pdf")
+        if not os.path.exists(work_pdf_path):
+            raise RuntimeError(f"PDF file was not created: {pdf_path}")
+        shutil.move(work_pdf_path, pdf_path)
     finally:
+        shutil.rmtree(work_dir, ignore_errors=True)
         if profile_dir:
             shutil.rmtree(profile_dir, ignore_errors=True)
-
-    if not os.path.exists(pdf_path):
-        raise RuntimeError(f"PDF file was not created: {pdf_path}")
 
     return pdf_path
 
