@@ -7,6 +7,9 @@ _MOVED = {
     'normalize_empty_base_superscripts': 'packtools.sps.formats.pdf.ooxml.formula',
     'match_paragraph_font': 'packtools.sps.formats.pdf.ooxml.formula',
     'mathml_to_omml': 'packtools.sps.formats.pdf.ooxml.formula',
+    '_normalize_plain_style_runs': 'packtools.sps.formats.pdf.ooxml.formula',
+    '_OMML_NS': 'packtools.sps.formats.pdf.ooxml.formula',
+    '_W_NS': 'packtools.sps.formats.pdf.ooxml.formula',
 }
 
 

@@ -2,7 +2,7 @@ import unittest
 
 from lxml import etree
 
-from packtools.sps.formats.pdf.extract import supplementary_material
+from packtools.sps.formats.pdf.pipeline import supplementary_material
 
 
 def _texts(section):

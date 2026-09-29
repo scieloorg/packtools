@@ -37,6 +37,7 @@ _MOVED = {
     'extract_cite_as_part_one': _CITATION,
     'CITATION_STYLE_VANCOUVER': _CITATION,
     'build_full_citation': _CITATION,
+    '_build_csl_reference': _CITATION,
     'extract_table_data': _TABLES,
     'extract_body_data': _BODY,
     'extract_section_data': _BODY,
