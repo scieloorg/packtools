@@ -25,6 +25,8 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_citations,
     xml_pubmed_abstract,
     xml_pubmed_other_abstract,
+    pipeline_pubmed,
+    MissingRequiredElementError,
 )
 
 
@@ -506,11 +508,6 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_pub_date_pipe_without_date(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
         xml_pubmed = ET.fromstring(
             '<Article>'
             '<Journal/>'
@@ -527,11 +524,8 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        with self.assertRaises(MissingRequiredElementError):
+            xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
 
     def test_xml_pubmed_article_title_pipe(self):
         expected = (
@@ -1827,6 +1821,43 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+
+class PipelinePubmedRequiredPubDate(unittest.TestCase):
+    def test_pipeline_pubmed_raises_when_no_pub_date_is_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        with self.assertRaises(MissingRequiredElementError):
+            pipeline_pubmed(xml_tree)
+
+    def test_pipeline_pubmed_does_not_raise_when_pub_date_is_found(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date publication-format="electronic" date-type="pub">'
+            '<day>06</day>'
+            '<month>01</month>'
+            '<year>2023</year>'
+            '</pub-date>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed = pipeline_pubmed(xml_tree)
+
+        self.assertIn("<PubDate", xml_pubmed)
 
 
 if __name__ == '__main__':
