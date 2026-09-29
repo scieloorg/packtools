@@ -3,10 +3,7 @@ import copy
 from lxml import etree
 
 from packtools.sps.formats.pdf.extract.figures import extract_figure_data
-from packtools.sps.formats.pdf.pipeline.xml import (
-    _plain_text_segment,
-    extract_section_data,
-)
+from packtools.sps.formats.pdf.pipeline.xml import extract_section_data
 from packtools.sps.formats.pdf.utils import xml_utils
 
 _DEFAULT_APP_GROUP_TITLE = 'Appendix'
@@ -211,7 +208,7 @@ def _extract_supplementary_section(xml_tree):
     section = _section(title or _DEFAULT_SUPPLEMENTARY_MATERIAL_TITLE, 2)
     for node in nodes:
         if node.tag == 'supplementary-material':
-            section['paragraphs'].append([_plain_text_segment(format_item(_extract_item(node)))])
+            section['paragraphs'].append([xml_utils.plain_text_segment(format_item(_extract_item(node)))])
         else:
             segments = xml_utils.get_segments_from_node(node)
             if segments:

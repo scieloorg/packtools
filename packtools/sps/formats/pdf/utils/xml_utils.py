@@ -151,6 +151,11 @@ def _merge_adjacent_segments(raw_segments):
     return merged
 
 
+def plain_text_segment(text):
+    """An unstyled text segment, in the shape get_segments_from_node returns."""
+    return _build_text_segment(text, ())
+
+
 def _build_text_segment(text, styles):
     return {
         'type': 'text',
