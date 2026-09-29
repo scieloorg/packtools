@@ -7,8 +7,8 @@ from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from lxml import etree
 
+from packtools.sps.formats.pdf.extract import tables
 from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
-from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.utils import xml_utils
@@ -606,7 +606,7 @@ class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
         docx = _docx_with_layout_styles()
         footer_data = {'volume': '86', 'issue': '', 'year': '2026',
                        'fpage': '', 'lpage': '', 'location_label': 'e301043'}
-        table = xml_pipe.extract_table_data(etree.fromstring(
+        table = tables.extract_table_data(etree.fromstring(
             '<table-wrap><label>Table 1</label><table><thead><tr><th>a</th><th>b</th></tr></thead>'
             '<tbody><tr><td>1</td><td>2</td></tr></tbody></table></table-wrap>'
         ))[0]

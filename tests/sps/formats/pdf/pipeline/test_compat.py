@@ -2,6 +2,9 @@ import importlib
 import unittest
 import warnings
 
+from lxml import etree
+
+from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.pipeline import formula as formula_pipe
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 
@@ -33,6 +36,15 @@ class _CompatModuleTests:
 
 class TestPipelineXmlCompat(_CompatModuleTests, unittest.TestCase):
     module = xml_pipe
+
+    def test_determine_table_layout_still_takes_table_wrap(self):
+        cells = ''.join(f'<td>{i}</td>' for i in range(5))
+        table_wrap = etree.fromstring(f'<table-wrap><table><tbody><tr>{cells}</tr></tbody></table></table-wrap>')
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter('always')
+            layout = xml_pipe.determine_table_layout(table_wrap)
+        self.assertEqual(layout, pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
+        self.assertEqual([w.category for w in caught], [DeprecationWarning])
 
 
 class TestPipelineFormulaCompat(_CompatModuleTests, unittest.TestCase):

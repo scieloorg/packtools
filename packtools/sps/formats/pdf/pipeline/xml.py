@@ -1,8 +1,8 @@
 import string
 import warnings
 
-from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.extract import figures
+from packtools.sps.formats.pdf.extract import figures, tables
+from packtools.sps.formats.pdf.layout import table_layout
 from packtools.sps.formats.pdf.ooxml import formula
 from packtools.sps.formats.pdf.utils import xml_utils
 
@@ -13,6 +13,7 @@ _FIGURES = 'packtools.sps.formats.pdf.extract.figures'
 _REFERENCES = 'packtools.sps.formats.pdf.extract.references'
 _ACKNOWLEDGMENTS = 'packtools.sps.formats.pdf.extract.acknowledgments'
 _CITATION = 'packtools.sps.formats.pdf.extract.citation'
+_TABLES = 'packtools.sps.formats.pdf.extract.tables'
 _MOVED = {
     'extract_article_main_language': _METADATA,
     'extract_article_type': _METADATA,
@@ -31,6 +32,7 @@ _MOVED = {
     'extract_cite_as_part_one': _CITATION,
     'CITATION_STYLE_VANCOUVER': _CITATION,
     'build_full_citation': _CITATION,
+    'extract_table_data': _TABLES,
 }
 
 
@@ -45,6 +47,19 @@ def __getattr__(name):
         )
         return getattr(importlib.import_module(_MOVED[name]), name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def determine_table_layout(table_wrap, override=None):
+    """Depreciado: use layout.table_layout.determine_table_layout, que recebe
+    os dados de extract.tables.read_table_wrap em vez do <table-wrap>."""
+    warnings.warn(
+        "determine_table_layout has moved to packtools.sps.formats.pdf.layout.table_layout "
+        "and now takes extract.tables.read_table_wrap(table_wrap). "
+        "Importing from packtools.sps.formats.pdf.pipeline.xml is deprecated.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return table_layout.determine_table_layout(tables.read_table_wrap(table_wrap), override=override)
 
 
 def _int_to_roman(number):
@@ -424,7 +439,7 @@ def extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout
             continue
         table_id = table_wrap.get('id') or table_wrap.get('xml:id')
         override_layout = (table_layout_overrides or {}).get(table_id)
-        sec['tables'].extend(extract_table_data(table_wrap, override_layout=override_layout))
+        sec['tables'].extend(tables.extract_table_data(table_wrap, override_layout=override_layout))
 
     # Figures within the section (deduplicated across the body)
     for fig in document_section.findall('.//fig'):
@@ -449,431 +464,8 @@ def extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout
     return sec
 
 
-def extract_table_data(table_wrap, override_layout=None):
-    """
-    Extracts table data from an XML table-wrap element, handling merged cells.
-
-    A <table-wrap> can contain more than one <table> (e.g. side-by-side
-    "Program A"/"Program B"/"Program C" panels sharing one caption - real
-    corpus pattern, issue #1368). Only the first used to be read; now every
-    <table> is extracted as its own dict, so callers get one renderable
-    table per <table> element instead of silently losing every table past
-    the first. The shared <label>/<title> caption is attached only to the
-    first dict (repeating it before every panel would look wrong), and any
-    <table-wrap-foot> notes only to the last (read as applying to the whole
-    group, once, after the last panel) - the ones in between get empty
-    label/title/foot.
-
-    Args:
-        table_wrap (ElementTree): The XML table-wrap element to extract data from.
-        override_layout (str, optional): Forces 'layout' to this value instead of
-            running `determine_table_layout`'s heuristic. Must be one of
-            pdf_enum.SINGLE_COLUMN_PAGE_LABEL/DOUBLE_COLUMN_PAGE_LABEL, otherwise ignored.
-
-    Returns:
-        list[dict]: One dict per <table> in the table-wrap (or a single
-        empty-shell dict if the table-wrap has no <table> at all), each
-        with the following keys:
-            - 'label': The text content of the table label element, or an empty string if not found.
-            - 'title': The text content of the table title element, or an empty string if not found.
-            - 'headers': A list of lists, where each inner list represents the text content of the table header cells.
-            - 'rows': A list of lists, where each inner list represents the text content of the table data cells.
-            - 'layout': A string indicating the table layout ('single-column-layout' or 'double-column-layout').
-            - 'column_widths': A list of calculated column widths based on content.
-            - 'foot': A list of footnote/attribution strings from <table-wrap-foot>, if present.
-    """
-    table_label = table_wrap.find('.//label')
-    label_text = table_label.text if table_label is not None else ""
-
-    table_title = table_wrap.find('.//title')
-    title_text = table_title.text if table_title is not None else ""
-
-    foot_notes = _extract_table_foot(table_wrap)
-    layout = determine_table_layout(table_wrap, override=override_layout)
-
-    tables = table_wrap.findall('.//table')
-    if not tables:
-        return [{
-            'label': label_text,
-            'title': title_text,
-            'headers': [],
-            'rows': [],
-            'layout': layout,
-            'column_widths': [],
-            'header_spans': [],
-            'row_spans': [],
-            'foot': foot_notes,
-        }]
-
-    results = []
-    for i, table in enumerate(tables):
-        headers, header_spans, rows, row_spans = _extract_single_table_rows(table)
-        column_widths = _calculate_column_widths(headers, rows)
-        results.append({
-            'label': label_text if i == 0 else '',
-            'title': title_text if i == 0 else '',
-            'headers': headers,
-            'rows': rows,
-            'layout': layout,
-            'column_widths': column_widths,
-            'header_spans': header_spans,
-            'row_spans': row_spans,
-            'foot': foot_notes if i == len(tables) - 1 else [],
-        })
-    return results
-
-def _extract_single_table_rows(table):
-    """Extracts headers/rows/spans for a single <table> element."""
-    headers = []
-    rows = []
-    header_spans = []
-    row_spans = []
-
-    thead = table.find('.//thead')
-    if thead is not None:
-        header_rows = thead.findall('.//tr')
-        headers = _extract_table_rows_with_merged_cells(header_rows, 'th')
-        header_spans = _extract_table_spans(header_rows, 'th')
-
-    tbody = table.find('.//tbody')
-    if tbody is not None:
-        body_rows = tbody.findall('.//tr')
-        rows = _extract_table_rows_with_merged_cells(body_rows, 'td')
-        row_spans = _extract_table_spans(body_rows, 'td')
-    elif thead is None:
-        # <tr> as direct children of <table>, no <thead>/<tbody> wrapper at
-        # all - valid JATS/NLM table shape (issue #1368; real example: a
-        # structured radiology-report-style table). Without this fallback
-        # the whole table body was silently dropped. Accept both <td> and
-        # <th> cells since a bare table sometimes still marks a cell with
-        # <th> without a <thead> wrapper.
-        body_rows = table.findall('.//tr')
-        if body_rows:
-            rows = _extract_table_rows_with_merged_cells(body_rows, ('td', 'th'))
-            row_spans = _extract_table_spans(body_rows, ('td', 'th'))
-
-    return headers, header_spans, rows, row_spans
-
-_PATHOLOGICAL_CELL_LENGTH = 400
-
-def determine_table_layout(table_wrap, override=None):
-    """
-    Determines the layout of a table based on the number of columns it contains,
-    considering merged cells, with an escape hatch for an explicit override and a
-    guard against a single excessively long cell (which the column-count heuristic
-    alone can't catch: a table can have few columns and still need full width).
-
-    Args:
-        table_wrap (ElementTree): The XML table-wrap element to analyze.
-        override (str, optional): Forces this layout instead of running the heuristic.
-            Must be one of pdf_enum.SINGLE_COLUMN_PAGE_LABEL/DOUBLE_COLUMN_PAGE_LABEL,
-            otherwise ignored.
-
-    Returns:
-        str: A string indicating the table layout. Possible values are 'single-column-layout' and 'double-column-layout'.
-    """
-    if override in (pdf_enum.SINGLE_COLUMN_PAGE_LABEL, pdf_enum.DOUBLE_COLUMN_PAGE_LABEL):
-        return override
-
-    # A table-wrap can hold more than one <table> (issue #1368); the layout
-    # decision is for the wrap as a whole, so it has to look at every
-    # <table> in it, not just the first - otherwise a wrap whose first
-    # panel happens to be narrow could still get double-column-layout even
-    # though a later panel needs the full width.
-    max_columns = 0
-    max_cell_length = 0
-    for table in table_wrap.findall('.//table'):
-        thead = table.find('.//thead')
-        if thead is not None:
-            max_columns = max(max_columns, _calculate_max_columns(thead.findall('.//tr'), 'th'))
-
-        tbody = table.find('.//tbody')
-        if tbody is not None:
-            max_columns = max(max_columns, _calculate_max_columns(tbody.findall('.//tr'), 'td'))
-        elif thead is None:
-            max_columns = max(max_columns, _calculate_max_columns(table.findall('.//tr'), ('td', 'th')))
-
-        max_cell_length = max(max_cell_length, _max_cell_text_length(table))
-
-    if max_columns > 4:
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-
-    if max_cell_length > _PATHOLOGICAL_CELL_LENGTH:
-        return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
-
-    return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
-
-
 # -----------------
 # Private helpers
 # -----------------
 
 
-def _find_cells(el, cell_tag):
-    """Finds cell elements under el, in document order.
-
-    cell_tag is normally a single tag ('td' or 'th'), preserving the exact
-    prior behavior via findall(). It can also be a tuple of tags (used by
-    the bare-<tr>-no-thead/tbody fallback, issue #1368, where a row's own
-    cells might be marked <td> or <th> with no wrapper to tell them apart)
-    - lxml's xpath union operator returns matches in document order, same
-    guarantee findall gives for a single tag.
-    """
-    if isinstance(cell_tag, str):
-        return el.findall(f'.//{cell_tag}')
-    return el.xpath(' | '.join(f'.//{tag}' for tag in cell_tag))
-
-def _extract_table_rows_with_merged_cells(row_elements, cell_tag):
-    """
-    Extracts table rows handling merged cells (colspan/rowspan).
-
-    Args:
-        row_elements (list): The <tr> elements to extract, in document order.
-        cell_tag (str or tuple[str]): The cell tag(s) to look for ('td', 'th', or both).
-
-    Returns:
-        list: A list of lists representing the table rows with merged cells properly handled.
-    """
-    rows = []
-
-    if not row_elements:
-        return rows
-
-    # Create a matrix to track occupied positions
-    max_cols = _calculate_max_columns(row_elements, cell_tag)
-    occupied = [[False] * max_cols for _ in range(len(row_elements))]
-
-    for row_idx, tr in enumerate(row_elements):
-        row_data = [''] * max_cols
-        col_idx = 0
-
-        for cell in _find_cells(tr, cell_tag):
-            # Find next available column
-            while col_idx < max_cols and occupied[row_idx][col_idx]:
-                col_idx += 1
-            
-            if col_idx >= max_cols:
-                break
-                
-            # Get cell content
-            cell_text = ''.join(cell.itertext()).strip() if cell.text or len(list(cell)) > 0 else ''
-            
-            # Get colspan and rowspan
-            colspan = int(cell.get('colspan', 1))
-            rowspan = int(cell.get('rowspan', 1))
-            
-            # Fill the cell and mark occupied positions
-            row_data[col_idx] = cell_text
-            for r in range(row_idx, min(row_idx + rowspan, len(row_elements))):
-                for c in range(col_idx, min(col_idx + colspan, max_cols)):
-                    occupied[r][c] = True
-            
-            col_idx += colspan
-        
-        rows.append(row_data)
-    
-    return rows
-
-def _extract_table_spans(row_elements, cell_tag):
-    """
-    Builds a grid describing cell spans (colspan/rowspan) for a set of rows.
-
-    Each entry is either None (no cell starts here) or a dict with keys:
-      - 'colspan': int
-      - 'rowspan': int
-      - 'text': str (cell text)
-
-    The grid has dimensions [number_of_rows][max_columns] where max_columns
-    takes into account merged cells.
-
-    Args:
-        row_elements (list): The <tr> elements to extract, in document order.
-        cell_tag (str or tuple[str]): The cell tag(s) to look for ('td', 'th', or both).
-    """
-    spans = []
-    if not row_elements:
-        return spans
-
-    max_cols = _calculate_max_columns(row_elements, cell_tag)
-    # Track occupied positions due to spans
-    occupied = [[False] * max_cols for _ in range(len(row_elements))]
-
-    for row_idx, tr in enumerate(row_elements):
-        row_spans = [None] * max_cols
-        col_idx = 0
-
-        for cell in _find_cells(tr, cell_tag):
-            # Advance to next free column
-            while col_idx < max_cols and occupied[row_idx][col_idx]:
-                col_idx += 1
-            if col_idx >= max_cols:
-                break
-
-            cell_text = ''.join(cell.itertext()).strip() if cell.text or len(list(cell)) > 0 else ''
-            colspan = int(cell.get('colspan', 1))
-            rowspan = int(cell.get('rowspan', 1))
-
-            row_spans[col_idx] = {
-                'colspan': colspan,
-                'rowspan': rowspan,
-                'text': cell_text,
-            }
-
-            for r in range(row_idx, min(row_idx + rowspan, len(row_elements))):
-                for c in range(col_idx, min(col_idx + colspan, max_cols)):
-                    occupied[r][c] = True
-
-            col_idx += colspan
-
-        spans.append(row_spans)
-
-    return spans
-
-def _calculate_max_columns(row_elements, cell_tag):
-    """
-    Calculates the maximum number of columns across a set of rows, considering merged cells.
-
-    Args:
-        row_elements (list): The <tr> elements to consider.
-        cell_tag (str or tuple[str]): The cell tag(s) to look for ('td', 'th', or both).
-
-    Returns:
-        int: The maximum number of columns.
-    """
-    max_cols = 0
-
-    for tr in row_elements:
-        current_cols = 0
-        for cell in _find_cells(tr, cell_tag):
-            colspan = int(cell.get('colspan', 1))
-            current_cols += colspan
-        max_cols = max(max_cols, current_cols)
-
-    return max_cols
-
-def _max_cell_text_length(table):
-    """Returns the character length of the longest single cell's text in the table."""
-    max_len = 0
-    for cell in table.xpath('.//td | .//th'):
-        cell_len = len(''.join(cell.itertext()).strip())
-        max_len = max(max_len, cell_len)
-    return max_len
-
-def _extract_table_foot(table_wrap):
-    """
-    Extracts footnote/attribution text from a table's <table-wrap-foot>, if present.
-
-    Args:
-        table_wrap (ElementTree): The XML table-wrap element to extract from.
-
-    Returns:
-        list: One string per <p>, <fn> or <attrib> child found, in document order.
-    """
-    notes = []
-    foot = table_wrap.find('.//table-wrap-foot')
-    if foot is None:
-        return notes
-
-    for node in foot.xpath('./p | ./fn | ./attrib | ./fn-group/fn'):
-        text = ' '.join(' '.join(node.itertext()).split()).strip()
-        if text:
-            notes.append(text)
-
-    return notes
-
-def _calculate_column_widths(headers, rows, min_width=50, max_width=200):
-    """
-    Calculates optimal column widths based on content length.
-    
-    Args:
-        headers (list): List of header rows.
-        rows (list): List of data rows.
-        min_width (int): Minimum column width in points. Defaults to 50.
-        max_width (int): Maximum column width in points. Defaults to 200.
-    
-    Returns:
-        list: A list of calculated column widths.
-    """
-    if not headers and not rows:
-        return []
-    
-    # Determine number of columns
-    num_cols = 0
-    if headers:
-        num_cols = max(num_cols, max(len(row) for row in headers) if headers else 0)
-    if rows:
-        num_cols = max(num_cols, max(len(row) for row in rows) if rows else 0)
-    
-    if num_cols == 0:
-        return []
-    
-    # Calculate max content length for each column
-    column_max_lengths = [0] * num_cols
-    
-    # Check headers
-    for header_row in headers:
-        for col_idx, cell_content in enumerate(header_row):
-            if col_idx < num_cols and cell_content:
-                column_max_lengths[col_idx] = max(
-                    column_max_lengths[col_idx], 
-                    _estimate_text_width(cell_content)
-                )
-    
-    # Check data rows
-    for data_row in rows:
-        for col_idx, cell_content in enumerate(data_row):
-            if col_idx < num_cols and cell_content:
-                column_max_lengths[col_idx] = max(
-                    column_max_lengths[col_idx], 
-                    _estimate_text_width(cell_content)
-                )
-    
-    # Apply min/max constraints and convert to points
-    column_widths = []
-    for max_length in column_max_lengths:
-        # Base calculation: approximately 6 points per character
-        base_width = max_length * 6
-        
-        # Apply constraints
-        width = max(min_width, min(base_width, max_width))
-        column_widths.append(width)
-    
-    # Normalize to ensure reasonable distribution
-    total_width = sum(column_widths)
-    if total_width > 500:  # If total is too wide, proportionally reduce
-        scaling_factor = 500 / total_width
-        column_widths = [int(width * scaling_factor) for width in column_widths]
-    
-    return column_widths
-
-def _estimate_text_width(text):
-    """
-    Estimates the display width of text content.
-    
-    Args:
-        text (str): The text to measure.
-    
-    Returns:
-        int: Estimated width in characters.
-    """
-    if not text:
-        return 0
-    
-    # Remove extra whitespace and count actual display characters
-    clean_text = ' '.join(text.split())
-    
-    # Account for different character widths (rough approximation)
-    width = 0
-    for char in clean_text:
-        if char.isupper():
-            width += 1.2  # Uppercase letters are typically wider
-        elif char.isdigit():
-            width += 1.0  # Numbers are consistent width
-        elif char in 'ijl':
-            width += 0.5  # These letters are narrower
-        elif char in 'mwMW':
-            width += 1.5  # These letters are wider
-        else:
-            width += 1.0  # Standard character width
-    
-    return int(width)
