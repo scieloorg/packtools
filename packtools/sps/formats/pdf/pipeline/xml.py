@@ -15,6 +15,7 @@ from packtools.sps.formats.pdf.utils import xml_utils
 # as funções já movidas continuam acessíveis por aqui, com DeprecationWarning.
 _METADATA = 'packtools.sps.formats.pdf.extract.metadata'
 _FIGURES = 'packtools.sps.formats.pdf.extract.figures'
+_REFERENCES = 'packtools.sps.formats.pdf.extract.references'
 _MOVED = {
     'extract_article_main_language': _METADATA,
     'extract_article_type': _METADATA,
@@ -28,6 +29,7 @@ _MOVED = {
     'extract_keywords_data': _METADATA,
     'extract_footer_data': _METADATA,
     'extract_figure_data': _FIGURES,
+    'extract_references_data': _REFERENCES,
 }
 
 
@@ -739,26 +741,6 @@ def extract_acknowledgment_data(xml_tree):
 
     return data
 
-def extract_references_data(xml_tree):
-    """
-    Extracts reference data from an XML tree.
-    
-    Args:
-        xml_tree (ElementTree): The XML tree to extract the reference data from.
-    
-    Returns:
-        dict: A dictionary containing the reference data, with the following keys:
-            - 'title': The title of the references section, which is set to 'References'.
-            - 'references': A list of the mixed-citation elements from the ref-list in the XML tree.
-    """
-    data = {'title': 'References', 'references':[]}
-
-    ref_list = xml_tree.find('.//ref-list')
-    if ref_list is not None:
-        for ref in ref_list.findall('.//mixed-citation'):
-            data['references'].append(ref)
-
-    return data
 
 def extract_table_data(table_wrap, override_layout=None):
     """

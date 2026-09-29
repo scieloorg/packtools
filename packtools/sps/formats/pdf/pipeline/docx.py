@@ -5,7 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.extract import metadata
+from packtools.sps.formats.pdf.extract import metadata, references
 from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -97,9 +97,9 @@ def pipeline_docx(xml_tree, data):
     docx_acknowledgments_pipe(docx, acknow_data['title'], acknow_data['paragraphs'])
 
     # References
-    references_data = xml_pipe.extract_references_data(xml_tree)
-    references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
-    docx_references_pipe(docx, references_data['title'], references)
+    references_data = references.extract_references_data(xml_tree)
+    reference_texts = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
+    docx_references_pipe(docx, references_data['title'], reference_texts)
 
     # Appendix/Annex (<app-group>) and Supplementary material (<supplementary-material>)
     # are distinct SPS 1.10 concepts - each gets its own heading.
