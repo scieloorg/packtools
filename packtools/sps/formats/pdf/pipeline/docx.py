@@ -5,6 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.extract import metadata
 from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -37,43 +38,43 @@ def pipeline_docx(xml_tree, data):
     docx = docx_renderer.builder.init_docx(data)
 
     # First page header
-    journal_title = xml_pipe.extract_journal_title(xml_tree)
+    journal_title = metadata.extract_journal_title(xml_tree)
     docx_journal_title_pipe(docx, journal_title)
 
-    doi = xml_pipe.extract_doi(xml_tree)
+    doi = metadata.extract_doi(xml_tree)
     docx_doi_pipe(docx, doi)
 
     # First page content
-    article_type = xml_pipe.extract_article_type(xml_tree)
-    category = xml_pipe.extract_category(xml_tree)
+    article_type = metadata.extract_article_type(xml_tree)
+    category = metadata.extract_category(xml_tree)
     docx_article_type_and_category_pipe(docx, category, article_type)
 
-    article_title = xml_pipe.extract_article_title(xml_tree)
+    article_title = metadata.extract_article_title(xml_tree)
     docx_article_title_pipe(docx, article_title)
 
-    contrib_data = xml_pipe.extract_contrib_data(xml_tree)
+    contrib_data = metadata.extract_contrib_data(xml_tree)
     docx_authors_pipe(docx, contrib_data['authors_names'])
     docx_affiliation_pipe(docx, contrib_data['affiliations'])
     docx_corresponding_pipe(docx, contrib_data['corresponding_author'])
 
-    article_main_language = xml_pipe.extract_article_main_language(xml_tree)
-    abstract_data = xml_pipe.extract_abstract_data(xml_tree)
+    article_main_language = metadata.extract_article_main_language(xml_tree)
+    abstract_data = metadata.extract_abstract_data(xml_tree)
     docx_abstract_pipe(docx, abstract_data['title'], abstract_data['content'])
 
-    keywords_data = xml_pipe.extract_keywords_data(xml_tree, article_main_language)
+    keywords_data = metadata.extract_keywords_data(xml_tree, article_main_language)
     docx_keyworks_pipe(docx, keywords_data['title'], keywords_data['keywords'])
 
-    trans_abstract_data = xml_pipe.extract_trans_abstract_data(xml_tree)
+    trans_abstract_data = metadata.extract_trans_abstract_data(xml_tree)
     for ta in trans_abstract_data:
         docx_abstract_pipe(docx, ta['title'], ta['content'])
-        ta_keywords_data = xml_pipe.extract_keywords_data(xml_tree, ta['lang'])
+        ta_keywords_data = metadata.extract_keywords_data(xml_tree, ta['lang'])
         docx_keyworks_pipe(docx, ta_keywords_data['title'], ta_keywords_data['keywords'])
 
     # Next pages header
     docx_second_header_pipe(docx, journal_title, article_title)
 
     # First page footer
-    footer_data = xml_pipe.extract_footer_data(xml_tree)
+    footer_data = metadata.extract_footer_data(xml_tree)
     # Prefer the article's own editorial "how to cite" note; when it has
     # none, build a complete citation from metadata instead of leaving the
     # field partial (journal/volume/location only - see issue #1349).
