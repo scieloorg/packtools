@@ -5,7 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.extract import metadata, references
+from packtools.sps.formats.pdf.extract import acknowledgments, metadata, references
 from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -93,7 +93,7 @@ def pipeline_docx(xml_tree, data):
     docx_body_pipe(docx, body_data)
     
     # Acknowledgments
-    acknow_data = xml_pipe.extract_acknowledgment_data(xml_tree)
+    acknow_data = acknowledgments.extract_acknowledgment_data(xml_tree)
     docx_acknowledgments_pipe(docx, acknow_data['title'], acknow_data['paragraphs'])
 
     # References

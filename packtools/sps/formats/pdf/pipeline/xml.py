@@ -16,6 +16,7 @@ from packtools.sps.formats.pdf.utils import xml_utils
 _METADATA = 'packtools.sps.formats.pdf.extract.metadata'
 _FIGURES = 'packtools.sps.formats.pdf.extract.figures'
 _REFERENCES = 'packtools.sps.formats.pdf.extract.references'
+_ACKNOWLEDGMENTS = 'packtools.sps.formats.pdf.extract.acknowledgments'
 _MOVED = {
     'extract_article_main_language': _METADATA,
     'extract_article_type': _METADATA,
@@ -30,6 +31,7 @@ _MOVED = {
     'extract_footer_data': _METADATA,
     'extract_figure_data': _FIGURES,
     'extract_references_data': _REFERENCES,
+    'extract_acknowledgment_data': _ACKNOWLEDGMENTS,
 }
 
 
@@ -712,34 +714,6 @@ def extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout
             seen_fig_keys.add(key)
 
     return sec
-
-
-def extract_acknowledgment_data(xml_tree):
-    """
-    Extracts acknowledgment data from an XML tree.
-    
-    Args:
-        xml_tree (ElementTree): The XML tree to extract the acknowledgment data from.
-    
-    Returns:
-        dict: A dictionary containing the acknowledgment data, with the following keys:
-            - 'title': The title of the acknowledgment section, if present.
-            - 'paragraphs': One list of style-tagged segments (see
-              xml_utils.get_segments_from_node) per paragraph, so text after
-              inline markup is kept and the markup itself is preserved.
-    """
-    data = {'paragraphs': [], 'title': ''}
-
-    ack = xml_tree.find('.//ack')
-    if ack is not None:
-        title = ack.find('title')
-        if title is not None:
-            data['title'] = xml_utils.get_text_from_node(title)
-    
-        for paragraph in ack.findall('.//p'):
-            data['paragraphs'].append(xml_utils.get_segments_from_node(paragraph))
-
-    return data
 
 
 def extract_table_data(table_wrap, override_layout=None):

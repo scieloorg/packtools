@@ -816,15 +816,14 @@ class TestDocxAcknowledgmentsPipe(unittest.TestCase):
 
     def test_renders_whole_paragraph_with_inline_italic(self):
         # #1374: texto depois do <italic> era perdido
-        from lxml import etree
-        from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+        from packtools.sps.formats.pdf.extract import acknowledgments
 
         xml_tree = etree.fromstring(
             "<article><ack><title>Agradecimentos</title>"
             "<p>ao comitê editorial da <italic>Sociologia &amp; Antropologia</italic>, pela acolhida.</p>"
             "</ack></article>"
         )
-        ack = xml_pipe.extract_acknowledgment_data(xml_tree)
+        ack = acknowledgments.extract_acknowledgment_data(xml_tree)
         docx = _docx_with_layout_styles()
 
         docx_pipe.docx_acknowledgments_pipe(docx, ack["title"], ack["paragraphs"])
