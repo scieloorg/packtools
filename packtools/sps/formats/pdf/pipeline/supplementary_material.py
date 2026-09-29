@@ -2,9 +2,9 @@ import copy
 
 from lxml import etree
 
+from packtools.sps.formats.pdf.extract.figures import extract_figure_data
 from packtools.sps.formats.pdf.pipeline.xml import (
     _plain_text_segment,
-    extract_figure_data,
     extract_section_data,
 )
 from packtools.sps.formats.pdf.utils import xml_utils

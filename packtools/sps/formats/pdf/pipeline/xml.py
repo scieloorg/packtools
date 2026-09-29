@@ -7,13 +7,14 @@ from citeproc import Citation, CitationItem, CitationStylesBibliography, Citatio
 from citeproc.source.json import CiteProcJSON
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.extract import metadata
+from packtools.sps.formats.pdf.extract import figures, metadata
 from packtools.sps.formats.pdf.pipeline import formula
 from packtools.sps.formats.pdf.utils import xml_utils
 
 # Módulo de compatibilidade em transição (docs/pdf_generator_architecture.md):
 # as funções já movidas continuam acessíveis por aqui, com DeprecationWarning.
 _METADATA = 'packtools.sps.formats.pdf.extract.metadata'
+_FIGURES = 'packtools.sps.formats.pdf.extract.figures'
 _MOVED = {
     'extract_article_main_language': _METADATA,
     'extract_article_type': _METADATA,
@@ -26,6 +27,7 @@ _MOVED = {
     'extract_trans_abstract_data': _METADATA,
     'extract_keywords_data': _METADATA,
     'extract_footer_data': _METADATA,
+    'extract_figure_data': _FIGURES,
 }
 
 
@@ -650,7 +652,7 @@ def extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout
                 # shape <fig> has, so a <disp-formula> with a <graphic>
                 # can reuse it as-is and render like any other figure
                 # instead of vanishing.
-                formula_fig = extract_figure_data(child)
+                formula_fig = figures.extract_figure_data(child)
                 formula_key = child.get('id') or formula_fig.get('href') or ''
                 if not formula_key or formula_key not in seen_fig_keys:
                     sec['figures'].append(formula_fig)
@@ -702,121 +704,13 @@ def extract_section_data(document_section, xml_tree, seen_fig_keys, table_layout
         key = fig_id or (href or '')
         if key and key in seen_fig_keys:
             continue
-        fig_data = extract_figure_data(fig)
+        fig_data = figures.extract_figure_data(fig)
         sec['figures'].append(fig_data)
         if key:
             seen_fig_keys.add(key)
 
     return sec
 
-def extract_figure_data(fig_node):
-    """
-    Extracts figure metadata from a <fig> node.
-
-    Args:
-        fig_node (ElementTree): The XML <fig> element.
-
-    Returns:
-        dict: A dictionary with keys:
-            - 'label': Figure label (e.g., "Figure 1")
-            - 'caption': Caption text (title + paragraphs if present)
-            - 'href': Path/URL from graphic/@xlink:href (or alternatives)
-            - 'alt': Alternative text if present
-    """
-    def _get_href_from_node(node):
-        # Try common attribute forms
-        return (
-            node.get('{http://www.w3.org/1999/xlink}href')
-            or node.get('xlink:href')
-            or node.get('href')
-        )
-
-    label_el = fig_node.find('label')
-    label = (label_el.text or '').strip() if label_el is not None else ''
-
-    caption_texts = []
-    caption_el = fig_node.find('caption')
-    if caption_el is not None:
-        # Prefer title then paragraphs
-        title_el = caption_el.find('title')
-        if title_el is not None:
-            caption_texts.append(''.join(title_el.itertext()).strip())
-        for p in caption_el.findall('p'):
-            txt = ''.join(p.itertext()).strip()
-            if txt:
-                caption_texts.append(txt)
-    caption = ' '.join([c for c in caption_texts if c])
-
-    # graphic may be a direct child, or offered as several representations
-    # inside <alternatives> - only match the direct child here so the latter
-    # case falls through to the ranking logic below instead of grabbing the
-    # first <graphic> in document order.
-    href = None
-    alt_text = None
-
-    graphic = fig_node.find('graphic')
-    if graphic is not None:
-        href = _get_href_from_node(graphic)
-        alt_text = graphic.get('alt') or graphic.get('alt-text')
-
-    if href is None:
-        alt = fig_node.find('.//alternatives')
-        if alt is not None:
-            preferred_ext_order = ('.png', '.jpg', '.jpeg', '.gif', '.tif', '.tiff')
-            candidates = []
-            for g in alt.findall('graphic'):
-                _href = _get_href_from_node(g)
-                if not _href:
-                    continue
-                # Extract potential size from content-type like 'scielo-267x140'
-                ctype = (g.get('content-type') or '').lower()
-                dims_area = 0
-                import re
-                m = re.search(r'(\d+)x(\d+)', ctype)
-                if m:
-                    try:
-                        w = int(m.group(1))
-                        h = int(m.group(2))
-                        dims_area = w * h
-                    except Exception:
-                        dims_area = 0
-                # Penalize obvious thumbnails
-                is_thumbnail = '267x140' in ctype
-                is_scielo_web = (g.get('specific-use') or '').lower() == 'scielo-web'
-                ext_rank = len(preferred_ext_order)
-                lu = _href.lower()
-                for i, ext in enumerate(preferred_ext_order):
-                    if lu.endswith(ext):
-                        ext_rank = i
-                        break
-                candidates.append({
-                    'href': _href,
-                    'dims_area': dims_area,
-                    'ext_rank': ext_rank,
-                    'is_thumbnail': is_thumbnail,
-                    'is_scielo_web': is_scielo_web,
-                    'alt': g.get('alt') or g.get('alt-text')
-                })
-            if candidates:
-                # Choose best: avoid thumbnails, prefer the SciELO Web
-                # representation, larger area first, then better extension
-                candidates.sort(key=lambda c: (
-                    c['is_thumbnail'],           # False (0) before True (1)
-                    not c['is_scielo_web'],       # scielo-web first
-                    -c['dims_area'],              # larger first
-                    c['ext_rank']                 # better extension first
-                ))
-                best = candidates[0]
-                href = best['href']
-                if alt_text is None:
-                    alt_text = best.get('alt')
-
-    return {
-        'label': label,
-        'caption': caption,
-        'href': href,
-        'alt': alt_text or '',
-    }
 
 def extract_acknowledgment_data(xml_tree):
     """
