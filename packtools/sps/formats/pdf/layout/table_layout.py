@@ -5,8 +5,16 @@ Recebe a estrutura montada por extract/tables.py::read_table_wrap, nunca o XML.
 
 from packtools.sps.formats.pdf import enum as pdf_enum
 
-
+# Acima deste número de colunas, a tabela ocupa a largura da página inteira.
+_MAX_DOUBLE_COLUMN_TABLE_COLUMNS = 4
+# Uma única célula acima deste número de caracteres também força a largura inteira.
 _PATHOLOGICAL_CELL_LENGTH = 400
+
+# Estimativa de largura de coluna, em pontos (#1278: candidatos a configuração).
+_POINTS_PER_CHARACTER = 6
+_MIN_COLUMN_WIDTH = 50
+_MAX_COLUMN_WIDTH = 200
+_MAX_TABLE_WIDTH = 500
 
 
 def determine_table_layout(table_wrap_data, override=None):
@@ -37,7 +45,7 @@ def determine_table_layout(table_wrap_data, override=None):
     # though a later panel needs the full width.
     tables = table_wrap_data['tables']
 
-    if _calculate_max_columns(tables) > 4:
+    if _calculate_max_columns(tables) > _MAX_DOUBLE_COLUMN_TABLE_COLUMNS:
         return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
 
     if _max_cell_text_length(tables) > _PATHOLOGICAL_CELL_LENGTH:
@@ -68,7 +76,7 @@ def _max_cell_text_length(tables):
     )
 
 
-def calculate_column_widths(headers, rows, min_width=50, max_width=200):
+def calculate_column_widths(headers, rows, min_width=_MIN_COLUMN_WIDTH, max_width=_MAX_COLUMN_WIDTH):
     """
     Calculates optimal column widths based on content length.
     
@@ -119,7 +127,7 @@ def calculate_column_widths(headers, rows, min_width=50, max_width=200):
     column_widths = []
     for max_length in column_max_lengths:
         # Base calculation: approximately 6 points per character
-        base_width = max_length * 6
+        base_width = max_length * _POINTS_PER_CHARACTER
         
         # Apply constraints
         width = max(min_width, min(base_width, max_width))
@@ -127,8 +135,8 @@ def calculate_column_widths(headers, rows, min_width=50, max_width=200):
     
     # Normalize to ensure reasonable distribution
     total_width = sum(column_widths)
-    if total_width > 500:  # If total is too wide, proportionally reduce
-        scaling_factor = 500 / total_width
+    if total_width > _MAX_TABLE_WIDTH:  # If total is too wide, proportionally reduce
+        scaling_factor = _MAX_TABLE_WIDTH / total_width
         column_widths = [int(width * scaling_factor) for width in column_widths]
     
     return column_widths
