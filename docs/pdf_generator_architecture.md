@@ -161,6 +161,11 @@ variação entre XML e PDF passa pelo DOCX, o critério primário é o DOCX:
    `docProps/core.xml` (datas de criação/modificação). Limiar aceito:
    **nenhuma diferença**. DOCX idêntico implica PDF idêntico para a mesma
    versão do LibreOffice.
+
+   Parte do corpus referencia imagens remotas (`minio.scielo.br`): uma falha
+   de download muda o layout da figura e aparece como diferença. Antes de
+   tratar uma diferença como regressão, gerar de novo só aquele XML; se ele
+   voltar ao resultado de referência, a diferença veio da rede.
 3. **Quando o DOCX mudar de propósito** (fora desta épica): converter com o
    LibreOffice e comparar número de páginas, texto extraído (`pdftotext
    -layout`) e diff visual por página (`pdftoppm -r 100` + `compare -metric
