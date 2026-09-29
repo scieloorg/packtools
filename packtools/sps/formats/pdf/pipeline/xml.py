@@ -3,7 +3,7 @@ import warnings
 
 from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.extract import figures
-from packtools.sps.formats.pdf.pipeline import formula
+from packtools.sps.formats.pdf.ooxml import formula
 from packtools.sps.formats.pdf.utils import xml_utils
 
 # Módulo de compatibilidade em transição (docs/pdf_generator_architecture.md):

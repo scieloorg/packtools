@@ -2,7 +2,7 @@ import unittest
 
 from lxml import etree
 
-from packtools.sps.formats.pdf.pipeline import formula
+from packtools.sps.formats.pdf.ooxml import formula
 
 _MML_NS = 'http://www.w3.org/1998/Math/MathML'
 

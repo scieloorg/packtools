@@ -1,7 +1,7 @@
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
-from packtools.sps.formats.pdf.pipeline import formula
+from packtools.sps.formats.pdf.ooxml import formula
 
 FORMULA_PARAGRAPH_STYLE = 'SCL Formula'
 
