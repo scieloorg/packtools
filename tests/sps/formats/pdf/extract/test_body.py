@@ -2,8 +2,8 @@ import unittest
 
 from lxml import etree
 
-from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.extract import body
 
 
 def _plain_para(text):
@@ -32,7 +32,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_excludes_abstract_and_trans_abstract_sections(self):
@@ -62,7 +62,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_excludes_supplementary_material_section(self):
@@ -82,7 +82,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</back>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(1, len(result))
         self.assertEqual('Introduction', result[0]['title'])
 
@@ -105,7 +105,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</back>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(1, len(result))
         self.assertEqual('Introduction', result[0]['title'])
 
@@ -132,7 +132,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</body>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         titles = [s['title'] for s in result]
         self.assertIn('Discussion', titles)
         self.assertIn('Floristic composition', titles)
@@ -161,7 +161,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</back>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]['title'], 'Results')
         self.assertEqual(sum(len(s['tables']) for s in result), 0)
@@ -184,7 +184,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         paragraphs = result[0]['paragraphs']
         self.assertEqual(paragraphs[0], _plain_para('See the formula below.'))
         self.assertEqual(paragraphs[2], _plain_para('Where Y is the result.'))
@@ -213,7 +213,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</inline-formula> is the dispersion coefficient.</p>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         segments = result[0]['paragraphs'][0]
         self.assertEqual(len(segments), 3)
         self.assertEqual(segments[0], {
@@ -236,7 +236,7 @@ class TestExtractBodyData(unittest.TestCase):
             ' hold.</p>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         segments = result[0]['paragraphs'][0]
         formula_segments = [seg for seg in segments if seg['type'] == 'formula']
         self.assertEqual(len(formula_segments), 2)
@@ -251,7 +251,7 @@ class TestExtractBodyData(unittest.TestCase):
             '<p>where <inline-formula id="e1">x</inline-formula> is undefined.</p>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         segments = result[0]['paragraphs'][0]
         self.assertEqual(segments, _plain_para('where x is undefined.'))
 
@@ -265,7 +265,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</list>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         segments = result[0]['paragraphs'][0]
         self.assertEqual([seg['type'] for seg in segments], ['text', 'text', 'formula', 'text'])
 
@@ -302,7 +302,7 @@ class TestExtractBodyData(unittest.TestCase):
                 ],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_includes_labeled_graphic_disp_formula_as_figure(self):
@@ -339,7 +339,7 @@ class TestExtractBodyData(unittest.TestCase):
                 ],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_includes_bullet_list_items(self):
@@ -381,7 +381,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_includes_ordered_list_items_with_numbering(self):
@@ -397,7 +397,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         markers = [para[0]['text'] for para in result[0]['paragraphs']]
         self.assertEqual(markers, ['1. ', '2. ', '3. '])
 
@@ -423,7 +423,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         paragraphs = result[0]['paragraphs']
         self.assertEqual(len(paragraphs), 1)
         segments = paragraphs[0]
@@ -467,7 +467,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_with_tables(self):
@@ -508,7 +508,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_with_nested_sections(self):
@@ -540,7 +540,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_with_table_references(self):
@@ -581,7 +581,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_paragraph_citations_have_no_stray_space_around_parentheses(self):
@@ -597,7 +597,7 @@ class TestExtractBodyData(unittest.TestCase):
             'worldwide.</p>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(
             result[0]['paragraphs'],
             [_plain_para('Pressure is increasing (Lang and Barling, 2012; Ripple et al., 2019) worldwide.')],
@@ -614,7 +614,7 @@ class TestExtractBodyData(unittest.TestCase):
             'for details.</p>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(
             result[0]['paragraphs'],
             [_plain_para('See the figure below for details.')],
@@ -631,7 +631,7 @@ class TestExtractBodyData(unittest.TestCase):
             '<sup>1</sup> in <bold>high</bold> numbers.</p>'
             '</sec></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(
             result[0]['paragraphs'],
             [[
@@ -665,7 +665,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_falls_back_to_body_with_table_and_figure(self):
@@ -685,7 +685,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</p>'
             '</body></article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(len(result), 1)
         self.assertIsNone(result[0]['title'])
         self.assertEqual(len(result[0]['tables']), 1)
@@ -708,7 +708,7 @@ class TestExtractBodyData(unittest.TestCase):
                 'figures': [],
             }
         ]
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(result, expected)
 
     def test_extract_body_data_falls_back_even_when_an_unrelated_sec_exists_outside_body(self):
@@ -731,7 +731,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</back>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]['title'], None)
         self.assertEqual(result[0]['paragraphs'], [_plain_para('Body paragraph.')])
@@ -755,7 +755,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</sub-article>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]['title'], 'Introdução')
 
@@ -782,7 +782,7 @@ class TestExtractBodyData(unittest.TestCase):
             '</sub-article>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         self.assertEqual(len(result), 3)
         self.assertEqual([s['title'] for s in result], ['Results', 'Reviewer #1', "Authors' response"])
 
@@ -812,7 +812,7 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         all_tables = [t for sec in result for t in sec['tables']]
         self.assertEqual(len(all_tables), 1)
 
@@ -836,7 +836,7 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         parent_sec = next(s for s in result if s['title'] == 'Parent')
         child_sec = next(s for s in result if s['title'] == 'Child')
         self.assertEqual(len(parent_sec['tables']), 0)
@@ -860,7 +860,7 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         all_tables = [t for sec in result for t in sec['tables']]
         self.assertEqual(len(all_tables), 1)
         parent_sec = next(s for s in result if s['title'] == 'Parent')
@@ -884,7 +884,7 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(xml)
+        result = body.extract_body_data(xml)
         parent_sec = next(s for s in result if s['title'] == 'Parent')
         child_sec = next(s for s in result if s['title'] == 'Child')
         self.assertEqual([t['label'] for t in parent_sec['tables']], ['Table 1'])
@@ -902,9 +902,7 @@ class TestExtractBodyDataTableDedup(unittest.TestCase):
             '</sec>'
             '</article>'
         )
-        result = xml_pipe.extract_body_data(
+        result = body.extract_body_data(
             xml, table_layout_overrides={'t1': pdf_enum.SINGLE_COLUMN_PAGE_LABEL}
         )
         self.assertEqual(result[0]['tables'][0]['layout'], pdf_enum.SINGLE_COLUMN_PAGE_LABEL)
-
-

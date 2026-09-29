@@ -2,8 +2,8 @@ import copy
 
 from lxml import etree
 
+from packtools.sps.formats.pdf.extract.body import extract_section_data
 from packtools.sps.formats.pdf.extract.figures import extract_figure_data
-from packtools.sps.formats.pdf.pipeline.xml import extract_section_data
 from packtools.sps.formats.pdf.utils import xml_utils
 
 _DEFAULT_APP_GROUP_TITLE = 'Appendix'

@@ -5,9 +5,8 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.extract import acknowledgments, citation, metadata, references
+from packtools.sps.formats.pdf.extract import acknowledgments, body, citation, metadata, references
 from packtools.sps.formats.pdf.pipeline import supplementary_material
-from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
 from packtools.sps.formats.pdf.utils import xml_utils
 
@@ -83,7 +82,7 @@ def pipeline_docx(xml_tree, data):
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
-    body_data = xml_pipe.extract_body_data(xml_tree, table_layout_overrides=data.get('table_layout_overrides'))
+    body_data = body.extract_body_data(xml_tree, table_layout_overrides=data.get('table_layout_overrides'))
     docx_body_pipe(docx, body_data)
     
     # Acknowledgments
