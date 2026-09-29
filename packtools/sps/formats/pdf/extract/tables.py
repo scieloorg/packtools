@@ -1,7 +1,7 @@
 """Tabelas (<table-wrap>): leitura do XML e montagem da estrutura pronta para renderização.
 
 A decisão de layout e as larguras de coluna ficam em layout/table_layout.py,
-que recebe os dados já extraídos aqui (docs/pdf_generator_architecture.md).
+que recebe os dados já extraídos aqui (ARCHITECTURE.md).
 """
 
 from packtools.sps.formats.pdf.layout import table_layout

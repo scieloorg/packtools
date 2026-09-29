@@ -59,13 +59,13 @@ renderer é uma mudança maior, fora do escopo.
 
 - Cada constante fica no módulo dono do assunto; nomes de estilo `SCL *` só
   em `renderer/docx/style.py`.
-- Cada arquivo de teste espelha o módulo
-  (`extract/tables.py` → `tests/sps/formats/pdf/extract/test_tables.py`).
 - Nenhum módulo de produção importa os módulos de compatibilidade
-  (`pipeline/xml.py`, `pipeline/formula.py`).
-- As regras valem para imports diretos e são verificadas por
-  `tests/sps/formats/pdf/test_module_dependencies.py`. (`layout/` usa `enum`,
-  que por sua vez importa `python-docx`; isso é permitido.)
+  (`pipeline/xml.py`, `pipeline/formula.py`, `pipeline/supplementary_material.py`).
+- As regras valem para imports diretos. (`layout/` usa `enum`, que por sua vez
+  importa `python-docx`; isso é permitido.)
+- Nenhum módulo em `packtools/sps/formats/pdf/` importa outra parte do
+  `packtools`; as dependências externas são python-docx, lxml, Pillow,
+  citeproc-py e mathml2omml.
 
 ## Tabela e layout
 
@@ -108,14 +108,15 @@ list[dict] no contrato atual  →  body.py / supplementary_material.py / docx.py
 atualizado a cada fase. Nenhum módulo de produção importa `pipeline.xml`; o
 arquivo será removido quando a depreciação terminar (issue própria).
 
-`pipeline/formula.py` segue o mesmo padrão, apontando para `ooxml/formula.py`.
+`pipeline/formula.py` e `pipeline/supplementary_material.py` seguem o mesmo
+padrão, apontando para `ooxml/formula.py` e `extract/supplementary_material.py`.
 
-`pipeline/supplementary_material.py` (#1384) ainda não saiu em nenhuma versão
-publicada, então é movido para `extract/supplementary_material.py` **sem**
-módulo de compatibilidade.
-
-Funções privadas (`_nome`) não são reexportadas; testes e módulos internos
-importam do novo lugar.
+Esta reorganização só altera arquivos dentro de `packtools/sps/formats/pdf/`:
+os testes em `tests/sps/formats/pdf/` não mudam e continuam passando pelos
+módulos de compatibilidade. Por isso eles reexportam também os nomes privados
+que esses testes usam (`_build_csl_reference`, `_normalize_plain_style_runs`,
+`_OMML_NS`, `_W_NS`). Levar os testes para os novos módulos e dividi-los
+conforme a nova árvore fica para uma mudança própria em `tests/`.
 
 ### Caminhos de `citation` e `supplementary_material`
 
@@ -145,8 +146,7 @@ regras de dependência:
 4. Fase 4 — `extract/tables.py` e `layout/table_layout.py` (antes da Fase 3:
    `extract/body.py` não pode importar `extract_table_data` de `pipeline/`).
 5. Fase 3 — `body`, `formula_segments`, `supplementary_material`.
-6. Fase 6 — constantes (`SCL *`, números de layout), teste de dependências,
-   testes restantes.
+6. Fase 6 — constantes (`SCL *`, números de layout).
 
 ## Protocolo de comparação da saída
 
@@ -172,4 +172,4 @@ variação entre XML e PDF passa pelo DOCX, o critério primário é o DOCX:
    AE`), com limiar de 0,1% dos pixels por página; igualdade byte a byte do PDF
    não é exigida, porque o LibreOffice grava metadados variáveis.
 4. **Testes:** `python -m unittest discover -s tests/sps/formats/pdf -t .`
-   verde.
+   verde, sem alterar os testes.

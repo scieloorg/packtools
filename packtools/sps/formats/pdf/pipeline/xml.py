@@ -1,7 +1,7 @@
 """Módulo de compatibilidade (depreciado).
 
 A extração do XML para o PDF foi dividida em extract/ e layout/ (ver
-docs/pdf_generator_architecture.md). Os nomes públicos que ficavam aqui
+ARCHITECTURE.md). Os nomes públicos que ficavam aqui
 continuam acessíveis por este módulo, com DeprecationWarning; nenhum módulo
 de produção deve importá-lo.
 """
