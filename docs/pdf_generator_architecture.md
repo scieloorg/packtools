@@ -51,9 +51,9 @@ renderer é uma mudança maior, fora do escopo.
 
 | módulo      | pode importar                                   | não pode importar                        |
 |-------------|--------------------------------------------------|------------------------------------------|
-| `extract/`  | `extract/`, `layout/`, `ooxml/`, `utils/`, `enum` | `python-docx`, `pipeline/`, `renderer/`  |
+| `extract/`  | `extract/`, `layout/`, `ooxml/`, `utils/`        | `python-docx`, `pipeline/`, `renderer/`  |
 | `layout/`   | `enum`                                           | `extract/`, `pipeline/`, `renderer/`     |
-| `ooxml/`    | `lxml`, `mathml2omml`                            | `extract/`, `pipeline/`, `renderer/`     |
+| `ooxml/`    | `lxml`, `mathml2omml`                            | `python-docx`, `extract/`, `layout/`, `pipeline/`, `renderer/` |
 | `renderer/` | `ooxml/`, `utils/`, `enum`, `python-docx`        | `pipeline/`, `extract/`                  |
 | `pipeline/` | tudo acima                                       | —                                        |
 
@@ -61,8 +61,11 @@ renderer é uma mudança maior, fora do escopo.
   em `renderer/docx/style.py`.
 - Cada arquivo de teste espelha o módulo
   (`extract/tables.py` → `tests/sps/formats/pdf/extract/test_tables.py`).
-- As regras são verificadas por
-  `tests/sps/formats/pdf/test_module_dependencies.py`.
+- Nenhum módulo de produção importa os módulos de compatibilidade
+  (`pipeline/xml.py`, `pipeline/formula.py`).
+- As regras valem para imports diretos e são verificadas por
+  `tests/sps/formats/pdf/test_module_dependencies.py`. (`layout/` usa `enum`,
+  que por sua vez importa `python-docx`; isso é permitido.)
 
 ## Tabela e layout
 
