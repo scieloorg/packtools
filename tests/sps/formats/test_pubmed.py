@@ -19,6 +19,8 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_publication_type,
     xml_pubmed_article_id,
     xml_pubmed_history,
+    xml_pubmed_copyright_information,
+    xml_pubmed_coi_statement,
     xml_pubmed_vernacular_title_pipe,
     xml_pubmed_object_list,
     xml_pubmed_title_reference_list,
@@ -1238,6 +1240,119 @@ class PipelinePubmed(unittest.TestCase):
         )
 
         xml_pubmed_history(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_copyright_information(self):
+        expected = (
+            '<Article>'
+            '<CopyrightInformation>Copyright © 2023 The Authors</CopyrightInformation>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<permissions>'
+            '<copyright-statement>Copyright © 2023 The Authors</copyright-statement>'
+            '</permissions>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_copyright_information(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_copyright_information_without_statement(self):
+        expected = (
+            '<Article/>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<permissions>'
+            '</permissions>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_copyright_information(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_coi_statement(self):
+        expected = (
+            '<Article>'
+            '<CoiStatement>Não há conflito de interesse entre os autores do artigo.</CoiStatement>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<author-notes>'
+            '<fn fn-type="coi-statement">'
+            '<label>Conflito de Interesses</label>'
+            '<p>Não há conflito de interesse entre os autores do artigo.</p>'
+            '</fn>'
+            '</author-notes>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_coi_statement(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_coi_statement_without_fn(self):
+        expected = (
+            '<Article/>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<author-notes>'
+            '</author-notes>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_coi_statement(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
