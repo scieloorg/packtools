@@ -7,6 +7,7 @@ from docx.oxml.ns import qn
 from docx.shared import Pt, Cm
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.renderer.docx import style as styles
 
 
 def style_cell(cell, bold=False, font_size=7, font_color=None, align='center', bg_color=None):
@@ -23,7 +24,7 @@ def style_cell(cell, bold=False, font_size=7, font_color=None, align='center', b
 
 	_apply_cell_margins(cell)
 
-def add_table(docx, table_data, header_style_name='SCL Table Heading', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
+def add_table(docx, table_data, header_style_name=styles.SCL_TABLE_HEADING, page_attributes=pdf_enum.PAGE_ATTRIBUTES):
 	"""Adds a table with caption and normalized spacing to a DOCX document."""
 	# Caption
 	caption = _add_caption_paragraph(docx, table_data, header_style_name)

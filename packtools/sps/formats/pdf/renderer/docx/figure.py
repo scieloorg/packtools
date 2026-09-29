@@ -5,11 +5,12 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm
 
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.renderer.docx import style as styles
 from packtools.sps.formats.pdf.utils.request_utils import download_remote_asset
 from packtools.sps.formats.pdf.utils.file_utils import resolve_asset_path
 
 
-def add_figure(docx, figure_data, header_style_name='SCL Figure Caption', page_attributes=pdf_enum.PAGE_ATTRIBUTES):
+def add_figure(docx, figure_data, header_style_name=styles.SCL_FIGURE_CAPTION, page_attributes=pdf_enum.PAGE_ATTRIBUTES):
     """
     Insert a figure with caption into the document. Scales image to fit page content width.
 
@@ -156,7 +157,7 @@ def _infer_image_dpi(im) -> float:
     except Exception:
         return _NO_METADATA_DPI_FALLBACK
 
-def _add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph'):
+def _add_paragraph_with_formatting(docx, text, style_name=styles.SCL_PARAGRAPH):
     """Minimal helper to add a paragraph with an optional style, avoiding circular imports."""
     p = docx.add_paragraph(text)
     try:

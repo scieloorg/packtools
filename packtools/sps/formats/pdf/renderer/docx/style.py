@@ -2,6 +2,34 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
 from packtools.sps.formats.pdf import enum as pdf_enum
 
+# Nomes dos estilos definidos no layout base (.docx): única fonte dos nomes 'SCL *'.
+SCL_ABSTRACT_TITLE = 'SCL Abstract Title'
+SCL_AFFILIATION = 'SCL Affiliation'
+SCL_AFFILIATION_CHAR = 'SCL Affiliation Char'
+SCL_ARTICLE_CATEGORY = 'SCL Article Category'
+SCL_ARTICLE_TITLE = 'SCL Article Title'
+SCL_AUTHOR = 'SCL Author'
+SCL_AUTHOR_CHAR = 'SCL Author Char'
+SCL_FIGURE_CAPTION = 'SCL Figure Caption'
+SCL_FOOTER = 'SCL Footer'
+SCL_FORMULA = 'SCL Formula'
+SCL_HEADER_PARAGRAPH = 'SCL Header Paragraph'
+SCL_HEADER_PARAGRAPH_CHAR = 'SCL Header Paragraph Char'
+SCL_JOURNAL_TITLE_CHAR = 'SCL Journal Title Char'
+SCL_PARAGRAPH = 'SCL Paragraph'
+SCL_PARAGRAPH_ABSTRACT = 'SCL Paragraph Abstract'
+SCL_PARAGRAPH_CITE_AS = 'SCL Paragraph Cite As'
+SCL_PARAGRAPH_CITE_AS_CHAR = 'SCL Paragraph Cite As Char'
+SCL_PARAGRAPH_CITE_AS_FOOTER_CHAR = 'SCL Paragraph Cite As Footer Char'
+SCL_PARAGRAPH_CITE_AS_JOURNAL_TITLE_CHAR = 'SCL Paragraph Cite As Journal Title Char'
+SCL_PARAGRAPH_KEYWORDS = 'SCL Paragraph Keywords'
+SCL_PARAGRAPH_KEYWORDS_CHAR = 'SCL Paragraph Keywords Char'
+SCL_PARAGRAPH_KEYWORDS_HEADER_CHAR = 'SCL Paragraph Keywords Header Char'
+SCL_PARAGRAPH_REFERENCE = 'SCL Paragraph Reference'
+SCL_SECTION_TITLE = 'SCL Section Title'
+SCL_SUBSECTION_TITLE = 'SCL Subsection Title'
+SCL_TABLE_HEADING = 'SCL Table Heading'
+
 
 def copy_styles(source, target):
     for style in source.styles:
@@ -14,11 +42,11 @@ def copy_styles(source, target):
 
 def level_to_style(level):
     if level == 2:
-        return 'SCL Section Title'
+        return SCL_SECTION_TITLE
     elif level == 3:
-        return 'SCL Subsection Title'
+        return SCL_SUBSECTION_TITLE
     else:
-        return 'SCL Paragraph'
+        return SCL_PARAGRAPH
 
 def add_run_with_style(element, text, style):
     run = element.add_run(text)
