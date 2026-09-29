@@ -111,9 +111,8 @@ arquivo será removido quando a depreciação terminar (issue própria).
 publicada, então é movido para `extract/supplementary_material.py` **sem**
 módulo de compatibilidade.
 
-Funções privadas (`_nome`) não são reexportadas, com exceção das que os
-testes existentes ou outros módulos usavam por `pipeline.xml`
-(`_build_csl_reference`).
+Funções privadas (`_nome`) não são reexportadas; testes e módulos internos
+importam do novo lugar.
 
 ### Caminhos de `citation` e `supplementary_material`
 

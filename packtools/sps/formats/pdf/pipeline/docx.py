@@ -5,7 +5,7 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.extract import acknowledgments, metadata, references
+from packtools.sps.formats.pdf.extract import acknowledgments, citation, metadata, references
 from packtools.sps.formats.pdf.pipeline import supplementary_material
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
@@ -75,13 +75,7 @@ def pipeline_docx(xml_tree, data):
 
     # First page footer
     footer_data = metadata.extract_footer_data(xml_tree)
-    # Prefer the article's own editorial "how to cite" note; when it has
-    # none, build a complete citation from metadata instead of leaving the
-    # field partial (journal/volume/location only - see issue #1349).
-    cite_as_part_one = (
-        xml_pipe.extract_cite_as_part_one(xml_tree)
-        or xml_pipe.build_full_citation(xml_tree, footer_data)
-    )
+    cite_as_part_one = citation.extract_cite_as(xml_tree, footer_data)
     docx_cite_as_pipe(docx, cite_as_part_one, journal_title, footer_data)
     docx_page_vol_issue_year_pipe(docx, footer_data)
 
