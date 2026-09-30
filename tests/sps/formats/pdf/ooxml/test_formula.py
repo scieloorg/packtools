@@ -1,8 +1,9 @@
 import unittest
+from unittest import mock
 
 from lxml import etree
 
-from packtools.sps.formats.pdf.pipeline import formula
+from packtools.sps.formats.pdf.ooxml import formula
 
 _MML_NS = 'http://www.w3.org/1998/Math/MathML'
 
@@ -195,3 +196,18 @@ class TestMatchParagraphFont(unittest.TestCase):
         w_ns = formula._W_NS
         sz = omml.find(f'.//{{{w_ns}}}sz')
         self.assertEqual(sz.get(f'{{{w_ns}}}val'), '17')
+
+
+class TestNormalizeEmptyBaseSuperscriptsShape(unittest.TestCase):
+
+    def test_msup_without_two_children_is_left_untouched(self):
+        math = _mathml('<mi>a</mi><msup><mrow/></msup>')
+        result = formula.normalize_empty_base_superscripts(math)
+        self.assertEqual(etree.tostring(result), etree.tostring(math))
+
+
+class TestMathmlToOmmlInvalidOutput(unittest.TestCase):
+
+    def test_returns_none_when_converter_output_is_not_xml(self):
+        with mock.patch.object(formula.mathml2omml, 'convert', return_value='<m:oMath><broken'):
+            self.assertIsNone(formula.mathml_to_omml(_mathml('<mi>x</mi>')))
