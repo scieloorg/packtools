@@ -17,7 +17,6 @@ class DirectoryRemovalError(Exception):
 # próprio BaseSize (padrão 12pt), estourando a coluna quando o corpo do
 # artigo usa um tamanho menor. O tamanho vem do estilo do corpo do próprio
 # DOCX convertido. Ver issue #1385.
-_BODY_STYLE_NAME = "SCL Paragraph"
 _MATH_CONFIG_XML = (
     '<?xml version="1.0" encoding="UTF-8"?>'
     '<oor:items xmlns:oor="http://openoffice.org/2001/registry"'
@@ -32,8 +31,12 @@ _MATH_CONFIG_XML = (
 def _body_font_size_pt(docx_path):
     """
     Returns the font size, in whole points, of the body text style
-    (_BODY_STYLE_NAME) of a DOCX, or None when it can't be read.
+    (style.SCL_PARAGRAPH) of a DOCX, or None when it can't be read.
     """
+    # import tardio: renderer.docx importa este módulo (figure.py), e um import
+    # de topo no sentido contrário criaria um ciclo
+    from packtools.sps.formats.pdf.renderer.docx import style
+
     try:
         with zipfile.ZipFile(docx_path) as zf:
             styles_xml = zf.read("word/styles.xml")
@@ -43,7 +46,7 @@ def _body_font_size_pt(docx_path):
 
     half_points = root.xpath(
         "string(//w:style[w:name/@w:val=$name]/w:rPr/w:sz/@w:val)",
-        namespaces={"w": nsmap["w"]}, name=_BODY_STYLE_NAME,
+        namespaces={"w": nsmap["w"]}, name=style.SCL_PARAGRAPH,
     )
     try:
         return round(int(half_points) / 2) or None

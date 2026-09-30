@@ -5,9 +5,16 @@ from docx.shared import Cm, Pt
 from docx.text.paragraph import Paragraph
 
 from packtools.sps.formats.pdf import enum as pdf_enum
-from packtools.sps.formats.pdf.pipeline import supplementary_material
-from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+from packtools.sps.formats.pdf.extract import (
+    acknowledgments,
+    body,
+    citation,
+    metadata,
+    references,
+    supplementary_material,
+)
 from packtools.sps.formats.pdf.renderer import docx as docx_renderer
+from packtools.sps.formats.pdf.renderer.docx import style as styles
 from packtools.sps.formats.pdf.utils import xml_utils
 
 # Share of the first-page header's width given to the journal title column
@@ -37,50 +44,44 @@ def pipeline_docx(xml_tree, data):
     docx = docx_renderer.builder.init_docx(data)
 
     # First page header
-    journal_title = xml_pipe.extract_journal_title(xml_tree)
+    journal_title = metadata.extract_journal_title(xml_tree)
     docx_journal_title_pipe(docx, journal_title)
 
-    doi = xml_pipe.extract_doi(xml_tree)
+    doi = metadata.extract_doi(xml_tree)
     docx_doi_pipe(docx, doi)
 
     # First page content
-    article_type = xml_pipe.extract_article_type(xml_tree)
-    category = xml_pipe.extract_category(xml_tree)
+    article_type = metadata.extract_article_type(xml_tree)
+    category = metadata.extract_category(xml_tree)
     docx_article_type_and_category_pipe(docx, category, article_type)
 
-    article_title = xml_pipe.extract_article_title(xml_tree)
+    article_title = metadata.extract_article_title(xml_tree)
     docx_article_title_pipe(docx, article_title)
 
-    contrib_data = xml_pipe.extract_contrib_data(xml_tree)
+    contrib_data = metadata.extract_contrib_data(xml_tree)
     docx_authors_pipe(docx, contrib_data['authors_names'])
     docx_affiliation_pipe(docx, contrib_data['affiliations'])
     docx_corresponding_pipe(docx, contrib_data['corresponding_author'])
 
-    article_main_language = xml_pipe.extract_article_main_language(xml_tree)
-    abstract_data = xml_pipe.extract_abstract_data(xml_tree)
+    article_main_language = metadata.extract_article_main_language(xml_tree)
+    abstract_data = metadata.extract_abstract_data(xml_tree)
     docx_abstract_pipe(docx, abstract_data['title'], abstract_data['content'])
 
-    keywords_data = xml_pipe.extract_keywords_data(xml_tree, article_main_language)
+    keywords_data = metadata.extract_keywords_data(xml_tree, article_main_language)
     docx_keyworks_pipe(docx, keywords_data['title'], keywords_data['keywords'])
 
-    trans_abstract_data = xml_pipe.extract_trans_abstract_data(xml_tree)
+    trans_abstract_data = metadata.extract_trans_abstract_data(xml_tree)
     for ta in trans_abstract_data:
         docx_abstract_pipe(docx, ta['title'], ta['content'])
-        ta_keywords_data = xml_pipe.extract_keywords_data(xml_tree, ta['lang'])
+        ta_keywords_data = metadata.extract_keywords_data(xml_tree, ta['lang'])
         docx_keyworks_pipe(docx, ta_keywords_data['title'], ta_keywords_data['keywords'])
 
     # Next pages header
     docx_second_header_pipe(docx, journal_title, article_title)
 
     # First page footer
-    footer_data = xml_pipe.extract_footer_data(xml_tree)
-    # Prefer the article's own editorial "how to cite" note; when it has
-    # none, build a complete citation from metadata instead of leaving the
-    # field partial (journal/volume/location only - see issue #1349).
-    cite_as_part_one = (
-        xml_pipe.extract_cite_as_part_one(xml_tree)
-        or xml_pipe.build_full_citation(xml_tree, footer_data)
-    )
+    footer_data = metadata.extract_footer_data(xml_tree)
+    cite_as_part_one = citation.extract_cite_as(xml_tree, footer_data)
     docx_cite_as_pipe(docx, cite_as_part_one, journal_title, footer_data)
     docx_page_vol_issue_year_pipe(docx, footer_data)
 
@@ -88,17 +89,17 @@ def pipeline_docx(xml_tree, data):
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
-    body_data = xml_pipe.extract_body_data(xml_tree, table_layout_overrides=data.get('table_layout_overrides'))
+    body_data = body.extract_body_data(xml_tree, table_layout_overrides=data.get('table_layout_overrides'))
     docx_body_pipe(docx, body_data)
     
     # Acknowledgments
-    acknow_data = xml_pipe.extract_acknowledgment_data(xml_tree)
+    acknow_data = acknowledgments.extract_acknowledgment_data(xml_tree)
     docx_acknowledgments_pipe(docx, acknow_data['title'], acknow_data['paragraphs'])
 
     # References
-    references_data = xml_pipe.extract_references_data(xml_tree)
-    references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
-    docx_references_pipe(docx, references_data['title'], references)
+    references_data = references.extract_references_data(xml_tree)
+    reference_texts = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
+    docx_references_pipe(docx, references_data['title'], reference_texts)
 
     # Appendix/Annex (<app-group>) and Supplementary material (<supplementary-material>)
     # are distinct SPS 1.10 concepts - each gets its own heading.
@@ -128,7 +129,7 @@ def pipeline_docx(xml_tree, data):
 
     return docx
 
-def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Title Char'):
+def docx_journal_title_pipe(docx, journal_title_text, style_name=styles.SCL_JOURNAL_TITLE_CHAR):
     """
     Adds the journal title text to the first page header of the DOCX document,
     capped at two lines.
@@ -158,7 +159,7 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
 
     return para
 
-def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragraph Char'):
+def docx_doi_pipe(docx, doi_code, paragraph=None, style_name=styles.SCL_HEADER_PARAGRAPH_CHAR):
     """
     Adds the DOI (Digital Object Identifier) code to the first page header of the DOCX document.
 
@@ -201,7 +202,7 @@ def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragra
     r = para.add_run(doi_url)
     r.style = docx.styles[style_name]
 
-def docx_article_type_and_category_pipe(docx, category, article_type='Original Article', style_name='SCL Article Category'):
+def docx_article_type_and_category_pipe(docx, category, article_type='Original Article', style_name=styles.SCL_ARTICLE_CATEGORY):
     """
     Adds the article category and type to the first page header of the DOCX document.
     Args:
@@ -215,7 +216,7 @@ def docx_article_type_and_category_pipe(docx, category, article_type='Original A
     article_category_el = docx.add_paragraph(article_category_text)
     article_category_el.style = docx.styles[style_name]
 
-def docx_article_title_pipe(docx, article_title, style_name='SCL Article Title'):
+def docx_article_title_pipe(docx, article_title, style_name=styles.SCL_ARTICLE_TITLE):
     """
     Adds the article title to the first page header of the DOCX document.
 
@@ -230,7 +231,7 @@ def docx_article_title_pipe(docx, article_title, style_name='SCL Article Title')
     article_title_el = docx.add_heading(article_title, level=1)
     article_title_el.style = docx.styles[style_name]
 
-def docx_authors_pipe(docx, authors_names, paragraph_style_name='SCL Author', character_style_name='SCL Author Char'):
+def docx_authors_pipe(docx, authors_names, paragraph_style_name=styles.SCL_AUTHOR, character_style_name=styles.SCL_AUTHOR_CHAR):
     """
     Adds the authors' names to the first page header of the DOCX document, with each name on a new line.
 
@@ -251,7 +252,7 @@ def docx_authors_pipe(docx, authors_names, paragraph_style_name='SCL Author', ch
         sup_mark="[^]"
     )
 
-def docx_affiliation_pipe(docx, affiliations, paragraph_style_name='SCL Affiliation', character_style_name='SCL Affiliation Char'):
+def docx_affiliation_pipe(docx, affiliations, paragraph_style_name=styles.SCL_AFFILIATION, character_style_name=styles.SCL_AFFILIATION_CHAR):
     """
     Adds the affiliations to the first page header of the DOCX document, with each affiliation on a new line.
 
@@ -273,7 +274,7 @@ def docx_affiliation_pipe(docx, affiliations, paragraph_style_name='SCL Affiliat
             sup_mark="[^]"
         )
 
-def docx_corresponding_pipe(docx, corresponding, paragraph_style_name='SCL Affiliation', character_style_name='SCL Affiliation Char'):
+def docx_corresponding_pipe(docx, corresponding, paragraph_style_name=styles.SCL_AFFILIATION, character_style_name=styles.SCL_AFFILIATION_CHAR):
     """
     Adds the corresponding author to the first page header of the DOCX document.
 
@@ -294,7 +295,7 @@ def docx_corresponding_pipe(docx, corresponding, paragraph_style_name='SCL Affil
         sup_mark="[^]"
     )
 
-def docx_abstract_pipe(docx, abstract_title, abstract_content, title_paragraph_style_name='SCL Abstract Title', content_paragraph_style_name='SCL Paragraph Abstract'):
+def docx_abstract_pipe(docx, abstract_title, abstract_content, title_paragraph_style_name=styles.SCL_ABSTRACT_TITLE, content_paragraph_style_name=styles.SCL_PARAGRAPH_ABSTRACT):
     """
     Adds the abstract title and content to the first page header of the DOCX document.
 
@@ -317,9 +318,9 @@ def docx_keyworks_pipe(
         docx, 
         keywords_title, 
         keywords_content, 
-        keywords_paragraph_style_name='SCL Paragraph Keywords', 
-        keywords_header_character_style_name='SCL Paragraph Keywords Header Char',
-        keyworks_character_paragraph_style_name='SCL Paragraph Keywords Char'):
+        keywords_paragraph_style_name=styles.SCL_PARAGRAPH_KEYWORDS, 
+        keywords_header_character_style_name=styles.SCL_PARAGRAPH_KEYWORDS_HEADER_CHAR,
+        keyworks_character_paragraph_style_name=styles.SCL_PARAGRAPH_KEYWORDS_CHAR):
     """
     Adds the keywords title and content to the first page header of the DOCX document.
 
@@ -381,12 +382,12 @@ def docx_cite_as_pipe(
     """
     footer = docx_renderer.section.get_first_page_footer(docx)
     para = docx_renderer.text.get_first_paragraph(footer)
-    para.style = docx.styles['SCL Paragraph Cite As']
+    para.style = docx.styles[styles.SCL_PARAGRAPH_CITE_AS]
 
-    footer_style = docx.styles['SCL Paragraph Cite As Footer Char']
+    footer_style = docx.styles[styles.SCL_PARAGRAPH_CITE_AS_FOOTER_CHAR]
     docx_renderer.style.add_run_with_style(para, 'CITE AS: ', footer_style)
 
-    p1_style = docx.styles['SCL Paragraph Cite As Char']
+    p1_style = docx.styles[styles.SCL_PARAGRAPH_CITE_AS_CHAR]
     if cite_as_part_one:
         # The note is a complete citation already, and may or may not end
         # with its own terminal punctuation (an editorial note ending in
@@ -397,7 +398,7 @@ def docx_cite_as_pipe(
         docx_renderer.style.add_run_with_style(para, f'{cite_as_part_one}{suffix}', p1_style)
         return
 
-    journal_title_style = docx.styles['SCL Paragraph Cite As Journal Title Char']
+    journal_title_style = docx.styles[styles.SCL_PARAGRAPH_CITE_AS_JOURNAL_TITLE_CHAR]
     docx_renderer.style.add_run_with_style(para, f'{journal_title} ', journal_title_style)
 
     cite_as_part_two = _format_cite_as_part_two(footer_data)
@@ -407,9 +408,9 @@ def docx_second_header_pipe(
         docx,
         journal_title,
         article_title,
-        paragraph_header_style_name='SCL Header Paragraph',
-        character_header_style_name='SCL Header Paragraph Char',
-        paragraph_title_style_name='SCL Header Paragraph Char'
+        paragraph_header_style_name=styles.SCL_HEADER_PARAGRAPH,
+        character_header_style_name=styles.SCL_HEADER_PARAGRAPH_CHAR,
+        paragraph_title_style_name=styles.SCL_HEADER_PARAGRAPH_CHAR
     ):
     """
     Adds the journal title and article title to the second page header of the DOCX document.
@@ -461,7 +462,7 @@ def docx_second_header_pipe(
     r2 = title_para.add_run(article_title)
     r2.style = docx.styles[character_header_style_name]
 
-def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
+def docx_second_footer_pipe(docx, footer_data, paragraph_style_name=styles.SCL_FOOTER):
     """
     Adds the footer information to the second page footer of the DOCX document.
 
@@ -482,7 +483,7 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
 
     para.add_run(f" | {_format_vol_issue_year(footer_data)}")
 
-def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
+def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name=styles.SCL_FOOTER):
     """
     Adds the page, volume, issue, and year information to the first page footer of the DOCX document.
 
@@ -528,8 +529,8 @@ def docx_references_pipe(
         docx, 
         title='References', 
         references=[], 
-        section_style_name='SCL Section Title', 
-        paragraph_style_name='SCL Paragraph Reference',
+        section_style_name=styles.SCL_SECTION_TITLE, 
+        paragraph_style_name=styles.SCL_PARAGRAPH_REFERENCE,
     ):
     """
     Adds the references section to the DOCX document.
@@ -554,7 +555,7 @@ def docx_references_pipe(
         # paragraph, with no visual distinction between entries.
         paragraph.paragraph_format.line_spacing = 1.0
 
-def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragraphs, paragraph_section_style_name='SCL Section Title'):
+def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragraphs, paragraph_section_style_name=styles.SCL_SECTION_TITLE):
     """
     Adds the acknowledgments section to the DOCX document.
 
@@ -593,7 +594,7 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_sections):
     footer = section.footer
 
     para = footer.add_paragraph()
-    para.style = docx.styles['SCL Footer']
+    para.style = docx.styles[styles.SCL_FOOTER]
 
     # No PAGE field is added here: supplementary material has its own
     # pagination, independent of the article body, so no leading " | " either.

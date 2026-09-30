@@ -448,3 +448,13 @@ class TestGetNodeLevel(unittest.TestCase):
         element = xmltree.find(".//bold")
         result = xml_utils.get_node_level(element, xmltree)
         self.assertEqual(3, result)
+
+
+class TestPlainTextSegment(unittest.TestCase):
+
+    def test_unstyled_segment(self):
+        self.assertEqual(
+            xml_utils.plain_text_segment('abc'),
+            {'type': 'text', 'text': 'abc', 'italic': False, 'bold': False, 'superscript': False, 'subscript': False},
+        )
+

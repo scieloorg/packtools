@@ -1,9 +1,10 @@
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
-from packtools.sps.formats.pdf.pipeline import formula
+from packtools.sps.formats.pdf.ooxml import formula
+from packtools.sps.formats.pdf.renderer.docx import style as styles
 
-FORMULA_PARAGRAPH_STYLE = 'SCL Formula'
+FORMULA_PARAGRAPH_STYLE = styles.SCL_FORMULA
 
 
 def add_heading_with_formatting(docx, text, style_name, level):
@@ -12,7 +13,7 @@ def add_heading_with_formatting(docx, text, style_name, level):
     heading.style = docx.styles[style_name]
     return heading
 
-def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', element=None):
+def add_paragraph_with_formatting(docx, text, style_name=styles.SCL_PARAGRAPH, element=None):
     """Add a paragraph with the specified style to the document or a given element."""
     if element is not None:
         para = element.add_paragraph(text)
@@ -21,14 +22,14 @@ def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', elemen
     para.style = docx.styles[style_name]
     return para
 
-def add_paragraph_with_segments(docx, segments, style_name='SCL Paragraph'):
+def add_paragraph_with_segments(docx, segments, style_name=styles.SCL_PARAGRAPH):
     """Adiciona um parágrafo a partir de segmentos com estilo (ver xml_utils.get_segments_from_node).
 
     Fórmula em bloco (segmento com 'display') vai em parágrafo próprio, no estilo
     "SCL Formula", separada do texto que a antecede. Fórmula inline fica no
     parágrafo do texto. Retorna o último parágrafo criado.
     """
-    if style_name == 'SCL Paragraph' and FORMULA_PARAGRAPH_STYLE in docx.styles:
+    if style_name == styles.SCL_PARAGRAPH and FORMULA_PARAGRAPH_STYLE in docx.styles:
         display_at = next((i for i, seg in enumerate(segments) if seg.get('display')), None)
         if display_at is not None:
             leading = segments[:display_at]
