@@ -800,6 +800,7 @@ class PackageNamingMixin:
         - 'fpage': fpage + fpage_seq (desconsiderando fpage fake)
         - 'page': fpage + fpage_seq + lpage (desconsiderando fpage fake)
         - 'order': Ordem do artigo
+        - 'raw_order': Ordem do artigo sem normalização (valor bruto do XML)
         - 'body_fragment': usando body_fragment_fingerprint
         - 'submitted_filename': Nome do arquivo enviado pelo produtor
         - 'doi_suffix': Sufixo após a barra do DOI
@@ -821,8 +822,8 @@ class PackageNamingMixin:
                 val = self.elocation_id
             elif strategy == "order":
                 val = getattr(self, "order", None)
-            elif strategy == "incorrect_order":
-                val = getattr(self, "incorrect_order", None)
+            elif strategy == "raw_order":
+                val = getattr(self, "raw_order", None)
             elif strategy == "fpage":
                 val = self.get_fpage_suffix()
             elif strategy == "page":
@@ -908,7 +909,7 @@ class PackageNamingMixin:
         """Gera o nome do pacote no padrão SPS utilizando a busca de sufixo padrão."""
         prefix = self.get_sps_prefix(issn=issn)
         suffix = self.get_pkg_suffix(
-            strategies=["elocation_id", "incorrect_order", "submitted_filename"]
+            strategies=["elocation_id", "raw_order", "submitted_filename"]
         )
         return sanitize_sps_name(self.build_pkg_name(suffix=suffix, prefix=prefix, lang=lang))
 
@@ -1140,7 +1141,7 @@ class IdentifiersMixin:
         node.text = value
 
     @property
-    def incorrect_order(self):
+    def raw_order(self):
         return self.article_ids.other
 
     @property
