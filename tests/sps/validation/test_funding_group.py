@@ -59,6 +59,71 @@ class TestProperAwardGroup(TestFundingValidationBase):
         self.assertEqual(results[0]["response"], "OK")
 
 
+class TestAwardGroupWithoutAwardId(TestFundingValidationBase):
+    """Testa award-group com funding-source e sem award-id (sem contrato)"""
+
+    def _validate(self, funding_statement=""):
+        xml = f"""
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP)</funding-source>
+                            </award-group>
+                            <funding-statement>{funding_statement}</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        return list(validator.validate_required_award_ids())
+
+    def test_funding_source_only_is_valid(self):
+        results = self._validate("Financiado pela FAPESP.")
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertIsNone(results[0]["advice"])
+        self.assertEqual(
+            results[0]["msg_text"],
+            "<award-group> contains <funding-source> without <award-id> "
+            "(no contract number declared)",
+        )
+
+    def test_unmarked_contract_number_is_still_reported(self):
+        results = self._validate("Financiado pela FAPESP, processo 2019/12345-6.")
+        self.assertEqual(len(results), 2)
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertEqual(results[1]["response"], "CRITICAL")
+        self.assertEqual(results[1]["data"]["context"], "funding-statement")
+        self.assertIn("2019/12345-6", results[1]["data"]["look-like-award-id"])
+
+
+class TestAwardGroupWithoutFundingSource(TestFundingValidationBase):
+    """Testa award-group com award-id e sem funding-source"""
+
+    def test_award_id_only_is_invalid(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <award-id>2019/12345-6</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        results = list(validator.validate_required_award_ids())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertIn("<funding-source>", results[0]["advice"])
+
+
 class TestAwardInAck(TestFundingValidationBase):
     """Testa casos com award ID em acknowledgments"""
 
