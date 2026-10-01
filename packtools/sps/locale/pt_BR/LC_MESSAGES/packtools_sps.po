@@ -1126,10 +1126,9 @@ msgstr "Marque o ID de localização com <elocation-id> ou a primeira página co
 msgid "Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail"
 msgstr "Marque a instituição patrocinadora com <funding-source> para <award-id> ({award_ids}). Consulte a documentação SPS para mais detalhes"
 
-#: packtools/sps/validation/funding_group.py:70
-#, python-brace-format
-msgid "Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail"
-msgstr "Marque o número do contrato com <award-id> para <funding-source> ({funding_sources}). Consulte a documentação SPS para mais detalhes"
+#: packtools/sps/validation/funding_group.py:80
+msgid "<award-group> contains <funding-source> without <award-id> (no contract number declared)"
+msgstr "<award-group> contém <funding-source> sem <award-id> (nenhum número de contrato declarado)"
 
 #: packtools/sps/validation/funding_group.py:75
 msgid "Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail"
