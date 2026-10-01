@@ -1123,15 +1123,15 @@ class TestXMLWithPreSettersAndIDs(XMLWithPreTestMixin, TestCase):
         xml_with_pre = self._make_xml(vol="10", num="2")
         self.assertIsNone(xml_with_pre.order)
 
-    def test_incorrect_order_returns_raw_value_without_padding(self):
-        # `incorrect_order` preserva o valor bruto do XML, sem normalização,
+    def test_raw_order_returns_raw_value_without_padding(self):
+        # `raw_order` preserva o valor bruto do XML, sem normalização,
         # usado para gerar variações de nome compatíveis com pacotes antigos.
         xml_with_pre = self._make_xml(vol="10", num="2", order="7")
-        self.assertEqual(xml_with_pre.incorrect_order, "7")
+        self.assertEqual(xml_with_pre.raw_order, "7")
 
-    def test_incorrect_order_returns_none_when_absent(self):
+    def test_raw_order_returns_none_when_absent(self):
         xml_with_pre = self._make_xml(vol="10", num="2")
-        self.assertIsNone(xml_with_pre.incorrect_order)
+        self.assertIsNone(xml_with_pre.raw_order)
 
     def test_v2_v3_aop_pid_setters_and_update_ids(self):
         xml_with_pre = self._make_xml(vol="10", num="2")
@@ -1490,7 +1490,7 @@ class TestBuildSpsPkgName(XMLWithPreTestMixin, TestCase):
 
     def test_build_sps_pkg_name_with_incomplete_order_uses_raw_order(self):
         # ao contrário de build_sps_pkg_name (que usa `order`, zero-padded),
-        # build_sps_pkg_name_with_incomplete_order usa `incorrect_order`, o
+        # build_sps_pkg_name_with_incomplete_order usa `raw_order`, o
         # valor bruto do XML, sem normalização.
         xml_with_pre = self._make_xml(
             issn_epub="1234-5678", acron="abc", vol="10", num="2", order="7"
