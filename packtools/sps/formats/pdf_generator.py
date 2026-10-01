@@ -1,6 +1,7 @@
 import argparse
 import os
 
+from packtools.sps.formats.pdf.layout import logo as logo_layout
 from packtools.sps.formats.pdf.pipeline import docx  
 from packtools.sps.formats.pdf.utils import file_utils
 from packtools.sps.utils import xml_utils
@@ -38,6 +39,35 @@ def main():
         dest="libreoffice_binary",
     )
     parser.add_argument(
+        "--logo",
+        action="store",
+        help="Path to the journal logo (PNG or SVG) for the first page header.",
+    )
+    parser.add_argument(
+        "--logo-fallback",
+        action="store",
+        help="PNG shown by readers without SVG support (only with an SVG --logo).",
+    )
+    parser.add_argument(
+        "--logo-position",
+        choices=("left", "right", "full_width"),
+        default="left",
+    )
+    parser.add_argument(
+        "--logo-max-width-mm",
+        type=float,
+        help=(
+            "Maximum logo width. With the title shown, a left logo stays at most "
+            "40 mm wide; use --logo-no-title or full_width for a wider logo."
+        ),
+    )
+    parser.add_argument("--logo-max-height-mm", type=float)
+    parser.add_argument(
+        "--logo-no-title",
+        action="store_true",
+        help="Hide the journal title text next to the logo.",
+    )
+    parser.add_argument(
         "--libreoffice-timeout",
         type=float,
         default=file_utils.DEFAULT_CONVERSION_TIMEOUT,
@@ -50,6 +80,19 @@ def main():
         'base_layout': arguments.layout,
         'assets_dir': xml_dir,
     }
+    if arguments.logo:
+        data['journal_logo'] = {
+            'path': arguments.logo,
+            'position': arguments.logo_position,
+            'max_width_mm': arguments.logo_max_width_mm,
+            'max_height_mm': arguments.logo_max_height_mm,
+            'show_title': not arguments.logo_no_title,
+            'fallback_path': arguments.logo_fallback,
+        }
+        try:
+            logo_layout.normalize_logo_spec(data['journal_logo'])
+        except ValueError as exc:
+            parser.error(str(exc))
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
     document = docx.pipeline_docx(xml_tree, data)

@@ -6,3 +6,4 @@ from . import section # noqa: F401
 from . import style # noqa: F401
 from . import table # noqa: F401
 from . import figure # noqa: F401
+from . import logo # noqa: F401
