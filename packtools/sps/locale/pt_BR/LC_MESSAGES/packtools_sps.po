@@ -1595,6 +1595,11 @@ msgstr "{info}: Analise e decida remover <comment> ou marcar o texto entre <comm
 msgid "{info}: Wrap the {text_before_extlink}{ext_link_xml} with <comment> tag"
 msgstr "{info}: envolva o {text_before_extlink}{ext_link_xml} com a tag <comment>"
 
+#: packtools/sps/validation/references.py:286
+#, python-brace-format
+msgid "{info}: Got {obtained}, expected {expected}"
+msgstr "{info}: Obtido {obtained}, esperado {expected}"
+
 #: packtools/sps/validation/references.py:304
 #, python-brace-format
 msgid "remove {remaining_tags} from mixed-citation"

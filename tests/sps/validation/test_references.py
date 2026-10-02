@@ -205,6 +205,38 @@ class ReferenceValidationTest(TestCase):
         self.assertEqual('<ext-link xlink:href="https://...">https://...</ext-link>', result["expected_value"])
         self.assertEqual('B1 (journal) : Analyze and decide to remove <comment> or mark the text between <comment> and <ext-link xlink:href="https://...">', result["advice"])
 
+    def test_validate_comment_message_identifies_reference(self):
+        scenarios = [
+            {"has_comment": True, "full_comment": None, "text_between": None, "text_before_extlink": "text"},
+            {"has_comment": True, "full_comment": None, "text_between": None, "text_before_extlink": None},
+            {"has_comment": False, "full_comment": None, "text_between": None, "text_before_extlink": "text"},
+            {"has_comment": True, "full_comment": "<comment/>", "text_between": None, "text_before_extlink": None},
+        ]
+        for ref_id in ("B1", "B2"):
+            for scenario in scenarios:
+                with self.subTest(ref_id=ref_id, scenario=scenario):
+                    reference_data = self.reference_data.copy()
+                    reference_data.update(scenario)
+                    reference_data["ref_id"] = ref_id
+
+                    validation = ReferenceValidation(reference_data, self.params)
+                    results = list(validation.validate_comment_is_required_or_not())
+
+                    self.assertEqual(1, len(results))
+                    result = results[0]
+                    self.assertEqual("{info}: Got {obtained}, expected {expected}", result["msg_text"])
+                    self.assertEqual(
+                        {
+                            "info": f"{ref_id} (journal)",
+                            "obtained": result["got_value"],
+                            "expected": result["expected_value"],
+                        },
+                        result["msg_params"],
+                    )
+                    self.assertTrue(
+                        result["msg_text"].format(**result["msg_params"]).startswith(f"{ref_id} (journal): Got ")
+                    )
+
     # Testes para validate_mixed_citation_sub_tags
     def test_validate_mixed_citation_sub_tags_disallowed(self):
         params = self.params.copy()
