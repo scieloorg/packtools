@@ -205,6 +205,67 @@ class ReferenceValidationTest(TestCase):
         self.assertEqual('<ext-link xlink:href="https://...">https://...</ext-link>', result["expected_value"])
         self.assertEqual('B1 (journal) : Analyze and decide to remove <comment> or mark the text between <comment> and <ext-link xlink:href="https://...">', result["advice"])
 
+    # Testes para validate_crossref_max_length
+    def test_validate_crossref_max_length_fpage_with_text(self):
+        reference_data = self.reference_data.copy()
+        reference_data["ref_id"] = "B12"
+        reference_data["publication_type"] = "webpage"
+        reference_data["fpage"] = "(WHO Technical Report Series, 894)"
+
+        validation = ReferenceValidation(reference_data, self.params)
+        results = list(validation.validate_crossref_max_length())
+
+        self.assertEqual(1, len(results))
+        result = results[0]
+        self.assertEqual("CRITICAL", result["response"])
+        self.assertEqual("fpage", result["sub_item"])
+        self.assertEqual(
+            "<fpage>(WHO Technical Report Series, 894)</fpage> (34 characters)",
+            result["got_value"],
+        )
+        self.assertEqual("<fpage> with at most 32 characters", result["expected_value"])
+        self.assertEqual(
+            "B12 (webpage): <fpage> has 34 characters, Crossref accepts at most 32",
+            result["msg_text"].format(**result["msg_params"]),
+        )
+        self.assertEqual(
+            "B12 (webpage): check <fpage>(WHO Technical Report Series, 894)</fpage>. "
+            "Crossref rejects the DOI deposit when <fpage> has more than 32 characters",
+            result["advice"],
+        )
+
+    def test_validate_crossref_max_length_up_to_limit(self):
+        reference_data = self.reference_data.copy()
+        for element_name in ("volume", "issue", "fpage", "lpage"):
+            reference_data[element_name] = "1" * 32
+
+        validation = ReferenceValidation(reference_data, self.params)
+
+        self.assertEqual([], list(validation.validate_crossref_max_length()))
+
+    def test_validate_crossref_max_length_each_element(self):
+        for element_name in ("volume", "issue", "fpage", "lpage"):
+            with self.subTest(element_name=element_name):
+                reference_data = self.reference_data.copy()
+                reference_data[element_name] = "x" * 33
+
+                validation = ReferenceValidation(reference_data, self.params)
+                results = list(validation.validate_crossref_max_length())
+
+                self.assertEqual([element_name], [r["sub_item"] for r in results])
+                self.assertEqual("CRITICAL", results[0]["response"])
+
+    def test_validate_crossref_max_length_error_level_from_params(self):
+        params = self.params.copy()
+        params["crossref_max_length_error_level"] = "ERROR"
+        reference_data = self.reference_data.copy()
+        reference_data["lpage"] = "x" * 33
+
+        validation = ReferenceValidation(reference_data, params)
+        results = list(validation.validate_crossref_max_length())
+
+        self.assertEqual("ERROR", results[0]["response"])
+
     # Testes para validate_mixed_citation_sub_tags
     def test_validate_mixed_citation_sub_tags_disallowed(self):
         params = self.params.copy()
@@ -463,6 +524,25 @@ class ReferencesValidationTest(TestCase):
         self.assertEqual("reference year (2015) previous or equal to 2014", result["expected_value"])
         # O advice vai conter informações da referência completa
         self.assertEqual("B1 (journal) : Mark the reference year (2015) with <year> and it must be previous or equal to 2014", result["advice"])
+
+    def test_references_validation_crossref_max_length(self):
+        xmltree = etree.fromstring(
+            '<article article-type="research-article" dtd-version="1.1" xml:lang="en">'
+            "<front><article-meta><pub-date date-type=\"pub\"><year>2026</year></pub-date></article-meta></front>"
+            "<back><ref-list><ref id=\"B12\">"
+            "<mixed-citation>World Health Organization. Obesity. 2000. (WHO Technical Report Series, 894)</mixed-citation>"
+            '<element-citation publication-type="webpage">'
+            "<source>report of a WHO consultation</source><year>2000</year>"
+            "<volume>252</volume><fpage>(WHO Technical Report Series, 894)</fpage>"
+            "</element-citation></ref></ref-list></back></article>"
+        )
+
+        validation = ReferencesValidation(xmltree, self.params)
+        results = [r for r in validation.validate() if r["title"] == "Crossref max length"]
+
+        self.assertEqual(1, len(results))
+        self.assertEqual("CRITICAL", results[0]["response"])
+        self.assertEqual("fpage", results[0]["sub_item"])
 
     def test_references_validation_missing_source(self):
         """Testa validação com XML para fonte ausente."""
