@@ -1,7 +1,7 @@
 import re
 
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.validation.utils import build_response
+from packtools.sps.validation.utils import build_crossref_max_length_responses, build_response
 from packtools.sps import i18n
 
 
@@ -569,6 +569,28 @@ class IssueValidation:
             error_level=self.params.get("issue_no_leading_zeros_error_level", "WARNING"),
         )
 
+    def validate_crossref_max_length(self):
+        """
+        Validates that <volume>, <issue>, <fpage> and <lpage> in <article-meta>
+        do not exceed the length accepted by Crossref for the DOI deposit.
+
+        Yields:
+            dict: Validation response for each element above the limit
+        """
+        yield from build_crossref_max_length_responses(
+            values=[
+                ("volume", self.article_issue.volume),
+                ("issue", self.article_issue.issue),
+                ("fpage", self.article_issue.fpage),
+                ("lpage", self.article_issue.lpage),
+            ],
+            location="<article-meta>",
+            parent={"parent": "article"},
+            item="article-meta",
+            data=self.article_issue.data,
+            error_level=self.params.get("crossref_max_length_error_level", "CRITICAL"),
+        )
+
     def validate(self):
         """
         Performs all validation checks for the issue.
@@ -591,6 +613,7 @@ class IssueValidation:
         yield self.validate_issue_special_nomenclature()
         yield self.validate_no_supplement_element()
         yield self.validate_issue_no_leading_zeros()
+        yield from self.validate_crossref_max_length()
 
 
 class PaginationValidation:

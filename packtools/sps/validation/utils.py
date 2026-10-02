@@ -7,6 +7,9 @@ from packtools.sps.libs.requester import fetch_data
 from packtools.sps.validation.similarity_utils import most_similar, similarity, how_similar
 
 
+CROSSREF_MAX_LENGTH = 32
+
+
 def _normalize_message_value(value):
     if isinstance(value, str):
         preserve_leading_space = value.startswith(" ")
@@ -238,6 +241,46 @@ def build_response(
         ),
         "data": data,
     }
+
+
+def build_crossref_max_length_responses(values, location, parent, item, data, error_level):
+    for element_name, value in values:
+        if not value or len(value) <= CROSSREF_MAX_LENGTH:
+            continue
+        yield build_response(
+            title="Crossref max length",
+            parent=parent,
+            item=item,
+            sub_item=element_name,
+            validation_type="format",
+            is_valid=False,
+            expected=f"<{element_name}> with at most {CROSSREF_MAX_LENGTH} characters",
+            obtained=f"<{element_name}>{value}</{element_name}> ({len(value)} characters)",
+            advice=f"{location}: check <{element_name}>{value}</{element_name}>. Crossref rejects the DOI deposit when <{element_name}> has more than {CROSSREF_MAX_LENGTH} characters",
+            advice_text=i18n._(
+                "{location}: check <{element_name}>{value}</{element_name}>. "
+                "Crossref rejects the DOI deposit when <{element_name}> "
+                "has more than {max_length} characters"
+            ),
+            advice_params={
+                "location": location,
+                "element_name": element_name,
+                "value": value,
+                "max_length": CROSSREF_MAX_LENGTH,
+            },
+            message_text=i18n._(
+                "{location}: <{element_name}> has {length} characters, "
+                "Crossref accepts at most {max_length}"
+            ),
+            message_params={
+                "location": location,
+                "element_name": element_name,
+                "length": len(value),
+                "max_length": CROSSREF_MAX_LENGTH,
+            },
+            data=data,
+            error_level=error_level,
+        )
 
 
 def get_doi_information(doi):

@@ -1864,3 +1864,81 @@ class SpecialNomenclatureAdditionalTest(TestCase):
         obtained = validator.validate_issue_special_nomenclature()
 
         self.assertIsNone(obtained)
+
+
+class CrossrefMaxLengthTest(TestCase):
+    def setUp(self):
+        self.params = {"crossref_max_length_error_level": "CRITICAL"}
+
+    def _validate(self, article_meta):
+        xml = f"<article><front><article-meta>{article_meta}</article-meta></front></article>"
+        validator = IssueValidation(etree.fromstring(xml), params=self.params)
+        return list(validator.validate_crossref_max_length())
+
+    def test_values_up_to_limit_are_valid(self):
+        value = "x" * 32
+        obtained = self._validate(
+            f"<volume>{value}</volume><issue>{value}</issue>"
+            f"<fpage>{value}</fpage><lpage>{value}</lpage>"
+        )
+        self.assertEqual([], obtained)
+
+    def test_each_element_above_limit(self):
+        for element_name in ("volume", "issue", "fpage", "lpage"):
+            with self.subTest(element_name=element_name):
+                value = "x" * 33
+                obtained = self._validate(f"<{element_name}>{value}</{element_name}>")
+
+                self.assertEqual(1, len(obtained))
+                result = obtained[0]
+                self.assertEqual("CRITICAL", result["response"])
+                self.assertEqual("article-meta", result["item"])
+                self.assertEqual(element_name, result["sub_item"])
+                self.assertEqual(
+                    f"<{element_name}>{value}</{element_name}> (33 characters)",
+                    result["got_value"],
+                )
+                self.assertEqual(
+                    f"<article-meta>: <{element_name}> has 33 characters, Crossref accepts at most 32",
+                    result["msg_text"].format(**result["msg_params"]),
+                )
+
+    def test_volume_with_text(self):
+        obtained = self._validate(
+            "<volume>1: Suas: configurando os eixos de mudança</volume>"
+            "<elocation-id>e1</elocation-id>"
+        )
+
+        self.assertEqual(1, len(obtained))
+        self.assertEqual("volume", obtained[0]["sub_item"])
+        self.assertEqual(
+            "<article-meta>: check <volume>1: Suas: configurando os eixos de mudança</volume>. "
+            "Crossref rejects the DOI deposit when <volume> has more than 32 characters",
+            obtained[0]["advice"],
+        )
+
+    def test_error_level_from_params(self):
+        self.params = {"crossref_max_length_error_level": "ERROR"}
+        obtained = self._validate(f"<fpage>{'1' * 33}</fpage>")
+
+        self.assertEqual("ERROR", obtained[0]["response"])
+
+    def test_included_in_validate(self):
+        xml = (
+            "<article><front><article-meta>"
+            f"<volume>{'x' * 33}</volume><elocation-id>e1</elocation-id>"
+            "</article-meta></front></article>"
+        )
+        params = {
+            "volume_format_error_level": "CRITICAL",
+            "number_format_error_level": "CRITICAL",
+            "supplement_format_error_level": "CRITICAL",
+            "issue_format_error_level": "CRITICAL",
+            "expected_issues_error_level": "CRITICAL",
+            "crossref_max_length_error_level": "CRITICAL",
+            "journal_data": None,
+        }
+        validator = IssueValidation(etree.fromstring(xml), params=params)
+        titles = [r["title"] for r in validator.validate() if r]
+
+        self.assertIn("Crossref max length", titles)
