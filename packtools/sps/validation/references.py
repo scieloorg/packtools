@@ -38,6 +38,17 @@ def page_value_problem(value):
     return "other"
 
 
+def _classify_fpage_without_lpage(fpage, mixed_citation):
+    pages_pattern = rf"(?<!\w){re.escape(fpage)}\s*(?:pp?|p[áa]g(?:s|inas)?|pages)\b"
+    if re.search(pages_pattern, mixed_citation or "", re.IGNORECASE):
+        return "size"
+    if re.fullmatch(r"[ivxlcdm]+", fpage, re.IGNORECASE):
+        return None
+    if re.search(r"[A-Za-z]", fpage) or (fpage.isdigit() and len(fpage) >= 5):
+        return "elocation-id"
+    return None
+
+
 class ReferenceValidation:
     def __init__(self, reference_data, params):
         self.data = reference_data
@@ -493,6 +504,24 @@ class ReferenceValidation:
         fpage = self.data.get("fpage")
         lpage = self.data.get("lpage")
         if fpage and not lpage:
+            fpage_kind = _classify_fpage_without_lpage(fpage, self.data.get("mixed_citation"))
+            if fpage_kind == "elocation-id":
+                advice = f"{self.info}: if <fpage>{fpage}</fpage> is an article number, mark it with <elocation-id> instead of <fpage>. Otherwise, add <lpage>"
+                advice_text = i18n._(
+                    "{info}: if <fpage>{fpage}</fpage> is an article number, "
+                    "mark it with <elocation-id> instead of <fpage>. "
+                    "Otherwise, add <lpage>"
+                )
+            elif fpage_kind == "size":
+                advice = f'{self.info}: if <fpage>{fpage}</fpage> is the total number of pages, mark it with <size units="pages"> instead of <fpage>. Otherwise, add <lpage>'
+                advice_text = i18n._(
+                    "{info}: if <fpage>{fpage}</fpage> is the total number of pages, "
+                    'mark it with <size units="pages"> instead of <fpage>. '
+                    "Otherwise, add <lpage>"
+                )
+            else:
+                advice = f"{self.info}: add <lpage> because <fpage> is present"
+                advice_text = i18n._("{info}: add <lpage> because <fpage> is present")
             yield build_response(
                 title="lpage when fpage",
                 parent=self.data,
@@ -502,9 +531,9 @@ class ReferenceValidation:
                 validation_type="exist",
                 expected="<lpage> when <fpage> is present",
                 obtained=f"<fpage>{fpage}</fpage> without <lpage>",
-                advice=f"{self.info}: add <lpage> because <fpage> is present",
-                advice_text=i18n._("{info}: add <lpage> because <fpage> is present"),
-                advice_params={"info": self.info},
+                advice=advice,
+                advice_text=advice_text,
+                advice_params={"info": self.info, "fpage": fpage},
                 message_text=i18n._(
                     "<lpage> is required when <fpage> is present"
                 ),
