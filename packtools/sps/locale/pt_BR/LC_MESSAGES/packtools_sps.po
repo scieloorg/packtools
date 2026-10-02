@@ -1635,6 +1635,16 @@ msgstr "{info}: remova <ext-link> extra de <element-citation>, mantenha no máxi
 msgid "{info}: remove extra <ext-link> from <mixed-citation>, keep at most one"
 msgstr "{info}: remova <ext-link> extra de <mixed-citation>, mantenha no máximo um"
 
+#: packtools/sps/validation/references.py:479
+#, python-brace-format
+msgid "{info}: if <fpage>{fpage}</fpage> is an article number, mark it with <elocation-id> instead of <fpage>. Otherwise, add <lpage>"
+msgstr "{info}: se <fpage>{fpage}</fpage> for um número de artigo, marque-o com <elocation-id> em vez de <fpage>. Caso contrário, adicione <lpage>"
+
+#: packtools/sps/validation/references.py:486
+#, python-brace-format
+msgid "{info}: if <fpage>{fpage}</fpage> is the total number of pages, mark it with <size units=\"pages\"> instead of <fpage>. Otherwise, add <lpage>"
+msgstr "{info}: se <fpage>{fpage}</fpage> for o total de páginas, marque-o com <size units=\"pages\"> em vez de <fpage>. Caso contrário, adicione <lpage>"
+
 #: packtools/sps/validation/references.py:472
 #, python-brace-format
 msgid "{info}: add <lpage> because <fpage> is present"
