@@ -235,28 +235,73 @@ class TestContribRoleValidation(unittest.TestCase):
         role_data = self.role_data.copy()
         role_data["content-type"] = "invalid-uri"
         validator = ContribRoleValidation(self.contrib_data, role_data, {})
-        
-        results = list(validator.validate_credit())
-        errors = [r for r in results if r['response'] != 'OK']
-        
-        self.assertEqual(len(errors), 2)  # Should fail both URI and term validation
-        responses = [error['response'] for error in errors]
-        expected_responses = ['ERROR', 'ERROR']
-        self.assertEqual(responses, expected_responses)
 
-        term_error = next(
-            error
-            for error in errors
-            if error["title"] == "CRediT taxonomy term"
+        results = list(validator.validate_credit())
+
+        self.assertEqual(1, len(results))
+        self.assertEqual("CRediT taxonomy URI", results[0]["title"])
+        self.assertEqual("ERROR", results[0]["response"])
+        self.assertEqual(
+            'Smith, John: check if <role content-type="invalid-uri">'
+            "Writing – original draft</role> has corresponding CRediT URI",
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
         )
-        rendered_advice = term_error["adv_text"].format(
-            **term_error["adv_params"]
-        )
-        self.assertIn(
-            '<role content-type="invalid-uri">',
-            rendered_advice,
-        )
-        self.assertNotIn("<rolecontent-type=", rendered_advice)
+
+    def test_validate_credit_translated_text(self):
+        for text in ("Escrita – rascunho original", "Redacción – borrador original", "writing"):
+            with self.subTest(text=text):
+                role_data = self.role_data.copy()
+                role_data["text"] = text
+                validator = ContribRoleValidation(self.contrib_data, role_data, {})
+
+                results = list(validator.validate_credit())
+
+                self.assertEqual(["OK"], [r["response"] for r in results])
+
+    def test_validate_credit_http_scheme_and_trailing_slash(self):
+        for uri in (
+            "http://credit.niso.org/contributor-roles/writing-original-draft/",
+            "https://credit.niso.org/contributor-roles/writing-original-draft",
+            "http://credit.niso.org/contributor-roles/writing-original-draft",
+        ):
+            with self.subTest(uri=uri):
+                role_data = self.role_data.copy()
+                role_data["content-type"] = uri
+                validator = ContribRoleValidation(self.contrib_data, role_data, {})
+
+                results = list(validator.validate_credit())
+
+                self.assertEqual(["OK"], [r["response"] for r in results])
+
+    def test_validate_credit_without_content_type(self):
+        for text in ("Writing – original draft", "Methodology", "approved the final version"):
+            with self.subTest(text=text):
+                validator = ContribRoleValidation(self.contrib_data, {"text": text}, {})
+
+                self.assertEqual([], list(validator.validate_credit()))
+
+    def test_validate_credit_suggests_uri(self):
+        expected_uri = "https://credit.niso.org/contributor-roles/writing-original-draft/"
+        for uri in (
+            "https://credit.niso.org/contributor-roles/Writing-Original-Draft/",
+            "https://credit.niso.org/contributor-roles/writing–original-draft/",
+            "http://credit.niso.org/contributor-roles/writing–original-draft",
+        ):
+            with self.subTest(uri=uri):
+                role_data = self.role_data.copy()
+                role_data["content-type"] = uri
+                validator = ContribRoleValidation(self.contrib_data, role_data, {})
+
+                results = list(validator.validate_credit())
+
+                self.assertEqual(1, len(results))
+                self.assertEqual("ERROR", results[0]["response"])
+                self.assertEqual(expected_uri, results[0]["expected_value"])
+                self.assertEqual(
+                    f'Smith, John: replace <role content-type="{uri}"> '
+                    f'by <role content-type="{expected_uri}">',
+                    results[0]["adv_text"].format(**results[0]["adv_params"]),
+                )
 
     def test_validate_role_specific_use_success(self):
         """Test validate_role_specific_use with valid role"""
@@ -704,3 +749,30 @@ class TestSubArticleCollabIDValidation(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestCreditTranslatedRoleInPipeline(unittest.TestCase):
+    def test_translated_role_with_credit_uri(self):
+        from packtools.sps.validation.xml_validations import validate_article_contribs
+        from packtools.sps.validation.xml_validator_rules import get_default_rules
+
+        xmltree = etree.fromstring(
+            '<article article-type="research-article" xml:lang="pt">'
+            "<front><article-meta><contrib-group>"
+            '<contrib contrib-type="author">'
+            "<name><surname>Silva</surname><given-names>Ana</given-names></name>"
+            '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceituação</role>'
+            '<role content-type="http://credit.niso.org/contributor-roles/methodology/">Metodologia</role>'
+            "</contrib>"
+            "</contrib-group></article-meta></front></article>"
+        )
+
+        results = [
+            r for r in validate_article_contribs(xmltree, get_default_rules())
+            if r and "CRediT" in r["title"]
+        ]
+
+        self.assertEqual(
+            [("CRediT taxonomy URI", "OK"), ("CRediT taxonomy URI", "OK")],
+            [(r["title"], r["response"]) for r in results],
+        )
