@@ -458,36 +458,10 @@ msgstr "El subartículo {sub_id} utiliza el mismo @rid que el artículo principa
 msgid "{info}: replace <role content-type=\"{uri}\"> by <role content-type=\"{expected_uri}\">"
 msgstr "{info}: reemplaza <role content-type=\"{uri}\"> por <role content-type=\"{expected_uri}\">"
 
-#: packtools/sps/validation/article_contribs.py:1176
-#, python-brace-format
-msgid "{info}: replace <role>{text}</role> by <role content-type=\"{expected_uri}\">{text}</role>"
-msgstr "{info}: reemplaza <role>{text}</role> por <role content-type=\"{expected_uri}\">{text}</role>"
-
 #: packtools/sps/validation/article_contribs.py:1181
 #, python-brace-format
 msgid "{info}: check if <role content-type=\"{uri}\">{text}</role> has corresponding CRediT URI"
 msgstr "{info}: compruebe si <role content-type=\"{uri}\">{text}</role> tiene el URI CRediT correspondiente"
-
-#: packtools/sps/validation/article_contribs.py:1186
-#, python-brace-format
-msgid "{info}: check if <role>{text}</role> has corresponding CRediT URI"
-msgstr "{info}: compruebe si <role>{text}</role> tiene el URI CRediT correspondiente"
-
-#: packtools/sps/validation/article_contribs.py:1212
-#, python-brace-format
-msgid "{info}: replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>"
-msgstr "{info}: reemplaza <role{content_type}>{text}</role> por <role{content_type}>{expected_term}</role>"
-
-#: packtools/sps/validation/article_contribs.py:1216
-#, python-brace-format
-msgid "{info}: replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>"
-msgstr "{info}: reemplaza <role{content_type}></role> por <role{content_type}>{expected_term}</role>"
-
-#: packtools/sps/validation/article_contribs.py:1221
-#: packtools/sps/validation/article_contribs.py:1226
-#, python-brace-format
-msgid "{info}: check if <role{content_type}>{text}</role> has corresponding CRediT term"
-msgstr "{info}: compruebe si <role{content_type}>{text}</role> tiene el término CRediT correspondiente"
 
 #: packtools/sps/validation/article_contribs.py:1266
 #, python-brace-format

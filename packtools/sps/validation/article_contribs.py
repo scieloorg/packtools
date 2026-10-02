@@ -1064,6 +1064,22 @@ class SubArticleCollabIDValidation:
                 )
 
 
+def _credit_uri_key(uri):
+    return re.sub(r"^https?://", "", uri.strip()).rstrip("/")
+
+
+def _credit_uri_slug(uri):
+    return _credit_uri_key(uri).lower().replace("–", "-")
+
+
+def _find_credit_uri(uri, credit_uris):
+    slug = _credit_uri_slug(uri)
+    for credit_uri in credit_uris:
+        if _credit_uri_slug(credit_uri) == slug:
+            return credit_uri
+    return None
+
+
 class ContribRoleValidation:
     """Validates contributor information in scientific article XML."""
 
@@ -1078,15 +1094,9 @@ class ContribRoleValidation:
 
     def index_credit_taxonomy(self):
         credit_taxonomy_by_uri = {}
-        credit_taxonomy_by_term = {}
-        credit_taxonomy_by_terms = []
         for item in self.params["credit_taxonomy_terms_and_urls"] or []:
-            credit_taxonomy_by_terms.append(item["term"])
             credit_taxonomy_by_uri[item["uri"]] = item["term"]
-            credit_taxonomy_by_term[item["term"].upper()] = item["uri"]
         self.params["credit_taxonomy_by_uri"] = credit_taxonomy_by_uri
-        self.params["credit_taxonomy_by_term"] = credit_taxonomy_by_term
-        self.params["credit_taxonomy_by_terms"] = credit_taxonomy_by_terms
 
     @property
     def info(self):
@@ -1103,7 +1113,6 @@ class ContribRoleValidation:
         return {
             # Error levels
             "credit_taxonomy_uri_error_level": "ERROR",
-            "credit_taxonomy_term_error_level": "ERROR",
             "contrib_role_specific_use_error_level": "ERROR",
 
             # CRediT taxonomy terms and their URIs
@@ -1133,7 +1142,12 @@ class ContribRoleValidation:
 
     def validate_credit(self):
         """
-        Validates contributor roles against CRediT taxonomy.
+        Validates @content-type of <role> against the CRediT taxonomy URIs.
+
+        <role> without @content-type is not validated, since the document
+        may use another taxonomy. The text of <role> is not compared with
+        the CRediT terms, since it may be translated. http:// and https://,
+        with or without the trailing slash, are accepted.
 
         Returns
         -------
@@ -1143,48 +1157,32 @@ class ContribRoleValidation:
             got_value, message, and advice fields.
         """
         uri = self.contrib_role.get("content-type")
-        text = self.contrib_role.get("text")
-        if not uri and not text:
+        if not uri:
             return
 
-        expected = self.params["credit_taxonomy_terms_and_urls"]
-        if not expected:
-            return
-
-        uri_error_level = self.params["credit_taxonomy_uri_error_level"]
-        term_error_level = self.params["credit_taxonomy_term_error_level"]
         credit_taxonomy_by_uri = self.params["credit_taxonomy_by_uri"]
-        credit_taxonomy_by_term = self.params["credit_taxonomy_by_term"]
+        if not credit_taxonomy_by_uri:
+            return
 
-        expected_term = credit_taxonomy_by_uri.get(uri) or None
-        expected_uri = credit_taxonomy_by_term.get(text and text.upper()) or None
+        text = self.contrib_role.get("text")
+        expected_uri = _find_credit_uri(uri, credit_taxonomy_by_uri)
+        valid_uri = bool(expected_uri) and (
+            _credit_uri_key(uri) == _credit_uri_key(expected_uri)
+        )
 
-        valid_uri = uri and expected_uri == uri
-        valid_term = text and expected_term and (expected_term.upper() == text.upper())
-
-        advice = ""
+        advice = None
         advice_text = None
         advice_params = {}
-
         if not valid_uri:
-            if expected_uri and uri:
+            if expected_uri:
                 advice = f'{self.info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">'
                 advice_text = (i18n._('{info}: replace <role content-type="{uri}"> by <role content-type="{expected_uri}">'))
                 advice_params = {"info": self.i18n_info, "uri": uri, "expected_uri": expected_uri}
-            elif expected_uri:
-                advice = f'{self.info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>'
-                advice_text = (i18n._('{info}: replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>'))
-                advice_params = {"info": self.i18n_info, "text": text, "expected_uri": expected_uri}
-            elif uri:
+            else:
                 expected_uris = list(credit_taxonomy_by_uri.keys())
                 advice = f'{self.info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI: {expected_uris}'
                 advice_text = (i18n._('{info}: check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI'))
                 advice_params = {"info": self.i18n_info, "uri": uri, "text": text}
-            elif text:
-                expected_uris = list(credit_taxonomy_by_uri.keys())
-                advice = f'{self.info} check if <role>{text}</role> has corresponding CRediT URI: {expected_uris}'
-                advice_text = (i18n._('{info}: check if <role>{text}</role> has corresponding CRediT URI'))
-                advice_params = {"info": self.i18n_info, "text": text}
 
         yield build_response(
             title="CRediT taxonomy URI",
@@ -1193,55 +1191,15 @@ class ContribRoleValidation:
             sub_item=None,
             validation_type="exist",
             is_valid=valid_uri,
-            expected=expected_uri,
+            expected=expected_uri or "CRediT URI",
             obtained=uri,
             advice=advice,
             data=self.contrib,
-            error_level=uri_error_level,
+            error_level=self.params["credit_taxonomy_uri_error_level"],
             advice_text=advice_text,
             advice_params=advice_params,
         )
-        
-        if not valid_term:
-            if uri:
-                content_type = f' content-type="{uri}"'
-            else:
-                content_type = ''
-            if expected_term and text:
-                advice = f'{self.info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>'
-                advice_text = (i18n._('{info}: replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>'))
-                advice_params = {"info": self.i18n_info, "content_type": content_type, "text": text, "expected_term": expected_term}
-            elif expected_term:
-                advice = f'{self.info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>'
-                advice_text = (i18n._('{info}: replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>'))
-                advice_params = {"info": self.i18n_info, "content_type": content_type, "expected_term": expected_term}
-            elif text:
-                expected_terms = self.params["credit_taxonomy_by_terms"]
-                advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'
-                advice_text = (i18n._('{info}: check if <role{content_type}>{text}</role> has corresponding CRediT term'))
-                advice_params = {"info": self.i18n_info, "content_type": content_type, "text": text}
-            else:
-                expected_terms = self.params["credit_taxonomy_by_terms"]
-                advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'
-                advice_text = (i18n._('{info}: check if <role{content_type}>{text}</role> has corresponding CRediT term'))
-                advice_params = {"info": self.i18n_info, "content_type": content_type, "text": text}
 
-        yield build_response(
-            title="CRediT taxonomy term",
-            parent=self.contrib,
-            item="role",
-            sub_item=None,
-            validation_type="exist",
-            is_valid=valid_term,
-            expected=expected_term or "contributor role",
-            obtained=text,
-            advice=advice,
-            data=self.contrib,
-            error_level=term_error_level,
-            advice_text=advice_text,
-            advice_params=advice_params,
-        )
- 
     def validate_role_specific_use(self):
         """
         Validates @specific-use attribute in <role>.
