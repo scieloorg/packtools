@@ -1816,6 +1816,10 @@ msgstr "Em <sec sec-type=\"{sec_type}\"><supplementary-material> substitua \"{se
 msgid "Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail."
 msgstr "Adicione rótulo em <supplementary-material>: <supplementary-material><label>. Consulte a documentação do SPS para obter mais detalhes."
 
+#: packtools/sps/validation/supplementary_material.py:53
+msgid "Add <graphic> (figure) or <media> (other file types) in {xml}"
+msgstr "Adicione <graphic> (figura) ou <media> (outros tipos de arquivo) em {xml}"
+
 #: packtools/sps/validation/supplementary_material.py:92
 msgid "Do not use <supplementary-material> inside <app-group> or <app>."
 msgstr "Não use <supplementary-material> dentro de <app-group> ou <app>."
