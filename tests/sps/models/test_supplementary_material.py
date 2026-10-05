@@ -165,6 +165,29 @@ class XmlSupplementaryMaterialsTest(unittest.TestCase):
         self.assertEqual(supp1_data["mime_subtype"], "pdf")
         self.assertEqual(supp1_data["xlink_href"], "supplementary1.pdf")
 
+    def test_items_label_and_visual_elem(self):
+        items = {item["id"]: item for item in self.supplementary_materials.items}
+        self.assertEqual(items["supp01"]["label"], "Supplementary Material 1")
+        self.assertEqual(items["supp01"]["visual_elem"], "media")
+        self.assertEqual(items["supp02"]["label"], "Supplementary Material 2")
+        self.assertEqual(items["supp02"]["visual_elem"], "graphic")
+
+    def test_item_without_media_or_graphic(self):
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
+                <body>
+                    <supplementary-material id="supp01">
+                        <label>Supplementary Material 1</label>
+                    </supplementary-material>
+                </body>
+            </article>
+            """
+        )
+        items = list(XmlSupplementaryMaterials(xml_tree).items)
+        self.assertEqual(items[0]["label"], "Supplementary Material 1")
+        self.assertIsNone(items[0]["visual_elem"])
+
 
 if __name__ == "__main__":
     unittest.main()
