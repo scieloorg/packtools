@@ -35,7 +35,7 @@ class TestContribValidation(unittest.TestCase):
                                 Writing – original draft
                             </role>
                             <xref ref-type="aff" rid="aff1"/>
-                            <contrib-id contrib-id-type="orcid">0000-0002-1234-5678</contrib-id>
+                            <contrib-id contrib-id-type="orcid">0000-0002-1825-0097</contrib-id>
                         </contrib>
                         <contrib contrib-type="author">
                             <collab>Research Group A</collab>
@@ -53,7 +53,7 @@ class TestContribValidation(unittest.TestCase):
             "contrib_full_name": "Smith, John",
             "contrib_name": {"surname": "Smith", "given-names": "John"},
             "contrib_type": "author",
-            "contrib_ids": {"orcid": "0000-0002-1234-5678"},
+            "contrib_ids": {"orcid": "0000-0002-1825-0097"},
             "contrib_role": [{
                 "content-type": "https://credit.niso.org/contributor-roles/writing-original-draft/",
                 "text": "Writing – original draft"
@@ -150,7 +150,7 @@ class TestContribValidation(unittest.TestCase):
     def test_validate_orcid_format_url_detected(self):
         """Test validate_orcid_format with URL instead of identifier"""
         contrib_data = self.contrib_data.copy()
-        contrib_data["contrib_ids"] = {"orcid": "https://orcid.org/0000-0002-1234-5678"}
+        contrib_data["contrib_ids"] = {"orcid": "https://orcid.org/0000-0002-1825-0097"}
         validator = ContribValidation(contrib_data, {})
 
         results = list(validator.validate_orcid_format())
@@ -159,6 +159,69 @@ class TestContribValidation(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0]['title'], 'ORCID format - URL detected')
         self.assertIn('Do not use URLs', errors[0]['advice'])
+
+    def _orcid_format_results(self, orcid):
+        contrib_data = self.contrib_data.copy()
+        contrib_data["contrib_ids"] = {"orcid": orcid}
+        validator = ContribValidation(contrib_data, {})
+        return list(validator.validate_orcid_format())
+
+    def test_validate_orcid_format_valid_with_uppercase_x(self):
+        results = self._orcid_format_results("0000-0002-1694-233X")
+        self.assertEqual(["OK"], [r["response"] for r in results])
+
+    def test_validate_orcid_format_letter_in_numeric_position(self):
+        results = self._orcid_format_results("000A-0002-1694-233X")
+        self.assertEqual(["ERROR"], [r["response"] for r in results])
+        self.assertEqual(
+            "Smith, John: Fix ORCID 000A-0002-1694-233X: use only digits, "
+            "except the last character, which can be a digit or uppercase X",
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+        )
+
+    def test_validate_orcid_format_lowercase_x(self):
+        results = self._orcid_format_results("0000-0002-1694-233x")
+        self.assertEqual(["ERROR"], [r["response"] for r in results])
+        self.assertEqual(
+            "Smith, John: Replace the lowercase x with uppercase X in "
+            "ORCID 0000-0002-1694-233x",
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+        )
+
+    def test_validate_orcid_format_invalid_check_digit(self):
+        results = self._orcid_format_results("0000-0003-3923-1698")
+        self.assertEqual(["ERROR"], [r["response"] for r in results])
+        self.assertEqual(
+            "Smith, John: ORCID 0000-0003-3923-1698 has an invalid check "
+            "digit. Confirm the correct ORCID with the author",
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+        )
+        self.assertEqual(
+            "ORCID 0000-0003-3923-1698 is invalid; the check digit does not match",
+            results[0]["msg_text"].format(**results[0]["msg_params"]),
+        )
+
+    def test_validate_orcid_format_lowercase_x_with_invalid_check_digit(self):
+        results = self._orcid_format_results("0000-0002-1694-234x")
+        self.assertIn("invalid check digit", results[0]["advice"])
+
+    def test_validate_orcid_format_en_dash_separator(self):
+        results = self._orcid_format_results("0000–0002-1694-233X")
+        self.assertEqual(["ERROR"], [r["response"] for r in results])
+        self.assertIn("Fix ORCID format", results[0]["advice"])
+
+    def test_validate_orcid_format_uses_configured_error_level(self):
+        contrib_data = self.contrib_data.copy()
+        contrib_data["contrib_ids"] = {"orcid": "0000-0003-3923-1698"}
+        validator = ContribValidation(
+            contrib_data, {"orcid_format_error_level": "CRITICAL"}
+        )
+        results = list(validator.validate_orcid_format())
+        self.assertEqual(["CRITICAL"], [r["response"] for r in results])
+
+    def test_validate_orcid_is_registered_without_checker(self):
+        results = list(self.validator.validate_orcid_is_registered())
+        self.assertEqual([], results)
 
     def test_validate_orcid_is_registered_success(self):
         """Test validate_orcid_is_registered with registered ORCID"""
@@ -182,14 +245,14 @@ class TestContribValidation(unittest.TestCase):
         advices = [error['advice'] for error in errors]
         
         expected_responses = ['ERROR']
-        expected_advices = ['Smith, John : Unable to automatically check the 0000-0002-1234-5678. Check it manually']
+        expected_advices = ['Smith, John : Unable to automatically check the 0000-0002-1825-0097. Check it manually']
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
         self.assertEqual("Smith, John", errors[0]["adv_params"]["info"])
         self.assertEqual(
             "Smith, John: Unable to automatically check the "
-            "0000-0002-1234-5678. Check it manually",
+            "0000-0002-1825-0097. Check it manually",
             errors[0]["adv_text"].format(**errors[0]["adv_params"]),
         )
 

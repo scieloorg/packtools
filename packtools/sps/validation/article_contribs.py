@@ -5,12 +5,38 @@ from packtools.sps.validation.utils import build_response
 from packtools.sps import i18n
 
 
-def _callable_extern_validate_default(orcid, data):
-    return {
-        "data": data,
-        "orcid": orcid,
-        "status": "unknown",
-    }
+ORCID_BLOCKS = re.compile(r"^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$")
+ORCID_CHARS = re.compile(r"^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9Xx]$")
+
+
+def orcid_check_digit(base_digits):
+    """
+    Computes the ORCID check digit (ISO 7064 MOD 11-2) of the first 15 digits.
+
+    https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier
+    """
+    total = 0
+    for digit in base_digits:
+        total = (total + int(digit)) * 2
+    result = (12 - total % 11) % 11
+    return "X" if result == 10 else str(result)
+
+
+def orcid_format_problem(orcid):
+    """
+    Returns None for a valid ORCID, otherwise one of:
+    "blocks", "chars", "check_digit", "lowercase_x"
+    """
+    if not ORCID_BLOCKS.match(orcid):
+        return "blocks"
+    if not ORCID_CHARS.match(orcid):
+        return "chars"
+    digits = orcid.replace("-", "")
+    if orcid_check_digit(digits[:15]) != digits[-1].upper():
+        return "check_digit"
+    if digits[-1] == "x":
+        return "lowercase_x"
+    return None
 
 
 class ContribValidation:
@@ -45,7 +71,7 @@ class ContribValidation:
             "contrib_error_level": "ERROR",
             
             # ORCID validation function
-            "is_orcid_registered": _callable_extern_validate_default,
+            "is_orcid_registered": None,
 
             # Contrib type validation
             "contrib_type_list": ["author", "compiler"],
@@ -199,9 +225,12 @@ class ContribValidation:
 
         SciELO Rules:
         - ORCID is mandatory
-        - Format: XXXX-XXXX-XXXX-XXXX (alphanumeric)
+        - Format: XXXX-XXXX-XXXX-XXXX
+        - First 15 characters are digits; the last one is a digit or
+          uppercase X
+        - Last character is the ISO 7064 MOD 11-2 check digit
         - DO NOT use URLs (https://orcid.org/...)
-        - Use only the alphanumeric identifier
+        - Use only the identifier
 
         Returns
         -------
@@ -216,10 +245,6 @@ class ContribValidation:
         error_level = self.data["orcid_format_error_level"]
         if not self.contrib_name:
             return
-
-        _default_orcid = (
-            r"^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$"
-        )
 
         _orcid = self.contrib.get("contrib_ids", {}).get("orcid") or ""
 
@@ -252,10 +277,44 @@ class ContribValidation:
             return
 
         # Validação de formato
-        is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
-        expected_value = _orcid if is_valid else "valid ORCID"
+        problem = orcid_format_problem(_orcid) if _orcid else None
+        is_valid = bool(_orcid) and not problem
+        message_text = i18n._(
+            "ORCID {orcid} is invalid; expected format "
+            "XXXX-XXXX-XXXX-XXXX"
+        )
 
-        if _orcid:
+        if problem == "chars":
+            advice = f'{self.info} Fix ORCID {_orcid}: use only digits, except the last character, which can be a digit or uppercase X'
+            advice_text = (
+                i18n._("{info}: Fix ORCID {orcid}: use only digits, except the last character, which can be a digit or uppercase X")
+            )
+            advice_params = {
+                "info": self.i18n_info,
+                "orcid": _orcid,
+            }
+        elif problem == "check_digit":
+            advice = f'{self.info} ORCID {_orcid} has an invalid check digit. Confirm the correct ORCID with the author'
+            advice_text = (
+                i18n._("{info}: ORCID {orcid} has an invalid check digit. Confirm the correct ORCID with the author")
+            )
+            advice_params = {
+                "info": self.i18n_info,
+                "orcid": _orcid,
+            }
+            message_text = i18n._(
+                "ORCID {orcid} is invalid; the check digit does not match"
+            )
+        elif problem == "lowercase_x":
+            advice = f'{self.info} Replace the lowercase x with uppercase X in ORCID {_orcid}'
+            advice_text = (
+                i18n._("{info}: Replace the lowercase x with uppercase X in ORCID {orcid}")
+            )
+            advice_params = {
+                "info": self.i18n_info,
+                "orcid": _orcid,
+            }
+        elif _orcid:
             advice = f'Fix ORCID format <contrib-id contrib-id-type="orcid">{_orcid}</contrib-id>'
             advice_text = (
                 i18n._('Fix ORCID format <contrib-id contrib-id-type="orcid">{orcid}</contrib-id>')
@@ -290,10 +349,7 @@ class ContribValidation:
                 i18n._("ORCID {orcid} is valid")
                 if is_valid
                 else (
-                    i18n._(
-                        "ORCID {orcid} is invalid; expected format "
-                        "XXXX-XXXX-XXXX-XXXX"
-                    )
+                    message_text
                     if _orcid
                     else i18n._("A valid ORCID is required")
                 )
@@ -304,6 +360,9 @@ class ContribValidation:
     def validate_orcid_is_registered(self):
         """
         Validates if contributor's ORCID is registered in ORCID database.
+
+        Runs only when a checker function is given in
+        `is_orcid_registered`.
 
         Returns
         -------
@@ -324,9 +383,6 @@ class ContribValidation:
             return
 
         is_orcid_registered = self.data["is_orcid_registered"]
-        is_orcid_registered = (
-            is_orcid_registered or _callable_extern_validate_default
-        )
         if not is_orcid_registered:
             return
 
