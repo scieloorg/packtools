@@ -244,7 +244,7 @@ class ReferenceValidationTest(TestCase):
         self.assertEqual([], list(validation.validate_crossref_max_length()))
 
     def test_validate_crossref_max_length_each_element(self):
-        for element_name in ("volume", "issue", "fpage", "lpage"):
+        for element_name in ("volume", "issue", "fpage"):
             with self.subTest(element_name=element_name):
                 reference_data = self.reference_data.copy()
                 reference_data[element_name] = "x" * 33
@@ -259,12 +259,20 @@ class ReferenceValidationTest(TestCase):
         params = self.params.copy()
         params["crossref_max_length_error_level"] = "ERROR"
         reference_data = self.reference_data.copy()
-        reference_data["lpage"] = "x" * 33
+        reference_data["fpage"] = "x" * 33
 
         validation = ReferenceValidation(reference_data, params)
         results = list(validation.validate_crossref_max_length())
 
         self.assertEqual("ERROR", results[0]["response"])
+
+    def test_validate_crossref_max_length_ignores_lpage(self):
+        reference_data = self.reference_data.copy()
+        reference_data["lpage"] = "x" * 33
+
+        validation = ReferenceValidation(reference_data, self.params)
+
+        self.assertEqual([], list(validation.validate_crossref_max_length()))
 
     # Testes para validate_mixed_citation_sub_tags
     def test_validate_mixed_citation_sub_tags_disallowed(self):

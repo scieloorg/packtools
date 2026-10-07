@@ -480,10 +480,13 @@ class ReferenceValidation:
             )
 
     def validate_crossref_max_length(self):
+        """
+        <lpage> is not checked: the Crossref <citation> has no last_page.
+        """
         yield from build_crossref_max_length_responses(
             values=[
                 (element_name, self.data.get(element_name))
-                for element_name in ("volume", "issue", "fpage", "lpage")
+                for element_name in ("volume", "issue", "fpage")
             ],
             location=self.info,
             parent=self.data,
