@@ -24,6 +24,7 @@
         "ext_link_count_element_citation_error_level": "ERROR",
         "ext_link_count_mixed_citation_error_level": "ERROR",
         "lpage_error_level": "ERROR",
+        "page_value_error_level": "ERROR",
         "size_units_error_level": "ERROR",
         "date_in_citation_content_type_error_level": "ERROR",
         "surname_error_level": "ERROR",

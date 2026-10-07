@@ -1644,6 +1644,26 @@ msgstr "{info}: adicione <lpage> porque <fpage> está presente"
 msgid "<lpage> is required when <fpage> is present"
 msgstr "<lpage> é obrigatório quando <fpage> está presente"
 
+#: packtools/sps/validation/references.py:527
+#, python-brace-format
+msgid "{info}: mark the article number <{element_name}>{value}</{element_name}> with <elocation-id> instead of <{element_name}>"
+msgstr "{info}: marque o número de artigo <{element_name}>{value}</{element_name}> com <elocation-id> em vez de <{element_name}>"
+
+#: packtools/sps/validation/references.py:533
+#, python-brace-format
+msgid "{info}: <{element_name}>{value}</{element_name}> has more than one page. Mark the first page with <fpage> and the last page with <lpage>"
+msgstr "{info}: <{element_name}>{value}</{element_name}> tem mais de uma página. Marque a primeira página com <fpage> e a última página com <lpage>"
+
+#: packtools/sps/validation/references.py:539
+#, python-brace-format
+msgid "{info}: keep only the page number in <{element_name}>{value}</{element_name}>"
+msgstr "{info}: mantenha apenas o número da página em <{element_name}>{value}</{element_name}>"
+
+#: packtools/sps/validation/references.py:558
+#, python-brace-format
+msgid "{info}: <{element_name}>{value}</{element_name}> is not a page number"
+msgstr "{info}: <{element_name}>{value}</{element_name}> não é um número de página"
+
 #: packtools/sps/validation/references.py:497
 #, python-brace-format
 msgid "{info}: set @units=\"pages\" in <size>"
