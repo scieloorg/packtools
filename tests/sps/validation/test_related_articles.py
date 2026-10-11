@@ -7,7 +7,10 @@ from packtools.sps.validation.related_articles import (
     RelatedArticleValidation,
     FulltextRelatedArticlesValidation,
 )
-from packtools.sps.validation.xml_validations import validate_related_articles
+from packtools.sps.validation.xml_validations import (
+    validate_peer_reviews,
+    validate_related_articles,
+)
 from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
@@ -1938,3 +1941,36 @@ class TestMentionedDocumentRelatedArticleTypes(DefaultRulesRelatedArticleTest):
             self._problems(self._xml("research-article", ["corrected-article"])),
             [("Related article type", "CRITICAL", "corrected-article")],
         )
+
+
+class TestSubArticleRequiredRelatedArticles(DefaultRulesRelatedArticleTest):
+    def test_reviewer_report_sub_article_without_related_article(self):
+        xml_tree = self._xml(
+            "research-article",
+            [],
+            sub_articles=(
+                '<sub-article article-type="reviewer-report" id="SA1" xml:lang="pt">'
+                "<front-stub/></sub-article>"
+            ),
+        )
+        results = [
+            r for r in validate_peer_reviews(xml_tree, get_default_rules())
+            if r["title"] == "Required related articles"
+        ]
+        self.assertEqual(results, [])
+
+    def test_translation_of_letter_without_article(self):
+        xml_tree = self._xml(
+            "letter",
+            ["article"],
+            sub_articles=(
+                '<sub-article article-type="translation" id="s1" xml:lang="en">'
+                "<front-stub/></sub-article>"
+            ),
+        )
+        results = [
+            (r["parent"], r["parent_id"], r["response"])
+            for r in validate_related_articles(xml_tree, get_default_rules())
+            if r["title"] == "Required related articles"
+        ]
+        self.assertEqual(results, [("sub-article", "s1", "CRITICAL")])
