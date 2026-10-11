@@ -107,11 +107,11 @@
             },
             "article-commentary": {
                 "required_related_article_types": ["commentary-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": ["reply"]
             },
             "letter": {
-                "required_related_article_types": [],
-                "acceptable_related_article_types": ["article", "letter"]
+                "required_related_article_types": ["article"],
+                "acceptable_related_article_types": ["reply"]
             },
             "reply": {
                 "required_related_article_types": ["letter"],
