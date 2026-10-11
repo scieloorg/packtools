@@ -30,12 +30,14 @@
             "rev-request",
             "rev-recd",
             "revised",
+            "reviewer-report-received",
             "accepted"
         ],
         "pos_pub_ordered_events":[
             "pub",
             "resubmitted",
             "corrected",
+            "expression-of-concern",
             "retracted"
         ],
         "parent":{

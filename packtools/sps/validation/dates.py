@@ -57,8 +57,8 @@ class DateValidation:
             "format_error_level": "CRITICAL",
             "limit_error_level": "CRITICAL",
             # Event ordering configuration
-            "pre_pub_ordered_events": ["preprint", "received", "rev-request", "rev-recd", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "resubmitted", "corrected", "retracted"],
+            "pre_pub_ordered_events": ["preprint", "received", "rev-request", "rev-recd", "revised", "reviewer-report-received", "accepted"],
+            "pos_pub_ordered_events": ["pub", "resubmitted", "corrected", "expression-of-concern", "retracted"],
             # Parent reference for validation responses
             "parent": None,
             # Date limits
@@ -293,10 +293,11 @@ class FulltextDatesValidation:
             # Event lists — alinhados com article_dates_rules.json
             "required_events": [],
             "pre_pub_ordered_events": [
-                "preprint", "received", "rev-request", "rev-recd", "revised", "accepted"
+                "preprint", "received", "rev-request", "rev-recd", "revised",
+                "reviewer-report-received", "accepted"
             ],
             "pos_pub_ordered_events": [
-                "pub", "resubmitted", "corrected", "retracted"
+                "pub", "resubmitted", "corrected", "expression-of-concern", "retracted"
             ],
             # Required events mappings
             "required_history_events_for_article_type": {},

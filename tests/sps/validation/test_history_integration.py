@@ -298,3 +298,73 @@ class TestReceivedAcceptedReportedOnce(TestCase):
         </article>
         """)
         self.assertEqual(results, {'article dates': [], 'history': []})
+
+
+class TestArticleDatesKnownDateTypes(TestCase):
+    def _history_events(self, xml):
+        tree = etree.fromstring(xml)
+        for group_result in validate_xml_content(tree, get_default_rules()):
+            if group_result['group'] == 'article dates':
+                return [
+                    (item['title'], item['response'])
+                    for item in group_result['items']
+                    if item and item['title'] in (
+                        'missing events', 'unexpected events', 'ordered events'
+                    )
+                ]
+
+    def test_reviewer_report_with_reviewer_report_received(self):
+        results = self._history_events("""
+        <article article-type="reviewer-report">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>28</day><month>09</month><year>2025</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """)
+        self.assertEqual(
+            results,
+            [
+                ('ordered events', 'OK'),
+                ('unexpected events', 'OK'),
+                ('missing events', 'OK'),
+            ],
+        )
+
+    def test_expression_of_concern_date_is_expected(self):
+        results = self._history_events("""
+        <article article-type="research-article">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="expression-of-concern"
+                        id="ra1" ext-link-type="doi"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xlink:href="10.1590/xxx"/>
+                    <history>
+                        <date date-type="received">
+                            <day>15</day><month>01</month><year>2024</year>
+                        </date>
+                        <date date-type="accepted">
+                            <day>12</day><month>03</month><year>2024</year>
+                        </date>
+                        <date date-type="expression-of-concern">
+                            <day>10</day><month>05</month><year>2025</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """)
+        self.assertEqual(
+            results,
+            [
+                ('ordered events', 'OK'),
+                ('unexpected events', 'OK'),
+                ('missing events', 'OK'),
+            ],
+        )
