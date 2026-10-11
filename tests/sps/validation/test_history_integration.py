@@ -243,3 +243,58 @@ class TestHistoryIntegration(TestCase):
                 break
         else:
             self.fail("History validation group not found")
+
+
+class TestReceivedAcceptedReportedOnce(TestCase):
+    def _non_ok(self, xml):
+        tree = etree.fromstring(xml)
+        results = {}
+        for group_result in validate_xml_content(tree, get_default_rules()):
+            if group_result['group'] in ('history', 'article dates'):
+                results[group_result['group']] = [
+                    (item['title'], item['response'])
+                    for item in group_result['items']
+                    if item and item['title'] in (
+                        'missing events',
+                        'required date: received',
+                        'required date: accepted',
+                    ) and item['response'] != 'OK'
+                ]
+        return results
+
+    def test_missing_received_is_reported_only_in_history(self):
+        results = self._non_ok("""
+        <article article-type="research-article">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="accepted">
+                            <day>12</day><month>03</month><year>2024</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """)
+        self.assertEqual(
+            results,
+            {
+                'article dates': [],
+                'history': [('required date: received', 'CRITICAL')],
+            },
+        )
+
+    def test_addendum_without_history_has_no_missing_dates(self):
+        results = self._non_ok("""
+        <article article-type="addendum">
+            <front>
+                <article-meta>
+                    <related-article related-article-type="addended-article"
+                        id="ra1" ext-link-type="doi"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xlink:href="10.1590/xxx"/>
+                </article-meta>
+            </front>
+        </article>
+        """)
+        self.assertEqual(results, {'article dates': [], 'history': []})

@@ -291,7 +291,7 @@ class FulltextDatesValidation:
             "pub_date_past_collection_tolerance_months": 12,
             "today": None,
             # Event lists — alinhados com article_dates_rules.json
-            "required_events": ["received", "accepted"],
+            "required_events": [],
             "pre_pub_ordered_events": [
                 "preprint", "received", "rev-request", "rev-recd", "revised", "accepted"
             ],
