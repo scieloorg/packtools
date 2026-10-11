@@ -16,12 +16,13 @@ class XMLFns:
 
     @property
     def fn_edited_by(self):
-        for item in self.xml_tree.xpath(". | .//sub-article"):
-            fulltext = Fulltext(item)
-            for node in fulltext.node.xpath("*//fn[@fn-type='edited-by']"):
-                data = fulltext.attribs_parent_prefixed
-                data.update(Fn(node).data)
-                yield data
-
+        article = self.xml_tree.find(".")
+        parent = Fulltext(article).attribs_parent_prefixed
+        return [
+            {**parent, **Fn(node).data}
+            for node in article.xpath(
+                "front/article-meta/author-notes/fn[@fn-type='edited-by']"
+            )
+        ]
 
 ArticleFns = XMLFns

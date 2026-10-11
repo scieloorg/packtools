@@ -955,9 +955,11 @@ msgstr "O elemento <fn-group> deverá aparecer no máximo uma vez no artigo. Oco
 msgid "<fn-group> element should appear at most once in sub-article (id={id}). Found {count} occurrences."
 msgstr "O elemento <fn-group> deverá aparecer no máximo uma vez no subartigo (id={id}). Ocorrências {count} encontradas."
 
-#: packtools/sps/validation/fn.py:216
-msgid "Make the responsible editor with <fn fn-type=\"edited-by\">"
-msgstr "Torne-se o editor responsável com <fn fn-type=\"edited-by\">"
+#: packtools/sps/validation/fn.py:223
+msgid ""
+"Mark in <author-notes> the responsible editor for the review process with "
+"<fn fn-type=\"edited-by\">, required for {article_type}"
+msgstr "Marque em <author-notes> o editor responsável pelo processo de avaliação com <fn fn-type=\"edited-by\">, obrigatório para {article_type}"
 
 #: packtools/sps/validation/formula.py:51
 msgid "No <disp-formula> found in XML"
