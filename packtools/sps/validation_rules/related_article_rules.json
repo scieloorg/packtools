@@ -114,7 +114,8 @@
                 "acceptable_related_article_types": ["reply"]
             },
             "reply": {
-                "required_related_article_types": ["letter"],
+                "required_related_article_types": [],
+                "required_one_of_related_article_types": ["letter", "commentary"],
                 "acceptable_related_article_types": []
             },
             "editorial": {

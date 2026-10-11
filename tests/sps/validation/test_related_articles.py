@@ -1859,3 +1859,27 @@ class TestLetterAndCommentaryRelatedArticleTypes(DefaultRulesRelatedArticleTest)
             ),
             [],
         )
+
+
+class TestReplyRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_reply_to_letter_or_commentary(self):
+        for related_type in ("letter", "commentary"):
+            with self.subTest(related_type=related_type):
+                self.assertEqual(
+                    self._problems(self._xml("reply", [related_type])), []
+                )
+
+    def test_reply_without_letter_or_commentary(self):
+        results = [
+            r for r in validate_related_articles(
+                self._xml("reply", []), get_default_rules()
+            )
+            if r["title"] == "Required related articles"
+        ]
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertEqual(results[0]["expected_value"], ["letter", "commentary"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
