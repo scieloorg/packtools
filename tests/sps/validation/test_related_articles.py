@@ -7,6 +7,8 @@ from packtools.sps.validation.related_articles import (
     RelatedArticleValidation,
     FulltextRelatedArticlesValidation,
 )
+from packtools.sps.validation.xml_validations import validate_related_articles
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 PARAMS = {
@@ -1772,3 +1774,58 @@ class TestXMLIntegrationNewValidations(BaseRelatedArticleTest):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DefaultRulesRelatedArticleTest(TestCase):
+    TYPE_TITLES = (
+        "Related article type",
+        "Required related articles",
+        "Related article type value",
+    )
+
+    def _related(self, related_types):
+        return "".join(
+            f'<related-article related-article-type="{related_type}" id="r{i}" '
+            f'xlink:href="10.1590/0000-0000-{i}" ext-link-type="doi"/>'
+            for i, related_type in enumerate(related_types, 1)
+        )
+
+    def _xml(self, article_type, related_types, sub_articles=""):
+        return etree.fromstring(
+            f"""
+            <article xmlns:xlink="http://www.w3.org/1999/xlink"
+                article-type="{article_type}" xml:lang="pt">
+                <front><article-meta>{self._related(related_types)}</article-meta></front>
+                {sub_articles}
+            </article>
+            """
+        )
+
+    def _problems(self, xml_tree):
+        return [
+            (r["title"], r["response"], r["got_value"])
+            for r in validate_related_articles(xml_tree, get_default_rules())
+            if r["title"] in self.TYPE_TITLES and r["response"] != "OK"
+        ]
+
+
+class TestNoticeDocumentsRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_notice_with_expected_related_article_type(self):
+        cases = [
+            ("addendum", "addended-article"),
+            ("expression-of-concern", "object-of-concern"),
+            ("correction", "corrected-article"),
+            ("retraction", "retracted-article"),
+            ("partial-retraction", "retracted-article"),
+        ]
+        for article_type, related_type in cases:
+            with self.subTest(article_type=article_type):
+                self.assertEqual(
+                    self._problems(self._xml(article_type, [related_type])), []
+                )
+
+    def test_addendum_without_addended_article(self):
+        self.assertEqual(
+            self._problems(self._xml("addendum", [])),
+            [("Required related articles", "CRITICAL", [])],
+        )

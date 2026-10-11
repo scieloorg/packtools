@@ -98,7 +98,11 @@
                 "acceptable_related_article_types": []
             },
             "addendum": {
-                "required_related_article_types": ["article"],
+                "required_related_article_types": ["addended-article"],
+                "acceptable_related_article_types": []
+            },
+            "expression-of-concern": {
+                "required_related_article_types": ["object-of-concern"],
                 "acceptable_related_article_types": []
             },
             "article-commentary": {
