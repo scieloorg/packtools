@@ -1296,6 +1296,63 @@ class TestTranslationWithoutHistory(TestCase):
         self.assertEqual(results[0]["adv_params"]["missing_events"], ["accepted"])
 
 
+class TestRequiredEventsDoNotLeak(TestCase):
+    HISTORY = (
+        "<history>"
+        '<date date-type="received"><day>15</day><month>03</month><year>2024</year></date>'
+        '<date date-type="accepted"><day>20</day><month>05</month><year>2024</year></date>'
+        "</history>"
+    )
+
+    def setUp(self):
+        self.params = {
+            "parent": {"parent": None},
+            "required_events": [],
+            "required_history_events_for_article_type": {
+                "reviewer-report": "reviewer-report-received",
+            },
+            "required_history_events_for_related_article_type": {},
+        }
+
+    def _missing_events(self, xml):
+        validator = FulltextDatesValidation(etree.fromstring(xml), self.params)
+        return [
+            (r["response"], (r.get("adv_params") or {}).get("missing_events"))
+            for r in validator.validate()
+            if r["title"] == "missing events"
+        ]
+
+    def test_sub_article_requirement_does_not_reach_next_sub_article(self):
+        xml = f"""
+        <article article-type="research-article" xml:lang="en">
+            <front><article-meta>{self.HISTORY}</article-meta></front>
+            <sub-article article-type="reviewer-report" id="s1" xml:lang="en">
+                <front-stub>
+                    <history>
+                        <date date-type="reviewer-report-received"><day>01</day><month>04</month><year>2024</year></date>
+                    </history>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="reply" id="s2" xml:lang="en">
+                <front-stub>{self.HISTORY}</front-stub>
+            </sub-article>
+        </article>
+        """
+        self.assertEqual(
+            self._missing_events(xml),
+            [("OK", None), ("OK", None), ("OK", None)],
+        )
+
+    def test_params_are_not_changed(self):
+        xml = """
+        <article article-type="reviewer-report" xml:lang="en">
+            <front><article-meta/></front>
+        </article>
+        """
+        self._missing_events(xml)
+        self.assertEqual(self.params["required_events"], [])
+
+
 class TestHistoryValidationRegression(TestCase):
     """Regression tests para o bug de esgotamento de generator em history_dates.
 

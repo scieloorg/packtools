@@ -245,14 +245,13 @@ class FulltextDatesValidation:
         self.params = self._get_default_params()
         self.params.update(params or {})
 
-        self._add_required_events()
+        self.required_date_types = self._get_required_events()
 
         self.date_types_ordered_by_date = self.fulltext.date_types_ordered_by_date
         self.expected_date_type_list = (
             self.params["pre_pub_ordered_events"]
             + self.params["pos_pub_ordered_events"]
         )
-        self.required_date_types = self.params["required_events"]
         self.params["pub_date"] = (
             self.fulltext.article_date and self.fulltext.article_date["display"]
         )
@@ -309,21 +308,22 @@ class FulltextDatesValidation:
             "pub_date": None,
         }
 
-    def _add_required_events(self):
-        self.params.setdefault("required_events", [])
+    def _get_required_events(self):
         if self.is_translation_without_history:
-            self.params["required_events"] = []
-            return
+            return []
+        events = list(self.params.get("required_events") or [])
         key = self.fulltext.attribs_parent_prefixed["original_article_type"]
         if event := self.params["required_history_events_for_article_type"].get(key):
-            self.params["required_events"].append(event)
+            events.append(event)
 
-        for item in self.fulltext.related_articles:
-            key = item["related-article-type"]
-            if event := self.params[
-                "required_history_events_for_related_article_type"
-            ].get(key):
-                self.params["required_events"].append(event)
+        front = self.fulltext.front
+        if front is not None:
+            for key in front.xpath(".//related-article/@related-article-type"):
+                if event := self.params[
+                    "required_history_events_for_related_article_type"
+                ].get(key):
+                    events.append(event)
+        return events
 
     @property
     def is_translation_without_history(self):
@@ -690,7 +690,7 @@ class FulltextDatesValidation:
     @property
     def missing_events(self):
         return self.get_events_ordered_by_date(
-            set(self.params["required_events"]) - set(self.date_types_ordered_by_date),
+            set(self.required_date_types) - set(self.date_types_ordered_by_date),
         )
 
     @property
