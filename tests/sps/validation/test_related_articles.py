@@ -1829,3 +1829,12 @@ class TestNoticeDocumentsRelatedArticleTypes(DefaultRulesRelatedArticleTest):
             self._problems(self._xml("addendum", [])),
             [("Required related articles", "CRITICAL", [])],
         )
+
+
+class TestArticleRelatedArticleTypeValue(DefaultRulesRelatedArticleTest):
+    def test_article_is_an_allowed_value(self):
+        problems = [
+            item for item in self._problems(self._xml("letter", ["article"]))
+            if item[0] == "Related article type value"
+        ]
+        self.assertEqual(problems, [])
