@@ -40,6 +40,7 @@ COMPLETE_DATE_REQUIRED_TYPES = [
 EXEMPT_ARTICLE_TYPES = [
     "correction",  # errata
     "retraction",
+    "partial-retraction",
     "addendum",
     "expression-of-concern",
     "reviewer-report",
@@ -365,7 +366,8 @@ class HistoryValidation:
         carry any of these dates.  Each container is evaluated independently
         using *its own* @article-type, so a ``reviewer-report`` sub-article
         is correctly exempt even when the parent article is a
-        ``research-article``.
+        ``research-article``.  A ``translation`` sub-article without
+        <history> shares the dates of the original document and is skipped.
 
         Yields:
             dict: One validation result per (container, required_date_type)
@@ -376,6 +378,8 @@ class HistoryValidation:
             parent = self._build_parent_info(ctx)
 
             is_exempt = article_type in EXEMPT_ARTICLE_TYPES
+            if article_type == "translation" and container.find("history") is None:
+                continue
 
             found_date_types = [
                 d.get("date-type")

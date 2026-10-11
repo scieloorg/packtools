@@ -1256,6 +1256,141 @@ class TestFullValidXml(TestCase):
         self.assertEqual(0, len(non_ok), f"Expected all OK: {[(r['title'], r['response']) for r in non_ok]}")
 
 
+class TestTranslationWithoutHistory(TestCase):
+    XML = """
+    <article article-type="research-article" xml:lang="pt">
+        <front>
+            <article-meta>
+                <history>
+                    <date date-type="received"><day>15</day><month>03</month><year>2024</year></date>
+                    <date date-type="accepted"><day>20</day><month>05</month><year>2024</year></date>
+                </history>
+            </article-meta>
+        </front>
+        <sub-article article-type="translation" id="s1" xml:lang="en">
+            <front-stub>{history}</front-stub>
+        </sub-article>
+    </article>
+    """
+
+    def _translation_missing_events(self, history):
+        node = etree.fromstring(self.XML.format(history=history))
+        params = {"required_events": ["received", "accepted"], "parent": {"parent": None}}
+        validator = FulltextDatesValidation(node, params)
+        return [
+            r for r in validator.validate_translations()
+            if r["title"] == "missing events"
+        ]
+
+    def test_translation_without_history_has_no_missing_events(self):
+        results = self._translation_missing_events("")
+        self.assertEqual([r["response"] for r in results], ["OK"])
+
+    def test_translation_with_history_is_validated(self):
+        history = (
+            '<history><date date-type="received">'
+            "<day>15</day><month>03</month><year>2024</year></date></history>"
+        )
+        results = self._translation_missing_events(history)
+        self.assertEqual([r["response"] for r in results], ["CRITICAL"])
+        self.assertEqual(results[0]["adv_params"]["missing_events"], ["accepted"])
+
+
+class TestRequiredEventsDoNotLeak(TestCase):
+    HISTORY = (
+        "<history>"
+        '<date date-type="received"><day>15</day><month>03</month><year>2024</year></date>'
+        '<date date-type="accepted"><day>20</day><month>05</month><year>2024</year></date>'
+        "</history>"
+    )
+
+    def setUp(self):
+        self.params = {
+            "parent": {"parent": None},
+            "required_events": [],
+            "required_history_events_for_article_type": {
+                "reviewer-report": "reviewer-report-received",
+            },
+            "required_history_events_for_related_article_type": {},
+        }
+
+    def _missing_events(self, xml):
+        validator = FulltextDatesValidation(etree.fromstring(xml), self.params)
+        return [
+            (r["response"], (r.get("adv_params") or {}).get("missing_events"))
+            for r in validator.validate()
+            if r["title"] == "missing events"
+        ]
+
+    def test_sub_article_requirement_does_not_reach_next_sub_article(self):
+        xml = f"""
+        <article article-type="research-article" xml:lang="en">
+            <front><article-meta>{self.HISTORY}</article-meta></front>
+            <sub-article article-type="reviewer-report" id="s1" xml:lang="en">
+                <front-stub>
+                    <history>
+                        <date date-type="reviewer-report-received"><day>01</day><month>04</month><year>2024</year></date>
+                    </history>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="reply" id="s2" xml:lang="en">
+                <front-stub>{self.HISTORY}</front-stub>
+            </sub-article>
+        </article>
+        """
+        self.assertEqual(
+            self._missing_events(xml),
+            [("OK", None), ("OK", None), ("OK", None)],
+        )
+
+    def test_params_are_not_changed(self):
+        xml = """
+        <article article-type="reviewer-report" xml:lang="en">
+            <front><article-meta/></front>
+        </article>
+        """
+        self._missing_events(xml)
+        self.assertEqual(self.params["required_events"], [])
+
+
+class TestHistoryResultsIdentifyContext(TestCase):
+    def test_missing_events_identify_sub_article(self):
+        history = (
+            "<history>"
+            '<date date-type="received"><day>15</day><month>03</month><year>2024</year></date>'
+            '<date date-type="accepted"><day>20</day><month>05</month><year>2024</year></date>'
+            "</history>"
+        )
+        xml = f"""
+        <article article-type="research-article" xml:lang="en">
+            <front><article-meta>{history}</article-meta></front>
+            <sub-article article-type="reviewer-report" id="SA1" xml:lang="en">
+                <front-stub>{history}</front-stub>
+            </sub-article>
+        </article>
+        """
+        params = {
+            "parent": {"parent": None},
+            "required_events": [],
+            "required_history_events_for_article_type": {
+                "reviewer-report": "reviewer-report-received",
+            },
+        }
+        validator = FulltextDatesValidation(etree.fromstring(xml), params)
+        results = [
+            (r["parent"], r["parent_id"], r["item"], r["response"])
+            for r in validator.validate()
+            if r["title"] == "missing events"
+        ]
+        self.assertEqual(
+            results,
+            [
+                ("article", None, "history", "OK"),
+                ("sub-article", "SA1", "history", "CRITICAL"),
+            ],
+        )
+
+
 class TestHistoryValidationRegression(TestCase):
     """Regression tests para o bug de esgotamento de generator em history_dates.
 
