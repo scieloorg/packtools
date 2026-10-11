@@ -1974,3 +1974,21 @@ class TestSubArticleRequiredRelatedArticles(DefaultRulesRelatedArticleTest):
             if r["title"] == "Required related articles"
         ]
         self.assertEqual(results, [("sub-article", "s1", "CRITICAL")])
+
+
+class TestReviewerReportRelatedArticlesReportedOnce(DefaultRulesRelatedArticleTest):
+    def test_reviewer_report_related_articles_only_in_related_article_group(self):
+        xml_tree = self._xml("reviewer-report", ["peer-reviewed-material"])
+        titles = ("Related article type", "Required related articles")
+        peer_review = [
+            r["title"] for r in validate_peer_reviews(xml_tree, get_default_rules())
+            if r["title"] in titles
+        ]
+        related = [
+            r["title"] for r in validate_related_articles(xml_tree, get_default_rules())
+            if r["title"] in titles and r["response"] != "OK"
+        ]
+        self.assertEqual(peer_review, [])
+        self.assertEqual(
+            sorted(related), ["Related article type", "Required related articles"]
+        )
