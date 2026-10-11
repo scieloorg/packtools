@@ -244,6 +244,7 @@ class FulltextDatesValidation:
         # Initialize default params and update with provided params
         self.params = self._get_default_params()
         self.params.update(params or {})
+        self.params["parent"] = self.fulltext.attribs_parent_prefixed
 
         self.required_date_types = self._get_required_events()
 

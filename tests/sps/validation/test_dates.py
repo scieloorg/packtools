@@ -1353,6 +1353,44 @@ class TestRequiredEventsDoNotLeak(TestCase):
         self.assertEqual(self.params["required_events"], [])
 
 
+class TestHistoryResultsIdentifyContext(TestCase):
+    def test_missing_events_identify_sub_article(self):
+        history = (
+            "<history>"
+            '<date date-type="received"><day>15</day><month>03</month><year>2024</year></date>'
+            '<date date-type="accepted"><day>20</day><month>05</month><year>2024</year></date>'
+            "</history>"
+        )
+        xml = f"""
+        <article article-type="research-article" xml:lang="en">
+            <front><article-meta>{history}</article-meta></front>
+            <sub-article article-type="reviewer-report" id="SA1" xml:lang="en">
+                <front-stub>{history}</front-stub>
+            </sub-article>
+        </article>
+        """
+        params = {
+            "parent": {"parent": None},
+            "required_events": [],
+            "required_history_events_for_article_type": {
+                "reviewer-report": "reviewer-report-received",
+            },
+        }
+        validator = FulltextDatesValidation(etree.fromstring(xml), params)
+        results = [
+            (r["parent"], r["parent_id"], r["item"], r["response"])
+            for r in validator.validate()
+            if r["title"] == "missing events"
+        ]
+        self.assertEqual(
+            results,
+            [
+                ("article", None, "history", "OK"),
+                ("sub-article", "SA1", "history", "CRITICAL"),
+            ],
+        )
+
+
 class TestHistoryValidationRegression(TestCase):
     """Regression tests para o bug de esgotamento de generator em history_dates.
 
