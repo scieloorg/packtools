@@ -310,6 +310,9 @@ class FulltextDatesValidation:
 
     def _add_required_events(self):
         self.params.setdefault("required_events", [])
+        if self.is_translation_without_history:
+            self.params["required_events"] = []
+            return
         key = self.fulltext.attribs_parent_prefixed["original_article_type"]
         if event := self.params["required_history_events_for_article_type"].get(key):
             self.params["required_events"].append(event)
@@ -320,6 +323,14 @@ class FulltextDatesValidation:
                 "required_history_events_for_related_article_type"
             ].get(key):
                 self.params["required_events"].append(event)
+
+    @property
+    def is_translation_without_history(self):
+        front = self.fulltext.front
+        return (
+            self.fulltext.article_type == "translation"
+            and (front is None or front.find("history") is None)
+        )
 
     def validate(self):
         """Perform all date validations.

@@ -1256,6 +1256,46 @@ class TestFullValidXml(TestCase):
         self.assertEqual(0, len(non_ok), f"Expected all OK: {[(r['title'], r['response']) for r in non_ok]}")
 
 
+class TestTranslationWithoutHistory(TestCase):
+    XML = """
+    <article article-type="research-article" xml:lang="pt">
+        <front>
+            <article-meta>
+                <history>
+                    <date date-type="received"><day>15</day><month>03</month><year>2024</year></date>
+                    <date date-type="accepted"><day>20</day><month>05</month><year>2024</year></date>
+                </history>
+            </article-meta>
+        </front>
+        <sub-article article-type="translation" id="s1" xml:lang="en">
+            <front-stub>{history}</front-stub>
+        </sub-article>
+    </article>
+    """
+
+    def _translation_missing_events(self, history):
+        node = etree.fromstring(self.XML.format(history=history))
+        params = {"required_events": ["received", "accepted"], "parent": {"parent": None}}
+        validator = FulltextDatesValidation(node, params)
+        return [
+            r for r in validator.validate_translations()
+            if r["title"] == "missing events"
+        ]
+
+    def test_translation_without_history_has_no_missing_events(self):
+        results = self._translation_missing_events("")
+        self.assertEqual([r["response"] for r in results], ["OK"])
+
+    def test_translation_with_history_is_validated(self):
+        history = (
+            '<history><date date-type="received">'
+            "<day>15</day><month>03</month><year>2024</year></date></history>"
+        )
+        results = self._translation_missing_events(history)
+        self.assertEqual([r["response"] for r in results], ["CRITICAL"])
+        self.assertEqual(results[0]["adv_params"]["missing_events"], ["accepted"])
+
+
 class TestHistoryValidationRegression(TestCase):
     """Regression tests para o bug de esgotamento de generator em history_dates.
 
