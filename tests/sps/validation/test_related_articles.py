@@ -1838,3 +1838,24 @@ class TestArticleRelatedArticleTypeValue(DefaultRulesRelatedArticleTest):
             if item[0] == "Related article type value"
         ]
         self.assertEqual(problems, [])
+
+
+class TestLetterAndCommentaryRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_letter_with_article_and_reply(self):
+        self.assertEqual(
+            self._problems(self._xml("letter", ["article", "reply"])), []
+        )
+
+    def test_letter_without_article(self):
+        self.assertEqual(
+            self._problems(self._xml("letter", ["reply"])),
+            [("Required related articles", "CRITICAL", ["reply"])],
+        )
+
+    def test_commentary_with_commentary_article_and_reply(self):
+        self.assertEqual(
+            self._problems(
+                self._xml("article-commentary", ["commentary-article", "reply"])
+            ),
+            [],
+        )
