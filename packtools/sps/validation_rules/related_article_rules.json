@@ -36,6 +36,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -48,6 +50,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -60,6 +64,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -72,6 +78,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -84,6 +92,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -125,7 +135,11 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
-                    "commentary"
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
                 ]
             },
             "reviewer-report": {
@@ -138,19 +152,115 @@
             },
             "clinical-instruction": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             },
             "oration": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             },
             "discussion": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             },
             "product-review": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "rapid-communication": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "book-review": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "obituary": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "other": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             }
         }
     }

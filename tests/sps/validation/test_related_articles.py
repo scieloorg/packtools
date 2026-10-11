@@ -1896,3 +1896,45 @@ class TestReviewerReportRelatedArticleTypes(DefaultRulesRelatedArticleTest):
             self._problems(self._xml("reviewer-report", [])),
             [("Required related articles", "CRITICAL", [])],
         )
+
+
+class TestMentionedDocumentRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    MENTIONED = [
+        "correction-forward",
+        "retraction-forward",
+        "partial-retraction",
+        "addendum",
+        "expression-of-concern",
+        "letter",
+        "commentary",
+        "reviewer-report",
+        "preprint",
+    ]
+
+    def test_indexable_types_accept_mentioned_document_relations(self):
+        article_types = [
+            "research-article",
+            "review-article",
+            "case-report",
+            "brief-report",
+            "data-article",
+            "rapid-communication",
+            "editorial",
+            "book-review",
+            "clinical-instruction",
+            "discussion",
+            "obituary",
+            "oration",
+            "other",
+        ]
+        for article_type in article_types:
+            with self.subTest(article_type=article_type):
+                self.assertEqual(
+                    self._problems(self._xml(article_type, self.MENTIONED)), []
+                )
+
+    def test_research_article_rejects_notice_relation(self):
+        self.assertEqual(
+            self._problems(self._xml("research-article", ["corrected-article"])),
+            [("Related article type", "CRITICAL", "corrected-article")],
+        )
