@@ -33,6 +33,7 @@ ALLOWED_RELATED_ARTICLE_TYPES = [
     "commentary",
     "reply",
     "letter",
+    "article",
     "reviewed-article",
     "reviewer-report",
     "preprint",
@@ -91,6 +92,9 @@ class RelatedArticleValidation:
         )
         self.acceptable_related_article_types = (
             _related.get("acceptable_related_article_types") or []
+        )
+        self.required_one_of_related_article_types = (
+            _related.get("required_one_of_related_article_types") or []
         )
 
     def _get_error_level(self, validation_type):
@@ -389,7 +393,9 @@ class RelatedArticleValidation:
     def validate_type(self):
         """Validate if related article type matches main article type"""
         expected_values = (
-            self.required_related_article_types + self.acceptable_related_article_types
+            self.required_related_article_types
+            + self.required_one_of_related_article_types
+            + self.acceptable_related_article_types
         )
 
         obtained_type = self.related_article.get("related-article-type")
@@ -793,8 +799,18 @@ class FulltextRelatedArticlesValidation:
         self.acceptable_types = article_config.get(
             "acceptable_related_article_types", []
         )
+        self.required_one_of_types = article_config.get(
+            "required_one_of_related_article_types", []
+        )
         # Kept for backward-compat (some callers inspect _article_type).
         self._article_type = self._original_article_type
+
+    @property
+    def _requires_related_articles(self):
+        """Required related articles apply to <article> and its translations,
+        not to other <sub-article> (reviewer report, reply) published in the
+        same PDF."""
+        return self.node.tag == "article" or self._node_article_type == "translation"
 
     def _get_error_level(self, validation_type):
         """Get error level for specific validation type."""
@@ -814,7 +830,7 @@ class FulltextRelatedArticlesValidation:
         dict or None
             Validation result if required types are missing, None otherwise.
         """
-        if not self.required_types:
+        if not self.required_types or not self._requires_related_articles:
             return None
 
         found_types = {
@@ -866,6 +882,62 @@ class FulltextRelatedArticlesValidation:
 
         return None
 
+    def validate_presence_of_one_of_related_articles(self):
+        """
+        Validate that at least one related article of the types listed in
+        ``required_one_of_related_article_types`` is present.
+
+        Returns
+        -------
+        dict or None
+            Validation result if none of the types is found, None otherwise.
+        """
+        if not self.required_one_of_types or not self._requires_related_articles:
+            return None
+
+        found_types = {
+            related.get("related-article-type")
+            for related in self._get_related_list()
+        }
+        if found_types & set(self.required_one_of_types):
+            return None
+
+        parent_data = {
+            "parent": self.node.tag,
+            "parent_id": self.node.get("id"),
+            "lang": self.node.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            "article_type": self._article_type,
+        }
+        advice_text = i18n._(
+            'Article type "{article_type}" requires a related article'
+            ' of one of the types: {expected_types}'
+        )
+        advice_params = {
+            "article_type": self._article_type or "",
+            "expected_types": str(self.required_one_of_types),
+        }
+        return build_response(
+            title="Required related articles",
+            parent=parent_data,
+            item="related-article",
+            sub_item=None,
+            validation_type="match",
+            is_valid=False,
+            expected=self.required_one_of_types,
+            obtained=sorted(t for t in found_types if t),
+            advice=('Article type "{article_type}" requires a related article'
+            ' of one of the types: {expected_types}').format(**advice_params),
+            data={
+                "article_type": self._article_type,
+                "expected_types": self.required_one_of_types,
+            },
+            error_level=self.params.get(
+                "required_related_articles_error_level", "CRITICAL"
+            ),
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
+
     def validate(self):
         """
         Validate the article node and recurse into direct sub-article children.
@@ -877,6 +949,8 @@ class FulltextRelatedArticlesValidation:
         """
         # R0: check required related articles for this node
         if presence_result := self.validate_presence_of_required_related_articles():
+            yield presence_result
+        if presence_result := self.validate_presence_of_one_of_related_articles():
             yield presence_result
 
         # R1–R11: validate each related-article element individually
