@@ -129,7 +129,7 @@
                 ]
             },
             "reviewer-report": {
-                "required_related_article_types": ["peer-reviewed-material"],
+                "required_related_article_types": ["reviewed-article"],
                 "acceptable_related_article_types": []
             },
             "preprint": {

@@ -1883,3 +1883,16 @@ class TestReplyRelatedArticleTypes(DefaultRulesRelatedArticleTest):
             results[0]["adv_text"].format(**results[0]["adv_params"]),
             results[0]["advice"],
         )
+
+
+class TestReviewerReportRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_reviewer_report_with_reviewed_article(self):
+        self.assertEqual(
+            self._problems(self._xml("reviewer-report", ["reviewed-article"])), []
+        )
+
+    def test_reviewer_report_without_reviewed_article(self):
+        self.assertEqual(
+            self._problems(self._xml("reviewer-report", [])),
+            [("Required related articles", "CRITICAL", [])],
+        )
