@@ -805,6 +805,13 @@ class FulltextRelatedArticlesValidation:
         # Kept for backward-compat (some callers inspect _article_type).
         self._article_type = self._original_article_type
 
+    @property
+    def _requires_related_articles(self):
+        """Required related articles apply to <article> and its translations,
+        not to other <sub-article> (reviewer report, reply) published in the
+        same PDF."""
+        return self.node.tag == "article" or self._node_article_type == "translation"
+
     def _get_error_level(self, validation_type):
         """Get error level for specific validation type."""
         error_level_key = f"{validation_type}_error_level"
@@ -823,7 +830,7 @@ class FulltextRelatedArticlesValidation:
         dict or None
             Validation result if required types are missing, None otherwise.
         """
-        if not self.required_types:
+        if not self.required_types or not self._requires_related_articles:
             return None
 
         found_types = {
@@ -885,7 +892,7 @@ class FulltextRelatedArticlesValidation:
         dict or None
             Validation result if none of the types is found, None otherwise.
         """
-        if not self.required_one_of_types:
+        if not self.required_one_of_types or not self._requires_related_articles:
             return None
 
         found_types = {
