@@ -458,6 +458,29 @@ class TestRequiredDates(TestCase):
             self.assertEqual(len(results), 2, f"Failed for article-type={article_type}")
             self.assertTrue(all(r["response"] == "OK" for r in results), f"Failed for article-type={article_type}")
     
+    def test_partial_retraction_without_required_dates(self):
+        xml = """
+        <article article-type="partial-retraction">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="retracted">
+                            <day>20</day>
+                            <month>06</month>
+                            <year>2024</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree)
+        results = list(validator.validate_required_dates())
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["response"] == "OK" for r in results))
+
     def test_retraction_without_required_dates(self):
         """Test specific case: retraction article type."""
         xml = """

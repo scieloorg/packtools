@@ -40,6 +40,7 @@ COMPLETE_DATE_REQUIRED_TYPES = [
 EXEMPT_ARTICLE_TYPES = [
     "correction",  # errata
     "retraction",
+    "partial-retraction",
     "addendum",
     "expression-of-concern",
     "reviewer-report",
