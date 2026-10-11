@@ -368,3 +368,65 @@ class TestArticleDatesKnownDateTypes(TestCase):
                 ('missing events', 'OK'),
             ],
         )
+
+
+class TestConditionalHistoryDates(TestCase):
+    XML = """
+    <article article-type="{article_type}" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+            <article-meta>
+                <related-article related-article-type="{related_type}"
+                    id="ra1" ext-link-type="doi" xlink:href="10.1590/xxx"/>
+                <history>
+                    <date date-type="received">
+                        <day>15</day><month>01</month><year>2024</year>
+                    </date>
+                    <date date-type="accepted">
+                        <day>12</day><month>03</month><year>2024</year>
+                    </date>
+                </history>
+            </article-meta>
+        </front>
+    </article>
+    """
+
+    def _missing_events(self, article_type, related_type):
+        tree = etree.fromstring(
+            self.XML.format(article_type=article_type, related_type=related_type)
+        )
+        for group_result in validate_xml_content(tree, get_default_rules()):
+            if group_result['group'] == 'article dates':
+                for item in group_result['items']:
+                    if item and item['title'] == 'missing events':
+                        if item['response'] == 'OK':
+                            return []
+                        return item['adv_params']['missing_events']
+
+    def test_related_article_types_that_require_a_date(self):
+        cases = [
+            ('addendum', 'corrected'),
+            ('correction-forward', 'corrected'),
+            ('retraction-forward', 'retracted'),
+            ('partial-retraction', 'retracted'),
+            ('expression-of-concern', 'expression-of-concern'),
+            ('preprint', 'preprint'),
+        ]
+        for related_type, date_type in cases:
+            with self.subTest(related_type=related_type):
+                self.assertEqual(
+                    self._missing_events('research-article', related_type),
+                    [date_type],
+                )
+
+    def test_related_article_types_without_required_date(self):
+        cases = [
+            ('article-commentary', 'commentary-article'),
+            ('correction', 'corrected-article'),
+            ('retraction', 'retracted-article'),
+            ('letter', 'article'),
+        ]
+        for article_type, related_type in cases:
+            with self.subTest(related_type=related_type):
+                self.assertEqual(
+                    self._missing_events(article_type, related_type), []
+                )

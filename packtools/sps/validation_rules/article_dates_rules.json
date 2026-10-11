@@ -44,21 +44,12 @@
             "parent":null
         },
         "required_history_events_for_related_article_type": {
+            "addendum": "corrected",
             "correction-forward": "corrected",
-            "addendum":"corrected",
-            "commentary-article":"commented",
-            "correction":"corrected",
-            "letter":null,
-            "partial-retraction":"retracted",
-            "retraction":"retracted",
-            "response":null,
-            "peer-reviewed-article":null,
-            "preprint": "preprint",
-            "updated-article":"updated",
-            "companion":null,
-            "republished-article":"republished",
-            "corrected-article":"corrected",
-            "expression-of-concern":null
+            "retraction-forward": "retracted",
+            "partial-retraction": "retracted",
+            "expression-of-concern": "expression-of-concern",
+            "preprint": "preprint"
         },
         "required_history_events_for_article_type": {
             "reviewer-report": "reviewer-report-received"
