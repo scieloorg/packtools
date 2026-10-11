@@ -33,6 +33,7 @@ ALLOWED_RELATED_ARTICLE_TYPES = [
     "commentary",
     "reply",
     "letter",
+    "article",
     "reviewed-article",
     "reviewer-report",
     "preprint",
