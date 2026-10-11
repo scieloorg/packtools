@@ -1,10 +1,14 @@
 import unittest
-from unittest.mock import Mock
 
 from lxml import etree
 
 from packtools.sps.validation.basefn import BaseFnValidation
 from packtools.sps.validation.fn import XMLFnGroupValidation, FnValidation
+from packtools.sps.validation.xml_validations import (
+    validate_fns,
+    validate_open_science_actions,
+)
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class TestFnValidation(unittest.TestCase):
@@ -16,6 +20,8 @@ class TestFnValidation(unittest.TestCase):
             "fn_type_error_level": "CRITICAL",
             "fn_type_expected_values": ["conflict", "coi-statement", "custom"],
             "conflict_error_level": "ERROR",
+            "edited_by_error_level": "CRITICAL",
+            "edited_by_required_article_types": ["research-article", "case-report"],
         }
 
     def test_validate_fn(self):
@@ -113,14 +119,12 @@ class TestFnValidation(unittest.TestCase):
         self.assertEqual(len(label_warnings), 1)
         self.assertEqual(label_warnings[0]["advice"], 'Mark footnote label with <fn><label>')
 
-        # Check that edited-by validation exists (may be OK or CRITICAL depending on presence)
         edited_by = [r for r in results if r["title"] == "edited-by"]
-        self.assertEqual(len(edited_by), 1)
+        self.assertEqual(len(edited_by), 0)
 
     def test_validate_edited_by_i18n(self):
-        xml_tree = etree.fromstring("<article/>")
+        xml_tree = etree.fromstring('<article article-type="research-article"/>')
         validator = XMLFnGroupValidation(xml_tree, self.rules)
-        validator.xml_article = Mock(fn_edited_by=[])
 
         result = list(validator.validate_edited_by())[0]
 
@@ -145,9 +149,8 @@ class TestFnValidation(unittest.TestCase):
         validator = XMLFnGroupValidation(xml_tree, self.rules)
         results = list(validator.validate())
 
-        # Check that edited-by validation exists (may be OK or CRITICAL depending on presence)
         edited_by = [r for r in results if r["title"] == "edited-by"]
-        self.assertEqual(len(edited_by), 1)
+        self.assertEqual(len(edited_by), 0)
 
     def test_validate_fn_type_missing_in_fn_group(self):
         """Test Rule 3: @fn-type is mandatory for <fn> in <fn-group>
@@ -260,3 +263,99 @@ class TestFnValidation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestValidateEditedBy(unittest.TestCase):
+    def setUp(self):
+        self.rules = {
+            "fn_type_error_level": "CRITICAL",
+            "fn_type_expected_values": [],
+            "edited_by_error_level": "CRITICAL",
+            "edited_by_required_article_types": [
+                "data-article",
+                "brief-report",
+                "case-report",
+                "rapid-communication",
+                "research-article",
+                "review-article",
+            ],
+        }
+
+    def _validate(self, xml):
+        validator = XMLFnGroupValidation(etree.fromstring(xml), self.rules)
+        return list(validator.validate_edited_by())
+
+    def test_required_article_types_without_edited_by(self):
+        for article_type in self.rules["edited_by_required_article_types"]:
+            with self.subTest(article_type=article_type):
+                results = self._validate(f"""
+                    <article article-type="{article_type}">
+                        <front><article-meta>
+                            <author-notes><fn fn-type="conflict"><p>None</p></fn></author-notes>
+                        </article-meta></front>
+                    </article>
+                """)
+                self.assertEqual(len(results), 1)
+                self.assertEqual(results[0]["response"], "CRITICAL")
+                self.assertIsNone(results[0]["got_value"])
+                self.assertIn(article_type, results[0]["advice"])
+
+    def test_required_article_type_with_edited_by(self):
+        results = self._validate("""
+            <article article-type="research-article">
+                <front><article-meta>
+                    <author-notes>
+                        <fn fn-type="edited-by"><label>Editor:</label><p>Ana Silva</p></fn>
+                    </author-notes>
+                </article-meta></front>
+            </article>
+        """)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertEqual(len(results[0]["data"]), 1)
+
+    def test_optional_article_types_have_no_result(self):
+        for article_type in ("editorial", "letter", "correction", "reviewer-report"):
+            with self.subTest(article_type=article_type):
+                results = self._validate(f'<article article-type="{article_type}"/>')
+                self.assertEqual(results, [])
+
+    def test_edited_by_outside_author_notes_is_not_accepted(self):
+        results = self._validate("""
+            <article article-type="research-article">
+                <back>
+                    <fn-group><fn fn-type="edited-by"><p>Ana Silva</p></fn></fn-group>
+                </back>
+            </article>
+        """)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+
+    def test_edited_by_only_in_sub_article_is_not_accepted(self):
+        results = self._validate("""
+            <article article-type="research-article">
+                <front><article-meta/></front>
+                <sub-article article-type="translation" xml:lang="pt">
+                    <front-stub>
+                        <author-notes><fn fn-type="edited-by"><p>Ana Silva</p></fn></author-notes>
+                    </front-stub>
+                </sub-article>
+            </article>
+        """)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+
+    def test_default_rules_report_edited_by_once_in_open_science(self):
+        params = get_default_rules()
+        xml_tree = etree.fromstring('<article article-type="case-report"/>')
+
+        open_science = [
+            item for item in validate_open_science_actions(xml_tree, params)
+            if item["title"] == "edited-by"
+        ]
+        fns = [
+            item for item in validate_fns(xml_tree, params)
+            if item["title"] == "edited-by"
+        ]
+
+        self.assertEqual(len(open_science), 1)
+        self.assertEqual(open_science[0]["response"], "CRITICAL")
+        self.assertEqual(fns, [])
