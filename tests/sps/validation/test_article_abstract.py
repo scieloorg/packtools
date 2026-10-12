@@ -1002,3 +1002,39 @@ class ExpressionOfConcernAbstractTest(TestCase):
                     "Abstract is not expected for expression-of-concern",
                     results[0]["advice"],
                 )
+
+
+class UnknownArticleTypeAbstractTest(TestCase):
+    """
+    An @article-type in none of the lists produces no "abstract" result,
+    and the other abstract validations still run.
+    """
+
+    def test_unknown_article_type_does_not_stop_validation(self):
+        xmltree = ET.fromstring(
+            """
+            <article article-type="unknown-type" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract xml:lang="en">
+                            <title>Abstract</title>
+                            <p>Text</p>
+                        </abstract>
+                        <abstract abstract-type="key-points" xml:lang="en">
+                            <title>HIGHLIGHTS</title>
+                            <p>Single highlight point</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = [v for v in XMLAbstractsValidation(xmltree).validate() if v]
+
+        self.assertNotIn("abstract", [v["title"] for v in obtained])
+        self.assertIn(
+            "key-points",
+            [(v.get("data") or {}).get("abstract_type") for v in obtained],
+        )
+

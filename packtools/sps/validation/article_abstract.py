@@ -512,7 +512,9 @@ class StandardAbstractsValidation(AbstractsValidationBase):
         - Optional for: clinical-instruction, data-article, etc.
 
         Returns:
-            dict: Validation response
+            dict: Validation response, or None when @article-type is in none
+            of the lists (an invalid @article-type is reported by the
+            "article-type" group)
         """
         data = self.abstracts
         error_level = self.params["default_error_level"]
@@ -542,9 +544,7 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             advice_text = None
             advice_params = {}
         else:
-            raise ValueError(
-                f"Unable to identify if abstract is required or unexpected or neutral for article-type '{self.article_type}'"
-            )
+            return None
 
         return build_response(
             title="abstract",
@@ -575,7 +575,9 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             dict: Validation responses
         """
         yield from super().validate()
-        yield self.validate_exists()
+        response = self.validate_exists()
+        if response:
+            yield response
 
 
 class XMLAbstractsValidation:
