@@ -590,3 +590,54 @@ class XMLReferencesTest(TestCase):
         references = list(XMLReferences(xml_tree).main_references)
         lang = references[0].get("lang")
         self.assertEqual(lang, "es")
+
+
+class NestedRefListTest(TestCase):
+    """SPS 1.10: <ref-list> appears in <back> and in <ref-list>."""
+
+    def _refs(self, xml):
+        return list(XMLReferences(etree.fromstring(xml)).items)
+
+    def test_refs_in_nested_ref_list(self):
+        xml = (
+            '<article article-type="research-article" xml:lang="en"><back>'
+            '<ref-list><title>References</title>'
+            '<ref-list>'
+            '<ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B1</source><year>2020</year></element-citation></ref><ref id="B2"><mixed-citation>B2. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B2</source><year>2020</year></element-citation></ref>'
+            '</ref-list>'
+            '</ref-list>'
+            '</back></article>'
+        )
+        refs = self._refs(xml)
+        self.assertEqual(["B1", "B2"], [r["ref_id"] for r in refs])
+        self.assertEqual([1, 1], [r["ref-list-index"] for r in refs])
+
+    def test_refs_in_ref_list_and_in_nested_ref_list(self):
+        xml = (
+            '<article article-type="research-article" xml:lang="en"><back>'
+            '<ref-list><title>References</title>'
+            '<ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B1</source><year>2020</year></element-citation></ref>'
+            '<ref-list><title>Books</title><ref id="B2"><mixed-citation>B2. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B2</source><year>2020</year></element-citation></ref></ref-list>'
+            '<ref-list><title>Theses</title><ref id="B3"><mixed-citation>B3. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B3</source><year>2020</year></element-citation></ref></ref-list>'
+            '</ref-list>'
+            '<ref-list><title>Sites</title><ref id="B4"><mixed-citation>B4. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B4</source><year>2020</year></element-citation></ref></ref-list>'
+            '</back></article>'
+        )
+        refs = self._refs(xml)
+        self.assertEqual(["B1", "B2", "B3", "B4"], [r["ref_id"] for r in refs])
+        self.assertEqual([0, 1, 2, 3], [r["ref-list-index"] for r in refs])
+
+    def test_refs_in_nested_ref_list_of_sub_article(self):
+        xml = (
+            '<article article-type="research-article" xml:lang="en">'
+            '<back><ref-list><ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B1</source><year>2020</year></element-citation></ref></ref-list></back>'
+            '<sub-article article-type="reviewer-report" id="s1" xml:lang="en">'
+            '<back><ref-list><title>References</title>'
+            '<ref-list><ref id="S1B1"><mixed-citation>S1B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source S1B1</source><year>2020</year></element-citation></ref></ref-list>'
+            '</ref-list></back>'
+            '</sub-article>'
+            '</article>'
+        )
+        refs = self._refs(xml)
+        self.assertEqual(["B1", "S1B1"], [r["ref_id"] for r in refs])
+
