@@ -1209,16 +1209,6 @@ msgstr "Cantidades inconsistentes: {num_sources} <funding-source>(s) pero {num_a
 msgid "Add id=\"\" to {element}"
 msgstr "Agregue id=\"\" a {element}"
 
-#: packtools/sps/validation/graphic.py:58
-#, python-brace-format
-msgid "The @id attribute is present in <{element}>"
-msgstr "El atributo @id está presente en <{element}>"
-
-#: packtools/sps/validation/graphic.py:60
-#, python-brace-format
-msgid "The @id attribute is required in <{element}>"
-msgstr "El atributo @id es obligatorio en <{element}>"
-
 #: packtools/sps/validation/graphic.py:95
 #, python-brace-format
 msgid "Add xlink:href=\"filename.ext\" to <{tag}> (valid extensions: jpg, jpeg, png, tif, tiff, svg)"
