@@ -145,6 +145,13 @@ class ArticleTypeValidation:
                 "brief-report",
                 "rapid-communication"
             ],
+            "sub_article_type_list": [
+                "translation",
+                "reviewer-report",
+                "article-commentary",
+                "letter",
+                "reply"
+            ],
             "article_type_error_level": "CRITICAL",
             "article_type_and_subject_expected_similarity": 0.6,
             "article_type_and_subject_expected_similarity_error_level": "ERROR"
@@ -167,11 +174,16 @@ class ArticleTypeValidation:
             article_id = article.get("article_id")
             parent = article.get("parent_name")
 
-            valid = article_type in article_type_list
+            type_list = (
+                self.params["sub_article_type_list"]
+                if parent == "sub-article"
+                else article_type_list
+            )
+            valid = article_type in type_list
 
             name = article_id or parent
             xml = f'<{parent} article-type=""/>'
-            advice = None if valid else f'Complete {name} article-type {xml} with valid value {article_type_list}'
+            advice = None if valid else f'Complete {name} article-type {xml} with valid value {type_list}'
             advice_text = (
                 None
                 if valid
@@ -180,7 +192,7 @@ class ArticleTypeValidation:
                     " {type_list}"
                 )
             )
-            advice_params = {} if valid else {"name": name, "xml": xml, "type_list": str(article_type_list)}
+            advice_params = {} if valid else {"name": name, "xml": xml, "type_list": str(type_list)}
             yield build_response(
                     title=f"{name} article-type",
                     parent={
@@ -193,7 +205,7 @@ class ArticleTypeValidation:
                     sub_item="article-type",
                     validation_type="value in list",
                     is_valid=valid,
-                    expected=article_type_list,
+                    expected=type_list,
                     obtained=article_type,
                     advice=advice,
                     data=article,
