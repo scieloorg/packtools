@@ -439,6 +439,15 @@ class TestArticleTypeValidation(unittest.TestCase):
                     results[3]["advice"],
                 )
 
+    def test_validate_article_type_parent_lang(self):
+        validator = ArticleTypeValidation(self.multi_article_xmltree, None)
+        results = list(validator.validate_article_type())
+
+        self.assertEqual(
+            ["en", "es", "pt"],
+            [r["parent_lang"] for r in results],
+        )
+
     def test_validate_article_type_vs_subject_similarity_with_matching(self):
         # Test with matching article type and subject
         validator = ArticleTypeValidation(self.valid_xmltree, None)

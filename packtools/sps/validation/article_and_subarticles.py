@@ -199,7 +199,7 @@ class ArticleTypeValidation:
                         "parent": parent,
                         "parent_id": article_id,
                         "parent_article_type": article_type,
-                        "parent_lang": article_type,
+                        "parent_lang": article_lang,
                     },
                     item=parent,
                     sub_item="article-type",
