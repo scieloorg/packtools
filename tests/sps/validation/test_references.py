@@ -523,3 +523,34 @@ class ReferencesValidationTest(TestCase):
         self.assertEqual("<chapter-title>", result["got_value"])
         self.assertEqual("<part-title>", result["expected_value"])
         self.assertTrue("replace <chapter-title> by <part-title>" in result["advice"])
+
+
+class RefPresenceNestedRefListTest(TestCase):
+    def _ref_presence(self, back):
+        xml_tree = etree.fromstring(
+            '<article article-type="research-article" xml:lang="en">'
+            f"<back>{back}</back>"
+            "</article>"
+        )
+        return [
+            r["response"]
+            for r in ReferencesValidation(xml_tree, {}).validate_ref_presence()
+        ]
+
+    def test_ref_list_with_only_nested_ref_list_is_valid(self):
+        back = (
+            "<ref-list><title>References</title>"
+            '<ref-list><ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>S</source><year>2020</year></element-citation></ref></ref-list>'
+            "</ref-list>"
+        )
+        self.assertEqual(["OK", "OK"], self._ref_presence(back))
+
+    def test_empty_nested_ref_list_is_critical(self):
+        back = (
+            "<ref-list><title>References</title>"
+            '<ref-list><title>Books</title><ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>S</source><year>2020</year></element-citation></ref></ref-list>'
+            "<ref-list><title>Theses</title></ref-list>"
+            "</ref-list>"
+        )
+        self.assertEqual(["OK", "OK", "CRITICAL"], self._ref_presence(back))
+
