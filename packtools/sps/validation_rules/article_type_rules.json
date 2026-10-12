@@ -27,6 +27,13 @@
             "oration",
             "other"
         ],
+        "sub_article_type_list": [
+            "translation",
+            "reviewer-report",
+            "article-commentary",
+            "letter",
+            "reply"
+        ],
         "article_types_requires": [
             "case-report",
             "research-article",

@@ -8,6 +8,7 @@ from packtools.sps.validation.article_and_subarticles import (
     ArticleIdValidation,
     JATSAndDTDVersionValidation,
 )
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesLanguageCodeException,
     ValidationArticleAndSubArticlesSpecificUseException,
@@ -266,7 +267,7 @@ class TestArticleTypeValidation(unittest.TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="review-article" id="sub1" xml:lang="es">
+            <sub-article article-type="translation" id="sub1" xml:lang="es">
                 <front>
                     <article-meta>
                         <article-id pub-id-type="publisher-id">sub-article-1</article-id>
@@ -396,13 +397,56 @@ class TestArticleTypeValidation(unittest.TestCase):
         
         # First sub-article should be valid
         self.assertEqual(results[1]['response'], "OK")
-        self.assertEqual(results[1]['got_value'], "review-article")
+        self.assertEqual(results[1]['got_value'], "translation")
         self.assertIsNone(results[1]['advice'])
         
         # Second sub-article should be invalid
         self.assertEqual(results[2]['response'], "CRITICAL")
         self.assertEqual(results[2]['got_value'], "invalid-type")
         self.assertIsNotNone(results[2]['advice'])
+
+    def test_validate_article_type_uses_sub_article_type_list(self):
+        xmltree = etree.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <sub-article article-type="reviewer-report" id="s2" xml:lang="pt"/>
+                </sub-article>
+                <sub-article article-type="research-article" id="s3" xml:lang="es"/>
+            </article>
+            """
+        )
+        for params in (None, get_default_rules()["article_type_rules"]):
+            with self.subTest(params=bool(params)):
+                validator = ArticleTypeValidation(xmltree, params)
+                results = list(validator.validate_article_type())
+
+                self.assertEqual(
+                    [
+                        ("research-article", "OK"),
+                        ("translation", "OK"),
+                        ("reviewer-report", "OK"),
+                        ("research-article", "CRITICAL"),
+                    ],
+                    [(r["got_value"], r["response"]) for r in results],
+                )
+                self.assertEqual(
+                    f"one of {validator.params['sub_article_type_list']}",
+                    results[3]["expected_value"],
+                )
+                self.assertIn(
+                    str(validator.params["sub_article_type_list"]),
+                    results[3]["advice"],
+                )
+
+    def test_validate_article_type_parent_lang(self):
+        validator = ArticleTypeValidation(self.multi_article_xmltree, None)
+        results = list(validator.validate_article_type())
+
+        self.assertEqual(
+            ["en", "es", "pt"],
+            [r["parent_lang"] for r in results],
+        )
 
     def test_validate_article_type_vs_subject_similarity_with_matching(self):
         # Test with matching article type and subject
