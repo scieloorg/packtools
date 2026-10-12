@@ -4,6 +4,7 @@ from lxml import etree
 from packtools.sps.validation.article_data_availability import (
     DataAvailabilityValidation,
 )
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class DataAvailabilityValidationTest(unittest.TestCase):
@@ -230,7 +231,7 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.maxDiff = None
         xml = """
                 <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-                dtd-version="1.0" article-type="case-report" xml:lang="pt">
+                dtd-version="1.0" article-type="letter" xml:lang="pt">
                     <back>
                     </back>
                 </article>
@@ -255,6 +256,42 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("data availability statement", exist_validation["title"])
         self.assertEqual("OK", exist_validation["response"])
         self.assertIsNone(exist_validation["advice"])
+
+    def test_validate_data_availability_case_report_required(self):
+        xml = """
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="case-report" xml:lang="pt">
+                    <back>
+                    </back>
+                </article>
+            """
+        xmltree = etree.fromstring(xml)
+
+        validations = list(
+            DataAvailabilityValidation(xmltree).validate_data_availability_exist()
+        )
+
+        self.assertEqual(1, len(validations))
+        self.assertEqual("CRITICAL", validations[0]["response"])
+        self.assertIn("Mark in <article>", validations[0]["advice"])
+
+    def test_validate_data_availability_case_report_required_in_rules_file(self):
+        xml = """
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="case-report" xml:lang="pt">
+                    <back>
+                    </back>
+                </article>
+            """
+        xmltree = etree.fromstring(xml)
+        params = get_default_rules()["data_availability_rules"]
+
+        validations = list(
+            DataAvailabilityValidation(xmltree, params).validate_data_availability_exist()
+        )
+
+        self.assertEqual(1, len(validations))
+        self.assertEqual("CRITICAL", validations[0]["response"])
 
     def test_validate_data_availability_article_type_unexpected_with_statement(self):
         self.maxDiff = None
