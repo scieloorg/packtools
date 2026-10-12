@@ -45,6 +45,7 @@ class DataAvailabilityValidation:
                 "correction": "unexpected",
                 "retraction": "unexpected",
                 "partial-retraction": "unexpected",
+                "expression-of-concern": "unexpected",
             },
         }
 
