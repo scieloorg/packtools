@@ -5,6 +5,7 @@ from packtools.sps.validation.article_abstract import (
     XMLAbstractsValidation,
 )
 from packtools.sps.models.v2.abstract import XMLAbstracts
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class SummaryAbstractValidationTest(TestCase):
@@ -954,3 +955,86 @@ class TransAbstractValidationTest(TestCase):
             self.skipTest("Keyword validation not found")
 
         self.assertEqual(kwd_validation[0]["response"], "OK")
+
+
+class ExpressionOfConcernAbstractTest(TestCase):
+    """
+    expression-of-concern has the same abstract rule as retraction:
+    abstract is unexpected.
+    """
+
+    def _abstract_results(self, xml, params=None):
+        xmltree = ET.fromstring(xml)
+        obtained = list(XMLAbstractsValidation(xmltree, params).validate())
+        return [v for v in obtained if v and v.get("title") == "abstract"]
+
+    def test_without_abstract_is_valid(self):
+        xml = """
+            <article article-type="expression-of-concern" xml:lang="pt">
+                <front>
+                    <article-meta/>
+                </front>
+            </article>
+            """
+        for params in (None, get_default_rules()):
+            with self.subTest(params=bool(params)):
+                results = self._abstract_results(xml, params)
+                self.assertEqual(["OK"], [v["response"] for v in results])
+
+    def test_with_abstract_is_critical(self):
+        xml = """
+            <article article-type="expression-of-concern" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <abstract>
+                            <title>Resumo</title>
+                            <p>Texto</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        for params in (None, get_default_rules()):
+            with self.subTest(params=bool(params)):
+                results = self._abstract_results(xml, params)
+                self.assertEqual(["CRITICAL"], [v["response"] for v in results])
+                self.assertEqual(
+                    "Abstract is not expected for expression-of-concern",
+                    results[0]["advice"],
+                )
+
+
+class UnknownArticleTypeAbstractTest(TestCase):
+    """
+    An @article-type in none of the lists produces no "abstract" result,
+    and the other abstract validations still run.
+    """
+
+    def test_unknown_article_type_does_not_stop_validation(self):
+        xmltree = ET.fromstring(
+            """
+            <article article-type="unknown-type" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract xml:lang="en">
+                            <title>Abstract</title>
+                            <p>Text</p>
+                        </abstract>
+                        <abstract abstract-type="key-points" xml:lang="en">
+                            <title>HIGHLIGHTS</title>
+                            <p>Single highlight point</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = [v for v in XMLAbstractsValidation(xmltree).validate() if v]
+
+        self.assertNotIn("abstract", [v["title"] for v in obtained])
+        self.assertIn(
+            "key-points",
+            [(v.get("data") or {}).get("abstract_type") for v in obtained],
+        )
+
