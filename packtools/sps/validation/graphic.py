@@ -10,7 +10,6 @@ class GraphicValidation(VisualResourceBaseValidation):
     Validation class for <graphic> and <inline-graphic> elements according to SPS 1.10.
 
     Validates:
-    - @id attribute (required for both <graphic> and <inline-graphic>)
     - @xlink:href attribute (required, with valid file extension)
     - File extensions (.jpg, .jpeg, .png, .tif, .tiff, .svg)
     - .svg only allowed inside <alternatives>
@@ -21,48 +20,10 @@ class GraphicValidation(VisualResourceBaseValidation):
 
     def validate(self):
         """Execute all validations for graphic/inline-graphic elements."""
-        yield self.validate_id()
         yield self.validate_xlink_href()
         yield from self.validate_svg_in_alternatives()
         # Note: Accessibility validation is handled by the dedicated XMLAccessibilityDataValidation
         # in the pipeline to avoid duplicate validation entries in reports
-
-    def validate_id(self):
-        """
-        Validate @id attribute is present in <graphic> and <inline-graphic>.
-
-        Per SPS 1.10 specification, @id is required for both <graphic> and
-        <inline-graphic> elements. This overrides the base class behavior which
-        exempts inline-* elements.
-        """
-        xml = self.data.get("xml")
-        tag = self.data.get("tag")
-        id_value = self.data.get("id")
-
-        valid = bool(id_value)
-        elem = xml[:xml.find(">")+1] if xml else tag
-
-        return build_response(
-            title="@id",
-            parent=self.data,
-            item=tag,
-            sub_item=None,
-            is_valid=valid,
-            validation_type="exist",
-            expected="@id attribute",
-            obtained=id_value,
-            advice=f'Add id="" to {elem}' if not valid else None,
-            advice_text=i18n._('Add id="" to {element}'),
-            advice_params={"element": elem},
-            message_text=(
-                i18n._("The @id attribute is present in <{element}>")
-                if valid
-                else i18n._("The @id attribute is required in <{element}>")
-            ),
-            message_params={"element": tag},
-            error_level=self.params["media_attributes_error_level"],
-            data=self.data,
-        )
 
     def validate_xlink_href(self):
         """

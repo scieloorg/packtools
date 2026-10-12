@@ -385,7 +385,6 @@ def validate_graphics(xmltree, params):
     Validates <graphic> and <inline-graphic> elements according to SPS 1.10 specification.
 
     Validates:
-    - @id attribute (required for both <graphic> and <inline-graphic>)
     - @xlink:href attribute (required, with valid file extension)
     - File extensions (.jpg, .jpeg, .png, .tif, .tiff, .svg)
     - .svg only allowed inside <alternatives>
