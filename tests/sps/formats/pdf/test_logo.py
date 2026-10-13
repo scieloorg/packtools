@@ -5,10 +5,14 @@ from pathlib import Path
 
 from PIL import Image
 
-from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.config import page as page_config
+from packtools.sps.formats.pdf.assets import Assets
 from packtools.sps.formats.pdf.layout import logo as logo_layout
-from packtools.sps.formats.pdf.pipeline import docx as docx_pipe
-from packtools.sps.formats.pdf.renderer import docx as docx_renderer
+from packtools.sps.formats.pdf.layout import page as page_layout
+from packtools.sps.formats.pdf.pipeline import pipeline_docx
+from packtools.sps.formats.pdf.render import front as front_render
+from packtools.sps.formats.pdf.render import logo as logo_render
+from packtools.sps.formats.pdf.render.document import State, new_document
 from packtools.sps.utils import xml_utils
 
 FIXTURES_DIR = Path(__file__).resolve().parents[3] / "fixtures" / "pdf"
@@ -16,13 +20,8 @@ EMU_PER_MM = 36000
 EMU_PER_TWIP = 635
 
 
-def _docx_with_layout_styles():
-    return docx_renderer.builder.init_docx({"base_layout": str(FIXTURES_DIR / "layout.docx")})
-
-
 def _content_width():
-    attrs = pdf_enum.PAGE_ATTRIBUTES
-    return int(attrs['page_width'] - attrs['left_margin'] - attrs['right_margin'])
+    return page_layout.content_width(page_config.load_page())
 
 
 class _WithImages(unittest.TestCase):
@@ -155,6 +154,58 @@ class TestFitLogo(unittest.TestCase):
             logo_layout.fit_logo_emu(0, 10, 1, 1)
 
 
+class TestLogoHeader(unittest.TestCase):
+    """layout.logo.logo_header: tamanho do logo e colunas do cabeçalho, sem gerar DOCX."""
+
+    content = 170 * EMU_PER_MM
+
+    def _header(self, px=(500, 100), kind='svg', **spec):
+        spec = logo_layout.normalize_logo_spec({'path': 'x.png', **spec})
+        return logo_layout.logo_header(spec, kind, *px, self.content)
+
+    def test_title_doi_columns_split_content_width(self):
+        title, doi = logo_layout.title_doi_columns(self.content)
+        self.assertEqual(title, int(self.content * logo_layout.JOURNAL_TITLE_DOI_SPLIT))
+        self.assertEqual(title + doi, self.content)
+
+    def test_left_with_title_has_logo_title_and_doi_columns(self):
+        header = self._header()
+        self.assertEqual((header.width, header.height), (40 * EMU_PER_MM, 8 * EMU_PER_MM))
+        logo_col, title_col, doi_col = header.columns
+        self.assertEqual(logo_col, header.width + logo_layout.LOGO_GAP)
+        self.assertEqual(doi_col, logo_layout.title_doi_columns(self.content)[1])
+        self.assertEqual(sum(header.columns), self.content)
+
+    def test_columns_by_position(self):
+        doi = logo_layout.title_doi_columns(self.content)[1]
+        cases = (
+            ({'position': 'left', 'show_title': False}, 2),
+            ({'position': 'right'}, 2),
+            ({'position': 'full_width'}, 2),
+            ({'position': 'full_width', 'show_title': False}, 0),
+        )
+        for spec, count in cases:
+            with self.subTest(**spec):
+                columns = self._header(**spec).columns
+                self.assertEqual(len(columns), count)
+                if columns:
+                    self.assertEqual(sum(columns), self.content)
+        self.assertEqual(self._header(position='full_width').columns, (self.content - doi, doi))
+
+    def test_too_wide_logo_is_reduced_with_warning(self):
+        with self.assertLogs(logo_layout.logger, level='WARNING') as logs:
+            header = self._header(px=(2000, 100), max_width_mm=170)
+        self.assertEqual(header.width, 40 * EMU_PER_MM)  # limite com título à esquerda
+        self.assertIn('logo reduzido', logs.output[0])
+
+    def test_only_png_warns_about_resolution(self):
+        # 150 px em 40 mm = 95 dpi
+        with self.assertLogs(logo_layout.logger, level='WARNING'):
+            self._header(px=(150, 30), kind='png')
+        with self.assertNoLogs(logo_layout.logger, level='WARNING'):
+            self._header(px=(150, 30), kind='svg')
+
+
 class TestEffectiveDpi(unittest.TestCase):
 
     def test_dpi_from_printed_width(self):
@@ -164,56 +215,58 @@ class TestEffectiveDpi(unittest.TestCase):
 class TestReadPngSize(_WithImages):
 
     def test_png_size(self):
-        self.assertEqual(docx_renderer.logo.read_png_size(self.png_wide), (500, 200))
+        self.assertEqual(logo_render.read_png_size(self.png_wide), (500, 200))
 
     def test_rejects_jpeg(self):
         with self.assertRaises(ValueError):
-            docx_renderer.logo.read_png_size(self.jpg)
+            logo_render.read_png_size(self.jpg)
 
     def test_rejects_missing_file(self):
         with self.assertRaises(ValueError):
-            docx_renderer.logo.read_png_size('/nao/existe.png')
+            logo_render.read_png_size('/nao/existe.png')
 
 
 class TestReadLogoSize(_WithImages):
 
     def test_png(self):
-        self.assertEqual(docx_renderer.logo.read_logo_size(self.png_wide), ('png', 500, 200))
+        self.assertEqual(logo_render.read_logo_size(self.png_wide), ('png', 500, 200))
 
     def test_svg_viewbox(self):
-        self.assertEqual(docx_renderer.logo.read_logo_size(self.svg_viewbox), ('svg', 300.0, 100.0))
+        self.assertEqual(logo_render.read_logo_size(self.svg_viewbox), ('svg', 300.0, 100.0))
 
     def test_svg_absolute_units_win_over_viewbox(self):
-        kind, w, h = docx_renderer.logo.read_logo_size(self.svg_mm)
+        kind, w, h = logo_render.read_logo_size(self.svg_mm)
         self.assertEqual(kind, 'svg')
         self.assertAlmostEqual(w / h, 4.0)
 
     def test_svg_percent_falls_back_to_viewbox(self):
-        self.assertEqual(docx_renderer.logo.read_logo_size(self.svg_percent), ('svg', 200.0, 100.0))
+        self.assertEqual(logo_render.read_logo_size(self.svg_percent), ('svg', 200.0, 100.0))
 
     def test_svg_without_size_raises(self):
         with self.assertRaises(ValueError):
-            docx_renderer.logo.read_logo_size(self.svg_no_size)
+            logo_render.read_logo_size(self.svg_no_size)
 
     def test_xml_that_is_not_svg_raises(self):
         with self.assertRaises(ValueError):
-            docx_renderer.logo.read_logo_size(self.not_svg)
+            logo_render.read_logo_size(self.not_svg)
 
     def test_svg_external_entity_is_not_resolved(self):
-        self.assertEqual(docx_renderer.logo.read_logo_size(self.svg_entity), ('svg', 300.0, 100.0))
+        self.assertEqual(logo_render.read_logo_size(self.svg_entity), ('svg', 300.0, 100.0))
 
     def test_jpeg_still_rejected(self):
         with self.assertRaises(ValueError):
-            docx_renderer.logo.read_logo_size(self.jpg)
+            logo_render.read_logo_size(self.jpg)
 
 
 class TestDocxJournalLogoPipe(_WithImages):
 
     def _build(self, **spec):
-        docx = _docx_with_layout_styles()
+        state = State(new_document(str(FIXTURES_DIR / "layout.docx")), page_config.load_page(), Assets())
         spec = logo_layout.normalize_logo_spec(spec)
-        ok = docx_pipe.docx_journal_logo_pipe(docx, spec, "Revista Hipotética de Testes", "10.1590/x")
-        return docx, ok, docx_renderer.section.get_first_page_header(docx)
+        header = state.doc.sections[0].first_page_header
+        front = {"journal_title": "Revista Hipotética de Testes", "doi": "10.1590/x"}
+        ok = front_render._logo_header(state, header, spec, front)
+        return state.doc, ok, header
 
     def _pictures(self, container):
         return container._element.findall('.//{http://schemas.openxmlformats.org/drawingml/2006/picture}pic')
@@ -246,20 +299,20 @@ class TestDocxJournalLogoPipe(_WithImages):
 
     def test_low_resolution_png_only_warns(self):
         # 150 px em 40 mm = 95 dpi
-        with self.assertLogs(docx_pipe.logger, level='WARNING') as logs:
+        with self.assertLogs(logo_layout.logger, level='WARNING') as logs:
             _, ok, _ = self._build(path=self.png_low_res)
         self.assertTrue(ok)
         self.assertIn('95 dpi', logs.output[0])
 
     def test_enough_resolution_png_does_not_warn(self):
         # 500 px em 40 mm = 317 dpi
-        with self.assertNoLogs(docx_pipe.logger, level='WARNING'):
+        with self.assertNoLogs(logo_layout.logger, level='WARNING'):
             self._build(path=self.png_wide)
 
     def _min_title_width(self):
         content = _content_width()
-        doi = content - int(content * docx_pipe._JOURNAL_TITLE_DOI_SPLIT)
-        return logo_layout.min_title_width_emu(content, doi, int(docx_pipe._LOGO_GAP))
+        doi = logo_layout.title_doi_columns(content)[1]
+        return logo_layout.min_title_width_emu(content, doi, logo_layout.LOGO_GAP)
 
     def _column_widths(self, header):
         return [cell.width for cell in header.tables[0].rows[0].cells]
@@ -268,7 +321,7 @@ class TestDocxJournalLogoPipe(_WithImages):
         self.assertLessEqual(sum(widths), _content_width() + EMU_PER_TWIP * len(widths))
 
     def test_wide_logo_on_the_left_keeps_title_column(self):
-        with self.assertLogs(docx_pipe.logger, level='WARNING') as logs:
+        with self.assertLogs(logo_layout.logger, level='WARNING') as logs:
             _, ok, header = self._build(path=self.png_panoramic, max_width_mm=170)
         self.assertTrue(ok)
         logo_col, title_col, doi_col = self._column_widths(header)
@@ -278,7 +331,7 @@ class TestDocxJournalLogoPipe(_WithImages):
         self.assertIn('logo reduzido', logs.output[0])
 
     def test_wide_logo_on_the_right_keeps_title_column(self):
-        with self.assertLogs(docx_pipe.logger, level='WARNING'):
+        with self.assertLogs(logo_layout.logger, level='WARNING'):
             _, ok, header = self._build(path=self.png_panoramic, max_width_mm=170, position='right')
         self.assertTrue(ok)
         text_col, logo_col = self._column_widths(header)
@@ -286,7 +339,7 @@ class TestDocxJournalLogoPipe(_WithImages):
         self.assertFitsContentWidth([text_col, logo_col])
 
     def test_wide_logo_on_the_right_without_title_keeps_doi_column(self):
-        with self.assertLogs(docx_pipe.logger, level='WARNING'):
+        with self.assertLogs(logo_layout.logger, level='WARNING'):
             _, ok, header = self._build(
                 path=self.png_panoramic, max_width_mm=170, position='right', show_title=False
             )
@@ -296,7 +349,7 @@ class TestDocxJournalLogoPipe(_WithImages):
         self.assertFitsContentWidth([text_col, logo_col])
 
     def test_default_logo_is_not_reduced(self):
-        with self.assertNoLogs(docx_pipe.logger, level='WARNING'):
+        with self.assertNoLogs(logo_layout.logger, level='WARNING'):
             self._build(path=self.png_wide)
 
     def test_left_without_title_is_logo_doi(self):
@@ -365,7 +418,7 @@ class TestDocxJournalLogoPipe(_WithImages):
             self.assertEqual(header.part.related_parts[rid].blob, f.read())
 
     def test_svg_logo_with_invalid_fallback_uses_transparent_png(self):
-        with self.assertLogs('packtools.sps.formats.pdf.pipeline.docx', level='WARNING'):
+        with self.assertLogs('packtools.sps.formats.pdf.render.front', level='WARNING'):
             _, ok, header = self._build(path=self.svg_viewbox, fallback_path=self.jpg)
         self.assertTrue(ok)
         self.assertIsNotNone(self._svg_blip(header))
@@ -392,8 +445,8 @@ class TestPipelineDocxWithLogo(_WithImages):
         data = {"base_layout": str(FIXTURES_DIR / "layout.docx"), "assets_dir": str(FIXTURES_DIR)}
         if journal_logo is not None:
             data["journal_logo"] = journal_logo
-        docx = docx_pipe.pipeline_docx(xml_tree, data)
-        return docx_renderer.section.get_first_page_header(docx)
+        docx = pipeline_docx(xml_tree, data)
+        return docx.sections[0].first_page_header
 
     def test_without_logo_keeps_two_column_text_header(self):
         header = self._pipeline()
@@ -407,7 +460,7 @@ class TestPipelineDocxWithLogo(_WithImages):
         xml_tree = xml_utils.get_xml_tree(str(FIXTURES_DIR / "a1.xml"))
         data = {"base_layout": str(FIXTURES_DIR / "layout.docx"), "assets_dir": str(FIXTURES_DIR),
                 "journal_logo": {'path': self.svg_viewbox}}
-        docx = docx_pipe.pipeline_docx(xml_tree, data)
+        docx = pipeline_docx(xml_tree, data)
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "out.docx"
             docx.save(str(out))
@@ -418,7 +471,7 @@ class TestPipelineDocxWithLogo(_WithImages):
         self.assertIn('image/svg+xml', content_types)
 
     def test_invalid_logo_falls_back_to_text_header(self):
-        with self.assertLogs('packtools.sps.formats.pdf.pipeline.docx', level='WARNING'):
+        with self.assertLogs('packtools.sps.formats.pdf.render.front', level='WARNING'):
             header = self._pipeline({'path': self.jpg})
         self.assertEqual(len(header.tables[0].rows[0].cells), 2)
 
