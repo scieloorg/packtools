@@ -1,3 +1,5 @@
+"""DOCX -> PDF com LibreOffice em modo headless."""
+
 import os
 import pathlib
 import shutil
@@ -8,14 +10,11 @@ import zipfile
 
 from docx.oxml.ns import nsmap
 from lxml import etree
-
-
-class DirectoryRemovalError(Exception):
-    ...
+from packtools.sps.formats.pdf.config.styles import STYLES
 
 
 class ConversionTimeoutError(RuntimeError):
-    ...
+    """O LibreOffice não terminou a conversão dentro do tempo limite."""
 
 
 # Uma conversão normal leva poucos segundos; o limite evita travar para
@@ -27,7 +26,7 @@ DEFAULT_CONVERSION_TIMEOUT = 120
 # próprio BaseSize (padrão 12pt), estourando a coluna quando o corpo do
 # artigo usa um tamanho menor. O tamanho vem do estilo do corpo do próprio
 # DOCX convertido. Ver issue #1385.
-_BODY_STYLE_NAME = "SCL Paragraph"
+_BODY_STYLE_NAME = STYLES["body"]
 _MATH_CONFIG_XML = (
     '<?xml version="1.0" encoding="UTF-8"?>'
     '<oor:items xmlns:oor="http://openoffice.org/2001/registry"'
@@ -35,7 +34,7 @@ _MATH_CONFIG_XML = (
     ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
     '<item oor:path="/org.openoffice.Office.Math/StandardFormat">'
     '<prop oor:name="BaseSize" oor:op="fuse"><value>{size}</value></prop>'
-    '</item></oor:items>'
+    "</item></oor:items>"
 )
 
 
@@ -47,13 +46,16 @@ def _body_font_size_pt(docx_path):
     try:
         with zipfile.ZipFile(docx_path) as zf:
             styles_xml = zf.read("word/styles.xml")
-        root = etree.fromstring(styles_xml, etree.XMLParser(resolve_entities=False, no_network=True))
+        root = etree.fromstring(
+            styles_xml, etree.XMLParser(resolve_entities=False, no_network=True)
+        )
     except (OSError, KeyError, zipfile.BadZipFile, etree.XMLSyntaxError):
         return None
 
     half_points = root.xpath(
         "string(//w:style[w:name/@w:val=$name]/w:rPr/w:sz/@w:val)",
-        namespaces={"w": nsmap["w"]}, name=_BODY_STYLE_NAME,
+        namespaces={"w": nsmap["w"]},
+        name=_BODY_STYLE_NAME,
     )
     try:
         return round(int(half_points) / 2) or None
@@ -70,7 +72,9 @@ def _create_math_profile(size_pt):
     try:
         user_dir = os.path.join(profile_dir, "user")
         os.makedirs(user_dir)
-        with open(os.path.join(user_dir, "registrymodifications.xcu"), "w", encoding="utf-8") as f:
+        with open(
+            os.path.join(user_dir, "registrymodifications.xcu"), "w", encoding="utf-8"
+        ) as f:
             f.write(_MATH_CONFIG_XML.format(size=size_pt))
     except OSError:
         shutil.rmtree(profile_dir, ignore_errors=True)
@@ -97,6 +101,7 @@ def _run_command(command, timeout=None):
 
 
 def _kill_process_group(process):
+    """Mata o grupo de processos do LibreOffice (oosplash + soffice.bin); no Windows, só o processo."""
     try:
         os.killpg(process.pid, signal.SIGKILL)
     except (AttributeError, ProcessLookupError):
@@ -106,6 +111,7 @@ def _kill_process_group(process):
 
 
 def _run_conversion(binary, docx_path, output_dir, profile_dir=None, timeout=None):
+    """Chama o LibreOffice headless para converter docx_path em PDF dentro de output_dir."""
     command = [binary]
     if profile_dir:
         command.append(f"-env:UserInstallation={pathlib.Path(profile_dir).as_uri()}")
@@ -113,7 +119,9 @@ def _run_conversion(binary, docx_path, output_dir, profile_dir=None, timeout=Non
     _run_command(command, timeout=timeout)
 
 
-def convert_docx_to_pdf(docx_path, libreoffice_binary=None, timeout=DEFAULT_CONVERSION_TIMEOUT):
+def convert_docx_to_pdf(
+    docx_path, libreoffice_binary=None, timeout=DEFAULT_CONVERSION_TIMEOUT
+):
     """
     Converts a DOCX file to PDF format using LibreOffice in headless mode.
     The function runs a subprocess to call LibreOffice, specifying the input DOCX file
@@ -136,7 +144,9 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None, timeout=DEFAULT_CONV
     Returns:
         str: The path to the generated PDF file.
     """
-    binary = libreoffice_binary or shutil.which("libreoffice") or shutil.which("soffice")
+    binary = (
+        libreoffice_binary or shutil.which("libreoffice") or shutil.which("soffice")
+    )
     if not binary:
         raise FileNotFoundError(
             "LibreOffice binary ('libreoffice' or 'soffice') was not found on PATH. "
@@ -188,77 +198,3 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary=None, timeout=DEFAULT_CONV
             shutil.rmtree(profile_dir, ignore_errors=True)
 
     return pdf_path
-
-def unzip_docx(path, prefix="scl_xml2pdf"):
-    """
-    Extracts contents of a DOCX file into a temporary directory. 
-    Creates a new temporary directory with the specified prefix, extracts all files from the DOCX archive into it, 
-    and returns the path to the temporary directory containing the extracted files.
-
-    Args:
-        path (str): The path to the DOCX file to extract.
-        prefix (str): The prefix to use for the temporary directory.
-
-    Returns:
-        str: The path to the temporary directory containing the extracted files
-    """
-    temp_docx_source_dir = tempfile.mkdtemp(prefix=prefix)
-
-    with zipfile.ZipFile(path, 'r') as zf:
-        zf.extractall(temp_docx_source_dir)
-
-    return temp_docx_source_dir
-
-def embed_docx(source_dir, prefix="scl_xml2pdf", suffix=".docx"):
-    """
-    Creates a DOCX file by compressing all files from the source directory into a ZIP archive with .docx extension. 
-    After successful compression, removes the source directory and returns the path to the newly created DOCX file.
-
-    Args:
-        source_dir (str): The path to the directory containing the files to compress.
-        prefix (str): The prefix to use for the temporary DOCX file.
-        suffix (str): The suffix to use for the temporary DOCX file.
-
-    Returns:
-        str: The path to the newly created DOCX file.
-    """
-    temp_docx_path = tempfile.mktemp(prefix=prefix, suffix=suffix)
-    with zipfile.ZipFile(temp_docx_path, 'w') as zf:
-        for root, _, files in os.walk(source_dir):
-            for f in files:
-                fpath_absolute = os.path.join(root, f)
-                fpath_rel = os.path.relpath(fpath_absolute, source_dir)
-                zf.write(fpath_absolute, arcname=fpath_rel)
-    
-    try:
-        shutil.rmtree(source_dir)
-    except OSError:
-        raise DirectoryRemovalError(f'Unable to delete temporary directory: {source_dir}')
-    return temp_docx_path
-
-def resolve_asset_path(href, assets_dir=None):
-    """
-    Resolve a resource path given a href-like string and an optional assets directory.
-
-    Behavior:
-    - If href is http(s), return as-is.
-    - If href is an absolute filesystem path, return as-is.
-    - If assets_dir is provided and contains the relative file, return the joined path.
-    - Otherwise return the href unchanged (caller may handle it later).
-    """
-    if not href:
-        return None
-    
-    href = str(href)
-    if href.startswith('http://') or href.startswith('https://'):
-        return href
-
-    if os.path.isabs(href):
-        return href
-
-    if assets_dir:
-        candidate = os.path.join(assets_dir, href)
-        if os.path.exists(candidate):
-            return candidate
-
-    return href
