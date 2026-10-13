@@ -5,10 +5,8 @@ from pathlib import Path
 
 from docx.enum.section import WD_ORIENT, WD_SECTION
 
-from packtools.sps.formats.pdf import layout_config
-
-
-class TestLoadPageAttributes(unittest.TestCase):
+from packtools.sps.formats.pdf.config import page as page_config
+class TestLoadPage(unittest.TestCase):
     """
     Regression tests for the JSON-backed replacement of the legacy hardcoded
     PAGE_ATTRIBUTES dict. Length values are compared with a tolerance of a
@@ -18,7 +16,7 @@ class TestLoadPageAttributes(unittest.TestCase):
     """
 
     def setUp(self):
-        self.attrs = layout_config.load_page_attributes()
+        self.attrs = page_config.load_page()
 
     def _assert_close(self, actual, expected, tolerance_emu=5):
         self.assertLessEqual(abs(int(actual) - int(expected)), tolerance_emu)
@@ -38,10 +36,10 @@ class TestLoadPageAttributes(unittest.TestCase):
         self.assertEqual(self.attrs['orientation'], WD_ORIENT.PORTRAIT)
         self.assertEqual(self.attrs['different_first_page_header_footer'], True)
         self.assertEqual(self.attrs['start_type'], WD_SECTION.CONTINUOUS)
-        self.assertEqual(self.attrs['default_column_count'], 2)
+        self.assertEqual(self.attrs['column_count'], 2)
 
-    def test_load_column_spacing_twips_matches_legacy_constant(self):
-        self.assertEqual(layout_config.load_column_spacing_twips(), 300)
+    def test_column_spacing_twips_matches_legacy_constant(self):
+        self.assertEqual(self.attrs['column_spacing'], 300)
 
     def test_custom_path_overrides_default(self):
         custom = {
@@ -67,13 +65,13 @@ class TestLoadPageAttributes(unittest.TestCase):
             path = Path(tmp) / "custom.json"
             path.write_text(json.dumps(custom))
 
-            attrs = layout_config.load_page_attributes(path)
+            attrs = page_config.load_page(path)
             self.assertEqual(attrs['orientation'], WD_ORIENT.LANDSCAPE)
             self.assertEqual(attrs['start_type'], WD_SECTION.NEW_PAGE)
-            self.assertEqual(attrs['default_column_count'], 1)
+            self.assertEqual(attrs['column_count'], 1)
             self.assertEqual(attrs['different_first_page_header_footer'], False)
 
-            self.assertEqual(layout_config.load_column_spacing_twips(path), 0)
+            self.assertEqual(attrs['column_spacing'], 0)
 
 
 if __name__ == "__main__":
