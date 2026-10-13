@@ -33,6 +33,72 @@ def is_valid_value(value, zero_is_allowed):
     return {"got": value, "expected": "alphanumeric value", "is_valid": False}
 
 
+SUPPLEMENT_TERMS = ("suppl", "supl", "supp", "sup", "supplement", "s")
+SPECIAL_TERMS = ("spe", "esp", "nesp", "nspe", "especial", "noesp")
+
+
+def parse_issue_value(issue):
+    """
+    Parses the content of <issue> tolerating case, punctuation, leading
+    zeros, missing spaces and variant terms for supplement and special
+    issue.
+
+    Returns:
+        dict with "number", "kind" ("suppl", "spe" or None) and "value",
+        or None when the content is not recognized
+    """
+    text = re.sub(r"[^0-9a-z]+", " ", (issue or "").lower())
+    text = re.sub(r"(?<=[0-9])(?=[a-z])|(?<=[a-z])(?=[0-9])", " ", text)
+    tokens = []
+    for token in text.split():
+        if token in SUPPLEMENT_TERMS:
+            tokens.append("suppl")
+        elif token in SPECIAL_TERMS:
+            tokens.append("spe")
+        elif token.isdigit():
+            tokens.append(str(int(token)))
+        else:
+            return None
+
+    shape = tuple("N" if t.isdigit() else t for t in tokens)
+    numbers = [t for t in tokens if t.isdigit()]
+    shapes = {
+        ("N",): (0, None, None),
+        ("N", "suppl", "N"): (0, "suppl", 1),
+        ("suppl", "N"): (None, "suppl", 0),
+        ("N", "suppl"): (0, "suppl", None),
+        ("suppl",): (None, "suppl", None),
+        ("spe", "N"): (None, "spe", 0),
+        ("N", "spe", "N"): (None, "spe", 1),
+        ("N", "spe"): (None, "spe", None),
+        ("spe",): (None, "spe", None),
+    }
+    if shape not in shapes:
+        return None
+    number_index, kind, value_index = shapes[shape]
+    return {
+        "number": numbers[number_index] if number_index is not None else None,
+        "kind": kind,
+        "value": numbers[value_index] if value_index is not None else None,
+    }
+
+
+def format_issue_value(parsed):
+    """
+    Returns the <issue> content in the SPS 1.10 format
+    ("4", "4 suppl 1", "suppl 1" or "spe1"), or None when the supplement or
+    special issue number is missing.
+    """
+    number, kind, value = parsed["number"], parsed["kind"], parsed["value"]
+    if kind and not value:
+        return None
+    if kind == "spe":
+        return f"spe{value}"
+    if kind == "suppl":
+        return f"{number} suppl {value}" if number else f"suppl {value}"
+    return number
+
+
 class IssueValidation:
     """
     Class responsible for validating journal issue metadata in XML format.
@@ -172,12 +238,12 @@ class IssueValidation:
         got_valid_format = parsed_issue.get("type_valid_format")
 
         if got_type:
-            # Build expected format based on issue type (special or supplement)
-            if "spe" in self.article_issue.issue.lower():
-                if got_number:
-                    expected = [f"{got_number} spe {got_type_value}"]
-                else:
-                    expected = [f"spe {got_type_value}"]
+            parsed = parse_issue_value(self.article_issue.issue)
+            formatted = parsed and format_issue_value(parsed)
+            if formatted:
+                expected = [formatted]
+            elif "spe" in self.article_issue.issue.lower():
+                expected = [f"spe{got_type_value}"]
             elif "sup" in self.article_issue.issue.lower():
                 if got_number:
                     expected = [f"{got_number} suppl {got_type_value}"]
@@ -187,10 +253,10 @@ class IssueValidation:
                 if got_number:
                     expected = [
                         f"{got_number} suppl {got_type_value}",
-                        f"{got_number} spe {got_type_value}",
+                        f"spe{got_type_value}",
                     ]
                 else:
-                    expected = [f"suppl {got_type_value}", f"spe {got_type_value}"]
+                    expected = [f"suppl {got_type_value}", f"spe{got_type_value}"]
 
             return build_response(
                 title="special or supplement",

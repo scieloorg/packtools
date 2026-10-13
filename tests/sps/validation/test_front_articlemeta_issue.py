@@ -2,6 +2,8 @@ from unittest import TestCase
 from lxml import etree
 
 from packtools.sps.validation.front_articlemeta_issue import (
+    format_issue_value,
+    parse_issue_value,
     IssueValidation,
     PaginationValidation,
 )
@@ -330,8 +332,8 @@ class IssueTest(TestCase):
 
         self.assertEqual(obtained["title"], "special or supplement")
         self.assertEqual(obtained["response"], "CRITICAL")
-        self.assertEqual(obtained["message"], "Got {'type_value': '1', 'type': 'spa', 'type_valid_format': False}, expected ['suppl 1', 'spe 1']")
-        self.assertEqual(obtained["advice"], "Replace spa 1 in <article-meta><issue> with one of ['suppl 1', 'spe 1']")
+        self.assertEqual(obtained["message"], "Got {'type_value': '1', 'type': 'spa', 'type_valid_format': False}, expected ['suppl 1', 'spe1']")
+        self.assertEqual(obtained["advice"], "Replace spa 1 in <article-meta><issue> with one of ['suppl 1', 'spe1']")
 
     def test_validate_article_issue_special_number_with_dot(self):
         self.maxDiff = None
@@ -381,13 +383,13 @@ class IssueTest(TestCase):
             "item": "issue",
             "sub_item": "special or supplement",
             "validation_type": "format",
-            "expected_value": ["spe 1"],
+            "expected_value": ["spe1"],
             "got_value": {"type": "spe", "type_valid_format": True, "type_value": "1"},
-            "message": "Got {'type_value': '1', 'type': 'spe', 'type_valid_format': True}, expected ['spe 1']",
+            "message": "Got {'type_value': '1', 'type': 'spe', 'type_valid_format': True}, expected ['spe1']",
             "msg_text": "Got {obtained}, expected {expected}",
             "msg_params": {
                 "obtained": "{'type_value': '1', 'type': 'spe', 'type_valid_format': True}",
-                "expected": "['spe 1']",
+                "expected": "['spe1']",
             },
             "advice": None,
             "adv_text": None,
@@ -530,17 +532,17 @@ class IssueTest(TestCase):
             "item": "issue",
             "sub_item": "special or supplement",
             "validation_type": "format",
-            "expected_value": ["suppl 04"],
+            "expected_value": ["suppl 4"],
             "got_value": {
                 "type": "suppl",
                 "type_valid_format": True,
                 "type_value": "04",
             },
-            "message": "Got {'type_value': '04', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 04']",
+            "message": "Got {'type_value': '04', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 4']",
             "msg_text": "Got {obtained}, expected {expected}",
             "msg_params": {
                 "obtained": "{'type_value': '04', 'type': 'suppl', 'type_valid_format': True}",
-                "expected": "['suppl 04']",
+                "expected": "['suppl 4']",
             },
             "advice": None,
             "adv_text": None,
@@ -856,6 +858,66 @@ class IssueTest(TestCase):
             for key in self.expected_keys:
                 with self.subTest(f"item: {i}, key: {key}"):
                     self.assertIn(key, item, f"{key} not found")
+
+
+class IssueFormatTest(TestCase):
+    """SPS 1.10 <issue> forms: "4", "4 suppl 1", "suppl 1" and "spe1"."""
+
+    def setUp(self):
+        self.params = {"issue_format_error_level": "CRITICAL"}
+
+    def _validate(self, issue):
+        xml_tree = etree.fromstring(
+            "<article><front><article-meta>"
+            f"<volume>10</volume><issue>{issue}</issue>"
+            "</article-meta></front></article>"
+        )
+        return IssueValidation(xml_tree, self.params).validate_issue_format()
+
+    def test_format_issue_value(self):
+        cases = {
+            "4": "4",
+            "4 suppl 1": "4 suppl 1",
+            "suppl 1": "suppl 1",
+            "spe1": "spe1",
+            "spe 1": "spe1",
+            "4 spe1": "spe1",
+            "Suppl. 1": "suppl 1",
+            "3 suppl1": "3 suppl 1",
+            "3-suppl 1": "3 suppl 1",
+            "3 supl 1": "3 suppl 1",
+            "4 suppl 01": "4 suppl 1",
+            "nspe1": "spe1",
+            "s1": "suppl 1",
+            "4s1": "4 suppl 1",
+            "4 suppl": None,
+            "spe": None,
+        }
+        for issue, expected in cases.items():
+            with self.subTest(issue=issue):
+                self.assertEqual(expected, format_issue_value(parse_issue_value(issue)))
+
+    def test_parse_issue_value_not_recognized(self):
+        for issue in ("spa 1", "4a", "suppl a"):
+            with self.subTest(issue=issue):
+                self.assertIsNone(parse_issue_value(issue))
+
+    def test_advice_with_sps_form(self):
+        cases = {
+            "3 suppl1": "3 suppl 1",
+            "3-suppl 1": "3 suppl 1",
+            "4 spe1": "spe1",
+            "Suppl. 1": "suppl 1",
+        }
+        for issue, expected in cases.items():
+            with self.subTest(issue=issue):
+                obtained = self._validate(issue)
+                self.assertEqual("CRITICAL", obtained["response"])
+                self.assertEqual([expected], obtained["expected_value"])
+                self.assertEqual(
+                    f"Replace {issue} in <article-meta><issue> with one of {[expected]}",
+                    obtained["advice"],
+                )
 
 
 class PaginationTest(TestCase):
