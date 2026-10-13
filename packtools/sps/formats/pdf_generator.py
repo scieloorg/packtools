@@ -1,9 +1,9 @@
 import argparse
 import os
 
+from packtools.sps.formats.pdf import convert
 from packtools.sps.formats.pdf.layout import logo as logo_layout
-from packtools.sps.formats.pdf.pipeline import docx  
-from packtools.sps.formats.pdf.utils import file_utils
+from packtools.sps.formats.pdf.pipeline import pipeline_docx_by_language
 from packtools.sps.utils import xml_utils
 
 
@@ -70,7 +70,7 @@ def main():
     parser.add_argument(
         "--libreoffice-timeout",
         type=float,
-        default=file_utils.DEFAULT_CONVERSION_TIMEOUT,
+        default=convert.DEFAULT_CONVERSION_TIMEOUT,
         help="Maximum seconds for the DOCX to PDF conversion (default: %(default)s).",
     )
     arguments = parser.parse_args()
@@ -95,23 +95,24 @@ def main():
             parser.error(str(exc))
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
-    document = docx.pipeline_docx(xml_tree, data)
 
     if arguments.path_to_write:
         pdf_path = arguments.path_to_write
     else:
         pdf_path = arguments.path_to_read.replace('.xml', '.pdf')
-
     dir_name = os.path.dirname(pdf_path)
-    base_name = os.path.basename(pdf_path)
-    f_name, f_ext = os.path.splitext(base_name)
-    docx_path = os.path.join(dir_name, f"{f_name}.docx")
+    f_name, _ = os.path.splitext(os.path.basename(pdf_path))
 
-    document.save(docx_path)
-    print(f'DOCX generated at {docx_path}')
-    
-    file_utils.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary, arguments.libreoffice_timeout)
-    print(f'PDF generated at {pdf_path}')
+    # um PDF por idioma do texto, como o htmlgenerator: o principal com o nome
+    # pedido, cada tradução com o idioma no nome (artigo.en.pdf)
+    for index, (lang, document) in enumerate(pipeline_docx_by_language(xml_tree, data)):
+        name = f_name if index == 0 else f"{f_name}.{lang}"
+        docx_path = os.path.join(dir_name, f"{name}.docx")
+        document.save(docx_path)
+        print(f'DOCX generated at {docx_path}')
+        convert.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary, arguments.libreoffice_timeout)
+        print(f'PDF generated at {os.path.join(dir_name, name + ".pdf")}')
+
 
 if __name__ == "__main__":
     main()
