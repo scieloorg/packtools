@@ -33,6 +33,72 @@ def is_valid_value(value, zero_is_allowed):
     return {"got": value, "expected": "alphanumeric value", "is_valid": False}
 
 
+SUPPLEMENT_TERMS = ("suppl", "supl", "supp", "sup", "supplement", "s")
+SPECIAL_TERMS = ("spe", "esp", "nesp", "nspe", "especial", "noesp")
+
+
+def parse_issue_value(issue):
+    """
+    Parses the content of <issue> tolerating case, punctuation, leading
+    zeros, missing spaces and variant terms for supplement and special
+    issue.
+
+    Returns:
+        dict with "number", "kind" ("suppl", "spe" or None) and "value",
+        or None when the content is not recognized
+    """
+    text = re.sub(r"[^0-9a-z]+", " ", (issue or "").lower())
+    text = re.sub(r"(?<=[0-9])(?=[a-z])|(?<=[a-z])(?=[0-9])", " ", text)
+    tokens = []
+    for token in text.split():
+        if token in SUPPLEMENT_TERMS:
+            tokens.append("suppl")
+        elif token in SPECIAL_TERMS:
+            tokens.append("spe")
+        elif token.isdigit():
+            tokens.append(str(int(token)))
+        else:
+            return None
+
+    shape = tuple("N" if t.isdigit() else t for t in tokens)
+    numbers = [t for t in tokens if t.isdigit()]
+    shapes = {
+        ("N",): (0, None, None),
+        ("N", "suppl", "N"): (0, "suppl", 1),
+        ("suppl", "N"): (None, "suppl", 0),
+        ("N", "suppl"): (0, "suppl", None),
+        ("suppl",): (None, "suppl", None),
+        ("spe", "N"): (None, "spe", 0),
+        ("N", "spe", "N"): (None, "spe", 1),
+        ("N", "spe"): (None, "spe", None),
+        ("spe",): (None, "spe", None),
+    }
+    if shape not in shapes:
+        return None
+    number_index, kind, value_index = shapes[shape]
+    return {
+        "number": numbers[number_index] if number_index is not None else None,
+        "kind": kind,
+        "value": numbers[value_index] if value_index is not None else None,
+    }
+
+
+def format_issue_value(parsed):
+    """
+    Returns the <issue> content in the SPS 1.10 format
+    ("4", "4 suppl 1", "suppl 1" or "spe1"), or None when the supplement or
+    special issue number is missing.
+    """
+    number, kind, value = parsed["number"], parsed["kind"], parsed["value"]
+    if kind and not value:
+        return None
+    if kind == "spe":
+        return f"spe{value}"
+    if kind == "suppl":
+        return f"{number} suppl {value}" if number else f"suppl {value}"
+    return number
+
+
 class IssueValidation:
     """
     Class responsible for validating journal issue metadata in XML format.
@@ -156,64 +222,93 @@ class IssueValidation:
     def validate_issue_format(self):
         """
         Validates special issue or supplement format.
-        Handles different formats like 'spe' (special) and 'sup' (supplement).
 
-        Args:
-            error_level: Severity level for validation errors
+        SPS 1.10 accepts "4 suppl 1", "suppl 1" and "spe1" for supplement and
+        special issue, always with the supplement or special issue number.
 
         Returns:
-            dict: Validation response with results if format is invalid
+            dict: Validation response, or None when <issue> has only the
+            issue number (validated by validate_number_format)
         """
-        parsed_issue = self.article_issue.parsed_issue
+        issue = self.article_issue.issue
+        if not issue:
+            return None
 
+        parsed_issue = self.article_issue.parsed_issue
         got_number = parsed_issue.get("number")
         got_type_value = parsed_issue.get("type_value")
-        got_type = parsed_issue.get("type")
-        got_valid_format = parsed_issue.get("type_valid_format")
+        if not (got_type_value or "").isdigit():
+            got_type_value = "N"
 
-        if got_type:
-            # Build expected format based on issue type (special or supplement)
-            if "spe" in self.article_issue.issue.lower():
-                if got_number:
-                    expected = [f"{got_number} spe {got_type_value}"]
-                else:
-                    expected = [f"spe {got_type_value}"]
-            elif "sup" in self.article_issue.issue.lower():
-                if got_number:
-                    expected = [f"{got_number} suppl {got_type_value}"]
-                else:
-                    expected = [f"suppl {got_type_value}"]
+        parsed = parse_issue_value(issue)
+        if parsed and not parsed["kind"]:
+            return None
+        if not parsed and not parsed_issue.get("type"):
+            return None
+
+        formatted = parsed and format_issue_value(parsed)
+        missing_number = bool(parsed) and not formatted
+        if formatted:
+            expected = [formatted]
+        elif missing_number:
+            if parsed["kind"] == "spe":
+                expected = ["speN"]
+            elif parsed["number"]:
+                expected = [f'{parsed["number"]} suppl N']
             else:
-                if got_number:
-                    expected = [
-                        f"{got_number} suppl {got_type_value}",
-                        f"{got_number} spe {got_type_value}",
-                    ]
-                else:
-                    expected = [f"suppl {got_type_value}", f"spe {got_type_value}"]
+                expected = ["suppl N"]
+        elif "spe" in issue.lower():
+            expected = [f"spe{got_type_value}"]
+        elif "sup" in issue.lower():
+            if got_number:
+                expected = [f"{got_number} suppl {got_type_value}"]
+            else:
+                expected = [f"suppl {got_type_value}"]
+        else:
+            if got_number:
+                expected = [
+                    f"{got_number} suppl {got_type_value}",
+                    f"spe{got_type_value}",
+                ]
+            else:
+                expected = [f"suppl {got_type_value}", f"spe{got_type_value}"]
 
-            return build_response(
-                title="special or supplement",
-                parent={"parent": "article"},
-                item="issue",
-                sub_item="special or supplement",
-                validation_type="format",
-                is_valid=got_valid_format,
-                expected=expected,
-                obtained=parsed_issue,
-                advice=(
-                    f"Replace {self.article_issue.issue} in <article-meta><issue> with one of {expected}"
-                    if not got_valid_format
-                    else None
-                ),
-                advice_text=i18n._("Replace {issue} in <article-meta><issue> with one of {expected}"),
-                advice_params={
-                    "issue": self.article_issue.issue,
-                    "expected": expected,
-                },
-                data={"issue": self.article_issue.issue},
-                error_level=self.params["issue_format_error_level"],
+        is_valid = bool(formatted) and issue.strip() == formatted
+
+        if is_valid:
+            advice = None
+            advice_text = None
+            advice_params = None
+        elif missing_number:
+            advice = (
+                f"Add the supplement or special issue number to "
+                f"<article-meta><issue>{issue}</issue>. Expected format: {expected}"
             )
+            advice_text = i18n._(
+                "Add the supplement or special issue number to "
+                "<article-meta><issue>{issue}</issue>. Expected format: {expected}"
+            )
+            advice_params = {"issue": issue, "expected": expected}
+        else:
+            advice = f"Replace {issue} in <article-meta><issue> with one of {expected}"
+            advice_text = i18n._("Replace {issue} in <article-meta><issue> with one of {expected}")
+            advice_params = {"issue": issue, "expected": expected}
+
+        return build_response(
+            title="special or supplement",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item="special or supplement",
+            validation_type="format",
+            is_valid=is_valid,
+            expected=expected,
+            obtained=parsed_issue,
+            advice=advice,
+            advice_text=advice_text,
+            advice_params=advice_params,
+            data={"issue": issue},
+            error_level=self.params["issue_format_error_level"],
+        )
 
     def validate_expected_issues(self):
         """
