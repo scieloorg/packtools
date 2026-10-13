@@ -222,64 +222,93 @@ class IssueValidation:
     def validate_issue_format(self):
         """
         Validates special issue or supplement format.
-        Handles different formats like 'spe' (special) and 'sup' (supplement).
 
-        Args:
-            error_level: Severity level for validation errors
+        SPS 1.10 accepts "4 suppl 1", "suppl 1" and "spe1" for supplement and
+        special issue, always with the supplement or special issue number.
 
         Returns:
-            dict: Validation response with results if format is invalid
+            dict: Validation response, or None when <issue> has only the
+            issue number (validated by validate_number_format)
         """
-        parsed_issue = self.article_issue.parsed_issue
+        issue = self.article_issue.issue
+        if not issue:
+            return None
 
+        parsed_issue = self.article_issue.parsed_issue
         got_number = parsed_issue.get("number")
         got_type_value = parsed_issue.get("type_value")
-        got_type = parsed_issue.get("type")
-        got_valid_format = parsed_issue.get("type_valid_format")
+        if not (got_type_value or "").isdigit():
+            got_type_value = "N"
 
-        if got_type:
-            parsed = parse_issue_value(self.article_issue.issue)
-            formatted = parsed and format_issue_value(parsed)
-            if formatted:
-                expected = [formatted]
-            elif "spe" in self.article_issue.issue.lower():
-                expected = [f"spe{got_type_value}"]
-            elif "sup" in self.article_issue.issue.lower():
-                if got_number:
-                    expected = [f"{got_number} suppl {got_type_value}"]
-                else:
-                    expected = [f"suppl {got_type_value}"]
+        parsed = parse_issue_value(issue)
+        if parsed and not parsed["kind"]:
+            return None
+        if not parsed and not parsed_issue.get("type"):
+            return None
+
+        formatted = parsed and format_issue_value(parsed)
+        missing_number = bool(parsed) and not formatted
+        if formatted:
+            expected = [formatted]
+        elif missing_number:
+            if parsed["kind"] == "spe":
+                expected = ["speN"]
+            elif parsed["number"]:
+                expected = [f'{parsed["number"]} suppl N']
             else:
-                if got_number:
-                    expected = [
-                        f"{got_number} suppl {got_type_value}",
-                        f"spe{got_type_value}",
-                    ]
-                else:
-                    expected = [f"suppl {got_type_value}", f"spe{got_type_value}"]
+                expected = ["suppl N"]
+        elif "spe" in issue.lower():
+            expected = [f"spe{got_type_value}"]
+        elif "sup" in issue.lower():
+            if got_number:
+                expected = [f"{got_number} suppl {got_type_value}"]
+            else:
+                expected = [f"suppl {got_type_value}"]
+        else:
+            if got_number:
+                expected = [
+                    f"{got_number} suppl {got_type_value}",
+                    f"spe{got_type_value}",
+                ]
+            else:
+                expected = [f"suppl {got_type_value}", f"spe{got_type_value}"]
 
-            return build_response(
-                title="special or supplement",
-                parent={"parent": "article"},
-                item="issue",
-                sub_item="special or supplement",
-                validation_type="format",
-                is_valid=got_valid_format,
-                expected=expected,
-                obtained=parsed_issue,
-                advice=(
-                    f"Replace {self.article_issue.issue} in <article-meta><issue> with one of {expected}"
-                    if not got_valid_format
-                    else None
-                ),
-                advice_text=i18n._("Replace {issue} in <article-meta><issue> with one of {expected}"),
-                advice_params={
-                    "issue": self.article_issue.issue,
-                    "expected": expected,
-                },
-                data={"issue": self.article_issue.issue},
-                error_level=self.params["issue_format_error_level"],
+        is_valid = bool(formatted) and issue.strip() == formatted
+
+        if is_valid:
+            advice = None
+            advice_text = None
+            advice_params = None
+        elif missing_number:
+            advice = (
+                f"Add the supplement or special issue number to "
+                f"<article-meta><issue>{issue}</issue>. Expected format: {expected}"
             )
+            advice_text = i18n._(
+                "Add the supplement or special issue number to "
+                "<article-meta><issue>{issue}</issue>. Expected format: {expected}"
+            )
+            advice_params = {"issue": issue, "expected": expected}
+        else:
+            advice = f"Replace {issue} in <article-meta><issue> with one of {expected}"
+            advice_text = i18n._("Replace {issue} in <article-meta><issue> with one of {expected}")
+            advice_params = {"issue": issue, "expected": expected}
+
+        return build_response(
+            title="special or supplement",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item="special or supplement",
+            validation_type="format",
+            is_valid=is_valid,
+            expected=expected,
+            obtained=parsed_issue,
+            advice=advice,
+            advice_text=advice_text,
+            advice_params=advice_params,
+            data={"issue": issue},
+            error_level=self.params["issue_format_error_level"],
+        )
 
     def validate_expected_issues(self):
         """
