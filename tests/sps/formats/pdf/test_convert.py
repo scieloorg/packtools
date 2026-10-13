@@ -12,8 +12,8 @@ from urllib.parse import unquote, urlparse
 from docx.oxml.ns import nsmap
 from lxml import etree
 
-from packtools.sps.formats.pdf.utils import file_utils
-from packtools.sps.formats.pdf.utils.file_utils import convert_docx_to_pdf
+from packtools.sps.formats.pdf import convert as file_utils
+from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
 
 
 def _fake_conversion(command, **kwargs):
@@ -43,30 +43,30 @@ class TestConvertDocxToPdfBinaryResolution(unittest.TestCase):
     def _touch_pdf(self, command, **kwargs):
         _fake_conversion(command)
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_explicit_binary_is_respected(self, mock_run):
         mock_run.side_effect = self._touch_pdf
         convert_docx_to_pdf(self.docx_path, libreoffice_binary="/custom/soffice")
         self.assertEqual(mock_run.call_args[0][0][0], "/custom/soffice")
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
-    @patch("packtools.sps.formats.pdf.utils.file_utils.shutil.which")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
+    @patch("packtools.sps.formats.pdf.convert.shutil.which")
     def test_autodetects_libreoffice_when_binary_omitted(self, mock_which, mock_run):
         mock_which.side_effect = lambda name: "/usr/bin/libreoffice" if name == "libreoffice" else None
         mock_run.side_effect = self._touch_pdf
         convert_docx_to_pdf(self.docx_path, libreoffice_binary=None)
         self.assertEqual(mock_run.call_args[0][0][0], "/usr/bin/libreoffice")
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
-    @patch("packtools.sps.formats.pdf.utils.file_utils.shutil.which")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
+    @patch("packtools.sps.formats.pdf.convert.shutil.which")
     def test_falls_back_to_soffice_when_libreoffice_missing(self, mock_which, mock_run):
         mock_which.side_effect = lambda name: "/usr/bin/soffice" if name == "soffice" else None
         mock_run.side_effect = self._touch_pdf
         convert_docx_to_pdf(self.docx_path, libreoffice_binary=None)
         self.assertEqual(mock_run.call_args[0][0][0], "/usr/bin/soffice")
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
-    @patch("packtools.sps.formats.pdf.utils.file_utils.shutil.which", return_value=None)
+    @patch("packtools.sps.formats.pdf.convert._run_command")
+    @patch("packtools.sps.formats.pdf.convert.shutil.which", return_value=None)
     def test_raises_clear_error_when_no_binary_found(self, mock_which, mock_run):
         with self.assertRaises(FileNotFoundError):
             convert_docx_to_pdf(self.docx_path, libreoffice_binary=None)
@@ -95,7 +95,7 @@ class TestConvertDocxToPdfRelativeOutputPath(unittest.TestCase):
     def _touch_pdf(self, command, **kwargs):
         _fake_conversion(command)
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_docx_path_without_directory_component_does_not_raise(self, mock_run):
         mock_run.side_effect = self._touch_pdf
         result = convert_docx_to_pdf(self.docx_path, libreoffice_binary="/usr/bin/soffice")
@@ -134,7 +134,7 @@ class TestBodyFontSizePt(unittest.TestCase):
         self.assertEqual(file_utils._body_font_size_pt(self.docx_path), 10)
 
     def test_reads_size_from_the_real_layout_template(self):
-        layout = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "fixtures", "pdf", "layout.docx")
+        layout = os.path.join(os.path.dirname(__file__), "..", "..", "..", "fixtures", "pdf", "layout.docx")
         self.assertEqual(file_utils._body_font_size_pt(layout), 8)
 
     def test_returns_none_when_style_has_no_size(self):
@@ -169,7 +169,7 @@ class TestCreateMathProfile(unittest.TestCase):
             created.append(real_mkdtemp(*args, **kwargs))
             return created[-1]
 
-        with patch("packtools.sps.formats.pdf.utils.file_utils.tempfile.mkdtemp", side_effect=tracking_mkdtemp), \
+        with patch("packtools.sps.formats.pdf.convert.tempfile.mkdtemp", side_effect=tracking_mkdtemp), \
                 patch("builtins.open", side_effect=OSError("disk full")):
             with self.assertRaises(OSError):
                 file_utils._create_math_profile(8)
@@ -192,7 +192,7 @@ class TestConvertDocxToPdfProfile(unittest.TestCase):
     def _profile_dir_from(command):
         return unquote(urlparse(command[1].split("=", 1)[1]).path)
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_private_profile_with_body_size_is_used_and_cleaned_up(self, mock_run):
         seen = {}
 
@@ -213,7 +213,7 @@ class TestConvertDocxToPdfProfile(unittest.TestCase):
         self.assertIn("<value>8</value>", seen["registry"])
         self.assertFalse(os.path.exists(seen["profile_dir"]))
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_no_profile_when_body_size_is_unknown(self, mock_run):
         _docx_with_body_size(self.docx_path, None)
         mock_run.side_effect = self._touch_pdf
@@ -226,8 +226,8 @@ class TestConvertDocxToPdfProfile(unittest.TestCase):
         self.assertEqual(os.path.basename(command[4]), "doc.docx")
         self.assertEqual(os.path.dirname(command[4]), command[6])
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._create_math_profile", side_effect=OSError("boom"))
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._create_math_profile", side_effect=OSError("boom"))
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_conversion_proceeds_without_profile_when_profile_creation_fails(self, mock_run, mock_create):
         mock_run.side_effect = self._touch_pdf
 
@@ -235,7 +235,7 @@ class TestConvertDocxToPdfProfile(unittest.TestCase):
 
         self.assertNotIn("-env:UserInstallation", " ".join(mock_run.call_args[0][0]))
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_retries_with_default_profile_when_conversion_with_private_profile_fails(self, mock_run):
         profile_dirs = []
 
@@ -254,7 +254,7 @@ class TestConvertDocxToPdfProfile(unittest.TestCase):
         self.assertNotIn("-env:UserInstallation", " ".join(mock_run.call_args[0][0]))
         self.assertFalse(os.path.exists(profile_dirs[0]))
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_raises_when_conversion_fails_with_and_without_profile(self, mock_run):
         mock_run.side_effect = lambda command, **kwargs: (_ for _ in ()).throw(
             subprocess.CalledProcessError(1, command)
@@ -265,7 +265,7 @@ class TestConvertDocxToPdfProfile(unittest.TestCase):
 
         self.assertEqual(mock_run.call_count, 2)
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_does_not_retry_when_there_was_no_profile(self, mock_run):
         _docx_with_body_size(self.docx_path, None)
         mock_run.side_effect = lambda command, **kwargs: (_ for _ in ()).throw(
@@ -309,8 +309,8 @@ class TestRunCommand(unittest.TestCase):
 
     def test_interruption_kills_process_group(self):
         # em sessão própria, o Ctrl+C do terminal não chega ao LibreOffice
-        with patch("packtools.sps.formats.pdf.utils.file_utils.subprocess.Popen") as mock_popen, \
-                patch("packtools.sps.formats.pdf.utils.file_utils.os.killpg") as mock_killpg:
+        with patch("packtools.sps.formats.pdf.convert.subprocess.Popen") as mock_popen, \
+                patch("packtools.sps.formats.pdf.convert.os.killpg") as mock_killpg:
             process = mock_popen.return_value
             process.pid = 4321
             process.wait.side_effect = [KeyboardInterrupt, 0]
@@ -338,7 +338,7 @@ class TestConvertDocxToPdfTimeout(unittest.TestCase):
         open(lock_path, "w").close()
         return lock_path
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_default_timeout_is_passed_to_libreoffice_run(self, mock_run):
         mock_run.side_effect = _fake_conversion
 
@@ -346,7 +346,7 @@ class TestConvertDocxToPdfTimeout(unittest.TestCase):
 
         self.assertEqual(mock_run.call_args[1]["timeout"], file_utils.DEFAULT_CONVERSION_TIMEOUT)
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_timeout_raises_without_retry_and_removes_work_dir(self, mock_run):
         profile_dirs, lock_paths = [], []
 
@@ -365,7 +365,7 @@ class TestConvertDocxToPdfTimeout(unittest.TestCase):
         self.assertFalse(os.path.exists(profile_dirs[0]))
         self.assertEqual(os.listdir(self.tmpdir.name), ["doc.docx"])
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_timeout_on_retry_raises_conversion_timeout_error(self, mock_run):
         def run(command, **kwargs):
             if "-env:UserInstallation" in command[1]:
@@ -379,7 +379,7 @@ class TestConvertDocxToPdfTimeout(unittest.TestCase):
 
         self.assertEqual(mock_run.call_count, 2)
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_interruption_removes_work_dir_and_propagates(self, mock_run):
         lock_paths = []
 
@@ -413,7 +413,7 @@ class TestConvertDocxToPdfWorkDir(unittest.TestCase):
         self.docx_path = _docx_with_body_size(os.path.join(self.tmpdir.name, "doc.docx"), None)
         self.pdf_path = os.path.join(self.tmpdir.name, "doc.pdf")
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_runs_on_a_copy_of_the_docx_outside_the_destination(self, mock_run):
         mock_run.side_effect = _fake_conversion
 
@@ -424,7 +424,7 @@ class TestConvertDocxToPdfWorkDir(unittest.TestCase):
         self.assertEqual(os.path.dirname(work_docx_path), work_dir)
         self.assertFalse(os.path.exists(work_dir))
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_pdf_is_moved_to_the_destination_on_success(self, mock_run):
         mock_run.side_effect = _fake_conversion
 
@@ -435,7 +435,7 @@ class TestConvertDocxToPdfWorkDir(unittest.TestCase):
             self.assertEqual(f.read(), b"%PDF")
         self.assertEqual(sorted(os.listdir(self.tmpdir.name)), ["doc.docx", "doc.pdf"])
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_interrupted_run_keeps_lock_and_pdf_of_another_run(self, mock_run):
         other_lock = os.path.join(self.tmpdir.name, ".~lock.doc.pdf#")
         open(other_lock, "w").close()
@@ -456,7 +456,7 @@ class TestConvertDocxToPdfWorkDir(unittest.TestCase):
         with open(self.pdf_path, "rb") as f:
             self.assertEqual(f.read(), b"other")
 
-    @patch("packtools.sps.formats.pdf.utils.file_utils._run_command")
+    @patch("packtools.sps.formats.pdf.convert._run_command")
     def test_raises_when_libreoffice_exits_without_writing_the_pdf(self, mock_run):
         mock_run.return_value = None
 
