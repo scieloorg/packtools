@@ -348,15 +348,14 @@ class FullTextReferences(Fulltext):
         return common
 
     def get_references(self, node):
-        reflists = node.xpath("./back/ref-list") or []
-        for index, reflist in enumerate(reflists):
-            for node_ref in reflist.xpath("ref"):
-                ref = Reference(node_ref)
-                data = {}
-                data["ref-list-index"] = index
-                data.update(ref.data)
-                data.update(self.common_data)
-                yield data
+        reflists = node.xpath("./back/ref-list/descendant-or-self::ref-list")
+        for node_ref in node.xpath("./back/ref-list/descendant-or-self::ref-list/ref"):
+            ref = Reference(node_ref)
+            data = {}
+            data["ref-list-index"] = reflists.index(node_ref.getparent())
+            data.update(ref.data)
+            data.update(self.common_data)
+            yield data
 
     @property
     def main_references(self):

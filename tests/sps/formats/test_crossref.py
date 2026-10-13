@@ -2485,3 +2485,25 @@ class CrossmarkPipeTest(TestCase):
         self.assertIn('<update type="correction">', obtained)
         self.assertIn('<year>2023</year>', obtained)
         self.assertIn('<month>09</month>', obtained)
+
+
+class CitationsNestedRefListTest(TestCase):
+    def test_citations_from_nested_ref_list(self):
+        xml_tree = ET.fromstring(
+            '<article article-type="research-article" xml:lang="en"><back>'
+            '<ref-list><title>References</title>'
+            '<ref-list><ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B1</source><year>2020</year></element-citation></ref><ref id="B2"><mixed-citation>B2. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B2</source><year>2020</year></element-citation></ref></ref-list>'
+            '</ref-list>'
+            '</back></article>'
+        )
+        xml_crossref = ET.fromstring(
+            "<doi_batch><body><journal><journal_article/></journal></body></doi_batch>"
+        )
+
+        xml_crossref_article_citations_pipe(xml_crossref, xml_tree)
+
+        self.assertEqual(
+            ["Source B1", "Source B2"],
+            [c.findtext("journal_title") for c in xml_crossref.findall(".//citation")],
+        )
+

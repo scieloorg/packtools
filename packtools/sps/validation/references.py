@@ -604,9 +604,9 @@ class ReferencesValidation:
         )
 
     def validate_ref_presence(self):
-        ref_lists = self.xml_tree.xpath(".//back/ref-list")
+        ref_lists = self.xml_tree.xpath(".//back/ref-list/descendant-or-self::ref-list")
         for ref_list in ref_lists:
-            refs = ref_list.xpath("ref")
+            refs = ref_list.xpath(".//ref")
             is_valid = len(refs) > 0
 
             yield build_response(
