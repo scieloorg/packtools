@@ -111,7 +111,9 @@
     </xsl:template>
 
     <xsl:template match="supplementary-material" mode="supplementary-material-label-and-caption">
-        <xsl:if test="label">
+        <!-- sem caption/texto, label já é usado como texto do link; evita repetição -->
+        <xsl:variable name="text"><xsl:apply-templates select="." mode="supplementary-material-variable-text"/></xsl:variable>
+        <xsl:if test="label and normalize-space($text)!=''">
             <h2 class="h5">
                 <xsl:apply-templates select="label"/>
             </h2>
