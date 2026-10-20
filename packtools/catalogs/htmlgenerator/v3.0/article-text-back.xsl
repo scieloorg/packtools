@@ -9,7 +9,7 @@
         <xsl:variable name="title"><xsl:apply-templates select="." mode="back-section-title"/></xsl:variable>
         
         <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
-        <xsl:if test="$title!=''">
+        <xsl:if test="string-length(normalize-space($title)) &gt; 1">
             <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
                 <xsl:choose>
