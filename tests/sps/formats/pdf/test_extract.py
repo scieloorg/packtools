@@ -99,6 +99,28 @@ class FlowTest(unittest.TestCase):
         self.assertEqual(formula['type'], 'formula')
         self.assertEqual(formula['runs'][-1]['text'], ' (1)')
 
+    def test_display_formula_with_empty_tex_math_uses_the_image(self):
+        # #1441: <tex-math> vazio interrompia a geração com IndexError
+        node = xml(f'<sec {NS}><disp-formula id="e1"><label>(1)</label><alternatives><tex-math/>'
+                   '<graphic xlink:href="e1.jpg"/></alternatives></disp-formula></sec>')
+        (figure,) = extract(node)
+        self.assertEqual((figure['type'], figure['href']), ('figure', 'e1.jpg'))
+        self.assertEqual(runs_text(figure['caption']), '(1)')
+
+    def test_display_formula_with_empty_tex_math_and_no_image_keeps_the_label(self):
+        node = xml(f'<sec {NS}><disp-formula id="e1"><label>(1)</label><tex-math/></disp-formula></sec>')
+        self.assertEqual(texts(extract(node)), ['(1)'])
+
+    def test_inline_formula_with_empty_tex_math_uses_one_image(self):
+        # só a melhor das representações (graphic.best), não a miniatura junto
+        from packtools.sps.formats.pdf.extract.formula import formula_runs
+        for name, image in (('disp-formula', 'graphic'), ('inline-formula', 'inline-graphic')):
+            with self.subTest(name=name):
+                node = xml(f'<{name} {NS}><alternatives><tex-math/>'
+                           f'<{image} xlink:href="e1-thumb.jpg" content-type="scielo-267x140"/>'
+                           f'<{image} xlink:href="e1.jpg"/></alternatives></{name}>')
+                self.assertEqual([r.get('image') for r in formula_runs(node)], ['e1.jpg'])
+
     def test_table_grid_resolves_spans_and_keeps_th_in_body(self):
         node = xml('<sec><table-wrap id="t1"><label>Table 1</label><caption><title>T</title></caption><table>'
                    '<thead><tr><th colspan="2">H</th></tr></thead>'

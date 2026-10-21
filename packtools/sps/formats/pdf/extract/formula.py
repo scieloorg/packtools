@@ -8,7 +8,7 @@ import mathml2omml
 from lxml import etree
 
 from packtools.sps.formats.pdf.extract.flow import flow, paragraph
-from packtools.sps.formats.pdf.extract.graphic import figure_block, graphics
+from packtools.sps.formats.pdf.extract.graphic import best, figure_block, graphics, handle_inline
 from packtools.sps.formats.pdf.extract.inline import inlines
 from packtools.sps.formats.pdf.extract.registry import block_handler, inline_handler
 from packtools.sps.formats.pdf.extract.runs import MATHML, tag, text_runs
@@ -228,7 +228,9 @@ def formula_runs(node, fmt=frozenset()):
     list of dict
         ``[{"omml": ...}]`` quando o MathML converte; senão o texto do
         ``<tex-math>`` ou do próprio MathML (nunca vazio por falha de
-        conversão); sem MathML nem TeX, o conteúdo como texto.
+        conversão); sem MathML nem TeX com texto, uma única imagem, a
+        melhor das representações (ver graphic.best); sem imagem, o
+        conteúdo genérico.
     """
     math = node if tag(node) == "math" else next(node.iter(MATHML + "math"), None)
     if math is not None:
@@ -236,10 +238,24 @@ def formula_runs(node, fmt=frozenset()):
         if omml is not None:
             return [{"omml": omml}]
     tex = next((e for e in node.iter() if tag(e) == "tex-math"), None)
-    source = tex if tex is not None else math
-    if source is not None:
-        return text_runs(" ".join("".join(source.itertext()).split()), fmt)
+    for source in (tex, math):
+        text = _formula_text(source)
+        if text:
+            return text_runs(text, fmt)
+    image = best(e for e in node.iter() if tag(e) in ("graphic", "inline-graphic"))
+    if image is not None:
+        return handle_inline(image, fmt)
     return inlines(node, fmt)
+
+
+def _formula_text(element):
+    """Texto de ``<tex-math>`` ou ``<mml:math>``, com os espaços normalizados; "" se não houver elemento."""
+    return " ".join("".join(element.itertext()).split()) if element is not None else ""
+
+
+def _has_formula(node):
+    """True se ``<disp-formula>`` tem ``<mml:math>`` ou ``<tex-math>`` com conteúdo."""
+    return any(tag(e) in ("math", "tex-math") and _formula_text(e) for e in node.iter())
 
 
 # -----------------
@@ -270,10 +286,10 @@ def handle_disp_formula(node, ctx):
 
         - MathML convertido: bloco ``formula`` (OMML) com o rótulo depois;
         - MathML/TeX sem conversão: parágrafo com o texto da fórmula e o rótulo;
-        - só imagem: figura com o rótulo como legenda;
+        - só imagem (ou MathML/TeX vazio e imagem): figura com o rótulo como legenda;
         - outro conteúdo: fluxo genérico.
     """
-    if any(tag(e) in ("math", "tex-math") for e in node.iter()):
+    if _has_formula(node):
         runs = formula_runs(node, ctx["fmt"])
         if "omml" in runs[0]:
             return [{"type": "formula", "runs": runs + after_runs(node)}]
