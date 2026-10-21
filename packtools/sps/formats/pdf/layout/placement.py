@@ -117,7 +117,7 @@ def _text_width(text):
     return width
 
 
-def _cell_measures(runs):
+def _cell_measures(runs, image_width=None):
     """
     Mede o conteúdo de uma célula em "caracteres médios" (ver ``_text_width``).
 
@@ -125,20 +125,25 @@ def _cell_measures(runs):
     ----------
     runs : list of dict
         Runs da célula (ver extract.runs).
+    image_width : callable, opcional
+        href -> largura natural da imagem em EMU, ou None se ilegível
+        (ver ``Assets.natural_width``).
 
     Retorna
     -------
     tuple of (float, float)
-        ``(linha, palavra)``: a linha mais longa e a maior palavra. Uma
-        fórmula conta pelo texto do OMML, como uma palavra que não quebra.
+        ``(linha, palavra)``: a linha mais longa e a maior palavra. Fórmula
+        e imagem contam como uma palavra que não quebra: a fórmula pelo
+        texto do OMML, a imagem pela largura natural. Imagem sem largura
+        conta pelo texto que o render escreve no lugar dela (alt ou href).
     """
     lines = [["", 0.0]]  # [texto, largura das fórmulas] de cada linha
     word = 0.0
     for run in runs:
         if run.get("break"):
             lines.append(["", 0.0])
-        elif "omml" in run:
-            width = _text_width("".join(t.strip() for t in run["omml"].itertext()))
+        elif "omml" in run or "image" in run:
+            width = _atom_width(run, image_width)
             lines[-1][1] += width
             word = max(word, width)
         elif "text" in run:
@@ -148,7 +153,17 @@ def _cell_measures(runs):
     return line, max(words + [word])
 
 
-def column_weights(grid):
+def _atom_width(run, image_width):
+    """Largura (caracteres médios) de uma fórmula ou imagem, que não quebra (ver ``_cell_measures``)."""
+    if "omml" in run:
+        return _text_width("".join(t.strip() for t in run["omml"].itertext()))
+    natural = image_width(run["image"]) if image_width else None
+    if natural is None:
+        return _text_width(run.get("alt") or run["image"])
+    return natural / EMU_PER_POINT / POINTS_PER_CHARACTER
+
+
+def column_weights(grid, image_width=None):
     """
     Calcula o peso relativo de cada coluna pelo conteúdo que ela tem.
 
@@ -156,6 +171,8 @@ def column_weights(grid):
     ----------
     grid : dict
         Bloco de tabela (ver extract.table.grid e extract.table_wrap).
+    image_width : callable, opcional
+        href -> largura natural da imagem em EMU (ver ``_cell_measures``).
 
     Retorna
     -------
@@ -172,13 +189,13 @@ def column_weights(grid):
     O texto de uma célula mesclada (ex. um cabeçalho "Brasil" sobre as
     colunas "n" e "%") é dividido entre as colunas que ela ocupa; no old_pdf
     ele alargava só a primeira. Para célula com quebra de linha, vale a
-    linha mais longa. Fórmula conta como texto (ver ``_cell_measures``):
-    uma coluna só com fórmulas não é vazia.
+    linha mais longa. Fórmula e imagem contam (ver ``_cell_measures``): uma
+    coluna só com fórmulas ou imagens não é vazia.
     """
     longest = [None] * grid["ncols"]
     longest_word = [None] * grid["ncols"]
     for cell in grid["cells"]:
-        size, word = _cell_measures(cell["runs"])
+        size, word = _cell_measures(cell["runs"], image_width)
         if not size:
             continue
         cols = range(cell["col"], min(cell["col"] + cell["colspan"], grid["ncols"]))
@@ -297,18 +314,21 @@ def place(blocks, page, assets, overrides=None, force=None):
             )
         if block["type"] == "table":
             for panel in _panels(blocks, index):
-                _measure_table(panel, layout, page)
+                _measure_table(panel, layout, page, assets)
                 measured.add(id(panel))
         else:
             _measure_figure(block, layout, page, assets)
     return blocks
 
 
-def _measure_table(block, layout, page):
+def _measure_table(block, layout, page, assets):
     """Anota layout, largura da tabela e larguras das colunas (EMU) num painel."""
     block["layout"] = layout
     block["width"] = block_width(page, layout)
-    block["column_widths"] = column_widths(*column_weights(block), block["width"])
+    image_width = assets.natural_width if assets else None
+    block["column_widths"] = column_widths(
+        *column_weights(block, image_width), block["width"]
+    )
 
 
 def _measure_figure(block, layout, page, assets):

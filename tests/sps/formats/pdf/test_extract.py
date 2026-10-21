@@ -303,6 +303,24 @@ class ColumnWeightsTest(unittest.TestCase):
         self.assertAlmostEqual(weights[0], 15.2 * 6)
         self.assertAlmostEqual(words[0], 7.5 * 6)
 
+    def test_image_counts_by_its_natural_width(self):
+        from packtools.sps.formats.pdf.layout.placement import column_weights
+        node = xml(f'<sec {NS}><table-wrap><table><tr><td>a</td>'
+                   '<td><inline-graphic xlink:href="x.png"/></td></tr></table></table-wrap></sec>')
+        weights, words = column_weights(extract(node)[0], lambda href: 120 * 12700)
+        # 120pt de largura natural: peso e palavra de 120pt
+        self.assertAlmostEqual(weights[1], 120)
+        self.assertAlmostEqual(words[1], 120)
+
+    def test_unreadable_image_counts_by_its_alt_text(self):
+        from packtools.sps.formats.pdf.layout.placement import column_weights
+        node = xml(f'<sec {NS}><table-wrap><table><tr><td>a</td>'
+                   '<td><inline-graphic xlink:href="x.png"><alt-text>logo</alt-text></inline-graphic></td>'
+                   '</tr></table></table-wrap></sec>')
+        _, words = column_weights(extract(node)[0], lambda href: None)
+        # sem largura natural, conta o texto que o render escreve no lugar ("logo" = 3.5)
+        self.assertAlmostEqual(words[1], 3.5 * 6)
+
     def test_widths_are_proportional_and_fill_the_table(self):
         from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, column_widths
         widths = column_widths([50, 150, None], [40, 10, None], 10 ** 7)

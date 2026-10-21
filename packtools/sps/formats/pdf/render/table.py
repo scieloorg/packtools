@@ -120,7 +120,8 @@ def _add_grid(state, grid, single, floating):
             )
             table.cell(cell["row"], cell["col"]).merge(last)
     for cell in grid["cells"]:
-        _fill_cell(state, table.cell(cell["row"], cell["col"]), cell)
+        width = sum(widths[cell["col"] : cell["col"] + cell["colspan"]])
+        _fill_cell(state, table.cell(cell["row"], cell["col"]), cell, width)
 
     _set_row_heights(table, grid)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -132,8 +133,8 @@ def _add_grid(state, grid, single, floating):
         _float_full_width(table)
 
 
-def _fill_cell(state, docx_cell, cell):
-    """Escreve o conteúdo da célula: 7pt, 1ª coluna à esquerda e demais centradas, sem espaçamento nem margens."""
+def _fill_cell(state, docx_cell, cell, width):
+    """Escreve o conteúdo da célula: 7pt, 1ª coluna à esquerda e demais centradas, sem espaçamento nem margens; imagem limitada à largura (EMU) da célula."""
     paragraph = docx_cell.paragraphs[0]
     add_runs(
         paragraph,
@@ -141,6 +142,7 @@ def _fill_cell(state, docx_cell, cell):
         state,
         size=CELL_FONT_SIZE,
         bold=True if cell["header"] else None,
+        image_width=width,
     )
     paragraph.alignment = (
         WD_ALIGN_PARAGRAPH.CENTER if cell["col"] >= 1 else WD_ALIGN_PARAGRAPH.LEFT
