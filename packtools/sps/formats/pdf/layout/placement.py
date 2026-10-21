@@ -26,7 +26,6 @@ Nenhuma função aqui usa python-docx: são testáveis só com dicts.
 """
 
 from packtools.sps.formats.pdf.config.page import DOUBLE_COLUMN, SINGLE_COLUMN
-from packtools.sps.formats.pdf.extract.runs import runs_text
 from packtools.sps.formats.pdf.extract.table import max_cell_length
 from packtools.sps.formats.pdf.layout.page import (
     EMU_PER_POINT,
@@ -118,9 +117,40 @@ def _text_width(text):
     return width
 
 
+def _cell_measures(runs):
+    """
+    Mede o conteúdo de uma célula em "caracteres médios" (ver ``_text_width``).
+
+    Parâmetros
+    ----------
+    runs : list of dict
+        Runs da célula (ver extract.runs).
+
+    Retorna
+    -------
+    tuple of (float, float)
+        ``(linha, palavra)``: a linha mais longa e a maior palavra. Uma
+        fórmula conta pelo texto do OMML, como uma palavra que não quebra.
+    """
+    lines = [["", 0.0]]  # [texto, largura das fórmulas] de cada linha
+    word = 0.0
+    for run in runs:
+        if run.get("break"):
+            lines.append(["", 0.0])
+        elif "omml" in run:
+            width = _text_width("".join(t.strip() for t in run["omml"].itertext()))
+            lines[-1][1] += width
+            word = max(word, width)
+        elif "text" in run:
+            lines[-1][0] += run["text"]
+    line = max(_text_width(text) + atoms for text, atoms in lines)
+    words = [_text_width(w) for text, _ in lines for w in text.split()]
+    return line, max(words + [word])
+
+
 def column_weights(grid):
     """
-    Calcula o peso relativo de cada coluna pelo texto que ela contém.
+    Calcula o peso relativo de cada coluna pelo conteúdo que ela tem.
 
     Parâmetros
     ----------
@@ -142,16 +172,15 @@ def column_weights(grid):
     O texto de uma célula mesclada (ex. um cabeçalho "Brasil" sobre as
     colunas "n" e "%") é dividido entre as colunas que ela ocupa; no old_pdf
     ele alargava só a primeira. Para célula com quebra de linha, vale a
-    linha mais longa.
+    linha mais longa. Fórmula conta como texto (ver ``_cell_measures``):
+    uma coluna só com fórmulas não é vazia.
     """
     longest = [None] * grid["ncols"]
     longest_word = [None] * grid["ncols"]
     for cell in grid["cells"]:
-        text = runs_text([r if "text" in r else {"text": "\n"} for r in cell["runs"]])
-        size = max(_text_width(line) for line in text.split("\n"))
+        size, word = _cell_measures(cell["runs"])
         if not size:
             continue
-        word = max(_text_width(w) for w in text.split())
         cols = range(cell["col"], min(cell["col"] + cell["colspan"], grid["ncols"]))
         # célula mesclada divide sua largura entre as colunas que ocupa
         for col in cols:
