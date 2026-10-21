@@ -3,7 +3,7 @@
 from packtools.sps.formats.pdf.config import page as page_config
 from packtools.sps.formats.pdf.assets import Assets
 from packtools.sps.formats.pdf.extract.article import extract_article
-from packtools.sps.formats.pdf.extract.languages import document_for, languages
+from packtools.sps.formats.pdf.extract.languages import XML_LANG, document_for, languages, root_of
 from packtools.sps.formats.pdf.layout import logo as logo_layout
 from packtools.sps.formats.pdf.layout.placement import place
 from packtools.sps.formats.pdf.render.document import render
@@ -59,8 +59,12 @@ def pipeline_docx_by_language(xml_tree, data):
     Retorna
     -------
     generator of (str, docx.document.Document)
-        ``(idioma, documento)``, o idioma principal primeiro.
+        ``(idioma, documento)``, o documento principal primeiro, depois
+        cada tradução. Sem ``@xml:lang`` no ``<article>``, o idioma do
+        principal é None, e ele continua sendo gerado.
     """
-    # sem xml:lang no <article>, gera só o documento principal
-    for lang in languages(xml_tree) or [None]:
-        yield lang, pipeline_docx(xml_tree, data, lang)
+    main = root_of(xml_tree).get(XML_LANG)
+    yield main, pipeline_docx(xml_tree, data)
+    for lang in languages(xml_tree):
+        if lang != main:
+            yield lang, pipeline_docx(xml_tree, data, lang)
