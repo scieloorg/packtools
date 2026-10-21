@@ -87,6 +87,114 @@ def normalize_empty_base_superscripts(math_element):
     return root
 
 
+def _is_empty_script(element):
+    """``<none/>`` ou ``<mrow/>`` sem conteúdo: posição vazia de ``<mmultiscripts>``."""
+    name = etree.QName(element).localname
+    return name == "none" or (
+        name == "mrow" and len(element) == 0 and not (element.text or "").strip()
+    )
+
+
+def normalize_multiscripts(math_element):
+    """
+    Reescreve cada ``<mmultiscripts>`` com ``msub``, ``msup`` e ``msubsup``, no lugar.
+
+    Parâmetros
+    ----------
+    math_element : lxml.etree._Element
+        A cópia do ``<mml:math>`` feita por normalize_empty_base_superscripts,
+        alterada no lugar.
+
+    Retorna
+    -------
+    lxml.etree._Element
+        O mesmo ``math_element``.
+
+    Notas
+    -----
+    O mathml2omml converte ``<mmultiscripts>`` em ``<m:sPre>`` com
+    ``<m:sSubSup>`` aninhados; cada posição vazia (``<none/>``, ``<mrow/>``)
+    vira uma caixa e os índices à direita somem: "k² = □□" no lugar de
+    "k² = k_x² + k_y² + k_z²" (rbef-48-e20250547). Cada par (subscrito,
+    sobrescrito) é uma coluna, e os pares se aninham em ordem para que a
+    coluna de cada índice se mantenha: os pares à direita passam para
+    ``msub``/``msup``/``msubsup`` (``T_i{}^j`` não vira ``T_i^j``), sem a
+    posição vazia; os pares à esquerda continuam em ``<mmultiscripts>``,
+    um por par, com ``<mtext/>`` (que o LibreOffice não desenha) na
+    posição vazia. Base vazia com índice à
+    esquerda logo depois de outro elemento é índice desse elemento: "p"
+    seguido de ``<mmultiscripts><mrow/><mprescripts/><mi>f</mi>`` é "p_f"
+    (lajss-23-9-e9098).
+    """
+    namespace = etree.QName(math_element).namespace
+
+    def make(name):
+        return etree.Element(f"{{{namespace}}}{name}" if namespace else name)
+
+    def attach(base, sub, sup):
+        if sub is not None and sup is not None:
+            name, scripts = "msubsup", [sub, sup]
+        elif sub is not None:
+            name, scripts = "msub", [sub]
+        elif sup is not None:
+            name, scripts = "msup", [sup]
+        else:
+            return base
+        element = make(name)
+        element.extend([base] + scripts)
+        return element
+
+    def pairs(scripts):
+        """Pares (subscrito, sobrescrito), com None na posição vazia; pares vazios saem."""
+        found = []
+        for sub, sup in zip(scripts[0::2], scripts[1::2]):
+            sub = None if _is_empty_script(sub) else sub
+            sup = None if _is_empty_script(sup) else sup
+            if sub is not None or sup is not None:
+                found.append((sub, sup))
+        return found
+
+    # lista materializada antes de mutar (ver normalize_empty_base_superscripts)
+    candidates = [
+        el
+        for el in math_element.iter()
+        if isinstance(el.tag, str) and etree.QName(el).localname == "mmultiscripts"
+    ]
+    for multi in candidates:
+        children = [c for c in multi if isinstance(c.tag, str)]
+        if not children:
+            continue
+        base, rest = children[0], children[1:]
+        names = [etree.QName(c).localname for c in rest]
+        cut = names.index("mprescripts") if "mprescripts" in names else len(rest)
+        post, pre = pairs(rest[:cut]), pairs(rest[cut + 1 :])
+        if _is_empty_script(base):
+            previous = multi.getprevious()
+            if not post and previous is not None and isinstance(previous.tag, str):
+                multi.getparent().remove(previous)
+                previous.tail = None
+                base, post, pre = previous, pre, []
+            else:
+                base = make("mtext")
+        new = base
+        for sub, sup in post:
+            new = attach(new, sub, sup)
+        for sub, sup in reversed(pre):
+            prescripted = make("mmultiscripts")
+            prescripted.extend(
+                [
+                    new,
+                    make("mprescripts"),
+                    make("mtext") if sub is None else sub,
+                    make("mtext") if sup is None else sup,
+                ]
+            )
+            new = prescripted
+        new.tail = multi.tail
+        multi.getparent().replace(multi, new)
+    return math_element
+
+
 def _strip_namespace(element):
     """
     Remove o prefixo de namespace de cada tag, no lugar.
@@ -402,7 +510,9 @@ def mathml_to_omml(math_element):
         is logged as a warning, since the formula then prints as text.
     """
     try:
-        normalized = normalize_mover_accents(normalize_empty_base_superscripts(math_element))
+        normalized = normalize_mover_accents(
+            normalize_multiscripts(normalize_empty_base_superscripts(math_element))
+        )
         stripped = _strip_namespace(normalized)
         mathml_str = etree.tostring(stripped, encoding="unicode", with_tail=False)
         omml_str = mathml2omml.convert(mathml_str)

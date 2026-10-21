@@ -87,6 +87,99 @@ class TestNormalizeEmptyBaseSuperscripts(unittest.TestCase):
             self.assertEqual(etree.QName(msup[0]).localname, 'msub')
 
 
+class TestNormalizeMultiscripts(unittest.TestCase):
+    """
+    <mmultiscripts>: o mathml2omml gera <m:sPre> com uma caixa em cada
+    posição vazia e perde os índices à direita ("k² = □□" no lugar de
+    "k² = k_x² + k_y² + k_z²", rbef-48-e20250547).
+    """
+
+    def _shape(self, element):
+        name = etree.QName(element).localname
+        children = [c for c in element if isinstance(c.tag, str)]
+        if not children:
+            return name if not (element.text or '').strip() else f'{name}:{element.text.strip()}'
+        return (name, [self._shape(c) for c in children])
+
+    def _normalized(self, body):
+        return self._shape(formula.normalize_multiscripts(_mathml(body)))
+
+    def test_postscript_pairs_keep_their_columns(self):
+        self.assertEqual(
+            self._normalized(
+                '<mmultiscripts><mi>E</mi><mi>F</mi><mrow/><mrow/>'
+                '<mrow><mn>3</mn><mo>/</mo><mn>2</mn></mrow></mmultiscripts>'
+            ),
+            ('math', [('msup', [('msub', ['mi:E', 'mi:F']), ('mrow', ['mn:3', 'mo:/', 'mn:2'])])]),
+        )
+
+    def test_tensor_indices_are_not_aligned(self):
+        self.assertEqual(
+            self._normalized(
+                '<mmultiscripts><mi>T</mi><mi>i</mi><none/><none/><mi>j</mi></mmultiscripts>'
+            ),
+            ('math', [('msup', [('msub', ['mi:T', 'mi:i']), 'mi:j'])]),
+        )
+
+    def test_full_postscript_pair_becomes_msubsup(self):
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>T</mi><mi>i</mi><mi>j</mi></mmultiscripts>'),
+            ('math', [('msubsup', ['mi:T', 'mi:i', 'mi:j'])]),
+        )
+
+    def test_prescript_pairs_keep_their_columns(self):
+        self.assertEqual(
+            self._normalized(
+                '<mmultiscripts><mi>T</mi><mprescripts/>'
+                '<none/><mi>j</mi><mi>i</mi><none/></mmultiscripts>'
+            ),
+            ('math', [('mmultiscripts', [
+                ('mmultiscripts', ['mi:T', 'mprescripts', 'mi:i', 'mtext']),
+                'mprescripts', 'mtext', 'mi:j',
+            ])]),
+        )
+
+    def test_only_subscript_becomes_msub(self):
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>a</mi><mi>i</mi><none/></mmultiscripts>'),
+            ('math', [('msub', ['mi:a', 'mi:i'])]),
+        )
+
+    def test_empty_prescript_slot_gets_empty_text(self):
+        # ¹⁵C: <none/> virava uma caixa à esquerda do C (ni-24-02-e250114)
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>C</mi><mprescripts/><none/><mn>15</mn></mmultiscripts>'),
+            ('math', [('mmultiscripts', ['mi:C', 'mprescripts', 'mtext', 'mn:15'])]),
+        )
+
+    def test_full_prescripts_are_kept(self):
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>X</mi><mprescripts/><mi>c</mi><mi>i</mi></mmultiscripts>'),
+            ('math', [('mmultiscripts', ['mi:X', 'mprescripts', 'mi:c', 'mi:i'])]),
+        )
+
+    def test_prescript_of_empty_base_goes_to_the_previous_element(self):
+        # "p" seguido de base vazia com índice à esquerda "f" é p_f (lajss-23-9-e9098)
+        self.assertEqual(
+            self._normalized(
+                '<mi>α</mi><mi>p</mi>'
+                '<mmultiscripts><mrow/><mprescripts/><mi>f</mi><none/></mmultiscripts>'
+            ),
+            ('math', ['mi:α', ('msub', ['mi:p', 'mi:f'])]),
+        )
+
+    def test_converted_formula_keeps_the_postscripts(self):
+        math = _mathml(
+            '<msup><mi>k</mi><mn>2</mn></msup><mo>=</mo>'
+            '<mmultiscripts><mi>k</mi><mi>x</mi><mrow/><mrow/><mn>2</mn></mmultiscripts>'
+        )
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        self.assertIsNone(omml.find(f'.//{{{m}}}sPre'))
+        self.assertIsNotNone(omml.find(f'.//{{{m}}}sSup/{{{m}}}e/{{{m}}}sSub'))
+        self.assertEqual(''.join(omml.itertext()), 'k2=kx2')
+
+
 class TestMathmlToOmml(unittest.TestCase):
 
     def test_converts_simple_expression_to_omath(self):
