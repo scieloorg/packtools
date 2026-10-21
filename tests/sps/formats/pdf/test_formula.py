@@ -147,6 +147,74 @@ class TestMathmlToOmml(unittest.TestCase):
         self.assertNotIn('m:val="p"', omml_str)
 
 
+class TestGroupChars(unittest.TestCase):
+    """
+    <mover>/<munder> com acento esticável: o mathml2omml gera <m:groupChr>
+    com <m:groupChrPr> fechado por </m:groupChr>, e a fórmula caía para
+    texto (a24.xml, Eq. 4 e 5: "P R t ¯").
+    """
+
+    def _over(self, char):
+        return _mathml(
+            '<mover accent="true">'
+            '<mrow><mi>P</mi><msup><mi>R</mi><mi>t</mi></msup></mrow>'
+            f'<mo stretchy="true">{char}</mo>'
+            '</mover>'
+        )
+
+    def _tags(self, omml):
+        return {etree.QName(e).localname for e in omml.iter() if isinstance(e.tag, str)}
+
+    def test_closes_the_group_chr_properties(self):
+        broken = (
+            '<m:groupChr><m:groupChrPr><m:chr m:val="⏞"/><m:pos m:val="top"/>'
+            '</m:groupChr><m:e><m:r><m:t>x</m:t></m:r></m:e></m:groupChr>'
+        )
+        self.assertEqual(
+            formula._close_group_chr_pr(broken),
+            '<m:groupChr><m:groupChrPr><m:chr m:val="⏞"/><m:pos m:val="top"/>'
+            '</m:groupChrPr><m:e><m:r><m:t>x</m:t></m:r></m:e></m:groupChr>',
+        )
+
+    def test_overbar_becomes_bar_over_the_whole_base(self):
+        omml = formula.mathml_to_omml(self._over('¯'))
+        self.assertIsNotNone(omml)
+        tags = self._tags(omml)
+        self.assertIn('bar', tags)
+        self.assertNotIn('groupChr', tags)
+        bar = omml.find(f'.//{{{formula._OMML_NS}}}bar')
+        self.assertEqual(''.join(bar.itertext()), 'PRt')
+
+    def test_arrow_becomes_accent(self):
+        omml = formula.mathml_to_omml(self._over('→'))
+        self.assertIsNotNone(omml)
+        char = omml.find(f'.//{{{formula._OMML_NS}}}acc/{{{formula._OMML_NS}}}accPr/{{{formula._OMML_NS}}}chr')
+        self.assertEqual(char.get(f'{{{formula._OMML_NS}}}val'), '→')
+
+    def test_small_tilde_becomes_accent_with_tilde(self):
+        # com "˜" (U+02DC) o LibreOffice desenha um apóstrofo sobre a base
+        omml = formula.mathml_to_omml(self._over('˜'))
+        char = omml.find(f'.//{{{formula._OMML_NS}}}acc/{{{formula._OMML_NS}}}accPr/{{{formula._OMML_NS}}}chr')
+        self.assertEqual(char.get(f'{{{formula._OMML_NS}}}val'), '~')
+
+    def test_overbrace_stays_group_chr(self):
+        omml = formula.mathml_to_omml(self._over('⏞'))
+        self.assertIsNotNone(omml)
+        tags = self._tags(omml)
+        self.assertIn('groupChr', tags)
+        self.assertNotIn('acc', tags)
+
+    def test_underscript_accent_converts(self):
+        math = _mathml(
+            '<munder><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow>'
+            '<mo stretchy="true" accent="true">⏟</mo></munder>'
+        )
+        omml = formula.mathml_to_omml(math)
+        self.assertIsNotNone(omml)
+        pos = omml.find(f'.//{{{formula._OMML_NS}}}groupChrPr/{{{formula._OMML_NS}}}pos')
+        self.assertEqual(pos.get(f'{{{formula._OMML_NS}}}val'), 'bot')
+
+
 class TestNormalizePlainStyleRuns(unittest.TestCase):
 
     def _run_with_style(self, style_xml):

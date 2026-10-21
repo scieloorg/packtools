@@ -3,6 +3,8 @@ Fórmulas: conversão MathML -> OMML, ``<inline-formula>``/``<mml:math>`` e
 ``<disp-formula>``.
 """
 
+import re
+
 import mathml2omml
 
 from lxml import etree
@@ -111,6 +113,81 @@ def _normalize_plain_style_runs(omml_element):
     return omml_element
 
 
+# mathml2omml 0.0.2 fecha <m:groupChrPr> com </m:groupChr> (XML inválido)
+_UNCLOSED_GROUP_CHR_PR = re.compile(
+    r'(<m:groupChrPr><m:chr m:val="[^"]*"/><m:pos m:val="(?:top|bot)"/>)</m:groupChr>'
+)
+
+# caracteres que o LibreOffice desenha certo em <m:bar>/<m:acc>; "˜", "∼" e "·" sairiam como apóstrofo
+_BAR_CHARS = {"¯", "ˉ", "―", "-", "−", "_", "̅"}
+_ACCENT_CHARS = {
+    "→": "→",
+    "^": "^",
+    "̂": "̂",
+    "~": "~",
+    "̃": "̃",
+    "˜": "~",
+    "∼": "~",
+    "̇": "̇",
+    "˙": "˙",
+    "·": "˙",
+    "̈": "̈",
+    "¨": "¨",
+    "`": "`",
+    "´": "´",
+}
+
+
+def _close_group_chr_pr(omml_str):
+    """Fecha o ``<m:groupChrPr>`` que o mathml2omml deixa aberto (ver _UNCLOSED_GROUP_CHR_PR)."""
+    return _UNCLOSED_GROUP_CHR_PR.sub(r"\1</m:groupChrPr>", omml_str)
+
+
+def _normalize_group_chars(omml_element):
+    """
+    Troca o ``<m:groupChr>`` de barra ou acento acima da base por ``<m:bar>`` ou ``<m:acc>``.
+
+    Parâmetros
+    ----------
+    omml_element : lxml.etree._Element
+        O ``<m:oMath>``, alterado no lugar.
+
+    Retorna
+    -------
+    lxml.etree._Element
+        O mesmo ``omml_element``.
+
+    Notas
+    -----
+    O mathml2omml converte ``<mover>`` de acento esticável em
+    ``<m:groupChr>``. No LibreOffice, "P̄R" (a24.xml, Eq. 5) sai com um
+    traço curto acima do centro; com ``<m:bar>`` e ``<m:acc>`` o sinal sai
+    sobre a base inteira.
+    """
+    m = f"{{{_OMML_NS}}}"
+    val = f"{m}val"
+    for element in list(omml_element.iter(f"{m}groupChr")):
+        base = element.find(f"{m}e")
+        char = element.find(f"{m}groupChrPr/{m}chr")
+        pos = element.find(f"{m}groupChrPr/{m}pos")
+        if base is None or char is None or pos is None or pos.get(val) != "top":
+            continue
+        char = char.get(val)
+        if char in _BAR_CHARS:
+            new = etree.Element(f"{m}bar")
+            etree.SubElement(etree.SubElement(new, f"{m}barPr"), f"{m}pos").set(val, "top")
+        elif char in _ACCENT_CHARS:
+            new = etree.Element(f"{m}acc")
+            etree.SubElement(etree.SubElement(new, f"{m}accPr"), f"{m}chr").set(
+                val, _ACCENT_CHARS[char]
+            )
+        else:
+            continue
+        new.append(base)
+        element.getparent().replace(element, new)
+    return omml_element
+
+
 def _normalize_radicals(omml_element):
     """
     Completa cada ``<m:rad>`` sem ``<m:deg>``, como o mathml2omml gera para ``<msqrt>``.
@@ -197,11 +274,13 @@ def mathml_to_omml(math_element):
     except Exception:
         return None
 
+    omml_str = _close_group_chr_pr(omml_str)
     omml_str = omml_str.replace("<m:oMath>", f'<m:oMath xmlns:m="{_OMML_NS}">', 1)
     try:
         omml = etree.fromstring(omml_str.encode("utf-8"))
     except etree.XMLSyntaxError:
         return None
+    omml = _normalize_group_chars(omml)
     return _normalize_radicals(_normalize_plain_style_runs(omml))
 
 
