@@ -131,9 +131,8 @@
     <xsl:template match="/" mode="css">
         <!--link rel="stylesheet" href="https://ds.scielo.org/css/bootstrap.css"/>
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
-        <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css?v=1.1.32"/>
-        <link rel="stylesheet" href="{$CSS_PATH}/article.css?v=1.1.32"/>
-        <xsl:apply-templates select="." mode="modal-contrib-group-css"/>
+        <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css?v=1.1.34"/>
+        <link rel="stylesheet" href="{$CSS_PATH}/article.css?v=1.1.34"/>
     </xsl:template>
 
     <xsl:template match="*" mode="modal-contrib-group-css">

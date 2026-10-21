@@ -1,8 +1,9 @@
 import argparse
 import os
 
-from packtools.sps.formats.pdf.pipeline import docx  
-from packtools.sps.formats.pdf.utils import file_utils
+from packtools.sps.formats.pdf import convert
+from packtools.sps.formats.pdf.layout import logo as logo_layout
+from packtools.sps.formats.pdf.pipeline import pipeline_docx_by_language
 from packtools.sps.utils import xml_utils
 
 
@@ -37,6 +38,41 @@ def main():
         action="store",
         dest="libreoffice_binary",
     )
+    parser.add_argument(
+        "--logo",
+        action="store",
+        help="Path to the journal logo (PNG or SVG) for the first page header.",
+    )
+    parser.add_argument(
+        "--logo-fallback",
+        action="store",
+        help="PNG shown by readers without SVG support (only with an SVG --logo).",
+    )
+    parser.add_argument(
+        "--logo-position",
+        choices=("left", "right", "full_width"),
+        default="left",
+    )
+    parser.add_argument(
+        "--logo-max-width-mm",
+        type=float,
+        help=(
+            "Maximum logo width. With the title shown, a left logo stays at most "
+            "40 mm wide; use --logo-no-title or full_width for a wider logo."
+        ),
+    )
+    parser.add_argument("--logo-max-height-mm", type=float)
+    parser.add_argument(
+        "--logo-no-title",
+        action="store_true",
+        help="Hide the journal title text next to the logo.",
+    )
+    parser.add_argument(
+        "--libreoffice-timeout",
+        type=float,
+        default=convert.DEFAULT_CONVERSION_TIMEOUT,
+        help="Maximum seconds for the DOCX to PDF conversion (default: %(default)s).",
+    )
     arguments = parser.parse_args()
 
     xml_dir = os.path.dirname(os.path.abspath(arguments.path_to_read))
@@ -44,25 +80,39 @@ def main():
         'base_layout': arguments.layout,
         'assets_dir': xml_dir,
     }
+    if arguments.logo:
+        data['journal_logo'] = {
+            'path': arguments.logo,
+            'position': arguments.logo_position,
+            'max_width_mm': arguments.logo_max_width_mm,
+            'max_height_mm': arguments.logo_max_height_mm,
+            'show_title': not arguments.logo_no_title,
+            'fallback_path': arguments.logo_fallback,
+        }
+        try:
+            logo_layout.normalize_logo_spec(data['journal_logo'])
+        except ValueError as exc:
+            parser.error(str(exc))
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
-    document = docx.pipeline_docx(xml_tree, data)
 
     if arguments.path_to_write:
         pdf_path = arguments.path_to_write
     else:
         pdf_path = arguments.path_to_read.replace('.xml', '.pdf')
-
     dir_name = os.path.dirname(pdf_path)
-    base_name = os.path.basename(pdf_path)
-    f_name, f_ext = os.path.splitext(base_name)
-    docx_path = os.path.join(dir_name, f"{f_name}.docx")
+    f_name, _ = os.path.splitext(os.path.basename(pdf_path))
 
-    document.save(docx_path)
-    print(f'DOCX generated at {docx_path}')
-    
-    file_utils.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary)
-    print(f'PDF generated at {pdf_path}')
+    # um PDF por idioma do texto, como o htmlgenerator: o principal com o nome
+    # pedido, cada tradução com o idioma no nome (artigo.en.pdf)
+    for index, (lang, document) in enumerate(pipeline_docx_by_language(xml_tree, data)):
+        name = f_name if index == 0 else f"{f_name}.{lang}"
+        docx_path = os.path.join(dir_name, f"{name}.docx")
+        document.save(docx_path)
+        print(f'DOCX generated at {docx_path}')
+        convert.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary, arguments.libreoffice_timeout)
+        print(f'PDF generated at {os.path.join(dir_name, name + ".pdf")}')
+
 
 if __name__ == "__main__":
     main()

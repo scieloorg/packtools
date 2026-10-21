@@ -27,7 +27,7 @@
             <xsl:when test="title">
                 <xsl:apply-templates select="title"/>
             </xsl:when>
-            <xsl:when test="@fn-type">
+            <xsl:when test="@fn-type!='other'">
                 <xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text">author-notes-fn-<xsl:value-of select="@fn-type"/></xsl:with-param>
                 </xsl:apply-templates>
@@ -88,14 +88,6 @@
 
     <xsl:template match="fn-group[not(label) and not(@fn-type)]" mode="back-section-menu">
         <!-- inibe a apresentação de opção do menu em branco -->
-    </xsl:template>
-
-    <xsl:template match="fn[@fn-type='other']" mode="back-section-menu">
-        <!-- inibe a apresentação de opção do menu 'other' -->
-    </xsl:template>
-
-    <xsl:template match="fn[@fn-type='other']" mode="back-section-h">
-        <!-- inibe a apresentação do título 'other' -->
     </xsl:template>
 
     <xsl:template match="fn[@fn-type='edited-by'] | fn[@fn-type='data-availability']" mode="back-section-menu">

@@ -14,7 +14,7 @@
             <xsl:when test="body/sec[@sec-type='data-availability']">
                 <!-- ficará destacado naturalmente por ser uma seção -->
             </xsl:when>
-            <xsl:when test=".//article-meta/supplementary-material or .//element-citation[@publication-type='data' or @publication-type='database'] or .//sec/sec[@sec-type='data-availability']">
+            <xsl:when test=".//sec/sec[@sec-type='data-availability']">
                 <xsl:apply-templates select="." mode="data-availability-menu-title"/>
                 <xsl:choose>
                     <xsl:when test="sub-article[@xml:lang=$TEXT_LANG and @article-type='translation']">
@@ -26,15 +26,30 @@
                         <xsl:apply-templates select="." mode="doc-version-data-availability"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates select=".//article-meta/supplementary-material" mode="data-availability"/>
-                <xsl:apply-templates select="back//ref-list" mode="data-availability"/>
             </xsl:when>
         </xsl:choose>
+        <xsl:apply-templates select="." mode="article-meta-supplementary-material"/>
+    </xsl:template>
+
+    <xsl:template match="article" mode="article-meta-supplementary-material">
+        <xsl:if test="front/article-meta/supplementary-material">
+            <xsl:variable name="title">
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text">Supplementary material</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:variable>
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
+            <div>
+                <xsl:call-template name="article-section-header">
+                    <xsl:with-param name="title" select="$title"/>
+                </xsl:call-template>
+            </div>
+            <xsl:apply-templates select="front/article-meta/supplementary-material"/>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="body | back" mode="data-availability">
         <xsl:apply-templates select="sec//sec[@sec-type='data-availability']" mode="display-data-availability"/>
-        <xsl:apply-templates select=".//sec[@sec-type='supplementary-material']" mode="display-data-availability"/>
     </xsl:template>
 
     <xsl:template match="sec" mode="display-data-availability">
