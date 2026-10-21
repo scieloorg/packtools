@@ -8,6 +8,7 @@ import logging
 import re
 
 import mathml2omml
+from mathml2omml.op_dict import OP_DICT
 
 from lxml import etree
 
@@ -187,6 +188,78 @@ _ACCENT_CHARS = {
 }
 
 
+def _is_accent(mover, overscript):
+    """
+    Se o índice de ``<mover>`` é acento, e não anotação.
+
+    O ``@accent`` do ``<mover>`` decide; sem ele, o do ``<mo>`` do índice;
+    sem nenhum dos dois, o dicionário de operadores (o do mathml2omml),
+    como manda a especificação MathML. ``<mtext>`` e ``<mi>`` são anotação.
+    """
+    if mover.get("accent") is not None:
+        return mover.get("accent") == "true"
+    if etree.QName(overscript).localname != "mo":
+        return False
+    if overscript.get("accent") is not None:
+        return overscript.get("accent") == "true"
+    # sem @form, postfix primeiro: é nessa forma que o dicionário marca acento ("^" infixo não é)
+    char = (overscript.text or "").strip()
+    forms = ["postfix", "infix", "prefix"]
+    if overscript.get("form") in forms:
+        forms.remove(overscript.get("form"))
+        forms.insert(0, overscript.get("form"))
+    for form in forms:
+        if (char, form) in OP_DICT:
+            return OP_DICT[(char, form)].get("accent") is True
+    return False
+
+
+def normalize_mover_accents(math_element):
+    """
+    Marca o índice de barra ou acento de cada ``<mover>`` para o mathml2omml, no lugar.
+
+    Parâmetros
+    ----------
+    math_element : lxml.etree._Element
+        A cópia do ``<mml:math>`` feita por normalize_empty_base_superscripts,
+        alterada no lugar.
+
+    Retorna
+    -------
+    lxml.etree._Element
+        O mesmo ``math_element``.
+
+    Notas
+    -----
+    O mathml2omml escolhe entre ``<m:groupChr>`` e ``<m:limUpp>`` pelo
+    ``<mo>`` do índice (esticável e acento no dicionário de operadores) e
+    ignora o ``@accent`` do ``<mover>``; o OMML que sai não diz mais se o
+    índice era acento ou anotação. Aqui, só para os caracteres de
+    _BAR_CHARS e _ACCENT_CHARS: o acento vira ``<mo stretchy="true"
+    accent="true">`` (sai ``<m:groupChr>``, que _normalize_group_chars
+    troca por ``<m:bar>`` ou ``<m:acc>``) e o ``<mo>`` da anotação ganha
+    ``accent="false"`` (sai ``<m:limUpp>``, com o sinal acima da base,
+    como em ``<mover accent="false"><mi>x</mi><mo>−</mo></mover>``).
+    """
+    chars = _BAR_CHARS | _ACCENT_CHARS.keys()
+    for mover in list(math_element.iter()):
+        if not isinstance(mover.tag, str) or etree.QName(mover).localname != "mover":
+            continue
+        children = [c for c in mover if isinstance(c.tag, str)]
+        if len(children) != 2:
+            continue
+        overscript = children[1]
+        if len(overscript) or (overscript.text or "").strip() not in chars:
+            continue
+        if _is_accent(mover, overscript):
+            overscript.tag = etree.QName(etree.QName(overscript).namespace, "mo").text
+            overscript.set("stretchy", "true")
+            overscript.set("accent", "true")
+        elif etree.QName(overscript).localname == "mo":
+            overscript.set("accent", "false")
+    return math_element
+
+
 def _close_group_chr_pr(omml_str):
     """Fecha o ``<m:groupChrPr>`` que o mathml2omml deixa aberto (ver _UNCLOSED_GROUP_CHR_PR)."""
     return _UNCLOSED_GROUP_CHR_PR.sub(r"\1</m:groupChrPr>", omml_str)
@@ -208,9 +281,13 @@ def _normalize_group_chars(omml_element):
 
     Notas
     -----
-    O mathml2omml converte ``<mover>`` de acento esticável em
-    ``<m:groupChr>``. No LibreOffice, "P̄R" (a24.xml, Eq. 5) sai com um
-    traço curto acima do centro; com ``<m:bar>`` e ``<m:acc>`` o sinal sai
+    O mathml2omml converte ``<mover>`` de acento em ``<m:groupChr>``
+    quando o ``<mo>`` é esticável e em ``<m:limUpp>`` quando não é;
+    normalize_mover_accents leva para ``<m:groupChr>`` todo acento cujo
+    caractere está em _BAR_CHARS ou _ACCENT_CHARS. No LibreOffice, "P̄R"
+    (a24.xml, Eq. 5) sai com um traço curto acima do centro, e o acento
+    combinante ("̃", "̇") de ``<m:limUpp>`` sai sobre um círculo
+    pontilhado (aabc-98-02-e20250518); com ``<m:bar>`` e ``<m:acc>`` saem
     sobre a base inteira.
     """
     m = f"{{{_OMML_NS}}}"
@@ -325,7 +402,7 @@ def mathml_to_omml(math_element):
         is logged as a warning, since the formula then prints as text.
     """
     try:
-        normalized = normalize_empty_base_superscripts(math_element)
+        normalized = normalize_mover_accents(normalize_empty_base_superscripts(math_element))
         stripped = _strip_namespace(normalized)
         mathml_str = etree.tostring(stripped, encoding="unicode", with_tail=False)
         omml_str = mathml2omml.convert(mathml_str)

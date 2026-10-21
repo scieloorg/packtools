@@ -222,6 +222,55 @@ class TestGroupChars(unittest.TestCase):
         self.assertIn('groupChr', tags)
         self.assertNotIn('acc', tags)
 
+    def test_non_stretchy_accent_becomes_accent_over_the_base(self):
+        # o "̃" combinante em <m:limUpp> saía sobre um círculo pontilhado (aabc-98-02-e20250518)
+        m = formula._OMML_NS
+        for char, expected in (
+            ('̃', 'acc'), ('^', 'acc'), ('̇', 'acc'), ('∼', 'acc'),
+            ('―', 'bar'), ('-', 'bar'), ('−', 'bar'),
+        ):
+            with self.subTest(char=char):
+                math = _mathml(
+                    '<mover><msub><mi>F</mi><mi>j</mi></msub>'
+                    f'<mo accent="true">{char}</mo></mover>'
+                )
+                omml = formula.mathml_to_omml(math)
+                tags = self._tags(omml)
+                self.assertIn(expected, tags)
+                self.assertNotIn('limUpp', tags)
+
+    def test_keeps_limupp_with_more_than_an_accent(self):
+        math = _mathml('<mover><mo>→</mo><mtext>def</mtext></mover>')
+        omml = formula.mathml_to_omml(math)
+        self.assertIn('limUpp', self._tags(omml))
+
+    def test_annotation_is_not_turned_into_accent(self):
+        for body in (
+            '<mover accent="false"><mi>x</mi><mo stretchy="false">−</mo></mover>',
+            '<mover><mi>x</mi><mtext>−</mtext></mover>',
+            '<mover accent="false"><mi>x</mi><mo stretchy="true">¯</mo></mover>',
+            '<mover><mi>x</mi><mo accent="false">^</mo></mover>',
+            '<mover><mi>x</mi><mo>−</mo></mover>',
+            '<mover><mi>x</mi><mo>∼</mo></mover>',
+            '<mover><mi>x</mi><mo>·</mo></mover>',
+            '<mover><mi>x</mi><mo form="infix">^</mo></mover>',
+        ):
+            with self.subTest(body=body):
+                tags = self._tags(formula.mathml_to_omml(_mathml(body)))
+                self.assertIn('limUpp', tags)
+                self.assertNotIn('bar', tags)
+                self.assertNotIn('acc', tags)
+
+    def test_dictionary_accent_without_attributes(self):
+        for char, expected in (('¯', 'bar'), ('^', 'acc'), ('~', 'acc'), ('→', 'acc')):
+            with self.subTest(char=char):
+                math = _mathml(f'<mover><mi>x</mi><mo>{char}</mo></mover>')
+                self.assertIn(expected, self._tags(formula.mathml_to_omml(math)))
+
+    def test_mover_accent_attribute_wins_over_the_script(self):
+        math = _mathml('<mover accent="true"><mi>x</mi><mtext>~</mtext></mover>')
+        self.assertIn('acc', self._tags(formula.mathml_to_omml(math)))
+
     def test_underscript_accent_converts(self):
         math = _mathml(
             '<munder><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow>'
