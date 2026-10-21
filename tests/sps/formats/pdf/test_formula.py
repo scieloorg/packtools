@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 from lxml import etree
 
@@ -115,6 +116,23 @@ class TestMathmlToOmml(unittest.TestCase):
         # mathml2omml raises NotImplementedError para tag desconhecida; deve virar None, não propagar
         math = _mathml('<not-a-real-mathml-tag/>')
         self.assertIsNone(formula.mathml_to_omml(math))
+
+    def test_logs_the_formula_that_falls_back_to_text(self):
+        disp = etree.fromstring(
+            f'<disp-formula id="e7"><math xmlns="{_MML_NS}"><not-a-real-mathml-tag/></math></disp-formula>'
+        )
+        with self.assertLogs(formula.logger, level='WARNING') as logs:
+            self.assertIsNone(formula.mathml_to_omml(disp[0]))
+        self.assertIn('e7', logs.output[0])
+        self.assertIn('NotImplementedError', logs.output[0])
+
+    def test_logs_invalid_omml_from_the_converter(self):
+        math = _mathml('<mi>Y</mi>')
+        with mock.patch.object(formula.mathml2omml, 'convert', return_value='<m:oMath><m:r></m:oMath>'):
+            with self.assertLogs(formula.logger, level='WARNING') as logs:
+                self.assertIsNone(formula.mathml_to_omml(math))
+        self.assertIn('OMML inválido', logs.output[0])
+        self.assertIn('sem id', logs.output[0])
 
     def test_does_not_abort_when_the_tree_contains_a_comment_node(self):
         math = _mathml('<mi>Y</mi><mo>=</mo><mn>1</mn><!-- nota -->')

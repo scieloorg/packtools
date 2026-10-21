@@ -4,6 +4,7 @@ Fórmulas: conversão MathML -> OMML, ``<inline-formula>``/``<mml:math>`` e
 """
 
 import copy
+import logging
 import re
 
 import mathml2omml
@@ -16,6 +17,8 @@ from packtools.sps.formats.pdf.extract.inline import inlines
 from packtools.sps.formats.pdf.extract.registry import block_handler, inline_handler
 from packtools.sps.formats.pdf.extract.runs import MATHML, tag, text_runs
 from packtools.sps.formats.pdf.extract.title import after_runs, caption_runs
+
+logger = logging.getLogger(__name__)
 
 
 # -----------------
@@ -301,6 +304,14 @@ def match_paragraph_font(omml_element, size_pt, font_name):
     return omml_element
 
 
+def _formula_id(math_element):
+    """``@id`` do ``<mml:math>`` ou do elemento que o contém (``<disp-formula>``, ``<inline-formula>``), para o log."""
+    for element in (math_element, math_element.getparent()):
+        if element is not None and element.get("id"):
+            return element.get("id")
+    return "sem id"
+
+
 def mathml_to_omml(math_element):
     """Converte um nó `<mml:math>` em `<m:oMath>` (OOXML), pronto para `paragraph._p.append(...)`.
 
@@ -310,21 +321,33 @@ def mathml_to_omml(math_element):
     Returns:
         lxml.etree._Element, or None if the MathML uses a construct
         mathml2omml doesn't support - callers should fall back to
-        flattened text instead of propagating the exception.
+        flattened text instead of propagating the exception. The failure
+        is logged as a warning, since the formula then prints as text.
     """
     try:
         normalized = normalize_empty_base_superscripts(math_element)
         stripped = _strip_namespace(normalized)
         mathml_str = etree.tostring(stripped, encoding="unicode", with_tail=False)
         omml_str = mathml2omml.convert(mathml_str)
-    except Exception:
+    except Exception as exc:
+        logger.warning(
+            "fórmula %s sai como texto: o mathml2omml não a converte (%s: %s)",
+            _formula_id(math_element),
+            type(exc).__name__,
+            exc,
+        )
         return None
 
     omml_str = _close_group_chr_pr(omml_str)
     omml_str = omml_str.replace("<m:oMath>", f'<m:oMath xmlns:m="{_OMML_NS}">', 1)
     try:
         omml = etree.fromstring(omml_str.encode("utf-8"))
-    except etree.XMLSyntaxError:
+    except etree.XMLSyntaxError as exc:
+        logger.warning(
+            "fórmula %s sai como texto: o mathml2omml gera OMML inválido (%s)",
+            _formula_id(math_element),
+            exc,
+        )
         return None
     omml = _normalize_group_chars(omml)
     return _normalize_radicals(_normalize_plain_style_runs(omml))
