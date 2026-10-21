@@ -3,6 +3,7 @@ Fórmulas: conversão MathML -> OMML, ``<inline-formula>``/``<mml:math>`` e
 ``<disp-formula>``.
 """
 
+import copy
 import re
 
 import mathml2omml
@@ -97,20 +98,65 @@ def _strip_namespace(element):
     return element
 
 
+# com <m:nor/> o LibreOffice escreve parêntese e chave com barra: "\(", "\{"
+_BRACKETS = re.compile(r"([(){}]+)")
+
+
 def _normalize_plain_style_runs(omml_element):
     """LibreOffice não quebra linha entre linhas de m:m/m:eqArr quando o
-    último run de uma linha tem `<m:sty m:val="p"/>`; troca por `<m:nor/>`
-    (mesmo significado - texto normal, sem itálico) em todo o documento.
+    último run de uma linha tem `<m:sty m:val="p"/>`, e troca "-", "[",
+    "|", "*" e outros por um glyph inválido; troca por `<m:nor/>` (mesmo
+    significado - texto normal, sem itálico) em todo o documento.
+
+    Parênteses e chaves são a exceção: com `<m:nor/>` o LibreOffice os
+    escreve com barra, "ln \\( P R R \\)" (vem de `<mo stretchy="false">`)
+    e "concentration \\(mg/L\\)" (vem de `<mtext>`, que o mathml2omml já
+    gera com `<m:nor/>`); com `m:sty p` saem certos, também no fim da
+    linha. O run de texto que os contém é dividido, e só eles ficam com
+    `m:sty p`.
     """
-    rpr_tag = f"{{{_OMML_NS}}}rPr"
-    sty_tag = f"{{{_OMML_NS}}}sty"
-    val_attr = f"{{{_OMML_NS}}}val"
-    for rpr in omml_element.iter(rpr_tag):
-        sty = rpr.find(sty_tag)
-        if sty is not None and sty.get(val_attr) == "p":
+    m = f"{{{_OMML_NS}}}"
+    for run in list(omml_element.iter(f"{m}r")):
+        rpr = run.find(f"{m}rPr")
+        if rpr is None:
+            continue
+        sty = rpr.find(f"{m}sty")
+        if sty is not None and sty.get(f"{m}val") == "p":
             rpr.remove(sty)
-            etree.SubElement(rpr, f"{{{_OMML_NS}}}nor")
+            etree.SubElement(rpr, f"{m}nor")
+        if rpr.find(f"{m}nor") is not None:
+            _split_brackets(run)
     return omml_element
+
+
+def _split_brackets(run):
+    """Divide um run `<m:nor/>` para que parênteses e chaves fiquem em runs `m:sty p` (ver _normalize_plain_style_runs)."""
+    m = f"{{{_OMML_NS}}}"
+    text = "".join(t.text or "" for t in run.iter(f"{m}t"))
+    if not _BRACKETS.search(text):
+        return
+    parts = []
+    for piece in _BRACKETS.split(text):
+        if not piece:
+            continue
+        part = etree.Element(f"{m}r")
+        rpr = copy.deepcopy(run.find(f"{m}rPr"))
+        for style in rpr.findall(f"{m}sty") + rpr.findall(f"{m}nor"):
+            rpr.remove(style)
+        part.append(rpr)
+        if _BRACKETS.fullmatch(piece):
+            etree.SubElement(rpr, f"{m}sty").set(f"{m}val", "p")
+        else:
+            etree.SubElement(rpr, f"{m}nor")
+        t = etree.SubElement(part, f"{m}t")
+        t.text = piece
+        t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
+        parts.append(part)
+    parent = run.getparent()
+    index = parent.index(run)
+    parent.remove(run)
+    for offset, part in enumerate(parts):
+        parent.insert(index + offset, part)
 
 
 # mathml2omml 0.0.2 fecha <m:groupChrPr> com </m:groupChr> (XML inválido)

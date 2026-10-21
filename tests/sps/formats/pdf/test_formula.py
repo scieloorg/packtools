@@ -217,12 +217,66 @@ class TestGroupChars(unittest.TestCase):
 
 class TestNormalizePlainStyleRuns(unittest.TestCase):
 
-    def _run_with_style(self, style_xml):
+    def _run_with_style(self, style_xml, text='+'):
         return etree.fromstring(
             f'<m:oMath xmlns:m="{formula._OMML_NS}">'
-            f'<m:r><m:rPr>{style_xml}</m:rPr><m:t>+</m:t></m:r>'
+            f'<m:r><m:rPr>{style_xml}</m:rPr><m:t>{text}</m:t></m:r>'
             f'</m:oMath>'
         )
+
+    def test_keeps_plain_style_on_parentheses_and_braces(self):
+        # com m:nor o LibreOffice escreve "\(" e "\{" (rbp-48-e20254146: "ln \( P R R \)")
+        for text in ('(', ')', '{', '}'):
+            with self.subTest(text=text):
+                omml = self._run_with_style('<m:sty m:val="p"/>', text)
+                result_str = etree.tostring(formula._normalize_plain_style_runs(omml), encoding='unicode')
+                self.assertIn('m:val="p"', result_str)
+                self.assertNotIn('<m:nor/>', result_str)
+
+    def test_still_replaces_other_brackets_and_bars(self):
+        # com m:sty p o LibreOffice troca "[", "]" e "|" por um glyph inválido
+        for text in ('[', ']', '|', '-'):
+            with self.subTest(text=text):
+                omml = self._run_with_style('<m:sty m:val="p"/>', text)
+                result_str = etree.tostring(formula._normalize_plain_style_runs(omml), encoding='unicode')
+                self.assertIn('<m:nor/>', result_str)
+
+    def test_splits_text_run_around_parentheses(self):
+        # <mtext> já sai do mathml2omml com m:nor (aabc-98-01-e20250190: "concentration \(mg/L\)")
+        math = _mathml('<mi>C</mi><mtext> is concentration (mg/L), </mtext><mi>A</mi>')
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        runs = [
+            (''.join(r.itertext()), r.find(f'{{{m}}}rPr/{{{m}}}nor') is not None)
+            for r in omml.iter(f'{{{m}}}r')
+        ]
+        self.assertEqual(
+            runs,
+            [
+                ('C', False),
+                (' is concentration ', True),
+                ('(', False),
+                ('mg/L', True),
+                (')', False),
+                (', ', True),
+                ('A', False),
+            ],
+        )
+
+    def test_stretchy_false_parentheses_keep_plain_style(self):
+        math = _mathml(
+            '<mi>ln</mi><mo stretchy="false">(</mo><mi>R</mi>'
+            '<mo stretchy="false">)</mo><mo>±</mo><mn>1.96</mn>'
+        )
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        for run in omml.iter(f'{{{m}}}r'):
+            text = ''.join(run.itertext())
+            nor = run.find(f'{{{m}}}rPr/{{{m}}}nor')
+            if text in ('(', ')'):
+                self.assertIsNone(nor, text)
+            elif text in ('ln', '±'):
+                self.assertIsNotNone(nor, text)
 
     def test_replaces_plain_style_with_nor(self):
         omml = self._run_with_style('<m:sty m:val="p"/>')
