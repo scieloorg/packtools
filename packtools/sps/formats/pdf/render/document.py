@@ -49,9 +49,12 @@ class State:
             set_columns(section, self.page["column_count"], self.page["column_spacing"])
         self.full_width = full_width
 
-    def add_inline_image(self, run, href):
+    def add_inline_image(self, run, href, ceiling=None):
         """
         Insere imagem inline no run (largura natural limitada à coluna); False se não houver arquivo.
+
+        ``ceiling`` (EMU) troca o limite da coluna por outro, como a
+        largura da célula de tabela.
 
         Exceção à regra de que as medidas chegam prontas do layout: uma
         imagem inline é um run dentro de um parágrafo (ou de uma célula),
@@ -63,7 +66,8 @@ class State:
         if not path:
             return False
         width = page_layout.fit_width(
-            self.assets.natural_width(href), page_layout.column_width(self.page)
+            self.assets.natural_width(href),
+            ceiling or page_layout.column_width(self.page),
         )
         try:
             run.add_picture(path, width=width)

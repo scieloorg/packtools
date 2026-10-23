@@ -12,7 +12,7 @@ from packtools.sps.formats.pdf.render import styles
 _MONOSPACE_FONT = "Courier New"
 
 
-def add_runs(paragraph, runs, state, char_role=None, size=None, bold=None):
+def add_runs(paragraph, runs, state, char_role=None, size=None, bold=None, image_width=None):
     """
     Escreve runs no parágrafo. char_role: estilo de caractere de todos os
     runs (um run com a chave 'char_role' usa o seu, ex. o título das
@@ -20,7 +20,7 @@ def add_runs(paragraph, runs, state, char_role=None, size=None, bold=None):
     'href' viram hyperlink externo e runs com 'anchor' (de <xref>), link
     interno para a marca do alvo; run 'bookmark' é a marca (alvo de links);
     fórmula entra como OMML; imagem inline entra no tamanho natural limitado
-    à largura de coluna.
+    à largura de coluna, ou a image_width (EMU), a largura da célula de tabela.
     """
     char_style = styles.get(state.doc, char_role) if char_role else None
     link = None  # (destino, <w:hyperlink>) em aberto
@@ -43,7 +43,7 @@ def add_runs(paragraph, runs, state, char_role=None, size=None, bold=None):
         if run.get("break"):
             docx_run.add_break()
         elif "image" in run:
-            if not state.add_inline_image(docx_run, run["image"]):
+            if not state.add_inline_image(docx_run, run["image"], image_width):
                 docx_run.text = run.get("alt") or run["image"]
         else:
             docx_run.text = run["text"]

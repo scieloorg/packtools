@@ -27,7 +27,7 @@ from PIL import Image
 from packtools.sps.formats.pdf.config import page as page_config
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
-from packtools.sps.formats.pdf.layout.placement import figure_layout, place
+from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, figure_layout, place
 from packtools.sps.formats.pdf.render.blocks import _picture, figure, formula, paragraph, render_blocks
 from packtools.sps.formats.pdf.render.document import State, new_document
 from packtools.sps.formats.pdf.render.inline import add_runs
@@ -360,6 +360,40 @@ class TestTableWidth(unittest.TestCase):
                 state = _state(page=page)
                 add_table(state, _placed(_table_block(), page, layout=page_config.SINGLE_COLUMN))
                 self.assertEqual(_table_width_twips(state.doc.tables[0]), int(page_layout.content_width(page) / 635))
+
+
+class TestTableCellImage(_WithTmp):
+    """
+    #1442: coluna só com imagem ficava com a largura mínima (0,38 cm) e a
+    imagem, limitada só à coluna do corpo, saía da célula (codas-38-5-e20250355).
+    """
+
+    def _table(self, href):
+        cells = [
+            {'row': 0, 'col': 0, 'rowspan': 1, 'colspan': 1, 'header': False, 'runs': [{'text': 'Lábio superior'}]},
+            {'row': 0, 'col': 1, 'rowspan': 1, 'colspan': 1, 'header': False, 'runs': [{'image': href, 'alt': ''}]},
+        ]
+        return dict(_table_block(), nrows=1, ncols=2, cells=cells)
+
+    def _render(self, href):
+        page = page_config.load_page()
+        block = place([self._table(href)], page, Assets(self.tmp))[0]
+        state = _state(assets_dir=self.tmp, page=page)
+        add_table(state, block)
+        extent = state.doc.tables[0]._element.find('.//' + qn('wp:extent'))
+        return block['column_widths'], int(extent.get('cx'))
+
+    def test_image_only_column_is_not_empty(self):
+        self._png('small.png', 100, dpi=96)  # 75pt
+        widths, image = self._render('small.png')
+        self.assertGreater(widths[1], EMPTY_COLUMN_WIDTH)
+        self.assertEqual(image, Assets(self.tmp).natural_width('small.png'))
+        self.assertLessEqual(image, widths[1])
+
+    def test_wide_image_shrinks_to_the_cell(self):
+        self._png('wide.png', 800, dpi=96)  # 600pt, mais que a coluna do corpo
+        widths, image = self._render('wide.png')
+        self.assertEqual(image, widths[1])
 
 
 class TestTableCaption(unittest.TestCase):

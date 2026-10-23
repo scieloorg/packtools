@@ -282,6 +282,45 @@ class ColumnWeightsTest(unittest.TestCase):
         # "Brasil" = 5.2 caracteres médios (B 1.2, i e l 0.5) x 6pt, dividido por 2
         self.assertEqual([round(w, 1) for w in words], [15.6, 15.6])
 
+    def test_formula_only_column_is_not_empty(self):
+        # #1442: coluna só com fórmula ficava com a largura mínima (aabc-98-s1-e20250485, Tabela II)
+        from packtools.sps.formats.pdf.layout.placement import column_weights
+        node = xml(f'<sec {NS}><table-wrap><table><tr><td>Model</td>'
+                   '<td><inline-formula><mml:math><mml:mn>0.843</mml:mn></mml:math></inline-formula></td>'
+                   '</tr></table></table-wrap></sec>')
+        weights, words = column_weights(extract(node)[0])
+        # "0.843" = 5 caracteres médios: peso mínimo de 50pt e palavra de 30pt
+        self.assertEqual(weights[1], 50)
+        self.assertAlmostEqual(words[1], 5 * 6)
+
+    def test_formula_counts_with_the_text_of_its_line(self):
+        from packtools.sps.formats.pdf.layout.placement import column_weights
+        node = xml(f'<sec {NS}><table-wrap><table><tr><td>'
+                   '<inline-formula><mml:math><mml:msup><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msup>'
+                   '</mml:math></inline-formula> adjusted value</td></tr></table></table-wrap></sec>')
+        weights, words = column_weights(extract(node)[0])
+        # "R2" (2.2) + "adjusted value" (13.0) na mesma linha; maior palavra "adjusted" (7.5)
+        self.assertAlmostEqual(weights[0], 15.2 * 6)
+        self.assertAlmostEqual(words[0], 7.5 * 6)
+
+    def test_image_counts_by_its_natural_width(self):
+        from packtools.sps.formats.pdf.layout.placement import column_weights
+        node = xml(f'<sec {NS}><table-wrap><table><tr><td>a</td>'
+                   '<td><inline-graphic xlink:href="x.png"/></td></tr></table></table-wrap></sec>')
+        weights, words = column_weights(extract(node)[0], lambda href: 120 * 12700)
+        # 120pt de largura natural: peso e palavra de 120pt
+        self.assertAlmostEqual(weights[1], 120)
+        self.assertAlmostEqual(words[1], 120)
+
+    def test_unreadable_image_counts_by_its_alt_text(self):
+        from packtools.sps.formats.pdf.layout.placement import column_weights
+        node = xml(f'<sec {NS}><table-wrap><table><tr><td>a</td>'
+                   '<td><inline-graphic xlink:href="x.png"><alt-text>logo</alt-text></inline-graphic></td>'
+                   '</tr></table></table-wrap></sec>')
+        _, words = column_weights(extract(node)[0], lambda href: None)
+        # sem largura natural, conta o texto que o render escreve no lugar ("logo" = 3.5)
+        self.assertAlmostEqual(words[1], 3.5 * 6)
+
     def test_widths_are_proportional_and_fill_the_table(self):
         from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, column_widths
         widths = column_widths([50, 150, None], [40, 10, None], 10 ** 7)
