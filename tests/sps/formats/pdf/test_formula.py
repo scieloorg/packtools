@@ -258,6 +258,46 @@ class TestMathmlToOmml(unittest.TestCase):
         self.assertNotIn('m:val="p"', omml_str)
 
 
+class TestFillEmptyMatrixCells(unittest.TestCase):
+    """Célula vazia de matriz: o LibreOffice a descartava e a matriz saía com "¿"."""
+
+    _M = f'{{{formula._OMML_NS}}}'
+
+    def _cells(self, omml):
+        return [
+            [''.join(e.itertext()) for e in mr.findall(f'{self._M}e')]
+            for mr in omml.iter(f'{self._M}mr')
+        ]
+
+    def test_empty_cell_gets_zero_width_space_in_nor_run(self):
+        math = _mathml(
+            '<mtable>'
+            '<mtr><mtd><mi>a</mi><mo>=</mo></mtd><mtd><mi>b</mi></mtd></mtr>'
+            '<mtr><mtd/><mtd><mo>+</mo><mi>c</mi></mtd></mtr>'
+            '</mtable>'
+        )
+        omml = formula.mathml_to_omml(math)
+        self.assertEqual(self._cells(omml), [['a=', 'b'], ['​', '+c']])
+        run = next(r for r in omml.iter(f'{self._M}r') if r.findtext(f'{self._M}t') == '​')
+        self.assertIsNotNone(run.find(f'{self._M}rPr/{self._M}nor'))
+
+    def test_cell_with_only_mspace_is_filled(self):
+        """<mspace> não gera texto: a célula também seria descartada."""
+        math = _mathml(
+            '<mtable>'
+            '<mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr>'
+            '<mtr><mtd><mspace width="1em"/></mtd><mtd><mi>c</mi></mtd></mtr>'
+            '</mtable>'
+        )
+        omml = formula.mathml_to_omml(math)
+        self.assertEqual(self._cells(omml)[1][0].strip(), '​')
+
+    def test_cells_with_text_are_untouched(self):
+        math = _mathml('<mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr></mtable>')
+        omml = formula.mathml_to_omml(math)
+        self.assertEqual(self._cells(omml), [['a', 'b']])
+
+
 class TestGroupChars(unittest.TestCase):
     """
     <mover>/<munder> com acento esticável: o mathml2omml gera <m:groupChr>

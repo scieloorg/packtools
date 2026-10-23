@@ -459,6 +459,42 @@ def _normalize_radicals(omml_element):
     return omml_element
 
 
+def _fill_empty_matrix_cells(omml_element):
+    """
+    Põe um espaço de largura zero em cada célula sem texto de ``<m:m>``.
+
+    Parâmetros
+    ----------
+    omml_element : lxml.etree._Element
+        O ``<m:oMath>``, alterado no lugar.
+
+    Retorna
+    -------
+    lxml.etree._Element
+        O mesmo ``omml_element``.
+
+    Notas
+    -----
+    ``<mtd/>`` vazio (a 1ª coluna das linhas de continuação de uma equação
+    alinhada) vira ``<m:e>`` sem texto. O LibreOffice descarta essa célula
+    ao montar a matriz: a linha fica com uma coluna a menos e a matriz
+    inteira sai com "¿", o marcador de erro de sintaxe (aabc-98-02-e20250518).
+    Espaço comum, não separável ou fino e ``<m:phant>`` também são
+    descartados; o espaço de largura zero em run ``m:nor`` fica, sem ocupar
+    lugar.
+    """
+    m = f"{{{_OMML_NS}}}"
+    for row in omml_element.iter(f"{m}mr"):
+        for cell in row.findall(f"{m}e"):
+            if "".join(cell.itertext()).strip():
+                continue
+            target = cell.find(f"{m}box/{m}e")
+            run = etree.SubElement(cell if target is None else target, f"{m}r")
+            etree.SubElement(etree.SubElement(run, f"{m}rPr"), f"{m}nor")
+            etree.SubElement(run, f"{m}t").text = "\u200b"
+    return omml_element
+
+
 def match_paragraph_font(omml_element, size_pt, font_name):
     """Define w:sz/w:szCs/w:rFonts em cada run do OMML, a partir do estilo do parágrafo.
 
@@ -537,7 +573,7 @@ def mathml_to_omml(math_element):
         )
         return None
     omml = _normalize_group_chars(omml)
-    return _normalize_radicals(_normalize_plain_style_runs(omml))
+    return _fill_empty_matrix_cells(_normalize_radicals(_normalize_plain_style_runs(omml)))
 
 
 # -----------------
