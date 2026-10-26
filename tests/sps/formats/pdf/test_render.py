@@ -17,6 +17,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
+from urllib.error import URLError
 
 from docx.enum.section import WD_SECTION
 from docx.oxml.ns import qn
@@ -24,6 +25,7 @@ from docx.shared import Cm, Pt
 from lxml import etree
 from PIL import Image
 
+from packtools.sps.formats.pdf import assets as assets_module
 from packtools.sps.formats.pdf.config import page as page_config
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
@@ -121,6 +123,33 @@ class TestAssetsPath(_WithTmp):
         self.assertTrue(first.endswith('.png'))
         with open(first, 'rb') as f:
             self.assertEqual(f.read(), b'fake')
+        shutil.rmtree(assets._cache_dir)
+
+    def test_failed_download_is_logged_and_not_retried(self):
+        """O href passa pelo layout e pelo render: uma tentativa e um aviso só."""
+        url = 'https://example.org/fig1.png'
+        with patch('packtools.sps.formats.pdf.assets.urlopen', side_effect=URLError('timed out')) as mock_open:
+            assets = Assets()
+            with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+                self.assertIsNone(assets.path(url))
+                self.assertIsNone(assets.path(url))
+                self.assertIsNone(assets.natural_size(url))
+        self.assertEqual(mock_open.call_count, 1)
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn(url, logs.output[0])
+        self.assertIn('URLError', logs.output[0])
+        shutil.rmtree(assets._cache_dir)
+
+    def test_empty_download_is_logged(self):
+        response = MagicMock()
+        response.__enter__.return_value = io.BytesIO(b'')
+        with patch('packtools.sps.formats.pdf.assets.urlopen', return_value=response):
+            assets = Assets()
+            with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+                self.assertIsNone(assets.path('https://example.org/fig1.png'))
+                self.assertIsNone(assets.path('https://example.org/fig1.png'))
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('sem conteúdo', logs.output[0])
         shutil.rmtree(assets._cache_dir)
 
 

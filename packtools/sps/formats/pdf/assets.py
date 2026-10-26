@@ -1,8 +1,10 @@
 """Localização de imagens referenciadas no XML (local ou remota) e leitura do tamanho natural."""
 
 import hashlib
+import logging
 import os
 import tempfile
+from http.client import HTTPException
 from urllib.request import Request, urlopen
 
 from PIL import Image
@@ -13,6 +15,8 @@ EMU_PER_INCH = 914400
 # um valor menor faria a imagem sair maior que o pretendido.
 _FALLBACK_DPI = 300.0
 
+logger = logging.getLogger(__name__)
+
 
 class Assets:
     """Resolve href -> caminho local, baixando URLs uma vez por documento."""
@@ -22,6 +26,9 @@ class Assets:
         self.assets_dir = assets_dir
         self.timeout = timeout
         self._cache_dir = None
+        # URLs que falharam: o mesmo href é resolvido mais de uma vez (no
+        # layout e no render), e cada nova tentativa esperaria o timeout.
+        self._failed = set()
 
     def path(self, href):
         """Caminho local existente do href, ou None."""
@@ -65,7 +72,13 @@ class Assets:
         return size[0] if size else None
 
     def _download(self, url):
-        """Baixa a URL uma vez para um cache temporário (nome = sha1 da URL + extensão); None se falhar ou vier vazio."""
+        """
+        Baixa a URL uma vez para um cache temporário (nome = sha1 da URL +
+        extensão); None se falhar ou vier vazio. A falha é registrada em log
+        e não se tenta de novo.
+        """
+        if url in self._failed:
+            return None
         if self._cache_dir is None:
             self._cache_dir = tempfile.mkdtemp(prefix="scl_assets_")
         name = os.path.basename(url).split("?")[0].split("#")[0]
@@ -80,9 +93,17 @@ class Assets:
                     target, "wb"
                 ) as out:
                     out.write(response.read())
-            except Exception:
+            except (OSError, HTTPException, ValueError) as exc:
+                self._failed.add(url)
+                logger.warning(
+                    "imagem %s não baixada (%s: %s)", url, type(exc).__name__, exc
+                )
                 return None
-        return target if os.path.getsize(target) else None
+        if not os.path.getsize(target):
+            self._failed.add(url)
+            logger.warning("imagem %s baixada sem conteúdo", url)
+            return None
+        return target
 
 
 def _dpi(im):
