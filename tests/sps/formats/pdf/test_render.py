@@ -104,6 +104,16 @@ class TestAssetsPath(_WithTmp):
         path = self._png('fig1.png', 10)
         self.assertEqual(Assets('/some/other/dir').path(path), path)
 
+    def test_missing_local_file_is_logged_once(self):
+        assets = Assets(self.tmp)
+        with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+            self.assertIsNone(assets.path('fig1.tif'))
+            self.assertIsNone(assets.path('fig1.tif'))
+            self.assertIsNone(assets.natural_size('fig1.tif'))
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('fig1.tif', logs.output[0])
+        self.assertIn(os.path.join(self.tmp, 'fig1.tif'), logs.output[0])
+
     def test_remote_url_is_downloaded_once(self):
         """
         old: test_figure.py TestResolveImagePath.test_remote_url_is_downloaded

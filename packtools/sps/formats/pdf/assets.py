@@ -29,6 +29,7 @@ class Assets:
         # URLs que falharam: o mesmo href é resolvido mais de uma vez (no
         # layout e no render), e cada nova tentativa esperaria o timeout.
         self._failed = set()
+        self._warned = set()
 
     def path(self, href):
         """Caminho local existente do href, ou None."""
@@ -42,7 +43,21 @@ class Assets:
             if os.path.isabs(href)
             else [os.path.join(self.assets_dir or "", href), href]
         )
-        return next((c for c in candidates if os.path.isfile(c)), None)
+        found = next((c for c in candidates if os.path.isfile(c)), None)
+        if found is None:
+            self._warn_once(
+                href,
+                "imagem %s não encontrada (procurada em: %s)",
+                href,
+                ", ".join(candidates),
+            )
+        return found
+
+    def _warn_once(self, href, message, *args):
+        """Registra o aviso só na primeira vez para o href, que é resolvido no layout e no render."""
+        if href not in self._warned:
+            self._warned.add(href)
+            logger.warning(message, *args)
 
     def natural_size(self, href):
         """
