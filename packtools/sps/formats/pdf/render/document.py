@@ -1,5 +1,7 @@
 """Monta o DOCX: seções (capa, corpo em colunas, anexos), estilos e numeração de páginas."""
 
+import logging
+
 from docx import Document
 from docx.enum.section import WD_SECTION
 from docx.oxml import OxmlElement
@@ -8,6 +10,8 @@ from packtools.sps.formats.pdf.layout import page as page_layout
 from packtools.sps.formats.pdf.render import front as front_render
 from packtools.sps.formats.pdf.render.blocks import render_blocks
 from packtools.sps.formats.pdf.render.styles import copy_styles
+
+logger = logging.getLogger(__name__)
 
 
 class State:
@@ -51,7 +55,8 @@ class State:
 
     def add_inline_image(self, run, href, ceiling=None):
         """
-        Insere imagem inline no run (largura natural limitada à coluna); False se não houver arquivo.
+        Insere imagem inline no run (largura natural limitada à coluna); False
+        se não houver arquivo ou se a inserção falhar (registrada em log).
 
         ``ceiling`` (EMU) troca o limite da coluna por outro, como a
         largura da célula de tabela.
@@ -71,7 +76,13 @@ class State:
         )
         try:
             run.add_picture(path, width=width)
-        except Exception:
+        except Exception as exc:
+            logger.warning(
+                "imagem %s não inserida no DOCX; sai o texto alternativo (%s: %s)",
+                href,
+                type(exc).__name__,
+                exc,
+            )
             return False
         return True
 

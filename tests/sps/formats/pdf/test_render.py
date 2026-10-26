@@ -30,6 +30,8 @@ from packtools.sps.formats.pdf.config import page as page_config
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
 from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, figure_layout, place
+from packtools.sps.formats.pdf.render import blocks as blocks_module
+from packtools.sps.formats.pdf.render import document as document_module
 from packtools.sps.formats.pdf.render.blocks import _picture, figure, formula, paragraph, render_blocks
 from packtools.sps.formats.pdf.render.document import State, new_document
 from packtools.sps.formats.pdf.render.inline import add_runs
@@ -310,6 +312,30 @@ class TestFigureInsertedPicture(_WithTmp):
         for side in ('distT', 'distB', 'distL', 'distR'):
             with self.subTest(side=side):
                 self.assertEqual(inline.get(side), '0')
+
+
+class TestPictureInsertFailure(_WithTmp):
+    """Arquivo que o python-docx não reconhece como imagem: sai texto no lugar e a falha fica no log."""
+
+    def setUp(self):
+        super().setUp()
+        with open(os.path.join(self.tmp, 'bad.png'), 'w') as f:
+            f.write('não é imagem')
+        self.state = _state(assets_dir=self.tmp)
+
+    def test_figure_failure_is_logged(self):
+        with self.assertLogs(blocks_module.logger, level='WARNING') as logs:
+            self.assertIsNone(_picture(self.state, 'bad.png', Cm(10), None))
+        self.assertEqual(len(self.state.doc.inline_shapes), 0)
+        self.assertIn('bad.png', logs.output[0])
+        self.assertIn('UnrecognizedImageError', logs.output[0])
+
+    def test_inline_image_failure_is_logged(self):
+        run = self.state.doc.add_paragraph().add_run()
+        with self.assertLogs(document_module.logger, level='WARNING') as logs:
+            self.assertFalse(self.state.add_inline_image(run, 'bad.png'))
+        self.assertIn('bad.png', logs.output[0])
+        self.assertIn('UnrecognizedImageError', logs.output[0])
 
 
 # -----------------

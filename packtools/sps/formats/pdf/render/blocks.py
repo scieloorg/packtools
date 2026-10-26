@@ -1,5 +1,7 @@
 """Blocos -> DOCX: um handler por tipo e troca de colunas para elementos de largura total."""
 
+import logging
+
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm, Pt
 from packtools.sps.formats.pdf.config.page import SINGLE_COLUMN
@@ -7,6 +9,8 @@ from packtools.sps.formats.pdf.extract.runs import has_content
 from packtools.sps.formats.pdf.render import styles
 from packtools.sps.formats.pdf.render.inline import add_runs
 from packtools.sps.formats.pdf.render.table import add_caption, add_table
+
+logger = logging.getLogger(__name__)
 
 LIST_INDENT = Cm(0.63)
 # Estilo usado quando o layout base não tem o do papel (ex. sem layout.docx).
@@ -111,7 +115,13 @@ def _picture(state, href, width, height):
         picture = para.add_run().add_picture(
             path, width=int(width), height=None if height is None else int(height)
         )
-    except Exception:
+    except Exception as exc:
+        logger.warning(
+            "imagem %s não inserida no DOCX; sai o texto alternativo (%s: %s)",
+            href,
+            type(exc).__name__,
+            exc,
+        )
         para._p.getparent().remove(para._p)
         return None
     para.alignment = WD_ALIGN_PARAGRAPH.CENTER
