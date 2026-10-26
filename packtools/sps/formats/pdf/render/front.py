@@ -12,6 +12,7 @@ from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from docx.shared import Emu, Pt
 from docx.text.paragraph import Paragraph
 from packtools.sps.formats.pdf.layout import logo as logo_layout
 from packtools.sps.formats.pdf.layout import page as page_layout
@@ -49,11 +50,8 @@ def render_front(state, meta, blocks, logo_spec=None):
             logo_layout.title_doi_columns(page_layout.content_width(state.page)),
             v_center=False,
         )
-        _add_text(
-            title_cell.paragraphs[0],
-            journal_title_two_lines(meta["journal_title"]),
-            doc,
-            "journal_title_char",
+        _add_journal_title(
+            title_cell.paragraphs[0], meta["journal_title"], title_cell.width, doc
         )
         _add_doi(doi_cell.paragraphs[0], meta["doi"], doc, WD_ALIGN_PARAGRAPH.RIGHT)
     _zero_cell_spacing(header)
@@ -167,6 +165,79 @@ def journal_title_two_lines(title):
     return f"{first}\n{rest}" if rest else title
 
 
+# Largura estimada do título do periódico, que sai em caixa alta: média, em
+# em, das maiúsculas da Noto Serif (a fonte do título no layout.docx) por
+# classe de caractere. Medida com as fontes reais nos 315 periódicos dos
+# lotes de teste, erra até 4,4% para menos; a margem de 2% evita que uma
+# linha estimada como cabendo quebre de novo e o título ocupe 3 linhas.
+_NARROW_CHARS = set(".,:;/-()'IJÍ")
+_MEDIUM_CHARS = set("SFZPTCELYÇÊÉ")
+_WIDE_CHARS = set("MW")
+_WIDTH_MARGIN = 1.02
+JOURNAL_TITLE_SIZE = 14
+JOURNAL_TITLE_MIN_SIZE = 10
+
+
+def _caps_width_em(text):
+    """Largura estimada (em) do texto em caixa alta, com a margem de segurança."""
+    width = 0.0
+    for char in text.upper():
+        if char == " ":
+            width += 0.26
+        elif char in _NARROW_CHARS:
+            width += 0.33
+        elif char in _MEDIUM_CHARS:
+            width += 0.61
+        elif char in _WIDE_CHARS:
+            width += 0.95
+        else:
+            width += 0.72
+    return width * _WIDTH_MARGIN
+
+
+def fit_journal_title(title, width, size=JOURNAL_TITLE_SIZE):
+    """
+    Título do periódico em até 2 linhas na coluna do cabeçalho da 1ª página.
+
+    Parâmetros
+    ----------
+    title : str
+        Título do periódico.
+    width : int
+        Largura da coluna do título (EMU).
+    size : float
+        Tamanho da fonte do título (pt), o do estilo.
+
+    Retorna
+    -------
+    tuple of (str, float)
+        O texto, com a quebra de linha, e o tamanho da fonte. Na ordem: a
+        quebra de journal_title_two_lines, se couber; senão, a que divide
+        o título de forma mais equilibrada (a de menor linha mais longa);
+        senão, a equilibrada com a fonte reduzida de 1 em 1 pt até
+        JOURNAL_TITLE_MIN_SIZE, onde fica mesmo sem caber.
+    """
+    words = title.split()
+    if len(words) < 2:
+        return title, size
+    splits = [
+        (" ".join(words[:i]), " ".join(words[i:])) for i in range(1, len(words))
+    ]
+
+    def widest(split):
+        return max(_caps_width_em(line) for line in split)
+
+    balanced = min(splits, key=widest)
+    current_size = size
+    while True:
+        limit = Emu(width).pt / current_size
+        if current_size == size and widest(splits[0]) <= limit:
+            return "\n".join(splits[0]), size
+        if widest(balanced) <= limit or current_size - 1 < JOURNAL_TITLE_MIN_SIZE:
+            return "\n".join(balanced), current_size
+        current_size -= 1
+
+
 # -----------------
 # Partes da primeira página
 # -----------------
@@ -179,6 +250,21 @@ def _add_text(paragraph, text, doc, char_role):
     if style is not None:
         run.style = style
     return run
+
+
+def _add_journal_title(paragraph, title, width, doc):
+    """
+    Título do periódico em até 2 linhas na coluna de largura width (EMU),
+    no tamanho do estilo ou reduzido (ver fit_journal_title).
+    """
+    style = styles.get(doc, "journal_title_char")
+    size = JOURNAL_TITLE_SIZE
+    if style is not None and style.font.size:
+        size = style.font.size.pt
+    text, fitted = fit_journal_title(title, width, size)
+    run = _add_text(paragraph, text, doc, "journal_title_char")
+    if fitted != size:
+        run.font.size = Pt(fitted)
 
 
 def _add_doi(paragraph, doi, doc, alignment):
@@ -250,14 +336,9 @@ def _logo_header(state, header, spec, meta):
     )
     doc = state.doc
 
-    def add_title(paragraph):
-        """Título do periódico em duas linhas, no estilo do cabeçalho."""
-        _add_text(
-            paragraph,
-            journal_title_two_lines(meta["journal_title"]),
-            doc,
-            "journal_title_char",
-        )
+    def add_title(cell):
+        """Título do periódico em até duas linhas, no estilo do cabeçalho."""
+        _add_journal_title(cell.paragraphs[0], meta["journal_title"], cell.width, doc)
 
     def add_logo(paragraph, alignment):
         """Logo no tamanho calculado, com o alinhamento dado."""
@@ -278,7 +359,7 @@ def _logo_header(state, header, spec, meta):
         )
         if spec.show_title:
             title_cell, doi_cell = _header_table(state, header, measures.columns)
-            add_title(title_cell.paragraphs[0])
+            add_title(title_cell)
             _add_doi(
                 doi_cell.paragraphs[0], meta["doi"], doc, WD_ALIGN_PARAGRAPH.RIGHT
             )
@@ -291,7 +372,7 @@ def _logo_header(state, header, spec, meta):
             logo_cell, title_cell, doi_cell = _header_table(
                 state, header, measures.columns
             )
-            add_title(title_cell.paragraphs[0])
+            add_title(title_cell)
         else:
             logo_cell, doi_cell = _header_table(state, header, measures.columns)
         add_logo(logo_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.LEFT)
@@ -299,7 +380,7 @@ def _logo_header(state, header, spec, meta):
     else:
         text_cell, logo_cell = _header_table(state, header, measures.columns)
         if spec.show_title:
-            add_title(text_cell.paragraphs[0])
+            add_title(text_cell)
             _add_doi(
                 text_cell.add_paragraph(), meta["doi"], doc, WD_ALIGN_PARAGRAPH.LEFT
             )
