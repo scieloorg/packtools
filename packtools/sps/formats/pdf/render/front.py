@@ -215,7 +215,8 @@ def fit_journal_title(title, width, size=JOURNAL_TITLE_SIZE):
         quebra de journal_title_two_lines, se couber; senão, a que divide
         o título de forma mais equilibrada (a de menor linha mais longa);
         senão, a equilibrada com a fonte reduzida de 1 em 1 pt até
-        JOURNAL_TITLE_MIN_SIZE, onde fica mesmo sem caber.
+        JOURNAL_TITLE_MIN_SIZE, onde fica mesmo sem caber (com aviso no
+        log).
     """
     words = title.split()
     if len(words) < 2:
@@ -233,7 +234,14 @@ def fit_journal_title(title, width, size=JOURNAL_TITLE_SIZE):
         limit = Emu(width).pt / current_size
         if current_size == size and widest(splits[0]) <= limit:
             return "\n".join(splits[0]), size
-        if widest(balanced) <= limit or current_size - 1 < JOURNAL_TITLE_MIN_SIZE:
+        if widest(balanced) <= limit:
+            return "\n".join(balanced), current_size
+        if current_size - 1 < JOURNAL_TITLE_MIN_SIZE:
+            logger.warning(
+                "título do periódico não cabe em 2 linhas no cabeçalho, nem com %s pt: %s",
+                current_size,
+                title,
+            )
             return "\n".join(balanced), current_size
         current_size -= 1
 

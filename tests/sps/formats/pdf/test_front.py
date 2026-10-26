@@ -28,6 +28,7 @@ from packtools.sps.formats.pdf.extract import citation
 from packtools.sps.formats.pdf.extract.languages import document_for
 from docx.shared import Mm
 
+from packtools.sps.formats.pdf.render import front as front_module
 from packtools.sps.formats.pdf.render.front import fit_journal_title, journal_title_two_lines, vol_issue_year
 
 from .helpers import NS, article, article_xml, docx, summary, xml
@@ -523,9 +524,17 @@ class TestFitJournalTitle(unittest.TestCase):
         self.assertLess(size, 14)
 
     def test_font_stops_at_the_minimum(self):
-        text, size = fit_journal_title('Revista Brasileira de Engenharia Agrícola e Ambiental', Mm(40))
+        title = 'Revista Brasileira de Engenharia Agrícola e Ambiental'
+        with self.assertLogs(front_module.logger, level='WARNING') as logs:
+            text, size = fit_journal_title(title, Mm(40))
         self.assertEqual(size, 10)
         self.assertEqual(text.count('\n'), 1)
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn(title, logs.output[0])
+
+    def test_no_warning_when_the_title_fits(self):
+        with self.assertNoLogs(front_module.logger, level='WARNING'):
+            fit_journal_title('Revista Brasileira de Direito Processual Penal', Mm(66.5))
 
     def test_single_word_is_unchanged(self):
         self.assertEqual(fit_journal_title('Science', Mm(10)), ('Science', 14))
