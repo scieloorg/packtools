@@ -452,6 +452,17 @@ class TestPipelineDocxWithLogo(_WithImages):
         header = self._pipeline()
         self.assertEqual(len(header.tables[0].rows[0].cells), 2)
 
+    def test_header_cells_have_no_paragraph_spacing(self):
+        """#1404: sem o espaço do Normal, o título em 3 linhas não empurra o corpo."""
+        for journal_logo in (None, {'path': self.png_wide}):
+            with self.subTest(journal_logo=journal_logo):
+                header = self._pipeline(journal_logo)
+                paragraphs = [p for c in header.tables[0].rows[0].cells for p in c.paragraphs]
+                self.assertTrue(paragraphs)
+                for paragraph in paragraphs:
+                    self.assertEqual(paragraph.paragraph_format.space_before, 0)
+                    self.assertEqual(paragraph.paragraph_format.space_after, 0)
+
     def test_with_logo_uses_three_column_header(self):
         header = self._pipeline({'path': self.png_wide})
         self.assertEqual(len(header.tables[0].rows[0].cells), 3)

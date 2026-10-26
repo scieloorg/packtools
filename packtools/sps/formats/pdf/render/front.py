@@ -56,6 +56,7 @@ def render_front(state, meta, blocks, logo_spec=None):
             "journal_title_char",
         )
         _add_doi(doi_cell.paragraphs[0], meta["doi"], doc, WD_ALIGN_PARAGRAPH.RIGHT)
+    _zero_cell_spacing(header)
     render_blocks(state, blocks)
 
 
@@ -333,6 +334,22 @@ def _header_table(state, container, widths, v_center=True):
         if v_center:
             cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     return tuple(cells)
+
+
+def _zero_cell_spacing(container):
+    """
+    Zera o espaço antes e depois dos parágrafos das células das tabelas do
+    container (o cabeçalho da 1ª página).
+
+    Sem isso, os parágrafos herdam o espaço depois do estilo Normal (3,5 mm
+    no layout.docx do corpus), e o título do periódico em 3 linhas passava
+    do fundo do cabeçalho e empurrava o corpo para baixo.
+    """
+    for table in container.tables:
+        for cell in table.rows[0].cells:
+            for paragraph in cell.paragraphs:
+                paragraph.paragraph_format.space_before = 0
+                paragraph.paragraph_format.space_after = 0
 
 
 def _remove_placeholder_before(table):
