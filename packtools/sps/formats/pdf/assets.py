@@ -62,7 +62,7 @@ class Assets:
     def natural_size(self, href):
         """
         Tamanho natural (largura, altura) da imagem em EMU, pelo DPI do
-        arquivo, ou None se ilegível.
+        arquivo, ou None se ilegível (registrado em log).
 
         As duas medidas usam o DPI horizontal, para (largura / altura) ser a
         proporção em pixels: é a mesma proporção que o python-docx usa ao
@@ -78,7 +78,17 @@ class Assets:
                     int(im.width / dpi * EMU_PER_INCH),
                     int(im.height / dpi * EMU_PER_INCH),
                 )
-        except Exception:
+        except Exception as exc:
+            # Exception, e não uma lista: o PIL levanta tipos variados
+            # (UnidentifiedImageError, OSError, DecompressionBombError, ...),
+            # e uma falha não prevista interromperia a geração do PDF.
+            self._warn_once(
+                href,
+                "imagem %s ilegível, sem tamanho natural (%s: %s)",
+                href,
+                type(exc).__name__,
+                exc,
+            )
             return None
 
     def natural_width(self, href):

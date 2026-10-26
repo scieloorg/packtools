@@ -114,6 +114,17 @@ class TestAssetsPath(_WithTmp):
         self.assertIn('fig1.tif', logs.output[0])
         self.assertIn(os.path.join(self.tmp, 'fig1.tif'), logs.output[0])
 
+    def test_unreadable_image_is_logged_once(self):
+        with open(os.path.join(self.tmp, 'fig1.png'), 'w') as f:
+            f.write('não é imagem')
+        assets = Assets(self.tmp)
+        with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+            self.assertIsNone(assets.natural_size('fig1.png'))
+            self.assertIsNone(assets.natural_width('fig1.png'))
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('fig1.png', logs.output[0])
+        self.assertIn('UnidentifiedImageError', logs.output[0])
+
     def test_remote_url_is_downloaded_once(self):
         """
         old: test_figure.py TestResolveImagePath.test_remote_url_is_downloaded
