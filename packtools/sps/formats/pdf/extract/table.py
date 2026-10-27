@@ -101,6 +101,36 @@ def grid(table, cell_runs):
     return {"nrows": len(rows), "ncols": ncols, "cells": cells}
 
 
+def holes(block):
+    """
+    Posições da grade que nenhuma célula do XML ocupa.
+
+    Parâmetros
+    ----------
+    block : dict
+        Grade (ver grid) ou bloco ``table``.
+
+    Retorna
+    -------
+    list of tuple
+        ``(linha, coluna)`` em ordem de leitura. Aparecem quando o XML é
+        inconsistente: uma linha cobre menos colunas que a mais larga
+        (``colspan`` a mais ou a menos, célula omitida) (#1380).
+    """
+    occupied = {
+        (cell["row"] + i, cell["col"] + j)
+        for cell in block["cells"]
+        for i in range(cell["rowspan"])
+        for j in range(cell["colspan"])
+    }
+    return [
+        (row, col)
+        for row in range(block["nrows"])
+        for col in range(block["ncols"])
+        if (row, col) not in occupied
+    ]
+
+
 def max_cell_length(block):
     """Tamanho, em caracteres, do texto da célula mais longa de um bloco de tabela."""
     return max((len(runs_text(cell["runs"])) for cell in block["cells"]), default=0)

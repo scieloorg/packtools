@@ -496,6 +496,15 @@ class TestTableHeaderBodyMismatch(unittest.TestCase):
         self.assertEqual(len(table.columns), 3)
         self.assertEqual(table.rows[-1].cells[2].text, 'B')
 
+    def test_position_without_cell_is_formatted_like_the_others(self):
+        """#1380: com o estilo Normal (11pt, 10pt depois), a posição vazia triplicava a altura da linha."""
+        hole = self._render().tables[0].cell(0, 2)
+        p_pr = hole.paragraphs[0]._p.pPr
+        spacing = p_pr.find(qn('w:spacing'))
+        self.assertEqual((spacing.get(qn('w:before')), spacing.get(qn('w:after'))), ('0', '0'))
+        self.assertEqual(p_pr.find(qn('w:rPr')).find(qn('w:sz')).get(qn('w:val')), '14')
+        self.assertIsNotNone(hole._element.tcPr.find(qn('w:tcMar')))
+
 
 # -----------------
 # Texto e fórmulas (old: renderer/docx/test_text.py)
