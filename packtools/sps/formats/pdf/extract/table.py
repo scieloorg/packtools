@@ -2,12 +2,16 @@
 Tabelas: ``<table-wrap>``, ``<table>`` e ``<alternatives>`` solto.
 """
 
+import logging
+
 from packtools.sps.formats.pdf.extract.context import child
 from packtools.sps.formats.pdf.extract.flow import block_runs, flow, paragraph
 from packtools.sps.formats.pdf.extract.graphic import best, figure_block, graphics, handle_block
 from packtools.sps.formats.pdf.extract.registry import block_handler
 from packtools.sps.formats.pdf.extract.runs import normalize, runs_text, tag
 from packtools.sps.formats.pdf.extract.title import caption_runs
+
+logger = logging.getLogger(__name__)
 
 
 # -----------------
@@ -193,17 +197,33 @@ def handle_table_wrap(node, ctx):
     blocks = []
     last = len(panels) - 1
     for i, panel in enumerate(panels):
+        cells = grid(panel, cell_runs)
+        _warn_holes(node.get("id"), cells)
         blocks.append(
             {
                 "type": "table",
                 "id": node.get("id"),
                 "panel": i,
                 "caption": caption if i == 0 else [],
-                **grid(panel, cell_runs),
+                **cells,
                 "foot": foot if i == last else [],
             }
         )
     return blocks
+
+
+def _warn_holes(table_id, cells):
+    """Avisa quando a grade tem posições sem célula no XML (ver holes); linhas contadas a partir de 1."""
+    positions = holes(cells)
+    if positions:
+        rows = sorted({row + 1 for row, _ in positions})
+        logger.warning(
+            "tabela %s: %d posições sem célula no XML (%s %s), completadas com células vazias",
+            table_id,
+            len(positions),
+            "linha" if len(rows) == 1 else "linhas",
+            ", ".join(map(str, rows)),
+        )
 
 
 # -----------------

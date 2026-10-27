@@ -8,6 +8,7 @@ from packtools.sps.formats.pdf.extract.flow import flow
 from packtools.sps.formats.pdf.extract.inline import inlines
 from packtools.sps.formats.pdf.extract.languages import document_for, languages
 from packtools.sps.formats.pdf.extract.runs import normalize, runs_text
+from packtools.sps.formats.pdf.extract import table as table_extract
 
 NS = 'xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"'
 
@@ -129,6 +130,26 @@ class FlowTest(unittest.TestCase):
         node = xml(f'<sec {NS}><table-wrap><label>Table 2</label><graphic xlink:href="t2.jpg"/></table-wrap></sec>')
         (block,) = extract(node)
         self.assertEqual((block['type'], block['href'], block['caption_first']), ('figure', 't2.jpg', True))
+
+    def test_table_with_positions_without_cell_warns_with_its_rows(self):
+        # #1380: cabeçalho de 3 colunas (colspan) e corpo de 4, como na Tabela 6 de delta-42-02-e202642271967
+        node = xml('<sec><table-wrap id="t6"><table>'
+                   '<thead><tr><th>V</th><th colspan="2">H</th></tr></thead>'
+                   '<tbody><tr><td>a</td><td>1</td><td>2</td><td>3</td></tr>'
+                   '<tr><td>b</td><td>4</td></tr></tbody></table></table-wrap></sec>')
+        with self.assertLogs(table_extract.logger, level='WARNING') as logs:
+            (table,) = extract(node)
+        self.assertEqual(table_extract.holes(table), [(0, 3), (2, 2), (2, 3)])
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('tabela t6: 3 posições sem célula no XML (linhas 1, 3)', logs.output[0])
+
+    def test_consistent_table_does_not_warn(self):
+        node = xml('<sec><table-wrap id="t1"><table><thead><tr><th colspan="2">H</th></tr></thead>'
+                   '<tbody><tr><td rowspan="2">a</td><td>b</td></tr><tr><td>c</td></tr></tbody>'
+                   '</table></table-wrap></sec>')
+        with self.assertNoLogs(table_extract.logger, level='WARNING'):
+            (table,) = extract(node)
+        self.assertEqual(table_extract.holes(table), [])
 
 
 class ArticleTest(unittest.TestCase):
