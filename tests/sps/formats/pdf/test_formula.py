@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 from lxml import etree
 
@@ -86,6 +87,99 @@ class TestNormalizeEmptyBaseSuperscripts(unittest.TestCase):
             self.assertEqual(etree.QName(msup[0]).localname, 'msub')
 
 
+class TestNormalizeMultiscripts(unittest.TestCase):
+    """
+    <mmultiscripts>: o mathml2omml gera <m:sPre> com uma caixa em cada
+    posição vazia e perde os índices à direita ("k² = □□" no lugar de
+    "k² = k_x² + k_y² + k_z²", rbef-48-e20250547).
+    """
+
+    def _shape(self, element):
+        name = etree.QName(element).localname
+        children = [c for c in element if isinstance(c.tag, str)]
+        if not children:
+            return name if not (element.text or '').strip() else f'{name}:{element.text.strip()}'
+        return (name, [self._shape(c) for c in children])
+
+    def _normalized(self, body):
+        return self._shape(formula.normalize_multiscripts(_mathml(body)))
+
+    def test_postscript_pairs_keep_their_columns(self):
+        self.assertEqual(
+            self._normalized(
+                '<mmultiscripts><mi>E</mi><mi>F</mi><mrow/><mrow/>'
+                '<mrow><mn>3</mn><mo>/</mo><mn>2</mn></mrow></mmultiscripts>'
+            ),
+            ('math', [('msup', [('msub', ['mi:E', 'mi:F']), ('mrow', ['mn:3', 'mo:/', 'mn:2'])])]),
+        )
+
+    def test_tensor_indices_are_not_aligned(self):
+        self.assertEqual(
+            self._normalized(
+                '<mmultiscripts><mi>T</mi><mi>i</mi><none/><none/><mi>j</mi></mmultiscripts>'
+            ),
+            ('math', [('msup', [('msub', ['mi:T', 'mi:i']), 'mi:j'])]),
+        )
+
+    def test_full_postscript_pair_becomes_msubsup(self):
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>T</mi><mi>i</mi><mi>j</mi></mmultiscripts>'),
+            ('math', [('msubsup', ['mi:T', 'mi:i', 'mi:j'])]),
+        )
+
+    def test_prescript_pairs_keep_their_columns(self):
+        self.assertEqual(
+            self._normalized(
+                '<mmultiscripts><mi>T</mi><mprescripts/>'
+                '<none/><mi>j</mi><mi>i</mi><none/></mmultiscripts>'
+            ),
+            ('math', [('mmultiscripts', [
+                ('mmultiscripts', ['mi:T', 'mprescripts', 'mi:i', 'mtext']),
+                'mprescripts', 'mtext', 'mi:j',
+            ])]),
+        )
+
+    def test_only_subscript_becomes_msub(self):
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>a</mi><mi>i</mi><none/></mmultiscripts>'),
+            ('math', [('msub', ['mi:a', 'mi:i'])]),
+        )
+
+    def test_empty_prescript_slot_gets_empty_text(self):
+        # ¹⁵C: <none/> virava uma caixa à esquerda do C (ni-24-02-e250114)
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>C</mi><mprescripts/><none/><mn>15</mn></mmultiscripts>'),
+            ('math', [('mmultiscripts', ['mi:C', 'mprescripts', 'mtext', 'mn:15'])]),
+        )
+
+    def test_full_prescripts_are_kept(self):
+        self.assertEqual(
+            self._normalized('<mmultiscripts><mi>X</mi><mprescripts/><mi>c</mi><mi>i</mi></mmultiscripts>'),
+            ('math', [('mmultiscripts', ['mi:X', 'mprescripts', 'mi:c', 'mi:i'])]),
+        )
+
+    def test_prescript_of_empty_base_goes_to_the_previous_element(self):
+        # "p" seguido de base vazia com índice à esquerda "f" é p_f (lajss-23-9-e9098)
+        self.assertEqual(
+            self._normalized(
+                '<mi>α</mi><mi>p</mi>'
+                '<mmultiscripts><mrow/><mprescripts/><mi>f</mi><none/></mmultiscripts>'
+            ),
+            ('math', ['mi:α', ('msub', ['mi:p', 'mi:f'])]),
+        )
+
+    def test_converted_formula_keeps_the_postscripts(self):
+        math = _mathml(
+            '<msup><mi>k</mi><mn>2</mn></msup><mo>=</mo>'
+            '<mmultiscripts><mi>k</mi><mi>x</mi><mrow/><mrow/><mn>2</mn></mmultiscripts>'
+        )
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        self.assertIsNone(omml.find(f'.//{{{m}}}sPre'))
+        self.assertIsNotNone(omml.find(f'.//{{{m}}}sSup/{{{m}}}e/{{{m}}}sSub'))
+        self.assertEqual(''.join(omml.itertext()), 'k2=kx2')
+
+
 class TestMathmlToOmml(unittest.TestCase):
 
     def test_converts_simple_expression_to_omath(self):
@@ -115,6 +209,23 @@ class TestMathmlToOmml(unittest.TestCase):
         # mathml2omml raises NotImplementedError para tag desconhecida; deve virar None, não propagar
         math = _mathml('<not-a-real-mathml-tag/>')
         self.assertIsNone(formula.mathml_to_omml(math))
+
+    def test_logs_the_formula_that_falls_back_to_text(self):
+        disp = etree.fromstring(
+            f'<disp-formula id="e7"><math xmlns="{_MML_NS}"><not-a-real-mathml-tag/></math></disp-formula>'
+        )
+        with self.assertLogs(formula.logger, level='WARNING') as logs:
+            self.assertIsNone(formula.mathml_to_omml(disp[0]))
+        self.assertIn('e7', logs.output[0])
+        self.assertIn('NotImplementedError', logs.output[0])
+
+    def test_logs_invalid_omml_from_the_converter(self):
+        math = _mathml('<mi>Y</mi>')
+        with mock.patch.object(formula.mathml2omml, 'convert', return_value='<m:oMath><m:r></m:oMath>'):
+            with self.assertLogs(formula.logger, level='WARNING') as logs:
+                self.assertIsNone(formula.mathml_to_omml(math))
+        self.assertIn('OMML inválido', logs.output[0])
+        self.assertIn('sem id', logs.output[0])
 
     def test_does_not_abort_when_the_tree_contains_a_comment_node(self):
         math = _mathml('<mi>Y</mi><mo>=</mo><mn>1</mn><!-- nota -->')
@@ -147,14 +258,225 @@ class TestMathmlToOmml(unittest.TestCase):
         self.assertNotIn('m:val="p"', omml_str)
 
 
+class TestFillEmptyMatrixCells(unittest.TestCase):
+    """Célula vazia de matriz: o LibreOffice a descartava e a matriz saía com "¿"."""
+
+    _M = f'{{{formula._OMML_NS}}}'
+
+    def _cells(self, omml):
+        return [
+            [''.join(e.itertext()) for e in mr.findall(f'{self._M}e')]
+            for mr in omml.iter(f'{self._M}mr')
+        ]
+
+    def test_empty_cell_gets_zero_width_space_in_nor_run(self):
+        math = _mathml(
+            '<mtable>'
+            '<mtr><mtd><mi>a</mi><mo>=</mo></mtd><mtd><mi>b</mi></mtd></mtr>'
+            '<mtr><mtd/><mtd><mo>+</mo><mi>c</mi></mtd></mtr>'
+            '</mtable>'
+        )
+        omml = formula.mathml_to_omml(math)
+        self.assertEqual(self._cells(omml), [['a=', 'b'], ['​', '+c']])
+        run = next(r for r in omml.iter(f'{self._M}r') if r.findtext(f'{self._M}t') == '​')
+        self.assertIsNotNone(run.find(f'{self._M}rPr/{self._M}nor'))
+
+    def test_cell_with_only_mspace_is_filled(self):
+        """<mspace> não gera texto: a célula também seria descartada."""
+        math = _mathml(
+            '<mtable>'
+            '<mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr>'
+            '<mtr><mtd><mspace width="1em"/></mtd><mtd><mi>c</mi></mtd></mtr>'
+            '</mtable>'
+        )
+        omml = formula.mathml_to_omml(math)
+        self.assertEqual(self._cells(omml)[1][0].strip(), '​')
+
+    def test_cells_with_text_are_untouched(self):
+        math = _mathml('<mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr></mtable>')
+        omml = formula.mathml_to_omml(math)
+        self.assertEqual(self._cells(omml), [['a', 'b']])
+
+
+class TestGroupChars(unittest.TestCase):
+    """
+    <mover>/<munder> com acento esticável: o mathml2omml gera <m:groupChr>
+    com <m:groupChrPr> fechado por </m:groupChr>, e a fórmula caía para
+    texto (a24.xml, Eq. 4 e 5: "P R t ¯").
+    """
+
+    def _over(self, char):
+        return _mathml(
+            '<mover accent="true">'
+            '<mrow><mi>P</mi><msup><mi>R</mi><mi>t</mi></msup></mrow>'
+            f'<mo stretchy="true">{char}</mo>'
+            '</mover>'
+        )
+
+    def _tags(self, omml):
+        return {etree.QName(e).localname for e in omml.iter() if isinstance(e.tag, str)}
+
+    def test_closes_the_group_chr_properties(self):
+        broken = (
+            '<m:groupChr><m:groupChrPr><m:chr m:val="⏞"/><m:pos m:val="top"/>'
+            '</m:groupChr><m:e><m:r><m:t>x</m:t></m:r></m:e></m:groupChr>'
+        )
+        self.assertEqual(
+            formula._close_group_chr_pr(broken),
+            '<m:groupChr><m:groupChrPr><m:chr m:val="⏞"/><m:pos m:val="top"/>'
+            '</m:groupChrPr><m:e><m:r><m:t>x</m:t></m:r></m:e></m:groupChr>',
+        )
+
+    def test_overbar_becomes_bar_over_the_whole_base(self):
+        omml = formula.mathml_to_omml(self._over('¯'))
+        self.assertIsNotNone(omml)
+        tags = self._tags(omml)
+        self.assertIn('bar', tags)
+        self.assertNotIn('groupChr', tags)
+        bar = omml.find(f'.//{{{formula._OMML_NS}}}bar')
+        self.assertEqual(''.join(bar.itertext()), 'PRt')
+
+    def test_arrow_becomes_accent(self):
+        omml = formula.mathml_to_omml(self._over('→'))
+        self.assertIsNotNone(omml)
+        char = omml.find(f'.//{{{formula._OMML_NS}}}acc/{{{formula._OMML_NS}}}accPr/{{{formula._OMML_NS}}}chr')
+        self.assertEqual(char.get(f'{{{formula._OMML_NS}}}val'), '→')
+
+    def test_small_tilde_becomes_accent_with_tilde(self):
+        # com "˜" (U+02DC) o LibreOffice desenha um apóstrofo sobre a base
+        omml = formula.mathml_to_omml(self._over('˜'))
+        char = omml.find(f'.//{{{formula._OMML_NS}}}acc/{{{formula._OMML_NS}}}accPr/{{{formula._OMML_NS}}}chr')
+        self.assertEqual(char.get(f'{{{formula._OMML_NS}}}val'), '~')
+
+    def test_overbrace_stays_group_chr(self):
+        omml = formula.mathml_to_omml(self._over('⏞'))
+        self.assertIsNotNone(omml)
+        tags = self._tags(omml)
+        self.assertIn('groupChr', tags)
+        self.assertNotIn('acc', tags)
+
+    def test_non_stretchy_accent_becomes_accent_over_the_base(self):
+        # o "̃" combinante em <m:limUpp> saía sobre um círculo pontilhado (aabc-98-02-e20250518)
+        m = formula._OMML_NS
+        for char, expected in (
+            ('̃', 'acc'), ('^', 'acc'), ('̇', 'acc'), ('∼', 'acc'),
+            ('―', 'bar'), ('-', 'bar'), ('−', 'bar'),
+        ):
+            with self.subTest(char=char):
+                math = _mathml(
+                    '<mover><msub><mi>F</mi><mi>j</mi></msub>'
+                    f'<mo accent="true">{char}</mo></mover>'
+                )
+                omml = formula.mathml_to_omml(math)
+                tags = self._tags(omml)
+                self.assertIn(expected, tags)
+                self.assertNotIn('limUpp', tags)
+
+    def test_keeps_limupp_with_more_than_an_accent(self):
+        math = _mathml('<mover><mo>→</mo><mtext>def</mtext></mover>')
+        omml = formula.mathml_to_omml(math)
+        self.assertIn('limUpp', self._tags(omml))
+
+    def test_annotation_is_not_turned_into_accent(self):
+        for body in (
+            '<mover accent="false"><mi>x</mi><mo stretchy="false">−</mo></mover>',
+            '<mover><mi>x</mi><mtext>−</mtext></mover>',
+            '<mover accent="false"><mi>x</mi><mo stretchy="true">¯</mo></mover>',
+            '<mover><mi>x</mi><mo accent="false">^</mo></mover>',
+            '<mover><mi>x</mi><mo>−</mo></mover>',
+            '<mover><mi>x</mi><mo>∼</mo></mover>',
+            '<mover><mi>x</mi><mo>·</mo></mover>',
+            '<mover><mi>x</mi><mo form="infix">^</mo></mover>',
+        ):
+            with self.subTest(body=body):
+                tags = self._tags(formula.mathml_to_omml(_mathml(body)))
+                self.assertIn('limUpp', tags)
+                self.assertNotIn('bar', tags)
+                self.assertNotIn('acc', tags)
+
+    def test_dictionary_accent_without_attributes(self):
+        for char, expected in (('¯', 'bar'), ('^', 'acc'), ('~', 'acc'), ('→', 'acc')):
+            with self.subTest(char=char):
+                math = _mathml(f'<mover><mi>x</mi><mo>{char}</mo></mover>')
+                self.assertIn(expected, self._tags(formula.mathml_to_omml(math)))
+
+    def test_mover_accent_attribute_wins_over_the_script(self):
+        math = _mathml('<mover accent="true"><mi>x</mi><mtext>~</mtext></mover>')
+        self.assertIn('acc', self._tags(formula.mathml_to_omml(math)))
+
+    def test_underscript_accent_converts(self):
+        math = _mathml(
+            '<munder><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow>'
+            '<mo stretchy="true" accent="true">⏟</mo></munder>'
+        )
+        omml = formula.mathml_to_omml(math)
+        self.assertIsNotNone(omml)
+        pos = omml.find(f'.//{{{formula._OMML_NS}}}groupChrPr/{{{formula._OMML_NS}}}pos')
+        self.assertEqual(pos.get(f'{{{formula._OMML_NS}}}val'), 'bot')
+
+
 class TestNormalizePlainStyleRuns(unittest.TestCase):
 
-    def _run_with_style(self, style_xml):
+    def _run_with_style(self, style_xml, text='+'):
         return etree.fromstring(
             f'<m:oMath xmlns:m="{formula._OMML_NS}">'
-            f'<m:r><m:rPr>{style_xml}</m:rPr><m:t>+</m:t></m:r>'
+            f'<m:r><m:rPr>{style_xml}</m:rPr><m:t>{text}</m:t></m:r>'
             f'</m:oMath>'
         )
+
+    def test_keeps_plain_style_on_parentheses_and_braces(self):
+        # com m:nor o LibreOffice escreve "\(" e "\{" (rbp-48-e20254146: "ln \( P R R \)")
+        for text in ('(', ')', '{', '}'):
+            with self.subTest(text=text):
+                omml = self._run_with_style('<m:sty m:val="p"/>', text)
+                result_str = etree.tostring(formula._normalize_plain_style_runs(omml), encoding='unicode')
+                self.assertIn('m:val="p"', result_str)
+                self.assertNotIn('<m:nor/>', result_str)
+
+    def test_still_replaces_other_brackets_and_bars(self):
+        # com m:sty p o LibreOffice troca "[", "]" e "|" por um glyph inválido
+        for text in ('[', ']', '|', '-'):
+            with self.subTest(text=text):
+                omml = self._run_with_style('<m:sty m:val="p"/>', text)
+                result_str = etree.tostring(formula._normalize_plain_style_runs(omml), encoding='unicode')
+                self.assertIn('<m:nor/>', result_str)
+
+    def test_splits_text_run_around_parentheses(self):
+        # <mtext> já sai do mathml2omml com m:nor (aabc-98-01-e20250190: "concentration \(mg/L\)")
+        math = _mathml('<mi>C</mi><mtext> is concentration (mg/L), </mtext><mi>A</mi>')
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        runs = [
+            (''.join(r.itertext()), r.find(f'{{{m}}}rPr/{{{m}}}nor') is not None)
+            for r in omml.iter(f'{{{m}}}r')
+        ]
+        self.assertEqual(
+            runs,
+            [
+                ('C', False),
+                (' is concentration ', True),
+                ('(', False),
+                ('mg/L', True),
+                (')', False),
+                (', ', True),
+                ('A', False),
+            ],
+        )
+
+    def test_stretchy_false_parentheses_keep_plain_style(self):
+        math = _mathml(
+            '<mi>ln</mi><mo stretchy="false">(</mo><mi>R</mi>'
+            '<mo stretchy="false">)</mo><mo>±</mo><mn>1.96</mn>'
+        )
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        for run in omml.iter(f'{{{m}}}r'):
+            text = ''.join(run.itertext())
+            nor = run.find(f'{{{m}}}rPr/{{{m}}}nor')
+            if text in ('(', ')'):
+                self.assertIsNone(nor, text)
+            elif text in ('ln', '±'):
+                self.assertIsNotNone(nor, text)
 
     def test_replaces_plain_style_with_nor(self):
         omml = self._run_with_style('<m:sty m:val="p"/>')
