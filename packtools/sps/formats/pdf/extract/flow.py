@@ -108,7 +108,7 @@ def handler(node, handlers=None):
     node : lxml.etree._Element
         Filho do elemento percorrido.
     handlers : dict, opcional
-        Handlers locais deste nível.
+        Handlers locais deste nível; valor None manda a tag para o texto.
 
     Retorna
     -------
@@ -117,14 +117,15 @@ def handler(node, handlers=None):
         deve virar texto do parágrafo em aberto.
     """
     name = tag(node)
-    # 1. handler local deste nível (ex. "list-item" dentro de uma lista)
+    # 1. handler local deste nível (ex. "list-item" dentro de uma lista);
+    #    None faz a tag virar texto do parágrafo (material suplementar no <p>)
     if handlers and name in handlers:
         return handlers[name]
     # 2. handler registrado pelo módulo do elemento
     if name in registry.BLOCK:
         return registry.BLOCK[name]
     # 3. tag desconhecida com blocos dentro: percorre como container
-    if contains_block(node):
+    if contains_block(node, handlers):
         return handle_container
     return None
 
@@ -166,7 +167,8 @@ def process_child(node, ctx, buffer, pending, blocks, skip, handlers):
         buffer += inline.inline(node, ctx["fmt"])
         return
     if pending and tag(node) == "p" and not has_content(buffer[pending:]):
-        produced = flow(node, ctx, prefix=buffer[:pending])
+        # o handler do <p> (sec.handle_p), não flow direto: ele decide se o material suplementar fica no texto
+        produced = block(node, ctx, prefix=buffer[:pending])
         buffer.clear()
     else:
         flush(buffer, blocks, ctx)
@@ -174,9 +176,21 @@ def process_child(node, ctx, buffer, pending, blocks, skip, handlers):
     blocks += mark_target(node, produced)
 
 
-def contains_block(node):
-    """True se algum descendente é elemento de bloco (decide se uma tag desconhecida é container)."""
-    return any(tag(e) in registry.BLOCK for e in node.iterdescendants())
+def contains_block(node, handlers=None):
+    """
+    True se algum descendente é elemento de bloco (decide se uma tag desconhecida é container).
+
+    Tag que ``handlers`` manda para o texto (valor None) não conta, nem o que
+    está dentro dela: ``<italic>`` em volta de material suplementar no ``<p>``
+    continua inline, mesmo com ``<p>`` na legenda do item.
+    """
+    inline_here = {name for name, value in (handlers or {}).items() if value is None}
+    for e in node.iterchildren():
+        if tag(e) in inline_here:
+            continue
+        if tag(e) in registry.BLOCK or contains_block(e, handlers):
+            return True
+    return False
 
 
 def handle_container(node, ctx):

@@ -443,5 +443,79 @@ class SupplementaryItemTest(unittest.TestCase):
         self.assertEqual(texts(a['annex']), ['Supplementary Material', 'S1'])
 
 
+class SupplementaryItemInParagraphTest(unittest.TestCase):
+    """<supplementary-material> com texto em volta no mesmo <p> (#1412)."""
+
+    MEDIA = '<media mime-subtype="xlsx" mimetype="application" xlink:href="results.xlsx"/>'
+
+    def _texts(self, p):
+        """Textos do parágrafo na seção de material suplementar (anexos) e direto no <body>."""
+        supp = annex(body=f'<sec><title>Supp</title>{p}</sec>')
+        body = parts(body=p)['main']
+        return texts(supp)[1:], texts(body)
+
+    def test_item_stays_in_the_paragraph_with_the_text_around_it(self):
+        cases = [
+            ('<p>Download <supplementary-material id="s1"><label>Table S1</label>'
+             '</supplementary-material> for full results.</p>',
+             ['Download Table S1 for full results.']),
+            (f'<p>Download <supplementary-material id="s1"><label>Table S1</label>{self.MEDIA}'
+             '</supplementary-material> for full results.</p>',
+             ['Download Table S1: results.xlsx (application/xlsx) for full results.']),
+            ('<p>See <supplementary-material id="s2"><label>S2</label></supplementary-material> and '
+             '<supplementary-material id="s3"><label>S3</label></supplementary-material>.</p>',
+             ['See S2 and S3.']),
+            ('<p>See <italic>file <supplementary-material id="s1"><label>S1</label>'
+             '</supplementary-material></italic> now.</p>',
+             ['See file S1 now.']),
+        ]
+        for p, expected in cases:
+            with self.subTest(p=p):
+                supp, body = self._texts(p)
+                self.assertEqual(supp, expected)
+                self.assertEqual(body, expected)
+
+    def test_paragraph_with_only_the_item_is_unchanged(self):
+        """Sozinho no <p>, o item continua um parágrafo, com o rótulo padrão sem <label>."""
+        cases = [
+            ('<p><supplementary-material id="s1"><label>S1</label></supplementary-material></p>', ['S1']),
+            (f'<p> <supplementary-material id="s1">{self.MEDIA}</supplementary-material> </p>',
+             ['Supplementary Material: results.xlsx (application/xlsx)']),
+        ]
+        for p, expected in cases:
+            with self.subTest(p=p):
+                self.assertEqual(self._texts(p), (expected, expected))
+
+    def test_item_without_label_in_text_starts_with_the_file(self):
+        """No meio da frase, o texto em volta já apresenta o item: sem rótulo padrão."""
+        p = f'<p>Download <supplementary-material id="s1">{self.MEDIA}</supplementary-material> for full results.</p>'
+        supp, _ = self._texts(p)
+        self.assertEqual(supp, ['Download results.xlsx (application/xlsx) for full results.'])
+
+    def test_item_in_text_keeps_format_and_xref_target(self):
+        a = parts(body='<sec><title>Supp</title><p>See <italic>file <supplementary-material id="s1">'
+                       '<label>S1</label></supplementary-material></italic> now.</p></sec>')
+        (block,) = [b for b in a['annex'] if b['type'] == 'paragraph']
+        self.assertIn({'bookmark': 's1'}, block['runs'])
+        self.assertIn({'text': 'S1', 'italic': True}, block['runs'])
+
+    def test_item_with_paragraph_in_caption_inside_italic(self):
+        """O <p> da legenda do item não faz do <italic> em volta um container."""
+        a = parts(body='<p>Download <italic><supplementary-material id="s1"><label>S1</label>'
+                       '<caption><p>Details</p></caption></supplementary-material></italic> now.</p>')
+        (block,) = a['main']
+        self.assertEqual(texts([block]), ['Download S1. Details now.'])
+        self.assertIn({'text': 'S1. Details', 'italic': True}, block['runs'])
+
+    def test_first_paragraph_with_list_marker_or_note_label(self):
+        """O prefixo (marcador, rótulo de nota) entra no <p> sem desviar do tratamento do item."""
+        p = '<p>Download <supplementary-material id="s1"><label>S1</label></supplementary-material> now.</p>'
+        lst = parts(body=f'<list list-type="bullet"><list-item>{p}</list-item></list>')['main']
+        self.assertEqual(texts(lst), ['• Download S1 now.'])
+        a = parts(body='<p>x<xref ref-type="fn" rid="f1">1</xref></p>',
+                  back=f'<fn-group><fn id="f1"><label>1</label>{p}</fn></fn-group>')
+        self.assertIn('1 Download S1 now.', texts(a['main'] + a['annex']))
+
+
 if __name__ == '__main__':
     unittest.main()

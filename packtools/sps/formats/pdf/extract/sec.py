@@ -8,7 +8,11 @@ from packtools.sps.formats.pdf.extract.flow import flow, paragraph
 from packtools.sps.formats.pdf.extract.inline import inlines
 from packtools.sps.formats.pdf.extract.registry import block_handler
 from packtools.sps.formats.pdf.extract.runs import has_content, runs_text, tag, text_run
-from packtools.sps.formats.pdf.extract.supplementary_material import is_supplementary_section
+from packtools.sps.formats.pdf.extract.supplementary_material import (
+    ITEM_TAGS,
+    is_supplementary_section,
+    stands_alone,
+)
 from packtools.sps.formats.pdf.extract.title import label_of, note_label_runs, title_runs
 from packtools.sps.formats.pdf.config.labels import label
 
@@ -139,7 +143,7 @@ def handle_sec(node, ctx):
 
 
 @block_handler("p", "verse-line", "attrib")
-def handle_p(node, ctx):
+def handle_p(node, ctx, prefix=None):
     """
     Converte um parágrafo.
 
@@ -149,14 +153,22 @@ def handle_p(node, ctx):
         ``<p>``, ``<verse-line>`` ou ``<attrib>``.
     ctx : dict
         Contexto.
+    prefix : list of dict, opcional
+        Runs no início do parágrafo (marcador de lista, rótulo de nota; ver
+        flow.process_child).
 
     Retorna
     -------
     list of dict
         Um parágrafo, ou mais se houver blocos dentro (lista, fórmula em
-        destaque, figura...), que dividem o texto em volta.
+        destaque, figura...), que dividem o texto em volta. Material
+        suplementar com texto em volta fica no meio do parágrafo; sozinho,
+        continua um parágrafo próprio.
     """
-    return flow(node, ctx)
+    if stands_alone(node):
+        return flow(node, ctx, prefix=prefix)
+    # handler local None: o item vira texto do parágrafo em aberto (ver flow.handler)
+    return flow(node, ctx, prefix=prefix, handlers=dict.fromkeys(ITEM_TAGS))
 
 
 # -----------------
