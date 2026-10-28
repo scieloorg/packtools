@@ -54,7 +54,6 @@ def render_front(state, meta, blocks, logo_spec=None):
             title_cell.paragraphs[0], meta["journal_title"], title_cell.width, doc
         )
         _add_doi(doi_cell.paragraphs[0], meta["doi"], doc, WD_ALIGN_PARAGRAPH.RIGHT)
-    _zero_cell_spacing(header)
     render_blocks(state, blocks)
 
 
@@ -265,6 +264,7 @@ def _add_journal_title(paragraph, title, width, doc):
     Título do periódico em até 2 linhas na coluna de largura width (EMU),
     no tamanho do estilo ou reduzido (ver fit_journal_title).
     """
+    styles.apply(paragraph, doc, "header")
     style = styles.get(doc, "journal_title_char")
     size = JOURNAL_TITLE_SIZE
     if style is not None and style.font.size:
@@ -277,6 +277,7 @@ def _add_journal_title(paragraph, title, width, doc):
 
 def _add_doi(paragraph, doi, doc, alignment):
     """DOI como URL no parágrafo, com o alinhamento dado."""
+    styles.apply(paragraph, doc, "header")
     paragraph.alignment = alignment
     if doi:
         _add_text(paragraph, f"http://dx.doi.org/{doi}", doc, "header_char")
@@ -360,6 +361,15 @@ def _logo_header(state, header, spec, meta):
             fallback_path=fallback,
         )
 
+    def add_cell_logo(cell, alignment):
+        """
+        Logo na célula da tabela do cabeçalho, no estilo do cabeçalho. O logo
+        de full_width fica fora da tabela, no estilo Header, que já não tem
+        espaçamento: no estilo do cabeçalho, o parágrafo cresce 1,6 pt.
+        """
+        styles.apply(cell.paragraphs[0], doc, "header")
+        add_logo(cell.paragraphs[0], alignment)
+
     if spec.position == "full_width":
         add_logo(
             header.paragraphs[0] if header.paragraphs else header.add_paragraph(),
@@ -383,7 +393,7 @@ def _logo_header(state, header, spec, meta):
             add_title(title_cell)
         else:
             logo_cell, doi_cell = _header_table(state, header, measures.columns)
-        add_logo(logo_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.LEFT)
+        add_cell_logo(logo_cell, WD_ALIGN_PARAGRAPH.LEFT)
         _add_doi(doi_cell.paragraphs[0], meta["doi"], doc, WD_ALIGN_PARAGRAPH.RIGHT)
     else:
         text_cell, logo_cell = _header_table(state, header, measures.columns)
@@ -396,7 +406,7 @@ def _logo_header(state, header, spec, meta):
             _add_doi(
                 text_cell.paragraphs[0], meta["doi"], doc, WD_ALIGN_PARAGRAPH.LEFT
             )
-        add_logo(logo_cell.paragraphs[0], WD_ALIGN_PARAGRAPH.RIGHT)
+        add_cell_logo(logo_cell, WD_ALIGN_PARAGRAPH.RIGHT)
     return True
 
 
@@ -423,22 +433,6 @@ def _header_table(state, container, widths, v_center=True):
         if v_center:
             cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
     return tuple(cells)
-
-
-def _zero_cell_spacing(container):
-    """
-    Zera o espaço antes e depois dos parágrafos das células das tabelas do
-    container (o cabeçalho da 1ª página).
-
-    Sem isso, os parágrafos herdam o espaço depois do estilo Normal (3,5 mm
-    no layout.docx do corpus), e o título do periódico em 3 linhas passava
-    do fundo do cabeçalho e empurrava o corpo para baixo.
-    """
-    for table in container.tables:
-        for cell in table.rows[0].cells:
-            for paragraph in cell.paragraphs:
-                paragraph.paragraph_format.space_before = 0
-                paragraph.paragraph_format.space_after = 0
 
 
 def _remove_placeholder_before(table):
