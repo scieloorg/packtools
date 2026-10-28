@@ -8,6 +8,8 @@ from packtools.sps.formats.pdf.extract.registry import block_handler, inline_han
 from packtools.sps.formats.pdf.extract.runs import bookmark_runs, href, tag, text_run
 from packtools.sps.formats.pdf.config.labels import label
 
+ITEM_TAGS = ("supplementary-material", "media")
+
 
 def is_supplementary_section(node):
     """True para a ``<sec>`` que é o bloco de material suplementar: tem ``<supplementary-material>`` e nenhuma ``<sec>`` própria."""
@@ -16,9 +18,6 @@ def is_supplementary_section(node):
         and node.find("sec") is None
         and any(tag(e) == "supplementary-material" for e in node.iter())
     )
-
-
-ITEM_TAGS = ("supplementary-material", "media")
 
 
 def stands_alone(paragraph):

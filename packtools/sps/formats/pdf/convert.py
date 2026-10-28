@@ -13,10 +13,6 @@ from lxml import etree
 from packtools.sps.formats.pdf.config.styles import STYLES
 
 
-class ConversionTimeoutError(RuntimeError):
-    """O LibreOffice não terminou a conversão dentro do tempo limite."""
-
-
 # Uma conversão normal leva poucos segundos; o limite evita travar para
 # sempre quando o LibreOffice entra em laço. Ver issue #1377.
 DEFAULT_CONVERSION_TIMEOUT = 120
@@ -36,6 +32,10 @@ _MATH_CONFIG_XML = (
     '<prop oor:name="BaseSize" oor:op="fuse"><value>{size}</value></prop>'
     "</item></oor:items>"
 )
+
+
+class ConversionTimeoutError(RuntimeError):
+    """O LibreOffice não terminou a conversão dentro do tempo limite."""
 
 
 def _body_font_size_pt(docx_path):

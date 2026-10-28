@@ -30,6 +30,33 @@ logger = logging.getLogger(__name__)
 _OMML_NS = "http://schemas.openxmlformats.org/officeDocument/2006/math"
 _W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 
+# com <m:nor/> o LibreOffice escreve parêntese e chave com barra: "\(", "\{"
+_BRACKETS = re.compile(r"([(){}]+)")
+
+# mathml2omml 0.0.2 fecha <m:groupChrPr> com </m:groupChr> (XML inválido)
+_UNCLOSED_GROUP_CHR_PR = re.compile(
+    r'(<m:groupChrPr><m:chr m:val="[^"]*"/><m:pos m:val="(?:top|bot)"/>)</m:groupChr>'
+)
+
+# caracteres que o LibreOffice desenha certo em <m:bar>/<m:acc>; "˜", "∼" e "·" sairiam como apóstrofo
+_BAR_CHARS = {"¯", "ˉ", "―", "-", "−", "_", "̅"}
+_ACCENT_CHARS = {
+    "→": "→",
+    "^": "^",
+    "̂": "̂",
+    "~": "~",
+    "̃": "̃",
+    "˜": "~",
+    "∼": "~",
+    "̇": "̇",
+    "˙": "˙",
+    "·": "˙",
+    "̈": "̈",
+    "¨": "¨",
+    "`": "`",
+    "´": "´",
+}
+
 
 def detached_copy(element):
     """
@@ -210,10 +237,6 @@ def _strip_namespace(element):
     return element
 
 
-# com <m:nor/> o LibreOffice escreve parêntese e chave com barra: "\(", "\{"
-_BRACKETS = re.compile(r"([(){}]+)")
-
-
 def _normalize_plain_style_runs(omml_element):
     """LibreOffice não quebra linha entre linhas de m:m/m:eqArr quando o
     último run de uma linha tem `<m:sty m:val="p"/>`, e troca "-", "[",
@@ -269,31 +292,6 @@ def _split_brackets(run):
     parent.remove(run)
     for offset, part in enumerate(parts):
         parent.insert(index + offset, part)
-
-
-# mathml2omml 0.0.2 fecha <m:groupChrPr> com </m:groupChr> (XML inválido)
-_UNCLOSED_GROUP_CHR_PR = re.compile(
-    r'(<m:groupChrPr><m:chr m:val="[^"]*"/><m:pos m:val="(?:top|bot)"/>)</m:groupChr>'
-)
-
-# caracteres que o LibreOffice desenha certo em <m:bar>/<m:acc>; "˜", "∼" e "·" sairiam como apóstrofo
-_BAR_CHARS = {"¯", "ˉ", "―", "-", "−", "_", "̅"}
-_ACCENT_CHARS = {
-    "→": "→",
-    "^": "^",
-    "̂": "̂",
-    "~": "~",
-    "̃": "̃",
-    "˜": "~",
-    "∼": "~",
-    "̇": "̇",
-    "˙": "˙",
-    "·": "˙",
-    "̈": "̈",
-    "¨": "¨",
-    "`": "`",
-    "´": "´",
-}
 
 
 def _is_accent(mover, overscript):
