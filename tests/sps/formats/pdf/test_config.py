@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from docx.enum.section import WD_ORIENT, WD_SECTION
+from docx.shared import Cm
 
 from packtools.sps.formats.pdf.config import page as page_config
 class TestLoadPage(unittest.TestCase):
@@ -22,8 +23,6 @@ class TestLoadPage(unittest.TestCase):
         self.assertLessEqual(abs(int(actual) - int(expected)), tolerance_emu)
 
     def test_matches_legacy_hardcoded_values(self):
-        from docx.shared import Cm
-
         self._assert_close(self.attrs['top_margin'], Cm(3.5))
         self._assert_close(self.attrs['left_margin'], Cm(2))
         self._assert_close(self.attrs['right_margin'], Cm(2))
