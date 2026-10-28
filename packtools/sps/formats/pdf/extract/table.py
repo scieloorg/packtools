@@ -158,7 +158,8 @@ def handle_table_wrap(node, ctx):
     foot = []
     for item in node:
         if tag(item) == "table-wrap-foot":
-            foot += [block["runs"] for block in flow(item, cell_ctx)]
+            # block_runs: imagem do rodapé (bloco de figura, sem runs) vira run de imagem
+            foot += [block_runs([block]) for block in flow(item, cell_ctx)]
 
     blocks = []
     last = len(panels) - 1

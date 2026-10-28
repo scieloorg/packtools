@@ -447,6 +447,21 @@ class TestTableFoot(unittest.TestCase):
         self.assertIn('* p < 0.05.', texts)
 
 
+class TestTableFootImage(_WithTmp):
+    """#1441: <graphic> em <table-wrap-foot> interrompia a geração com KeyError: 'runs'."""
+
+    def test_foot_image_reaches_document(self):
+        self._png('legend.png', 100, dpi=96)
+        state = _state(assets_dir=self.tmp)
+        render_blocks(state, place(_sec(
+            '<table-wrap id="t1"><label>Table 1</label><caption><title>T</title></caption>'
+            '<table><tbody><tr><td>Data1</td></tr></tbody></table><table-wrap-foot>'
+            '<graphic xlink:href="legend.png"/><p>Source: Authors.</p>'
+            '</table-wrap-foot></table-wrap>'), state.page, state.assets))
+        foot = [p for p in state.doc.paragraphs if p._p.findall('.//' + qn('w:drawing'))]
+        self.assertEqual(len(foot), 1)
+        self.assertIn('Source: Authors.', [p.text for p in state.doc.paragraphs])
+
 _TH = '<th>{}</th>'
 _TD = '<td>{}</td>'
 

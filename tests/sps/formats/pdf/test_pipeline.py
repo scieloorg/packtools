@@ -9,8 +9,10 @@ from pathlib import Path
 
 from lxml import etree
 
-from packtools.sps.formats.pdf.pipeline import pipeline_docx
+from packtools.sps.formats.pdf.pipeline import pipeline_docx, pipeline_docx_by_language
 from packtools.sps.utils import xml_utils
+
+from tests.sps.formats.pdf.helpers import article_xml
 
 FIXTURES_DIR = Path(__file__).resolve().parents[3] / 'fixtures' / 'pdf'
 DATA = {'base_layout': str(FIXTURES_DIR / 'layout.docx'), 'assets_dir': str(FIXTURES_DIR)}
@@ -55,6 +57,36 @@ def _docx_text(document):
 
 def _no_space(text):
     return re.sub(r'\s+', '', text)
+
+
+class ByLanguageTest(unittest.TestCase):
+    """Um documento por idioma: o principal primeiro, depois cada tradução."""
+
+    def _article(self):
+        return article_xml(
+            body='<sec><p>corpo principal</p></sec>',
+            extra='<sub-article article-type="translation" id="s1" xml:lang="en"><front-stub/>'
+                  '<body><sec><p>main body</p></sec></body></sub-article>',
+        )
+
+    def _generated(self, root):
+        return [(lang, _docx_text(doc)) for lang, doc in pipeline_docx_by_language(root, DATA)]
+
+    def test_main_document_first_then_each_translation(self):
+        generated = self._generated(self._article())
+        self.assertEqual([lang for lang, _ in generated], ['pt', 'en'])
+        self.assertIn('corpoprincipal', generated[0][1])
+        self.assertIn('mainbody', generated[1][1])
+
+    def test_main_document_without_xml_lang_is_still_generated(self):
+        # #1441: sem @xml:lang no <article>, só a tradução era gerada (com o nome do principal)
+        root = self._article()
+        del root.attrib['{http://www.w3.org/XML/1998/namespace}lang']
+        generated = self._generated(root)
+        self.assertEqual([lang for lang, _ in generated], [None, 'en'])
+        self.assertIn('corpoprincipal', generated[0][1])
+        self.assertNotIn('mainbody', generated[0][1])
+        self.assertIn('mainbody', generated[1][1])
 
 
 class NoDataLossTest(unittest.TestCase):
