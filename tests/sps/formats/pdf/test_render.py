@@ -17,6 +17,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
+from urllib.error import URLError
 
 from docx.enum.section import WD_SECTION
 from docx.oxml.ns import qn
@@ -24,10 +25,13 @@ from docx.shared import Cm, Pt
 from lxml import etree
 from PIL import Image
 
+from packtools.sps.formats.pdf import assets as assets_module
 from packtools.sps.formats.pdf.config import page as page_config
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
 from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, figure_layout, place
+from packtools.sps.formats.pdf.render import blocks as blocks_module
+from packtools.sps.formats.pdf.render import document as document_module
 from packtools.sps.formats.pdf.render.blocks import _picture, figure, formula, paragraph, render_blocks
 from packtools.sps.formats.pdf.render.document import State, new_document
 from packtools.sps.formats.pdf.render.inline import add_runs
@@ -102,6 +106,27 @@ class TestAssetsPath(_WithTmp):
         path = self._png('fig1.png', 10)
         self.assertEqual(Assets('/some/other/dir').path(path), path)
 
+    def test_missing_local_file_is_logged_once(self):
+        assets = Assets(self.tmp)
+        with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+            self.assertIsNone(assets.path('fig1.tif'))
+            self.assertIsNone(assets.path('fig1.tif'))
+            self.assertIsNone(assets.natural_size('fig1.tif'))
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('fig1.tif', logs.output[0])
+        self.assertIn(os.path.join(self.tmp, 'fig1.tif'), logs.output[0])
+
+    def test_unreadable_image_is_logged_once(self):
+        with open(os.path.join(self.tmp, 'fig1.png'), 'w') as f:
+            f.write('não é imagem')
+        assets = Assets(self.tmp)
+        with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+            self.assertIsNone(assets.natural_size('fig1.png'))
+            self.assertIsNone(assets.natural_width('fig1.png'))
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('fig1.png', logs.output[0])
+        self.assertIn('UnidentifiedImageError', logs.output[0])
+
     def test_remote_url_is_downloaded_once(self):
         """
         old: test_figure.py TestResolveImagePath.test_remote_url_is_downloaded
@@ -121,6 +146,33 @@ class TestAssetsPath(_WithTmp):
         self.assertTrue(first.endswith('.png'))
         with open(first, 'rb') as f:
             self.assertEqual(f.read(), b'fake')
+        shutil.rmtree(assets._cache_dir)
+
+    def test_failed_download_is_logged_and_not_retried(self):
+        """O href passa pelo layout e pelo render: uma tentativa e um aviso só."""
+        url = 'https://example.org/fig1.png'
+        with patch('packtools.sps.formats.pdf.assets.urlopen', side_effect=URLError('timed out')) as mock_open:
+            assets = Assets()
+            with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+                self.assertIsNone(assets.path(url))
+                self.assertIsNone(assets.path(url))
+                self.assertIsNone(assets.natural_size(url))
+        self.assertEqual(mock_open.call_count, 1)
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn(url, logs.output[0])
+        self.assertIn('URLError', logs.output[0])
+        shutil.rmtree(assets._cache_dir)
+
+    def test_empty_download_is_logged(self):
+        response = MagicMock()
+        response.__enter__.return_value = io.BytesIO(b'')
+        with patch('packtools.sps.formats.pdf.assets.urlopen', return_value=response):
+            assets = Assets()
+            with self.assertLogs(assets_module.logger, level='WARNING') as logs:
+                self.assertIsNone(assets.path('https://example.org/fig1.png'))
+                self.assertIsNone(assets.path('https://example.org/fig1.png'))
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('sem conteúdo', logs.output[0])
         shutil.rmtree(assets._cache_dir)
 
 
@@ -260,6 +312,30 @@ class TestFigureInsertedPicture(_WithTmp):
         for side in ('distT', 'distB', 'distL', 'distR'):
             with self.subTest(side=side):
                 self.assertEqual(inline.get(side), '0')
+
+
+class TestPictureInsertFailure(_WithTmp):
+    """Arquivo que o python-docx não reconhece como imagem: sai texto no lugar e a falha fica no log."""
+
+    def setUp(self):
+        super().setUp()
+        with open(os.path.join(self.tmp, 'bad.png'), 'w') as f:
+            f.write('não é imagem')
+        self.state = _state(assets_dir=self.tmp)
+
+    def test_figure_failure_is_logged(self):
+        with self.assertLogs(blocks_module.logger, level='WARNING') as logs:
+            self.assertIsNone(_picture(self.state, 'bad.png', Cm(10), None))
+        self.assertEqual(len(self.state.doc.inline_shapes), 0)
+        self.assertIn('bad.png', logs.output[0])
+        self.assertIn('UnrecognizedImageError', logs.output[0])
+
+    def test_inline_image_failure_is_logged(self):
+        run = self.state.doc.add_paragraph().add_run()
+        with self.assertLogs(document_module.logger, level='WARNING') as logs:
+            self.assertFalse(self.state.add_inline_image(run, 'bad.png'))
+        self.assertIn('bad.png', logs.output[0])
+        self.assertIn('UnrecognizedImageError', logs.output[0])
 
 
 # -----------------

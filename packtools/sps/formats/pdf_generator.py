@@ -1,4 +1,5 @@
 import argparse
+import logging
 import os
 
 from packtools.sps.formats.pdf import convert
@@ -73,7 +74,18 @@ def main():
         default=convert.DEFAULT_CONVERSION_TIMEOUT,
         help="Maximum seconds for the DOCX to PDF conversion (default: %(default)s).",
     )
+    parser.add_argument(
+        "--loglevel",
+        type=str.upper,
+        choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
+        default="WARNING",
+        help="Minimum level of the log messages shown (default: %(default)s).",
+    )
     arguments = parser.parse_args()
+
+    # sem isto, o NullHandler de packtools esconde os avisos do gerador (imagem
+    # não baixada, título que não cabe), como no htmlgenerator
+    logging.basicConfig(level=arguments.loglevel)
 
     xml_dir = os.path.dirname(os.path.abspath(arguments.path_to_read))
     data = {

@@ -1,8 +1,10 @@
 """Localização de imagens referenciadas no XML (local ou remota) e leitura do tamanho natural."""
 
 import hashlib
+import logging
 import os
 import tempfile
+from http.client import HTTPException
 from urllib.request import Request, urlopen
 
 from PIL import Image
@@ -13,6 +15,8 @@ EMU_PER_INCH = 914400
 # um valor menor faria a imagem sair maior que o pretendido.
 _FALLBACK_DPI = 300.0
 
+logger = logging.getLogger(__name__)
+
 
 class Assets:
     """Resolve href -> caminho local, baixando URLs uma vez por documento."""
@@ -22,6 +26,10 @@ class Assets:
         self.assets_dir = assets_dir
         self.timeout = timeout
         self._cache_dir = None
+        # URLs que falharam: o mesmo href é resolvido mais de uma vez (no
+        # layout e no render), e cada nova tentativa esperaria o timeout.
+        self._failed = set()
+        self._warned = set()
 
     def path(self, href):
         """Caminho local existente do href, ou None."""
@@ -35,12 +43,26 @@ class Assets:
             if os.path.isabs(href)
             else [os.path.join(self.assets_dir or "", href), href]
         )
-        return next((c for c in candidates if os.path.isfile(c)), None)
+        found = next((c for c in candidates if os.path.isfile(c)), None)
+        if found is None:
+            self._warn_once(
+                href,
+                "imagem %s não encontrada (procurada em: %s)",
+                href,
+                ", ".join(candidates),
+            )
+        return found
+
+    def _warn_once(self, href, message, *args):
+        """Registra o aviso só na primeira vez para o href, que é resolvido no layout e no render."""
+        if href not in self._warned:
+            self._warned.add(href)
+            logger.warning(message, *args)
 
     def natural_size(self, href):
         """
         Tamanho natural (largura, altura) da imagem em EMU, pelo DPI do
-        arquivo, ou None se ilegível.
+        arquivo, ou None se ilegível (registrado em log).
 
         As duas medidas usam o DPI horizontal, para (largura / altura) ser a
         proporção em pixels: é a mesma proporção que o python-docx usa ao
@@ -56,7 +78,17 @@ class Assets:
                     int(im.width / dpi * EMU_PER_INCH),
                     int(im.height / dpi * EMU_PER_INCH),
                 )
-        except Exception:
+        except Exception as exc:
+            # Exception, e não uma lista: o PIL levanta tipos variados
+            # (UnidentifiedImageError, OSError, DecompressionBombError, ...),
+            # e uma falha não prevista interromperia a geração do PDF.
+            self._warn_once(
+                href,
+                "imagem %s ilegível, sem tamanho natural (%s: %s)",
+                href,
+                type(exc).__name__,
+                exc,
+            )
             return None
 
     def natural_width(self, href):
@@ -65,7 +97,13 @@ class Assets:
         return size[0] if size else None
 
     def _download(self, url):
-        """Baixa a URL uma vez para um cache temporário (nome = sha1 da URL + extensão); None se falhar ou vier vazio."""
+        """
+        Baixa a URL uma vez para um cache temporário (nome = sha1 da URL +
+        extensão); None se falhar ou vier vazio. A falha é registrada em log
+        e não se tenta de novo.
+        """
+        if url in self._failed:
+            return None
         if self._cache_dir is None:
             self._cache_dir = tempfile.mkdtemp(prefix="scl_assets_")
         name = os.path.basename(url).split("?")[0].split("#")[0]
@@ -80,9 +118,17 @@ class Assets:
                     target, "wb"
                 ) as out:
                     out.write(response.read())
-            except Exception:
+            except (OSError, HTTPException, ValueError) as exc:
+                self._failed.add(url)
+                logger.warning(
+                    "imagem %s não baixada (%s: %s)", url, type(exc).__name__, exc
+                )
                 return None
-        return target if os.path.getsize(target) else None
+        if not os.path.getsize(target):
+            self._failed.add(url)
+            logger.warning("imagem %s baixada sem conteúdo", url)
+            return None
+        return target
 
 
 def _dpi(im):
