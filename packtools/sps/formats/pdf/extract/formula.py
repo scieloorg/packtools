@@ -552,7 +552,7 @@ def mathml_to_omml(math_element):
         omml_str = mathml2omml.convert(mathml_str)
     except Exception as exc:
         logger.warning(
-            "fórmula %s sai como texto: o mathml2omml não a converte (%s: %s)",
+            "fórmula %s renderizada como texto: o mathml2omml não a converte (%s: %s)",
             _formula_id(math_element),
             type(exc).__name__,
             exc,
@@ -565,7 +565,7 @@ def mathml_to_omml(math_element):
         omml = etree.fromstring(omml_str.encode("utf-8"))
     except etree.XMLSyntaxError as exc:
         logger.warning(
-            "fórmula %s sai como texto: o mathml2omml gera OMML inválido (%s)",
+            "fórmula %s renderizada como texto: o mathml2omml gera OMML inválido (%s)",
             _formula_id(math_element),
             exc,
         )
