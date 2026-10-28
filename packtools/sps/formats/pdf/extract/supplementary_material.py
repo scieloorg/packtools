@@ -8,7 +8,7 @@ from packtools.sps.formats.pdf.extract.registry import block_handler, inline_han
 from packtools.sps.formats.pdf.extract.runs import bookmark_runs, href, tag, text_run
 from packtools.sps.formats.pdf.config.labels import label
 
-ITEM_TAGS = ("supplementary-material", "media")
+SUPPLEMENTARY_MATERIAL_TAGS = ("supplementary-material", "media")
 
 
 def is_supplementary_section(node):
@@ -20,9 +20,9 @@ def is_supplementary_section(node):
     )
 
 
-def stands_alone(paragraph):
+def has_text_outside_supplementary_material(paragraph):
     """
-    True se o parágrafo só tem material suplementar, sem texto em volta.
+    True se o parágrafo tem texto fora do material suplementar.
 
     Parâmetros
     ----------
@@ -32,24 +32,25 @@ def stands_alone(paragraph):
     Retorna
     -------
     bool
-        True quando não há texto fora de ``<supplementary-material>`` e
-        ``<media>``; aí cada item continua um parágrafo próprio, com o
-        rótulo padrão quando não tem ``<label>``.
+        True quando há texto fora de ``<supplementary-material>`` e
+        ``<media>``: os itens ficam no meio do parágrafo. False quando o
+        parágrafo só tem os itens; aí cada um continua um parágrafo
+        próprio, com o rótulo padrão quando não tem ``<label>``.
     """
-    return not _text_outside_items(paragraph).strip()
+    return bool(_text_outside_supplementary_material(paragraph).strip())
 
 
-def _text_outside_items(node):
+def _text_outside_supplementary_material(node):
     """Texto de node fora dos itens de material suplementar (comentários só contribuem com o tail)."""
     parts = [node.text or ""] if tag(node) is not None else []
     for child in node:
-        if tag(child) is not None and tag(child) not in ITEM_TAGS:
-            parts.append(_text_outside_items(child))
+        if tag(child) is not None and tag(child) not in SUPPLEMENTARY_MATERIAL_TAGS:
+            parts.append(_text_outside_supplementary_material(child))
         parts.append(child.tail or "")
     return "".join(parts)
 
 
-def item_runs(node, fmt=frozenset(), default_label=None):
+def supplementary_material_runs(node, fmt=frozenset(), default_label=None):
     """
     Runs da linha descritiva de um material suplementar.
 
@@ -93,7 +94,7 @@ def item_runs(node, fmt=frozenset(), default_label=None):
     return runs
 
 
-@inline_handler(*ITEM_TAGS)
+@inline_handler(*SUPPLEMENTARY_MATERIAL_TAGS)
 def handle_supplementary_material_inline(node, fmt):
     """
     Trata o material suplementar no meio do texto de um parágrafo.
@@ -108,15 +109,15 @@ def handle_supplementary_material_inline(node, fmt):
     Retorna
     -------
     list of dict
-        A linha descritiva (`item_runs`) no lugar do elemento, sem o rótulo
-        padrão: o texto em volta já apresenta o item ("Download
-        results.xlsx (application/xlsx) for full results."). Com ``@id``,
-        começa com a marca do alvo de ``<xref>``.
+        A linha descritiva (`supplementary_material_runs`) no lugar do
+        elemento, sem o rótulo padrão: o texto em volta já apresenta o item
+        ("Download results.xlsx (application/xlsx) for full results."). Com
+        ``@id``, começa com a marca do alvo de ``<xref>``.
     """
-    return bookmark_runs(node) + item_runs(node, fmt)
+    return bookmark_runs(node) + supplementary_material_runs(node, fmt)
 
 
-@block_handler(*ITEM_TAGS)
+@block_handler(*SUPPLEMENTARY_MATERIAL_TAGS)
 def handle_supplementary_material(node, ctx):
     """
     Converte um material suplementar numa linha descritiva.
@@ -131,7 +132,9 @@ def handle_supplementary_material(node, ctx):
     Retorna
     -------
     list of dict
-        Parágrafo com a linha descritiva (`item_runs`). Sem ``<label>``, o
-        rótulo é "Supplementary Material" no idioma do documento.
+        Parágrafo com a linha descritiva (`supplementary_material_runs`).
+        Sem ``<label>``, o rótulo é "Supplementary Material" no idioma do
+        documento.
     """
-    return paragraph(item_runs(node, default_label=label("supplementary_material", ctx["lang"])), ctx)
+    default_label = label("supplementary_material", ctx["lang"])
+    return paragraph(supplementary_material_runs(node, default_label=default_label), ctx)
