@@ -2,8 +2,8 @@
 
 import logging
 
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.shared import Cm, Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
+from docx.shared import Cm, Emu, Pt
 from packtools.sps.formats.pdf.config.page import SINGLE_COLUMN
 from packtools.sps.formats.pdf.extract.runs import has_content
 from packtools.sps.formats.pdf.render import styles
@@ -66,8 +66,25 @@ def paragraph(state, block):
 
 
 def formula(state, block):
-    """Fórmula em bloco: parágrafo "SCL Formula" com o OMML e o rótulo."""
-    add_runs(_paragraph(state, "formula"), block["runs"], state)
+    """
+    Fórmula em bloco: parágrafo "SCL Formula" com o OMML numa tabulação
+    centralizada no meio de block["width"] (anotada por
+    layout.placement.place) e o rótulo, se houver, numa tabulação à
+    direita na borda.
+    """
+    # Tabulações e não parágrafo centralizado com espaços antes do número
+    # (#1392): com espaços, a posição do número depende da largura da
+    # fórmula, e os números ficam desalinhados entre equações.
+    paragraph = _paragraph(state, "formula")
+    tab_stops = paragraph.paragraph_format.tab_stops
+    tab_stops.add_tab_stop(Emu(block["width"] // 2), WD_TAB_ALIGNMENT.CENTER)
+    runs = [{"text": "\t"}] + [run for run in block["runs"] if not run.get("label")]
+    label = [run for run in block["runs"] if run.get("label")]
+    if label:
+        tab_stops.add_tab_stop(Emu(block["width"]), WD_TAB_ALIGNMENT.RIGHT)
+        # o espaço antes do rótulo é o do texto corrido; aqui a tabulação o substitui
+        runs += [{"text": "\t"}] + [run | {"text": run["text"].lstrip()} for run in label]
+    add_runs(paragraph, runs, state)
 
 
 def figure(state, block):

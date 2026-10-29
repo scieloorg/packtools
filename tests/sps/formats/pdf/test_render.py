@@ -20,8 +20,9 @@ from unittest.mock import MagicMock, patch
 from urllib.error import URLError
 
 from docx.enum.section import WD_SECTION
+from docx.enum.text import WD_TAB_ALIGNMENT
 from docx.oxml.ns import qn
-from docx.shared import Cm, Pt
+from docx.shared import Cm, Emu, Pt
 from lxml import etree
 from PIL import Image
 
@@ -647,13 +648,13 @@ class TestDisplayFormulaParagraphs(unittest.TestCase):
     def _render(self, body, state=None):
         state = state or _state()
         before = len(state.doc.paragraphs)
-        render_blocks(state, _sec(body))
+        render_blocks(state, place(_sec(body), state.page, Assets()))
         return state.doc.paragraphs[before:]
 
     def test_display_formula_alone_uses_formula_style(self):
         """old: test_text.py TestAddParagraphWithSegmentsFormulaStyle.test_display_formula_alone_uses_formula_style"""
         state = _state()
-        formula(state, {'type': 'formula', 'runs': [{'omml': _omml()}]})
+        formula(state, _placed({'type': 'formula', 'runs': [{'omml': _omml()}]}))
         self.assertEqual(len(state.doc.paragraphs), 1)
         self.assertEqual(state.doc.paragraphs[0].style.name, 'SCL Formula')
         added = self._render(f'<p><disp-formula>{_MATH}</disp-formula></p>')
@@ -668,7 +669,7 @@ class TestDisplayFormulaParagraphs(unittest.TestCase):
         added = self._render(f'<p>Total plant biomass: <disp-formula id="e3"><label>(3)</label>{_MATH}'
                              '</disp-formula></p>')
         self.assertEqual([(p.style.name, p.text) for p in added],
-                         [('SCL Paragraph', 'Total plant biomass:'), ('SCL Formula', ' (3)')])
+                         [('SCL Paragraph', 'Total plant biomass:'), ('SCL Formula', '\t\t(3)')])
         self.assertIsNotNone(added[1]._p.find(f'{{{_OMML_NS}}}oMath'))
 
     def test_blank_text_before_display_formula_does_not_create_empty_paragraph(self):
@@ -718,7 +719,7 @@ class TestDisplayFormulaParagraphs(unittest.TestCase):
         state.doc.styles['SCL Formula'].delete()
         added = self._render(f'<p>x<disp-formula>{_MATH}</disp-formula></p>', state)
         self.assertNotIn('SCL Formula', state.doc.styles)
-        self.assertEqual([(p.style.name, p.text) for p in added], [('SCL Paragraph', 'x'), ('SCL Paragraph', '')])
+        self.assertEqual([(p.style.name, p.text) for p in added], [('SCL Paragraph', 'x'), ('SCL Paragraph', '\t')])
 
 
 class TestDisplayFormulaAlignment(unittest.TestCase):
@@ -730,6 +731,41 @@ class TestDisplayFormulaAlignment(unittest.TestCase):
         self.assertEqual(_placed(dict(block), page)['width'], page_layout.column_width(page))
         self.assertEqual(_placed(dict(block), page, page_config.SINGLE_COLUMN)['width'],
                          page_layout.content_width(page))
+
+    def _render(self, block, page=None):
+        state = _state(page=page)
+        formula(state, _placed(block, state.page))
+        paragraph = state.doc.paragraphs[-1]
+        # o DOCX guarda a posição em twips: compara-se em twips
+        stops = [(stop.position.twips, stop.alignment) for stop in paragraph.paragraph_format.tab_stops]
+        return paragraph, stops
+
+    def _stops(self, width, label=True):
+        stops = [(Emu(width // 2).twips, WD_TAB_ALIGNMENT.CENTER)]
+        return stops + [(Emu(width).twips, WD_TAB_ALIGNMENT.RIGHT)] if label else stops
+
+    def test_formula_is_centered_and_label_goes_to_the_right_edge(self):
+        width = page_layout.column_width(page_config.load_page())
+        paragraph, stops = self._render({'type': 'formula', 'runs': [
+            {'bookmark': 'e1'}, {'omml': _omml()}, {'text': ' (1)', 'label': True}]})
+        self.assertEqual(stops, self._stops(width))
+        # tabulação, fórmula, tabulação e o rótulo sem o espaço do texto corrido
+        self.assertEqual(paragraph.text, '\t\t(1)')
+        self.assertIsNotNone(paragraph._p.find(f'{{{_OMML_NS}}}oMath'))
+        self.assertIsNotNone(paragraph._p.find(qn('w:bookmarkStart')))
+
+    def test_formula_without_label_gets_only_the_center_tab(self):
+        width = page_layout.column_width(page_config.load_page())
+        paragraph, stops = self._render({'type': 'formula', 'runs': [{'omml': _omml()}]})
+        self.assertEqual(stops, self._stops(width, label=False))
+        self.assertEqual(paragraph.text, '\t')
+
+    def test_one_column_page_uses_the_full_text_width(self):
+        page = page_config.load_page() | {'column_count': 1}
+        width = page_layout.content_width(page)
+        _, stops = self._render({'type': 'formula', 'runs': [
+            {'omml': _omml()}, {'text': ' (1)', 'label': True}]}, page)
+        self.assertEqual(stops, self._stops(width))
 
 
 # -----------------
