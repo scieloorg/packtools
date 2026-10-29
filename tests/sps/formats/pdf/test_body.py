@@ -391,7 +391,7 @@ class ListTest(unittest.TestCase):
         self.assertEqual(p['runs'], [{'text': 'Total biomass:'}])
         self.assertEqual(formula['type'], 'formula')
         self.assertTrue(omml(formula['runs'][1]))
-        self.assertEqual(formula['runs'][-1], {'text': ' (3)'})
+        self.assertEqual(formula['runs'][-1], {'text': ' (3)', 'label': True})
 
     def test_list_nested_inside_p_is_kept(self):
         """old: TestExtractBodyData.test_extract_body_data_includes_list_nested_inside_p"""

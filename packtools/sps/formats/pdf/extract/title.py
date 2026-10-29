@@ -71,10 +71,12 @@ def after_runs(node):
     Retorna
     -------
     list of dict
-        Run com o rótulo precedido de espaço (ex. " (1)"), ou lista vazia.
+        Run com o rótulo precedido de espaço (ex. " (1)") e marcado com
+        ``label``, ou lista vazia. A marca deixa o render separar o rótulo
+        da fórmula sem deduzi-lo pela posição.
     """
     text = plain_text(label_of(node))
-    return [text_run(f" {text}")] if text else []
+    return [text_run(f" {text}", label=True)] if text else []
 
 
 # -----------------

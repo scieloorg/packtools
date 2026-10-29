@@ -6,7 +6,7 @@ Formas de bloco::
     {"type": "heading", "level": int, "runs": [...]}
     {"type": "paragraph", "role": str, "runs": [...], "indent": int, "preserve": bool,
      "char_role": str (opcional, estilo de caractere dos runs)}
-    {"type": "formula", "runs": [{"omml": ...}, ...]}
+    {"type": "formula", "runs": [{"omml": ...}, ..., {"text": " (1)", "label": True}]}
     {"type": "figure", "id", "href", "alt", "caption": [...], "caption_role", "caption_first"}
     {"type": "table", "id", "panel", "caption": [...], "nrows", "ncols",
      "cells": [{"row", "col", "rowspan", "colspan", "header", "runs"}], "foot": [[...]]}
