@@ -25,6 +25,7 @@ import unittest
 from unittest import mock
 
 from packtools.sps.formats.pdf.extract import citation
+from packtools.sps.formats.pdf.extract.article import extract_article
 from packtools.sps.formats.pdf.extract.languages import document_for
 from docx.shared import Mm
 
@@ -795,7 +796,6 @@ class BuiltCitationTest(unittest.TestCase):
 
     def test_unknown_style_gives_empty_citation(self):
         """old: TestBuildFullCitation.test_unknown_style_returns_empty_string"""
-        from packtools.sps.formats.pdf.extract.article import extract_article
         root = cited_article(('Bárbara Passos da Silva',), '<pub-date><year>2024</year></pub-date>')
         self.assertEqual(extract_article(root, citation_style='abnt')['meta']['cite_as'], '')
         self.assertNotEqual(extract_article(root)['meta']['cite_as'], '')

@@ -2,13 +2,19 @@ import unittest
 
 from lxml import etree
 
+from packtools.sps.formats.pdf.config.page import DOUBLE_COLUMN, SINGLE_COLUMN, load_page
+from packtools.sps.formats.pdf.extract import formula as formula_extract
 from packtools.sps.formats.pdf.extract.article import extract_article
 from packtools.sps.formats.pdf.extract.context import context
 from packtools.sps.formats.pdf.extract.flow import flow
+from packtools.sps.formats.pdf.extract.formula import formula_runs
 from packtools.sps.formats.pdf.extract.inline import inlines
 from packtools.sps.formats.pdf.extract.languages import document_for, languages
 from packtools.sps.formats.pdf.extract.runs import normalize, runs_text
 from packtools.sps.formats.pdf.extract import table as table_extract
+from packtools.sps.formats.pdf.layout.page import content_width, split_width
+from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, column_weights, column_widths, place
+from packtools.sps.formats.pdf.render.front import vol_issue_year
 
 NS = 'xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"'
 
@@ -114,7 +120,6 @@ class FlowTest(unittest.TestCase):
 
     def test_inline_formula_with_empty_tex_math_uses_one_image(self):
         # só a melhor das representações (graphic.best), não a miniatura junto
-        from packtools.sps.formats.pdf.extract.formula import formula_runs
         for name, image in (('disp-formula', 'graphic'), ('inline-formula', 'inline-graphic')):
             with self.subTest(name=name):
                 node = xml(f'<{name} {NS}><alternatives><tex-math/>'
@@ -304,7 +309,6 @@ class ColumnWeightsTest(unittest.TestCase):
         return extract(node)[0]
 
     def test_weights_follow_longest_text_with_limits_and_empty_columns(self):
-        from packtools.sps.formats.pdf.layout.placement import column_weights
         grid = self.grid([['<th colspan="2">Brasil</th>', '<th></th>'],
                           ['<td>Shannon index</td>', '<td>1</td>', '<td></td>'],
                           ['<td>x</td>', '<td>' + 'long text ' * 10 + '</td>', '<td></td>']])
@@ -319,7 +323,6 @@ class ColumnWeightsTest(unittest.TestCase):
         self.assertIsNone(words[2])
 
     def test_merged_cell_spreads_its_width(self):
-        from packtools.sps.formats.pdf.layout.placement import column_weights
         grid = self.grid([['<th colspan="2">Brasil</th>'], ['<td>1</td>', '<td>2</td>']])
         _, words = column_weights(grid)
         # "Brasil" = 5.2 caracteres médios (B 1.2, i e l 0.5) x 6pt, dividido por 2
@@ -327,7 +330,6 @@ class ColumnWeightsTest(unittest.TestCase):
 
     def test_formula_only_column_is_not_empty(self):
         # #1442: coluna só com fórmula ficava com a largura mínima (aabc-98-s1-e20250485, Tabela II)
-        from packtools.sps.formats.pdf.layout.placement import column_weights
         node = xml(f'<sec {NS}><table-wrap><table><tr><td>Model</td>'
                    '<td><inline-formula><mml:math><mml:mn>0.843</mml:mn></mml:math></inline-formula></td>'
                    '</tr></table></table-wrap></sec>')
@@ -337,7 +339,6 @@ class ColumnWeightsTest(unittest.TestCase):
         self.assertAlmostEqual(words[1], 5 * 6)
 
     def test_formula_counts_with_the_text_of_its_line(self):
-        from packtools.sps.formats.pdf.layout.placement import column_weights
         node = xml(f'<sec {NS}><table-wrap><table><tr><td>'
                    '<inline-formula><mml:math><mml:msup><mml:mi>R</mml:mi><mml:mn>2</mml:mn></mml:msup>'
                    '</mml:math></inline-formula> adjusted value</td></tr></table></table-wrap></sec>')
@@ -347,7 +348,6 @@ class ColumnWeightsTest(unittest.TestCase):
         self.assertAlmostEqual(words[0], 7.5 * 6)
 
     def test_image_counts_by_its_natural_width(self):
-        from packtools.sps.formats.pdf.layout.placement import column_weights
         node = xml(f'<sec {NS}><table-wrap><table><tr><td>a</td>'
                    '<td><inline-graphic xlink:href="x.png"/></td></tr></table></table-wrap></sec>')
         weights, words = column_weights(extract(node)[0], lambda href: 120 * 12700)
@@ -356,7 +356,6 @@ class ColumnWeightsTest(unittest.TestCase):
         self.assertAlmostEqual(words[1], 120)
 
     def test_unreadable_image_counts_by_its_alt_text(self):
-        from packtools.sps.formats.pdf.layout.placement import column_weights
         node = xml(f'<sec {NS}><table-wrap><table><tr><td>a</td>'
                    '<td><inline-graphic xlink:href="x.png"><alt-text>logo</alt-text></inline-graphic></td>'
                    '</tr></table></table-wrap></sec>')
@@ -365,32 +364,25 @@ class ColumnWeightsTest(unittest.TestCase):
         self.assertAlmostEqual(words[1], 3.5 * 6)
 
     def test_widths_are_proportional_and_fill_the_table(self):
-        from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, column_widths
         widths = column_widths([50, 150, None], [40, 10, None], 10 ** 7)
         self.assertEqual(widths[2], EMPTY_COLUMN_WIDTH)
         self.assertEqual(widths[1], 3 * widths[0])
         self.assertAlmostEqual(sum(widths), 10 ** 7, delta=2)
 
     def test_widths_without_columns_or_content(self):
-        from packtools.sps.formats.pdf.layout.placement import column_widths
         self.assertEqual(column_widths([], [], 10 ** 7), [])
         # todas vazias: larguras iguais
         self.assertEqual(column_widths([None, None], [None, None], 10 ** 7), [5 * 10 ** 6] * 2)
 
     def test_split_width_sums_to_total(self):
-        from packtools.sps.formats.pdf.layout.page import split_width
         self.assertEqual(split_width(1001, 0.5), [500, 501])
 
     def test_uses_longest_word_when_weights_do_not_fit(self):
-        from packtools.sps.formats.pdf.layout.placement import column_widths
         # 3 x 50pt = 150pt de pesos numa tabela de 60pt: vale a maior palavra
         widths = column_widths([50, 50, 50], [42, 18, 12], 60 * 12700)
         self.assertEqual([round(w / 12700) for w in widths], [35, 15, 10])
 
     def test_panels_of_the_same_table_wrap_share_the_layout(self):
-        from packtools.sps.formats.pdf.config.page import DOUBLE_COLUMN, SINGLE_COLUMN, load_page
-        from packtools.sps.formats.pdf.layout.page import content_width
-        from packtools.sps.formats.pdf.layout.placement import place
         # 1º painel estreito, 2º com colunas demais: os dois vão para a largura toda
         node = xml('<sec><table-wrap id="t1"><table><tr><td>a</td></tr></table><table><tr>'
                    + '<td>x</td>' * 5 + '</tr></table></table-wrap>'
@@ -407,15 +399,13 @@ class ColumnWeightsTest(unittest.TestCase):
 
 class OpenIssuesTest(unittest.TestCase):
     def test_square_root_gets_hidden_degree_so_libreoffice_draws_the_radicand(self):
-        from packtools.sps.formats.pdf.extract import formula
         m = '{http://schemas.openxmlformats.org/officeDocument/2006/math}'
         sqrt = xml('<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mi>x</mi></msqrt></math>')
-        rad = formula.mathml_to_omml(sqrt).find(f'.//{m}rad')
+        rad = formula_extract.mathml_to_omml(sqrt).find(f'.//{m}rad')
         self.assertEqual([etree.QName(c).localname for c in rad], ['radPr', 'deg', 'e'])
         self.assertEqual(rad.find(f'{m}radPr/{m}degHide').get(f'{m}val'), '1')
 
     def test_footer_omits_missing_parts_without_dangling_colon(self):
-        from packtools.sps.formats.pdf.render.front import vol_issue_year
         empty = {'volume': '', 'issue': '', 'year': '', 'location_label': ''}
         self.assertEqual(vol_issue_year({**empty, 'year': '2023'}), '2023')
         self.assertEqual(vol_issue_year({**empty, 'volume': '53', 'issue': '4', 'year': '2023',

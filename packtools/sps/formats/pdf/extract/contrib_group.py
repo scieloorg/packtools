@@ -17,6 +17,8 @@ from packtools.sps.formats.pdf.extract.runs import (
 )
 from packtools.sps.formats.pdf.extract.title import label_of, note_label_runs
 
+_LEADING_MARK = re.compile(r"^([*†‡§¶#]+|\d+)\s")
+
 
 # -----------------
 # ``<contrib-group>`` e ``<contrib>``: autores da capa.
@@ -175,9 +177,6 @@ def aff_blocks(meta):
 # -----------------
 # ``<author-notes>``, ``<corresp>`` e suas ``<fn>``: notas de autor da capa.
 # -----------------
-
-
-_LEADING_MARK = re.compile(r"^([*†‡§¶#]+|\d+)\s")
 
 
 def leading_mark_superscript(runs):

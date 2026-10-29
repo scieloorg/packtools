@@ -117,7 +117,7 @@ def _picture(state, href, width, height):
         )
     except Exception as exc:
         logger.warning(
-            "imagem %s não inserida no DOCX; sai o texto alternativo (%s: %s)",
+            "imagem %s não inserida no DOCX; renderiza o texto alternativo (%s: %s)",
             href,
             type(exc).__name__,
             exc,

@@ -9,9 +9,9 @@ from packtools.sps.formats.pdf.extract.inline import inlines
 from packtools.sps.formats.pdf.extract.registry import block_handler
 from packtools.sps.formats.pdf.extract.runs import has_content, runs_text, tag, text_run
 from packtools.sps.formats.pdf.extract.supplementary_material import (
-    ITEM_TAGS,
+    SUPPLEMENTARY_MATERIAL_TAGS,
+    has_text_outside_supplementary_material,
     is_supplementary_section,
-    stands_alone,
 )
 from packtools.sps.formats.pdf.extract.title import label_of, note_label_runs, title_runs
 from packtools.sps.formats.pdf.config.labels import label
@@ -165,10 +165,12 @@ def handle_p(node, ctx, prefix=None):
         suplementar com texto em volta fica no meio do parágrafo; sozinho,
         continua um parágrafo próprio.
     """
-    if stands_alone(node):
-        return flow(node, ctx, prefix=prefix)
-    # handler local None: o item vira texto do parágrafo em aberto (ver flow.handler)
-    return flow(node, ctx, prefix=prefix, handlers=dict.fromkeys(ITEM_TAGS))
+    if has_text_outside_supplementary_material(node):
+        # handler local None: o item vira texto do parágrafo em aberto (ver flow.handler)
+        return flow(
+            node, ctx, prefix=prefix, handlers=dict.fromkeys(SUPPLEMENTARY_MATERIAL_TAGS)
+        )
+    return flow(node, ctx, prefix=prefix)
 
 
 # -----------------

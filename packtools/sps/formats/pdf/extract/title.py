@@ -25,6 +25,12 @@ from packtools.sps.formats.pdf.extract.runs import has_content, normalize, runs_
 # marca curta de nota: símbolos (*, †), número ou uma letra minúscula
 _NOTE_MARK = re.compile(r"[^\w\s]{1,4}|\d{1,3}|[a-z]")
 
+# filhos do elemento que não entram na legenda: metadados da imagem e o
+# próprio conteúdo (imagem, tabela, membros de grupo, notas da tabela)
+METADATA = {"label", "caption", "graphic", "alternatives", "object-id", "alt-text", "long-desc"}
+GROUP_MEMBERS = {"fig", "table-wrap", "fig-group", "table-wrap-group"}
+NOT_CAPTION = METADATA | GROUP_MEMBERS | {"table", "table-wrap-foot"}
+
 
 def label_of(node):
     """O ``<label>`` filho direto do elemento, ou None."""
@@ -108,13 +114,6 @@ def title_runs(node, replacement=None):
 # -----------------
 # ``<caption>``: legenda de figura, tabela, fórmula e grupo de figuras/tabelas.
 # -----------------
-
-
-# filhos do elemento que não entram na legenda: metadados da imagem e o
-# próprio conteúdo (imagem, tabela, membros de grupo, notas da tabela)
-METADATA = {"label", "caption", "graphic", "alternatives", "object-id", "alt-text", "long-desc"}
-GROUP_MEMBERS = {"fig", "table-wrap", "fig-group", "table-wrap-group"}
-NOT_CAPTION = METADATA | GROUP_MEMBERS | {"table", "table-wrap-foot"}
 
 
 def caption_runs(node):

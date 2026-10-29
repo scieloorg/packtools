@@ -27,6 +27,7 @@ from PIL import Image
 
 from packtools.sps.formats.pdf import assets as assets_module
 from packtools.sps.formats.pdf.config import page as page_config
+from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
 from packtools.sps.formats.pdf.layout.placement import EMPTY_COLUMN_WIDTH, figure_layout, place
@@ -738,8 +739,6 @@ class TestRenderedPageLayout(unittest.TestCase):
     """
 
     def _pages(self, name):
-        from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
-
         with tempfile.TemporaryDirectory() as tmp:
             docx_path = Path(tmp) / 'out.docx'
             docx(xml_utils.get_xml_tree(str(FIXTURES_DIR / name))).save(docx_path)

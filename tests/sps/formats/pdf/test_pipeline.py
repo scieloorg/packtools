@@ -2,6 +2,7 @@
 
 import re
 import shutil
+import subprocess
 import tempfile
 import unittest
 import zipfile
@@ -9,6 +10,7 @@ from pathlib import Path
 
 from lxml import etree
 
+from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
 from packtools.sps.formats.pdf.pipeline import pipeline_docx, pipeline_docx_by_language
 from packtools.sps.utils import xml_utils
 
@@ -158,9 +160,6 @@ class RenderedPdfTest(unittest.TestCase):
     """O corpo começa na página 1 e a página 2 tem a numeração editorial (#1295, #1302)."""
 
     def _pages(self, name):
-        import subprocess
-        from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
-
         with tempfile.TemporaryDirectory() as tmp:
             docx_path = Path(tmp) / 'out.docx'
             pipeline_docx(xml_utils.get_xml_tree(str(FIXTURES_DIR / name)), dict(DATA)).save(docx_path)
