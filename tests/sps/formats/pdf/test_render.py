@@ -721,6 +721,17 @@ class TestDisplayFormulaParagraphs(unittest.TestCase):
         self.assertEqual([(p.style.name, p.text) for p in added], [('SCL Paragraph', 'x'), ('SCL Paragraph', '')])
 
 
+class TestDisplayFormulaAlignment(unittest.TestCase):
+    """Fórmula em bloco centralizada na coluna, com o número na borda direita (#1392)."""
+
+    def test_formula_width_is_the_body_column_or_the_full_width_when_forced(self):
+        page = page_config.load_page()
+        block = {'type': 'formula', 'runs': [{'omml': _omml()}]}
+        self.assertEqual(_placed(dict(block), page)['width'], page_layout.column_width(page))
+        self.assertEqual(_placed(dict(block), page, page_config.SINGLE_COLUMN)['width'],
+                         page_layout.content_width(page))
+
+
 # -----------------
 # Página renderizada (old: test_rendered_page_layout.py)
 # -----------------
