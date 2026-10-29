@@ -1503,6 +1503,16 @@ msgid "The article does not reference the preprint, provide it as in the example
 msgstr "O artigo não faz referência ao preprint, forneça-o como no exemplo: <related-article id=\"pp1\" related-article-type=\"preprint\" ext-link-type=\"doi\" xlink:href=\"10.1590/SciELOPreprints.1174\"/>"
 
 #: packtools/sps/validation/preprint.py:100
+#: packtools/sps/validation/utils.py:261
+#, python-brace-format
+msgid "{location}: check <{element_name}>{value}</{element_name}>. Crossref rejects the DOI deposit when <{element_name}> has more than {max_length} characters"
+msgstr "{location}: verifique <{element_name}>{value}</{element_name}>. O Crossref rejeita o depósito do DOI quando <{element_name}> tem mais de {max_length} caracteres"
+
+#: packtools/sps/validation/utils.py:272
+#, python-brace-format
+msgid "{location}: <{element_name}> has {length} characters, Crossref accepts at most {max_length}"
+msgstr "{location}: <{element_name}> tem {length} caracteres, o Crossref aceita no máximo {max_length}"
+
 #: packtools/sps/validation/utils.py:101 packtools/sps/validation/utils.py:199
 #, python-brace-format
 msgid "Got {obtained}, expected {expected}"
