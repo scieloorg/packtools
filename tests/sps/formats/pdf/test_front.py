@@ -26,7 +26,10 @@ from unittest import mock
 
 from packtools.sps.formats.pdf.extract import citation
 from packtools.sps.formats.pdf.extract.languages import document_for
-from packtools.sps.formats.pdf.render.front import journal_title_two_lines, vol_issue_year
+from docx.shared import Mm
+
+from packtools.sps.formats.pdf.render import front as front_module
+from packtools.sps.formats.pdf.render.front import fit_journal_title, journal_title_two_lines, vol_issue_year
 
 from .helpers import NS, article, article_xml, docx, summary, xml
 
@@ -434,6 +437,17 @@ class MetaTest(unittest.TestCase):
         self.assertEqual(journal_title_two_lines('Science Journal of X'), 'Science\nJournal of X')
         self.assertEqual(journal_title_two_lines('Science'), 'Science')
 
+    def test_long_journal_title_is_balanced_in_the_first_page_header(self):
+        """#1404: o resto do título não cabia na coluna e o LibreOffice o quebrava numa 3ª linha."""
+        root = with_journal(
+            '<journal-title-group><journal-title>Arquivo Brasileiro de Medicina Veterinária e Zootecnia'
+            '</journal-title></journal-title-group>',
+        )
+        header = docx(root).sections[0].first_page_header
+        self.assertEqual(all_text(header)[0], 'Arquivo Brasileiro de Medicina\nVeterinária e Zootecnia')
+        self.assertIsNone(header.tables[0].rows[0].cells[0].paragraphs[0].runs[0].font.size)
+
+
     def test_footer_data(self):
         """
         old: TestExtractFooterData.test_extract_footer_data_complete
@@ -485,6 +499,45 @@ def aff(aff_id, institution, label=None):
     label_xml = f'<label>{label}</label>' if label is not None else ''
     inst = f'<institution content-type="original">{institution}</institution>' if institution else ''
     return f'<aff id="{aff_id}">{label_xml}{inst}</aff>'
+
+
+class TestFitJournalTitle(unittest.TestCase):
+    """#1404: título do periódico em até 2 linhas na coluna do cabeçalho da 1ª página."""
+
+    def test_keeps_first_word_split_when_it_fits(self):
+        self.assertEqual(fit_journal_title('Acta Amazonica', Mm(110.5)), ('Acta\nAmazonica', 14))
+        self.assertEqual(fit_journal_title('Saúde e Sociedade', Mm(66.5)), ('Saúde\ne Sociedade', 14))
+
+    def test_balanced_split_when_the_rest_does_not_fit(self):
+        self.assertEqual(
+            fit_journal_title('Arquivo Brasileiro de Medicina Veterinária e Zootecnia', Mm(110.5)),
+            ('Arquivo Brasileiro de Medicina\nVeterinária e Zootecnia', 14),
+        )
+        self.assertEqual(
+            fit_journal_title('Dental Press Journal of Orthodontics', Mm(66.5)),
+            ('Dental Press Journal\nof Orthodontics', 14),
+        )
+
+    def test_smaller_font_when_the_balanced_split_does_not_fit(self):
+        text, size = fit_journal_title('Revista Brasileira de Direito Processual Penal', Mm(66.5))
+        self.assertEqual(text, 'Revista Brasileira de\nDireito Processual Penal')
+        self.assertLess(size, 14)
+
+    def test_font_stops_at_the_minimum(self):
+        title = 'Revista Brasileira de Engenharia Agrícola e Ambiental'
+        with self.assertLogs(front_module.logger, level='WARNING') as logs:
+            text, size = fit_journal_title(title, Mm(40))
+        self.assertEqual(size, 10)
+        self.assertEqual(text.count('\n'), 1)
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn(title, logs.output[0])
+
+    def test_no_warning_when_the_title_fits(self):
+        with self.assertNoLogs(front_module.logger, level='WARNING'):
+            fit_journal_title('Revista Brasileira de Direito Processual Penal', Mm(66.5))
+
+    def test_single_word_is_unchanged(self):
+        self.assertEqual(fit_journal_title('Science', Mm(10)), ('Science', 14))
 
 
 class ContribTest(unittest.TestCase):
