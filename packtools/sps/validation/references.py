@@ -282,6 +282,14 @@ class ReferenceValidation:
                         "ext_link_xml": ext_link_xml,
                         "ext_link_tag_with_attrib": ext_link_tag_with_attrib,
                     },
+                    message_text=i18n._(
+                        "{info}: Got {obtained}, expected {expected}"
+                    ),
+                    message_params={
+                        "info": self.info,
+                        "obtained": scenario["obtained"],
+                        "expected": scenario["expected"],
+                    },
                     data=self.data,
                     error_level=self.params["comment_error_level"],
                 )
