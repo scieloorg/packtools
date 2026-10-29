@@ -54,15 +54,22 @@ class SupplementaryMaterial(LabelAndCaption):
 
     @property
     def data(self):
-        base_data = super().data.copy()
+        if self.media:
+            visual_elem = "media"
+        elif self.graphic:
+            visual_elem = "graphic"
+        else:
+            visual_elem = None
+        base_data = {}
         base_data.update(self.media.data if self.media else {})
         base_data.update(self.graphic.data if self.graphic else {})
+        base_data.update(super().data)
         base_data.update(
             {
                 "id": self.id,
                 "parent_suppl_mat": self.parent_tag,
                 "sec_type": self.sec_type,
-                "visual_elem": "media" if self.media else "graphic",
+                "visual_elem": visual_elem,
             }
         )
 

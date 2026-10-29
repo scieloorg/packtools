@@ -8,6 +8,7 @@ from packtools.sps.models.supplementary_material import XmlSupplementaryMaterial
 from packtools.sps.validation.xml_validator_rules import get_default_rules
 from packtools.sps.validation.media import MediaValidation
 from packtools.sps.validation.graphic import GraphicValidation
+from packtools.sps.validation.xml_validations import validate_supplementary_materials
 
 
 class TestSupplementaryMaterialValidation(unittest.TestCase):
@@ -228,11 +229,11 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
         results = list(validator.validate())
 
-        self.assertEqual(len(results), 10)  # Validações executadas
+        self.assertEqual(len(results), 8)  # Validações executadas
         titles = [result["title"] for result in results]
         self.assertIn("mime type and subtype", titles)
-        self.assertEqual(titles.count("@id"), 2)
-        self.assertEqual(titles.count("@xlink:href validation"), 2)
+        self.assertEqual(titles.count("@id"), 1)
+        self.assertEqual(titles.count("@xlink:href validation"), 1)
         self.assertIn("@sec-type", titles)
         self.assertIn("label", titles)
         self.assertIn("Prohibition of <supplementary-material> inside <app-group> and <app>", titles)
@@ -304,6 +305,102 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
 
         self.assertEqual(media_result["response"], "CRITICAL")
         self.assertEqual(graphic_result["response"], "ERROR")
+
+
+class TestSupplementaryMaterialVisualElem(unittest.TestCase):
+    def setUp(self):
+        self.params = get_default_rules()
+
+    def _results(self, supplementary_material):
+        xml_tree = etree.fromstring(
+            f"""
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material" id="sec1">
+                        <title>SUPPLEMENTARY MATERIAL</title>
+                        {supplementary_material}
+                    </sec>
+                </body>
+            </article>
+            """
+        )
+        return [
+            item
+            for item in validate_supplementary_materials(xml_tree, self.params)
+            if item
+        ]
+
+    def test_graphic_is_validated_only_as_graphic(self):
+        results = self._results(
+            """
+            <supplementary-material id="suppl1">
+                <label>Supplementary Figure 1</label>
+                <caption><title>Figure 1</title></caption>
+                <graphic xlink:href="1678-9849-rsbmt-59-s1-e0048-2026-gf7.jpg"/>
+            </supplementary-material>
+            """
+        )
+        titles = [item["title"] for item in results]
+        self.assertNotIn("mime type and subtype", titles)
+        self.assertNotIn("media or graphic", titles)
+        self.assertEqual(
+            [item["response"] for item in results if item["response"] != "OK"], []
+        )
+
+    def test_media_is_validated_only_as_media(self):
+        results = self._results(
+            """
+            <supplementary-material id="suppl1">
+                <label>Supplementary Material 1</label>
+                <media mimetype="application" mime-subtype="pdf" xlink:href="suppl1.pdf"/>
+            </supplementary-material>
+            """
+        )
+        titles = [item["title"] for item in results]
+        self.assertNotIn("SVG in alternatives", titles)
+        self.assertEqual(titles.count("@xlink:href validation"), 1)
+        self.assertEqual(titles.count("mime type and subtype"), 1)
+        self.assertEqual(
+            [item["title"] for item in results if item["response"] != "OK"], []
+        )
+
+    def test_media_keeps_supplementary_material_label(self):
+        results = self._results(
+            """
+            <supplementary-material id="suppl1">
+                <label>Supplementary Material 1</label>
+                <media mimetype="application" mime-subtype="pdf" xlink:href="suppl1.pdf"/>
+            </supplementary-material>
+            """
+        )
+        label = [item for item in results if item["title"] == "label"]
+        self.assertEqual(len(label), 1)
+        self.assertEqual(label[0]["response"], "OK")
+        self.assertEqual(label[0]["got_value"], "Supplementary Material 1")
+
+    def test_without_media_or_graphic(self):
+        results = self._results(
+            """
+            <supplementary-material id="suppl1">
+                <label>Supplementary Material 1</label>
+            </supplementary-material>
+            """
+        )
+        titles = [item["title"] for item in results]
+        self.assertNotIn("mime type and subtype", titles)
+        self.assertNotIn("@xlink:href validation", titles)
+        self.assertNotIn("@xlink:href", titles)
+        visual_elem = [item for item in results if item["title"] == "media or graphic"]
+        self.assertEqual(len(visual_elem), 1)
+        self.assertEqual(visual_elem[0]["response"], "CRITICAL")
+        self.assertEqual(
+            visual_elem[0]["advice"],
+            'Add <graphic> (figure) or <media> (other file types) in <supplementary-material id="suppl1">',
+        )
+        self.assertEqual(
+            visual_elem[0]["adv_text"].format(**visual_elem[0]["adv_params"]),
+            visual_elem[0]["advice"],
+        )
 
 
 if __name__ == "__main__":
