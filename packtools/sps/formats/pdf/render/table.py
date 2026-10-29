@@ -17,6 +17,7 @@ from docx.oxml.ns import qn
 from docx.shared import Pt
 from packtools.sps.formats.pdf.config.page import SINGLE_COLUMN
 from packtools.sps.formats.pdf.extract.runs import has_content
+from packtools.sps.formats.pdf.extract.table import holes
 from packtools.sps.formats.pdf.render import styles
 from packtools.sps.formats.pdf.render.inline import add_runs
 
@@ -122,6 +123,13 @@ def _add_grid(state, grid, single, floating):
     for cell in grid["cells"]:
         width = sum(widths[cell["col"] : cell["col"] + cell["colspan"]])
         _fill_cell(state, table.cell(cell["row"], cell["col"]), cell, width)
+    # Posição sem célula no XML (#1380): fica vazia, mas com a formatação das
+    # demais; com o estilo Normal (11pt, 10pt depois) triplicava a altura da linha.
+    for row, col in holes(grid):
+        docx_cell = table.cell(row, col)
+        _format_cell(docx_cell, col)
+        # sem runs, a altura da linha vem da marca de parágrafo: também em 7pt
+        _set_mark_size(docx_cell.paragraphs[0], CELL_FONT_SIZE)
 
     _set_row_heights(table, grid)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -134,7 +142,7 @@ def _add_grid(state, grid, single, floating):
 
 
 def _fill_cell(state, docx_cell, cell, width):
-    """Escreve o conteúdo da célula: 7pt, 1ª coluna à esquerda e demais centradas, sem espaçamento nem margens; imagem limitada à largura (EMU) da célula."""
+    """Escreve o conteúdo da célula em 7pt (cabeçalho em negrito), com a formatação de _format_cell; imagem limitada à largura (EMU) da célula."""
     paragraph = docx_cell.paragraphs[0]
     add_runs(
         paragraph,
@@ -144,8 +152,14 @@ def _fill_cell(state, docx_cell, cell, width):
         bold=True if cell["header"] else None,
         image_width=width,
     )
+    _format_cell(docx_cell, cell["col"])
+
+
+def _format_cell(docx_cell, col):
+    """Formata o parágrafo e a célula: 1ª coluna à esquerda e demais centradas, sem espaçamento nem margens."""
+    paragraph = docx_cell.paragraphs[0]
     paragraph.alignment = (
-        WD_ALIGN_PARAGRAPH.CENTER if cell["col"] >= 1 else WD_ALIGN_PARAGRAPH.LEFT
+        WD_ALIGN_PARAGRAPH.CENTER if col >= 1 else WD_ALIGN_PARAGRAPH.LEFT
     )
     fmt = paragraph.paragraph_format
     fmt.space_before = fmt.space_after = Pt(0)
@@ -153,6 +167,16 @@ def _fill_cell(state, docx_cell, cell, width):
     fmt.keep_together = True
     fmt.keep_with_next = fmt.page_break_before = fmt.widow_control = False
     _set_cell_margins(docx_cell._element.get_or_add_tcPr(), "w:tcMar")
+
+
+def _set_mark_size(paragraph, size):
+    """Tamanho (pt) da marca de parágrafo (w:pPr/w:rPr/w:sz)."""
+    p_pr = paragraph._p.get_or_add_pPr()
+    r_pr = p_pr.find(qn("w:rPr"))
+    if r_pr is None:
+        r_pr = OxmlElement("w:rPr")
+        p_pr.append(r_pr)
+    _replace(r_pr, "w:sz", **{"w:val": str(size * 2)})
 
 
 def _set_row_heights(table, grid):
