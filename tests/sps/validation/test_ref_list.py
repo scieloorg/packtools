@@ -423,6 +423,69 @@ class LpageWhenFpageValidationTest(TestCase):
         results = list(validation.validate_lpage_when_fpage())
         self.assertEqual(0, len(results))
 
+    def test_fpage_without_lpage_advice_add_lpage(self):
+        for fpage in ("31", "1429", "xii"):
+            with self.subTest(fpage=fpage):
+                data = self.reference_data.copy()
+                data["fpage"] = fpage
+                validation = ReferenceValidation(data, self.params)
+                results = list(validation.validate_lpage_when_fpage())
+                self.assertEqual(
+                    "B1 (journal): add <lpage> because <fpage> is present",
+                    results[0]["advice"],
+                )
+
+    def test_fpage_without_lpage_advice_elocation_id(self):
+        for fpage in ("e225125", "afae149", "CD011535", "1251858"):
+            with self.subTest(fpage=fpage):
+                data = self.reference_data.copy()
+                data["fpage"] = fpage
+                validation = ReferenceValidation(data, self.params)
+                results = list(validation.validate_lpage_when_fpage())
+                self.assertEqual(1, len(results))
+                self.assertEqual("ERROR", results[0]["response"])
+                self.assertEqual(
+                    f"B1 (journal): if <fpage>{fpage}</fpage> is an article number, "
+                    "mark it with <elocation-id> instead of <fpage>. Otherwise, add <lpage>",
+                    results[0]["advice"],
+                )
+                self.assertEqual(
+                    results[0]["advice"],
+                    results[0]["adv_text"].format(**results[0]["adv_params"]),
+                )
+
+    def test_fpage_without_lpage_advice_size(self):
+        mixed_citations = (
+            "World Health Organization. Obesity. Geneva: WHO; 2000. 252 p.",
+            "Autor. Livro. São Paulo: Editora; 2010. 252 páginas.",
+            "Author. Book. London: Publisher; 2010. 252 pp.",
+        )
+        for mixed_citation in mixed_citations:
+            with self.subTest(mixed_citation=mixed_citation):
+                data = self.reference_data.copy()
+                data["fpage"] = "252"
+                data["mixed_citation"] = mixed_citation
+                validation = ReferenceValidation(data, self.params)
+                results = list(validation.validate_lpage_when_fpage())
+                self.assertEqual(1, len(results))
+                self.assertEqual("ERROR", results[0]["response"])
+                self.assertEqual(
+                    'B1 (journal): if <fpage>252</fpage> is the total number of pages, '
+                    'mark it with <size units="pages"> instead of <fpage>. Otherwise, add <lpage>',
+                    results[0]["advice"],
+                )
+
+    def test_fpage_without_lpage_number_inside_other_number_is_not_size(self):
+        data = self.reference_data.copy()
+        data["fpage"] = "252"
+        data["mixed_citation"] = "Author. Book. 2010. 1252 p."
+        validation = ReferenceValidation(data, self.params)
+        results = list(validation.validate_lpage_when_fpage())
+        self.assertEqual(
+            "B1 (journal): add <lpage> because <fpage> is present",
+            results[0]["advice"],
+        )
+
 
 class SizeUnitsValidationTest(TestCase):
     """Tests for Rule 12: size must have @units='pages'."""
