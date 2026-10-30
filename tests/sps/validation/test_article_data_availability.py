@@ -4,6 +4,7 @@ from lxml import etree
 from packtools.sps.validation.article_data_availability import (
     DataAvailabilityValidation,
 )
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class DataAvailabilityValidationTest(unittest.TestCase):
@@ -383,6 +384,51 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.assertEqual("data availability mode", mode_validation["title"])
         self.assertEqual("OK", mode_validation["response"])
         self.assertEqual("data-available-upon-request", mode_validation["got_value"])
+
+
+class ExpressionOfConcernDataAvailabilityTest(unittest.TestCase):
+    def test_without_statement_is_valid_in_article_and_translation(self):
+        xml = """
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="expression-of-concern" xml:lang="pt">
+                    <body><p>Texto</p></body>
+                    <sub-article article-type="translation" id="s1" xml:lang="en">
+                        <body><p>Text</p></body>
+                    </sub-article>
+                </article>
+            """
+        xmltree = etree.fromstring(xml)
+        for params in (None, get_default_rules()["data_availability_rules"]):
+            with self.subTest(params=bool(params)):
+                validations = list(
+                    DataAvailabilityValidation(xmltree, params).validate_data_availability_exist()
+                )
+                self.assertEqual(
+                    [("article", "OK"), ("sub-article", "OK")],
+                    [(v["parent"], v["response"]) for v in validations],
+                )
+
+    def test_with_statement_is_unexpected(self):
+        xml = """
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="expression-of-concern" xml:lang="pt">
+                    <back>
+                        <fn-group>
+                            <fn fn-type="data-availability" specific-use="data-available" id="fn1">
+                                <p>Dados disponíveis.</p>
+                            </fn>
+                        </fn-group>
+                    </back>
+                </article>
+            """
+        xmltree = etree.fromstring(xml)
+        params = get_default_rules()["data_availability_rules"]
+
+        validations = list(
+            DataAvailabilityValidation(xmltree, params).validate_data_availability_exist()
+        )
+
+        self.assertEqual(1, len(validations))
+        self.assertEqual("CRITICAL", validations[0]["response"])
+        self.assertIn("unexpected for expression-of-concern", validations[0]["advice"])
 
 
 if __name__ == "__main__":

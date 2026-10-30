@@ -343,6 +343,18 @@ class TestArticleTypeValidation(unittest.TestCase):
         self.assertIn("Complete article article-type", result['advice'])
         self.assertIn("with valid value", result['advice'])
 
+    def test_validate_article_type_expression_of_concern_in_rules_file(self):
+        xmltree = etree.fromstring(
+            '<article article-type="expression-of-concern" xml:lang="pt"/>'
+        )
+        params = get_default_rules()["article_type_rules"]
+
+        results = list(ArticleTypeValidation(xmltree, params).validate_article_type())
+
+        self.assertEqual(1, len(results))
+        self.assertEqual("OK", results[0]["response"])
+        self.assertEqual("expression-of-concern", results[0]["got_value"])
+
     def test_validate_article_type_with_custom_list(self):
         # Test with custom article types list
         custom_params = {
