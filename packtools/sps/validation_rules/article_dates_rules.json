@@ -23,43 +23,33 @@
         "pub_date_past_collection_error_level":"CRITICAL",
         "pub_date_future_tolerance_days":7,
         "pub_date_past_collection_tolerance_months":12,
-        "required_events":[
-            "received",
-            "accepted"
-        ],
+        "required_events":[],
         "pre_pub_ordered_events":[
             "preprint",
             "received",
             "rev-request",
             "rev-recd",
             "revised",
+            "reviewer-report-received",
             "accepted"
         ],
         "pos_pub_ordered_events":[
             "pub",
             "resubmitted",
             "corrected",
+            "expression-of-concern",
             "retracted"
         ],
         "parent":{
             "parent":null
         },
         "required_history_events_for_related_article_type": {
+            "addendum": "corrected",
             "correction-forward": "corrected",
-            "addendum":"corrected",
-            "commentary-article":"commented",
-            "correction":"corrected",
-            "letter":null,
-            "partial-retraction":"retracted",
-            "retraction":"retracted",
-            "response":null,
-            "peer-reviewed-article":null,
-            "preprint": "preprint",
-            "updated-article":"updated",
-            "companion":null,
-            "republished-article":"republished",
-            "corrected-article":"corrected",
-            "expression-of-concern":null
+            "retraction-forward": "retracted",
+            "partial-retraction": "retracted",
+            "expression-of-concern": "expression-of-concern",
+            "preprint": "preprint"
         },
         "required_history_events_for_article_type": {
             "reviewer-report": "reviewer-report-received"

@@ -57,8 +57,8 @@ class DateValidation:
             "format_error_level": "CRITICAL",
             "limit_error_level": "CRITICAL",
             # Event ordering configuration
-            "pre_pub_ordered_events": ["preprint", "received", "rev-request", "rev-recd", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "resubmitted", "corrected", "retracted"],
+            "pre_pub_ordered_events": ["preprint", "received", "rev-request", "rev-recd", "revised", "reviewer-report-received", "accepted"],
+            "pos_pub_ordered_events": ["pub", "resubmitted", "corrected", "expression-of-concern", "retracted"],
             # Parent reference for validation responses
             "parent": None,
             # Date limits
@@ -244,15 +244,15 @@ class FulltextDatesValidation:
         # Initialize default params and update with provided params
         self.params = self._get_default_params()
         self.params.update(params or {})
+        self.params["parent"] = self.fulltext.attribs_parent_prefixed
 
-        self._add_required_events()
+        self.required_date_types = self._get_required_events()
 
         self.date_types_ordered_by_date = self.fulltext.date_types_ordered_by_date
         self.expected_date_type_list = (
             self.params["pre_pub_ordered_events"]
             + self.params["pos_pub_ordered_events"]
         )
-        self.required_date_types = self.params["required_events"]
         self.params["pub_date"] = (
             self.fulltext.article_date and self.fulltext.article_date["display"]
         )
@@ -291,12 +291,13 @@ class FulltextDatesValidation:
             "pub_date_past_collection_tolerance_months": 12,
             "today": None,
             # Event lists — alinhados com article_dates_rules.json
-            "required_events": ["received", "accepted"],
+            "required_events": [],
             "pre_pub_ordered_events": [
-                "preprint", "received", "rev-request", "rev-recd", "revised", "accepted"
+                "preprint", "received", "rev-request", "rev-recd", "revised",
+                "reviewer-report-received", "accepted"
             ],
             "pos_pub_ordered_events": [
-                "pub", "resubmitted", "corrected", "retracted"
+                "pub", "resubmitted", "corrected", "expression-of-concern", "retracted"
             ],
             # Required events mappings
             "required_history_events_for_article_type": {},
@@ -308,18 +309,30 @@ class FulltextDatesValidation:
             "pub_date": None,
         }
 
-    def _add_required_events(self):
-        self.params.setdefault("required_events", [])
+    def _get_required_events(self):
+        if self.is_translation_without_history:
+            return []
+        events = list(self.params.get("required_events") or [])
         key = self.fulltext.attribs_parent_prefixed["original_article_type"]
         if event := self.params["required_history_events_for_article_type"].get(key):
-            self.params["required_events"].append(event)
+            events.append(event)
 
-        for item in self.fulltext.related_articles:
-            key = item["related-article-type"]
-            if event := self.params[
-                "required_history_events_for_related_article_type"
-            ].get(key):
-                self.params["required_events"].append(event)
+        front = self.fulltext.front
+        if front is not None:
+            for key in front.xpath(".//related-article/@related-article-type"):
+                if event := self.params[
+                    "required_history_events_for_related_article_type"
+                ].get(key):
+                    events.append(event)
+        return events
+
+    @property
+    def is_translation_without_history(self):
+        front = self.fulltext.front
+        return (
+            self.fulltext.article_type == "translation"
+            and (front is None or front.find("history") is None)
+        )
 
     def validate(self):
         """Perform all date validations.
@@ -678,7 +691,7 @@ class FulltextDatesValidation:
     @property
     def missing_events(self):
         return self.get_events_ordered_by_date(
-            set(self.params["required_events"]) - set(self.date_types_ordered_by_date),
+            set(self.required_date_types) - set(self.date_types_ordered_by_date),
         )
 
     @property

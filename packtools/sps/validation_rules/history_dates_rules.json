@@ -5,10 +5,10 @@
             {"type": "preprint", "required": false},
             {"type": "received", "required": true},
             {"type": "resubmitted", "required": false},
-            {"type": "rev-request", "required": true},
-            {"type": "rev-recd", "required": true},
+            {"type": "rev-request", "required": false},
+            {"type": "rev-recd", "required": false},
             {"type": "accepted", "required": true},
-            {"type": "pub", "required": true},
+            {"type": "pub", "required": false},
             {"type": "corrected", "required": false},
             {"type": "retracted", "required": false}
         ]
