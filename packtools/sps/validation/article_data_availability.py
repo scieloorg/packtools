@@ -25,6 +25,7 @@ class DataAvailabilityValidation:
             "article-types": {
                 "data-article": "required",
                 "brief-report": "required",
+                "case-report": "required",
                 "rapid-communication": "required",
                 "research-article": "required",
                 "review-article": "required",
@@ -36,7 +37,6 @@ class DataAvailabilityValidation:
                 "editorial": "optional",
                 "obituary": "optional",
                 "reviewer-report": "optional",
-                "case-report": "optional",
                 "book-review": "optional",
                 "product-review": "optional",
                 "reply": "optional",
