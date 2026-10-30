@@ -1069,6 +1069,12 @@ msgstr "Substitua {obtained} em <article-meta><supplement> por {expected}"
 msgid "Replace {issue} in <article-meta><issue> with one of {expected}"
 msgstr "Substitua {issue} em <article-meta><issue> por um de {expected}"
 
+#, python-brace-format
+msgid ""
+"Add the supplement or special issue number to "
+"<article-meta><issue>{issue}</issue>. Expected format: {expected}"
+msgstr "Informe o número do suplemento ou do número especial em <article-meta><issue>{issue}</issue>. Formato esperado: {expected}"
+
 #: packtools/sps/validation/front_articlemeta_issue.py:251
 #, python-brace-format
 msgid "Got {issue}, but the registered journal issue could not be checked"
