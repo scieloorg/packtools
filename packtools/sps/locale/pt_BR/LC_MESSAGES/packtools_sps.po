@@ -374,6 +374,26 @@ msgstr "O ORCID {orcid} é válido"
 msgid "ORCID {orcid} is invalid; expected format XXXX-XXXX-XXXX-XXXX"
 msgstr "O ORCID {orcid} é inválido; esperado o formato XXXX-XXXX-XXXX-XXXX"
 
+#: packtools/sps/validation/article_contribs.py:290
+#, python-brace-format
+msgid "{info}: Fix ORCID {orcid}: use only digits, except the last character, which can be a digit or uppercase X"
+msgstr "{info}: Corrija o ORCID {orcid}: use apenas dígitos, exceto o último caractere, que pode ser um dígito ou X maiúsculo"
+
+#: packtools/sps/validation/article_contribs.py:299
+#, python-brace-format
+msgid "{info}: ORCID {orcid} has an invalid check digit. Confirm the correct ORCID with the author"
+msgstr "{info}: O ORCID {orcid} tem dígito verificador inválido. Confirme o ORCID correto com o autor"
+
+#: packtools/sps/validation/article_contribs.py:306
+#, python-brace-format
+msgid "ORCID {orcid} is invalid; the check digit does not match"
+msgstr "O ORCID {orcid} é inválido; o dígito verificador não confere"
+
+#: packtools/sps/validation/article_contribs.py:311
+#, python-brace-format
+msgid "{info}: Replace the lowercase x with uppercase X in ORCID {orcid}"
+msgstr "{info}: Substitua o x minúsculo por X maiúsculo no ORCID {orcid}"
+
 #: packtools/sps/validation/article_contribs.py:298
 msgid "A valid ORCID is required"
 msgstr "É obrigatório informar um ORCID válido"
