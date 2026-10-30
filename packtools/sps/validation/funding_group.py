@@ -59,21 +59,37 @@ class FundingGroupValidation:
                 advice = None
                 advice_text = None
                 advice_params = {}
+                message_text = i18n._(
+                    "<award-group> contains both <award-id> and "
+                    "<funding-source>"
+                )
             elif award_ids:
                 valid = False
                 advice = f'Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail'
                 advice_text = i18n._("Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail")
                 advice_params = {"award_ids": award_ids}
+                message_text = i18n._(
+                    "<award-group> must contain both <award-id> and "
+                    "<funding-source>"
+                )
             elif funding_sources:
-                valid = False
-                advice = f'Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail'
-                advice_text = i18n._("Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail")
-                advice_params = {"funding_sources": funding_sources}
+                valid = True
+                advice = None
+                advice_text = None
+                advice_params = {}
+                message_text = i18n._(
+                    "<award-group> contains <funding-source> without "
+                    "<award-id> (no contract number declared)"
+                )
             else:
                 valid = False
                 advice = 'Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail'
                 advice_text = i18n._("Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail")
                 advice_params = {}
+                message_text = i18n._(
+                    "<award-group> must contain both <award-id> and "
+                    "<funding-source>"
+                )
 
             yield build_response(
                 title="award-id and funding-source",
@@ -87,17 +103,7 @@ class FundingGroupValidation:
                 advice=advice,
                 advice_text=advice_text,
                 advice_params=advice_params,
-                message_text=(
-                    i18n._(
-                        "<award-group> contains both <award-id> and "
-                        "<funding-source>"
-                    )
-                    if valid
-                    else i18n._(
-                        "<award-group> must contain both <award-id> and "
-                        "<funding-source>"
-                    )
-                ),
+                message_text=message_text,
                 message_params={},
                 data=item,
                 error_level=self.params["award_id_error_level"],
