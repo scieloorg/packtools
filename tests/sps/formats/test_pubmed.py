@@ -1828,6 +1828,24 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
 
+class PubmedCitationsNestedRefListTest(unittest.TestCase):
+    def test_citations_from_nested_ref_list(self):
+        xml_tree = ET.fromstring(
+            '<article article-type="research-article" xml:lang="en"><back>'
+            '<ref-list><title>References</title>'
+            '<ref-list><ref id="B1"><mixed-citation>B1. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B1</source><year>2020</year></element-citation></ref><ref id="B2"><mixed-citation>B2. Ref.</mixed-citation><element-citation publication-type="journal"><source>Source B2</source><year>2020</year></element-citation></ref></ref-list>'
+            '</ref-list>'
+            '</back></article>'
+        )
+        xml_pubmed = ET.fromstring("<Article><ReferenceList/></Article>")
+
+        xml_pubmed_citations(xml_pubmed, xml_tree)
+
+        self.assertEqual(
+            ["B1. Ref.", "B2. Ref."],
+            [c.text for c in xml_pubmed.findall(".//Citation")],
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
