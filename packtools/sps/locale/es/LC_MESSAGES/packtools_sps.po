@@ -1727,6 +1727,11 @@ msgstr "Establezca los atributos de artículos relacionados en este orden: {expe
 msgid "Article type \"{article_type}\" requires related articles of types: {missing_types}"
 msgstr "El tipo de artículo \"{article_type}\" requiere artículos relacionados de tipos: {missing_types}"
 
+#: packtools/sps/validation/related_articles.py:905
+#, python-brace-format
+msgid "Article type \"{article_type}\" requires a related article of one of the types: {expected_types}"
+msgstr "El tipo de artículo \"{article_type}\" requiere un artículo relacionado de uno de los tipos: {expected_types}"
+
 #: packtools/sps/validation/response.py:136
 msgid "Add @response-type=\"reply\" to <response>."
 msgstr "Agregue @response-type=\"reply\" a <response>."

@@ -7,6 +7,11 @@ from packtools.sps.validation.related_articles import (
     RelatedArticleValidation,
     FulltextRelatedArticlesValidation,
 )
+from packtools.sps.validation.xml_validations import (
+    validate_peer_reviews,
+    validate_related_articles,
+)
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 PARAMS = {
@@ -1772,3 +1777,218 @@ class TestXMLIntegrationNewValidations(BaseRelatedArticleTest):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DefaultRulesRelatedArticleTest(TestCase):
+    TYPE_TITLES = (
+        "Related article type",
+        "Required related articles",
+        "Related article type value",
+    )
+
+    def _related(self, related_types):
+        return "".join(
+            f'<related-article related-article-type="{related_type}" id="r{i}" '
+            f'xlink:href="10.1590/0000-0000-{i}" ext-link-type="doi"/>'
+            for i, related_type in enumerate(related_types, 1)
+        )
+
+    def _xml(self, article_type, related_types, sub_articles=""):
+        return etree.fromstring(
+            f"""
+            <article xmlns:xlink="http://www.w3.org/1999/xlink"
+                article-type="{article_type}" xml:lang="pt">
+                <front><article-meta>{self._related(related_types)}</article-meta></front>
+                {sub_articles}
+            </article>
+            """
+        )
+
+    def _problems(self, xml_tree):
+        return [
+            (r["title"], r["response"], r["got_value"])
+            for r in validate_related_articles(xml_tree, get_default_rules())
+            if r["title"] in self.TYPE_TITLES and r["response"] != "OK"
+        ]
+
+
+class TestNoticeDocumentsRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_notice_with_expected_related_article_type(self):
+        cases = [
+            ("addendum", "addended-article"),
+            ("expression-of-concern", "object-of-concern"),
+            ("correction", "corrected-article"),
+            ("retraction", "retracted-article"),
+            ("partial-retraction", "retracted-article"),
+        ]
+        for article_type, related_type in cases:
+            with self.subTest(article_type=article_type):
+                self.assertEqual(
+                    self._problems(self._xml(article_type, [related_type])), []
+                )
+
+    def test_addendum_without_addended_article(self):
+        self.assertEqual(
+            self._problems(self._xml("addendum", [])),
+            [("Required related articles", "CRITICAL", [])],
+        )
+
+
+class TestArticleRelatedArticleTypeValue(DefaultRulesRelatedArticleTest):
+    def test_article_is_an_allowed_value(self):
+        problems = [
+            item for item in self._problems(self._xml("letter", ["article"]))
+            if item[0] == "Related article type value"
+        ]
+        self.assertEqual(problems, [])
+
+
+class TestLetterAndCommentaryRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_letter_with_article_and_reply(self):
+        self.assertEqual(
+            self._problems(self._xml("letter", ["article", "reply"])), []
+        )
+
+    def test_letter_without_article(self):
+        self.assertEqual(
+            self._problems(self._xml("letter", ["reply"])),
+            [("Required related articles", "CRITICAL", ["reply"])],
+        )
+
+    def test_commentary_with_commentary_article_and_reply(self):
+        self.assertEqual(
+            self._problems(
+                self._xml("article-commentary", ["commentary-article", "reply"])
+            ),
+            [],
+        )
+
+
+class TestReplyRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_reply_to_letter_or_commentary(self):
+        for related_type in ("letter", "commentary"):
+            with self.subTest(related_type=related_type):
+                self.assertEqual(
+                    self._problems(self._xml("reply", [related_type])), []
+                )
+
+    def test_reply_without_letter_or_commentary(self):
+        results = [
+            r for r in validate_related_articles(
+                self._xml("reply", []), get_default_rules()
+            )
+            if r["title"] == "Required related articles"
+        ]
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertEqual(results[0]["expected_value"], ["letter", "commentary"])
+        self.assertEqual(
+            results[0]["adv_text"].format(**results[0]["adv_params"]),
+            results[0]["advice"],
+        )
+
+
+class TestReviewerReportRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    def test_reviewer_report_with_reviewed_article(self):
+        self.assertEqual(
+            self._problems(self._xml("reviewer-report", ["reviewed-article"])), []
+        )
+
+    def test_reviewer_report_without_reviewed_article(self):
+        self.assertEqual(
+            self._problems(self._xml("reviewer-report", [])),
+            [("Required related articles", "CRITICAL", [])],
+        )
+
+
+class TestMentionedDocumentRelatedArticleTypes(DefaultRulesRelatedArticleTest):
+    MENTIONED = [
+        "correction-forward",
+        "retraction-forward",
+        "partial-retraction",
+        "addendum",
+        "expression-of-concern",
+        "letter",
+        "commentary",
+        "reviewer-report",
+        "preprint",
+    ]
+
+    def test_indexable_types_accept_mentioned_document_relations(self):
+        article_types = [
+            "research-article",
+            "review-article",
+            "case-report",
+            "brief-report",
+            "data-article",
+            "rapid-communication",
+            "editorial",
+            "book-review",
+            "clinical-instruction",
+            "discussion",
+            "obituary",
+            "oration",
+            "other",
+        ]
+        for article_type in article_types:
+            with self.subTest(article_type=article_type):
+                self.assertEqual(
+                    self._problems(self._xml(article_type, self.MENTIONED)), []
+                )
+
+    def test_research_article_rejects_notice_relation(self):
+        self.assertEqual(
+            self._problems(self._xml("research-article", ["corrected-article"])),
+            [("Related article type", "CRITICAL", "corrected-article")],
+        )
+
+
+class TestSubArticleRequiredRelatedArticles(DefaultRulesRelatedArticleTest):
+    def test_reviewer_report_sub_article_without_related_article(self):
+        xml_tree = self._xml(
+            "research-article",
+            [],
+            sub_articles=(
+                '<sub-article article-type="reviewer-report" id="SA1" xml:lang="pt">'
+                "<front-stub/></sub-article>"
+            ),
+        )
+        results = [
+            r for r in validate_peer_reviews(xml_tree, get_default_rules())
+            if r["title"] == "Required related articles"
+        ]
+        self.assertEqual(results, [])
+
+    def test_translation_of_letter_without_article(self):
+        xml_tree = self._xml(
+            "letter",
+            ["article"],
+            sub_articles=(
+                '<sub-article article-type="translation" id="s1" xml:lang="en">'
+                "<front-stub/></sub-article>"
+            ),
+        )
+        results = [
+            (r["parent"], r["parent_id"], r["response"])
+            for r in validate_related_articles(xml_tree, get_default_rules())
+            if r["title"] == "Required related articles"
+        ]
+        self.assertEqual(results, [("sub-article", "s1", "CRITICAL")])
+
+
+class TestReviewerReportRelatedArticlesReportedOnce(DefaultRulesRelatedArticleTest):
+    def test_reviewer_report_related_articles_only_in_related_article_group(self):
+        xml_tree = self._xml("reviewer-report", ["peer-reviewed-material"])
+        titles = ("Related article type", "Required related articles")
+        peer_review = [
+            r["title"] for r in validate_peer_reviews(xml_tree, get_default_rules())
+            if r["title"] in titles
+        ]
+        related = [
+            r["title"] for r in validate_related_articles(xml_tree, get_default_rules())
+            if r["title"] in titles and r["response"] != "OK"
+        ]
+        self.assertEqual(peer_review, [])
+        self.assertEqual(
+            sorted(related), ["Related article type", "Required related articles"]
+        )

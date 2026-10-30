@@ -36,6 +36,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -48,6 +50,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -60,6 +64,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -72,6 +78,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -84,6 +92,8 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
+                    "expression-of-concern",
+                    "letter",
                     "commentary",
                     "reviewer-report",
                     "preprint"
@@ -98,19 +108,24 @@
                 "acceptable_related_article_types": []
             },
             "addendum": {
-                "required_related_article_types": ["article"],
+                "required_related_article_types": ["addended-article"],
+                "acceptable_related_article_types": []
+            },
+            "expression-of-concern": {
+                "required_related_article_types": ["object-of-concern"],
                 "acceptable_related_article_types": []
             },
             "article-commentary": {
                 "required_related_article_types": ["commentary-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": ["reply"]
             },
             "letter": {
-                "required_related_article_types": [],
-                "acceptable_related_article_types": ["article", "letter"]
+                "required_related_article_types": ["article"],
+                "acceptable_related_article_types": ["reply"]
             },
             "reply": {
-                "required_related_article_types": ["letter"],
+                "required_related_article_types": [],
+                "required_one_of_related_article_types": ["letter", "commentary"],
                 "acceptable_related_article_types": []
             },
             "editorial": {
@@ -120,11 +135,15 @@
                     "retraction-forward",
                     "partial-retraction",
                     "addendum",
-                    "commentary"
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
                 ]
             },
             "reviewer-report": {
-                "required_related_article_types": ["peer-reviewed-material"],
+                "required_related_article_types": ["reviewed-article"],
                 "acceptable_related_article_types": []
             },
             "preprint": {
@@ -133,19 +152,115 @@
             },
             "clinical-instruction": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             },
             "oration": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             },
             "discussion": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             },
             "product-review": {
                 "required_related_article_types": [],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "rapid-communication": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "book-review": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "obituary": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "other": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern",
+                    "letter",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
             }
         }
     }
