@@ -1,3 +1,4 @@
+from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.validation.models.fn import XMLFns
 from packtools.sps.validation.basefn import BaseFnValidation
 from packtools.sps.validation.utils import build_response
@@ -124,8 +125,6 @@ class XMLFnGroupValidation:
             fn_types.append(fn_group["fn_type"])
             yield from self.validate_fn(fn_group)
 
-        yield from self.validate_edited_by()
-
     def validate_fn_group_uniqueness(self):
         """
         Validate that <fn-group> appears at most once in the document.
@@ -202,19 +201,42 @@ class XMLFnGroupValidation:
         yield from validator.validate()
 
     def validate_edited_by(self):
-        is_valid = bool(self.xml_article.fn_edited_by)
+        """
+        Validate the presence of <fn fn-type="edited-by"> in <author-notes>
+        of <article> for the @article-type values that require it.
+        """
+        parent = Fulltext(self.xml_tree.find(".")).attribs_parent_prefixed
+        article_type = parent["parent_article_type"]
+        if article_type not in self.rules["edited_by_required_article_types"]:
+            return
+
+        items = self.xml_article.fn_edited_by
+        is_valid = bool(items)
+        advice = None
+        advice_text = None
+        advice_params = {}
+        if not is_valid:
+            advice = (
+                f'Mark in <author-notes> the responsible editor for the review process '
+                f'with <fn fn-type="edited-by">, required for {article_type}'
+            )
+            advice_text = i18n._(
+                'Mark in <author-notes> the responsible editor for the review process '
+                'with <fn fn-type="edited-by">, required for {article_type}'
+            )
+            advice_params = {"article_type": article_type}
         yield build_response(
             title="edited-by",
-            parent={},
+            parent=parent,
             item="fn",
             sub_item="@fn-type",
-            validation_type="value",
+            validation_type="exist",
             is_valid=is_valid,
             expected='<fn fn-type="edited-by">',
             obtained='<fn fn-type="edited-by">' if is_valid else None,
-            advice='Make the responsible editor with <fn fn-type="edited-by">',
-            advice_text=i18n._('Make the responsible editor with <fn fn-type="edited-by">'),
-            advice_params={},
-            data=list(self.xml_article.fn_edited_by),
-            error_level=self.rules["fn_type_error_level"]
+            advice=advice,
+            advice_text=advice_text,
+            advice_params=advice_params,
+            data=items,
+            error_level=self.rules["edited_by_error_level"],
         )

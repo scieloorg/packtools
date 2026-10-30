@@ -5,6 +5,15 @@
 		"fn_label_error_level": "WARNING",
 		"conflict_error_level": "CRITICAL",
 		"fn_type_error_level": "CRITICAL",
+		"edited_by_error_level": "CRITICAL",
+		"edited_by_required_article_types": [
+		    "data-article",
+		    "brief-report",
+		    "case-report",
+		    "rapid-communication",
+		    "research-article",
+		    "review-article"
+		],
 		"fn_type_expected_values": [
 		    "abbr",
 		    "com",
