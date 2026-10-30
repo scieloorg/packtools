@@ -1,7 +1,41 @@
+import re
+
 from packtools.sps.models.references import XMLReferences
 from packtools.sps.validation.exceptions import ValidationReferencesException
 from packtools.sps.validation.utils import build_response
 from packtools.sps import i18n
+
+
+PAGE_VALUE_PATTERNS = (
+    re.compile(r"[ivxlcdm]+", re.IGNORECASE),
+    re.compile(r"[A-Za-z]*\d[A-Za-z0-9]*"),
+    re.compile(r"\d+\.[A-Za-z]+\d+"),
+    re.compile(r"(?=.*[A-Za-z])[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+"),
+    re.compile(r"[A-Za-z0-9]+:\d+"),
+)
+ARTICLE_NUMBER_PATTERN = re.compile(
+    r"(?:art|artigo|article|art[ií]culo)\.?\s*[A-Za-z]?\d+", re.IGNORECASE
+)
+PAGE_RANGE_PATTERN = re.compile(r"(\w+)\s*(?:[-\u2010-\u2014\u2212]|\s)\s*(\w+)")
+
+
+def is_page_value(value):
+    return any(pattern.fullmatch(value) for pattern in PAGE_VALUE_PATTERNS)
+
+
+def page_value_problem(value):
+    """
+    Returns None when value is a page, otherwise one of:
+    "article_number", "range", "other"
+    """
+    if is_page_value(value):
+        return None
+    if ARTICLE_NUMBER_PATTERN.fullmatch(value):
+        return "article_number"
+    match = PAGE_RANGE_PATTERN.fullmatch(value)
+    if match and all(is_page_value(page) for page in match.groups()):
+        return "range"
+    return "other"
 
 
 class ReferenceValidation:
@@ -479,6 +513,59 @@ class ReferenceValidation:
                 error_level=self.params.get("lpage_error_level", "ERROR"),
             )
 
+    def validate_page_value(self):
+        for element_name in ("fpage", "lpage"):
+            value = self.data.get(element_name)
+            if not value:
+                continue
+            problem = page_value_problem(value)
+            if not problem:
+                continue
+            if problem == "article_number":
+                advice = f"{self.info}: mark the article number <{element_name}>{value}</{element_name}> with <elocation-id> instead of <{element_name}>"
+                advice_text = i18n._(
+                    "{info}: mark the article number <{element_name}>{value}</{element_name}> "
+                    "with <elocation-id> instead of <{element_name}>"
+                )
+            elif problem == "range":
+                advice = f"{self.info}: <{element_name}>{value}</{element_name}> has more than one page. Mark the first page with <fpage> and the last page with <lpage>"
+                advice_text = i18n._(
+                    "{info}: <{element_name}>{value}</{element_name}> has more than one page. "
+                    "Mark the first page with <fpage> and the last page with <lpage>"
+                )
+            else:
+                advice = f"{self.info}: keep only the page number in <{element_name}>{value}</{element_name}>"
+                advice_text = i18n._(
+                    "{info}: keep only the page number in <{element_name}>{value}</{element_name}>"
+                )
+            yield build_response(
+                title="page value",
+                parent=self.data,
+                item="element-citation",
+                sub_item=element_name,
+                is_valid=False,
+                validation_type="format",
+                expected=f"page number in <{element_name}>",
+                obtained=f"<{element_name}>{value}</{element_name}>",
+                advice=advice,
+                advice_text=advice_text,
+                advice_params={
+                    "info": self.info,
+                    "element_name": element_name,
+                    "value": value,
+                },
+                message_text=i18n._(
+                    "{info}: <{element_name}>{value}</{element_name}> is not a page number"
+                ),
+                message_params={
+                    "info": self.info,
+                    "element_name": element_name,
+                    "value": value,
+                },
+                data=self.data,
+                error_level=self.params.get("page_value_error_level", "ERROR"),
+            )
+
     def validate_size_units(self):
         size_info = self.data.get("size_info")
         if size_info:
@@ -554,6 +641,7 @@ class ReferenceValidation:
         yield from self.validate_ext_link_count_element_citation()
         yield from self.validate_ext_link_count_mixed_citation()
         yield from self.validate_lpage_when_fpage()
+        yield from self.validate_page_value()
         yield from self.validate_size_units()
         yield from self.validate_date_in_citation_content_type()
         yield from self.validate_surname_in_name()

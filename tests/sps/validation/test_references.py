@@ -205,6 +205,68 @@ class ReferenceValidationTest(TestCase):
         self.assertEqual('<ext-link xlink:href="https://...">https://...</ext-link>', result["expected_value"])
         self.assertEqual('B1 (journal) : Analyze and decide to remove <comment> or mark the text between <comment> and <ext-link xlink:href="https://...">', result["advice"])
 
+    # Testes para validate_page_value
+    def _page_value_results(self, fpage=None, lpage=None, params=None):
+        reference_data = self.reference_data.copy()
+        reference_data["fpage"] = fpage
+        reference_data["lpage"] = lpage
+        validation = ReferenceValidation(reference_data, params or self.params)
+        return list(validation.validate_page_value())
+
+    def test_validate_page_value_accepts_page_formats(self):
+        for value in (
+            "379", "e72", "145S", "e2024EF005467", "1759720X221096363",
+            "bnaa004", "CD011535", "12.e3", "1012.e15", "xiv", "IV",
+            "e02410-16", "A-11", "e-181", "00096-X", "L031502:1", "108272K:1",
+        ):
+            with self.subTest(value=value):
+                self.assertEqual([], self._page_value_results(fpage=value, lpage=value))
+
+    def test_validate_page_value_article_number(self):
+        for value in ("Artigo e13389", "Article 5672", "art.5008"):
+            with self.subTest(value=value):
+                results = self._page_value_results(fpage=value)
+                self.assertEqual(["ERROR"], [r["response"] for r in results])
+                self.assertEqual(
+                    f"B1 (journal): mark the article number <fpage>{value}</fpage> "
+                    "with <elocation-id> instead of <fpage>",
+                    results[0]["adv_text"].format(**results[0]["adv_params"]),
+                )
+
+    def test_validate_page_value_range(self):
+        for value in ("365 377", "1-40", "27\u221236", "107\u2010127"):
+            with self.subTest(value=value):
+                results = self._page_value_results(fpage=value, lpage=value)
+                self.assertEqual(["fpage", "lpage"], [r["sub_item"] for r in results])
+                self.assertEqual(
+                    f"B1 (journal): <lpage>{value}</lpage> has more than one page. "
+                    "Mark the first page with <fpage> and the last page with <lpage>",
+                    results[1]["adv_text"].format(**results[1]["adv_params"]),
+                )
+
+    def test_validate_page_value_other(self):
+        for value in (
+            "36 + 31p", "mar. 1999", ", 14", ".18", "1.077", "e", "Article",
+            "e\u20132024105", "102, discussion 1101-2",
+        ):
+            with self.subTest(value=value):
+                results = self._page_value_results(lpage=value)
+                self.assertEqual(["lpage"], [r["sub_item"] for r in results])
+                self.assertEqual(
+                    f"B1 (journal): keep only the page number in <lpage>{value}</lpage>",
+                    results[0]["adv_text"].format(**results[0]["adv_params"]),
+                )
+                self.assertEqual(
+                    f"B1 (journal): <lpage>{value}</lpage> is not a page number",
+                    results[0]["msg_text"].format(**results[0]["msg_params"]),
+                )
+
+    def test_validate_page_value_error_level_from_params(self):
+        params = self.params.copy()
+        params["page_value_error_level"] = "WARNING"
+        results = self._page_value_results(fpage="365 377", params=params)
+        self.assertEqual(["WARNING"], [r["response"] for r in results])
+
     # Testes para validate_mixed_citation_sub_tags
     def test_validate_mixed_citation_sub_tags_disallowed(self):
         params = self.params.copy()
@@ -463,6 +525,25 @@ class ReferencesValidationTest(TestCase):
         self.assertEqual("reference year (2015) previous or equal to 2014", result["expected_value"])
         # O advice vai conter informações da referência completa
         self.assertEqual("B1 (journal) : Mark the reference year (2015) with <year> and it must be previous or equal to 2014", result["advice"])
+
+    def test_references_validation_page_value(self):
+        xmltree = etree.fromstring(
+            '<article article-type="research-article" dtd-version="1.1" xml:lang="pt">'
+            '<front><article-meta><pub-date date-type="pub"><year>2026</year></pub-date></article-meta></front>'
+            '<back><ref-list><ref id="B1">'
+            "<mixed-citation>Silva J. Titulo. Rev Teste. 2020;10:Artigo e13389.</mixed-citation>"
+            '<element-citation publication-type="journal">'
+            '<person-group person-group-type="author"><name><surname>Silva</surname><given-names>J</given-names></name></person-group>'
+            "<article-title>Titulo</article-title><source>Rev Teste</source><year>2020</year>"
+            "<volume>10</volume><fpage>Artigo e13389</fpage>"
+            "</element-citation></ref></ref-list></back></article>"
+        )
+
+        validation = ReferencesValidation(xmltree, self.params)
+        results = [r for r in validation.validate() if r["title"] == "page value"]
+
+        self.assertEqual(["fpage"], [r["sub_item"] for r in results])
+        self.assertEqual("ERROR", results[0]["response"])
 
     def test_references_validation_missing_source(self):
         """Testa validação com XML para fonte ausente."""
