@@ -16,6 +16,7 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_elocation_pipe,
     xml_pubmed_language_pipe,
     xml_pubmed_author_list,
+    xml_pubmed_group_list,
     xml_pubmed_publication_type,
     xml_pubmed_article_id,
     xml_pubmed_history,
@@ -1007,6 +1008,272 @@ class PipelinePubmed(unittest.TestCase):
         )
 
         xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_author_list_with_suffix(self):
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<FirstName>Rogerio</FirstName>'
+            '<LastName>Meneghini</LastName>'
+            '<Suffix>Junior</Suffix>'
+            '<Affiliation>Some University</Affiliation>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<surname>Meneghini</surname>'
+            '<given-names>Rogerio</given-names>'
+            '<suffix>Junior</suffix>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<institution content-type="original">Some University</institution>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_author_list_without_surname_duplicates_given_names(self):
+        # A DTD do PubMed exige FirstName e LastName juntos; quando o XML
+        # fonte só tem <given-names> (sem <surname>), duplicamos o valor
+        # em ambos os campos em vez de gerar um Author inválido.
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<FirstName>Viviana Alder</FirstName>'
+            '<LastName>Viviana Alder</LastName>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<given-names>Viviana Alder</given-names>'
+            '</name>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_author_list_with_collective_name(self):
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<CollectiveName>The SciELO Group</CollectiveName>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author" id="collab">'
+            '<collab>The SciELO Group</collab>'
+            '<xref ref-type="author-notes" rid="fn1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_author_list_excludes_collab_list_members(self):
+        expected = (
+            '<Article>'
+            '<AuthorList>'
+            '<Author>'
+            '<CollectiveName>The SciELO Group</CollectiveName>'
+            '</Author>'
+            '</AuthorList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author" id="collab">'
+            '<collab>The SciELO Group</collab>'
+            '<xref ref-type="author-notes" rid="fn1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<contrib-group content-type="collab-list">'
+            '<contrib contrib-type="author" rid="collab">'
+            '<name>'
+            '<surname>Esteves</surname>'
+            '<given-names>Felipe</given-names>'
+            '</name>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_author_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_group_list(self):
+        expected = (
+            '<Article>'
+            '<GroupList>'
+            '<Group>'
+            '<GroupName>The SciELO Group</GroupName>'
+            '<IndividualName>'
+            '<FirstName>Felipe</FirstName>'
+            '<LastName>Esteves</LastName>'
+            '<Affiliation>Universidade Federal do Pará (UFPA)</Affiliation>'
+            '<Identifier Source="orcid">http://orcid.org/0000-0001-0002-0003</Identifier>'
+            '</IndividualName>'
+            '<IndividualName>'
+            '<FirstName>Joyce</FirstName>'
+            '<LastName>Souza</LastName>'
+            '<Affiliation>Universidade Federal do Pará (UFPA)</Affiliation>'
+            '</IndividualName>'
+            '</Group>'
+            '</GroupList>'
+            '</Article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author" id="collab">'
+            '<collab>The SciELO Group</collab>'
+            '<xref ref-type="author-notes" rid="fn1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<contrib-group content-type="collab-list">'
+            '<contrib contrib-type="author" rid="collab">'
+            '<contrib-id contrib-id-type="orcid">0000-0001-0002-0003</contrib-id>'
+            '<name>'
+            '<surname>Esteves</surname>'
+            '<given-names>Felipe</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">1</xref>'
+            '</contrib>'
+            '<contrib contrib-type="author" rid="collab">'
+            '<name>'
+            '<surname>Souza</surname>'
+            '<given-names>Joyce</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">1</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<institution content-type="original">Universidade Federal do Pará (UFPA)</institution>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_group_list(xml_pubmed, xml_tree)
+
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pubmed_group_list_without_group(self):
+        expected = (
+            '<Article/>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<Article/>'
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<surname>Meneghini</surname>'
+            '<given-names>Rogerio</given-names>'
+            '</name>'
+            '</contrib>'
+            '</contrib-group>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_pubmed_group_list(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
