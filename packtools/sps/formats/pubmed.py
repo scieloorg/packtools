@@ -14,6 +14,7 @@ from packtools.sps.models import (
     journal_meta,
     kwd_group,
 )
+from packtools.sps.utils.xml_utils import node_plain_text
 
 
 def xml_pubmed_article_pipe():
@@ -508,18 +509,38 @@ def xml_pubmed_history(xml_pubmed, xml_tree):
     xml_pubmed.append(history)
 
 
+def get_copyright_information(xml_tree):
+    copyright_statement = xml_tree.find(".//permissions/copyright-statement")
+    return node_plain_text(copyright_statement) or None
+
+
 def xml_pubmed_copyright_information(xml_pubmed, xml_tree):
-    ...
-    # TODO
-    # The Copyright information associated with this article.
-    # There is no example of using this value in the files.
+    """
+    <CopyrightInformation>Copyright © 2023 The Authors</CopyrightInformation>
+    """
+    copyright_information = get_copyright_information(xml_tree)
+    if copyright_information:
+        el = ET.Element("CopyrightInformation")
+        el.text = copyright_information
+        xml_pubmed.append(el)
+
+
+def get_coi_statement(xml_tree):
+    fn_node = xml_tree.find('.//fn[@fn-type="coi-statement"]')
+    if fn_node is None:
+        return None
+    return node_plain_text(fn_node.find("p")) or node_plain_text(fn_node) or None
 
 
 def xml_pubmed_coi_statement(xml_pubmed, xml_tree):
-    ...
-    # TODO
-    # The Conflict of Interest statement associated with this article.
-    # There is no example of using this value in the files.
+    """
+    <CoiStatement>Não há conflito de interesse entre os autores do artigo.</CoiStatement>
+    """
+    coi_statement = get_coi_statement(xml_tree)
+    if coi_statement:
+        el = ET.Element("CoiStatement")
+        el.text = coi_statement
+        xml_pubmed.append(el)
 
 
 def get_keywords(xml_tree):
