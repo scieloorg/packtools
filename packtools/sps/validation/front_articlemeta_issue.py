@@ -69,8 +69,8 @@ def parse_issue_value(issue):
         ("N", "suppl"): (0, "suppl", None),
         ("suppl",): (None, "suppl", None),
         ("spe", "N"): (None, "spe", 0),
-        ("N", "spe", "N"): (None, "spe", 1),
-        ("N", "spe"): (None, "spe", None),
+        ("N", "spe", "N"): (0, "spe", 1),
+        ("N", "spe"): (0, "spe", None),
         ("spe",): (None, "spe", None),
     }
     if shape not in shapes:
@@ -279,6 +279,17 @@ class IssueValidation:
             advice = None
             advice_text = None
             advice_params = None
+        elif parsed and parsed["kind"] == "spe" and parsed["number"]:
+            number = parsed["number"]
+            advice = (
+                f"The SPS does not provide for an issue number together with a special issue. "
+                f"Remove {number} from <article-meta><issue>{issue}</issue> and use {expected[0]}"
+            )
+            advice_text = i18n._(
+                "The SPS does not provide for an issue number together with a special issue. "
+                "Remove {number} from <article-meta><issue>{issue}</issue> and use {expected}"
+            )
+            advice_params = {"number": number, "issue": issue, "expected": expected[0]}
         elif missing_number:
             advice = (
                 f"Add the supplement or special issue number to "

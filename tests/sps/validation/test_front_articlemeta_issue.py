@@ -933,7 +933,6 @@ class IssueFormatTest(TestCase):
             "suppl": "suppl N",
             "4 suppl": "4 suppl N",
             "spe": "speN",
-            "4 spe": "speN",
         }
         for issue, expected in cases.items():
             with self.subTest(issue=issue):
@@ -954,7 +953,6 @@ class IssueFormatTest(TestCase):
         cases = {
             "3 suppl1": "3 suppl 1",
             "3-suppl 1": "3 suppl 1",
-            "4 spe1": "spe1",
             "Suppl. 1": "suppl 1",
         }
         for issue, expected in cases.items():
@@ -964,6 +962,28 @@ class IssueFormatTest(TestCase):
                 self.assertEqual([expected], obtained["expected_value"])
                 self.assertEqual(
                     f"Replace {issue} in <article-meta><issue> with one of {[expected]}",
+                    obtained["advice"],
+                )
+
+    def test_advice_for_number_with_special_issue(self):
+        cases = {
+            "4 spe1": ("4", "spe1"),
+            "4 spe 1": ("4", "spe1"),
+            "04-esp1": ("4", "spe1"),
+            "4 spe": ("4", "speN"),
+        }
+        for issue, (number, expected) in cases.items():
+            with self.subTest(issue=issue):
+                obtained = self._validate(issue)
+                self.assertEqual("CRITICAL", obtained["response"])
+                self.assertEqual([expected], obtained["expected_value"])
+                self.assertEqual(
+                    "The SPS does not provide for an issue number together with a special issue. "
+                    f"Remove {number} from <article-meta><issue>{issue}</issue> and use {expected}",
+                    obtained["advice"],
+                )
+                self.assertEqual(
+                    obtained["adv_text"].format(**obtained["adv_params"]),
                     obtained["advice"],
                 )
 
