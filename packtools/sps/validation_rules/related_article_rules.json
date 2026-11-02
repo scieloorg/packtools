@@ -27,7 +27,13 @@
         "article-types-and-related-article-types": {
             "correction": {
                 "required_related_article_types": ["corrected-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "research-article": {
                 "required_related_article_types": [],
@@ -101,32 +107,76 @@
             },
             "retraction": {
                 "required_related_article_types": ["retracted-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "partial-retraction": {
                 "required_related_article_types": ["retracted-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "addendum": {
                 "required_related_article_types": ["addended-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "expression-of-concern": {
                 "required_related_article_types": ["object-of-concern"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "article-commentary": {
                 "required_related_article_types": ["commentary-article"],
-                "acceptable_related_article_types": ["reply"]
+                "acceptable_related_article_types": [
+                    "reply",
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "letter": {
                 "required_related_article_types": ["article"],
-                "acceptable_related_article_types": ["reply"]
+                "acceptable_related_article_types": [
+                    "reply",
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "reply": {
                 "required_related_article_types": [],
                 "required_one_of_related_article_types": ["letter", "commentary"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "editorial": {
                 "required_related_article_types": [],
@@ -144,7 +194,13 @@
             },
             "reviewer-report": {
                 "required_related_article_types": ["reviewed-article"],
-                "acceptable_related_article_types": []
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "expression-of-concern"
+                ]
             },
             "preprint": {
                 "required_related_article_types": [],

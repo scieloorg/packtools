@@ -1943,6 +1943,39 @@ class TestMentionedDocumentRelatedArticleTypes(DefaultRulesRelatedArticleTest):
         )
 
 
+class TestNoticeRelationsOnDocumentsWithOwnRelations(DefaultRulesRelatedArticleTest):
+    NOTICE_RELATIONS = [
+        "correction-forward",
+        "retraction-forward",
+        "partial-retraction",
+        "addendum",
+        "expression-of-concern",
+    ]
+
+    def test_document_with_own_relation_accepts_notice_relations(self):
+        own_relations = {
+            "letter": "article",
+            "article-commentary": "commentary-article",
+            "reply": "letter",
+            "reviewer-report": "reviewed-article",
+            "correction": "corrected-article",
+            "retraction": "retracted-article",
+            "partial-retraction": "retracted-article",
+            "addendum": "addended-article",
+            "expression-of-concern": "object-of-concern",
+        }
+        for article_type, own_relation in own_relations.items():
+            with self.subTest(article_type=article_type):
+                xml = self._xml(article_type, [own_relation] + self.NOTICE_RELATIONS)
+                self.assertEqual(self._problems(xml), [])
+
+    def test_notice_relation_does_not_replace_required_relation(self):
+        self.assertEqual(
+            self._problems(self._xml("letter", ["correction-forward"])),
+            [("Required related articles", "CRITICAL", ["correction-forward"])],
+        )
+
+
 class TestSubArticleRequiredRelatedArticles(DefaultRulesRelatedArticleTest):
     def test_reviewer_report_sub_article_without_related_article(self):
         xml_tree = self._xml(
