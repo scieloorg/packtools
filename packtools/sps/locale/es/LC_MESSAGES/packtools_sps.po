@@ -1500,6 +1500,16 @@ msgid "The article does not reference the preprint, provide it as in the example
 msgstr "El artículo no hace referencia a la preimpresión; proporciónela como en el ejemplo: <related-article id=\"pp1\" related-article-type=\"preprint\" ext-link-type=\"doi\" xlink:href=\"10.1590/SciELOPreprints.1174\"/>"
 
 #: packtools/sps/validation/preprint.py:100
+#: packtools/sps/validation/utils.py:261
+#, python-brace-format
+msgid "{location}: \"{value}\" is not a valid value for <{element_name}>, which accepts at most {max_length} characters"
+msgstr "{location}: \"{value}\" no es un valor válido para <{element_name}>, que acepta como máximo {max_length} caracteres"
+
+#: packtools/sps/validation/utils.py:272
+#, python-brace-format
+msgid "{location}: <{element_name}> has {length} characters, the maximum is {max_length}"
+msgstr "{location}: <{element_name}> tiene {length} caracteres, el máximo es {max_length}"
+
 #: packtools/sps/validation/utils.py:101 packtools/sps/validation/utils.py:199
 #, python-brace-format
 msgid "Got {obtained}, expected {expected}"

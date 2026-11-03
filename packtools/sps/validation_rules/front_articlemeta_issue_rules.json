@@ -6,6 +6,7 @@
         "issue_format_error_level": "CRITICAL",
         "expected_issues_error_level": "CRITICAL",
         "pagination_error_level": "CRITICAL",
+        "crossref_max_length_error_level": "CRITICAL",
         "journal_data": {
             "issues": []
         }

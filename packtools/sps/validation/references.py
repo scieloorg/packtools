@@ -2,7 +2,7 @@ import re
 
 from packtools.sps.models.references import XMLReferences
 from packtools.sps.validation.exceptions import ValidationReferencesException
-from packtools.sps.validation.utils import build_response
+from packtools.sps.validation.utils import build_crossref_max_length_responses, build_response
 from packtools.sps import i18n
 
 
@@ -603,6 +603,22 @@ class ReferenceValidation:
                 error_level=self.params.get("page_value_error_level", "ERROR"),
             )
 
+    def validate_crossref_max_length(self):
+        """
+        <lpage> is not checked: the Crossref <citation> has no last_page.
+        """
+        yield from build_crossref_max_length_responses(
+            values=[
+                (element_name, self.data.get(element_name))
+                for element_name in ("volume", "issue", "fpage")
+            ],
+            location=self.info,
+            parent=self.data,
+            item="element-citation",
+            data=self.data,
+            error_level=self.params.get("crossref_max_length_error_level", "CRITICAL"),
+        )
+
     def validate_size_units(self):
         size_info = self.data.get("size_info")
         if size_info:
@@ -679,6 +695,7 @@ class ReferenceValidation:
         yield from self.validate_ext_link_count_mixed_citation()
         yield from self.validate_lpage_when_fpage()
         yield from self.validate_page_value()
+        yield from self.validate_crossref_max_length()
         yield from self.validate_size_units()
         yield from self.validate_date_in_citation_content_type()
         yield from self.validate_surname_in_name()
