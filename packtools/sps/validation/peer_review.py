@@ -242,7 +242,6 @@ class PeerReviewValidation:
             yield from self.validate_article_type()
             yield from self.validate_contribs()
             yield from self.validate_history_dates()
-            yield from self.validate_related_articles()
             yield from self.validate_custom_meta()
 
             for node in self.peer_review.translations:
