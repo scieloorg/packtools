@@ -248,7 +248,7 @@ def build_crossref_max_length_responses(values, location, parent, item, data, er
         if not value or len(value) <= CROSSREF_MAX_LENGTH:
             continue
         yield build_response(
-            title="Crossref max length",
+            title="max length",
             parent=parent,
             item=item,
             sub_item=element_name,
@@ -256,11 +256,10 @@ def build_crossref_max_length_responses(values, location, parent, item, data, er
             is_valid=False,
             expected=f"<{element_name}> with at most {CROSSREF_MAX_LENGTH} characters",
             obtained=f"<{element_name}>{value}</{element_name}> ({len(value)} characters)",
-            advice=f"{location}: check <{element_name}>{value}</{element_name}>. Crossref rejects the DOI deposit when <{element_name}> has more than {CROSSREF_MAX_LENGTH} characters",
+            advice=f'{location}: "{value}" is not a valid value for <{element_name}>, which accepts at most {CROSSREF_MAX_LENGTH} characters',
             advice_text=i18n._(
-                "{location}: check <{element_name}>{value}</{element_name}>. "
-                "Crossref rejects the DOI deposit when <{element_name}> "
-                "has more than {max_length} characters"
+                '{location}: "{value}" is not a valid value for <{element_name}>, '
+                "which accepts at most {max_length} characters"
             ),
             advice_params={
                 "location": location,
@@ -270,7 +269,7 @@ def build_crossref_max_length_responses(values, location, parent, item, data, er
             },
             message_text=i18n._(
                 "{location}: <{element_name}> has {length} characters, "
-                "Crossref accepts at most {max_length}"
+                "the maximum is {max_length}"
             ),
             message_params={
                 "location": location,

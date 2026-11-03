@@ -1490,13 +1490,13 @@ msgstr "El artículo no hace referencia a la preimpresión; proporciónela como 
 #: packtools/sps/validation/preprint.py:100
 #: packtools/sps/validation/utils.py:261
 #, python-brace-format
-msgid "{location}: check <{element_name}>{value}</{element_name}>. Crossref rejects the DOI deposit when <{element_name}> has more than {max_length} characters"
-msgstr "{location}: verifique <{element_name}>{value}</{element_name}>. Crossref rechaza el depósito del DOI cuando <{element_name}> tiene más de {max_length} caracteres"
+msgid "{location}: \"{value}\" is not a valid value for <{element_name}>, which accepts at most {max_length} characters"
+msgstr "{location}: \"{value}\" no es un valor válido para <{element_name}>, que acepta como máximo {max_length} caracteres"
 
 #: packtools/sps/validation/utils.py:272
 #, python-brace-format
-msgid "{location}: <{element_name}> has {length} characters, Crossref accepts at most {max_length}"
-msgstr "{location}: <{element_name}> tiene {length} caracteres, Crossref acepta como máximo {max_length}"
+msgid "{location}: <{element_name}> has {length} characters, the maximum is {max_length}"
+msgstr "{location}: <{element_name}> tiene {length} caracteres, el máximo es {max_length}"
 
 #: packtools/sps/validation/utils.py:101 packtools/sps/validation/utils.py:199
 #, python-brace-format

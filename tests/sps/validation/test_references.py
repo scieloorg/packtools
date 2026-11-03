@@ -287,12 +287,12 @@ class ReferenceValidationTest(TestCase):
         )
         self.assertEqual("<fpage> with at most 32 characters", result["expected_value"])
         self.assertEqual(
-            "B12 (webpage): <fpage> has 34 characters, Crossref accepts at most 32",
+            "B12 (webpage): <fpage> has 34 characters, the maximum is 32",
             result["msg_text"].format(**result["msg_params"]),
         )
         self.assertEqual(
-            "B12 (webpage): check <fpage>(WHO Technical Report Series, 894)</fpage>. "
-            "Crossref rejects the DOI deposit when <fpage> has more than 32 characters",
+            'B12 (webpage): "(WHO Technical Report Series, 894)" is not a valid value '
+            "for <fpage>, which accepts at most 32 characters",
             result["advice"],
         )
 
@@ -627,7 +627,7 @@ class ReferencesValidationTest(TestCase):
         )
 
         validation = ReferencesValidation(xmltree, self.params)
-        results = [r for r in validation.validate() if r["title"] == "Crossref max length"]
+        results = [r for r in validation.validate() if r["title"] == "max length"]
 
         self.assertEqual(1, len(results))
         self.assertEqual("CRITICAL", results[0]["response"])

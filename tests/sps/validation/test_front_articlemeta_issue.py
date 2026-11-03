@@ -1899,7 +1899,7 @@ class CrossrefMaxLengthTest(TestCase):
                     result["got_value"],
                 )
                 self.assertEqual(
-                    f"<article-meta>: <{element_name}> has 33 characters, Crossref accepts at most 32",
+                    f"<article-meta>: <{element_name}> has 33 characters, the maximum is 32",
                     result["msg_text"].format(**result["msg_params"]),
                 )
 
@@ -1912,8 +1912,8 @@ class CrossrefMaxLengthTest(TestCase):
         self.assertEqual(1, len(obtained))
         self.assertEqual("volume", obtained[0]["sub_item"])
         self.assertEqual(
-            "<article-meta>: check <volume>1: Suas: configurando os eixos de mudança</volume>. "
-            "Crossref rejects the DOI deposit when <volume> has more than 32 characters",
+            '<article-meta>: "1: Suas: configurando os eixos de mudança" is not a valid value '
+            "for <volume>, which accepts at most 32 characters",
             obtained[0]["advice"],
         )
 
@@ -1941,4 +1941,4 @@ class CrossrefMaxLengthTest(TestCase):
         validator = IssueValidation(etree.fromstring(xml), params=params)
         titles = [r["title"] for r in validator.validate() if r]
 
-        self.assertIn("Crossref max length", titles)
+        self.assertIn("max length", titles)
