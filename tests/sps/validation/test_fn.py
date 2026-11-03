@@ -261,6 +261,37 @@ class TestFnValidation(unittest.TestCase):
         self.assertEqual(len(fn_type_presence), 0)
 
 
+class TestValidateFnsDefaultRules(unittest.TestCase):
+    def setUp(self):
+        self.params = get_default_rules()
+
+    def _fn_type_results(self, fn_type):
+        xml_tree = etree.fromstring(f'''
+            <article article-type="research-article" xml:lang="en">
+                <back>
+                    <fn-group>
+                        <fn fn-type="{fn_type}" specific-use="data-available" id="fn1">
+                            <label>Data Availability Statement</label>
+                            <p>The data are available at the repository.</p>
+                        </fn>
+                    </fn-group>
+                </back>
+            </article>
+        ''')
+        results = list(validate_fns(xml_tree, self.params))
+        return [item for item in results if item["title"] == "fn-type value"]
+
+    def test_fn_type_data_availability_in_fn_group_is_valid(self):
+        fn_type_value = self._fn_type_results("data-availability")
+        self.assertEqual(len(fn_type_value), 1)
+        self.assertEqual(fn_type_value[0]["response"], "OK")
+
+    def test_fn_type_data_availability_misspelled_is_invalid(self):
+        fn_type_value = self._fn_type_results("data availability")
+        self.assertEqual(len(fn_type_value), 1)
+        self.assertEqual(fn_type_value[0]["response"], "CRITICAL")
+
+
 if __name__ == "__main__":
     unittest.main()
 
