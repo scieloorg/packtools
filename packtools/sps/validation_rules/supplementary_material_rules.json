@@ -5,6 +5,7 @@
         "label_error_level": "CRITICAL",
         "app_group_error_level": "CRITICAL",
         "inline_error_level": "CRITICAL",
+        "visual_elem_error_level": "CRITICAL",
         "mime_correspondence": {
             "pdf": "application",
             "zip": "application",

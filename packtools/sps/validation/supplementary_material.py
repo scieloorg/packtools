@@ -23,11 +23,38 @@ class SupplementaryMaterialValidation:
         """
         Executa todas as validações definidas.
         """
-        yield from MediaValidation(self.data, self.params["media_rules"]).validate()
-        yield from GraphicValidation(self.data, self.params["graphic_rules"]).validate()
+        visual_elem = self.data.get("visual_elem")
+        if visual_elem == "media":
+            yield from MediaValidation(self.data, self.params["media_rules"]).validate()
+        elif visual_elem == "graphic":
+            yield from GraphicValidation(self.data, self.params["graphic_rules"]).validate()
+        else:
+            yield self.validate_visual_elem()
         yield self.validate_sec_type()
         yield self.validate_label()
         yield self.validate_not_in_app_group()
+
+    def validate_visual_elem(self):
+        """
+        Verifica a presença de <media> ou <graphic> em <supplementary-material>
+        """
+        supp_id = self.data.get("id")
+        xml = f'<supplementary-material id="{supp_id}">' if supp_id else "<supplementary-material>"
+        return build_response(
+            title="media or graphic",
+            parent=self.data,
+            item="supplementary-material",
+            sub_item="media | graphic",
+            is_valid=False,
+            validation_type="exist",
+            expected="<media> or <graphic> in <supplementary-material>",
+            obtained=None,
+            advice=f"Add <graphic> (figure) or <media> (other file types) in {xml}",
+            advice_text=i18n._("Add <graphic> (figure) or <media> (other file types) in {xml}"),
+            advice_params={"xml": xml},
+            error_level=self.params.get("visual_elem_error_level", "CRITICAL"),
+            data=self.data,
+        )
 
     def validate_sec_type(self):
         """
