@@ -2,6 +2,7 @@ import hashlib
 import logging
 import os
 import re
+import sys
 import traceback
 from datetime import date
 from functools import cached_property
@@ -121,48 +122,96 @@ def get_xml_with_pre_from_xml_file(xml_sps_file_path):
         }
 
 
-def get_xml_with_pre_from_zip_file(xml_sps_file_path):
+def _is_ignored_zip_entry(zip_item):
+    """
+    Indica se a entrada do zip deve ser ignorada: diretórios, arquivos
+    ocultos (ex.: .DS_Store, ._artigo.xml) e metadados do macOS (__MACOSX/).
+    """
+    basename = os.path.basename(zip_item)
+    return (
+        not basename
+        or basename.startswith(".")
+        or zip_item.startswith(".")
+        or zip_item.startswith("__MACOSX/")
+    )
+
+
+def _decode_xml_content(content_bytes):
+    """Decodifica o conteúdo do XML: utf-8 e, em caso de falha, iso-8859-1."""
     try:
-        # Extração dos arquivos do ZIP
+        return content_bytes.decode("utf-8")
+    except UnicodeDecodeError:
+        return content_bytes.decode("iso-8859-1")
+
+
+def _get_xml_error_item(xml_name):
+    """Monta o item de erro (deve ser chamado dentro de um bloco except)."""
+    e_type, e, _tb = sys.exc_info()
+    return {
+        "xml_name": xml_name,
+        "error_message": str(e),
+        "error_type": str(e_type),
+        "traceback": traceback.format_exc(),
+    }
+
+
+def get_xml_with_pre_from_zip_file(xml_sps_file_path):
+    """
+    Obtém os XML contidos em um arquivo zip.
+
+    Cada XML lido com sucesso gera uma instância de XMLWithPre que recebe:
+    - add_xml_info: xml_name (basename sem extensão) e caminho do XML no zip
+    - add_zip_info: caminho do zip e o dicionário {basename: caminho no zip}
+      dos demais arquivos (não XML) do pacote, usado, por exemplo, por
+      XMLWithPre.renditions para verificar a presença dos PDFs
+
+    Returns
+    -------
+    list of dict
+        {"xml_name": str, "xml_with_pre": XMLWithPre} em caso de sucesso, ou
+        {"xml_name", "error_message", "error_type", "traceback"} em caso de
+        falha ao ler/interpretar o XML
+
+    Raises
+    ------
+    GetXMLWithPreFromZipFileError
+        se não for possível abrir/ler o arquivo zip
+    """
+    try:
         xml_with_pre_items = []
-        paths = []
-        basenames = []
-        items = {}
+        # {basename: caminho completo no zip} dos arquivos que não são XML;
+        # em caso de basenames repetidos, prevalece o último item
+        zip_namedict = {}
+        items = []
         with ZipFile(xml_sps_file_path) as zf:
             for item in zf.namelist():
-                if item.startswith("."):
+                if _is_ignored_zip_entry(item):
                     continue
+
                 basename = os.path.basename(item)
                 if not basename.endswith(".xml"):
-                    paths.append(item)
-                    basenames.append(basename)
+                    zip_namedict[basename] = item
                     continue
 
                 xml_name, ext = os.path.splitext(basename)
                 try:
-                    zf_read = zf.read(item)
-                    try:
-                        content = zf_read.decode("utf-8")
-                    except Exception as e:
-                        content = zf_read.decode("iso-8859-1")
+                    content = _decode_xml_content(zf.read(item))
                     xml_with_pre = get_xml_with_pre(content)
                     xml_with_pre.add_xml_info(xml_name, item)
                     xml_with_pre_items.append(xml_with_pre)
-                except Exception as e:
-                    items[xml_name] = {
-                        "xml_name": xml_name,
-                        "error_message": str(e),
-                        "error_type": str(type(e)),
-                        "traceback": traceback.format_exc(),
-                    }
+                except Exception:
+                    items.append(_get_xml_error_item(xml_name))
+
+        # o dicionário de arquivos do zip só fica completo após percorrer
+        # todo o zip, por isso add_zip_info é chamado depois da leitura
         for xml_with_pre in xml_with_pre_items:
             xml_name = xml_with_pre.xml_name
-            xml_with_pre.add_zip_info(xml_sps_file_path, paths, basenames)
-            items[xml_with_pre.xml_name] = {
+            xml_with_pre.add_zip_info(xml_sps_file_path, zip_namedict)
+            items.append({
                 "xml_name": xml_name,
                 "xml_with_pre": xml_with_pre,
-            }
-        return list(items.values())
+            })
+        return items
     except Exception as e:
         raise GetXMLWithPreFromZipFileError(
             _("Unable to get xml items from zip file {}: {} {}").format(
@@ -424,20 +473,30 @@ class PackagingAndFilesMixin:
             return f"{self.xml_name}.xml"
 
     @property
+    def zip_namelist(self):
+        """
+        Caminhos completos (dentro do zip) dos arquivos do pacote que não são
+        XML (valores de _zip_namedict). None indica que o XML não foi obtido
+        de um zip; [] indica um zip que contém somente XML.
+        """
+        if self._zip_namedict is None:
+            return None
+        return list(self._zip_namedict.values())
+
+    @property
+    def zip_basenames(self):
+        """Basenames dos arquivos de zip_namelist (chaves de _zip_namedict)."""
+        if self._zip_namedict is None:
+            return None
+        return list(self._zip_namedict.keys())
+
+    @property
     def files(self):
         return self.zip_namelist
-
-    @files.setter
-    def files(self, value):
-        self.zip_namelist = value
 
     @property
     def filenames(self):
         return self.zip_basenames
-
-    @filenames.setter
-    def filenames(self, value):
-        self.zip_basenames = value
 
     @property
     def source_filename(self):
@@ -486,9 +545,20 @@ class PackagingAndFilesMixin:
         self.xml_name = xml_name
         self.xml_file_path = xml_file_path
 
-    def add_zip_info(self, zip_file_path, zip_namelist, zip_basenames):
-        self.zip_basenames = zip_basenames
-        self.zip_namelist = zip_namelist
+    def add_zip_info(self, zip_file_path, zip_namedict):
+        """
+        Registra a origem zip do XML.
+
+        Parameters
+        ----------
+        zip_file_path : str
+            caminho do arquivo zip
+        zip_namedict : dict
+            {basename: caminho completo no zip} dos arquivos do pacote que
+            não são XML. É armazenado sem conversão; deve ser um dict
+            (zip_namelist, zip_basenames e renditions dependem disso).
+        """
+        self._zip_namedict = zip_namedict
         self.zip_file_path = zip_file_path
 
     def add_pkg_name_components(self, source_filename, pkg_name_version=3):
@@ -540,7 +610,38 @@ class PackagingAndFilesMixin:
 
     @property
     def renditions(self):
-        if not self.zip_namelist:
+        """
+        Lista os PDFs (renditions) ESPERADOS para o XML, indicando se cada um
+        está presente no zip.
+
+        Os nomes esperados são derivados de xml_name e dos idiomas de
+        article/sub-article (ArticleRenditions):
+            - idioma principal: <xml_name>.pdf
+            - demais idiomas:   <xml_name>-<lang>.pdf
+
+        A presença no zip é verificada buscando o nome esperado nas chaves
+        (basenames) de _zip_namedict, de modo que PDFs em subpastas do zip
+        também são encontrados.
+
+        Returns
+        -------
+        list of dict
+            name: nome esperado do PDF (<xml_name><sufixo>)
+            lang: idioma
+            component_type: "rendition"
+            main: True se idioma principal
+            sps_pkg_name: nome do PDF segundo o sps_pkg_name
+            path_in_zip: caminho completo do PDF no zip, ou None se ausente
+
+            Retorna [] se o XML não foi obtido de um zip (_zip_namedict None).
+
+        Raises
+        ------
+        ValueError
+            se xml_name não estiver definido (somente para XML obtido de zip)
+        """
+        namelist = self._zip_namedict
+        if namelist is None:
             return []
 
         xml_name = self.xml_name
@@ -550,11 +651,6 @@ class PackagingAndFilesMixin:
         xml_renditions = ArticleRenditions(self.xmltree)
         sps_pkg_name = self.sps_pkg_name
 
-        namelist = {}
-        for item in self.zip_namelist:
-            key = os.path.basename(item)
-            namelist[key] = item
-
         items = []
         for item in xml_renditions.article_renditions:
             suffix = ".pdf"
@@ -562,7 +658,6 @@ class PackagingAndFilesMixin:
                 suffix = f"-{item.language}.pdf"
 
             name = f"{xml_name}{suffix}"
-            
             items.append({
                 "name": name,
                 "lang": item.language,
@@ -1779,8 +1874,7 @@ class XMLWithPre(
 
         # Atributos de arquivo
         self.xml_name = None
-        self.zip_basenames = None
-        self.zip_namelist = None
+        self._zip_namedict = None
         self._submitted_filename = None
         self._submitted_ext = None
         self._provided_sps_pkg_name = None
