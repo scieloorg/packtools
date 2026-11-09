@@ -996,22 +996,27 @@ class TestXMLWithPrePropertiesAndMetadata(XMLWithPreTestMixin, TestCase):
 
     `filename` (singular) NÃO possui setter — é sempre derivado de
     xml_name/xml_file_path/zip_file_path, atribuídos via add_xml_info /
-    add_zip_info. Já `files`/`filenames` (plural) SÃO aliases graváveis
-    para zip_namelist/zip_basenames.
+    add_zip_info. `files`/`filenames` (plural) são aliases somente leitura
+    de zip_namelist/zip_basenames, derivados de _zip_namedict.
     """
 
-    def test_files_and_filenames_getters_and_setters(self):
+    def test_files_and_filenames_getters(self):
         xml_with_pre = self._make_xml(vol="10", num="2")
+        xml_with_pre.add_zip_info(
+            "/tmp/p.zip", {"artigo.pdf": "pkg/artigo.pdf", "imagem.jpg": "imagem.jpg"}
+        )
 
-        # Atribuição via setters (aliases de zip_namelist/zip_basenames)
-        xml_with_pre.files = ["artigo.xml", "imagem.jpg"]
-        xml_with_pre.filenames = ["artigo.xml", "imagem.jpg"]
+        self.assertEqual(xml_with_pre.files, ["pkg/artigo.pdf", "imagem.jpg"])
+        self.assertEqual(xml_with_pre.zip_namelist, ["pkg/artigo.pdf", "imagem.jpg"])
 
-        self.assertEqual(xml_with_pre.files, ["artigo.xml", "imagem.jpg"])
-        self.assertEqual(xml_with_pre.zip_namelist, ["artigo.xml", "imagem.jpg"])
+        self.assertEqual(xml_with_pre.filenames, ["artigo.pdf", "imagem.jpg"])
+        self.assertEqual(xml_with_pre.zip_basenames, ["artigo.pdf", "imagem.jpg"])
 
-        self.assertEqual(xml_with_pre.filenames, ["artigo.xml", "imagem.jpg"])
-        self.assertEqual(xml_with_pre.zip_basenames, ["artigo.xml", "imagem.jpg"])
+    def test_files_and_filenames_have_no_setters(self):
+        xml_with_pre = self._make_xml(vol="10", num="2")
+        for attr in ("files", "filenames", "zip_namelist", "zip_basenames"):
+            with self.assertRaises(AttributeError):
+                setattr(xml_with_pre, attr, ["artigo.pdf"])
 
     def test_filename_singular_has_no_setter(self):
         # `filename` é somente leitura; tentar atribuí-lo diretamente
@@ -1037,9 +1042,8 @@ class TestXMLWithPrePropertiesAndMetadata(XMLWithPreTestMixin, TestCase):
             acron="abc",
             elocation="e100",
         )
-        xml_with_pre.add_xml_info("artigo")
-        xml_with_pre.files = ["artigo.xml"]
-        xml_with_pre.filenames = ["artigo.xml"]
+        xml_with_pre.add_xml_info("artigo", "artigo.xml")
+        xml_with_pre.add_zip_info("/tmp/p.zip", {"artigo.xml": "artigo.xml"})
 
         data = xml_with_pre.data
 
@@ -1700,7 +1704,7 @@ class TestDictProperties(XMLWithPreTestMixin, TestCase):
     def test_input_files_dict_keys_and_values(self):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.add_xml_info("artigo", "/tmp/artigo.xml")
-        xml_with_pre.add_zip_info("/tmp/pacote.zip", ["artigo.xml"], ["artigo.xml"])
+        xml_with_pre.add_zip_info("/tmp/pacote.zip", {"artigo.xml": "artigo.xml"})
         xml_with_pre.submitted_filename = "Artigo.HTM"
 
         expected = {
@@ -1915,7 +1919,7 @@ class TestXmlNameVsFilenameOrigin(XMLWithPreTestMixin, TestCase):
         # caminho do item dentro do zip, que pode ter subpastas e diferir
         # do valor de xml_name
         xml_with_pre.add_xml_info("artigo", "pasta/artigo.xml")
-        xml_with_pre.add_zip_info("/tmp/pacote.zip", ["pasta/artigo.xml"], ["artigo.xml"])
+        xml_with_pre.add_zip_info("/tmp/pacote.zip", {"artigo.xml": "pasta/artigo.xml"})
 
         self.assertEqual(xml_with_pre.xml_name, "artigo")
         self.assertEqual(xml_with_pre.zip_file_path, "/tmp/pacote.zip")
@@ -1930,7 +1934,7 @@ class TestXmlNameVsFilenameOrigin(XMLWithPreTestMixin, TestCase):
         # quem determina o valor de filename.
         xml_with_pre = self._make_xml(vol="10", num="2")
         xml_with_pre.add_xml_info("artigo", "artigo.xml")
-        xml_with_pre.add_zip_info("/tmp/pacote.zip", ["artigo.xml"], ["artigo.xml"])
+        xml_with_pre.add_zip_info("/tmp/pacote.zip", {"artigo.xml": "artigo.xml"})
 
         self.assertEqual(xml_with_pre.filename, "artigo.xml")
         self.assertEqual(xml_with_pre.filename, f"{xml_with_pre.xml_name}.xml")
@@ -1943,7 +1947,7 @@ class TestXmlNameVsFilenameOrigin(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.xml_name, "artigo")
 
         xml_with_pre.add_zip_info(
-            "/tmp/pacote.zip", ["artigo.xml", "artigo.pdf"], ["artigo.xml", "artigo.pdf"]
+            "/tmp/pacote.zip", {"artigo.pdf": "artigo.pdf"}
         )
         self.assertEqual(xml_with_pre.xml_name, "artigo")  # inalterado
 
@@ -2264,56 +2268,126 @@ class TestRenditionsGating(XMLWithPreTestMixin, TestCase):
         self.assertEqual(xml_with_pre.renditions, [])
         mock_class.assert_not_called()
 
-    def test_returns_empty_list_when_zip_namelist_is_empty_list(self):
+    def test_lists_renditions_when_zip_namelist_is_empty_list(self):
+        # zip contendo somente o XML: zip_namelist == [] (o XML não entra
+        # na lista). As renditions esperadas devem ser listadas, ausentes.
         xml_with_pre = self._make_base_xml()
         xml_with_pre.xml_name = "artigo"
-        xml_with_pre.zip_namelist = []
+        xml_with_pre.add_zip_info("/tmp/p.zip", {})
 
-        mock_class = _patch_article_renditions(
+        _patch_article_renditions(
             [SimpleNamespace(is_main_language=True, language="en")]
         )
-        self.assertEqual(xml_with_pre.renditions, [])
-        mock_class.assert_not_called()
+        result = xml_with_pre.renditions
+        self.assertEqual([r["name"] for r in result], ["artigo.pdf"])
+        self.assertIsNone(result[0]["path_in_zip"])
 
-    def test_zip_basenames_no_longer_gates_anything(self):
-        # zip_basenames (usado em versões anteriores) deixou de importar:
-        # com zip_namelist preenchido e zip_basenames vazio/None, a property
-        # deve funcionar normalmente.
+    def test_add_zip_info_with_none_keeps_renditions_empty(self):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.xml_name = "artigo"
-        xml_with_pre.zip_namelist = ["artigo.pdf"]
-        xml_with_pre.zip_basenames = None
+        xml_with_pre.add_zip_info("/tmp/p.zip", None)
         _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
-
-        result = xml_with_pre.renditions
-        self.assertEqual(len(result), 1)
-
-        # e o inverso: zip_basenames preenchido mas zip_namelist vazio ->
-        # continua retornando []
-        xml_with_pre2 = self._make_base_xml()
-        xml_with_pre2.xml_name = "artigo"
-        xml_with_pre2.zip_namelist = []
-        xml_with_pre2.zip_basenames = ["artigo.pdf"]
-        _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
-        self.assertEqual(xml_with_pre2.renditions, [])
+        self.assertEqual(xml_with_pre.renditions, [])
 
     def test_raises_value_error_immediately_on_property_access(self):
         xml_with_pre = self._make_base_xml()
-        xml_with_pre.zip_namelist = ["artigo.xml"]
+        xml_with_pre.add_zip_info("/tmp/p.zip", {"artigo.xml": "artigo.xml"})
         # xml_name nunca foi atribuído (permanece None)
         _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
 
         with self.assertRaises(ValueError):
             xml_with_pre.renditions
 
-    def test_no_error_when_xml_name_missing_but_zip_namelist_falsy(self):
+    def test_no_error_when_xml_name_missing_and_zip_namelist_is_none(self):
         xml_with_pre = self._make_base_xml()
-        # nem xml_name nem zip_namelist foram definidos
+        # nem xml_name nem zip_namelist foram definidos: a ausência de zip
+        # é verificada primeiro
         mock_class = _patch_article_renditions(
             [SimpleNamespace(is_main_language=True, language="en")]
         )
         self.assertEqual(xml_with_pre.renditions, [])
         mock_class.assert_not_called()
+
+
+class TestRenditionsFromZipWithoutPdf(XMLWithPreTestMixin, TestCase):
+    """
+    Regressão: zip contendo somente o XML deve listar o PDF ausente,
+    igual a um zip que contém o XML e outros arquivos que não são PDF.
+    """
+
+    def _renditions_from_zip(self, files):
+        with TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, "pacote.zip")
+            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
+                for name, content in files.items():
+                    zf.writestr(name, content)
+            xml_with_pre = next(XMLWithPre.create(path=zip_path))
+            return xml_with_pre.renditions
+
+    def test_zip_with_only_xml_lists_missing_pdf(self):
+        xml_content = self._make_base_xml().tostring()
+        result = self._renditions_from_zip({"article.xml": xml_content})
+        self.assertEqual([r["name"] for r in result], ["article.pdf"])
+        self.assertIsNone(result[0]["path_in_zip"])
+
+    def test_zip_with_xml_and_other_file_lists_missing_pdf(self):
+        xml_content = self._make_base_xml().tostring()
+        result = self._renditions_from_zip(
+            {"article.xml": xml_content, "readme.txt": "x"}
+        )
+        self.assertEqual([r["name"] for r in result], ["article.pdf"])
+        self.assertIsNone(result[0]["path_in_zip"])
+
+    def test_zip_with_xml_and_pdf_finds_pdf(self):
+        xml_content = self._make_base_xml().tostring()
+        result = self._renditions_from_zip(
+            {"article.xml": xml_content, "pdf/article.pdf": b"%PDF"}
+        )
+        self.assertEqual([r["name"] for r in result], ["article.pdf"])
+        self.assertEqual(result[0]["path_in_zip"], "pdf/article.pdf")
+
+
+class TestZipNamelistAccessors(XMLWithPreTestMixin, TestCase):
+    """zip_namelist/zip_basenames: getters derivados de _zip_namedict."""
+
+    def test_default_is_none(self):
+        xml_with_pre = self._make_base_xml()
+        self.assertIsNone(xml_with_pre.zip_namelist)
+        self.assertIsNone(xml_with_pre.zip_basenames)
+
+    def test_zip_namelist_and_basenames_derived_from_zip_namedict(self):
+        xml_with_pre = self._make_base_xml()
+        xml_with_pre.add_zip_info(
+            "/tmp/p.zip", {"artigo.pdf": "pkg/artigo.pdf", "img.jpg": "img.jpg"}
+        )
+        self.assertEqual(xml_with_pre._zip_namedict, {"artigo.pdf": "pkg/artigo.pdf", "img.jpg": "img.jpg"})
+        self.assertEqual(xml_with_pre.zip_namelist, ["pkg/artigo.pdf", "img.jpg"])
+        self.assertEqual(xml_with_pre.zip_basenames, ["artigo.pdf", "img.jpg"])
+
+    def test_add_zip_info_stores_zip_namedict_as_given(self):
+        xml_with_pre = self._make_base_xml()
+        zip_namedict = {"artigo.pdf": "pkg/artigo.pdf"}
+        xml_with_pre.add_zip_info("/tmp/p.zip", zip_namedict)
+        self.assertIs(xml_with_pre._zip_namedict, zip_namedict)
+        self.assertEqual(xml_with_pre.zip_namelist, ["pkg/artigo.pdf"])
+        self.assertEqual(xml_with_pre.zip_basenames, ["artigo.pdf"])
+
+    def test_zip_file_ignores_directories_and_hidden_files(self):
+        xml_content = self._make_base_xml().tostring()
+        with TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, "pacote.zip")
+            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
+                zf.writestr("pkg/article.xml", xml_content)
+                zf.writestr("pkg/", "")
+                zf.writestr("pkg/.DS_Store", "x")
+                zf.writestr("__MACOSX/pkg/._article.pdf", "x")
+                zf.writestr("pkg/article.pdf", b"%PDF")
+            items = get_xml_with_pre_from_zip_file(zip_path)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["xml_with_pre"].zip_namelist, ["pkg/article.pdf"])
+        self.assertEqual(
+            items[0]["xml_with_pre"]._zip_namedict, {"article.pdf": "pkg/article.pdf"}
+        )
 
 
 class TestRenditionsPathInZip(XMLWithPreTestMixin, TestCase):
@@ -2325,7 +2399,10 @@ class TestRenditionsPathInZip(XMLWithPreTestMixin, TestCase):
     def _setup(self, xml_name="artigo", zip_namelist=None, provided_name="1234-5678-abc-10-02-e100"):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.xml_name = xml_name
-        xml_with_pre.zip_namelist = zip_namelist if zip_namelist is not None else []
+        zip_namedict = {
+            os.path.basename(path): path for path in (zip_namelist or [])
+        }
+        xml_with_pre.add_zip_info("/tmp/p.zip", zip_namedict)
         if provided_name is not None:
             xml_with_pre.provided_sps_pkg_name = provided_name
         return xml_with_pre
@@ -2354,13 +2431,19 @@ class TestRenditionsPathInZip(XMLWithPreTestMixin, TestCase):
         result = xml_with_pre.renditions
         self.assertIsNone(result[0]["path_in_zip"])
 
-    def test_duplicate_basenames_last_entry_in_zip_namelist_wins(self):
+    def test_duplicate_basenames_last_entry_in_zip_wins(self):
         # Se dois caminhos no zip tiverem o MESMO basename (situação
-        # incomum, mas possível), o dict `namelist` é sobrescrito em ordem —
-        # o último item de zip_namelist "vence".
-        xml_with_pre = self._setup(
-            zip_namelist=["dir1/artigo.pdf", "dir2/artigo.pdf"]
-        )
+        # incomum, mas possível), get_xml_with_pre_from_zip_file sobrescreve
+        # a chave em ordem — o último item do zip "vence".
+        xml_content = self._make_base_xml().tostring()
+        with TemporaryDirectory() as tmpdir:
+            zip_path = os.path.join(tmpdir, "pacote.zip")
+            with ZipFile(zip_path, "w", compression=ZIP_DEFLATED) as zf:
+                zf.writestr("artigo.xml", xml_content)
+                zf.writestr("dir1/artigo.pdf", b"%PDF")
+                zf.writestr("dir2/artigo.pdf", b"%PDF")
+            items = get_xml_with_pre_from_zip_file(zip_path)
+        xml_with_pre = items[0]["xml_with_pre"]
         _patch_article_renditions([SimpleNamespace(is_main_language=True, language="en")])
 
         result = xml_with_pre.renditions
@@ -2398,7 +2481,10 @@ class TestRenditionsContent(XMLWithPreTestMixin, TestCase):
     def _setup(self, xml_name="artigo", zip_namelist=None, provided_name="1234-5678-abc-10-02-e100"):
         xml_with_pre = self._make_base_xml()
         xml_with_pre.xml_name = xml_name
-        xml_with_pre.zip_namelist = zip_namelist if zip_namelist is not None else []
+        zip_namedict = {
+            os.path.basename(path): path for path in (zip_namelist or [])
+        }
+        xml_with_pre.add_zip_info("/tmp/p.zip", zip_namedict)
         if provided_name is not None:
             xml_with_pre.provided_sps_pkg_name = provided_name
         return xml_with_pre
