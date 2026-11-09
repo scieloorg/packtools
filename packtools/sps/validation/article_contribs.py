@@ -640,7 +640,7 @@ class TextContribsValidation:
         self.text_contribs = TextContribs(node)
 
     def validate(self):
-        for contrib in self.text_contribs.items:
+        for contrib in self.text_contribs.main_contribs:
             yield from ContribValidation(contrib, self.params).validate()
 
         validator = CollabListValidation(self.node, self.params)

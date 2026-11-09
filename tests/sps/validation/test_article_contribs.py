@@ -11,6 +11,7 @@ from packtools.sps.validation.article_contribs import (
     ContribValidation,
     DocumentCreditConsistencyValidation,
     SubArticleCollabIDValidation,
+    TextContribsValidation,
     XMLContribsValidation,
 )
 
@@ -473,6 +474,85 @@ class TestXMLContribsValidation(unittest.TestCase):
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
+
+
+class TestTextContribsValidation(unittest.TestCase):
+    def setUp(self):
+        xml = """
+        <article article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Smith</surname>
+                                <given-names>John</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="reviewer-report" id="r1" xml:lang="en">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Silva</surname>
+                                <given-names>Ana</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </front-stub>
+                <sub-article article-type="translation" id="r1pt" xml:lang="pt">
+                    <front-stub>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                                <name>
+                                    <surname>Silva</surname>
+                                    <given-names>Ana</given-names>
+                                </name>
+                            </contrib>
+                        </contrib-group>
+                    </front-stub>
+                </sub-article>
+            </sub-article>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Smith</surname>
+                                <given-names>John</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+        self.results = list(
+            TextContribsValidation(etree.fromstring(xml.encode("utf-8")), {}).validate()
+        )
+
+    def test_validate_with_sub_articles_returns_each_contributor_once_per_context(self):
+        role_results = [
+            (r["parent"], r["parent_id"])
+            for r in self.results
+            if r["title"] == "contributor role"
+        ]
+
+        self.assertEqual(
+            sorted(role_results, key=str),
+            sorted(
+                [
+                    ("article", None),
+                    ("sub-article", "r1"),
+                    ("sub-article", "r1pt"),
+                    ("sub-article", "s1"),
+                ],
+                key=str,
+            ),
+        )
 
 
 class TestCollabGroupValidation(unittest.TestCase):
