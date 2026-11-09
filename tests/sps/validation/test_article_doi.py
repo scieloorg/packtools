@@ -190,6 +190,40 @@ class TestArticleDoiValidation(unittest.TestCase):
                 result["msg_params"]["metadata"],
             )
 
+    def test_validate_doi_registered_after_validate_doi_exists_receives_authors(self):
+        xml = """
+        <article article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="doi">10.1590/example-doi</article-id>
+                    <title-group>
+                        <article-title>Sample Article Title</article-title>
+                    </title-group>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Smith</surname>
+                                <given-names>John</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+        """
+        validator = ArticleDoiValidation(etree.fromstring(xml.encode("utf-8")))
+        received_authors = []
+
+        def get_registered_data(doi_data):
+            received_authors.append(doi_data["authors"])
+            return {"valid": True}
+
+        list(validator.validate_doi_exists())
+        results = list(validator.validate_doi_registered(get_registered_data))
+
+        self.assertEqual(received_authors, [["Smith, John"]])
+        self.assertEqual(results[0]["response"], "OK")
+
     @patch("packtools.sps.validation.utils.check_doi_is_registered")
     def test_validate_doi_registered_skip(self, mock_check_doi):
         """Test that skip_doi_check=True skips validation"""
