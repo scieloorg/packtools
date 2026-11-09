@@ -225,6 +225,20 @@ class TestDoiWithLang(unittest.TestCase):
         types_in_all_data = [item["parent_article_type"] for item in all_data]
         self.assertEqual(types_in_all_data, ["research-article", "translation", "reviewer-report"])
 
+    def test_data_read_twice_returns_authors_in_both_reads(self):
+        first = self.doi_with_lang.data
+        second = self.doi_with_lang.data
+
+        for item in first + second:
+            self.assertEqual(item["authors"], ["Smith, John"])
+
+    def test_all_data_after_data_returns_authors(self):
+        self.doi_with_lang.data
+        all_data = self.doi_with_lang.all_data
+
+        for item in all_data:
+            self.assertEqual(item["authors"], ["Smith, John"])
+
 
 if __name__ == "__main__":
     unittest.main()

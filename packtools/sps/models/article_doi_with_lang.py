@@ -17,7 +17,7 @@ class DoiWithLang:
     def __init__(self, xmltree):
         self._xmltree = xmltree
         self.titles = ArticleTitles(xmltree).article_title_dict
-        self.authors = XMLContribs(xmltree).contribs
+        self.authors = list(XMLContribs(xmltree).contribs)
 
     def _get_node(self, xpath, node=None):
         if node is None:
