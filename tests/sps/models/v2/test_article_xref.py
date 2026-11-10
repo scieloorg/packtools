@@ -147,3 +147,60 @@ class XMLCrossReferenceTest(TestCase):
         self.assertIn("table1", results)
         self.assertEqual(results["aff1"][0]["ref-type"], "aff")
         self.assertEqual(results["fig1"][0]["ref-type"], "fig")
+
+
+class XMLCrossReferenceSubArticleContextTest(TestCase):
+    def setUp(self):
+        xml_tree = etree.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <author-notes><corresp id="c1">Main</corresp></author-notes>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <front-stub>
+                        <author-notes><corresp id="c2">Translation</corresp></author-notes>
+                    </front-stub>
+                    <sub-article article-type="reviewer-report" id="r1" xml:lang="pt">
+                        <front-stub>
+                            <author-notes><corresp id="c3">Report</corresp></author-notes>
+                        </front-stub>
+                    </sub-article>
+                </sub-article>
+            </article>
+            """
+        )
+        self.xref = XMLCrossReference(xml_tree)
+
+    def test_elems_by_id_returns_each_element_only_in_its_own_context(self):
+        results = self.xref.elems_by_id(element_name="corresp")
+
+        contexts = {
+            elem_id: [(item["parent"], item["parent_id"]) for item in items]
+            for elem_id, items in results.items()
+        }
+        self.assertEqual(
+            contexts,
+            {
+                "c1": [("article", None)],
+                "c2": [("sub-article", "s1")],
+                "c3": [("sub-article", "r1")],
+            },
+        )
+
+    def test_elems_by_id_returns_sub_article_in_the_context_that_contains_it(self):
+        results = self.xref.elems_by_id(element_name="sub-article")
+
+        contexts = {
+            elem_id: [(item["parent"], item["parent_id"]) for item in items]
+            for elem_id, items in results.items()
+        }
+        self.assertEqual(
+            contexts,
+            {
+                "s1": [("article", None)],
+                "r1": [("sub-article", "s1")],
+            },
+        )
