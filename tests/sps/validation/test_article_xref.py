@@ -777,6 +777,32 @@ class TestValidateElementIdHasCorrespondingXrefRid(TestCase):
         error_results = [r for r in results if r["response"] == "ERROR"]
         self.assertTrue(len(error_results) > 0)
 
+    def test_element_in_sub_article_is_validated_only_in_its_context(self):
+        xml_tree = etree.fromstring(
+            '<article article-type="research-article" xml:lang="en">'
+            "<front><article-meta>"
+            '<author-notes><corresp id="c1">Main</corresp></author-notes>'
+            "</article-meta></front>"
+            '<sub-article article-type="translation" id="s1" xml:lang="pt">'
+            "<front-stub>"
+            '<author-notes><corresp id="c2">Translation</corresp></author-notes>'
+            "</front-stub>"
+            "</sub-article>"
+            "</article>"
+        )
+        validator = ArticleXrefValidation(
+            xml_tree, {"elements_requires_xref_rid": ["corresp"]}
+        )
+        results = list(validator.validate_element_id_has_corresponding_xref_rid())
+
+        contexts = sorted(
+            (r["parent"], r["parent_id"], r["data"]["element"]["id"]) for r in results
+        )
+        self.assertEqual(
+            contexts,
+            [("article", None, "c1"), ("sub-article", "s1", "c2")],
+        )
+
 
 class TestValidateAttribNameAndValueHasCorrespondingXref(TestCase):
     """Tests for validate_attrib_name_and_value_has_corresponding_xref."""
