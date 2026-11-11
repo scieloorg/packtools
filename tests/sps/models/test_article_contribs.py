@@ -7,6 +7,7 @@ from packtools.sps.models.article_contribs import (
     ContribGroup,
     TextContribs,
     XMLContribs,
+    add_contrib_affs,
 )
 
 class ContribTest(TestCase):
@@ -971,6 +972,24 @@ class TestTextContribsSubArticleWithoutFrontStub(TestCase):
     def test_items_with_sub_article_without_front_stub_returns_other_contribs(self):
         names = [item["contrib_full_name"] for item in TextContribs(self.xml).items]
         self.assertEqual(names, ["John Smith", "Jane Doe"])
+
+
+class AddContribAffsTest(TestCase):
+    AFFS_BY_ID = {"aff1": {"id": "aff1", "orgname": "Universidade A"}}
+
+    def test_add_contrib_affs_with_xref_to_existing_aff_adds_aff(self):
+        contrib = {"contrib_xref": [{"rid": "aff1", "ref_type": "aff"}]}
+
+        result = add_contrib_affs(contrib, self.AFFS_BY_ID)
+
+        self.assertEqual(result["affs"], [self.AFFS_BY_ID["aff1"]])
+
+    def test_add_contrib_affs_with_xref_to_missing_aff_adds_nothing(self):
+        contrib = {"contrib_xref": [{"rid": "aff9", "ref_type": "aff"}]}
+
+        result = add_contrib_affs(contrib, self.AFFS_BY_ID)
+
+        self.assertNotIn("affs", result)
 
 
 class XMLContribsTest(TestCase):
