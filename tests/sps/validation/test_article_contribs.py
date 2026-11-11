@@ -475,6 +475,36 @@ class TestXMLContribsValidation(unittest.TestCase):
         self.assertEqual(advices, expected_advices)
 
 
+    def test_validate_with_sub_article_without_front_stub_validates_other_contribs(self):
+        xml = """
+        <article article-type="research-article" xml:lang="en">
+            <front><article-meta><contrib-group>
+                <contrib contrib-type="author">
+                    <name><surname>Smith</surname><given-names>John</given-names></name>
+                </contrib>
+            </contrib-group></article-meta></front>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+                <body><p>texto</p></body>
+            </sub-article>
+            <sub-article article-type="reviewer-report" id="r1" xml:lang="en">
+                <front-stub><contrib-group>
+                    <contrib contrib-type="author">
+                        <name><surname>Doe</surname><given-names>Jane</given-names></name>
+                    </contrib>
+                </contrib-group></front-stub>
+            </sub-article>
+        </article>
+        """
+        validator = XMLContribsValidation(etree.fromstring(xml), {})
+
+        results = list(validator.validate())
+
+        validated_parents = {
+            r["parent_id"] for r in results if r["title"] == "contributor"
+        }
+        self.assertEqual(validated_parents, {None, "r1"})
+
+
 class TestCollabGroupValidation(unittest.TestCase):
     def setUp(self):
         self.sample_xml = """<?xml version="1.0" encoding="utf-8"?>
