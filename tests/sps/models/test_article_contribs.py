@@ -7,6 +7,7 @@ from packtools.sps.models.article_contribs import (
     ContribGroup,
     TextContribs,
     XMLContribs,
+    add_contrib_affs,
 )
 
 class ContribTest(TestCase):
@@ -937,6 +938,24 @@ class TestTextContribs(TestCase):
     def test_not_translations(self):
         not_translations = list(self.text_contribs.not_translations)
         self.assertEqual(len(not_translations), 0)
+
+class AddContribAffsTest(TestCase):
+    AFFS_BY_ID = {"aff1": {"id": "aff1", "orgname": "Universidade A"}}
+
+    def test_add_contrib_affs_with_xref_to_existing_aff_adds_aff(self):
+        contrib = {"contrib_xref": [{"rid": "aff1", "ref_type": "aff"}]}
+
+        result = add_contrib_affs(contrib, self.AFFS_BY_ID)
+
+        self.assertEqual(result["affs"], [self.AFFS_BY_ID["aff1"]])
+
+    def test_add_contrib_affs_with_xref_to_missing_aff_adds_nothing(self):
+        contrib = {"contrib_xref": [{"rid": "aff9", "ref_type": "aff"}]}
+
+        result = add_contrib_affs(contrib, self.AFFS_BY_ID)
+
+        self.assertNotIn("affs", result)
+
 
 class XMLContribsTest(TestCase):
     def setUp(self):

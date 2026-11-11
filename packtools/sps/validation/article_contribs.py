@@ -1,6 +1,11 @@
 import re
 
-from packtools.sps.models.article_contribs import TextContribs, XMLContribs
+from packtools.sps.models.article_contribs import (
+    TextContribs,
+    XMLContribs,
+    add_contrib_affs,
+)
+from packtools.sps.models.v2.aff import XMLAffiliations
 from packtools.sps.validation.utils import build_response
 from packtools.sps import i18n
 
@@ -629,18 +634,24 @@ class XMLContribsValidation:
         subarticle_validator = SubArticleCollabIDValidation(self.xmltree, self.params)
         yield from subarticle_validator.validate()
 
-        validator = TextContribsValidation(self.xmltree.find("."), self.params)
+        validator = TextContribsValidation(
+            self.xmltree.find("."), self.params, self.xml_contribs.aff
+        )
         yield from validator.validate()
 
 
 class TextContribsValidation:
-    def __init__(self, node, params):
+    def __init__(self, node, params, affs_by_id=None):
         self.node = node
         self.params = params
         self.text_contribs = TextContribs(node)
+        if affs_by_id is None:
+            affs_by_id = XMLAffiliations(node.getroottree().getroot()).by_ids
+        self.affs_by_id = affs_by_id
 
     def validate(self):
         for contrib in self.text_contribs.items:
+            contrib = add_contrib_affs(contrib, self.affs_by_id)
             yield from ContribValidation(contrib, self.params).validate()
 
         validator = CollabListValidation(self.node, self.params)
@@ -651,7 +662,7 @@ class TextContribsValidation:
         yield from collab_validator.validate_collab_members_completeness()
 
         for node in self.text_contribs.sub_articles:
-            validator = TextContribsValidation(node, self.params)
+            validator = TextContribsValidation(node, self.params, self.affs_by_id)
             yield from validator.validate()
 
 

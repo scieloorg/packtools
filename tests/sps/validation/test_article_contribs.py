@@ -11,6 +11,7 @@ from packtools.sps.validation.article_contribs import (
     ContribValidation,
     DocumentCreditConsistencyValidation,
     SubArticleCollabIDValidation,
+    TextContribsValidation,
     XMLContribsValidation,
 )
 
@@ -473,6 +474,67 @@ class TestXMLContribsValidation(unittest.TestCase):
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
+
+
+class TestContribAffiliationInPipeline(unittest.TestCase):
+    XML = """
+    <article article-type="research-article" xml:lang="en">
+        <front><article-meta>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <name><surname>Smith</surname><given-names>John</given-names></name>
+                    <xref ref-type="aff" rid="aff1">1</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name><surname>Johnson</surname><given-names>Mary</given-names></name>
+                    <xref ref-type="aff" rid="aff9">9</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="aff1"><institution content-type="orgname">Universidade A</institution></aff>
+        </article-meta></front>
+        <sub-article article-type="translation" id="s1" xml:lang="pt">
+            <front-stub>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <name><surname>Silva</surname><given-names>Ana</given-names></name>
+                        <xref ref-type="aff" rid="aff2">1</xref>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff2"><institution content-type="orgname">Universidade A</institution></aff>
+            </front-stub>
+        </sub-article>
+    </article>
+    """
+
+    def _affiliation_responses(self, results):
+        return {
+            r["data"]["contrib_full_name"]: r["response"]
+            for r in results
+            if r["title"] == "affiliation"
+        }
+
+    def test_validate_with_xref_to_existing_aff_returns_ok(self):
+        validator = XMLContribsValidation(etree.fromstring(self.XML), {})
+
+        responses = self._affiliation_responses(validator.validate())
+
+        self.assertEqual(responses["John Smith"], "OK")
+        self.assertEqual(responses["Ana Silva"], "OK")
+
+    def test_validate_with_xref_to_missing_aff_returns_error(self):
+        validator = XMLContribsValidation(etree.fromstring(self.XML), {})
+
+        responses = self._affiliation_responses(validator.validate())
+
+        self.assertEqual(responses["Mary Johnson"], "ERROR")
+
+    def test_text_contribs_validation_of_sub_article_resolves_aff_from_document(self):
+        sub_article = etree.fromstring(self.XML).find("sub-article")
+        validator = TextContribsValidation(sub_article, {})
+
+        responses = self._affiliation_responses(validator.validate())
+
+        self.assertEqual(responses, {"Ana Silva": "OK"})
 
 
 class TestCollabGroupValidation(unittest.TestCase):
