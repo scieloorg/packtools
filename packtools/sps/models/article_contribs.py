@@ -190,10 +190,14 @@ class TextContribs(Fulltext):
 
     @property
     def collab(self):
+        if self.front is None:
+            return None
         return self.front.findtext(".//contrib-group//collab")
 
     @property
     def contrib_groups(self):
+        if self.front is None:
+            return
         for contrib_group in self.front.xpath(".//contrib-group"):
             yield ContribGroup(contrib_group)
 

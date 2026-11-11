@@ -938,6 +938,41 @@ class TestTextContribs(TestCase):
         not_translations = list(self.text_contribs.not_translations)
         self.assertEqual(len(not_translations), 0)
 
+class TestTextContribsSubArticleWithoutFrontStub(TestCase):
+    def setUp(self):
+        xml = """
+        <article article-type="research-article" xml:lang="en">
+            <front><article-meta><contrib-group>
+                <contrib contrib-type="author">
+                    <name><surname>Smith</surname><given-names>John</given-names></name>
+                </contrib>
+            </contrib-group></article-meta></front>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+                <body><p>texto</p></body>
+            </sub-article>
+            <sub-article article-type="reviewer-report" id="r1" xml:lang="en">
+                <front-stub><contrib-group>
+                    <contrib contrib-type="author">
+                        <name><surname>Doe</surname><given-names>Jane</given-names></name>
+                    </contrib>
+                </contrib-group></front-stub>
+            </sub-article>
+        </article>
+        """
+        self.xml = etree.fromstring(xml)
+        self.sub_article = self.xml.find("sub-article[@id='s1']")
+
+    def test_sub_article_without_front_stub_has_no_contrib_groups(self):
+        self.assertEqual(list(TextContribs(self.sub_article).contrib_groups), [])
+
+    def test_sub_article_without_front_stub_has_no_collab(self):
+        self.assertIsNone(TextContribs(self.sub_article).collab)
+
+    def test_items_with_sub_article_without_front_stub_returns_other_contribs(self):
+        names = [item["contrib_full_name"] for item in TextContribs(self.xml).items]
+        self.assertEqual(names, ["John Smith", "Jane Doe"])
+
+
 class XMLContribsTest(TestCase):
     def setUp(self):
         self.xml = etree.fromstring(self._xml_string())
