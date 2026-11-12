@@ -19,7 +19,8 @@ class Reference:
         marked = []
         for node in self.ref.xpath('.//element-citation//*'):
             for text in (node.text, node.tail):
-                text = (text or '').strip()
+                # mixed-citation já vem com espaços padronizados (node_plain_text)
+                text = " ".join((text or "").split())
                 if text:
                     marked.append({"tag": node.tag, "text": text})
 
