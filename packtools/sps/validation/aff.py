@@ -645,12 +645,22 @@ class AffiliationValidation:
         if not self.original:
             return
 
-        original = self.original
+        # compara com espaços padronizados: quebra de linha e indentação
+        # dentro de <institution> não fazem o componente deixar de existir;
+        # os resultados continuam com o valor como está no XML
+        original = " ".join(self.original.split())
         found = {}
         not_found = {}
-        for k, v in sorted(self.original_components.items(), key=lambda x: len(x[1] or ''), reverse=True):
-            if v and v in original:
-                original = original.replace(v, "", 1)
+        components = [
+            (k, v, " ".join(v.split()) if v else v)
+            for k, v in self.original_components.items()
+        ]
+        # o maior primeiro, pelo texto padronizado: senão um componente
+        # indentado (cidade "São\n  Paulo") passa na frente e consome o
+        # trecho de outro maior ("Universidade de São Paulo")
+        for k, v, text in sorted(components, key=lambda x: len(x[2] or ''), reverse=True):
+            if text and text in original:
+                original = original.replace(text, "", 1)
                 found.update({k: v})
                 is_valid = True
                 advice = None
