@@ -641,3 +641,42 @@ class NestedRefListTest(TestCase):
         refs = self._refs(xml)
         self.assertEqual(["B1", "S1B1"], [r["ref_id"] for r in refs])
 
+
+
+class ReferenceCheckMarksWhitespaceTest(TestCase):
+    """Quebra de linha e indentação em element-citation não são texto não marcado (#1468)."""
+
+    def setUp(self):
+        xml = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>1. United Nations. Joint United Nations Programme on HIV/AIDS. The
+                path that ends AIDS: 2023 UNAIDS Global AIDS Update [Internet]. Geneva: UNAIDS;
+                2023 [cited 2025 Jan 18].</mixed-citation>
+            <element-citation publication-type="webpage">
+            <person-group person-group-type="author">
+            <collab>United Nations.</collab>
+            </person-group>
+            <article-title>Joint United Nations Programme on HIV/AIDS. The path that ends
+                AIDS: 2023 UNAIDS Global AIDS Update [Internet].</article-title>
+            <publisher-loc>Geneva</publisher-loc>
+            <publisher-name>UNAIDS</publisher-name>
+            <year>2023</year>
+            <date-in-citation content-type="access-date">[cited 2025 Jan
+                18]</date-in-citation>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+        self.ref = list(XMLReferences(etree.fromstring(xml)).main_references)[0]
+
+    def test_marked_text_with_line_breaks_is_matched(self):
+        self.assertEqual([], self.ref["unmatched"])
+
+    def test_no_text_left_unmarked(self):
+        self.assertEqual([], self.ref["filtered_not_marked"])
