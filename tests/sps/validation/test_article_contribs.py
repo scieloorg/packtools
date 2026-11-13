@@ -839,3 +839,39 @@ class TestCreditTranslatedRoleInPipeline(unittest.TestCase):
             [("CRediT taxonomy URI", "OK"), ("CRediT taxonomy URI", "OK")],
             [(r["title"], r["response"]) for r in results],
         )
+
+
+class TestResponseContribsValidation(unittest.TestCase):
+    def test_response_contribs_are_validated_in_response_context(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <front><article-meta><contrib-group>
+                <contrib contrib-type="author"><name><surname>Main</surname><given-names>A</given-names></name></contrib>
+            </contrib-group></article-meta></front>
+            <response response-type="reply" id="R1" xml:lang="en">
+                <front-stub><contrib-group>
+                    <contrib contrib-type="author"><name><surname>Resp</surname><given-names>B</given-names></name></contrib>
+                </contrib-group></front-stub>
+            </response>
+        </article>
+        """
+        results = list(XMLContribsValidation(etree.fromstring(xml), {}).validate())
+        response_results = [r for r in results if r["parent"] == "response"]
+        self.assertTrue(response_results)
+        self.assertEqual({"R1"}, {r["parent_id"] for r in response_results})
+        self.assertIn(
+            "contributor", {r["title"] for r in response_results}
+        )
+
+    def test_response_without_front_stub_does_not_stop_validation(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <front><article-meta><contrib-group>
+                <contrib contrib-type="author"><name><surname>Main</surname><given-names>A</given-names></name></contrib>
+            </contrib-group></article-meta></front>
+            <response response-type="reply" id="R1" xml:lang="en"><body><p>x</p></body></response>
+        </article>
+        """
+        results = list(XMLContribsValidation(etree.fromstring(xml), {}).validate())
+        self.assertTrue([r for r in results if r["parent"] == "article"])
+        self.assertEqual([], [r for r in results if r["parent"] == "response"])

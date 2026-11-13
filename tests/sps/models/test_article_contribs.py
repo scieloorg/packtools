@@ -1016,3 +1016,65 @@ class XMLContribsTest(TestCase):
         self.assertIn("9999-0001-2345-6789", mapping)
         self.assertIn("John Smith", mapping["0000-0001-2345-6789"])
         self.assertIn("Ana García", mapping["9999-0001-2345-6789"])
+
+
+class TestTextContribsResponse(TestCase):
+    def _items(self, xml):
+        return list(TextContribs(etree.fromstring(xml)).items)
+
+    def test_items_include_response_contribs(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <front><article-meta><contrib-group>
+                <contrib contrib-type="author"><name><surname>Main</surname><given-names>A</given-names></name></contrib>
+            </contrib-group></article-meta></front>
+            <response response-type="reply" id="R1" xml:lang="en">
+                <front-stub><contrib-group>
+                    <contrib contrib-type="author"><name><surname>First</surname><given-names>B</given-names></name></contrib>
+                </contrib-group></front-stub>
+            </response>
+            <response response-type="reply" id="R2" xml:lang="pt">
+                <front-stub><contrib-group>
+                    <contrib contrib-type="author"><name><surname>Second</surname><given-names>C</given-names></name></contrib>
+                </contrib-group></front-stub>
+            </response>
+        </article>
+        """
+        items = self._items(xml)
+        self.assertEqual(
+            [("article", None, "en"), ("response", "R1", "en"), ("response", "R2", "pt")],
+            [(i["parent"], i["parent_id"], i["parent_lang"]) for i in items],
+        )
+        self.assertEqual(
+            ["A Main", "B First", "C Second"], [i["contrib_full_name"] for i in items]
+        )
+
+    def test_items_include_response_inside_sub_article(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <front><article-meta/></front>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+                <front-stub/>
+                <response response-type="reply" id="R1" xml:lang="pt">
+                    <front-stub><contrib-group>
+                        <contrib contrib-type="author"><name><surname>Inner</surname><given-names>D</given-names></name></contrib>
+                    </contrib-group></front-stub>
+                </response>
+            </sub-article>
+        </article>
+        """
+        items = self._items(xml)
+        self.assertEqual(1, len(items))
+        self.assertEqual(("response", "R1"), (items[0]["parent"], items[0]["parent_id"]))
+
+    def test_response_without_front_stub_has_no_contribs(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <front><article-meta/></front>
+            <response response-type="reply" id="R1" xml:lang="en"><body><p>x</p></body></response>
+        </article>
+        """
+        text_contribs = TextContribs(etree.fromstring(xml).xpath("response")[0])
+        self.assertEqual([], list(text_contribs.contrib_groups))
+        self.assertIsNone(text_contribs.collab)
+        self.assertEqual([], self._items(xml))
