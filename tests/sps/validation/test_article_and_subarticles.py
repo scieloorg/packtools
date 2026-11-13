@@ -931,6 +931,21 @@ class TestJATSAndDTDVersionValidation(unittest.TestCase):
         self.assertIsInstance(result["advice"], str)
         self.assertTrue(result["advice"].startswith("Complete SPS (specific-use=\"\") and JATS"))
 
+    def test_article_rules_match_validator_params(self):
+        """article_rules.json traz o nível que a validação lê, e só chaves que ela lê"""
+        rules = get_default_rules()["article_rules"]
+        validator = JATSAndDTDVersionValidation(self.valid_xmltree, None)
+        defaults = validator._get_default_params()
+        self.assertEqual(set(defaults), set(rules))
+
+    def test_validate_uses_error_level_from_article_rules(self):
+        """O nível configurado em article_rules.json chega ao resultado"""
+        rules = dict(get_default_rules()["article_rules"])
+        rules["jats_and_dtd_version_error_level"] = "ERROR"
+        validator = JATSAndDTDVersionValidation(self.invalid_version_mismatch_xmltree, rules)
+        result = list(validator.validate())[0]
+        self.assertEqual(result["response"], "ERROR")
+
     def test_validate_with_custom_version_list(self):
         """Testa validação com lista personalizada de versões compatíveis"""
         custom_params = {
