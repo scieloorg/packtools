@@ -977,3 +977,84 @@ class TestJATSAndDTDVersionValidation(unittest.TestCase):
         self.assertEqual(result['response'], "WARNING")  # Deve usar o nível de erro personalizado
         self.assertEqual(result['got_value']['specific-use'], "sps-1.9")
         self.assertEqual(result['got_value']['dtd-version'], "1.0")
+
+
+class TestSPSVersionIsCurrent(unittest.TestCase):
+    def _results(self, specific_use, params=None):
+        attr = f' specific-use="{specific_use}"' if specific_use else ""
+        xmltree = etree.fromstring(
+            f'<article article-type="research-article" dtd-version="1.1" xml:lang="en"{attr}/>'
+        )
+        validator = JATSAndDTDVersionValidation(xmltree, params)
+        return list(validator.validate_sps_version_is_current())
+
+    def test_current_version_is_ok(self):
+        results = self._results("sps-1.10")
+        self.assertEqual(["OK"], [r["response"] for r in results])
+        self.assertIsNone(results[0]["advice"])
+
+    def test_correction_version_counts_as_original_version(self):
+        results = self._results("sps-1.10.1")
+        self.assertEqual(["OK"], [r["response"] for r in results])
+
+    def test_previous_version_is_warning(self):
+        results = self._results("sps-1.9")
+        self.assertEqual(["WARNING"], [r["response"] for r in results])
+        result = results[0]
+        self.assertEqual("sps-1.9", result["got_value"])
+        self.assertEqual("sps-1.10", result["expected_value"])
+        self.assertEqual(
+            "sps-1.9 is an earlier SPS version. The XML was validated against "
+            "the rules of the current version, sps-1.10. Update the markup to "
+            'sps-1.10 and replace <article specific-use="sps-1.9"> with '
+            '<article specific-use="sps-1.10">',
+            result["advice"],
+        )
+        self.assertEqual(
+            {"declared": "sps-1.9", "current": "sps-1.10"}, result["adv_params"]
+        )
+
+    def test_older_versions_are_error(self):
+        for specific_use in ("sps-1.8", "sps-1.4", "sps-1.1"):
+            with self.subTest(specific_use=specific_use):
+                results = self._results(specific_use)
+                self.assertEqual(["ERROR"], [r["response"] for r in results])
+
+    def test_missing_unknown_or_later_version_has_no_result(self):
+        for specific_use in (None, "1.9", "sps-x", "sps-2.0", "sps-1.11"):
+            with self.subTest(specific_use=specific_use):
+                self.assertEqual([], self._results(specific_use))
+
+    def test_current_version_comes_from_params(self):
+        params = {
+            "current_sps_version": "sps-1.11",
+            "specific_use_list": {
+                "sps-1.9": ["1.1"],
+                "sps-1.10": ["1.1", "1.2", "1.3"],
+                "sps-1.11": ["1.4"],
+            },
+        }
+        self.assertEqual(["OK"], [r["response"] for r in self._results("sps-1.11", params)])
+        self.assertEqual(["WARNING"], [r["response"] for r in self._results("sps-1.10", params)])
+        self.assertEqual(["ERROR"], [r["response"] for r in self._results("sps-1.9", params)])
+
+    def test_error_levels_come_from_params(self):
+        params = {
+            "previous_sps_version_error_level": "INFO",
+            "outdated_sps_version_error_level": "CRITICAL",
+        }
+        self.assertEqual(["INFO"], [r["response"] for r in self._results("sps-1.9", params)])
+        self.assertEqual(["CRITICAL"], [r["response"] for r in self._results("sps-1.4", params)])
+
+    def test_validate_article_yields_version_pair_and_current_version(self):
+        from packtools.sps.validation.xml_validations import validate_article
+
+        xmltree = etree.fromstring(
+            '<article article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en"/>'
+        )
+        results = list(validate_article(xmltree, get_default_rules()))
+        self.assertEqual(
+            [("SPS and JATS versions", "OK"), ("SPS version", "WARNING")],
+            [(r["title"], r["response"]) for r in results],
+        )

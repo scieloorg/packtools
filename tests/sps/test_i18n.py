@@ -518,6 +518,36 @@ class I18nTest(unittest.TestCase):
             result["adv_text"],
         )
 
+    def test_catalogs_translate_earlier_sps_version_advice(self):
+        from packtools.sps.validation.article_and_subarticles import (
+            JATSAndDTDVersionValidation,
+        )
+
+        xmltree = etree.fromstring(
+            '<article dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"/>'
+        )
+        expected = {
+            "pt_BR": "{declared} é uma versão anterior do SPS. O XML foi validado pelas regras da versão atual, {current}. Atualize a marcação para {current} e substitua <article specific-use=\"{declared}\"> por <article specific-use=\"{current}\">",
+            "es": "{declared} es una versión anterior del SPS. El XML fue validado según las reglas de la versión actual, {current}. Actualice el marcado a {current} y sustituya <article specific-use=\"{declared}\"> por <article specific-use=\"{current}\">",
+        }
+        for locale, adv_text in expected.items():
+            with self.subTest(locale=locale):
+
+                def validate():
+                    i18n.set_locale(locale)
+                    return next(
+                        JATSAndDTDVersionValidation(
+                            xmltree, None
+                        ).validate_sps_version_is_current()
+                    )
+
+                result = Context().run(validate)
+                self.assertEqual(adv_text, result["adv_text"])
+                self.assertEqual(
+                    {"declared": "sps-1.9", "current": "sps-1.10"},
+                    result["adv_params"],
+                )
+
     def test_spanish_catalog_translates_parameterized_validator_template(self):
         xmltree = etree.fromstring(
             """

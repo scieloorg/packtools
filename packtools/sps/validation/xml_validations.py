@@ -71,6 +71,7 @@ def validate_abstracts(xmltree, params):
 def validate_article(xmltree, params):
     validator = JATSAndDTDVersionValidation(xmltree, params["article_rules"])
     yield from validator.validate()
+    yield from validator.validate_sps_version_is_current()
 
 
 def validate_article_languages(xmltree, params):
