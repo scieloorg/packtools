@@ -974,3 +974,36 @@ class TestCountryCodeValidation(TestCase):
 
 if __name__ == '__main__':
     main()
+
+
+class TestResponseAffiliationsValidation(TestCase):
+    def test_response_affs_are_validated_in_response_context(self):
+        xml = """
+        <article xml:lang="en" article-type="letter">
+            <front><article-meta>
+                <aff id="aff1">
+                    <label>1</label>
+                    <institution content-type="orgname">Universidade Federal de Pelotas</institution>
+                    <institution content-type="original">Universidade Federal de Pelotas, Pelotas, Brasil</institution>
+                    <country country="BR">Brasil</country>
+                </aff>
+            </article-meta></front>
+            <response response-type="reply" id="R1" xml:lang="en">
+                <front-stub>
+                    <aff id="aff2">
+                        <label>2</label>
+                        <institution content-type="original">Universidade de São Paulo, São Paulo, Brasil</institution>
+                        <country country="BR">Brasil</country>
+                    </aff>
+                </front-stub>
+            </response>
+        </article>
+        """
+        results = list(
+            FulltextAffiliationsValidation(etree.fromstring(xml), PARAMS).validate()
+        )
+        response_results = [r for r in results if r["parent"] == "response"]
+        self.assertTrue(response_results)
+        self.assertEqual({"R1"}, {r["parent_id"] for r in response_results})
+        orgname = [r for r in response_results if r["title"] == "orgname"]
+        self.assertEqual(["CRITICAL"], [r["response"] for r in orgname])

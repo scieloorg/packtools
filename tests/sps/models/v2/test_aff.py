@@ -246,3 +246,45 @@ class TestXMLAffiliations(TestCase):
         xml_tree = xml_tree = etree.fromstring(single_aff_xml)
         xml_affs = XMLAffiliations(xml_tree)
         self.assertEqual(list(xml_affs.by_ids.keys()), ["aff1"])
+
+
+class TestFulltextAffiliationsResponse(TestCase):
+    def setUp(self):
+        xml = """
+        <article xml:lang="en" article-type="letter">
+            <front><article-meta>
+                <aff id="aff1"><institution content-type="orgname">Main</institution></aff>
+            </article-meta></front>
+            <response response-type="reply" id="R1" xml:lang="en">
+                <front-stub>
+                    <aff id="aff2"><institution content-type="orgname">Resp 1</institution></aff>
+                </front-stub>
+            </response>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+                <front-stub/>
+                <response response-type="reply" id="R2" xml:lang="pt">
+                    <front-stub>
+                        <aff id="aff3"><institution content-type="orgname">Resp 2</institution></aff>
+                    </front-stub>
+                </response>
+            </sub-article>
+        </article>
+        """
+        self.xml_tree = etree.fromstring(xml)
+
+    def test_items_include_response_affs(self):
+        items = list(XMLAffiliations(self.xml_tree).items)
+        self.assertEqual(
+            [("aff1", "article", None), ("aff3", "response", "R2"), ("aff2", "response", "R1")],
+            [(i["id"], i["parent"], i["parent_id"]) for i in items],
+        )
+
+    def test_by_ids_include_response_affs(self):
+        self.assertEqual(
+            {"aff1", "aff2", "aff3"}, set(XMLAffiliations(self.xml_tree).by_ids)
+        )
+
+    def test_responses(self):
+        responses = list(FulltextAffiliations(self.xml_tree.find(".")).responses)
+        self.assertEqual(["R1"], [r.id for r in responses])
+        self.assertEqual(["aff2"], [a["id"] for a in responses[0].affiliations()])
