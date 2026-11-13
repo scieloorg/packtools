@@ -902,6 +902,35 @@ class TestJATSAndDTDVersionValidation(unittest.TestCase):
         })
         self.assertIsNotNone(result['advice'])
 
+    def test_validate_with_unknown_sps_version_advises_valid_versions(self):
+        """SPS ausente ou fora da lista: a orientação pede uma versão SPS válida"""
+        for xmltree in (
+            self.invalid_sps_version_xmltree,
+            self.missing_versions_xmltree,
+            self.only_jats_xmltree,
+        ):
+            with self.subTest(specific_use=xmltree.get("specific-use")):
+                validator = JATSAndDTDVersionValidation(xmltree, None)
+                result = list(validator.validate())[0]
+                versions = list(validator.params["specific_use_list"].keys())
+                self.assertEqual(result["response"], "CRITICAL")
+                self.assertEqual(
+                    result["advice"],
+                    f'Complete SPS version <article specific-use=""/> with valid value: {versions}',
+                )
+                self.assertEqual(
+                    result["adv_text"],
+                    'Complete SPS version <article specific-use=""/> with valid value: {versions}',
+                )
+                self.assertEqual(result["adv_params"], {"versions": str(versions)})
+
+    def test_validate_with_known_sps_version_and_wrong_jats_advises_pair(self):
+        """SPS conhecida com JATS incompatível: a orientação continua pedindo o par"""
+        validator = JATSAndDTDVersionValidation(self.invalid_version_mismatch_xmltree, None)
+        result = list(validator.validate())[0]
+        self.assertIsInstance(result["advice"], str)
+        self.assertTrue(result["advice"].startswith("Complete SPS (specific-use=\"\") and JATS"))
+
     def test_validate_with_custom_version_list(self):
         """Testa validação com lista personalizada de versões compatíveis"""
         custom_params = {

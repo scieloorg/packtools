@@ -398,8 +398,8 @@ class JATSAndDTDVersionValidation:
         advice = None
         advice_text = None
         advice_params = {}
-        if not versions:
-            advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}',
+        if sps_version not in versions:
+            advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}'
             advice_text = i18n._('Complete SPS version <article specific-use=""/> with valid value: {versions}')
             advice_params = {"versions": str(list(versions.keys()))}
 
