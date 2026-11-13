@@ -130,9 +130,16 @@ class FulltextAffiliations(Fulltext):
             yield FulltextAffiliations(node)
 
     @property
+    def responses(self):
+        for node in super().responses:
+            yield FulltextAffiliations(node)
+
+    @property
     def items(self):
         yield from self.affiliations()
         for fulltext in self.sub_articles:
+            yield from fulltext.items
+        for fulltext in self.responses:
             yield from fulltext.items
 
     @property

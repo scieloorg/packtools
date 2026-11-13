@@ -1078,3 +1078,26 @@ class TestTextContribsResponse(TestCase):
         self.assertEqual([], list(text_contribs.contrib_groups))
         self.assertIsNone(text_contribs.collab)
         self.assertEqual([], self._items(xml))
+
+
+class TestXMLContribsResponseAffs(TestCase):
+    def test_response_contrib_gets_response_aff(self):
+        xml = """
+        <article article-type="letter" xml:lang="en">
+            <front><article-meta/></front>
+            <response response-type="reply" id="R1" xml:lang="en">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name><surname>Resp</surname><given-names>B</given-names></name>
+                            <xref ref-type="aff" rid="aff2"/>
+                        </contrib>
+                    </contrib-group>
+                    <aff id="aff2"><institution content-type="orgname">Resp Univ</institution></aff>
+                </front-stub>
+            </response>
+        </article>
+        """
+        contribs = list(XMLContribs(etree.fromstring(xml)).all_contribs)
+        self.assertEqual(1, len(contribs))
+        self.assertEqual(["aff2"], [a["id"] for a in contribs[0]["affs"]])

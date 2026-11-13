@@ -130,6 +130,19 @@ class FulltextAffiliationsValidation:
             validator = FulltextAffiliationsValidation(item.node, self.params)
             yield from validator.validate()
 
+    def validate_response_affiliations(self):
+        """
+        Validate affiliations of each <response>
+
+        Yields
+        ------
+        dict
+            Validation results for each affiliation and translation
+        """
+        for item in self.fulltext_affs.responses:
+            validator = FulltextAffiliationsValidation(item.node, self.params)
+            yield from validator.validate()
+
     def validate(self):
         """
         Validate all affiliations and their translations
@@ -143,6 +156,7 @@ class FulltextAffiliationsValidation:
         yield from self.validate_translations_consistency()
         yield from self.validate_translated_affiliations()
         yield from self.validate_not_translation_affiliations()
+        yield from self.validate_response_affiliations()
 
 
 class AffiliationValidation:
