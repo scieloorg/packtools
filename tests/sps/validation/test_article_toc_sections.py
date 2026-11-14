@@ -426,8 +426,12 @@ class ArticleTocSectionsErrorTest(TestCase):
 
         responses = [item["response"] for item in results]
 
-        self.assertEqual(5, len(results))   
-        self.assertEqual(2, responses.count("OK"))     
+        self.assertEqual(4, len(results))
+        self.assertEqual(2, responses.count("OK"))
+        # a subseção é apontada uma vez só, não também como grupo excedente
+        self.assertNotIn(
+            "unexpected subject-group", [item["title"] for item in results]
+        )
 
         result = results[1]
         self.assertEqual(result['response'], 'CRITICAL')
@@ -471,7 +475,7 @@ class ArticleTocSectionsErrorTest(TestCase):
         validator = XMLTocSectionsValidation(self.xmltree, params)
         results = list(validator.validate())
 
-        self.assertEqual(5, len(results))
+        self.assertEqual(4, len(results))
         # Verifica erro de tipo de subj-group
         result = results[0]
         self.assertEqual(result['response'], 'CRITICAL')

@@ -410,19 +410,6 @@ class ArticleTocSectionsTest(TestCase):
                 'journal': None,
             },
             {
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'section': 'Health Sciences Subsection',
-                'subj_group_type': 'heading',
-                'subsections': [],
-                'original_article_type': 'research-article',
-                'subject': 'Health Sciences Subsection',
-                'article_title': 'Título del artículo',
-                'journal': None,
-            },
-            {
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -434,24 +421,11 @@ class ArticleTocSectionsTest(TestCase):
                 'subject': 'Ciências da Saúde',
                 'article_title': 'Article title',
                 'journal': None,
-            },
-            {
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': '01',
-                'parent_lang': 'pt',
-                'section': 'Subseção Ciências da Saúde',
-                'subj_group_type': 'heading',
-                'subsections': [],
-                'original_article_type': 'research-article',
-                'subject': 'Subseção Ciências da Saúde',
-                'article_title': 'Article title',
-                'journal': None,
             }
         ]
         obtained = list(self.article_toc_sections.sections)
 
-        self.assertEqual(len(obtained), 4)
+        self.assertEqual(len(obtained), 2)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -510,19 +484,6 @@ class ArticleTocSectionsTest(TestCase):
                     'subject': 'Health Sciences',
                     'article_title': 'Título del artículo',
                     'journal': None,
-                },
-                {
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'section': 'Health Sciences Subsection',
-                    'subj_group_type': 'heading',
-                    'subsections': [],
-                    'original_article_type': 'research-article',
-                    'subject': 'Health Sciences Subsection',
-                    'article_title': 'Título del artículo',
-                    'journal': None,
                 }
             ],
             "pt": [
@@ -538,19 +499,6 @@ class ArticleTocSectionsTest(TestCase):
                     'subject': 'Ciências da Saúde',
                     'article_title': 'Article title',
                     'journal': None,
-                },
-                {
-                    'parent': 'sub-article',
-                    'parent_article_type': 'translation',
-                    'parent_id': '01',
-                    'parent_lang': 'pt',
-                    'section': 'Subseção Ciências da Saúde',
-                    'subj_group_type': 'heading',
-                    'subsections': [],
-                    'original_article_type': 'research-article',
-                    'subject': 'Subseção Ciências da Saúde',
-                    'article_title': 'Article title',
-                    'journal': None,
                 }
             ]
         }
@@ -559,6 +507,7 @@ class ArticleTocSectionsTest(TestCase):
         self.assertEqual(len(obtained), 2)
 
         for lang, sections_list in obtained.items():
+            self.assertEqual(len(expected[lang]), len(sections_list))
             for i, item in enumerate(sections_list):
                 with self.subTest(lang):
                     self.assertDictEqual(expected[lang][i], item)
