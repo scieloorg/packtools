@@ -585,8 +585,8 @@ msgstr "Marque a seção do sumário com <subj-group subj-group-type=\"heading\"
 
 #: packtools/sps/validation/article_toc_sections.py:175
 #, python-brace-format
-msgid "Write section and subsection in one subject: <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group>. Remove <subj-group><subject>{subsection}</subject></subj-group>"
-msgstr "Escreva seção e subseção em um assunto: <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group>. Remova <subj-group><subject>{subsection}</subject></subj-group>"
+msgid "Since SPS 1.10, the subsection goes in the same <subject> as the section, separated by a colon, dash or similar; in SPS 1.9, it was marked with a nested <subj-group>. Write <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group> and remove <subj-group><subject>{subsection}</subject></subj-group>"
+msgstr "A partir da SPS 1.10, a subseção fica no mesmo <subject> da seção, separada por dois pontos, traço ou similar; na SPS 1.9, ela era marcada com um <subj-group> aninhado. Escreva <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group> e remova <subj-group><subject>{subsection}</subject></subj-group>"
 
 #: packtools/sps/validation/article_toc_sections.py:216
 #, python-brace-format

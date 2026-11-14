@@ -156,10 +156,17 @@ class SubjectValidation:
         article_title = self.data.get("article_title") or ""
         subsection_text = " ".join(subsections or "")
 
-        # Há a recomendação de marcar a subseção junto com a seção 'seção: subseção'
-        # É desincentivado a usar subject-group/subject-group
+        # SPS 1.10, <article-categories>: a subseção vai no mesmo <subject>
+        # da seção ("Seção: Subseção"); na SPS 1.9 era um subj-group aninhado
         valid = not subsections
-        advice = f'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>{subject}: {subsection_text}</subject></subj-group>. Remove <subj-group><subject>{subsection_text}</subject></subj-group>'
+        advice = (
+            "Since SPS 1.10, the subsection goes in the same <subject> as the "
+            "section, separated by a colon, dash or similar; in SPS 1.9, it "
+            "was marked with a nested <subj-group>. Write "
+            f'<subj-group subj-group-type="heading"><subject>{subject}: '
+            f"{subsection_text}</subject></subj-group> and remove "
+            f"<subj-group><subject>{subsection_text}</subject></subj-group>"
+        )
 
         return build_response(
             title="table of contents section with subsection",
@@ -172,10 +179,14 @@ class SubjectValidation:
             obtained=subsections,
             advice=advice,
             advice_text=(
-                i18n._("Write section and subsection in one subject: "
-                '<subj-group subj-group-type="heading"><subject>'
-                "{subject}: {subsection}</subject></subj-group>. Remove "
-                "<subj-group><subject>{subsection}</subject></subj-group>")
+                i18n._(
+                    "Since SPS 1.10, the subsection goes in the same <subject> "
+                    "as the section, separated by a colon, dash or similar; in "
+                    "SPS 1.9, it was marked with a nested <subj-group>. Write "
+                    '<subj-group subj-group-type="heading"><subject>'
+                    "{subject}: {subsection}</subject></subj-group> and remove "
+                    "<subj-group><subject>{subsection}</subject></subj-group>"
+                )
             ),
             advice_params={
                 "subject": subject,

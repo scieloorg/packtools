@@ -548,6 +548,34 @@ class I18nTest(unittest.TestCase):
                     result["adv_params"],
                 )
 
+    def test_catalogs_translate_nested_subsection_advice(self):
+        from packtools.sps.validation.article_toc_sections import (
+            SubjectValidation,
+        )
+
+        data = {
+            "parent_lang": "en",
+            "subject": "ORIGINAL ARTICLE",
+            "subsections": ["Forest Management"],
+        }
+        expected = {
+            "pt_BR": "A partir da SPS 1.10, a subseção fica no mesmo <subject> da seção, separada por dois pontos, traço ou similar; na SPS 1.9, ela era marcada com um <subj-group> aninhado. Escreva <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group> e remova <subj-group><subject>{subsection}</subject></subj-group>",
+            "es": "A partir de SPS 1.10, la subsección va en el mismo <subject> que la sección, separada por dos puntos, guion o similar; en SPS 1.9, se marcaba con un <subj-group> anidado. Escriba <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group> y elimine <subj-group><subject>{subsection}</subject></subj-group>",
+        }
+        for locale, adv_text in expected.items():
+            with self.subTest(locale=locale):
+
+                def validate():
+                    i18n.set_locale(locale)
+                    return SubjectValidation(data, {}).validate_subsection()
+
+                result = Context().run(validate)
+                self.assertEqual(adv_text, result["adv_text"])
+                self.assertEqual(
+                    {"subject": "ORIGINAL ARTICLE", "subsection": "Forest Management"},
+                    result["adv_params"],
+                )
+
     def test_spanish_catalog_translates_parameterized_validator_template(self):
         xmltree = etree.fromstring(
             """

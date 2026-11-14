@@ -436,7 +436,7 @@ class ArticleTocSectionsErrorTest(TestCase):
         result = results[1]
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], ['Public Health'])
-        self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>Health Sciences: Public Health</subject></subj-group>. Remove <subj-group><subject>Public Health</subject></subj-group>')
+        self.assertEqual(result['advice'], 'Since SPS 1.10, the subsection goes in the same <subject> as the section, separated by a colon, dash or similar; in SPS 1.9, it was marked with a nested <subj-group>. Write <subj-group subj-group-type="heading"><subject>Health Sciences: Public Health</subject></subj-group> and remove <subj-group><subject>Public Health</subject></subj-group>')
         self.assertEqual(
             result["adv_text"].format(**result["adv_params"]),
             result["advice"],
@@ -486,7 +486,7 @@ class ArticleTocSectionsErrorTest(TestCase):
         result = results[1]
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], ['Molecular Biology'])
-        self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subj-group>. Remove <subj-group><subject>Molecular Biology</subject></subj-group>')
+        self.assertEqual(result['advice'], 'Since SPS 1.10, the subsection goes in the same <subject> as the section, separated by a colon, dash or similar; in SPS 1.9, it was marked with a nested <subj-group>. Write <subj-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subj-group> and remove <subj-group><subject>Molecular Biology</subject></subj-group>')
 
 
 class TestUnexpectedItemValidation(unittest.TestCase):
@@ -591,7 +591,7 @@ class TestSubsectionValidation(unittest.TestCase):
         )
         self.assertEqual(
             result['advice'],
-            'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subj-group>. Remove <subj-group><subject>Molecular Biology</subject></subj-group>'
+            'Since SPS 1.10, the subsection goes in the same <subject> as the section, separated by a colon, dash or similar; in SPS 1.9, it was marked with a nested <subj-group>. Write <subj-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subj-group> and remove <subj-group><subject>Molecular Biology</subject></subj-group>'
         )
         self.assertEqual(
             result['title'],
