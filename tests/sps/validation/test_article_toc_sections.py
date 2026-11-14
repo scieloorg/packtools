@@ -101,7 +101,7 @@ class ArticleTocSectionsTest(TestCase):
         self.assertEqual(result['got_value'], 'wrong-type')
         self.assertEqual(
             result['advice'],
-            'Replace <subject-group subj-group-type="wrong-type"><subject>Health Sciences</subject></subject-group> by <subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>'
+            'Replace <subj-group subj-group-type="wrong-type"><subject>Health Sciences</subject></subj-group> by <subj-group subj-group-type="heading"><subject>Health Sciences</subject></subj-group>'
         )
         self.assertEqual(
             result["adv_text"].format(**result["adv_params"]),
@@ -283,7 +283,7 @@ class ArticleTocSectionsErrorTest(TestCase):
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], None)
         self.assertEqual(
-            result['advice'], 'Replace <subject-group><subject>Health Sciences</subject></subject-group> by <subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>'
+            result['advice'], 'Replace <subj-group><subject>Health Sciences</subject></subj-group> by <subj-group subj-group-type="heading"><subject>Health Sciences</subject></subj-group>'
         )
 
     def test_validate_very_similar_title_and_section(self):
@@ -370,12 +370,12 @@ class ArticleTocSectionsErrorTest(TestCase):
         # validate_section
         result = results[2]
         self.assertEqual(result["response"], "WARNING")
-        self.assertEqual(result['advice'], 'Unable to check if Health Sciences (<subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>) is a valid table of contents section because the journal (Braz Journal ...) sections were not informed'
+        self.assertEqual(result['advice'], 'Unable to check if Health Sciences (<subj-group subj-group-type="heading"><subject>Health Sciences</subject></subj-group>) is a valid table of contents section because the journal (Braz Journal ...) sections were not informed'
         )
         self.assertEqual(
             "Unable to check whether Health Sciences "
-            "(<subject-group subj-group-type=\"heading\"><subject>Health "
-            "Sciences</subject></subject-group>) is a valid table of contents "
+            "(<subj-group subj-group-type=\"heading\"><subject>Health "
+            "Sciences</subject></subj-group>) is a valid table of contents "
             "section because no sections were provided for the journal "
             "Braz Journal ...",
             result["adv_text"].format(**result["adv_params"]),
@@ -436,7 +436,7 @@ class ArticleTocSectionsErrorTest(TestCase):
         result = results[1]
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], ['Public Health'])
-        self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>Health Sciences: Public Health</subject></subject-group>. Remove <subject-group><subject>Public Health</subject></subject-group>')
+        self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>Health Sciences: Public Health</subject></subj-group>. Remove <subj-group><subject>Public Health</subject></subj-group>')
         self.assertEqual(
             result["adv_text"].format(**result["adv_params"]),
             result["advice"],
@@ -480,13 +480,13 @@ class ArticleTocSectionsErrorTest(TestCase):
         result = results[0]
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], 'invalid')
-        self.assertEqual(result['advice'], 'Replace <subject-group subj-group-type="invalid"><subject>Biology</subject></subject-group> by <subject-group subj-group-type="heading"><subject>Biology</subject></subject-group>')
+        self.assertEqual(result['advice'], 'Replace <subj-group subj-group-type="invalid"><subject>Biology</subject></subj-group> by <subj-group subj-group-type="heading"><subject>Biology</subject></subj-group>')
                 
         # Verifica erro de valor da seção / subseção
         result = results[1]
         self.assertEqual(result['response'], 'CRITICAL')
         self.assertEqual(result['got_value'], ['Molecular Biology'])
-        self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subject-group>. Remove <subject-group><subject>Molecular Biology</subject></subject-group>')
+        self.assertEqual(result['advice'], 'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subj-group>. Remove <subj-group><subject>Molecular Biology</subject></subj-group>')
 
 
 class TestUnexpectedItemValidation(unittest.TestCase):
@@ -513,7 +513,7 @@ class TestUnexpectedItemValidation(unittest.TestCase):
         )
         self.assertEqual(
             result['advice'],
-            'Remove <subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
+            'Remove <subj-group subj-group-type="heading"><subject>Health Sciences</subject></subj-group> because it is unexpected, only one subj-group is acceptable'
         )
         self.assertEqual(
             result['title'],
@@ -553,7 +553,7 @@ class TestSubjGroupTypeValidation(unittest.TestCase):
         )
         self.assertEqual(
             result['advice'],
-            'Replace <subject-group subj-group-type="invalid-type"><subject>Health Sciences</subject></subject-group> by <subject-group subj-group-type="heading"><subject>Health Sciences</subject></subject-group>'
+            'Replace <subj-group subj-group-type="invalid-type"><subject>Health Sciences</subject></subj-group> by <subj-group subj-group-type="heading"><subject>Health Sciences</subject></subj-group>'
         )
         self.assertEqual(
             result['title'],
@@ -591,7 +591,7 @@ class TestSubsectionValidation(unittest.TestCase):
         )
         self.assertEqual(
             result['advice'],
-            'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subject-group>. Remove <subject-group><subject>Molecular Biology</subject></subject-group>'
+            'Write section and subsection in one subject: <subj-group subj-group-type="heading"><subject>Biology: Molecular Biology</subject></subj-group>. Remove <subj-group><subject>Molecular Biology</subject></subj-group>'
         )
         self.assertEqual(
             result['title'],

@@ -561,32 +561,32 @@ msgstr "adicione <permissions><license xlink:href=\"http://creativecommons.org/l
 
 #: packtools/sps/validation/article_toc_sections.py:90
 #, python-brace-format
-msgid "Remove <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable"
-msgstr "Remova <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group> porque é inesperado, apenas um grupo de assuntos é aceitável"
+msgid "Remove <subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group> because it is unexpected, only one subj-group is acceptable"
+msgstr "Remova <subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group> porque é inesperado, apenas um grupo de assuntos é aceitável"
 
 #: packtools/sps/validation/article_toc_sections.py:93
 #, python-brace-format
-msgid "Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable"
-msgstr "Remova <subject-group><subject>{subject}</subject></subject-group> porque é inesperado, apenas um grupo de assuntos é aceitável"
+msgid "Remove <subj-group><subject>{subject}</subject></subj-group> because it is unexpected, only one subj-group is acceptable"
+msgstr "Remova <subj-group><subject>{subject}</subject></subj-group> porque é inesperado, apenas um grupo de assuntos é aceitável"
 
 #: packtools/sps/validation/article_toc_sections.py:121
 #, python-brace-format
-msgid "Replace <subject-group subj-group-type=\"{subj_group_type}\"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
-msgstr "Substitua <subject-group subj-group-type=\"{subj_group_type}\"><subject>{subject}</subject></subject-group> por <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
+msgid "Replace <subj-group subj-group-type=\"{subj_group_type}\"><subject>{subject}</subject></subj-group> by <subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group>"
+msgstr "Substitua <subj-group subj-group-type=\"{subj_group_type}\"><subject>{subject}</subject></subj-group> por <subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group>"
 
 #: packtools/sps/validation/article_toc_sections.py:128
 #, python-brace-format
-msgid "Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
-msgstr "Substitua <subject-group><subject>{subject}</subject></subject-group> por <subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>"
+msgid "Replace <subj-group><subject>{subject}</subject></subj-group> by <subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group>"
+msgstr "Substitua <subj-group><subject>{subject}</subject></subj-group> por <subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group>"
 
 #: packtools/sps/validation/article_toc_sections.py:132
-msgid "Mark table of contents section with  <subject-group subj-group-type=\"heading\"><subject>table of contents section</subject></subject-group>"
-msgstr "Marque a seção do sumário com <subject-group subj-group-type=\"heading\"><subject>seção do sumário</subject></subject-group>"
+msgid "Mark table of contents section with  <subj-group subj-group-type=\"heading\"><subject>table of contents section</subject></subj-group>"
+msgstr "Marque a seção do sumário com <subj-group subj-group-type=\"heading\"><subject>seção do sumário</subject></subj-group>"
 
 #: packtools/sps/validation/article_toc_sections.py:175
 #, python-brace-format
-msgid "Write section and subsection in one subject: <subject-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subject-group>. Remove <subject-group><subject>{subsection}</subject></subject-group>"
-msgstr "Escreva seção e subseção em um assunto: <subject-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subject-group>. Remova <subject-group><subject>{subsection}</subject></subject-group>"
+msgid "Write section and subsection in one subject: <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group>. Remove <subj-group><subject>{subsection}</subject></subj-group>"
+msgstr "Escreva seção e subseção em um assunto: <subj-group subj-group-type=\"heading\"><subject>{subject}: {subsection}</subject></subj-group>. Remova <subj-group><subject>{subsection}</subject></subj-group>"
 
 #: packtools/sps/validation/article_toc_sections.py:216
 #, python-brace-format
@@ -595,12 +595,12 @@ msgstr "{subject} não está registrado como uma seção de sumário. Valores v�
 
 #: packtools/sps/validation/article_toc_sections.py:224
 #, python-brace-format
-msgid "Unable to check whether {subject} (<subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>) is a valid table of contents section because no sections were provided for the journal {journal}"
-msgstr "Não foi possível verificar se {subject} (<subject-group subj-group-type=\"heading\"><subject>{subject}</subject></subject-group>) é uma seção de sumário válida porque não foram informadas seções para o periódico {journal}"
+msgid "Unable to check whether {subject} (<subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group>) is a valid table of contents section because no sections were provided for the journal {journal}"
+msgstr "Não foi possível verificar se {subject} (<subj-group subj-group-type=\"heading\"><subject>{subject}</subject></subj-group>) é uma seção de sumário válida porque não foram informadas seções para o periódico {journal}"
 
 #: packtools/sps/validation/article_toc_sections.py:232
-msgid "Mark table of contents section with <subject-group subj-group-type=\"heading\"><subject></subject></subject-group>"
-msgstr "Marque a seção do sumário com <subject-group subj-group-type=\"heading\"><subject></subject></subject-group>"
+msgid "Mark table of contents section with <subj-group subj-group-type=\"heading\"><subject></subject></subj-group>"
+msgstr "Marque a seção do sumário com <subj-group subj-group-type=\"heading\"><subject></subject></subj-group>"
 
 #: packtools/sps/validation/article_toc_sections.py:247
 #, python-brace-format
