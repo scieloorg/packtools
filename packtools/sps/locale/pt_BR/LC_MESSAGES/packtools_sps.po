@@ -705,8 +705,8 @@ msgid "Replace <corresp><title> with <corresp><label>"
 msgstr "Substitua <corresp><title> por <corresp><label>"
 
 #: packtools/sps/validation/author_notes.py:401
-msgid "Replace <corresp><bold> with <corresp><label>"
-msgstr "Substitua <corresp><bold> por <corresp><label>"
+msgid "If <bold> marks the label of <corresp>, such as \"Corresponding author:\", replace <corresp><bold> with <corresp><label>. SPS 1.10 does not allow <bold> to identify note labels"
+msgstr "Se o <bold> marca o rótulo de <corresp>, como \"Autor correspondente:\", substitua <corresp><bold> por <corresp><label>. A SPS 1.10 não permite <bold> para identificar rótulos de notas"
 
 #: packtools/sps/validation/basefn.py:44
 msgid "Mark footnote label with <fn><label>"

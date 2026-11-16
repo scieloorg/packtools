@@ -596,6 +596,26 @@ class I18nTest(unittest.TestCase):
                 result = Context().run(validate)
                 self.assertEqual(adv_text, result["adv_text"])
 
+    def test_catalogs_translate_corresp_bold_advice(self):
+        from packtools.sps.validation.author_notes import CorrespValidation
+
+        expected = {
+            "pt_BR": 'Se o <bold> marca o rótulo de <corresp>, como "Autor correspondente:", substitua <corresp><bold> por <corresp><label>. A SPS 1.10 não permite <bold> para identificar rótulos de notas',
+            "es": 'Si el <bold> marca la etiqueta de <corresp>, como "Autor de correspondencia:", reemplace <corresp><bold> con <corresp><label>. SPS 1.10 no permite <bold> para identificar etiquetas de notas',
+        }
+        for locale, adv_text in expected.items():
+            with self.subTest(locale=locale):
+
+                def validate():
+                    i18n.set_locale(locale)
+                    return CorrespValidation(
+                        {"parent": "article", "corresp_bold": "Correspondence:"},
+                        {"corresp_bold_error_level": "CRITICAL"},
+                    ).validate_bold()
+
+                result = Context().run(validate)
+                self.assertEqual(adv_text, result["adv_text"])
+
     def test_spanish_catalog_translates_parameterized_validator_template(self):
         xmltree = etree.fromstring(
             """

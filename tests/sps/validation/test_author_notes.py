@@ -222,6 +222,12 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         )
         self.assertEqual(1, len(obtained))
         self.assertEqual("CRITICAL", obtained[0]["response"])
+        self.assertEqual(
+            'If <bold> marks the label of <corresp>, such as "Corresponding '
+            'author:", replace <corresp><bold> with <corresp><label>. SPS 1.10 '
+            "does not allow <bold> to identify note labels",
+            obtained[0]["advice"],
+        )
 
     def test_validate_corresp_bold_with_label_is_not_unexpected(self):
         obtained = self._corresp_bold_results(
