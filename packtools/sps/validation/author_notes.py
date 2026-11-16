@@ -400,7 +400,9 @@ class CorrespValidation:
         Validate the presence of 'bold' when 'label' is expected.
         """
         corresp_bold = self.corresp_data.get("corresp_bold")
-        is_valid = not bool(corresp_bold)
+        # com <label>, o rótulo já está marcado e o <bold> tem outra função
+        # (por exemplo, destacar o nome do autor)
+        is_valid = not corresp_bold or bool(self.corresp_data.get("corresp_label"))
         return build_response(
             title="unexpected bold element",
             parent=self.corresp_data,
