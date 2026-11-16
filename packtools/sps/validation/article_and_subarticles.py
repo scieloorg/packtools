@@ -1,3 +1,5 @@
+import re
+
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.validation.models.article_toc_sections import ArticleTocSections
 from packtools.sps.models.article_ids import ArticleIds
@@ -360,6 +362,19 @@ class ArticleIdValidation:
         )
 
 
+def sps_version_number(specific_use):
+    """
+    Converte o valor de @specific-use em número de versão comparável.
+
+    "sps-1.10" vira (1, 10), e uma versão de correção, como "sps-1.10.1",
+    conta como a versão original. Valor ausente ou fora do padrão vira None.
+    """
+    match = re.fullmatch(r"sps-(\d+)\.(\d+)(?:\.\d+)?", specific_use or "")
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2))
+
+
 class JATSAndDTDVersionValidation:
 
     def __init__(self, xml_tree, params):
@@ -384,7 +399,10 @@ class JATSAndDTDVersionValidation:
                 "sps-1.9": ["1.1"],
                 "sps-1.10": ["1.1", "1.2", "1.3"]
             },
-            "jats_and_dtd_version_error_level": "CRITICAL"
+            "jats_and_dtd_version_error_level": "CRITICAL",
+            "current_sps_version": "sps-1.10",
+            "previous_sps_version_error_level": "WARNING",
+            "outdated_sps_version_error_level": "ERROR",
         }
 
     def validate(self):
@@ -398,8 +416,8 @@ class JATSAndDTDVersionValidation:
         advice = None
         advice_text = None
         advice_params = {}
-        if not versions:
-            advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}',
+        if sps_version not in versions:
+            advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}'
             advice_text = i18n._('Complete SPS version <article specific-use=""/> with valid value: {versions}')
             advice_params = {"versions": str(list(versions.keys()))}
 
@@ -436,6 +454,82 @@ class JATSAndDTDVersionValidation:
             advice=advice,
             data=data,
             error_level=self.params["jats_and_dtd_version_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
+
+    def validate_sps_version_is_current(self):
+        """
+        O conteúdo do XML é validado pelas regras da versão atual do SPS
+        (current_sps_version). Duas versões são suportadas ao mesmo tempo, a
+        atual e a imediatamente anterior, e a anterior vale por 6 meses depois
+        do lançamento da atual (SPS 1.10, seção "Versão"). Um XML em versão
+        anterior à atual recebe um aviso: a imediatamente anterior com
+        previous_sps_version_error_level e as demais com
+        outdated_sps_version_error_level.
+
+        @specific-use ausente, fora do padrão ou posterior à versão atual não
+        gera resultado aqui, porque validate() já aponta esses casos.
+        """
+        current = self.params["current_sps_version"]
+        declared = self.specific_use
+        current_number = sps_version_number(current)
+        declared_number = sps_version_number(declared)
+        if not current_number or not declared_number:
+            return
+        if declared_number > current_number:
+            return
+
+        earlier_numbers = [
+            number
+            for number in map(sps_version_number, self.params["specific_use_list"])
+            if number and number < current_number
+        ]
+        previous_number = max(earlier_numbers, default=None)
+
+        if declared_number == previous_number:
+            error_level = self.params["previous_sps_version_error_level"]
+        else:
+            error_level = self.params["outdated_sps_version_error_level"]
+
+        is_valid = declared_number == current_number
+        advice = None
+        advice_text = None
+        advice_params = {}
+        if not is_valid:
+            advice = (
+                f"{declared} is an earlier SPS version. The XML was validated "
+                f"against the rules of the current version, {current}. Update "
+                f"the markup to {current} and replace "
+                f'<article specific-use="{declared}"> with '
+                f'<article specific-use="{current}">'
+            )
+            advice_text = i18n._(
+                "{declared} is an earlier SPS version. The XML was validated "
+                "against the rules of the current version, {current}. Update "
+                "the markup to {current} and replace "
+                '<article specific-use="{declared}"> with '
+                '<article specific-use="{current}">'
+            )
+            advice_params = {"declared": declared, "current": current}
+
+        yield build_response(
+            title="SPS version",
+            parent={
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.article_and_sub_articles.main_article_type,
+                "parent_lang": self.article_and_sub_articles.main_lang,
+            },
+            item="article",
+            sub_item="specific-use",
+            validation_type="value",
+            is_valid=is_valid,
+            expected=current,
+            obtained=declared,
+            advice=advice,
+            data={"specific-use": declared, "current SPS version": current},
+            error_level=error_level,
             advice_text=advice_text,
             advice_params=advice_params,
         )

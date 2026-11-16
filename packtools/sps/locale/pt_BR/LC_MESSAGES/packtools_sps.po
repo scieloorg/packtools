@@ -329,6 +329,11 @@ msgstr "Versão completa do SPS <article specific-use=\"\"/> com valor válido: 
 msgid "Complete SPS (specific-use=\"\") and JATS (dtd-version=\"\") versions in {xml} with compatible values: {versions}"
 msgstr "Preencha as versões SPS (specific-use=\"\") e JATS (dtd-version=\"\") em {xml} com valores compatíveis: {versions}"
 
+#: packtools/sps/validation/article_and_subarticles.py:507
+#, python-brace-format
+msgid "{declared} is an earlier SPS version. The XML was validated against the rules of the current version, {current}. Update the markup to {current} and replace <article specific-use=\"{declared}\"> with <article specific-use=\"{current}\">"
+msgstr "{declared} é uma versão anterior do SPS. O XML foi validado pelas regras da versão atual, {current}. Atualize a marcação para {current} e substitua <article specific-use=\"{declared}\"> por <article specific-use=\"{current}\">"
+
 #: packtools/sps/validation/article_contribs.py:76
 #, python-brace-format
 msgid "{info}: Add @contrib-type attribute to <contrib>. Valid values: {values}"
