@@ -196,6 +196,36 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
             result["advice"],
         )
 
+    def _corresp_bold_results(self, corresp):
+        xml_tree = etree.fromstring(
+            '<article article-type="research-article" xml:lang="en">'
+            "<front><article-meta><author-notes>"
+            f"{corresp}"
+            "</author-notes></article-meta></front></article>"
+        )
+        return [
+            item
+            for item in XMLAuthorNotesValidation(xml_tree, self.rules).validate()
+            if item["item"] == "corresp" and item["sub_item"] == "unexpected bold"
+        ]
+
+    def test_validate_corresp_bold_as_label(self):
+        obtained = self._corresp_bold_results(
+            '<corresp id="c1"><bold>Corresponding author:</bold> Ana Silva. '
+            "E-mail: <email>ana@example.org</email></corresp>"
+        )
+        self.assertEqual(1, len(obtained))
+        self.assertEqual("CRITICAL", obtained[0]["response"])
+
+    def test_validate_corresp_bold_with_label_is_not_unexpected(self):
+        obtained = self._corresp_bold_results(
+            '<corresp id="c1"><label>CORRESPONDENCE TO</label>'
+            "<bold>Ana Silva</bold> Rua A, 1. e-mail: "
+            "<email>ana@example.org</email></corresp>"
+        )
+        self.assertEqual(1, len(obtained))
+        self.assertEqual("OK", obtained[0]["response"])
+
     def test_validate_fn_type_attribute_expected_value(self):
         xml_tree = etree.fromstring('''
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="pt">
