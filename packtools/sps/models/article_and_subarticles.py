@@ -64,6 +64,12 @@ class Fulltext:
         return self._not_translations
 
     @property
+    def responses(self):
+        if not hasattr(self, "_responses"):
+            self._responses = self.node.xpath("response")
+        return self._responses
+
+    @property
     def attribs(self):
         return {
             "tag": self.tag,

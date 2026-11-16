@@ -650,7 +650,7 @@ class TextContribsValidation:
         collab_validator = CollabGroupValidation(self.node, self.params)
         yield from collab_validator.validate_collab_members_completeness()
 
-        for node in self.text_contribs.sub_articles:
+        for node in self.text_contribs.sub_articles + self.text_contribs.responses:
             validator = TextContribsValidation(node, self.params)
             yield from validator.validate()
 

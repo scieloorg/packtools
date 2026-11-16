@@ -222,7 +222,7 @@ class TextContribs(Fulltext):
     @property
     def items(self):
         yield from self.main_contribs
-        for node in self.sub_articles:
+        for node in self.sub_articles + self.responses:
             fulltext = TextContribs(node)
             yield from fulltext.items
 
