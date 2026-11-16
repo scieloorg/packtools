@@ -17,9 +17,13 @@ class XMLCrossReference:
         else:
             xpaths.append(f'.//{element_name}')
 
+        same_sub_article = "[count(ancestor::sub-article) = $depth]"
+        xpath = "|".join(f"{item_xpath}{same_sub_article}" for item_xpath in xpaths)
+
         for node in self.xml_tree.xpath(". | .//sub-article"):
             fulltext = Fulltext(node)
-            for item in fulltext.node.xpath("|".join(xpaths)):
+            depth = len(node.xpath("ancestor-or-self::sub-article"))
+            for item in node.xpath(xpath, depth=depth):
                 elem = Element(item)
                 data = fulltext.attribs_parent_prefixed
                 data.update(elem.data)
