@@ -972,5 +972,71 @@ class TestCountryCodeValidation(TestCase):
                              f"Country code {code} should be valid")
 
 
+class TestAffComponentsWhitespace(TestCase):
+    """Quebra de linha e indentação não fazem o componente marcado sumir de original (#1469)."""
+
+    def setUp(self):
+        xml = """<article article-type="research-article" xml:lang="pt">
+            <front>
+                <article-meta>
+                    <aff id="aff1">
+                        <label>1</label>
+                        <institution content-type="original">Universidade Federal de Santa Maria, Centro de
+                            Ciências da Saúde, Santa Maria, RS, Brazil.</institution>
+                        <institution content-type="orgname">Universidade Federal de Santa
+                            Maria</institution>
+                        <institution content-type="orgdiv1">Centro de Ciências da Saúde</institution>
+                        <addr-line>
+                            <named-content content-type="city">Santa Maria</named-content>
+                            <named-content content-type="state">RS</named-content>
+                        </addr-line>
+                        <country country="BR">Brazil</country>
+                    </aff>
+                </article-meta>
+            </front>
+        </article>
+        """
+        aff = list(XMLAffiliations(etree.fromstring(xml)).article_affs)[0]
+        self.results = list(AffiliationValidation(aff, PARAMS).validate_aff_components())
+
+    def test_components_found_despite_line_breaks(self):
+        found = {r["expected_value"]: r["response"] for r in self.results}
+        self.assertEqual("OK", found["orgname marked"])
+        self.assertEqual("OK", found["orgdiv1 marked"])
+
+    def test_no_error_for_absent_component(self):
+        """Sem texto residual em original, orgdiv2 ausente não vira ERROR."""
+        self.assertEqual([], [r for r in self.results if r["response"] != "OK"])
+
+    def test_indented_component_does_not_consume_longer_one(self):
+        """A cidade indentada não passa na frente do orgname que a contém."""
+        xml = """<article article-type="research-article" xml:lang="pt">
+            <front>
+                <article-meta>
+                    <aff id="aff1">
+                        <label>1</label>
+                        <institution content-type="original">Universidade de São Paulo, Faculdade de Medicina, Departamento de Pediatria, São Paulo, SP, Brasil</institution>
+                        <institution content-type="orgname">Universidade de São Paulo</institution>
+                        <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                        <institution content-type="orgdiv2">Departamento de Pediatria</institution>
+                        <addr-line>
+                            <named-content content-type="city">São
+                                                            Paulo</named-content>
+                            <named-content content-type="state">SP</named-content>
+                        </addr-line>
+                        <country country="BR">Brasil</country>
+                    </aff>
+                </article-meta>
+            </front>
+        </article>
+        """
+        aff = list(XMLAffiliations(etree.fromstring(xml)).article_affs)[0]
+        results = list(AffiliationValidation(aff, PARAMS).validate_aff_components())
+        self.assertEqual(
+            {"OK"}, {r["response"] for r in results},
+            [(r["expected_value"], r["response"]) for r in results],
+        )
+
+
 if __name__ == '__main__':
     main()
