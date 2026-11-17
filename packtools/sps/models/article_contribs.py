@@ -148,7 +148,7 @@ class XMLContribs:
         # main contribs
         if self.aff:
             for item in self.text_contribs.main_contribs:
-                yield self._add_affs(item)
+                yield add_contrib_affs(item, self.aff)
         else:
             yield from self.text_contribs.main_contribs
 
@@ -156,7 +156,7 @@ class XMLContribs:
     def all_contribs(self):
         if self.aff:
             for item in self.text_contribs.items:
-                yield self._add_affs(item)
+                yield add_contrib_affs(item, self.aff)
         else:
             yield from self.text_contribs.items
 
@@ -165,9 +165,6 @@ class XMLContribs:
         for contrib in self.all_contribs:
             if contrib.get("contrib_type") == "translator":
                 yield contrib
-
-    def _add_affs(self, contrib):
-        return add_contrib_affs(contrib, self.aff)
 
     @property
     def contrib_full_name_by_orcid(self):
