@@ -16,7 +16,11 @@ class ArticleTocSections:
             parent_data = fulltext.attribs_parent_prefixed
             journal = None
             try:
-                subj_groups = fulltext.front.xpath(".//subj-group")
+                # o subj-group aninhado é subseção do grupo que o contém
+                # (lido em subsections), não outro grupo de seção
+                subj_groups = fulltext.front.xpath(
+                    ".//subj-group[not(parent::subj-group)]"
+                )
                 journal = fulltext.front.findtext(".//journal-title")
             except AttributeError:
                 yield parent_data

@@ -43,18 +43,18 @@ class I18nMessageRenderingTest(unittest.TestCase):
                 "registrado para article B",
             ),
             (
-                "Unable to check whether {subject} (<subject-group "
+                "Unable to check whether {subject} (<subj-group "
                 "subj-group-type=\"heading\"><subject>{subject}</subject>"
-                "</subject-group>) is a valid table of contents section "
+                "</subj-group>) is a valid table of contents section "
                 "because no sections were provided for the journal {journal}",
                 {"subject": "Article", "journal": "Biota Neotropica"},
-                "Não foi possível verificar se Article (<subject-group "
+                "Não foi possível verificar se Article (<subj-group "
                 "subj-group-type=\"heading\"><subject>Article</subject>"
-                "</subject-group>) é uma seção de sumário válida porque não "
+                "</subj-group>) é uma seção de sumário válida porque não "
                 "foram informadas seções para o periódico Biota Neotropica",
-                "No se puede comprobar si Article (<subject-group "
+                "No se puede comprobar si Article (<subj-group "
                 "subj-group-type=\"heading\"><subject>Article</subject>"
-                "</subject-group>) es una sección válida de la tabla de "
+                "</subj-group>) es una sección válida de la tabla de "
                 "contenido porque no se informaron secciones para la revista "
                 "Biota Neotropica",
             ),

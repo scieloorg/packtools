@@ -86,11 +86,11 @@ class SubjectValidation:
         valid = False
         # Há seções excedentes (heading)
         if subj_group_type:
-            advice = f'Remove <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
-            advice_text = i18n._('Remove <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable')
+            advice = f'Remove <subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group> because it is unexpected, only one subj-group is acceptable'
+            advice_text = i18n._('Remove <subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group> because it is unexpected, only one subj-group is acceptable')
         else:
-            advice = f'Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
-            advice_text = i18n._('Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable')
+            advice = f'Remove <subj-group><subject>{subject}</subject></subj-group> because it is unexpected, only one subj-group is acceptable'
+            advice_text = i18n._('Remove <subj-group><subject>{subject}</subject></subj-group> because it is unexpected, only one subj-group is acceptable')
 
         return build_response(
             title="unexpected subject-group",
@@ -117,19 +117,19 @@ class SubjectValidation:
 
         valid = subj_group_type == "heading"
         if subj_group_type and subject:
-            advice = f'Replace <subject-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>'
-            advice_text = i18n._('Replace <subject-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>')
+            advice = f'Replace <subj-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subj-group> by <subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group>'
+            advice_text = i18n._('Replace <subj-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subj-group> by <subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group>')
             advice_params = {
                 "subj_group_type": subj_group_type,
                 "subject": subject,
             }
         elif subject:
-            advice = f'Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>'
-            advice_text = i18n._('Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>')
+            advice = f'Replace <subj-group><subject>{subject}</subject></subj-group> by <subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group>'
+            advice_text = i18n._('Replace <subj-group><subject>{subject}</subject></subj-group> by <subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group>')
             advice_params = {"subject": subject}
         else:
-            advice = f'Mark table of contents section with  <subject-group subj-group-type="heading"><subject>table of contents section</subject></subject-group>'
-            advice_text = i18n._('Mark table of contents section with  <subject-group subj-group-type="heading"><subject>table of contents section</subject></subject-group>')
+            advice = f'Mark table of contents section with  <subj-group subj-group-type="heading"><subject>table of contents section</subject></subj-group>'
+            advice_text = i18n._('Mark table of contents section with  <subj-group subj-group-type="heading"><subject>table of contents section</subject></subj-group>')
             advice_params = {}
 
         return build_response(
@@ -156,10 +156,17 @@ class SubjectValidation:
         article_title = self.data.get("article_title") or ""
         subsection_text = " ".join(subsections or "")
 
-        # Há a recomendação de marcar a subseção junto com a seção 'seção: subseção'
-        # É desincentivado a usar subject-group/subject-group
+        # SPS 1.10, <article-categories>: a subseção vai no mesmo <subject>
+        # da seção ("Seção: Subseção"); na SPS 1.9 era um subj-group aninhado
         valid = not subsections
-        advice = f'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>{subject}: {subsection_text}</subject></subject-group>. Remove <subject-group><subject>{subsection_text}</subject></subject-group>'
+        advice = (
+            "Since SPS 1.10, the subsection goes in the same <subject> as the "
+            "section, separated by a colon, dash or similar; in SPS 1.9, it "
+            "was marked with a nested <subj-group>. Write "
+            f'<subj-group subj-group-type="heading"><subject>{subject}: '
+            f"{subsection_text}</subject></subj-group> and remove "
+            f"<subj-group><subject>{subsection_text}</subject></subj-group>"
+        )
 
         return build_response(
             title="table of contents section with subsection",
@@ -172,10 +179,14 @@ class SubjectValidation:
             obtained=subsections,
             advice=advice,
             advice_text=(
-                i18n._("Write section and subsection in one subject: "
-                '<subject-group subj-group-type="heading"><subject>'
-                "{subject}: {subsection}</subject></subject-group>. Remove "
-                "<subject-group><subject>{subsection}</subject></subject-group>")
+                i18n._(
+                    "Since SPS 1.10, the subsection goes in the same <subject> "
+                    "as the section, separated by a colon, dash or similar; in "
+                    "SPS 1.9, it was marked with a nested <subj-group>. Write "
+                    '<subj-group subj-group-type="heading"><subject>'
+                    "{subject}: {subsection}</subject></subj-group> and remove "
+                    "<subj-group><subject>{subsection}</subject></subj-group>"
+                )
             ),
             advice_params={
                 "subject": subject,
@@ -220,16 +231,16 @@ class SubjectValidation:
                 }
             else:
                 error_level = "WARNING"
-                advice = f'Unable to check if {subject} (<subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>) is a valid table of contents section because the journal ({journal}) sections were not informed'
-                advice_text = i18n._('Unable to check whether {subject} (<subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>) is a valid table of contents section because no sections were provided for the journal {journal}')
+                advice = f'Unable to check if {subject} (<subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group>) is a valid table of contents section because the journal ({journal}) sections were not informed'
+                advice_text = i18n._('Unable to check whether {subject} (<subj-group subj-group-type="heading"><subject>{subject}</subject></subj-group>) is a valid table of contents section because no sections were provided for the journal {journal}')
                 advice_params = {
                     "subject": subject,
                     "journal": journal,
                 }
         else:
             validation_type = "exist"
-            advice = 'Mark table of contents section with <subject-group subj-group-type="heading"><subject></subject></subject-group>'
-            advice_text = i18n._('Mark table of contents section with <subject-group subj-group-type="heading"><subject></subject></subject-group>')
+            advice = 'Mark table of contents section with <subj-group subj-group-type="heading"><subject></subject></subj-group>'
+            advice_text = i18n._('Mark table of contents section with <subj-group subj-group-type="heading"><subject></subject></subj-group>')
             advice_params = {}
 
         return build_response(
