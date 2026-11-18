@@ -1,6 +1,6 @@
 """
-Diagramação de tabelas e figuras: em que largura cada uma entra e com que
-medidas finais.
+Diagramação de tabelas, figuras e fórmulas em bloco: em que largura cada
+uma entra e com que medidas finais.
 
 Duas decisões, nesta ordem:
 
@@ -21,6 +21,7 @@ Contrato com o render (chaves que ``place`` acrescenta):
 
     tabela  {"layout", "width", "column_widths"}
     figura  {"layout", "width", "height"}   (height None = imagem ilegível)
+    fórmula {"layout", "width"}             (largura onde o render a centraliza)
 
 Nenhuma função aqui usa python-docx: são testáveis só com dicts.
 """
@@ -270,7 +271,8 @@ def column_widths(weights, word_widths, width):
 
 def place(blocks, page, assets, overrides=None, force=None):
     """
-    Decide o layout e as medidas finais de tabelas e figuras e os anota nos blocos.
+    Decide o layout e as medidas finais de tabelas, figuras e fórmulas em
+    bloco e os anota nos blocos.
 
     Parâmetros
     ----------
@@ -303,6 +305,9 @@ def place(blocks, page, assets, overrides=None, force=None):
     overrides = overrides or {}
     measured = set()  # id() dos painéis já medidos junto com o seu painel 0
     for index, block in enumerate(blocks):
+        if block["type"] == "formula":
+            _measure_formula(block, force or DOUBLE_COLUMN, page)
+            continue
         if block["type"] not in ("table", "figure") or id(block) in measured:
             continue
         layout = force or overrides.get(block.get("id"))
@@ -319,6 +324,15 @@ def place(blocks, page, assets, overrides=None, force=None):
         else:
             _measure_figure(block, layout, page, assets)
     return blocks
+
+
+def _measure_formula(block, layout, page):
+    """
+    Anota layout e largura (EMU) da fórmula em bloco: uma coluna do corpo,
+    ou a largura útil na capa e nos anexos (``force``).
+    """
+    block["layout"] = layout
+    block["width"] = block_width(page, layout)
 
 
 def _measure_table(block, layout, page, assets):

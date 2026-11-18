@@ -104,7 +104,7 @@ class FlowTest(unittest.TestCase):
         paragraph, formula = extract(node)
         self.assertEqual(runs_text(paragraph['runs']), 'where:')
         self.assertEqual(formula['type'], 'formula')
-        self.assertEqual(formula['runs'][-1]['text'], ' (1)')
+        self.assertEqual(formula['runs'][-1], {'text': ' (1)', 'label': True})
 
     def test_display_formula_with_empty_tex_math_uses_the_image(self):
         # #1441: <tex-math> vazio interrompia a geração com IndexError
