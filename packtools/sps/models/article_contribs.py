@@ -148,7 +148,7 @@ class XMLContribs:
         # main contribs
         if self.aff:
             for item in self.text_contribs.main_contribs:
-                yield self._add_affs(item)
+                yield add_contrib_affs(item, self.aff)
         else:
             yield from self.text_contribs.main_contribs
 
@@ -156,7 +156,7 @@ class XMLContribs:
     def all_contribs(self):
         if self.aff:
             for item in self.text_contribs.items:
-                yield self._add_affs(item)
+                yield add_contrib_affs(item, self.aff)
         else:
             yield from self.text_contribs.items
 
@@ -165,16 +165,6 @@ class XMLContribs:
         for contrib in self.all_contribs:
             if contrib.get("contrib_type") == "translator":
                 yield contrib
-
-    def _add_affs(self, contrib):
-        if self.aff and contrib and (xrefs := contrib.get("contrib_xref")):
-            affs = []
-            for xref in xrefs:
-                if aff := self.aff.get(xref.get("rid")):
-                    affs.append(aff)
-            if affs:
-                contrib["affs"] = affs
-        return contrib
 
     @property
     def contrib_full_name_by_orcid(self):
@@ -229,3 +219,17 @@ class TextContribs(Fulltext):
 
 class ArticleContribs(XMLContribs):
     ...
+
+
+def add_contrib_affs(contrib, affs_by_id):
+    """
+    Adiciona em contrib["affs"] as afiliações apontadas pelos xref do contrib.
+    """
+    if affs_by_id and contrib and (xrefs := contrib.get("contrib_xref")):
+        affs = []
+        for xref in xrefs:
+            if aff := affs_by_id.get(xref.get("rid")):
+                affs.append(aff)
+        if affs:
+            contrib["affs"] = affs
+    return contrib
