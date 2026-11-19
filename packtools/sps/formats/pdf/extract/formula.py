@@ -33,6 +33,9 @@ _W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 # com <m:nor/> o LibreOffice escreve parêntese e chave com barra: "\(", "\{"
 _BRACKETS = re.compile(r"([(){}]+)")
 
+# número de <mn>: dígitos com separador decimal ou de milhar ("1.96", "1,5")
+_NUMBER = re.compile(r"\d+(?:[.,]\d+)*")
+
 # mathml2omml 0.0.2 fecha <m:groupChrPr> com </m:groupChr> (XML inválido)
 _UNCLOSED_GROUP_CHR_PR = re.compile(
     r'(<m:groupChrPr><m:chr m:val="[^"]*"/><m:pos m:val="(?:top|bot)"/>)</m:groupChr>'
@@ -249,6 +252,11 @@ def _normalize_plain_style_runs(omml_element):
     gera com `<m:nor/>`); com `m:sty p` saem certos, também no fim da
     linha. O run de texto que os contém é dividido, e só eles ficam com
     `m:sty p`.
+
+    Números (`<mn>`) também ficam com `m:sty p`: o LibreOffice alinha à
+    esquerda o numerador, o denominador ou a célula de matriz que começa
+    com um run `<m:nor/>` (#1489), e os dígitos não sofrem dos defeitos
+    acima.
     """
     m = f"{{{_OMML_NS}}}"
     for run in list(omml_element.iter(f"{m}r")):
@@ -256,7 +264,8 @@ def _normalize_plain_style_runs(omml_element):
         if rpr is None:
             continue
         sty = rpr.find(f"{m}sty")
-        if sty is not None and sty.get(f"{m}val") == "p":
+        text = "".join(t.text or "" for t in run.iter(f"{m}t"))
+        if sty is not None and sty.get(f"{m}val") == "p" and not _NUMBER.fullmatch(text):
             rpr.remove(sty)
             etree.SubElement(rpr, f"{m}nor")
         if rpr.find(f"{m}nor") is not None:
