@@ -401,12 +401,36 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
         xml_pubmed.append(author_list_tag)
 
 
+# Maps SPS `@article-type` to the PubMed closed PublicationType vocabulary
+# (https://www.ncbi.nlm.nih.gov/books/NBK3828/). Only pairs with a clear,
+# unambiguous equivalence are listed here -- see get_publication_type for
+# what happens to the rest.
+PUBLICATION_TYPE_MAPPING = {
+    "research-article": "Journal Article",
+    "case-report": "Case Reports",
+    "review-article": "Review",
+    "letter": "Letter",
+    "editorial": "Editorial",
+    "retraction": "Retraction Notice",
+    "partial-retraction": "Retraction Notice",
+    "correction": "Published Erratum",
+    "data-article": "Journal Article",
+    "expression-of-concern": "Expression of Concern",
+}
+
+
 def get_publication_type(xml_tree):
-    publication_type = article_and_subarticles.ArticleAndSubArticles(
+    """
+    `PublicationType` is optional in the PubMed DTD (`PublicationType*`), so
+    an `@article-type` with no safe mapping (e.g. "obituary", "book-review",
+    "other") is omitted rather than defaulted to "Journal Article" -- forcing
+    a value into this closed vocabulary would misrepresent the document type
+    to PubMed's indexing, which is worse than leaving it out. See issue #1240.
+    """
+    article_type = article_and_subarticles.ArticleAndSubArticles(
         xml_tree
     ).main_article_type
-    if publication_type is not None:
-        return publication_type.replace("-", " ").title()
+    return PUBLICATION_TYPE_MAPPING.get(article_type)
 
 
 def xml_pubmed_publication_type(xml_pubmed, xml_tree):
