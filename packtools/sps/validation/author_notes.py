@@ -400,7 +400,9 @@ class CorrespValidation:
         Validate the presence of 'bold' when 'label' is expected.
         """
         corresp_bold = self.corresp_data.get("corresp_bold")
-        is_valid = not bool(corresp_bold)
+        # com <label>, o rótulo já está marcado e o <bold> tem outra função
+        # (por exemplo, destacar o nome do autor)
+        is_valid = not corresp_bold or bool(self.corresp_data.get("corresp_label"))
         return build_response(
             title="unexpected bold element",
             parent=self.corresp_data,
@@ -410,8 +412,16 @@ class CorrespValidation:
             is_valid=is_valid,
             expected="corresp/label" if not is_valid else None,
             obtained="corresp/bold" if not is_valid else None,
-            advice=f"Replace <corresp><bold> with <corresp><label>",
-            advice_text=i18n._("Replace <corresp><bold> with <corresp><label>"),
+            advice=(
+                'If <bold> marks the label of <corresp>, such as "Corresponding '
+                'author:", replace <corresp><bold> with <corresp><label>. SPS '
+                "1.10 does not allow <bold> to identify note labels"
+            ),
+            advice_text=i18n._(
+                'If <bold> marks the label of <corresp>, such as "Corresponding '
+                'author:", replace <corresp><bold> with <corresp><label>. SPS '
+                "1.10 does not allow <bold> to identify note labels"
+            ),
             advice_params={},
             data=self.corresp_data,
             error_level=self.rules["corresp_bold_error_level"],
