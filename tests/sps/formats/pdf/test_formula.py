@@ -331,6 +331,13 @@ class TestHideEmptyNaryLimits(unittest.TestCase):
             with self.subTest(body=body):
                 self.assertEqual(self._hidden(body), [])
 
+    def test_keeps_limit_without_text_that_draws_something(self):
+        # <mfenced/> vira <m:d> sem texto: o LibreOffice desenha os parênteses
+        self.assertEqual(
+            self._hidden('<munder><mo>∑</mo><mfenced/></munder><mi>x</mi>'),
+            ['supHide'],
+        )
+
     def test_hide_flags_follow_schema_order_before_ctrl_pr(self):
         omml = etree.fromstring(
             f'<m:oMath xmlns:m="{formula._OMML_NS}"><m:nary>'

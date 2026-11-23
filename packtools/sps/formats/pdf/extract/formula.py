@@ -478,6 +478,10 @@ def _hide_empty_nary_limits(omml_element):
     vazio (``<m:sup>`` ou ``<m:sub>``), sem ``<m:supHide>``/``<m:subHide>``
     no ``<m:naryPr>``. O LibreOffice desenha o limite vazio como "❑"
     acima ou abaixo do operador (a26.xml, Eqs. 10 e 11).
+
+    Só o limite sem texto e sem elementos filhos é escondido: um limite
+    sem texto pode desenhar algo, como os parênteses de ``<m:d>`` vindos
+    de ``<mfenced/>``.
     """
     m = f"{{{_OMML_NS}}}"
     for nary in omml_element.iter(f"{m}nary"):
@@ -488,7 +492,7 @@ def _hide_empty_nary_limits(omml_element):
         # ordem do schema em naryPr: chr, limLoc, grow, subHide, supHide, ctrlPr
         for limit, hide in (("sub", "subHide"), ("sup", "supHide")):
             element = nary.find(f"{m}{limit}")
-            if element is None or "".join(element.itertext()).strip():
+            if element is None or len(element) or "".join(element.itertext()).strip():
                 continue
             if nary_pr.find(f"{m}{hide}") is not None:
                 continue
