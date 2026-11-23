@@ -485,6 +485,32 @@ class TestNormalizePlainStyleRuns(unittest.TestCase):
         self.assertNotIn('m:val="p"', result_str)
         self.assertIn('<m:nor/>', result_str)
 
+    def test_keeps_plain_style_on_numbers(self):
+        # com m:nor o LibreOffice alinha à esquerda o denominador "2" de (x+y)/2 (#1489)
+        for text in ('2', '25', '1.96', '1,5', '1.000.000'):
+            with self.subTest(text=text):
+                omml = self._run_with_style('<m:sty m:val="p"/>', text)
+                result_str = etree.tostring(formula._normalize_plain_style_runs(omml), encoding='unicode')
+                self.assertIn('m:val="p"', result_str)
+                self.assertNotIn('<m:nor/>', result_str)
+
+    def test_replaces_plain_style_on_separators_without_digits(self):
+        for text in ('.', ',', '2-1', '2x'):
+            with self.subTest(text=text):
+                omml = self._run_with_style('<m:sty m:val="p"/>', text)
+                result_str = etree.tostring(formula._normalize_plain_style_runs(omml), encoding='unicode')
+                self.assertIn('<m:nor/>', result_str)
+
+    def test_fraction_denominator_number_keeps_plain_style(self):
+        math = _mathml(
+            '<mfrac><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow><mn>2</mn></mfrac>'
+        )
+        omml = formula.mathml_to_omml(math)
+        m = formula._OMML_NS
+        run = omml.find(f'.//{{{m}}}den/{{{m}}}r')
+        self.assertEqual(run.find(f'{{{m}}}rPr/{{{m}}}sty').get(f'{{{m}}}val'), 'p')
+        self.assertIsNone(run.find(f'{{{m}}}rPr/{{{m}}}nor'))
+
     def test_leaves_other_styles_untouched(self):
         omml = self._run_with_style('<m:sty m:val="i"/>')
         result = formula._normalize_plain_style_runs(omml)
