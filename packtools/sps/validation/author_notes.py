@@ -344,6 +344,14 @@ class CorrespValidation:
         """
         corresp_label = self.corresp_data.get("corresp_label")
         is_valid = bool(corresp_label)
+        # Nem a SPS 1.9 (label opcional em corresp) nem a 1.10 exigem <label>
+        # em nota sem rótulo; a 1.10 marca com <label> os rótulos das notas
+        advice = (
+            'If <corresp> has a label, such as "Corresponding author", mark it '
+            "with <corresp><label>. SPS 1.10 marks note labels with <label>; "
+            "SPS 1.9 does not require <label> in <corresp>. If there is no "
+            "label, no change is needed"
+        )
         return build_response(
             title="label",
             parent=self.corresp_data,
@@ -353,8 +361,13 @@ class CorrespValidation:
             is_valid=is_valid,
             expected="corresp/label",
             obtained="corresp/label" if is_valid else None,
-            advice=f"Mark corresp label with <corresp><label>",
-            advice_text=i18n._("Mark corresp label with <corresp><label>"),
+            advice=advice,
+            advice_text=i18n._(
+                'If <corresp> has a label, such as "Corresponding author", '
+                "mark it with <corresp><label>. SPS 1.10 marks note labels "
+                "with <label>; SPS 1.9 does not require <label> in <corresp>. "
+                "If there is no label, no change is needed"
+            ),
             advice_params={},
             data=self.corresp_data,
             error_level=self.rules["corresp_label_error_level"],

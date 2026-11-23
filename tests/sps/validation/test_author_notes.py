@@ -150,7 +150,13 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         obtained = [item for item in obtained if item["item"] == "corresp" and item["sub_item"] == "label"]
         self.assertEqual(len(obtained), 1)
         self.assertEqual(obtained[0]["response"], "WARNING")
-        self.assertIn("corresp label", obtained[0]["advice"])
+        self.assertEqual(
+            'If <corresp> has a label, such as "Corresponding author", mark it '
+            "with <corresp><label>. SPS 1.10 marks note labels with <label>; "
+            "SPS 1.9 does not require <label> in <corresp>. If there is no "
+            "label, no change is needed",
+            obtained[0]["advice"],
+        )
         self.assertEqual(
             obtained[0]["adv_text"].format(**obtained[0]["adv_params"]),
             obtained[0]["advice"],

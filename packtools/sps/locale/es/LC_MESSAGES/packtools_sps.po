@@ -697,8 +697,8 @@ msgid "<author-notes> element should appear at most once in sub-article (id={id}
 msgstr "El elemento <author-notes> debe aparecer como máximo una vez en el subartículo (id={id}). Se encontraron ocurrencias de {count}."
 
 #: packtools/sps/validation/author_notes.py:357
-msgid "Mark corresp label with <corresp><label>"
-msgstr "Marque la etiqueta correspondiente con <corresp><label>"
+msgid "If <corresp> has a label, such as \"Corresponding author\", mark it with <corresp><label>. SPS 1.10 marks note labels with <label>; SPS 1.9 does not require <label> in <corresp>. If there is no label, no change is needed"
+msgstr "Si <corresp> tiene etiqueta, como \"Autor de correspondencia\", márquela con <corresp><label>. SPS 1.10 marca las etiquetas de las notas con <label>; SPS 1.9 no exige <label> en <corresp>. Si no hay etiqueta, no es necesario cambiar nada"
 
 #: packtools/sps/validation/author_notes.py:379
 msgid "Replace <corresp><title> with <corresp><label>"

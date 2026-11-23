@@ -576,6 +576,26 @@ class I18nTest(unittest.TestCase):
                     result["adv_params"],
                 )
 
+    def test_catalogs_translate_corresp_label_advice(self):
+        from packtools.sps.validation.author_notes import CorrespValidation
+
+        expected = {
+            "pt_BR": 'Se <corresp> tem rótulo, como "Autor correspondente", marque-o com <corresp><label>. A SPS 1.10 marca os rótulos das notas com <label>; a SPS 1.9 não exige <label> em <corresp>. Se não há rótulo, nada precisa mudar',
+            "es": 'Si <corresp> tiene etiqueta, como "Autor de correspondencia", márquela con <corresp><label>. SPS 1.10 marca las etiquetas de las notas con <label>; SPS 1.9 no exige <label> en <corresp>. Si no hay etiqueta, no es necesario cambiar nada',
+        }
+        for locale, adv_text in expected.items():
+            with self.subTest(locale=locale):
+
+                def validate():
+                    i18n.set_locale(locale)
+                    return CorrespValidation(
+                        {"parent": "article", "corresp_label": None},
+                        {"corresp_label_error_level": "WARNING"},
+                    ).validate_label()
+
+                result = Context().run(validate)
+                self.assertEqual(adv_text, result["adv_text"])
+
     def test_spanish_catalog_translates_parameterized_validator_template(self):
         xmltree = etree.fromstring(
             """
