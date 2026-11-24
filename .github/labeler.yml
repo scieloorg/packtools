@@ -1,0 +1,8 @@
+breaking-change:
+  - head-branch: ["^[Bb]reaking"]
+feature:
+  - head-branch: ["^[Ff]eat", "^[Aa]diciona", "^[Cc]ria"]
+enhancement:
+  - head-branch: ["^[Ii]mprove", "^[Aa]primora", "^[Mm]elhora"]
+bug:
+  - head-branch: ["^[Ff]ix", "^[Cc]orrig"]
