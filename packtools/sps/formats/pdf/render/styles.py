@@ -2,7 +2,7 @@
 
 from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from packtools.sps.formats.pdf.config.styles import STYLES
+from packtools.sps.formats.pdf.config.styles import BODY_LINE_SPACING, STYLES
 
 _COPIED_TYPES = (WD_STYLE_TYPE.PARAGRAPH, WD_STYLE_TYPE.CHARACTER, WD_STYLE_TYPE.TABLE)
 _FONT_ATTRS = (
@@ -45,6 +45,13 @@ def apply(element, doc, role):
     if style is not None:
         element.style = style
     return style
+
+
+def set_body_line_spacing(doc):
+    """Entrelinha padrão (BODY_LINE_SPACING) no estilo do corpo, se o layout não definir uma."""
+    style = get(doc, "body")
+    if style is not None and style.paragraph_format.line_spacing is None:
+        style.paragraph_format.line_spacing = BODY_LINE_SPACING
 
 
 def copy_styles(source, target):

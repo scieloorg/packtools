@@ -9,7 +9,7 @@ from docx.oxml.ns import qn
 from packtools.sps.formats.pdf.layout import page as page_layout
 from packtools.sps.formats.pdf.render import front as front_render
 from packtools.sps.formats.pdf.render.blocks import render_blocks
-from packtools.sps.formats.pdf.render.styles import copy_styles
+from packtools.sps.formats.pdf.render.styles import copy_styles, set_body_line_spacing
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +92,7 @@ def new_document(base_layout=None):
     doc = Document()
     if base_layout:
         copy_styles(Document(base_layout), doc)
+        set_body_line_spacing(doc)
     return doc
 
 

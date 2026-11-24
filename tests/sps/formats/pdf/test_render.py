@@ -19,6 +19,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 from urllib.error import URLError
 
+from docx import Document
 from docx.enum.section import WD_SECTION
 from docx.enum.text import WD_TAB_ALIGNMENT
 from docx.oxml.ns import qn
@@ -28,6 +29,7 @@ from PIL import Image
 
 from packtools.sps.formats.pdf import assets as assets_module
 from packtools.sps.formats.pdf.config import page as page_config
+from packtools.sps.formats.pdf.config.styles import BODY_LINE_SPACING
 from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
@@ -472,6 +474,23 @@ class TestTableCellImage(_WithTmp):
         self._png('wide.png', 800, dpi=96)  # 600pt, mais que a coluna do corpo
         widths, image = self._render('wide.png')
         self.assertEqual(image, widths[1])
+
+
+class TestBodyLineSpacing(unittest.TestCase):
+    """Entrelinha do corpo: a do layout quando definida; senão, BODY_LINE_SPACING."""
+
+    def test_layout_without_line_spacing_gets_default(self):
+        style = new_document(DATA['base_layout']).styles['SCL Paragraph']
+        self.assertAlmostEqual(style.paragraph_format.line_spacing, BODY_LINE_SPACING, places=2)
+
+    def test_layout_line_spacing_is_kept(self):
+        layout = Document(DATA['base_layout'])
+        layout.styles['SCL Paragraph'].paragraph_format.line_spacing = Pt(15)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, 'layout.docx')
+            layout.save(path)
+            style = new_document(path).styles['SCL Paragraph']
+        self.assertEqual(style.paragraph_format.line_spacing, Pt(15))
 
 
 class TestTableCaption(unittest.TestCase):

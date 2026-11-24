@@ -28,3 +28,10 @@ STYLES = {
     "cite_as_label_char": "SCL Paragraph Cite As Footer Char",
     "cite_as_journal_char": "SCL Paragraph Cite As Journal Title Char",
 }
+
+# Entrelinha do texto corrido quando o estilo do corpo no layout.docx não
+# define uma: múltiplo da linha simples da fonte. Sem isso, o corpo herdava o
+# 1,15 do modelo do python-docx (12,5 pt com Noto Serif 8 pt). Com 1,22,
+# a entrelinha vai a cerca de 13,3 pt, a mediana dos PDFs canônicos de um
+# artigo por periódico do corpus de teste.
+BODY_LINE_SPACING = 1.22
