@@ -492,6 +492,17 @@ class TestBodyLineSpacing(unittest.TestCase):
             style = new_document(path).styles['SCL Paragraph']
         self.assertEqual(style.paragraph_format.line_spacing, Pt(15))
 
+    def test_line_spacing_inherited_from_base_style_is_kept(self):
+        layout = Document(DATA['base_layout'])
+        layout.styles['Normal'].paragraph_format.line_spacing = Pt(18)
+        layout.styles['SCL Paragraph'].base_style = layout.styles['Normal']
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, 'layout.docx')
+            layout.save(path)
+            style = new_document(path).styles['SCL Paragraph']
+        self.assertIsNone(style.paragraph_format.line_spacing)
+        self.assertEqual(style.base_style.paragraph_format.line_spacing, Pt(18))
+
 
 class TestTableCaption(unittest.TestCase):
     """Legenda da tabela com entrelinha simples, mesmo sem o estilo no layout."""

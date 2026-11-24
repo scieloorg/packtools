@@ -48,10 +48,24 @@ def apply(element, doc, role):
 
 
 def set_body_line_spacing(doc):
-    """Entrelinha padrão (BODY_LINE_SPACING) no estilo do corpo, se o layout não definir uma."""
+    """
+    Entrelinha padrão (BODY_LINE_SPACING) no estilo do corpo, se nem ele nem
+    os estilos em que se baseia definirem uma no layout.
+    """
     style = get(doc, "body")
-    if style is not None and style.paragraph_format.line_spacing is None:
+    if style is not None and not _defines_line_spacing(style):
         style.paragraph_format.line_spacing = BODY_LINE_SPACING
+
+
+def _defines_line_spacing(style):
+    """True se o estilo ou algum da sua cadeia de base_style define entrelinha."""
+    seen = set()
+    while style is not None and style.style_id not in seen:
+        if style.paragraph_format.line_spacing is not None:
+            return True
+        seen.add(style.style_id)
+        style = style.base_style
+    return False
 
 
 def copy_styles(source, target):
