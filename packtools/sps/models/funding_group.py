@@ -17,30 +17,64 @@ def _looks_like_award_id(text):
     return True
 
 
+# Traços tipográficos tratados como hífen.
+UNICODE_DASHES = "‐‑‒–—―−﹘﹣－"
+_DASHES_TO_HYPHEN = str.maketrans({dash: "-" for dash in UNICODE_DASHES})
+
+
+def normalize_dashes(text):
+    return text.translate(_DASHES_TO_HYPHEN)
+
+
+def clean_award_id(word, special_chars_award_id):
+    """Mantém letras, dígitos e os caracteres permitidos, sem caractere permitido nas pontas."""
+    contract_number = []
+    for c in word:
+        if c.isalnum():
+            contract_number.append(c)
+        elif c in special_chars_award_id and contract_number:
+            contract_number.append(c)
+    while contract_number and contract_number[-1] in special_chars_award_id:
+        contract_number.pop()
+    return "".join(contract_number)
+
+
+def _looks_like_contract_number(word):
+    return len(word) >= 5 and has_digit(word) and _looks_like_award_id(word)
+
+
+def split_award_id_words(text):
+    """Palavras do texto; ';' separa, e ',' separa só entre dois números de contrato."""
+    words = []
+    for word in normalize_dashes(text).replace(";", " ").split():
+        parts = [part for part in word.split(",") if part]
+        if len(parts) > 1 and all(_looks_like_contract_number(part) for part in parts):
+            words.extend(parts)
+        else:
+            words.append(word)
+    return words
+
+
 def looks_like_award_ids(text, special_chars_award_id):
     items = []
     if has_digit(text):
-        for word in text.split():
+        for word in split_award_id_words(text):
             if word.isalpha():
                 continue
             if len(word) < 5:
                 continue
-            if has_digit(word):
-                if _looks_like_award_id(word):
-                    contract_number = []
-                    for c in word:
-                        if c.isalnum():
-                            contract_number.append(c)
-                        elif c in special_chars_award_id:
-                            if len(contract_number) > 0:
-                                contract_number.append(c)
-                    while True:
-                        if contract_number[-1] in special_chars_award_id:
-                            contract_number = contract_number[:-1]
-                        else:
-                            break
-                    items.append("".join(contract_number))
+            if has_digit(word) and _looks_like_award_id(word):
+                items.append(clean_award_id(word, special_chars_award_id))
     return items
+
+
+def award_id_numbers(award_id, special_chars_award_id):
+    """Números de contrato de um <award-id>, na forma de looks_like_award_ids."""
+    return [
+        clean_award_id(word, special_chars_award_id)
+        for word in split_award_id_words(award_id)
+        if has_digit(word)
+    ]
 
 
 def has_digit(text):

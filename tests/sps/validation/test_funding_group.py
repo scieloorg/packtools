@@ -177,6 +177,58 @@ class TestAwardInFinancialDisclosure(TestFundingValidationBase):
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
+class TestAwardIdComparedInTheSameFormAsTheText(TestFundingValidationBase):
+    """O número do texto e o de <award-id> são comparados na mesma forma (#1498)."""
+
+    REQUIRED = "Required funding-group/award-group with award-id and funding-source"
+
+    def _missing(self, award_id, text):
+        xml = f"""
+            <article article-type="research-article" xml:lang="en">
+                <front><article-meta>
+                    <funding-group>
+                        <award-group>
+                            <funding-source>FAPESP</funding-source>
+                            <award-id>{award_id}</award-id>
+                        </award-group>
+                    </funding-group>
+                </article-meta></front>
+                <back><fn-group>
+                    <fn fn-type="financial-disclosure"><p>{text}</p></fn>
+                </fn-group></back>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        return [
+            r["adv_params"]["missing"]
+            for r in validator.validate_required_award_ids()
+            if r["title"] == self.REQUIRED
+        ]
+
+    def test_en_dash_in_text_and_award_id(self):
+        self.assertEqual([], self._missing("2023/12231–90", "FAPESP (grant 2023/12231–90)."))
+
+    def test_en_dash_in_text_and_hyphen_in_award_id(self):
+        self.assertEqual([], self._missing("2023/12231-90", "FAPESP (grant 2023/12231–90)."))
+
+    def test_em_dash_in_award_id_and_hyphen_in_text(self):
+        self.assertEqual([], self._missing("E—26/210.942/2024", "FAPERJ, E-26/210.942/2024."))
+
+    def test_award_id_with_text_beyond_the_number(self):
+        self.assertEqual([], self._missing("PQ 309102/2022-7", "CNPq (PQ 309102/2022-7)."))
+
+    def test_semicolon_without_space_in_award_id(self):
+        self.assertEqual(
+            [], self._missing("2012/50157-0;2018/13076-9", "FAPESP (2012/50157-0 and 2018/13076-9).")
+        )
+
+    def test_number_absent_from_award_id_is_still_reported(self):
+        self.assertEqual(
+            ["2019/24215-2"],
+            self._missing("2023/12231–90", "FAPESP 2023/12231–90 and 2019/24215–2."),
+        )
+
+
 class TestAwardInSupportedBy(TestFundingValidationBase):
     """Testa casos com award ID em supported-by"""
 

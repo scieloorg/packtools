@@ -1,4 +1,4 @@
-from packtools.sps.models.funding_group import FundingGroup
+from packtools.sps.models.funding_group import FundingGroup, award_id_numbers
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.similarity_utils import most_similar, similarity
 from packtools.sps import i18n
@@ -53,7 +53,11 @@ class FundingGroupValidation:
             funding_sources = item["funding-source"]
             award_ids = item["award-id"]
             found_award_ids.update(award_ids)
-            
+            for award_id in award_ids:
+                found_award_ids.update(
+                    award_id_numbers(award_id, self.params["special_chars_award_id"])
+                )
+
             if funding_sources and award_ids:
                 valid = True
                 advice = None
@@ -111,7 +115,7 @@ class FundingGroupValidation:
         numbers = set()
         for item in self.funding.look_like_award_ids:
             numbers.update(item["look-like-award-id"])
-        if numbers == found_award_ids:
+        if numbers <= found_award_ids:
             return
         for item in self.funding.look_like_award_ids:
             context = item["context"]

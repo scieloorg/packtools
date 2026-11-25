@@ -221,6 +221,49 @@ class FundingTest(TestCase):
     def test_looks_like_award_id_fail(self):
         self.assertFalse(funding_group._looks_like_award_id("doi.org.//123.456.789-0"))
 
+    def test_looks_like_award_ids_converts_unicode_dashes_to_hyphen(self):
+        text = "FAPESP (grant 2023/12231–90). FAPERJ (E—26/210.942/2024); CNPq 443302/2020‑1"
+        self.assertEqual(
+            ["2023/12231-90", "E-26/210.942/2024", "443302/2020-1"],
+            funding_group.looks_like_award_ids(text, ["/", ".", "-"]),
+        )
+
+    def test_semicolon_separates_contract_numbers(self):
+        special = ["/", ".", "-"]
+        expected = ["2012/50157-0", "2018/13076-9"]
+        self.assertEqual(expected, funding_group.award_id_numbers("2012/50157-0;2018/13076-9", special))
+        self.assertEqual(expected, funding_group.looks_like_award_ids("FAPESP (2012/50157-0;2018/13076-9)", special))
+
+    def test_comma_separates_only_two_contract_numbers(self):
+        special = ["/", ".", "-"]
+        self.assertEqual(
+            ["2012/50157-0", "2018/13076-9"],
+            funding_group.award_id_numbers("2012/50157-0,2018/13076-9", special),
+        )
+        self.assertEqual(["1118/2024"], funding_group.looks_like_award_ids("Edital 1,118/2024", special))
+
+    def test_comma_around_contract_numbers_does_not_join_them(self):
+        special = ["/", ".", "-"]
+        expected = ["2012/50157-0", "2018/13076-9"]
+        self.assertEqual(expected, funding_group.award_id_numbers("2012/50157-0,2018/13076-9,", special))
+        self.assertEqual(expected, funding_group.award_id_numbers("2012/50157-0,,2018/13076-9", special))
+        self.assertEqual(
+            expected,
+            funding_group.looks_like_award_ids("FAPESP (2012/50157-0,2018/13076-9), CNPq.", special),
+        )
+
+    def test_award_id_numbers_keeps_only_the_contract_numbers(self):
+        special = ["/", ".", "-"]
+        self.assertEqual(["2023/12231-90"], funding_group.award_id_numbers("2023/12231–90", special))
+        self.assertEqual(["309102/2022-7"], funding_group.award_id_numbers("PQ 309102/2022-7", special))
+        self.assertEqual(
+            ["2012/50157-0", "2018/13076-9"],
+            funding_group.award_id_numbers("#2012/50157-0 and 2018/13076-9", special),
+        )
+        self.assertEqual(["001"], funding_group.award_id_numbers("001", special))
+        self.assertEqual(["1118/2024"], funding_group.award_id_numbers("1,118/2024", special))
+        self.assertEqual([], funding_group.award_id_numbers("", special))
+
     def test_process_paragraph_node(self):
         """Test the internal _process_paragraph_node method"""
         xml = "<p>Grant No: 303625/2019-8</p>"
