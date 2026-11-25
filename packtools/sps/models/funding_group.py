@@ -179,6 +179,28 @@ class FundingGroup:
         return items
 
     @property
+    def award_ids_with_context(self):
+        """Cada <award-id>, com o contexto do artigo ou do <sub-article> que o contém."""
+        root = self._xmltree.xpath(".")[0]
+        lang_attr = "{http://www.w3.org/XML/1998/namespace}lang"
+        for node in self._xmltree.xpath(".//funding-group/award-group/award-id"):
+            sub_article = node.xpath("ancestor::sub-article[1]")
+            parent = sub_article[0] if sub_article else root
+            yield xml_utils.put_parent_context(
+                {
+                    "funding-source": [
+                        xml_utils.get_node_without_subtag(source)
+                        for source in node.xpath("../funding-source")
+                    ],
+                    "award-id": xml_utils.get_node_without_subtag(node),
+                },
+                lang=parent.get(lang_attr) or root.get(lang_attr),
+                article_type=parent.get("article-type") or root.get("article-type"),
+                parent="sub-article" if sub_article else "article",
+                parent_id=parent.get("id") if sub_article else None,
+            )
+
+    @property
     def funding_sources(self):
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group/funding-source"):

@@ -253,6 +253,9 @@ def validate_funding_data(xmltree, params):
     yield from validator.validate_award_id_funding_source_consistency(
         error_level=funding_data_rules.get("award_id_consistency_error_level", "WARNING")
     )
+    yield from validator.validate_award_id_content(
+        error_level=funding_data_rules.get("award_id_content_error_level", "ERROR")
+    )
 
 
 def validate_journal_meta(xmltree, params):
