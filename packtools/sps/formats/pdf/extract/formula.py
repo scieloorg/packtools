@@ -466,6 +466,55 @@ def _normalize_radicals(omml_element):
     return omml_element
 
 
+def _hide_empty_nary_limits(omml_element):
+    """
+    Esconde o limite vazio de cada ``<m:nary>`` (somatório, integral) com um só limite.
+
+    Parâmetros
+    ----------
+    omml_element : lxml.etree._Element
+        O ``<m:oMath>``, alterado no lugar.
+
+    Retorna
+    -------
+    lxml.etree._Element
+        O mesmo ``omml_element``.
+
+    Notas
+    -----
+    De ``<munder>``, ``<mover>``, ``<msub>`` e ``<msup>`` com operador
+    n-ário como base, o mathml2omml gera ``<m:nary>`` com o outro limite
+    vazio (``<m:sup>`` ou ``<m:sub>``), sem ``<m:supHide>``/``<m:subHide>``
+    no ``<m:naryPr>``. O LibreOffice desenha o limite vazio como "❑"
+    acima ou abaixo do operador (a26.xml, Eqs. 10 e 11).
+
+    Só o limite sem texto e sem elementos filhos é escondido: um limite
+    sem texto pode desenhar algo, como os parênteses de ``<m:d>`` vindos
+    de ``<mfenced/>``.
+    """
+    m = f"{{{_OMML_NS}}}"
+    for nary in omml_element.iter(f"{m}nary"):
+        nary_pr = nary.find(f"{m}naryPr")
+        if nary_pr is None:
+            nary_pr = etree.Element(f"{m}naryPr")
+            nary.insert(0, nary_pr)
+        # ordem do schema em naryPr: chr, limLoc, grow, subHide, supHide, ctrlPr
+        for limit, hide in (("sub", "subHide"), ("sup", "supHide")):
+            element = nary.find(f"{m}{limit}")
+            if element is None or len(element) or "".join(element.itertext()).strip():
+                continue
+            if nary_pr.find(f"{m}{hide}") is not None:
+                continue
+            flag = etree.Element(f"{m}{hide}")
+            flag.set(f"{m}val", "1")
+            ctrl_pr = nary_pr.find(f"{m}ctrlPr")
+            if ctrl_pr is None:
+                nary_pr.append(flag)
+            else:
+                ctrl_pr.addprevious(flag)
+    return omml_element
+
+
 def _fill_empty_matrix_cells(omml_element):
     """
     Põe um espaço de largura zero em cada célula sem texto de ``<m:m>``.
@@ -580,7 +629,8 @@ def mathml_to_omml(math_element):
         )
         return None
     omml = _normalize_group_chars(omml)
-    return _fill_empty_matrix_cells(_normalize_radicals(_normalize_plain_style_runs(omml)))
+    omml = _normalize_radicals(_normalize_plain_style_runs(omml))
+    return _fill_empty_matrix_cells(_hide_empty_nary_limits(omml))
 
 
 # -----------------

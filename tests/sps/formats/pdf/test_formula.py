@@ -298,6 +298,70 @@ class TestFillEmptyMatrixCells(unittest.TestCase):
         self.assertEqual(self._cells(omml), [['a', 'b']])
 
 
+class TestHideEmptyNaryLimits(unittest.TestCase):
+    """Operador n-ário com um só limite: o LibreOffice desenhava "❑" no lugar do outro (#1490)."""
+
+    _M = f'{{{formula._OMML_NS}}}'
+
+    def _hidden(self, body):
+        nary_pr = formula.mathml_to_omml(_mathml(body)).find(f'.//{self._M}naryPr')
+        return [
+            etree.QName(flag).localname
+            for flag in nary_pr
+            if etree.QName(flag).localname in ('subHide', 'supHide')
+            and flag.get(f'{self._M}val') == '1'
+        ]
+
+    def test_hides_the_missing_limit(self):
+        cases = {
+            '<munder><mo>∑</mo><mi>i</mi></munder><mi>x</mi>': ['supHide'],
+            '<mover><mo>∑</mo><mi>n</mi></mover><mi>x</mi>': ['subHide'],
+            '<msub><mo>∫</mo><mi>Ω</mi></msub><mi>f</mi>': ['supHide'],
+            '<msup><mo>∫</mo><mi>b</mi></msup><mi>f</mi>': ['subHide'],
+        }
+        for body, expected in cases.items():
+            with self.subTest(body=body):
+                self.assertEqual(self._hidden(body), expected)
+
+    def test_keeps_both_limits_when_present(self):
+        for body in (
+            '<munderover><mo>∑</mo><mi>i</mi><mi>n</mi></munderover><mi>x</mi>',
+            '<msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi>',
+        ):
+            with self.subTest(body=body):
+                self.assertEqual(self._hidden(body), [])
+
+    def test_keeps_limit_without_text_that_draws_something(self):
+        # <mfenced/> vira <m:d> sem texto: o LibreOffice desenha os parênteses
+        self.assertEqual(
+            self._hidden('<munder><mo>∑</mo><mfenced/></munder><mi>x</mi>'),
+            ['supHide'],
+        )
+
+    def test_hide_flags_follow_schema_order_before_ctrl_pr(self):
+        omml = etree.fromstring(
+            f'<m:oMath xmlns:m="{formula._OMML_NS}"><m:nary>'
+            '<m:naryPr><m:chr m:val="∑"/><m:ctrlPr/></m:naryPr>'
+            '<m:sub/><m:sup/><m:e><m:r><m:t>x</m:t></m:r></m:e>'
+            '</m:nary></m:oMath>'
+        )
+        nary_pr = formula._hide_empty_nary_limits(omml).find(f'.//{self._M}naryPr')
+        self.assertEqual(
+            [etree.QName(child).localname for child in nary_pr],
+            ['chr', 'subHide', 'supHide', 'ctrlPr'],
+        )
+
+    def test_does_not_duplicate_an_existing_flag(self):
+        omml = etree.fromstring(
+            f'<m:oMath xmlns:m="{formula._OMML_NS}"><m:nary>'
+            '<m:naryPr><m:supHide m:val="1"/></m:naryPr>'
+            '<m:sub><m:r><m:t>i</m:t></m:r></m:sub><m:sup/><m:e><m:r><m:t>x</m:t></m:r></m:e>'
+            '</m:nary></m:oMath>'
+        )
+        nary_pr = formula._hide_empty_nary_limits(omml).find(f'.//{self._M}naryPr')
+        self.assertEqual(len(nary_pr.findall(f'{self._M}supHide')), 1)
+
+
 class TestGroupChars(unittest.TestCase):
     """
     <mover>/<munder> com acento esticável: o mathml2omml gera <m:groupChr>
