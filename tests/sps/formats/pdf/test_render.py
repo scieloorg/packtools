@@ -19,6 +19,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 from urllib.error import URLError
 
+from docx import Document
 from docx.enum.section import WD_SECTION
 from docx.enum.text import WD_TAB_ALIGNMENT
 from docx.oxml.ns import qn
@@ -28,6 +29,7 @@ from PIL import Image
 
 from packtools.sps.formats.pdf import assets as assets_module
 from packtools.sps.formats.pdf.config import page as page_config
+from packtools.sps.formats.pdf.config.styles import HEADING_SPACING
 from packtools.sps.formats.pdf.convert import convert_docx_to_pdf
 from packtools.sps.formats.pdf.assets import EMU_PER_INCH, Assets
 from packtools.sps.formats.pdf.layout import page as page_layout
@@ -472,6 +474,36 @@ class TestTableCellImage(_WithTmp):
         self._png('wide.png', 800, dpi=96)  # 600pt, mais que a coluna do corpo
         widths, image = self._render('wide.png')
         self.assertEqual(image, widths[1])
+
+
+class TestHeadingSpacing(unittest.TestCase):
+    """Espaços dos títulos: os de HEADING_SPACING, no lugar dos do layout."""
+
+    def test_section_title_spacing(self):
+        fmt = new_document(DATA['base_layout']).styles['SCL Section Title'].paragraph_format
+        self.assertEqual(fmt.space_before, Pt(HEADING_SPACING['heading2']['space_before']))
+        self.assertEqual(fmt.space_after, Pt(HEADING_SPACING['heading2']['space_after']))
+
+    def test_section_title_before_exceeds_body_after(self):
+        doc = new_document(DATA['base_layout'])
+        body_after = doc.styles['SCL Paragraph'].paragraph_format.space_after
+        title_before = doc.styles['SCL Section Title'].paragraph_format.space_before
+        self.assertGreater(title_before, body_after)
+
+    def test_section_title_keeps_layout_line_spacing(self):
+        expected = Document(DATA['base_layout']).styles['SCL Section Title'].paragraph_format.line_spacing
+        fmt = new_document(DATA['base_layout']).styles['SCL Section Title'].paragraph_format
+        self.assertEqual(fmt.line_spacing, expected)
+
+    def test_layout_without_heading_styles(self):
+        layout = Document(DATA['base_layout'])
+        for name in ('SCL Section Title', 'SCL Subsection Title'):
+            layout.styles[name].delete()
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, 'layout.docx')
+            layout.save(path)
+            doc = new_document(path)
+        self.assertNotIn('SCL Section Title', [s.name for s in doc.styles])
 
 
 class TestTableCaption(unittest.TestCase):

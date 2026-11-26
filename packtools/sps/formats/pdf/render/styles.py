@@ -2,7 +2,8 @@
 
 from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from packtools.sps.formats.pdf.config.styles import STYLES
+from docx.shared import Pt
+from packtools.sps.formats.pdf.config.styles import HEADING_SPACING, STYLES
 
 _COPIED_TYPES = (WD_STYLE_TYPE.PARAGRAPH, WD_STYLE_TYPE.CHARACTER, WD_STYLE_TYPE.TABLE)
 _FONT_ATTRS = (
@@ -45,6 +46,16 @@ def apply(element, doc, role):
     if style is not None:
         element.style = style
     return style
+
+
+def set_heading_spacing(doc):
+    """Espaços de HEADING_SPACING nos estilos dos títulos que o layout tiver."""
+    for role, spacing in HEADING_SPACING.items():
+        style = get(doc, role)
+        if style is None:
+            continue
+        style.paragraph_format.space_before = Pt(spacing["space_before"])
+        style.paragraph_format.space_after = Pt(spacing["space_after"])
 
 
 def copy_styles(source, target):

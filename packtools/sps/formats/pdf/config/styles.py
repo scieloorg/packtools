@@ -28,3 +28,8 @@ STYLES = {
     "cite_as_label_char": "SCL Paragraph Cite As Footer Char",
     "cite_as_journal_char": "SCL Paragraph Cite As Journal Title Char",
 }
+
+# Espaços (pt) dos títulos, aplicados no lugar dos do layout.docx.
+HEADING_SPACING = {
+    "heading2": {"space_before": 17, "space_after": 8.5},
+}
