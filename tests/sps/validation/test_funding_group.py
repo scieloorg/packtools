@@ -1065,6 +1065,84 @@ class TestValidateFundingStatement(TestFundingValidationBase):
         self.assertEqual(results[0]["response"], "OK")
         self.assertIsNone(results[0]["advice"])
 
+    ACK = "The authors would like to thank the support of the Brazilian National Research Council."
+    FUNDING = (
+        "This study was supported by Fundação de Amparo à Pesquisa do Estado de São Paulo "
+        "(FAPESP - Grant no. 04/08142-0; São Paulo, Brazil)"
+    )
+
+    def _statement_results(self, funding_statement):
+        xml = f"""
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                            <funding-statement>{funding_statement}</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+                <back>
+                    <ack><title>Acknowledgements</title><p>{self.ACK}</p></ack>
+                    <fn-group>
+                        <fn fn-type="financial-disclosure">
+                            <label>Funding:</label>
+                            <p>{self.FUNDING}</p>
+                        </fn>
+                    </fn-group>
+                </back>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        return list(validator.validate_funding_statement())
+
+    def test_statement_with_ack_and_financial_disclosure_sps_example_8(self):
+        statement = (
+            f"{self.ACK}<bold>Funding:</bold>This study was supported in part by Coordenação de "
+            "Aperfeiçoamento de Pessoal de Nível Superior (Capes - Brasília,Brazil), Fundação de "
+            "Amparo à Pesquisa do Estado de São Paulo (FAPESP - Grant no. 04/08142-0; São Paulo, Brazil)"
+        )
+        (result,) = self._statement_results(statement)
+        self.assertEqual("OK", result["response"])
+
+    def test_statement_with_financial_disclosure_and_ack(self):
+        (result,) = self._statement_results(f"{self.FUNDING}. {self.ACK}")
+        self.assertEqual("OK", result["response"])
+
+    def test_statement_unrelated_to_reference_texts_is_reported(self):
+        (result,) = self._statement_results("Outro texto completamente diferente")
+        self.assertNotEqual("OK", result["response"])
+
+    def test_advice_suggests_financial_disclosure_instead_of_ack(self):
+        (result,) = self._statement_results("Outro texto completamente diferente")
+        self.assertIn(self.FUNDING, result["adv_params"]["reference_text"])
+        self.assertNotIn(self.ACK, result["advice"])
+
+    def test_advice_suggests_ack_when_there_is_no_funding_note(self):
+        xml = f"""
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+                <back>
+                    <ack><title>Acknowledgements</title><p>{self.ACK}</p></ack>
+                </back>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        (result,) = validator.validate_funding_statement()
+        self.assertEqual(self.ACK, result["adv_params"]["reference_text"])
+
     def test_early_exit_when_no_award_groups(self):
         """
         When there are no <award-group> elements, validate_funding_statement
