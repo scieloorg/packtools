@@ -1,3 +1,5 @@
+from itertools import permutations
+
 from packtools.sps.models.funding_group import FundingGroup
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.similarity_utils import most_similar, similarity
@@ -169,12 +171,16 @@ class FundingGroupValidation:
         # and normalise whitespace to prevent C7 (raw concatenated whitespace
         # from multiple <fn> nodes appearing in advice strings).
         all_texts = []
+        combined_texts = []
         for lang, statements in self.funding.statements_by_lang.items():
-            items = {k: v for k, v in statements["texts"].items() if v}
-            for v in items.values():
-                normalized = " ".join(v.split())
+            lang_texts = []
+            for v in statements["texts"].values():
+                normalized = " ".join((v or "").split())
                 if normalized:
-                    all_texts.append(normalized)
+                    lang_texts.append(normalized)
+            all_texts.extend(lang_texts)
+            for size in range(2, len(lang_texts) + 1):
+                combined_texts.extend(" ".join(texts) for texts in permutations(lang_texts, size))
 
         # Iterate each <funding-group> individually (C6 fix: each node is
         # evaluated; the second group is no longer silently skipped).
@@ -216,7 +222,7 @@ class FundingGroupValidation:
             if funding_statement and texts:
                 # Both a <funding-statement> and reference texts exist: compare them.
                 best_score, best_matches = most_similar(
-                    similarity(texts, funding_statement, 0.8)
+                    similarity(texts + combined_texts, funding_statement, 0.8)
                 )
                 if best_matches:
                     valid = True
