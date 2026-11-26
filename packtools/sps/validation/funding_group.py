@@ -143,6 +143,14 @@ class FundingGroupValidation:
                     error_level=self.params["award_id_error_level"],
                 )
 
+    @staticmethod
+    def _suggested_funding_statement(texts):
+        notes = [
+            " ".join((texts.get(key) or "").split())
+            for key in ("supported_by", "financial_disclosure")
+        ]
+        return " ".join(note for note in notes if note) or " ".join((texts.get("ack") or "").split())
+
     def validate_funding_statement(self):
         """
         Validates that each <funding-group> has a <funding-statement> consistent
@@ -172,6 +180,7 @@ class FundingGroupValidation:
         # from multiple <fn> nodes appearing in advice strings).
         all_texts = []
         combined_texts = []
+        suggested_text = None
         for lang, statements in self.funding.statements_by_lang.items():
             lang_texts = []
             for v in statements["texts"].values():
@@ -179,6 +188,8 @@ class FundingGroupValidation:
                 if normalized:
                     lang_texts.append(normalized)
             all_texts.extend(lang_texts)
+            if lang_texts and not suggested_text:
+                suggested_text = self._suggested_funding_statement(statements["texts"])
             for size in range(2, len(lang_texts) + 1):
                 combined_texts.extend(" ".join(texts) for texts in permutations(lang_texts, size))
 
@@ -229,12 +240,12 @@ class FundingGroupValidation:
                 else:
                     advice = (
                         f"Replace <funding-statement>{funding_statement}</funding-statement>"
-                        f" by <funding-statement>{texts[0]}</funding-statement>"
+                        f" by <funding-statement>{suggested_text}</funding-statement>"
                     )
                     advice_text = i18n._("Replace <funding-statement>{funding_statement}</funding-statement> by <funding-statement>{reference_text}</funding-statement>")
                     advice_params = {
                         "funding_statement": funding_statement,
-                        "reference_text": texts[0],
+                        "reference_text": suggested_text,
                     }
             elif funding_statement and not texts:
                 # <funding-statement> is present but no reference texts (fn/ack) were
@@ -249,11 +260,11 @@ class FundingGroupValidation:
             elif texts:
                 # Reference texts exist but <funding-statement> is absent.
                 advice = (
-                    f"Add <funding-statement>{texts[0]}</funding-statement>"
+                    f"Add <funding-statement>{suggested_text}</funding-statement>"
                     " in <funding-group>. Consult SPS documentation for more detail"
                 )
                 advice_text = i18n._("Add <funding-statement>{reference_text}</funding-statement> in <funding-group>. Consult SPS documentation for more detail")
-                advice_params = {"reference_text": texts[0]}
+                advice_params = {"reference_text": suggested_text}
             else:
                 # Neither <funding-statement> nor reference texts are present.
                 advice = (

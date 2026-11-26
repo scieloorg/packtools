@@ -1116,6 +1116,33 @@ class TestValidateFundingStatement(TestFundingValidationBase):
         (result,) = self._statement_results("Outro texto completamente diferente")
         self.assertNotEqual("OK", result["response"])
 
+    def test_advice_suggests_financial_disclosure_instead_of_ack(self):
+        (result,) = self._statement_results("Outro texto completamente diferente")
+        self.assertIn(self.FUNDING, result["adv_params"]["reference_text"])
+        self.assertNotIn(self.ACK, result["advice"])
+
+    def test_advice_suggests_ack_when_there_is_no_funding_note(self):
+        xml = f"""
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+                <back>
+                    <ack><title>Acknowledgements</title><p>{self.ACK}</p></ack>
+                </back>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        (result,) = validator.validate_funding_statement()
+        self.assertEqual(self.ACK, result["adv_params"]["reference_text"])
+
     def test_early_exit_when_no_award_groups(self):
         """
         When there are no <award-group> elements, validate_funding_statement
