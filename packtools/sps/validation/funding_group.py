@@ -1,4 +1,8 @@
-from packtools.sps.models.funding_group import FundingGroup
+from packtools.sps.models.funding_group import (
+    FundingGroup,
+    award_id_numbers,
+    normalize_dashes,
+)
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.similarity_utils import most_similar, similarity
 from packtools.sps import i18n
@@ -53,7 +57,11 @@ class FundingGroupValidation:
             funding_sources = item["funding-source"]
             award_ids = item["award-id"]
             found_award_ids.update(award_ids)
-            
+            for award_id in award_ids:
+                found_award_ids.update(
+                    award_id_numbers(award_id, self.params["special_chars_award_id"])
+                )
+
             if funding_sources and award_ids:
                 valid = True
                 advice = None
@@ -111,7 +119,7 @@ class FundingGroupValidation:
         numbers = set()
         for item in self.funding.look_like_award_ids:
             numbers.update(item["look-like-award-id"])
-        if numbers == found_award_ids:
+        if numbers <= found_award_ids:
             return
         for item in self.funding.look_like_award_ids:
             context = item["context"]
@@ -630,5 +638,91 @@ class FundingGroupValidation:
                     "num_awards": num_awards,
                 },
                 data=item,
+                error_level=error_level,
+            )
+
+    def validate_award_id_content(self, error_level="ERROR"):
+        """
+        Valida que cada <award-id> contém só o número de contrato.
+
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "ERROR".
+
+        Yields
+        ------
+        dict
+            Validation result for each <award-id>.
+        """
+        special_chars = self.params["special_chars_award_id"]
+
+        for item in self.funding.award_ids_with_context:
+            award_id = " ".join(item["award-id"].split())
+            parent = {key: item[key] for key in ("parent", "parent_id", "parent_lang", "parent_article_type")}
+            numbers = award_id_numbers(award_id, special_chars)
+            normalized = normalize_dashes(award_id)
+            is_valid = numbers == [normalized]
+
+            advice = None
+            advice_text = None
+            advice_params = {}
+            if is_valid:
+                message_text = i18n._("<award-id> contains only the contract number")
+            else:
+                message_text = i18n._("<award-id> must contain only the contract number")
+                if numbers and not all(number in normalized for number in numbers):
+                    advice = (
+                        f"<award-id>{award_id}</award-id> has characters that are not part of a "
+                        "contract number. Check the value and keep only the contract number in <award-id>"
+                    )
+                    advice_text = i18n._(
+                        "<award-id>{award_id}</award-id> has characters that are not part of a "
+                        "contract number. Check the value and keep only the contract number in <award-id>"
+                    )
+                    advice_params = {"award_id": award_id}
+                elif len(numbers) == 1:
+                    advice = (
+                        f"Keep only the contract number in <award-id>: replace "
+                        f"<award-id>{award_id}</award-id> with <award-id>{numbers[0]}</award-id>"
+                    )
+                    advice_text = i18n._(
+                        "Keep only the contract number in <award-id>: replace "
+                        "<award-id>{award_id}</award-id> with <award-id>{number}</award-id>"
+                    )
+                    advice_params = {"award_id": award_id, "number": numbers[0]}
+                elif numbers:
+                    joined = ", ".join(numbers)
+                    advice = f"Mark each contract number in its own <award-id>: {joined}"
+                    advice_text = i18n._(
+                        "Mark each contract number in its own <award-id>: {numbers}"
+                    )
+                    advice_params = {"numbers": joined}
+                else:
+                    advice = (
+                        f"<award-id>{award_id}</award-id> has no contract number. "
+                        "Mark the contract number in <award-id> or remove the element"
+                    )
+                    advice_text = i18n._(
+                        "<award-id>{award_id}</award-id> has no contract number. "
+                        "Mark the contract number in <award-id> or remove the element"
+                    )
+                    advice_params = {"award_id": award_id}
+
+            yield build_response(
+                title="award-id content",
+                parent=parent,
+                item="award-group",
+                sub_item="award-id",
+                validation_type="format",
+                is_valid=is_valid,
+                expected="only the contract number in <award-id>",
+                obtained=award_id,
+                advice=advice,
+                advice_text=advice_text,
+                advice_params=advice_params,
+                message_text=message_text,
+                message_params={},
+                data={**item, "award_id": award_id, "contract_numbers": numbers},
                 error_level=error_level,
             )

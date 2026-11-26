@@ -177,6 +177,167 @@ class TestAwardInFinancialDisclosure(TestFundingValidationBase):
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
+class TestAwardIdComparedInTheSameFormAsTheText(TestFundingValidationBase):
+    """O número do texto e o de <award-id> são comparados na mesma forma (#1498)."""
+
+    REQUIRED = "Required funding-group/award-group with award-id and funding-source"
+
+    def _missing(self, award_id, text):
+        xml = f"""
+            <article article-type="research-article" xml:lang="en">
+                <front><article-meta>
+                    <funding-group>
+                        <award-group>
+                            <funding-source>FAPESP</funding-source>
+                            <award-id>{award_id}</award-id>
+                        </award-group>
+                    </funding-group>
+                </article-meta></front>
+                <back><fn-group>
+                    <fn fn-type="financial-disclosure"><p>{text}</p></fn>
+                </fn-group></back>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        return [
+            r["adv_params"]["missing"]
+            for r in validator.validate_required_award_ids()
+            if r["title"] == self.REQUIRED
+        ]
+
+    def test_en_dash_in_text_and_award_id(self):
+        self.assertEqual([], self._missing("2023/12231–90", "FAPESP (grant 2023/12231–90)."))
+
+    def test_en_dash_in_text_and_hyphen_in_award_id(self):
+        self.assertEqual([], self._missing("2023/12231-90", "FAPESP (grant 2023/12231–90)."))
+
+    def test_em_dash_in_award_id_and_hyphen_in_text(self):
+        self.assertEqual([], self._missing("E—26/210.942/2024", "FAPERJ, E-26/210.942/2024."))
+
+    def test_award_id_with_text_beyond_the_number(self):
+        self.assertEqual([], self._missing("PQ 309102/2022-7", "CNPq (PQ 309102/2022-7)."))
+
+    def test_semicolon_without_space_in_award_id(self):
+        self.assertEqual(
+            [], self._missing("2012/50157-0;2018/13076-9", "FAPESP (2012/50157-0 and 2018/13076-9).")
+        )
+
+    def test_number_absent_from_award_id_is_still_reported(self):
+        self.assertEqual(
+            ["2019/24215-2"],
+            self._missing("2023/12231–90", "FAPESP 2023/12231–90 and 2019/24215–2."),
+        )
+
+
+class TestAwardIdContent(TestFundingValidationBase):
+    """<award-id> contém só o número de contrato (um número por <award-id>)."""
+
+    def _results(self, *award_ids):
+        ids = "".join(f"<award-id>{a}</award-id>" for a in award_ids)
+        xml = f"""
+            <article article-type="research-article" xml:lang="en">
+                <front><article-meta>
+                    <funding-group>
+                        <award-group>
+                            <funding-source>CNPq</funding-source>
+                            {ids}
+                        </award-group>
+                    </funding-group>
+                </article-meta></front>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        return list(validator.validate_award_id_content())
+
+    def test_contract_numbers_are_valid(self):
+        results = self._results("04/08142-0", "2023/12231–90", "001", " 141256/2021-4 ")
+        self.assertEqual(["OK"] * 4, [r["response"] for r in results])
+
+    def test_text_beyond_the_number(self):
+        (result,) = self._results("PQ 309102/2022-7")
+        self.assertEqual("ERROR", result["response"])
+        self.assertEqual({"award_id": "PQ 309102/2022-7", "number": "309102/2022-7"}, result["adv_params"])
+        self.assertIn("<award-id>309102/2022-7</award-id>", result["advice"])
+
+    def test_other_character_before_the_number(self):
+        (result,) = self._results("#2025/11112-1")
+        self.assertEqual("ERROR", result["response"])
+        self.assertEqual("2025/11112-1", result["adv_params"]["number"])
+
+    def test_character_inside_the_number_gets_no_suggested_number(self):
+        for award_id, cleaned in (("1,118/2024", "1118/2024"), ("01-2020_PIBIC", "01-2020PIBIC")):
+            with self.subTest(award_id=award_id):
+                (result,) = self._results(award_id)
+                self.assertEqual("ERROR", result["response"])
+                self.assertEqual({"award_id": award_id}, result["adv_params"])
+                self.assertNotIn(cleaned, result["advice"])
+
+    def test_two_numbers_in_one_award_id(self):
+        (result,) = self._results("#2012/50157-0 and 2018/13076-9")
+        self.assertEqual("ERROR", result["response"])
+        self.assertEqual({"numbers": "2012/50157-0, 2018/13076-9"}, result["adv_params"])
+
+    def test_two_numbers_separated_by_semicolon_without_space(self):
+        (result,) = self._results("2012/50157-0;2018/13076-9")
+        self.assertEqual("ERROR", result["response"])
+        self.assertEqual({"numbers": "2012/50157-0, 2018/13076-9"}, result["adv_params"])
+
+    def test_two_numbers_separated_by_comma_with_trailing_comma(self):
+        (result,) = self._results("2012/50157-0,2018/13076-9,")
+        self.assertEqual("ERROR", result["response"])
+        self.assertEqual({"numbers": "2012/50157-0, 2018/13076-9"}, result["adv_params"])
+
+    def test_award_id_in_translation_reports_the_sub_article(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front><article-meta>
+                    <funding-group><award-group>
+                        <funding-source>FAPESP</funding-source>
+                        <award-id>2012/50157-0</award-id>
+                    </award-group></funding-group>
+                </article-meta></front>
+                <sub-article article-type="translation" id="s1" xml:lang="en">
+                    <front-stub>
+                        <funding-group><award-group>
+                            <funding-source>FAPESP</funding-source>
+                            <award-id>PQ 2012/50157-0</award-id>
+                        </award-group></funding-group>
+                    </front-stub>
+                </sub-article>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        main, translation = validator.validate_award_id_content()
+        self.assertEqual(("article", None, "pt"), (main["parent"], main["parent_id"], main["parent_lang"]))
+        self.assertEqual(
+            ("sub-article", "s1", "en", "translation", "ERROR"),
+            (
+                translation["parent"],
+                translation["parent_id"],
+                translation["parent_lang"],
+                translation["parent_article_type"],
+                translation["response"],
+            ),
+        )
+
+    def test_award_id_without_number(self):
+        (result,) = self._results("PIBIC")
+        self.assertEqual("ERROR", result["response"])
+        self.assertEqual({"award_id": "PIBIC"}, result["adv_params"])
+
+    def test_error_level_is_configurable(self):
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front><article-meta><funding-group><award-group>
+                    <funding-source>CNPq</funding-source><award-id>PQ 309102/2022-7</award-id>
+                </award-group></funding-group></article-meta></front>
+            </article>
+        """
+        validator = FundingGroupValidation(etree.fromstring(xml), self.params)
+        (result,) = validator.validate_award_id_content(error_level="WARNING")
+        self.assertEqual("WARNING", result["response"])
+
+
 class TestAwardInSupportedBy(TestFundingValidationBase):
     """Testa casos com award ID em supported-by"""
 
@@ -1174,6 +1335,16 @@ class TestValidateFundingDataOrchestrator(TestFundingValidationBase):
         self.assertIn("label absence in funding-group", titles)
         self.assertIn("title absence in funding-group", titles)
         self.assertIn("award-id and funding-source consistency", titles)
+        self.assertIn("award-id content", titles)
+
+    @unittest.skipUnless(_orchestrator_available, "xml_validations não disponível no path")
+    def test_orchestrator_propagates_award_id_content_error_level(self):
+        from packtools.sps.validation.xml_validations import validate_funding_data
+
+        xml_tree = etree.fromstring(self.xml_full.replace("04/08142-0</award-id>", "PQ 04/08142-0</award-id>"))
+        params = {"funding_data_rules": {"award_id_content_error_level": "WARNING"}}
+        results = [r for r in validate_funding_data(xml_tree, params) if r["title"] == "award-id content"]
+        self.assertEqual(["WARNING"], [r["response"] for r in results])
 
     @unittest.skipUnless(_orchestrator_available, "xml_validations não disponível no path")
     def test_orchestrator_propagates_funding_statement_error_level(self):

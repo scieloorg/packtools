@@ -1139,6 +1139,30 @@ msgstr "Marque o ID de localização com <elocation-id> ou a primeira página co
 msgid "Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail"
 msgstr "Marque a instituição patrocinadora com <funding-source> para <award-id> ({award_ids}). Consulte a documentação SPS para mais detalhes"
 
+#: packtools/sps/validation/funding_group.py:671
+msgid "<award-id> contains only the contract number"
+msgstr "<award-id> contém apenas o número de contrato"
+
+#: packtools/sps/validation/funding_group.py:673
+msgid "<award-id> must contain only the contract number"
+msgstr "<award-id> deve conter apenas o número de contrato"
+
+#: packtools/sps/validation/funding_group.py:679
+msgid "<award-id>{award_id}</award-id> has characters that are not part of a contract number. Check the value and keep only the contract number in <award-id>"
+msgstr "<award-id>{award_id}</award-id> tem caracteres que não fazem parte de um número de contrato. Confira o valor e mantenha apenas o número de contrato em <award-id>"
+
+#: packtools/sps/validation/funding_group.py:689
+msgid "Keep only the contract number in <award-id>: replace <award-id>{award_id}</award-id> with <award-id>{number}</award-id>"
+msgstr "Mantenha apenas o número de contrato em <award-id>: substitua <award-id>{award_id}</award-id> por <award-id>{number}</award-id>"
+
+#: packtools/sps/validation/funding_group.py:697
+msgid "Mark each contract number in its own <award-id>: {numbers}"
+msgstr "Marque cada número de contrato em um <award-id> próprio: {numbers}"
+
+#: packtools/sps/validation/funding_group.py:706
+msgid "<award-id>{award_id}</award-id> has no contract number. Mark the contract number in <award-id> or remove the element"
+msgstr "<award-id>{award_id}</award-id> não contém número de contrato. Marque o número de contrato em <award-id> ou remova o elemento"
+
 #: packtools/sps/validation/funding_group.py:80
 msgid "<award-group> contains <funding-source> without <award-id> (no contract number declared)"
 msgstr "<award-group> contém <funding-source> sem <award-id> (nenhum número de contrato declarado)"
