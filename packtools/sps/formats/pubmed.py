@@ -11,6 +11,7 @@ from packtools.sps.models import (
     article_titles,
     dates,
     front_articlemeta_issue,
+    funding_group,
     journal_meta,
     kwd_group,
 )
@@ -526,6 +527,45 @@ def get_keywords(xml_tree):
     return kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text(subtag=False)
 
 
+def get_award_groups(xml_tree):
+    return funding_group.FundingGroup(xml_tree).award_groups
+
+
+def add_grant_objects(obj_list, xml_tree):
+    """
+    <Object Type="grant">
+      <Param Name="id">RO1DK561234</Param>
+      <Param Name="grantor">National Institutes of Health</Param>
+    </Object>
+    """
+    for award_group in get_award_groups(xml_tree):
+        funding_sources = [
+            source for source in award_group.get("funding-source") or [] if source
+        ]
+        award_ids = [
+            award_id for award_id in award_group.get("award-id") or [] if award_id
+        ]
+        grantor = "; ".join(funding_sources) or None
+
+        # acronym e country não têm fonte nos dados SciELO, ficam de fora.
+        for award_id in award_ids or [None]:
+            if not award_id and not grantor:
+                continue
+            obj = ET.Element("Object")
+            obj.set("Type", "grant")
+            if award_id:
+                param = ET.Element("Param")
+                param.set("Name", "id")
+                param.text = award_id
+                obj.append(param)
+            if grantor:
+                param = ET.Element("Param")
+                param.set("Name", "grantor")
+                param.text = grantor
+                obj.append(param)
+            obj_list.append(obj)
+
+
 def xml_pubmed_object_list(xml_pubmed, xml_tree):
     """
     <ObjectList>
@@ -553,11 +593,9 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
        </Object>
      </ObjectList>
     """
-    kwd_list = get_keywords(xml_tree)
-    if not kwd_list:
-        return
     obj_list = ET.Element("ObjectList")
-    for kwd in kwd_list:
+
+    for kwd in get_keywords(xml_tree):
         if kwd.get("lang") == "en":
             obj = ET.Element("Object")
             obj.set("Type", "keyword")
@@ -566,14 +604,11 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
             param.text = kwd.get("text")
             obj.append(param)
             obj_list.append(obj)
-    xml_pubmed.append(obj_list)
 
-    # TODO
-    # The Object tag includes the Type attribute, which may include only one of the following values
-    # for each identifier.
-    # Grant, Comment, Dataset, Erratum, Originalreport, Partialretraction, Patientsummary,
-    # Reprint, Republished, Retraction, Update.
-    # There is no example of using this value in the files.
+    add_grant_objects(obj_list, xml_tree)
+
+    if len(obj_list):
+        xml_pubmed.append(obj_list)
 
 
 def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
