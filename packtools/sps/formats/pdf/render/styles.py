@@ -49,13 +49,16 @@ def apply(element, doc, role):
 
 
 def set_heading_spacing(doc):
-    """Espaços de HEADING_SPACING nos estilos dos títulos que o layout tiver."""
+    """Espaços e entrelinha de HEADING_SPACING nos estilos dos títulos que o layout tiver."""
     for role, spacing in HEADING_SPACING.items():
         style = get(doc, role)
         if style is None:
             continue
-        style.paragraph_format.space_before = Pt(spacing["space_before"])
-        style.paragraph_format.space_after = Pt(spacing["space_after"])
+        fmt = style.paragraph_format
+        fmt.space_before = Pt(spacing["space_before"])
+        fmt.space_after = Pt(spacing["space_after"])
+        if "line_spacing" in spacing:
+            fmt.line_spacing = spacing["line_spacing"]
 
 
 def copy_styles(source, target):

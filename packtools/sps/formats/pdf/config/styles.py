@@ -29,7 +29,8 @@ STYLES = {
     "cite_as_journal_char": "SCL Paragraph Cite As Journal Title Char",
 }
 
-# Espaços (pt) dos títulos, aplicados no lugar dos do layout.docx.
+# Espaços (pt) e entrelinha dos títulos, aplicados no lugar dos do layout.docx.
 HEADING_SPACING = {
     "heading2": {"space_before": 17, "space_after": 8.5},
+    "heading3": {"space_before": 8.5, "space_after": 4.25, "line_spacing": 1.0},
 }

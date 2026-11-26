@@ -495,6 +495,15 @@ class TestHeadingSpacing(unittest.TestCase):
         fmt = new_document(DATA['base_layout']).styles['SCL Section Title'].paragraph_format
         self.assertEqual(fmt.line_spacing, expected)
 
+    def test_subsection_title_spacing(self):
+        fmt = new_document(DATA['base_layout']).styles['SCL Subsection Title'].paragraph_format
+        self.assertEqual(fmt.space_before, Pt(HEADING_SPACING['heading3']['space_before']))
+        self.assertEqual(fmt.space_after, Pt(HEADING_SPACING['heading3']['space_after']))
+
+    def test_subsection_title_single_line_spacing(self):
+        fmt = new_document(DATA['base_layout']).styles['SCL Subsection Title'].paragraph_format
+        self.assertEqual(fmt.line_spacing, 1.0)
+
     def test_layout_without_heading_styles(self):
         layout = Document(DATA['base_layout'])
         for name in ('SCL Section Title', 'SCL Subsection Title'):
