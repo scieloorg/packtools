@@ -1125,11 +1125,6 @@ msgstr "Utilice 'spe' para la nomenclatura de números especiales en el valor <i
 msgid "Remove <supplement> element(s) from <article-meta>. Use <issue> element to indicate supplements (e.g., '4 suppl 1')."
 msgstr "Retire los elementos <supplement> de <article-meta>. Utilice el elemento <issue> para indicar suplementos (por ejemplo, '4 suppl 1')."
 
-#: packtools/sps/validation/front_articlemeta_issue.py:563
-#, python-brace-format
-msgid "Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'"
-msgstr "Elimine los ceros iniciales de las partes numéricas en el valor <issue> '{issue_value}'. Esperado: '{expected_value}'"
-
 #: packtools/sps/validation/front_articlemeta_issue.py:653
 msgid "Mark elocation id with <elocation-id> or first page with <fpage> and last page with <lpage>"
 msgstr "Marque la identificación de ubicación con <elocation-id> o la primera página con <fpage> y la última página con <lpage>."

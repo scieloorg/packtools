@@ -99,6 +99,14 @@ def format_issue_value(parsed):
     return number
 
 
+LEADING_ZERO_DIGITS = re.compile(r"(?:(?<=\D)|^)(0\d+)")
+
+
+def remove_leading_zeros(value):
+    """Removes leading zeros from each digit run: "01a" -> "1a", "a01" -> "a1"."""
+    return LEADING_ZERO_DIGITS.sub(lambda m: str(int(m.group(1))), value)
+
+
 class IssueValidation:
     """
     Class responsible for validating journal issue metadata in XML format.
@@ -162,8 +170,24 @@ class IssueValidation:
         Returns:
             dict: Validation response with results
         """
-        if self.article_issue.number:
-            result = is_valid_value(self.article_issue.number, zero_is_allowed=False)
+        number = self.article_issue.number
+        issue = self.article_issue.issue
+        if (
+            not number
+            and issue
+            and self._is_regular_issue_number()
+            and remove_leading_zeros(issue) != issue
+        ):
+            number = issue
+        if number:
+            result = is_valid_value(number, zero_is_allowed=False)
+            if result["is_valid"] and self._is_regular_issue_number():
+                expected = remove_leading_zeros(result["got"])
+                result = {
+                    "got": result["got"],
+                    "expected": expected,
+                    "is_valid": expected == result["got"],
+                }
             return build_response(
                 title="issue number format",
                 parent={"parent": "article"},
@@ -184,6 +208,12 @@ class IssueValidation:
                 element_name="article-meta",
                 sub_element_name="issue"
             )
+
+    def _is_regular_issue_number(self):
+        return (
+            parse_issue_value(self.article_issue.issue) is None
+            and not self.article_issue.parsed_issue.get("type")
+        )
 
     def validate_supplement_format(self):
         """
@@ -617,64 +647,6 @@ class IssueValidation:
             error_level=self.params.get("no_supplement_element_error_level", "CRITICAL"),
         )
 
-    def validate_issue_no_leading_zeros(self):
-        """
-        Validates that numeric parts of <issue> do not have leading zeros.
-        According to SPS 1.10, should use '4' not '04'.
-
-        Returns:
-            dict: Validation response with results
-        """
-        if not self.article_issue.issue:
-            return None
-            
-        issue_value = self.article_issue.issue
-        parts = issue_value.split()
-
-        # Detect leading zeros in purely numeric tokens ('04') AND in numeric runs
-        # embedded inside alphanumeric tokens ('spe01', 'suppl01').
-        # Pattern: a digit run starting with 0 preceded by a non-digit or start of string.
-        _leading_zero_re = re.compile(r'(?:(?<=\D)|^)(0\d+)')
-
-        issues_found = []
-        for part in parts:
-            if part.isdigit():
-                # Purely numeric token: flag if it has a leading zero and is not '0'
-                if len(part) > 1 and part[0] == '0':
-                    issues_found.append(part)
-            else:
-                # Alphanumeric token: flag if it contains an embedded run with leading zero
-                if _leading_zero_re.search(part):
-                    issues_found.append(part)
-
-        def _normalize(p):
-            """Remove leading zeros: '04' -> '4', 'spe01' -> 'spe1', '0' -> '0'."""
-            if p.isdigit():
-                return str(int(p))
-            return _leading_zero_re.sub(lambda m: str(int(m.group(1))), p)
-
-        is_valid = len(issues_found) == 0
-        expected_value = ' '.join(_normalize(p) for p in parts)
-        
-        return build_response(
-            title="issue value without leading zeros",
-            parent={"parent": "article"},
-            item="issue",
-            sub_item=None,
-            validation_type="format",
-            is_valid=is_valid,
-            expected="numeric values without leading zeros",
-            obtained=issue_value,
-            advice=f"Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'",
-            advice_text=i18n._("Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'"),
-            advice_params={
-                "issue_value": issue_value,
-                "expected_value": expected_value,
-            },
-            data={"issue": issue_value, "parts_with_leading_zeros": issues_found, "expected": expected_value},
-            error_level=self.params.get("issue_no_leading_zeros_error_level", "WARNING"),
-        )
-
     def validate_crossref_max_length(self):
         """
         Validates that <volume>, <issue>, <fpage> and <lpage> in <article-meta>
@@ -718,7 +690,6 @@ class IssueValidation:
         yield self.validate_issue_supplement_nomenclature()
         yield self.validate_issue_special_nomenclature()
         yield self.validate_no_supplement_element()
-        yield self.validate_issue_no_leading_zeros()
         yield from self.validate_crossref_max_length()
 
 
