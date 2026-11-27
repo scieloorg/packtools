@@ -1841,14 +1841,18 @@ msgstr "Utilice la tubería \"|\" como separador en @sec-type=\"{sec_type}\" (po
 msgid "Do not combine \"{non_combinable}\" with other types in @sec-type=\"{sec_type}\""
 msgstr "No combine \"{non_combinable}\" con otros tipos en @sec-type=\"{sec_type}\""
 
-#: packtools/sps/validation/sec.py:201
+#: packtools/sps/validation/sec.py:208
 msgid "Add at least one <p> element to <sec>"
 msgstr "Agregue al menos un elemento <p> a <sec>"
 
-#: packtools/sps/validation/sec.py:204
+#: packtools/sps/validation/sec.py:202
+msgid "Add one <supplementary-material> for each supplementary item to <sec sec-type=\"supplementary-material\">, or at least one <p>"
+msgstr "Agregue un <supplementary-material> por cada ítem suplementario a <sec sec-type=\"supplementary-material\"> o al menos un <p>"
+
+#: packtools/sps/validation/sec.py:225
 #, python-brace-format
-msgid "Found {count} paragraphs in <sec>; expected at least one <p>"
-msgstr "Se encontraron {count} párrafos en <sec>; se esperaba al menos un <p>"
+msgid "Found {count} paragraphs in <sec>; expected at least one <p> or, when @sec-type=\"supplementary-material\", one <supplementary-material>"
+msgstr "Se encontraron {count} párrafos en <sec>; se esperaba al menos un <p> o, cuando @sec-type=\"supplementary-material\", un <supplementary-material>"
 
 #: packtools/sps/validation/sec.py:292
 msgid "Data availability statement is missing; expected <sec sec-type=\"data-availability\"> in <body> or <back>, or <fn fn-type=\"data-availability\">"

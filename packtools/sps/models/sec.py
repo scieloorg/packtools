@@ -53,6 +53,10 @@ class Sec:
         return self.element.findall("p")
 
     @property
+    def has_supplementary_material(self):
+        return self.element.find("supplementary-material") is not None
+
+    @property
     def is_first_level(self):
         parent = self.element.getparent()
         if parent is not None:
@@ -69,6 +73,7 @@ class Sec:
             "title": self.title,
             "has_title": self.title is not None,
             "paragraph_count": len(self.paragraphs),
+            "has_supplementary_material": self.has_supplementary_material,
             "is_first_level": self.is_first_level,
         }
         d.update(self._parent_attribs)
