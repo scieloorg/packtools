@@ -53,6 +53,10 @@ class Sec:
         return self.element.findall("p")
 
     @property
+    def has_sub_sec(self):
+        return self.element.find("sec") is not None
+
+    @property
     def has_supplementary_material(self):
         return self.element.find("supplementary-material") is not None
 
@@ -73,6 +77,7 @@ class Sec:
             "title": self.title,
             "has_title": self.title is not None,
             "paragraph_count": len(self.paragraphs),
+            "has_sub_sec": self.has_sub_sec,
             "has_supplementary_material": self.has_supplementary_material,
             "is_first_level": self.is_first_level,
         }

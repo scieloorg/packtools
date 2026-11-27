@@ -184,14 +184,18 @@ class SecValidation:
         )
 
     def validate_content(self):
-        """Rule 7: <sec> should contain at least one <p> after <title>."""
+        """Rule 7: <sec> should contain at least one <p> or a subsection after <title>."""
         paragraph_count = self.data.get("paragraph_count", 0)
         is_supplementary_material_type = (
             self.data.get("sec_type") == "supplementary-material"
         )
-        is_valid = paragraph_count > 0 or (
-            is_supplementary_material_type
-            and self.data.get("has_supplementary_material")
+        is_valid = (
+            paragraph_count > 0
+            or self.data.get("has_sub_sec")
+            or (
+                is_supplementary_material_type
+                and self.data.get("has_supplementary_material")
+            )
         )
 
         if is_supplementary_material_type:
@@ -215,7 +219,8 @@ class SecValidation:
             validation_type="exist",
             is_valid=is_valid,
             expected=(
-                'At least one <p> or, when @sec-type="supplementary-material",'
+                "At least one <p>, one subsection <sec> or,"
+                ' when @sec-type="supplementary-material",'
                 " one <supplementary-material>"
             ),
             obtained=f"{paragraph_count} paragraphs",
@@ -223,8 +228,8 @@ class SecValidation:
             advice_text=advice_text,
             advice_params={},
             message_text=i18n._(
-                "Found {count} paragraphs in <sec>; expected at least one <p>"
-                ' or, when @sec-type="supplementary-material",'
+                "Found {count} paragraphs in <sec>; expected at least one <p>,"
+                ' one subsection <sec> or, when @sec-type="supplementary-material",'
                 " one <supplementary-material>"
             ),
             message_params={"count": paragraph_count},
