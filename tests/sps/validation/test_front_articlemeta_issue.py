@@ -854,7 +854,7 @@ class IssueTest(TestCase):
 
         obtained = [r for r in validator.validate() if r is not None]
 
-        self.assertEqual(len(obtained), 11)
+        self.assertEqual(len(obtained), 10)
         for i, item in enumerate(obtained):
             for key in self.expected_keys:
                 with self.subTest(f"item: {i}, key: {key}"):
@@ -1607,145 +1607,101 @@ class NoSupplementElementTest(TestCase):
         self.assertEqual(obtained["data"]["supplement_count"], 2)
 
 
-class IssueNoLeadingZerosTest(TestCase):
-    """Tests for Rule 7: Validate no leading zeros"""
-    
+class IssueLeadingZeroTest(TestCase):
+    """A leading zero in <article-meta><issue> is reported once, with its location"""
+
     def setUp(self):
         self.params = {
-            "issue_no_leading_zeros_error_level": "WARNING",
+            "volume_format_error_level": "CRITICAL",
+            "number_format_error_level": "CRITICAL",
+            "supplement_format_error_level": "CRITICAL",
+            "issue_format_error_level": "CRITICAL",
+            "expected_issues_error_level": "CRITICAL",
+            "journal_data": {"issues": [{"volume": "24", "number": "2"}]},
         }
 
-    def test_issue_without_leading_zeros_valid(self):
-        """Test with issue without leading zeros - should pass"""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>4</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
-        
-        self.assertEqual(obtained["response"], "OK")
+    def _failures(self, issue):
+        xml_tree = etree.fromstring(
+            "<article><front><article-meta><volume>24</volume>"
+            f"<issue>{issue}</issue></article-meta></front></article>"
+        )
+        validator = IssueValidation(xml_tree, self.params)
+        return [
+            r for r in validator.validate()
+            if r is not None and r["response"] != "OK"
+            and r["title"] != "registered issue"
+        ]
 
-    def test_issue_suppl_without_leading_zeros_valid(self):
-        """Test with supplement without leading zeros - should pass"""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>4 suppl 1</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
-        
-        self.assertEqual(obtained["response"], "OK")
+    def test_issue_number_with_leading_zero_is_reported_once(self):
+        failures = self._failures("02")
+        self.assertEqual(["issue number format"], [r["title"] for r in failures])
+        self.assertEqual("Replace 02 in <article-meta><issue> with 2", failures[0]["advice"])
 
-    def test_issue_with_leading_zero_invalid(self):
-        """Test with leading zero in issue - should fail"""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>04</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
-        
-        self.assertEqual(obtained["response"], "WARNING")
-        self.assertIn("04", obtained["data"]["parts_with_leading_zeros"])
-        self.assertEqual(obtained["data"]["expected"], "4")
+    def test_special_issue_with_leading_zero_is_reported_once(self):
+        failures = self._failures("spe01")
+        self.assertEqual(["special or supplement"], [r["title"] for r in failures])
+        self.assertEqual(
+            "Replace spe01 in <article-meta><issue> with one of ['spe1']",
+            failures[0]["advice"],
+        )
 
-    def test_issue_suppl_with_leading_zero_invalid(self):
-        """Test with leading zero in supplement number - should fail"""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>4 suppl 01</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
-        
-        self.assertEqual(obtained["response"], "WARNING")
-        self.assertIn("01", obtained["data"]["parts_with_leading_zeros"])
-        self.assertEqual(obtained["data"]["expected"], "4 suppl 1")
+    def test_special_issue_variant_with_leading_zero_is_reported_once(self):
+        failures = self._failures("esp02")
+        self.assertNotIn("issue number format", [r["title"] for r in failures])
+        self.assertIn("special or supplement", [r["title"] for r in failures])
 
-    def test_issue_zero_alone_valid(self):
-        """Test with single zero (0) - should pass as it's not a leading zero"""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>0</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
-        
-        self.assertEqual(obtained["response"], "OK")
+    def test_alphanumeric_issue_with_leading_zero_is_reported_once(self):
+        for issue, expected in (("01a", "1a"), ("a01", "a1")):
+            with self.subTest(issue=issue):
+                failures = self._failures(issue)
+                self.assertEqual(["issue number format"], [r["title"] for r in failures])
+                self.assertEqual(expected, failures[0]["expected_value"])
+                self.assertEqual(
+                    f"Replace {issue} in <article-meta><issue> with {expected}",
+                    failures[0]["advice"],
+                )
 
-    def test_issue_spe_with_attached_leading_zero_invalid(self):
-        """Test with special issue token where numeric suffix has leading zero - should fail.
-        e.g. 'spe01' must be flagged and normalised to 'spe1'."""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>spe01</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
+    def test_alphanumeric_issue_without_leading_zero_is_not_reported(self):
+        for issue in ("1a", "a1"):
+            with self.subTest(issue=issue):
+                self.assertEqual([], self._failures(issue))
 
-        self.assertEqual(obtained["response"], "WARNING")
-        self.assertIn("spe01", obtained["data"]["parts_with_leading_zeros"])
-        self.assertEqual(obtained["data"]["expected"], "spe1")
+    def test_unrecognized_supplement_form_with_leading_zero_is_reported_once(self):
+        for issue, expected in (("suppl01a", "suppl1a"), ("01suppla", "1suppla")):
+            with self.subTest(issue=issue):
+                failures = self._failures(issue)
+                self.assertEqual(["issue number format"], [r["title"] for r in failures])
+                self.assertEqual(
+                    f"Replace {issue} in <article-meta><issue> with {expected}",
+                    failures[0]["advice"],
+                )
 
-    def test_issue_suppl_with_attached_leading_zero_invalid(self):
-        """Test with supplement token where numeric suffix has leading zero - should fail.
-        e.g. 'suppl01' must be flagged and normalised to 'suppl1'."""
-        xml = """
-        <article>
-            <front>
-                <article-meta>
-                    <issue>suppl01</issue>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xml_tree = etree.fromstring(xml)
-        validator = IssueValidation(xml_tree, params=self.params)
-        obtained = validator.validate_issue_no_leading_zeros()
+    def test_unrecognized_supplement_form_without_leading_zero_is_not_reported(self):
+        self.assertEqual([], self._failures("suppla"))
 
-        self.assertEqual(obtained["response"], "WARNING")
-        self.assertIn("suppl01", obtained["data"]["parts_with_leading_zeros"])
-        self.assertEqual(obtained["data"]["expected"], "suppl1")
+    def test_supplement_with_leading_zero_is_left_to_supplement_rule(self):
+        titles = [r["title"] for r in self._failures("suppl01")]
+        self.assertIn("special or supplement", titles)
+        self.assertNotIn("issue number format", titles)
 
+    def test_alphanumeric_volume_with_leading_zero_is_unchanged(self):
+        xml_tree = etree.fromstring(
+            "<article><front><article-meta><volume>01a</volume>"
+            "</article-meta></front></article>"
+        )
+        result = IssueValidation(xml_tree, self.params).validate_volume_format()
+        self.assertEqual("OK", result["response"])
 
-# Additional test coverage for missing cases
+    def test_supplement_with_leading_zero_is_still_reported(self):
+        failures = self._failures("4 suppl 01")
+        self.assertIn("special or supplement", [r["title"] for r in failures])
+        self.assertNotIn(
+            "issue value without leading zeros", [r["title"] for r in failures]
+        )
+
+    def test_issue_without_leading_zero_is_not_reported(self):
+        self.assertEqual([], self._failures("2"))
+
 
 class VolumeZeroTest(TestCase):
     """Test for volume=0 validation"""
