@@ -335,10 +335,6 @@ class I18nMessageRenderingTest(unittest.TestCase):
                     "esperado <alt-text> ou <long-desc>"
                 ),
                 "url": "O URL ftp://example.org/file deve começar com http:// ou https://",
-                "title": (
-                    "O atributo @xlink:title é obrigatório quando o texto "
-                    "do link é genérico ou um URL"
-                ),
                 "inline": (
                     "O elemento <inline-supplementary-material> não é permitido"
                 ),
@@ -351,10 +347,6 @@ class I18nMessageRenderingTest(unittest.TestCase):
                 "url": (
                     "La URL ftp://example.org/file debe comenzar con "
                     "http:// o https://"
-                ),
-                "title": (
-                    "El atributo @xlink:title es obligatorio cuando el texto "
-                    "del enlace es genérico o una URL"
                 ),
                 "inline": (
                     "El elemento <inline-supplementary-material> no está permitido"
@@ -400,9 +392,6 @@ class I18nMessageRenderingTest(unittest.TestCase):
                         "url": next(
                             ext_link_validator.validate_xlink_href_format()
                         ),
-                        "title": next(
-                            ext_link_validator.validate_xlink_title_when_generic()
-                        ),
                         "inline": XmlSupplementaryMaterialValidation(
                             inline_xml,
                             {"inline_error_level": "CRITICAL"},
@@ -422,10 +411,6 @@ class I18nMessageRenderingTest(unittest.TestCase):
                 self.assertEqual(
                     "URL starting with http:// or https://",
                     results["url"]["expected_value"],
-                )
-                self.assertEqual(
-                    "@xlink:title attribute when text is generic or URL",
-                    results["title"]["expected_value"],
                 )
                 self.assertEqual(
                     "No <inline-supplementary-material>",

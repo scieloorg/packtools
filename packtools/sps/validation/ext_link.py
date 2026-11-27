@@ -6,7 +6,6 @@ Implements validations for external link elements to ensure:
 - URL format is valid (starts with http:// or https://)
 - ext-link-type values are in allowed list
 - Link text is descriptive (accessibility)
-- @xlink:title is present when text is generic or URL
 
 Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit?tab=t.0#heading=h.n2z5yrri2aba
 """
@@ -65,7 +64,6 @@ class ExtLinkValidation:
         self.params.setdefault("xlink_href_format_error_level", "ERROR")
         self.params.setdefault("ext_link_type_value_error_level", "ERROR")
         self.params.setdefault("descriptive_text_error_level", "WARNING")
-        self.params.setdefault("xlink_title_error_level", "WARNING")
 
         self.xmltree = xmltree
         # ArticleExtLinks.ext_links uses cached_property: XML is parsed only
@@ -370,98 +368,4 @@ class ExtLinkValidation:
                 error_level=error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
-            )
-
-    def validate_xlink_title_when_generic(self, error_level=None):
-        """
-        Validate @xlink:title presence when text is generic or URL (WARNING).
-
-        SPS Rule: When text is generic or is the URL itself, @xlink:title should
-        be present with a description of the link destination.
-
-        Note: Only yields results when @xlink:title is missing and text is
-        generic or matches the URL exactly.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            Override default error level (default: "WARNING")
-
-        Yields
-        ------
-        dict
-            Validation result for ext-links with generic/URL text missing @xlink:title
-        """
-        error_level = error_level or self.params.get("xlink_title_error_level", "WARNING")
-
-        for ext_link in self.ext_links_model.ext_links:
-            text = ext_link.get("text", "").strip()
-            xlink_href = ext_link.get("xlink_href", "")
-            xlink_title = ext_link.get("xlink_title")
-
-            if not text:
-                continue
-
-            is_generic = any(phrase in text.lower() for phrase in self.GENERIC_PHRASES)
-
-            # Exact match only — substring check causes false positives, e.g.
-            # text="Nature" would match inside xlink:href="https://www.nature.com".
-            is_url_text = bool(xlink_href) and text.strip() == xlink_href.strip()
-
-            if not (is_generic or is_url_text):
-                continue
-
-            if xlink_title:
-                continue
-
-            # Two separate translatable strings avoid interpolating hard-coded
-            # English words ("generic", "URL") into translated messages,
-            # which was the original i18n bug (Copilot observation).
-            if is_generic:
-                advice = (
-                    'Add @xlink:title attribute to <ext-link> with generic text'
-                    ' "{text}" to describe the link destination'
-                ).format(text=text)
-                advice_text = i18n._(
-                    'Add @xlink:title attribute to <ext-link> with generic text'
-                    ' "{text}" to describe the link destination'
-                )
-            else:
-                advice = (
-                    'Add @xlink:title attribute to <ext-link> where the text is'
-                    ' the URL "{text}" to describe the link destination'
-                ).format(text=text)
-                advice_text = i18n._(
-                    'Add @xlink:title attribute to <ext-link> where the text is'
-                    ' the URL "{text}" to describe the link destination'
-                )
-
-            advice_params = {"text": text}
-
-            parent = {
-                "parent": ext_link.get("parent"),
-                "parent_id": ext_link.get("parent_id"),
-                "parent_article_type": ext_link.get("parent_article_type"),
-                "parent_lang": ext_link.get("parent_lang"),
-            }
-
-            yield build_response(
-                title="@xlink:title for generic/URL text",
-                parent=parent,
-                item="ext-link",
-                sub_item="@xlink:title",
-                validation_type="exist",
-                is_valid=False,
-                expected="@xlink:title attribute when text is generic or URL",
-                obtained=xlink_title,
-                advice=advice,
-                data=ext_link,
-                error_level=error_level,
-                advice_text=advice_text,
-                advice_params=advice_params,
-                message_text=i18n._(
-                    "The @xlink:title attribute is required when the link "
-                    "text is generic or a URL"
-                ),
-                message_params={},
             )

@@ -8,6 +8,7 @@ import unittest
 from lxml import etree
 
 from packtools.sps.validation.ext_link import ExtLinkValidation
+from packtools.sps.validation.xml_validations import validate_ext_links
 
 
 def filter_results(results):
@@ -464,125 +465,41 @@ class TestExtLinkValidation(unittest.TestCase):
         # Empty text should be skipped
         self.assertEqual(len(results), 0)
     
-    # ========== TESTS: @xlink:title WHEN GENERIC/URL (WARNING) ==========
-    
-    def test_validate_xlink_title_when_generic_text_with_title(self):
-        """Test generic text with @xlink:title present (OK)."""
+    # ========== TESTS: OPTIONAL @xlink:title ==========
+
+    def _failures(self, xml_content):
+        params = {"ext_link_rules": {}}
+        results = validate_ext_links(etree.fromstring(xml_content), params)
+        return [r for r in results if r and r["response"] != "OK"]
+
+    def test_url_text_without_xlink_title_is_accepted(self):
+        xml_content = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <back>
+                <ref-list>
+                    <ref id="B1">
+                        <mixed-citation>Doe J. Title. <ext-link ext-link-type="doi"
+                            xlink:href="https://doi.org/10.1093/bioinformatics/btt499">https://doi.org/10.1093/bioinformatics/btt499</ext-link></mixed-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+        self.assertEqual(self._failures(xml_content), [])
+
+    def test_generic_text_without_xlink_title_yields_one_warning(self):
         xml_content = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink">
             <body>
-                <p>
-                    <ext-link ext-link-type="uri" 
-                              xlink:href="https://www.scielo.br/"
-                              xlink:title="SciELO Scientific Library">
-                        Leia mais
-                    </ext-link>
-                </p>
+                <p><ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/">Leia mais</ext-link></p>
             </body>
         </article>
         """
-        xmltree = etree.fromstring(xml_content)
-        validator = ExtLinkValidation(xmltree)
-        
-        results = filter_results(validator.validate_xlink_title_when_generic())
-        
-        # With xlink:title, should not yield results
-        self.assertEqual(len(results), 0)
-    
-    def test_validate_xlink_title_when_generic_text_without_title(self):
-        """Test generic text without @xlink:title (WARNING)."""
-        xml_content = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink">
-            <body>
-                <p>
-                    <ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/">
-                        Leia mais
-                    </ext-link>
-                </p>
-            </body>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_content)
-        validator = ExtLinkValidation(xmltree)
-        
-        results = filter_results(validator.validate_xlink_title_when_generic())
-        
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "WARNING")
-        self.assertIn("Add @xlink:title attribute", results[0]["advice"])
-        self.assertIsNotNone(results[0]["adv_text"])
-        self.assertIsNotNone(results[0]["adv_params"])
-        # "reason" was removed when the i18n fix replaced the single message
-        # (with a {reason} interpolation) with two separate translatable strings.
-        # Each message now only needs {text} as interpolation parameter.
-        self.assertIn("text", results[0]["adv_params"])
-    
-    def test_validate_xlink_title_when_url_text_with_title(self):
-        """Test URL as text with @xlink:title present (OK)."""
-        xml_content = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink">
-            <body>
-                <p>
-                    <ext-link ext-link-type="uri" 
-                              xlink:href="https://example.com/path"
-                              xlink:title="Example Website">
-                        https://example.com/path
-                    </ext-link>
-                </p>
-            </body>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_content)
-        validator = ExtLinkValidation(xmltree)
-        
-        results = filter_results(validator.validate_xlink_title_when_generic())
-        
-        # With xlink:title, should not yield results
-        self.assertEqual(len(results), 0)
-    
-    def test_validate_xlink_title_when_url_text_without_title(self):
-        """Test URL as text without @xlink:title (WARNING)."""
-        xml_content = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink">
-            <body>
-                <p>
-                    <ext-link ext-link-type="uri" xlink:href="https://example.com/path">
-                        https://example.com/path
-                    </ext-link>
-                </p>
-            </body>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_content)
-        validator = ExtLinkValidation(xmltree)
-        
-        results = filter_results(validator.validate_xlink_title_when_generic())
-        
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "WARNING")
-        self.assertIn("Add @xlink:title attribute", results[0]["advice"])
-    
-    def test_validate_xlink_title_descriptive_text(self):
-        """Test descriptive text does not require @xlink:title."""
-        xml_content = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink">
-            <body>
-                <p>
-                    <ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/">
-                        SciELO Brasil
-                    </ext-link>
-                </p>
-            </body>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_content)
-        validator = ExtLinkValidation(xmltree)
-        
-        results = filter_results(validator.validate_xlink_title_when_generic())
-        
-        # Descriptive text should not yield results
-        self.assertEqual(len(results), 0)
-    
+        failures = self._failures(xml_content)
+        self.assertEqual(len(failures), 1)
+        self.assertEqual(failures[0]["title"], "descriptive link text")
+        self.assertEqual(failures[0]["response"], "WARNING")
+
     # ========== TESTS: MULTIPLE EXT-LINKS ==========
     
     def test_validate_multiple_ext_links(self):

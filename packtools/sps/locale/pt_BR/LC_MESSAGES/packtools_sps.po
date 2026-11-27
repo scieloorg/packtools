@@ -868,20 +868,6 @@ msgstr "Substitua @ext-link-type=\"{ext_link_type}\" por um de: {allowed_values}
 msgid "Replace generic text \"{text}\" in <ext-link> with descriptive text, or add @xlink:title attribute"
 msgstr "Substitua o texto genérico \"{text}\" em <ext-link> por texto descritivo ou adicione o atributo @xlink:title"
 
-#: packtools/sps/validation/ext_link.py:426
-#, python-brace-format
-msgid "Add @xlink:title attribute to <ext-link> with generic text \"{text}\" to describe the link destination"
-msgstr "Adicione o atributo @xlink:title a <ext-link> com texto genérico \"{text}\" para descrever o destino do link"
-
-#: packtools/sps/validation/ext_link.py:435
-#, python-brace-format
-msgid "Add @xlink:title attribute to <ext-link> where the text is the URL \"{text}\" to describe the link destination"
-msgstr "Adicione o atributo @xlink:title a <ext-link> onde o texto é o URL \"{text}\" para descrever o destino do link"
-
-#: packtools/sps/validation/ext_link.py:463
-msgid "The @xlink:title attribute is required when the link text is generic or a URL"
-msgstr "O atributo @xlink:title é obrigatório quando o texto do link é genérico ou um URL"
-
 #: packtools/sps/validation/fig.py:32
 #, python-brace-format
 msgid "article-type={article_type} requires <fig>. Found 0. Identify the fig or check if article-type is correct"
