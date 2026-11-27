@@ -492,6 +492,148 @@ class PipelinePmc(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pmc_without_original(self):
+        self.maxDiff = None
+        expected = (
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0003-0843-6485</contrib-id>'
+            '<name>'
+            '<surname>Boni</surname>'
+            '<given-names>Fernanda Guarilha</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">'
+            '<sup>1</sup>'
+            '</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            'Universidade Federal do Rio Grande do Sul, Porto Alegre, RS, Brazil'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0003-0843-6485</contrib-id>'
+            '<name>'
+            '<surname>Boni</surname>'
+            '<given-names>Fernanda Guarilha</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">'
+            '<sup>1</sup>'
+            '</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<institution content-type="orgname">Universidade Federal do Rio Grande do Sul</institution>'
+            '<institution content-type="orgdiv1">Escola de Enfermagem</institution>'
+            '<institution content-type="orgdiv2">Programa de Pós-Graduação em Enfermagem</institution>'
+            '<addr-line>'
+            '<named-content content-type="city">Porto Alegre</named-content>'
+            '<named-content content-type="state">RS</named-content>'
+            '</addr-line>'
+            '<country country="BR">Brazil</country>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )        
+
+        xml_pmc_aff(xml_tree)
+
+        obtained = ET.tostring(xml_tree, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
+    def test_xml_pmc_with_state_and_city(self):
+        self.maxDiff = None
+        expected = (
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0003-0843-6485</contrib-id>'
+            '<name>'
+            '<surname>Boni</surname>'
+            '<given-names>Fernanda Guarilha</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">'
+            '<sup>1</sup>'
+            '</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            'Fundação Oswaldo Cruz, Manguinhos, RJ, Brasil'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+
+        )
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ZwzqmpTpbhTmtwR9GfDzP7c</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0080-62342022000100445</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1980-220X-REEUSP-2021-0569en</article-id>'
+            '<article-id pub-id-type="other">00445</article-id>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid">0000-0003-0843-6485</contrib-id>'
+            '<name>'
+            '<surname>Boni</surname>'
+            '<given-names>Fernanda Guarilha</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1">'
+            '<sup>1</sup>'
+            '</xref>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<institution content-type="orgname">Fundação Oswaldo Cruz</institution>'
+            '<institution content-type="orgdiv1">Escola Nacional de Saúde Pública Sérgio Arouca</institution>'
+            '<institution content-type="orgdiv2">Centro de Estudos da Saúde do Trabalhador e Ecologia Humana</institution>'
+            '<addr-line>'
+            '<city>Manguinhos</city>'
+            '<state>RJ</state>'
+            '</addr-line>'
+            '<country country="BR">Brasil</country>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )        
+
+        xml_pmc_aff(xml_tree)
+
+        obtained = ET.tostring(xml_tree, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
