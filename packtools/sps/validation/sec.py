@@ -184,9 +184,32 @@ class SecValidation:
         )
 
     def validate_content(self):
-        """Rule 7: <sec> should contain at least one <p> after <title>."""
+        """Rule 7: <sec> should contain at least one <p> or a subsection after <title>."""
         paragraph_count = self.data.get("paragraph_count", 0)
-        is_valid = paragraph_count > 0
+        is_supplementary_material_type = (
+            self.data.get("sec_type") == "supplementary-material"
+        )
+        is_valid = (
+            paragraph_count > 0
+            or self.data.get("has_sub_sec")
+            or (
+                is_supplementary_material_type
+                and self.data.get("has_supplementary_material")
+            )
+        )
+
+        if is_supplementary_material_type:
+            advice = (
+                "Add one <supplementary-material> for each supplementary item"
+                ' to <sec sec-type="supplementary-material">, or at least one <p>'
+            )
+            advice_text = i18n._(
+                "Add one <supplementary-material> for each supplementary item"
+                ' to <sec sec-type="supplementary-material">, or at least one <p>'
+            )
+        else:
+            advice = "Add at least one <p> element to <sec>"
+            advice_text = i18n._("Add at least one <p> element to <sec>")
 
         return build_response(
             title="sec content",
@@ -195,19 +218,24 @@ class SecValidation:
             sub_item="p",
             validation_type="exist",
             is_valid=is_valid,
-            expected="At least one <p> element in <sec>",
+            expected=(
+                "At least one <p>, one subsection <sec> or,"
+                ' when @sec-type="supplementary-material",'
+                " one <supplementary-material>"
+            ),
             obtained=f"{paragraph_count} paragraphs",
-            advice="Add at least one <p> element to <sec>",
-            advice_text=i18n._("Add at least one <p> element to <sec>"),
+            advice=advice,
+            advice_text=advice_text,
             advice_params={},
             message_text=i18n._(
-                "Found {count} paragraphs in <sec>; expected at least one <p>"
+                "Found {count} paragraphs in <sec>; expected at least one <p>,"
+                ' one subsection <sec> or, when @sec-type="supplementary-material",'
+                " one <supplementary-material>"
             ),
             message_params={"count": paragraph_count},
             data=self.data,
             error_level=self.params.get("content_error_level", "WARNING"),
         )
-
 
 class XMLSecValidation:
     """Validates all <sec> elements in the XML document."""

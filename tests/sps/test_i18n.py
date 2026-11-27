@@ -576,6 +576,31 @@ class I18nTest(unittest.TestCase):
                     result["adv_params"],
                 )
 
+    def test_catalogs_translate_sec_content_message_and_advice(self):
+        from packtools.sps.validation.sec import SecValidation
+
+        data = {"sec_type": "supplementary-material", "paragraph_count": 0}
+        expected = {
+            "pt_BR": (
+                'Encontrados {count} parágrafos em <sec>; esperado pelo menos um <p>, uma subseção <sec> ou, quando @sec-type="supplementary-material", um <supplementary-material>',
+                'Adicione um <supplementary-material> para cada item suplementar a <sec sec-type="supplementary-material"> ou pelo menos um <p>',
+            ),
+            "es": (
+                'Se encontraron {count} párrafos en <sec>; se esperaba al menos un <p>, una subsección <sec> o, cuando @sec-type="supplementary-material", un <supplementary-material>',
+                'Agregue un <supplementary-material> por cada ítem suplementario a <sec sec-type="supplementary-material"> o al menos un <p>',
+            ),
+        }
+        for locale, (msg_text, adv_text) in expected.items():
+            with self.subTest(locale=locale):
+
+                def validate():
+                    i18n.set_locale(locale)
+                    return SecValidation(data, {}).validate_content()
+
+                result = Context().run(validate)
+                self.assertEqual(msg_text, result["msg_text"])
+                self.assertEqual(adv_text, result["adv_text"])
+
     def test_catalogs_translate_corresp_label_advice(self):
         from packtools.sps.validation.author_notes import CorrespValidation
 

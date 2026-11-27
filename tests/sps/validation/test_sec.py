@@ -19,6 +19,17 @@ from packtools.sps.validation.sec import SecValidation, XMLSecValidation
 from packtools.sps.validation.xml_validations import validate_secs
 from packtools.sps.validation.xml_validator_rules import get_default_rules
 
+CONTENT_EXPECTED = (
+    "At least one <p>, one subsection <sec> or,"
+    ' when @sec-type="supplementary-material",'
+    " one <supplementary-material>"
+)
+CONTENT_MESSAGE = (
+    "Found {count} paragraphs in <sec>; expected at least one <p>,"
+    ' one subsection <sec> or, when @sec-type="supplementary-material",'
+    " one <supplementary-material>"
+)
+
 
 class TestSecValidationTitle(unittest.TestCase):
     """Test Rule 1: <title> is mandatory in <sec>."""
@@ -509,12 +520,93 @@ class TestSecValidationContent(unittest.TestCase):
         validator = SecValidation(secs[0], self.params)
         result = validator.validate_content()
         self.assertEqual(result["response"], "WARNING")
-        self.assertIn("Add at least one <p>", result["advice"])
+        self.assertEqual(result["advice"], "Add at least one <p> element to <sec>")
         self.assertEqual(
             result["adv_text"].format(**result["adv_params"]),
             result["advice"],
         )
+        self.assertEqual(result["expected_value"], CONTENT_EXPECTED)
+        self.assertEqual(result["msg_text"], CONTENT_MESSAGE)
+        self.assertEqual(result["msg_params"], {"count": 0})
 
+
+    def _content(self, xml):
+        tree = etree.fromstring(xml.encode())
+        secs = list(ArticleSecs(tree).all_secs)
+        return SecValidation(secs[0], self.params).validate_content()
+
+    def test_supplementary_material_sec_without_paragraph_passes(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <back>
+                <sec sec-type="supplementary-material">
+                    <title>Supplementary Materials</title>
+                    <supplementary-material id="suppl1">
+                        <label>PDF File</label>
+                        <media mimetype="application" mime-subtype="pdf"
+                               xlink:href="suppl1.pdf"/>
+                    </supplementary-material>
+                </sec>
+            </back>
+        </article>
+        """
+        result = self._content(xml)
+        self.assertEqual(result["response"], "OK")
+        self.assertEqual(result["expected_value"], CONTENT_EXPECTED)
+        self.assertEqual(result["msg_text"], CONTENT_MESSAGE)
+        self.assertEqual(result["msg_params"], {"count": 0})
+
+    def test_supplementary_material_sec_without_item_fails(self):
+        xml = """
+        <article>
+            <back>
+                <sec sec-type="supplementary-material">
+                    <title>Supplementary Materials</title>
+                </sec>
+            </back>
+        </article>
+        """
+        result = self._content(xml)
+        self.assertEqual(result["response"], "WARNING")
+        self.assertEqual(
+            result["advice"],
+            "Add one <supplementary-material> for each supplementary item"
+            ' to <sec sec-type="supplementary-material">, or at least one <p>',
+        )
+        self.assertEqual(result["adv_text"], result["advice"])
+        self.assertEqual(result["expected_value"], CONTENT_EXPECTED)
+        self.assertEqual(result["msg_text"], CONTENT_MESSAGE)
+
+    def test_supplementary_material_outside_its_sec_type_still_requires_paragraph(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <back>
+                <sec>
+                    <title>Appendix</title>
+                    <supplementary-material id="suppl1">
+                        <media mimetype="application" mime-subtype="pdf"
+                               xlink:href="suppl1.pdf"/>
+                    </supplementary-material>
+                </sec>
+            </back>
+        </article>
+        """
+        self.assertEqual(self._content(xml)["response"], "WARNING")
+
+    def test_sec_with_only_list_still_requires_paragraph(self):
+        xml = """
+        <article>
+            <body>
+                <sec>
+                    <title>Highlights</title>
+                    <list list-type="bullet">
+                        <list-item><p>Item.</p></list-item>
+                    </list>
+                </sec>
+            </body>
+        </article>
+        """
+        self.assertEqual(self._content(xml)["response"], "WARNING")
 
 class TestXMLSecValidationDataAvailability(unittest.TestCase):
     """Test Rule 4: data-availability section required for certain article types."""
@@ -712,12 +804,12 @@ class TestXMLSecValidationIntegration(unittest.TestCase):
         validator = XMLSecValidation(tree, self.params)
         results = [r for r in validator.validate() if r is not None]
 
-        # Parent sec has no direct <p> (only subsec), but subsec has <p>
-        # Filter only "sec content" results
         content_results = [r for r in results if r["title"] == "sec content"]
-        # The parent sec should have WARNING (no direct p), subsec should be OK
         parent_content = content_results[0]
-        self.assertEqual(parent_content["response"], "WARNING")
+        self.assertEqual(parent_content["response"], "OK")
+        self.assertEqual(parent_content["expected_value"], CONTENT_EXPECTED)
+        self.assertEqual(parent_content["msg_text"], CONTENT_MESSAGE)
+        self.assertEqual(parent_content["msg_params"], {"count": 0})
         subsec_content = content_results[1]
         self.assertEqual(subsec_content["response"], "OK")
 
