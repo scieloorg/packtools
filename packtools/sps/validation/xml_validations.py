@@ -363,7 +363,6 @@ def validate_ext_links(xmltree, params):
     - URL format (must start with http:// or https://)
     - Allowed ext-link-type values
     - Descriptive text (accessibility)
-    - @xlink:title requirement for generic/URL text
     """
     ext_link_rules = params["ext_link_rules"]
     validator = ExtLinkValidation(xmltree, ext_link_rules)
@@ -372,7 +371,6 @@ def validate_ext_links(xmltree, params):
     yield from validator.validate_xlink_href_format()
     yield from validator.validate_ext_link_type_value()
     yield from validator.validate_descriptive_text()
-    yield from validator.validate_xlink_title_when_generic()
 
 
 def validate_lists(xmltree, params):
